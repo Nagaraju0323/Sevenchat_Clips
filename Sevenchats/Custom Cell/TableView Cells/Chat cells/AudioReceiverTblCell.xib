@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Italic.otf">
+            <string>Poppins-Italic</string>
+        </array>
+        <array key="Poppins-Light.otf">
+            <string>Poppins-Light</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AudioReceiverTblCell" rowHeight="157" id="U7a-8c-4No" customClass="AudioReceiverTblCell" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="157"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="U7a-8c-4No" id="kFH-8Q-OZj">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="157"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="hHD-fa-xCw">
+                        <rect key="frame" x="10" y="10" width="35" height="35"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="2rN-70-Na8"/>
+                            <constraint firstAttribute="width" constant="35" id="N4P-1D-lo1"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Tommy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EQm-lM-hV7" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                        <rect key="frame" x="57" y="11" width="303" height="20"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="tIC-0g-UXI"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NKW-mu-885">
+                        <rect key="frame" x="57" y="39" width="268" height="81"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xnF-GP-Jv8">
+                                <rect key="frame" x="0.0" y="0.0" width="268" height="21"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_forward_chat" translatesAutoresizingMaskIntoConstraints="NO" id="iRJ-jn-a4v">
+                                        <rect key="frame" x="5" y="6" width="10" height="9"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Forwarded" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKD-XT-4Nc" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                        <rect key="frame" x="19" y="2" width="64.5" height="17"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Italic" family="Poppins" pointSize="12"/>
+                                        <color key="textColor" red="0.36862745099999999" green="0.36862745099999999" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="iRJ-jn-a4v" firstAttribute="centerY" secondItem="xnF-GP-Jv8" secondAttribute="centerY" id="3uU-5V-RLb"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="xKD-XT-4Nc" secondAttribute="trailing" constant="5" id="KIe-vb-U2J"/>
+                                    <constraint firstAttribute="bottom" secondItem="xKD-XT-4Nc" secondAttribute="bottom" constant="2" id="SAA-oA-y9U"/>
+                                    <constraint firstItem="iRJ-jn-a4v" firstAttribute="leading" secondItem="xnF-GP-Jv8" secondAttribute="leading" constant="5" id="Xr5-Qq-fzB"/>
+                                    <constraint firstAttribute="height" constant="21" id="fNL-4v-eR6"/>
+                                    <constraint firstItem="xKD-XT-4Nc" firstAttribute="top" secondItem="xnF-GP-Jv8" secondAttribute="top" constant="2" id="ryU-Mk-1c9"/>
+                                    <constraint firstItem="xKD-XT-4Nc" firstAttribute="leading" secondItem="iRJ-jn-a4v" secondAttribute="trailing" constant="4" id="z9K-5A-yZA"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYl-IB-4XL">
+                                <rect key="frame" x="8" y="31" width="25" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="T1m-Zx-Qud"/>
+                                    <constraint firstAttribute="height" constant="25" id="exB-WD-RPZ"/>
+                                </constraints>
+                                <state key="normal" image="ic_audio_play"/>
+                                <state key="selected" image="ic_audio_pause"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I4I-tQ-4vG">
+                                <rect key="frame" x="8" y="31" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="9Ee-4V-uEH"/>
+                                    <constraint firstAttribute="height" constant="25" id="APw-4d-iUf"/>
+                                </constraints>
+                                <state key="normal" image="ic_audio_download"/>
+                            </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Yja-bT-1nE">
+                                <rect key="frame" x="10.5" y="33.5" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="04:23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgK-Ym-sqp" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                <rect key="frame" x="8" y="60" width="31" height="17"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" id="PA9-98-zTJ"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" id="ZRt-Jv-aml"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="12"/>
+                                <color key="textColor" red="0.36862745099999999" green="0.36862745099999999" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_microphone" translatesAutoresizingMaskIntoConstraints="NO" id="Gpr-8m-Xx1">
+                                <rect key="frame" x="235" y="31" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="6ub-Qs-0i0"/>
+                                    <constraint firstAttribute="width" constant="25" id="ieJ-wZ-Jfo"/>
+                                </constraints>
+                            </imageView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="69b-wd-u4x">
+                                <rect key="frame" x="39" y="28.5" width="190" height="31"/>
+                                <color key="minimumTrackTintColor" red="0.047058823530000002" green="0.3921568627" blue="0.027450980390000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="maximumTrackTintColor" red="0.67843137249999996" green="0.71764705880000002" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="sliderDrag:" destination="U7a-8c-4No" eventType="valueChanged" id="qQ7-De-cjg"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" red="0.69803921568627447" green="0.92549019607843142" blue="0.89411764705882346" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="IYl-IB-4XL" firstAttribute="top" secondItem="xnF-GP-Jv8" secondAttribute="bottom" constant="10" id="1jg-h1-jXt"/>
+                            <constraint firstAttribute="trailing" secondItem="Gpr-8m-Xx1" secondAttribute="trailing" constant="8" id="3Q6-EH-w2T"/>
+                            <constraint firstAttribute="trailing" secondItem="xnF-GP-Jv8" secondAttribute="trailing" id="3jb-b6-5UY"/>
+                            <constraint firstItem="Yja-bT-1nE" firstAttribute="centerY" secondItem="IYl-IB-4XL" secondAttribute="centerY" id="4wD-hI-TQZ"/>
+                            <constraint firstItem="IYl-IB-4XL" firstAttribute="leading" secondItem="NKW-mu-885" secondAttribute="leading" constant="8" id="8Zo-A2-LeL"/>
+                            <constraint firstItem="I4I-tQ-4vG" firstAttribute="centerX" secondItem="IYl-IB-4XL" secondAttribute="centerX" id="E15-b2-nHH"/>
+                            <constraint firstItem="lgK-Ym-sqp" firstAttribute="top" secondItem="IYl-IB-4XL" secondAttribute="bottom" constant="4" id="LrD-zd-ihs"/>
+                            <constraint firstItem="69b-wd-u4x" firstAttribute="centerY" secondItem="IYl-IB-4XL" secondAttribute="centerY" id="Qpr-g5-j05"/>
+                            <constraint firstItem="69b-wd-u4x" firstAttribute="leading" secondItem="IYl-IB-4XL" secondAttribute="trailing" constant="8" id="QrE-Vt-oS3"/>
+                            <constraint firstItem="Gpr-8m-Xx1" firstAttribute="leading" secondItem="69b-wd-u4x" secondAttribute="trailing" constant="8" id="b0j-KJ-fsD"/>
+                            <constraint firstItem="Yja-bT-1nE" firstAttribute="centerX" secondItem="IYl-IB-4XL" secondAttribute="centerX" id="c6L-hX-INd"/>
+                            <constraint firstItem="I4I-tQ-4vG" firstAttribute="centerY" secondItem="IYl-IB-4XL" secondAttribute="centerY" id="ecd-C4-3rg"/>
+                            <constraint firstItem="xnF-GP-Jv8" firstAttribute="top" secondItem="NKW-mu-885" secondAttribute="top" id="ggz-ma-LTB"/>
+                            <constraint firstItem="lgK-Ym-sqp" firstAttribute="leading" secondItem="NKW-mu-885" secondAttribute="leading" constant="8" id="iKU-D2-KlT"/>
+                            <constraint firstItem="Gpr-8m-Xx1" firstAttribute="centerY" secondItem="69b-wd-u4x" secondAttribute="centerY" id="ike-Cj-ODm"/>
+                            <constraint firstAttribute="bottom" secondItem="lgK-Ym-sqp" secondAttribute="bottom" constant="4" id="q8I-hV-ALT"/>
+                            <constraint firstItem="xnF-GP-Jv8" firstAttribute="leading" secondItem="NKW-mu-885" secondAttribute="leading" id="w93-Bq-dWc"/>
+                            <constraint firstAttribute="height" priority="100" constant="58" id="yd2-ID-Csb"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="hHD-fa-xCw" firstAttribute="leading" secondItem="kFH-8Q-OZj" secondAttribute="leading" constant="10" id="25B-p0-a79"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="NKW-mu-885" secondAttribute="bottom" constant="10" id="7qd-os-vxS"/>
+                    <constraint firstAttribute="trailing" secondItem="NKW-mu-885" secondAttribute="trailing" constant="50" id="Bz3-AX-HXu"/>
+                    <constraint firstAttribute="trailing" secondItem="EQm-lM-hV7" secondAttribute="trailing" constant="15" id="SMC-Lc-2m7"/>
+                    <constraint firstItem="NKW-mu-885" firstAttribute="top" secondItem="EQm-lM-hV7" secondAttribute="bottom" constant="8" id="cFh-Cg-EuX"/>
+                    <constraint firstItem="EQm-lM-hV7" firstAttribute="top" secondItem="kFH-8Q-OZj" secondAttribute="top" constant="11" id="gfE-0M-yWu"/>
+                    <constraint firstItem="hHD-fa-xCw" firstAttribute="top" secondItem="kFH-8Q-OZj" secondAttribute="top" constant="10" id="jFP-0P-ho3"/>
+                    <constraint firstItem="NKW-mu-885" firstAttribute="leading" secondItem="hHD-fa-xCw" secondAttribute="trailing" constant="12" id="oQJ-ZN-Nx2"/>
+                    <constraint firstItem="EQm-lM-hV7" firstAttribute="leading" secondItem="hHD-fa-xCw" secondAttribute="trailing" constant="12" id="uoM-eN-29p"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="activityIndicator" destination="Yja-bT-1nE" id="oAj-uM-dqd"/>
+                <outlet property="audioSlider" destination="69b-wd-u4x" id="lZk-xg-exY"/>
+                <outlet property="btnAudioDownload" destination="I4I-tQ-4vG" id="wbn-Vj-8mJ"/>
+                <outlet property="btnPlayPause" destination="IYl-IB-4XL" id="OhW-5H-MVh"/>
+                <outlet property="cntVWFrwHieght" destination="fNL-4v-eR6" id="ppj-bw-Z6l"/>
+                <outlet property="imgUser" destination="hHD-fa-xCw" id="l77-Iy-lvt"/>
+                <outlet property="lblForwarded" destination="xKD-XT-4Nc" id="6b7-fS-gMy"/>
+                <outlet property="lblMessageTime" destination="lgK-Ym-sqp" id="zKI-Q6-5UY"/>
+                <outlet property="lblUserName" destination="EQm-lM-hV7" id="F1o-nw-gny"/>
+                <outlet property="viewMessageContainer" destination="NKW-mu-885" id="K5l-iq-oly"/>
+                <outlet property="vwForwarded" destination="xnF-GP-Jv8" id="fHS-0e-CbN"/>
+            </connections>
+            <point key="canvasLocation" x="136.95652173913044" y="106.13839285714285"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="avtar.png" width="126" height="126"/>
+        <image name="ic_audio_download" width="60" height="60"/>
+        <image name="ic_audio_pause" width="49.5" height="49.5"/>
+        <image name="ic_audio_play" width="49.5" height="49.5"/>
+        <image name="ic_forward_chat" width="10" height="9"/>
+        <image name="ic_microphone" width="22.5" height="31.5"/>
+    </resources>
+</document>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.otf">
+            <string>Poppins-Medium</string>
+        </array>
+        <array key="Poppins-Regular.otf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PollProgressTblCell" rowHeight="146" id="GPk-rx-wuE" customClass="PollProgressTblCell" customModule="Sevenchats">
+            <rect key="frame" x="0.0" y="0.0" width="384" height="146"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GPk-rx-wuE" id="24y-6U-S3R">
+                <rect key="frame" x="0.0" y="0.0" width="384" height="146"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="twZ-V4-4EK">
+                        <rect key="frame" x="0.0" y="4" width="339" height="67.5"/>
+                        <subviews>
+                            <progressView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="748" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" translatesAutoresizingMaskIntoConstraints="NO" id="bJc-JZ-tAt">
+                                <rect key="frame" x="0.0" y="0.0" width="339" height="67.5"/>
+                                <color key="progressTintColor" red="0.51372549020000002" green="0.64705882349999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="trackTintColor" red="0.84705882349999995" green="0.93333333330000001" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cek-4F-dTL" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                <rect key="frame" x="8" y="0.0" width="293" height="67.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <string key="text">Hardik Pandya
+Hardik Pandya
+asasad</string>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LjR-mN-nke">
+                                <rect key="frame" x="309" y="23" width="30" height="22"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="8yR-z4-geq"/>
+                                </constraints>
+                                <state key="normal" image="ic_poll_check"/>
+                                <connections>
+                                    <action selector="onCheckAnswer:" destination="GPk-rx-wuE" eventType="touchUpInside" id="agd-5v-CAV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRO-w5-Fzi">
+                                <rect key="frame" x="8" y="0.0" width="331" height="67.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="onCheckAnswer:" destination="GPk-rx-wuE" eventType="touchUpInside" id="V0S-Cq-PKH"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="LjR-mN-nke" firstAttribute="centerY" secondItem="cek-4F-dTL" secondAttribute="centerY" id="0DQ-3b-860"/>
+                            <constraint firstItem="cek-4F-dTL" firstAttribute="leading" secondItem="twZ-V4-4EK" secondAttribute="leading" constant="8" id="1Wz-G7-cZV"/>
+                            <constraint firstItem="LjR-mN-nke" firstAttribute="leading" secondItem="cek-4F-dTL" secondAttribute="trailing" constant="8" id="2UQ-qd-GD8"/>
+                            <constraint firstItem="ZRO-w5-Fzi" firstAttribute="leading" secondItem="cek-4F-dTL" secondAttribute="leading" id="4tU-Lz-cwq"/>
+                            <constraint firstAttribute="bottom" secondItem="bJc-JZ-tAt" secondAttribute="bottom" id="4xn-No-N3B"/>
+                            <constraint firstAttribute="trailing" secondItem="ZRO-w5-Fzi" secondAttribute="trailing" id="9Yf-ZG-y0l"/>
+                            <constraint firstItem="cek-4F-dTL" firstAttribute="top" secondItem="twZ-V4-4EK" secondAttribute="top" id="HOV-lX-8pH"/>
+                            <constraint firstItem="bJc-JZ-tAt" firstAttribute="leading" secondItem="twZ-V4-4EK" secondAttribute="leading" id="HnF-OG-r5D"/>
+                            <constraint firstAttribute="trailing" secondItem="bJc-JZ-tAt" secondAttribute="trailing" id="IeI-j0-1Oo"/>
+                            <constraint firstItem="ZRO-w5-Fzi" firstAttribute="bottom" secondItem="cek-4F-dTL" secondAttribute="bottom" id="Lbv-ep-VoU"/>
+                            <constraint firstAttribute="trailing" secondItem="LjR-mN-nke" secondAttribute="trailing" id="Xjp-cs-vZa"/>
+                            <constraint firstItem="bJc-JZ-tAt" firstAttribute="top" secondItem="twZ-V4-4EK" secondAttribute="top" id="eAF-Nk-4zm"/>
+                            <constraint firstItem="ZRO-w5-Fzi" firstAttribute="top" secondItem="cek-4F-dTL" secondAttribute="top" id="k7i-Ns-dJk"/>
+                            <constraint firstAttribute="bottom" secondItem="cek-4F-dTL" secondAttribute="bottom" id="s15-Pi-2m1"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00%" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Jl-ov-vLc" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                        <rect key="frame" x="344" y="4" width="40" height="67.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="KOC-EU-fLs"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="twZ-V4-4EK" secondAttribute="bottom" constant="4" id="6bt-90-ApX"/>
+                    <constraint firstAttribute="trailing" secondItem="2Jl-ov-vLc" secondAttribute="trailing" id="Jd9-dO-nQl"/>
+                    <constraint firstItem="twZ-V4-4EK" firstAttribute="leading" secondItem="24y-6U-S3R" secondAttribute="leading" id="amP-IV-QeK"/>
+                    <constraint firstItem="twZ-V4-4EK" firstAttribute="top" secondItem="24y-6U-S3R" secondAttribute="top" constant="4" id="nOY-eU-eC8"/>
+                    <constraint firstItem="2Jl-ov-vLc" firstAttribute="top" secondItem="twZ-V4-4EK" secondAttribute="top" id="qqn-3S-s3t"/>
+                    <constraint firstItem="2Jl-ov-vLc" firstAttribute="leading" secondItem="twZ-V4-4EK" secondAttribute="trailing" constant="5" id="qwM-nz-cTa"/>
+                    <constraint firstItem="2Jl-ov-vLc" firstAttribute="bottom" secondItem="twZ-V4-4EK" secondAttribute="bottom" id="yRZ-cX-owL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="btnCheckAnwer" destination="LjR-mN-nke" id="Y4h-G4-fyS"/>
+                <outlet property="btnSelectAnwer" destination="ZRO-w5-Fzi" id="kA9-4a-mWS"/>
+                <outlet property="lblName" destination="cek-4F-dTL" id="Rzw-b7-KqO"/>
+                <outlet property="lblPercentage" destination="2Jl-ov-vLc" id="36T-e6-UCI"/>
+                <outlet property="progressV" destination="bJc-JZ-tAt" id="A1Y-TF-HL7"/>
+            </connections>
+            <point key="canvasLocation" x="47.826086956521742" y="104.46428571428571"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_poll_check" width="17" height="17"/>
+    </resources>
+</document>

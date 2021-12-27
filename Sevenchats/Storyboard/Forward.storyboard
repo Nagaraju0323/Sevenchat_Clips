@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Rnl-wx-LXy">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Forward View Controller-->
+        <scene sceneID="Bm1-vP-dI8">
+            <objects>
+                <viewController storyboardIdentifier="ForwardViewController" id="Rnl-wx-LXy" customClass="ForwardViewController" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Veq-8e-ugN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jTo-P0-NqK">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4i3-sN-Zh3">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                                        <color key="backgroundColor" red="0.84705882349999995" green="0.93333333330000001" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="G16-Xg-G8G"/>
+                                        </constraints>
+                                    </view>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GhR-s9-wLc">
+                                        <rect key="frame" x="0.0" y="45" width="375" height="622"/>
+                                        <connections>
+                                            <segue destination="OeC-tb-0hO" kind="embed" id="Wpm-yt-eV3"/>
+                                        </connections>
+                                    </containerView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VPo-a2-b2b">
+                                        <rect key="frame" x="317" y="609" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="VPo-a2-b2b" secondAttribute="height" multiplier="1:1" id="EdM-zg-Kzy"/>
+                                            <constraint firstAttribute="width" constant="50" id="lOl-ze-mtC"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_comment_send"/>
+                                        <connections>
+                                            <action selector="onSendPressed:" destination="Rnl-wx-LXy" eventType="touchUpInside" id="gVl-Gm-tI6"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="GhR-s9-wLc" firstAttribute="leading" secondItem="jTo-P0-NqK" secondAttribute="leading" id="193-gB-Zm1"/>
+                                    <constraint firstAttribute="bottom" secondItem="GhR-s9-wLc" secondAttribute="bottom" id="DAP-zy-f9r"/>
+                                    <constraint firstItem="4i3-sN-Zh3" firstAttribute="top" secondItem="jTo-P0-NqK" secondAttribute="top" id="LGQ-Pf-NgG"/>
+                                    <constraint firstAttribute="trailing" secondItem="VPo-a2-b2b" secondAttribute="trailing" constant="8" id="NxC-04-se9"/>
+                                    <constraint firstItem="4i3-sN-Zh3" firstAttribute="leading" secondItem="jTo-P0-NqK" secondAttribute="leading" id="d9q-XY-aGz"/>
+                                    <constraint firstAttribute="trailing" secondItem="4i3-sN-Zh3" secondAttribute="trailing" id="oVJ-d2-tvI"/>
+                                    <constraint firstAttribute="bottom" secondItem="VPo-a2-b2b" secondAttribute="bottom" constant="8" id="smM-N9-8iQ"/>
+                                    <constraint firstItem="GhR-s9-wLc" firstAttribute="top" secondItem="4i3-sN-Zh3" secondAttribute="bottom" id="tmx-hL-wif"/>
+                                    <constraint firstAttribute="trailing" secondItem="GhR-s9-wLc" secondAttribute="trailing" id="ylA-rv-tZG"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="jTo-P0-NqK" firstAttribute="top" secondItem="3Mo-HE-PnL" secondAttribute="top" id="1X1-A4-e4d"/>
+                            <constraint firstItem="jTo-P0-NqK" firstAttribute="leading" secondItem="Veq-8e-ugN" secondAttribute="leading" id="Iml-bg-puN"/>
+                            <constraint firstItem="jTo-P0-NqK" firstAttribute="bottom" secondItem="3Mo-HE-PnL" secondAttribute="bottom" id="LtW-Hf-ifX"/>
+                            <constraint firstAttribute="trailing" secondItem="jTo-P0-NqK" secondAttribute="trailing" id="xzE-Jp-Qv6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3Mo-HE-PnL"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ux3-wb-a1j"/>
+                    <connections>
+                        <outlet property="btnSend" destination="VPo-a2-b2b" id="2VH-94-1ic"/>
+                        <outlet property="parentView" destination="jTo-P0-NqK" id="Zvf-UB-AKe"/>
+                        <outlet property="vwSegment" destination="4i3-sN-Zh3" id="XiO-NZ-eDz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mTi-uA-SxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1254" y="88"/>
+        </scene>
+        <!--Forward Page View Controller-->
+        <scene sceneID="stx-SZ-XmS">
+            <objects>
+                <pageViewController storyboardIdentifier="ForwardPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="OeC-tb-0hO" customClass="ForwardPageViewController" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="jNh-Fc-fVK"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lSc-rp-Jcn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2063" y="88"/>
+        </scene>
+        <!--Single User Forward View Controller-->
+        <scene sceneID="BTk-tb-KLM">
+            <objects>
+                <viewController storyboardIdentifier="SingleUserForwardViewController" id="dsO-Mh-aAg" customClass="SingleUserForwardViewController" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" tag="104" contentMode="scaleToFill" id="6ud-id-Mch">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pMe-vK-e40">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hNE-qj-JjL">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="hNE-qj-JjL" secondAttribute="trailing" id="8Ew-Nn-2kG"/>
+                                    <constraint firstItem="hNE-qj-JjL" firstAttribute="top" secondItem="pMe-vK-e40" secondAttribute="top" id="W3g-ZF-t1e"/>
+                                    <constraint firstAttribute="bottom" secondItem="hNE-qj-JjL" secondAttribute="bottom" id="ZBP-i2-GJw"/>
+                                    <constraint firstItem="hNE-qj-JjL" firstAttribute="leading" secondItem="pMe-vK-e40" secondAttribute="leading" id="l1l-5S-CIx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="596-cd-3PY" firstAttribute="bottom" secondItem="pMe-vK-e40" secondAttribute="bottom" id="LDF-sn-l4Z"/>
+                            <constraint firstItem="pMe-vK-e40" firstAttribute="trailing" secondItem="596-cd-3PY" secondAttribute="trailing" id="Mb4-GX-czb"/>
+                            <constraint firstItem="pMe-vK-e40" firstAttribute="leading" secondItem="596-cd-3PY" secondAttribute="leading" id="fdZ-g3-xuI"/>
+                            <constraint firstItem="pMe-vK-e40" firstAttribute="top" secondItem="596-cd-3PY" secondAttribute="top" id="u9m-xO-H1n"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="596-cd-3PY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="IZc-QM-pkx"/>
+                    <connections>
+                        <outlet property="tblFriend" destination="hNE-qj-JjL" id="2Ld-v4-gId"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qj7-Qt-4al" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2791" y="104"/>
+        </scene>
+        <!--Group Forward View Controller-->
+        <scene sceneID="waE-NG-gUl">
+            <objects>
+                <viewController storyboardIdentifier="GroupForwardViewController" id="s9e-1L-Hfd" customClass="GroupForwardViewController" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" tag="104" contentMode="scaleToFill" id="oLd-h3-MHo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="XUa-Dq-Uv9">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XUa-Dq-Uv9" firstAttribute="leading" secondItem="oLd-h3-MHo" secondAttribute="leading" id="1BI-Jk-ZbK"/>
+                            <constraint firstItem="XUa-Dq-Uv9" firstAttribute="top" secondItem="oLd-h3-MHo" secondAttribute="top" id="4eX-m6-G6P"/>
+                            <constraint firstAttribute="bottom" secondItem="XUa-Dq-Uv9" secondAttribute="bottom" id="O6u-eF-atc"/>
+                            <constraint firstAttribute="trailing" secondItem="XUa-Dq-Uv9" secondAttribute="trailing" id="oqh-DY-qy2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ApS-Fh-P2w"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="bBO-tw-SuL"/>
+                    <connections>
+                        <outlet property="tblGroups" destination="XUa-Dq-Uv9" id="zTn-Gu-mYd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hDu-pA-wbn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3460" y="104"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_comment_send" width="37.5" height="38"/>
+    </resources>
+</document>

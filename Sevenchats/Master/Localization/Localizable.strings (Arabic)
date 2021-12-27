@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  SocialMedia
+
+  Created by mac-0005 on 20/08/18.
+  Copyright © 2018 mac-0005. All rights reserved.
+*/
+"Select Language" = "اختر اللغة";
+"Home" = "الرئيسية";
+"About Us" = "من نحن";
+"Contact Us" = "اتصل بنا";
+"Select image from" = "اختر صورة";
+"Select video from" = "اختر فيديو من";
+"Gallery" = "ألبوم الصور";
+"Camera" = "الكاميرا";
+"Save" = "حفظ";
+"Don't Save" = "عدم الحفظ";
+"Cancel" = "اغلاق";
+"Yes" = "نعم";
+"No" = "لا";
+"Are you sure, you want to delete?" = "هل أنت متأكد أنك تريد حذف؟";
+"Saved!" = "!تم الحفظ";
+"Saved successfully" = "حفظ بنجاح";
+"OK" = "حسنا";
+

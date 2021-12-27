@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.otf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="1uz-ej-uSJ" customClass="SegmentText" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="149" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Career of month" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fkv-dj-sWp" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="149" height="60"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
+                    <color key="textColor" red="0.56470588235294117" green="0.67843137254901964" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kj3-5Q-ZrP">
+                    <rect key="frame" x="0.0" y="58" width="149" height="2"/>
+                    <color key="backgroundColor" red="0.56470588235294117" green="0.67843137254901964" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="2" id="16D-zt-27T"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.56470588235294117" green="0.67843137254901964" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="kpK-r8-ckq" firstAttribute="trailing" secondItem="Kj3-5Q-ZrP" secondAttribute="trailing" id="I2c-9q-WFP"/>
+                <constraint firstItem="fkv-dj-sWp" firstAttribute="top" secondItem="1uz-ej-uSJ" secondAttribute="top" id="McY-hk-nZq"/>
+                <constraint firstAttribute="bottom" secondItem="fkv-dj-sWp" secondAttribute="bottom" id="N5w-mx-QEq"/>
+                <constraint firstItem="Kj3-5Q-ZrP" firstAttribute="leading" secondItem="kpK-r8-ckq" secondAttribute="leading" id="fa3-6I-J9S"/>
+                <constraint firstAttribute="trailing" secondItem="fkv-dj-sWp" secondAttribute="trailing" id="g0h-4Y-a64"/>
+                <constraint firstItem="fkv-dj-sWp" firstAttribute="leading" secondItem="1uz-ej-uSJ" secondAttribute="leading" id="hYF-WW-yVq"/>
+                <constraint firstItem="Kj3-5Q-ZrP" firstAttribute="bottom" secondItem="kpK-r8-ckq" secondAttribute="bottom" id="pGF-Nc-EEB"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="kpK-r8-ckq"/>
+            <connections>
+                <outlet property="lblBottomLine" destination="Kj3-5Q-ZrP" id="b1N-JD-zmx"/>
+                <outlet property="lblText" destination="fkv-dj-sWp" id="AWt-pd-EQS"/>
+            </connections>
+            <point key="canvasLocation" x="-447.19999999999999" y="-47.676161919040482"/>
+        </view>
+    </objects>
+</document>

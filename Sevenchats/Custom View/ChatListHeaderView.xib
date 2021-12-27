@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.otf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChatListHeaderView" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i6W-Hk-cBL">
+                    <rect key="frame" x="119.5" y="10" width="136.5" height="30"/>
+                    <color key="backgroundColor" name="AppDefault"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" tag="104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="10 March, 2018 " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAk-gC-YsL" customClass="GenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                    <rect key="frame" x="139.5" y="16" width="96.5" height="18.5"/>
+                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="13"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="sAk-gC-YsL" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="0Iv-OB-5s7"/>
+                <constraint firstItem="sAk-gC-YsL" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="eYM-B0-JEw"/>
+                <constraint firstItem="i6W-Hk-cBL" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" multiplier="0.6" id="exA-Ie-HQ0"/>
+                <constraint firstItem="i6W-Hk-cBL" firstAttribute="leading" secondItem="sAk-gC-YsL" secondAttribute="leading" constant="-20" id="ikj-dD-XTd"/>
+                <constraint firstItem="i6W-Hk-cBL" firstAttribute="trailing" secondItem="sAk-gC-YsL" secondAttribute="trailing" constant="20" id="qWO-47-tkM"/>
+                <constraint firstItem="i6W-Hk-cBL" firstAttribute="centerY" secondItem="sAk-gC-YsL" secondAttribute="centerY" id="xLg-M3-lUs"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="lblDate" destination="sAk-gC-YsL" id="CeQ-bm-xWa"/>
+                <outlet property="vWBg" destination="i6W-Hk-cBL" id="pKY-Fl-PWr"/>
+            </connections>
+            <point key="canvasLocation" x="25.5" y="52"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="AppDefault">
+            <color red="0.0" green="0.75294119119644165" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

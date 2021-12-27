@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HomeEventGalleryCell" id="6a4-YV-wMj" customClass="HomeEventGalleryCell" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="335" height="220"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="335" height="220"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view clipsSubviews="YES" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cU8-rl-ji1" customClass="MIGenericView" customModule="Sevenchats" customModuleProvider="target">
+                        <rect key="frame" x="5" y="5" width="325" height="210"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R0f-NT-2gs" customClass="BlurImageView" customModule="Sevenchats" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="325" height="210"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_video_play" translatesAutoresizingMaskIntoConstraints="NO" id="wdQ-kP-wRq">
+                                <rect key="frame" x="142.5" y="85" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uhi-8U-EQx">
+                                <rect key="frame" x="0.0" y="0.0" width="325" height="210"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5n-5T-9YH">
+                                <rect key="frame" x="162.5" y="105" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uhi-8U-EQx" firstAttribute="leading" secondItem="cU8-rl-ji1" secondAttribute="leading" id="2e6-DY-MzF"/>
+                            <constraint firstItem="D5n-5T-9YH" firstAttribute="centerY" secondItem="cU8-rl-ji1" secondAttribute="centerY" id="ACL-XF-8mp"/>
+                            <constraint firstItem="R0f-NT-2gs" firstAttribute="leading" secondItem="cU8-rl-ji1" secondAttribute="leading" id="AIW-sN-PJO"/>
+                            <constraint firstAttribute="trailing" secondItem="uhi-8U-EQx" secondAttribute="trailing" id="K51-Mg-U6v"/>
+                            <constraint firstItem="D5n-5T-9YH" firstAttribute="centerX" secondItem="cU8-rl-ji1" secondAttribute="centerX" id="Tuk-cm-1HR"/>
+                            <constraint firstItem="uhi-8U-EQx" firstAttribute="top" secondItem="cU8-rl-ji1" secondAttribute="top" id="bkU-39-rxo"/>
+                            <constraint firstItem="wdQ-kP-wRq" firstAttribute="centerX" secondItem="cU8-rl-ji1" secondAttribute="centerX" id="bwx-YW-RWf"/>
+                            <constraint firstAttribute="bottom" secondItem="uhi-8U-EQx" secondAttribute="bottom" id="dWo-s0-lEm"/>
+                            <constraint firstItem="wdQ-kP-wRq" firstAttribute="centerY" secondItem="cU8-rl-ji1" secondAttribute="centerY" id="dx3-4C-bvm"/>
+                            <constraint firstItem="R0f-NT-2gs" firstAttribute="top" secondItem="cU8-rl-ji1" secondAttribute="top" id="ekw-1e-olB"/>
+                            <constraint firstAttribute="bottom" secondItem="R0f-NT-2gs" secondAttribute="bottom" id="iu5-AB-gWJ"/>
+                            <constraint firstAttribute="trailing" secondItem="R0f-NT-2gs" secondAttribute="trailing" id="sV1-oF-0Z2"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="bIv-he-seH"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="cU8-rl-ji1" secondAttribute="trailing" constant="5" id="Ev7-04-2ap"/>
+                <constraint firstItem="cU8-rl-ji1" firstAttribute="leading" secondItem="6a4-YV-wMj" secondAttribute="leading" constant="5" id="dqe-Mx-gYq"/>
+                <constraint firstAttribute="bottom" secondItem="cU8-rl-ji1" secondAttribute="bottom" constant="5" id="jjk-JR-PqJ"/>
+                <constraint firstItem="cU8-rl-ji1" firstAttribute="top" secondItem="6a4-YV-wMj" secondAttribute="top" constant="5" id="mxA-Fo-mae"/>
+            </constraints>
+            <connections>
+                <outlet property="blurImgView" destination="R0f-NT-2gs" id="fIH-mE-lgj"/>
+                <outlet property="imagecountIcon" destination="D5n-5T-9YH" id="8f0-uo-2rD"/>
+                <outlet property="imgVideoIcon" destination="wdQ-kP-wRq" id="r0E-PT-CMe"/>
+                <outlet property="imgblurIcon" destination="uhi-8U-EQx" id="sFl-zt-hLS"/>
+                <outlet property="vwBackgroundImg" destination="cU8-rl-ji1" id="Fwr-wR-BVj"/>
+            </connections>
+            <point key="canvasLocation" x="22" y="92"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_video_play" width="40" height="40"/>
+    </resources>
+</document>

@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="TblAdvertise" representedClassName="TblAdvertise" syncable="YES" codeGenerationType="class">
+        <attribute name="ads_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="ads_image" optional="YES" attributeType="String"/>
+        <attribute name="ads_size" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="ads_title" optional="YES" attributeType="String"/>
+        <attribute name="by_page" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="display_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="interactive_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="interactive_value" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="TblAnnualIncomes" representedClassName="TblAnnualIncomes" syncable="YES" codeGenerationType="class">
+        <attribute name="annual_income_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="income" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="TblChatGroupList" representedClassName="TblChatGroupList" syncable="YES" codeGenerationType="class">
+        <attribute name="block_unblock_status" optional="YES" attributeType="String"/>
+        <attribute name="chat_time" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="created_at" optional="YES" attributeType="String"/>
+        <attribute name="created_by" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="datetime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="group_admin" optional="YES" attributeType="String"/>
+        <attribute name="group_id" optional="YES" attributeType="String"/>
+        <attribute name="group_image" optional="YES" attributeType="String"/>
+        <attribute name="group_link" optional="YES" attributeType="String"/>
+        <attribute name="group_title" optional="YES" attributeType="String"/>
+        <attribute name="group_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="last_message" optional="YES" attributeType="String"/>
+        <attribute name="msg_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="pending_request" optional="YES" attributeType="String"/>
+        <attribute name="status_id" optional="YES" attributeType="String"/>
+        <attribute name="unread_count" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="TblChatUserList" representedClassName="TblChatUserList" syncable="YES" codeGenerationType="class">
+        <attribute name="block_unblock_status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="chat_time" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="created_at" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="first_name" optional="YES" attributeType="String"/>
+        <attribute name="friend_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="friend_status" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="is_blocked" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="is_login_blocked" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isOnline" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="last_name" optional="YES" attributeType="String"/>
+        <attribute name="message" optional="YES" attributeType="String"/>
+        <attribute name="msg_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="status_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="unread_cnt" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="TblCountry" representedClassName="TblCountry" syncable="YES" codeGenerationType="class">
+        <attribute name="country_code" optional="YES" attributeType="String"/>
+        <attribute name="country_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="country_iso" optional="YES" attributeType="String"/>
+        <attribute name="country_name" optional="YES" attributeType="String"/>
+        <attribute name="countryname_code" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="TblEducation" representedClassName="TblEducation" syncable="YES" codeGenerationType="class">
+        <attribute name="education_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="TblFeedbackList" representedClassName="TblFeedbackList" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="TblInterest" representedClassName="TblInterest" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="TblLanguage" representedClassName="TblLanguage" syncable="YES" codeGenerationType="class">
+        <attribute name="lang_code" optional="YES" attributeType="String"/>
+        <attribute name="lang_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="orientation" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="TblLanguageText" representedClassName="TblLanguageText" syncable="YES" codeGenerationType="class">
+        <attribute name="about_event" optional="YES" attributeType="String"/>
+        <attribute name="about_product" optional="YES" attributeType="String"/>
+        <attribute name="about_us" optional="YES" attributeType="String"/>
+        <attribute name="abusive_language" optional="YES" attributeType="String"/>
+        <attribute name="accept" optional="YES" attributeType="String"/>
+        <attribute name="accept_all_tems_and_conditions" optional="YES" attributeType="String"/>
+        <attribute name="account_privacy_msg" optional="YES" attributeType="String"/>
+        <attribute name="add_article" optional="YES" attributeType="String"/>
+        <attribute name="add_chirpy" optional="YES" attributeType="String"/>
+        <attribute name="add_event" optional="YES" attributeType="String"/>
+        <attribute name="add_files" optional="YES" attributeType="String"/>
+        <attribute name="add_forum" optional="YES" attributeType="String"/>
+        <attribute name="add_friend" optional="YES" attributeType="String"/>
+        <attribute name="add_image" optional="YES" attributeType="String"/>
+        <attribute name="add_interest" optional="YES" attributeType="String"/>
+        <attribute name="add_media" optional="YES" attributeType="String"/>
+        <attribute name="add_participant" optional="YES" attributeType="String"/>
+        <attribute name="add_poll" optional="YES" attributeType="String"/>
+        <attribute name="add_product_details" optional="YES" attributeType="String"/>
+        <attribute name="add_question" optional="YES" attributeType="String"/>
+        <attribute name="add_shout" optional="YES" attributeType="String"/>
+        <attribute name="add_your_experience_to_help_other" optional="YES" attributeType="String"/>
+        <attribute name="add_your_interests_passions" optional="YES" attributeType="String"/>
+        <attribute name="add_your_review" optional="YES" attributeType="String"/>
+        <attribute name="admin" optional="YES" attributeType="String"/>
+        <attribute name="admin_deleted_this_message" optional="YES" attributeType="String"/>
+        <attribute name="ads_posted" optional="YES" attributeType="String"/>
+        <attribute name="ago" optional="YES" attributeType="String"/>
+        <attribute name="alert_delete_message" optional="YES" attributeType="String"/>
+        <attribute name="alert_delete_message_image" optional="YES" attributeType="String"/>
+        <attribute name="alert_exit_message" optional="YES" attributeType="String"/>
+        <attribute name="alert_message_for_cancel" optional="YES" attributeType="String"/>
+        <attribute name="alert_message_for_files_not_uploaded" optional="YES" attributeType="String"/>
+        <attribute name="alert_message_for_unfriend" optional="YES" attributeType="String"/>
+        <attribute name="alert_message_to_remove_share_folder" optional="YES" attributeType="String"/>
+        <attribute name="alert_remove_participant_message" optional="YES" attributeType="String"/>
+        <attribute name="all" optional="YES" attributeType="String"/>
+        <attribute name="all_events" optional="YES" attributeType="String"/>
+        <attribute name="all_friends" optional="YES" attributeType="String"/>
+        <attribute name="all_products" optional="YES" attributeType="String"/>
+        <attribute name="apply_filter" optional="YES" attributeType="String"/>
+        <attribute name="are_you_sure_to_delete_this_media" optional="YES" attributeType="String"/>
+        <attribute name="are_you_sure_to_report_this_fav_web" optional="YES" attributeType="String"/>
+        <attribute name="are_you_sure_to_report_this_post" optional="YES" attributeType="String"/>
+        <attribute name="are_you_sure_to_share_folder" optional="YES" attributeType="String"/>
+        <attribute name="are_you_sure_want_to_send_video" optional="YES" attributeType="String"/>
+        <attribute name="are_you_sure_you_want_send_audio" optional="YES" attributeType="String"/>
+        <attribute name="are_you_sure_you_want_to_delete_product" optional="YES" attributeType="String"/>
+        <attribute name="are_you_sure_you_want_to_delete_this_post" optional="YES" attributeType="String"/>
+        <attribute name="are_you_sure_you_want_to_logout" optional="YES" attributeType="String"/>
+        <attribute name="article" optional="YES" attributeType="String"/>
+        <attribute name="article_category_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="article_created_successfully" optional="YES" attributeType="String"/>
+        <attribute name="article_details" optional="YES" attributeType="String"/>
+        <attribute name="article_edited_successfully" optional="YES" attributeType="String"/>
+        <attribute name="article_image_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="article_targeted_audience_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="article_title_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="audio" optional="YES" attributeType="String"/>
+        <attribute name="available" optional="YES" attributeType="String"/>
+        <attribute name="basic" optional="YES" attributeType="String"/>
+        <attribute name="block_user" optional="YES" attributeType="String"/>
+        <attribute name="block_user_alert" optional="YES" attributeType="String"/>
+        <attribute name="blocked_user" optional="YES" attributeType="String"/>
+        <attribute name="blocked_users" optional="YES" attributeType="String"/>
+        <attribute name="blocked_users_count" optional="YES" attributeType="String"/>
+        <attribute name="buy_now" optional="YES" attributeType="String"/>
+        <attribute name="camera" optional="YES" attributeType="String"/>
+        <attribute name="cancel" optional="YES" attributeType="String"/>
+        <attribute name="cancel_request" optional="YES" attributeType="String"/>
+        <attribute name="cancel_subscription_alert" optional="YES" attributeType="String"/>
+        <attribute name="check_this_in_post" optional="YES" attributeType="String"/>
+        <attribute name="check_this_in_user" optional="YES" attributeType="String"/>
+        <attribute name="check_this_in_web_site" optional="YES" attributeType="String"/>
+        <attribute name="chirpy" optional="YES" attributeType="String"/>
+        <attribute name="chirpy_category_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="chirpy_created_successfully" optional="YES" attributeType="String"/>
+        <attribute name="chirpy_details" optional="YES" attributeType="String"/>
+        <attribute name="chirpy_edited_successfully" optional="YES" attributeType="String"/>
+        <attribute name="chirpy_message_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="clip_must_not_exceed_100" optional="YES" attributeType="String"/>
+        <attribute name="comment" optional="YES" attributeType="String"/>
+        <attribute name="comments" optional="YES" attributeType="String"/>
+        <attribute name="complete" optional="YES" attributeType="String"/>
+        <attribute name="confirm" optional="YES" attributeType="String"/>
+        <attribute name="confirmation_to_delete_file" optional="YES" attributeType="String"/>
+        <attribute name="confirmation_to_delete_folder" optional="YES" attributeType="String"/>
+        <attribute name="confirmed" optional="YES" attributeType="String"/>
+        <attribute name="connect" optional="YES" attributeType="String"/>
+        <attribute name="connect_all" optional="YES" attributeType="String"/>
+        <attribute name="contact_permission_is_required" optional="YES" attributeType="String"/>
+        <attribute name="contact_seller" optional="YES" attributeType="String"/>
+        <attribute name="contacts" optional="YES" attributeType="String"/>
+        <attribute name="continue_text" optional="YES" attributeType="String"/>
+        <attribute name="create_a_group_link_to_join_this_group" optional="YES" attributeType="String"/>
+        <attribute name="create_folder" optional="YES" attributeType="String"/>
+        <attribute name="create_group_enter_title" optional="YES" attributeType="String"/>
+        <attribute name="create_own_interest" optional="YES" attributeType="String"/>
+        <attribute name="data_upload" optional="YES" attributeType="String"/>
+        <attribute name="day_ago" optional="YES" attributeType="String"/>
+        <attribute name="days_ago" optional="YES" attributeType="String"/>
+        <attribute name="declined" optional="YES" attributeType="String"/>
+        <attribute name="delete" optional="YES" attributeType="String"/>
+        <attribute name="delete_for_everyone" optional="YES" attributeType="String"/>
+        <attribute name="delete_for_me" optional="YES" attributeType="String"/>
+        <attribute name="delete_group" optional="YES" attributeType="String"/>
+        <attribute name="delivered_on" optional="YES" attributeType="String"/>
+        <attribute name="delivered_to" optional="YES" attributeType="String"/>
+        <attribute name="display_done" optional="YES" attributeType="String"/>
+        <attribute name="do_you_want_to_share_this_folder_with_friends" optional="YES" attributeType="String"/>
+        <attribute name="downloading" optional="YES" attributeType="String"/>
+        <attribute name="downloading_from_icloud" optional="YES" attributeType="String"/>
+        <attribute name="edit" optional="YES" attributeType="String"/>
+        <attribute name="edit_article" optional="YES" attributeType="String"/>
+        <attribute name="edit_chirpy" optional="YES" attributeType="String"/>
+        <attribute name="edit_event" optional="YES" attributeType="String"/>
+        <attribute name="edit_forum" optional="YES" attributeType="String"/>
+        <attribute name="edit_group" optional="YES" attributeType="String"/>
+        <attribute name="edit_image" optional="YES" attributeType="String"/>
+        <attribute name="edit_media" optional="YES" attributeType="String"/>
+        <attribute name="edit_product_details" optional="YES" attributeType="String"/>
+        <attribute name="edit_profile" optional="YES" attributeType="String"/>
+        <attribute name="edit_shout" optional="YES" attributeType="String"/>
+        <attribute name="end_date" optional="YES" attributeType="String"/>
+        <attribute name="enter_article_title" optional="YES" attributeType="String"/>
+        <attribute name="enter_chirpy_content" optional="YES" attributeType="String"/>
+        <attribute name="enter_event_end_date" optional="YES" attributeType="String"/>
+        <attribute name="enter_event_location" optional="YES" attributeType="String"/>
+        <attribute name="enter_event_start_date" optional="YES" attributeType="String"/>
+        <attribute name="enter_event_title" optional="YES" attributeType="String"/>
+        <attribute name="enter_folder_name" optional="YES" attributeType="String"/>
+        <attribute name="enter_forum_category" optional="YES" attributeType="String"/>
+        <attribute name="enter_forum_content" optional="YES" attributeType="String"/>
+        <attribute name="enter_forum_title" optional="YES" attributeType="String"/>
+        <attribute name="enter_shout_content" optional="YES" attributeType="String"/>
+        <attribute name="enter_your_profession" optional="YES" attributeType="String"/>
+        <attribute name="entered_verification_code_is_incorrect" optional="YES" attributeType="String"/>
+        <attribute name="event" optional="YES" attributeType="String"/>
+        <attribute name="event_age_limit" optional="YES" attributeType="String"/>
+        <attribute name="event_calendar" optional="YES" attributeType="String"/>
+        <attribute name="event_category_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="event_content_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="event_created_successfully" optional="YES" attributeType="String"/>
+        <attribute name="event_details" optional="YES" attributeType="String"/>
+        <attribute name="event_edited_successfully" optional="YES" attributeType="String"/>
+        <attribute name="event_end_date_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="event_end_date_must_be_greater" optional="YES" attributeType="String"/>
+        <attribute name="event_location_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="event_start_date_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="event_targeted_audience_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="event_title_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="event_view_all" optional="YES" attributeType="String"/>
+        <attribute name="exit_group" optional="YES" attributeType="String"/>
+        <attribute name="exporting_file" optional="YES" attributeType="String"/>
+        <attribute name="external_share" optional="YES" attributeType="String"/>
+        <attribute name="feedback_category_required" optional="YES" attributeType="String"/>
+        <attribute name="feedback_txt" optional="YES" attributeType="String"/>
+        <attribute name="file_already_exist_in_folder" optional="YES" attributeType="String"/>
+        <attribute name="file_type_not_allowed" optional="YES" attributeType="String"/>
+        <attribute name="files" optional="YES" attributeType="String"/>
+        <attribute name="filters" optional="YES" attributeType="String"/>
+        <attribute name="folder_name_cant_be_blank" optional="YES" attributeType="String"/>
+        <attribute name="forgot_email_not_registered_with_us" optional="YES" attributeType="String"/>
+        <attribute name="forgot_email_or_mobile_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="forgot_enter_valid_email_address" optional="YES" attributeType="String"/>
+        <attribute name="forgot_enter_valid_mobile_no" optional="YES" attributeType="String"/>
+        <attribute name="forgot_mobile_not_registered_with_us" optional="YES" attributeType="String"/>
+        <attribute name="forgot_password" optional="YES" attributeType="String"/>
+        <attribute name="forgot_password_reset_text" optional="YES" attributeType="String"/>
+        <attribute name="forgot_password_reset_text1" optional="YES" attributeType="String"/>
+        <attribute name="forgot_password_reset_text2" optional="YES" attributeType="String"/>
+        <attribute name="forgot_password_submit" optional="YES" attributeType="String"/>
+        <attribute name="forum" optional="YES" attributeType="String"/>
+        <attribute name="forum_category_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="forum_content_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="forum_created_successfully" optional="YES" attributeType="String"/>
+        <attribute name="forum_details" optional="YES" attributeType="String"/>
+        <attribute name="forum_edited_successfully" optional="YES" attributeType="String"/>
+        <attribute name="forum_targeted_audience_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="forum_title_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="forward" optional="YES" attributeType="String"/>
+        <attribute name="forwarded_message" optional="YES" attributeType="String"/>
+        <attribute name="friend" optional="YES" attributeType="String"/>
+        <attribute name="friends" optional="YES" attributeType="String"/>
+        <attribute name="gallery" optional="YES" attributeType="String"/>
+        <attribute name="gallery_category_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="gallery_created_successfully" optional="YES" attributeType="String"/>
+        <attribute name="gallery_edited_successfully" optional="YES" attributeType="String"/>
+        <attribute name="go_to_website" optional="YES" attributeType="String"/>
+        <attribute name="group_details" optional="YES" attributeType="String"/>
+        <attribute name="group_image_required" optional="YES" attributeType="String"/>
+        <attribute name="group_info_add_more" optional="YES" attributeType="String"/>
+        <attribute name="group_info_link" optional="YES" attributeType="String"/>
+        <attribute name="group_member" optional="YES" attributeType="String"/>
+        <attribute name="group_member_not_selected" optional="YES" attributeType="String"/>
+        <attribute name="group_members" optional="YES" attributeType="String"/>
+        <attribute name="group_members_minimum" optional="YES" attributeType="String"/>
+        <attribute name="group_private" optional="YES" attributeType="String"/>
+        <attribute name="group_public" optional="YES" attributeType="String"/>
+        <attribute name="group_report_submitted_success" optional="YES" attributeType="String"/>
+        <attribute name="group_title_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="group_type_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="group_type_change_alert_to_private" optional="YES" attributeType="String"/>
+        <attribute name="group_type_change_alert_to_private_message" optional="YES" attributeType="String"/>
+        <attribute name="group_type_change_alert_to_public" optional="YES" attributeType="String"/>
+        <attribute name="group_type_change_alert_to_public_message" optional="YES" attributeType="String"/>
+        <attribute name="hour_ago" optional="YES" attributeType="String"/>
+        <attribute name="hours_ago" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="inappropriate_behavior" optional="YES" attributeType="String"/>
+        <attribute name="income_level" optional="YES" attributeType="String"/>
+        <attribute name="info" optional="YES" attributeType="String"/>
+        <attribute name="interest_name_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="interested" optional="YES" attributeType="String"/>
+        <attribute name="invitation_has_been_sent" optional="YES" attributeType="String"/>
+        <attribute name="invitation_sent_fail" optional="YES" attributeType="String"/>
+        <attribute name="invitation_sent_successfully" optional="YES" attributeType="String"/>
+        <attribute name="invite" optional="YES" attributeType="String"/>
+        <attribute name="invite_contact" optional="YES" attributeType="String"/>
+        <attribute name="invite_contacts" optional="YES" attributeType="String"/>
+        <attribute name="invite_friends" optional="YES" attributeType="String"/>
+        <attribute name="invite_import_contacts_form" optional="YES" attributeType="String"/>
+        <attribute name="invite_import_contacts_text" optional="YES" attributeType="String"/>
+        <attribute name="invite_others" optional="YES" attributeType="String"/>
+        <attribute name="invite_select_all" optional="YES" attributeType="String"/>
+        <attribute name="invitees" optional="YES" attributeType="String"/>
+        <attribute name="invites_accepted_event" optional="YES" attributeType="String"/>
+        <attribute name="it_is_a_duplicate_list" optional="YES" attributeType="String"/>
+        <attribute name="it_is_wrong_category" optional="YES" attributeType="String"/>
+        <attribute name="join" optional="YES" attributeType="String"/>
+        <attribute name="just_now" optional="YES" attributeType="String"/>
+        <attribute name="lang_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="last_date_of_product_selling" optional="YES" attributeType="String"/>
+        <attribute name="like" optional="YES" attributeType="String"/>
+        <attribute name="likes" optional="YES" attributeType="String"/>
+        <attribute name="link_copied" optional="YES" attributeType="String"/>
+        <attribute name="link_to_payment" optional="YES" attributeType="String"/>
+        <attribute name="login_dont_have_an_account" optional="YES" attributeType="String"/>
+        <attribute name="login_email_not_registered_with_us" optional="YES" attributeType="String"/>
+        <attribute name="login_email_or_mobile" optional="YES" attributeType="String"/>
+        <attribute name="login_email_or_mobile_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="login_enter_valid_email_address" optional="YES" attributeType="String"/>
+        <attribute name="login_enter_valid_mobile_no" optional="YES" attributeType="String"/>
+        <attribute name="login_forgot_password" optional="YES" attributeType="String"/>
+        <attribute name="login_invalid_credentials_email" optional="YES" attributeType="String"/>
+        <attribute name="login_invalid_credentials_mobile" optional="YES" attributeType="String"/>
+        <attribute name="login_mobile_not_registered_with_us" optional="YES" attributeType="String"/>
+        <attribute name="login_password" optional="YES" attributeType="String"/>
+        <attribute name="login_password_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="login_signin" optional="YES" attributeType="String"/>
+        <attribute name="login_with_social" optional="YES" attributeType="String"/>
+        <attribute name="look_like_spam_user" optional="YES" attributeType="String"/>
+        <attribute name="mark_as_sold" optional="YES" attributeType="String"/>
+        <attribute name="may_be" optional="YES" attributeType="String"/>
+        <attribute name="media_max_upload_size" optional="YES" attributeType="String"/>
+        <attribute name="member_request" optional="YES" attributeType="String"/>
+        <attribute name="members_of_this_group" optional="YES" attributeType="String"/>
+        <attribute name="members_selected" optional="YES" attributeType="String"/>
+        <attribute name="message" optional="YES" attributeType="String"/>
+        <attribute name="message_for_wrong_file_type" optional="YES" attributeType="String"/>
+        <attribute name="min_ago" optional="YES" attributeType="String"/>
+        <attribute name="minimum_polls_options" optional="YES" attributeType="String"/>
+        <attribute name="mins_ago" optional="YES" attributeType="String"/>
+        <attribute name="month" optional="YES" attributeType="String"/>
+        <attribute name="more" optional="YES" attributeType="String"/>
+        <attribute name="my_events" optional="YES" attributeType="String"/>
+        <attribute name="my_files" optional="YES" attributeType="String"/>
+        <attribute name="my_products" optional="YES" attributeType="String"/>
+        <attribute name="my_profile" optional="YES" attributeType="String"/>
+        <attribute name="new_group" optional="YES" attributeType="String"/>
+        <attribute name="new_to_old_sorting" optional="YES" attributeType="String"/>
+        <attribute name="next_arrow" optional="YES" attributeType="String"/>
+        <attribute name="no" optional="YES" attributeType="String"/>
+        <attribute name="no_blocked_users_yet" optional="YES" attributeType="String"/>
+        <attribute name="no_comment_found" optional="YES" attributeType="String"/>
+        <attribute name="no_comments_yet" optional="YES" attributeType="String"/>
+        <attribute name="no_contacts_yet" optional="YES" attributeType="String"/>
+        <attribute name="no_data_found" optional="YES" attributeType="String"/>
+        <attribute name="no_events_yet" optional="YES" attributeType="String"/>
+        <attribute name="no_fav_web_list" optional="YES" attributeType="String"/>
+        <attribute name="no_files_added_in_this_folder" optional="YES" attributeType="String"/>
+        <attribute name="no_files_yet" optional="YES" attributeType="String"/>
+        <attribute name="no_folder_created" optional="YES" attributeType="String"/>
+        <attribute name="no_folders_has_been_shared_with_you" optional="YES" attributeType="String"/>
+        <attribute name="no_friends_found" optional="YES" attributeType="String"/>
+        <attribute name="no_friends_yet" optional="YES" attributeType="String"/>
+        <attribute name="no_groups_yet" optional="YES" attributeType="String"/>
+        <attribute name="no_interests_select" optional="YES" attributeType="String"/>
+        <attribute name="no_internet" optional="YES" attributeType="String"/>
+        <attribute name="no_likes_found" optional="YES" attributeType="String"/>
+        <attribute name="no_member_request_yet" optional="YES" attributeType="String"/>
+        <attribute name="no_news_for_this_category" optional="YES" attributeType="String"/>
+        <attribute name="no_notifications_yet" optional="YES" attributeType="String"/>
+        <attribute name="no_participant_yet" optional="YES" attributeType="String"/>
+        <attribute name="no_pending_request" optional="YES" attributeType="String"/>
+        <attribute name="no_posts_found" optional="YES" attributeType="String"/>
+        <attribute name="no_product_added" optional="YES" attributeType="String"/>
+        <attribute name="no_quotes_yet" optional="YES" attributeType="String"/>
+        <attribute name="no_request_send_data" optional="YES" attributeType="String"/>
+        <attribute name="not_delivered" optional="YES" attributeType="String"/>
+        <attribute name="not_interested" optional="YES" attributeType="String"/>
+        <attribute name="of" optional="YES" attributeType="String"/>
+        <attribute name="offline_payment" optional="YES" attributeType="String"/>
+        <attribute name="ok" optional="YES" attributeType="String"/>
+        <attribute name="old_password" optional="YES" attributeType="String"/>
+        <attribute name="old_to_new" optional="YES" attributeType="String"/>
+        <attribute name="online_payment" optional="YES" attributeType="String"/>
+        <attribute name="option" optional="YES" attributeType="String"/>
+        <attribute name="other" optional="YES" attributeType="String"/>
+        <attribute name="others" optional="YES" attributeType="String"/>
+        <attribute name="out_of" optional="YES" attributeType="String"/>
+        <attribute name="payment" optional="YES" attributeType="String"/>
+        <attribute name="payment_description" optional="YES" attributeType="String"/>
+        <attribute name="payment_error" optional="YES" attributeType="String"/>
+        <attribute name="payment_mode" optional="YES" attributeType="String"/>
+        <attribute name="payment_preference" optional="YES" attributeType="String"/>
+        <attribute name="pending_request" optional="YES" attributeType="String"/>
+        <attribute name="personal_interests" optional="YES" attributeType="String"/>
+        <attribute name="please_accept_terms_conditions" optional="YES" attributeType="String"/>
+        <attribute name="please_add_atleast_one_product" optional="YES" attributeType="String"/>
+        <attribute name="please_check_internet_connection" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_any_location" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_comment_text" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_last_date_selling_product" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_old_password" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_poll_category" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_product_description" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_product_price" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_product_title" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_question" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_report_message" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_some_message" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_some_review" optional="YES" attributeType="String"/>
+        <attribute name="please_enter_your_problem" optional="YES" attributeType="String"/>
+        <attribute name="please_select_2_member" optional="YES" attributeType="String"/>
+        <attribute name="please_select_any_one_category" optional="YES" attributeType="String"/>
+        <attribute name="please_select_atleast_one_friend" optional="YES" attributeType="String"/>
+        <attribute name="please_select_atleast_one_image" optional="YES" attributeType="String"/>
+        <attribute name="please_select_atleast_one_image_video" optional="YES" attributeType="String"/>
+        <attribute name="please_select_language" optional="YES" attributeType="String"/>
+        <attribute name="please_select_report_reason" optional="YES" attributeType="String"/>
+        <attribute name="please_select_to_whom_to_share" optional="YES" attributeType="String"/>
+        <attribute name="please_select_to_whom_you_want_to_post_this_image" optional="YES" attributeType="String"/>
+        <attribute name="please_select_to_whom_you_want_to_post_this_shout" optional="YES" attributeType="String"/>
+        <attribute name="please_wait" optional="YES" attributeType="String"/>
+        <attribute name="poll" optional="YES" attributeType="String"/>
+        <attribute name="poll_created_successfully" optional="YES" attributeType="String"/>
+        <attribute name="poll_detail" optional="YES" attributeType="String"/>
+        <attribute name="poll_option_already_exist" optional="YES" attributeType="String"/>
+        <attribute name="poll_user_list" optional="YES" attributeType="String"/>
+        <attribute name="polls_created_successfully" optional="YES" attributeType="String"/>
+        <attribute name="post" optional="YES" attributeType="String"/>
+        <attribute name="post_select_contacts" optional="YES" attributeType="String"/>
+        <attribute name="post_select_groups" optional="YES" attributeType="String"/>
+        <attribute name="post_shout" optional="YES" attributeType="String"/>
+        <attribute name="post_targeted_audience_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="post_upload_fail" optional="YES" attributeType="String"/>
+        <attribute name="post_upload_images_maximum" optional="YES" attributeType="String"/>
+        <attribute name="posted_on" optional="YES" attributeType="String"/>
+        <attribute name="posts" optional="YES" attributeType="String"/>
+        <attribute name="posts_invite_allFriends" optional="YES" attributeType="String"/>
+        <attribute name="posts_invite_friends" optional="YES" attributeType="String"/>
+        <attribute name="posts_invite_group" optional="YES" attributeType="String"/>
+        <attribute name="posts_minimum_age" optional="YES" attributeType="String"/>
+        <attribute name="posts_select_friends" optional="YES" attributeType="String"/>
+        <attribute name="preparing_to_export" optional="YES" attributeType="String"/>
+        <attribute name="privacy_policy" optional="YES" attributeType="String"/>
+        <attribute name="product_description" optional="YES" attributeType="String"/>
+        <attribute name="product_price" optional="YES" attributeType="String"/>
+        <attribute name="product_title" optional="YES" attributeType="String"/>
+        <attribute name="profession" optional="YES" attributeType="String"/>
+        <attribute name="profile_add_your_interest" optional="YES" attributeType="String"/>
+        <attribute name="profile_biography" optional="YES" attributeType="String"/>
+        <attribute name="profile_complete" optional="YES" attributeType="String"/>
+        <attribute name="profile_contact_us" optional="YES" attributeType="String"/>
+        <attribute name="profile_education" optional="YES" attributeType="String"/>
+        <attribute name="profile_employed" optional="YES" attributeType="String"/>
+        <attribute name="profile_enter_your_profession" optional="YES" attributeType="String"/>
+        <attribute name="profile_income_level" optional="YES" attributeType="String"/>
+        <attribute name="profile_personal_interest" optional="YES" attributeType="String"/>
+        <attribute name="profile_preferences" optional="YES" attributeType="String"/>
+        <attribute name="profile_profession" optional="YES" attributeType="String"/>
+        <attribute name="profile_religious_inclination" optional="YES" attributeType="String"/>
+        <attribute name="profile_select_income" optional="YES" attributeType="String"/>
+        <attribute name="profile_status" optional="YES" attributeType="String"/>
+        <attribute name="profile_update_complete" optional="YES" attributeType="String"/>
+        <attribute name="profile_visible_for_friends" optional="YES" attributeType="String"/>
+        <attribute name="profile_visible_for_others" optional="YES" attributeType="String"/>
+        <attribute name="provided_by" optional="YES" attributeType="String"/>
+        <attribute name="purchased_success" optional="YES" attributeType="String"/>
+        <attribute name="rate_and_review_product" optional="YES" attributeType="String"/>
+        <attribute name="register" optional="YES" attributeType="String"/>
+        <attribute name="register_choose_from_phone" optional="YES" attributeType="String"/>
+        <attribute name="register_code" optional="YES" attributeType="String"/>
+        <attribute name="register_confirm_entered_email_and_mobile" optional="YES" attributeType="String"/>
+        <attribute name="register_confirm_password" optional="YES" attributeType="String"/>
+        <attribute name="register_confirm_password_blank" optional="YES" attributeType="String"/>
+        <attribute name="register_country_code_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="register_dob" optional="YES" attributeType="String"/>
+        <attribute name="register_dob_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="register_email" optional="YES" attributeType="String"/>
+        <attribute name="register_email_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="register_email_verification_text" optional="YES" attributeType="String"/>
+        <attribute name="register_enter_valid_email_address" optional="YES" attributeType="String"/>
+        <attribute name="register_enter_valid_mobile_no" optional="YES" attributeType="String"/>
+        <attribute name="register_enter_verification_code" optional="YES" attributeType="String"/>
+        <attribute name="register_female" optional="YES" attributeType="String"/>
+        <attribute name="register_first_name" optional="YES" attributeType="String"/>
+        <attribute name="register_first_name_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="register_gender" optional="YES" attributeType="String"/>
+        <attribute name="register_gender_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="register_last_name" optional="YES" attributeType="String"/>
+        <attribute name="register_last_name_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="register_location_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="register_male" optional="YES" attributeType="String"/>
+        <attribute name="register_mobile_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="register_mobile_number" optional="YES" attributeType="String"/>
+        <attribute name="register_mobile_verification_text" optional="YES" attributeType="String"/>
+        <attribute name="register_others" optional="YES" attributeType="String"/>
+        <attribute name="register_password" optional="YES" attributeType="String"/>
+        <attribute name="register_password_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="register_password_check_same" optional="YES" attributeType="String"/>
+        <attribute name="register_password_min_val" optional="YES" attributeType="String"/>
+        <attribute name="register_resend_code" optional="YES" attributeType="String"/>
+        <attribute name="register_select_location" optional="YES" attributeType="String"/>
+        <attribute name="register_signup" optional="YES" attributeType="String"/>
+        <attribute name="register_take_photo" optional="YES" attributeType="String"/>
+        <attribute name="reject" optional="YES" attributeType="String"/>
+        <attribute name="relationship_id_messagenot_valid" optional="YES" attributeType="String"/>
+        <attribute name="religious_inclination" optional="YES" attributeType="String"/>
+        <attribute name="remove" optional="YES" attributeType="String"/>
+        <attribute name="remove_photo" optional="YES" attributeType="String"/>
+        <attribute name="rename_folder" optional="YES" attributeType="String"/>
+        <attribute name="report" optional="YES" attributeType="String"/>
+        <attribute name="report_article" optional="YES" attributeType="String"/>
+        <attribute name="report_chirpy" optional="YES" attributeType="String"/>
+        <attribute name="report_confirmation" optional="YES" attributeType="String"/>
+        <attribute name="report_event" optional="YES" attributeType="String"/>
+        <attribute name="report_fav_webSites" optional="YES" attributeType="String"/>
+        <attribute name="report_forum" optional="YES" attributeType="String"/>
+        <attribute name="report_gallery" optional="YES" attributeType="String"/>
+        <attribute name="report_group" optional="YES" attributeType="String"/>
+        <attribute name="report_group_alert_message" optional="YES" attributeType="String"/>
+        <attribute name="report_poll" optional="YES" attributeType="String"/>
+        <attribute name="report_product" optional="YES" attributeType="String"/>
+        <attribute name="report_shared_post" optional="YES" attributeType="String"/>
+        <attribute name="report_shout" optional="YES" attributeType="String"/>
+        <attribute name="report_user" optional="YES" attributeType="String"/>
+        <attribute name="request_send" optional="YES" attributeType="String"/>
+        <attribute name="reset" optional="YES" attributeType="String"/>
+        <attribute name="reset_confirm_password" optional="YES" attributeType="String"/>
+        <attribute name="reset_confirm_password_blank" optional="YES" attributeType="String"/>
+        <attribute name="reset_enter_otp" optional="YES" attributeType="String"/>
+        <attribute name="reset_new_password" optional="YES" attributeType="String"/>
+        <attribute name="reset_new_password_and_confirm_password_mismatch" optional="YES" attributeType="String"/>
+        <attribute name="reset_new_password_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="reset_password" optional="YES" attributeType="String"/>
+        <attribute name="reset_password_changed_successfully" optional="YES" attributeType="String"/>
+        <attribute name="reset_password_min_val" optional="YES" attributeType="String"/>
+        <attribute name="reset_update" optional="YES" attributeType="String"/>
+        <attribute name="reset_verification_code_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="reset_verification_code_incorrect" optional="YES" attributeType="String"/>
+        <attribute name="reset_verification_code_invalid" optional="YES" attributeType="String"/>
+        <attribute name="restore_purchased" optional="YES" attributeType="String"/>
+        <attribute name="restored_success" optional="YES" attributeType="String"/>
+        <attribute name="restricted_file" optional="YES" attributeType="String"/>
+        <attribute name="retry" optional="YES" attributeType="String"/>
+        <attribute name="reviews" optional="YES" attributeType="String"/>
+        <attribute name="save" optional="YES" attributeType="String"/>
+        <attribute name="search" optional="YES" attributeType="String"/>
+        <attribute name="search_buy_seller_and_product_name" optional="YES" attributeType="String"/>
+        <attribute name="search_friends" optional="YES" attributeType="String"/>
+        <attribute name="select_category" optional="YES" attributeType="String"/>
+        <attribute name="select_category_of_article" optional="YES" attributeType="String"/>
+        <attribute name="select_category_of_chirpy" optional="YES" attributeType="String"/>
+        <attribute name="select_category_of_event" optional="YES" attributeType="String"/>
+        <attribute name="select_category_of_gallery" optional="YES" attributeType="String"/>
+        <attribute name="select_category_of_poll" optional="YES" attributeType="String"/>
+        <attribute name="select_country" optional="YES" attributeType="String"/>
+        <attribute name="select_image" optional="YES" attributeType="String"/>
+        <attribute name="select_language" optional="YES" attributeType="String"/>
+        <attribute name="seller_information" optional="YES" attributeType="String"/>
+        <attribute name="settings" optional="YES" attributeType="String"/>
+        <attribute name="settings_change_password" optional="YES" attributeType="String"/>
+        <attribute name="settings_email_notifications" optional="YES" attributeType="String"/>
+        <attribute name="settings_feedback" optional="YES" attributeType="String"/>
+        <attribute name="settings_language" optional="YES" attributeType="String"/>
+        <attribute name="settings_push_notifications" optional="YES" attributeType="String"/>
+        <attribute name="settings_terms_conditions" optional="YES" attributeType="String"/>
+        <attribute name="share" optional="YES" attributeType="String"/>
+        <attribute name="share_within_seven_chats" optional="YES" attributeType="String"/>
+        <attribute name="shared_article" optional="YES" attributeType="String"/>
+        <attribute name="shared_chirpy" optional="YES" attributeType="String"/>
+        <attribute name="shared_event" optional="YES" attributeType="String"/>
+        <attribute name="shared_files" optional="YES" attributeType="String"/>
+        <attribute name="shared_forum" optional="YES" attributeType="String"/>
+        <attribute name="shared_gallery" optional="YES" attributeType="String"/>
+        <attribute name="shared_list" optional="YES" attributeType="String"/>
+        <attribute name="shared_polls" optional="YES" attributeType="String"/>
+        <attribute name="shared_post" optional="YES" attributeType="String"/>
+        <attribute name="shared_post_created_successfully" optional="YES" attributeType="String"/>
+        <attribute name="shared_post_edited_successfully" optional="YES" attributeType="String"/>
+        <attribute name="shared_shared" optional="YES" attributeType="String"/>
+        <attribute name="shared_shout" optional="YES" attributeType="String"/>
+        <attribute name="shout" optional="YES" attributeType="String"/>
+        <attribute name="shout_created_successfully" optional="YES" attributeType="String"/>
+        <attribute name="shout_details" optional="YES" attributeType="String"/>
+        <attribute name="shout_edited_successfully" optional="YES" attributeType="String"/>
+        <attribute name="shout_message_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_chats" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_connect_invite" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_event_calendar" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_fav_websites" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_groups" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_home" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_logout" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_news" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_notifications" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_post_ads" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_profile" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_quotes" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_settings" optional="YES" attributeType="String"/>
+        <attribute name="skip" optional="YES" attributeType="String"/>
+        <attribute name="sold" optional="YES" attributeType="String"/>
+        <attribute name="sorry_your_device_is_not_support_mail" optional="YES" attributeType="String"/>
+        <attribute name="sort" optional="YES" attributeType="String"/>
+        <attribute name="sort_by" optional="YES" attributeType="String"/>
+        <attribute name="start_date" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="store" optional="YES" attributeType="String"/>
+        <attribute name="stores" optional="YES" attributeType="String"/>
+        <attribute name="student" optional="YES" attributeType="String"/>
+        <attribute name="subscription_cancel_alert_message" optional="YES" attributeType="String"/>
+        <attribute name="targeted_content_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="terms_and_conditions" optional="YES" attributeType="String"/>
+        <attribute name="there_is_no_friend_to_connect" optional="YES" attributeType="String"/>
+        <attribute name="there_is_some_issue_in_uploading_file" optional="YES" attributeType="String"/>
+        <attribute name="there_is_some_issue_in_uploading_files" optional="YES" attributeType="String"/>
+        <attribute name="think_it_is_scam" optional="YES" attributeType="String"/>
+        <attribute name="this_content_is_not_available" optional="YES" attributeType="String"/>
+        <attribute name="this_content_is_not_available_text" optional="YES" attributeType="String"/>
+        <attribute name="this_feature_is_not_available_go_to_website" optional="YES" attributeType="String"/>
+        <attribute name="time_spent" optional="YES" attributeType="String"/>
+        <attribute name="today" optional="YES" attributeType="String"/>
+        <attribute name="try_again" optional="YES" attributeType="String"/>
+        <attribute name="type_your_message" optional="YES" attributeType="String"/>
+        <attribute name="ublock_user" optional="YES" attributeType="String"/>
+        <attribute name="un_employed" optional="YES" attributeType="String"/>
+        <attribute name="un_supported_file_type" optional="YES" attributeType="String"/>
+        <attribute name="unblock" optional="YES" attributeType="String"/>
+        <attribute name="unblock_user" optional="YES" attributeType="String"/>
+        <attribute name="unblock_user_alert" optional="YES" attributeType="String"/>
+        <attribute name="unfriend" optional="YES" attributeType="String"/>
+        <attribute name="upgrade_now" optional="YES" attributeType="String"/>
+        <attribute name="upgrade_storage" optional="YES" attributeType="String"/>
+        <attribute name="upload_image" optional="YES" attributeType="String"/>
+        <attribute name="upload_media" optional="YES" attributeType="String"/>
+        <attribute name="uploading" optional="YES" attributeType="String"/>
+        <attribute name="url_not_found" optional="YES" attributeType="String"/>
+        <attribute name="user" optional="YES" attributeType="String"/>
+        <attribute name="user_deleted_this_message" optional="YES" attributeType="String"/>
+        <attribute name="using" optional="YES" attributeType="String"/>
+        <attribute name="validation_for_age_in_post" optional="YES" attributeType="String"/>
+        <attribute name="verify_code_cant_blank" optional="YES" attributeType="String"/>
+        <attribute name="verify_email" optional="YES" attributeType="String"/>
+        <attribute name="verify_mobile" optional="YES" attributeType="String"/>
+        <attribute name="video" optional="YES" attributeType="String"/>
+        <attribute name="video_formate_not_supported" optional="YES" attributeType="String"/>
+        <attribute name="video_size_is_large" optional="YES" attributeType="String"/>
+        <attribute name="view_all" optional="YES" attributeType="String"/>
+        <attribute name="view_complete_profile" optional="YES" attributeType="String"/>
+        <attribute name="view_image" optional="YES" attributeType="String"/>
+        <attribute name="vote" optional="YES" attributeType="String"/>
+        <attribute name="votes" optional="YES" attributeType="String"/>
+        <attribute name="which_types_of_post_you_are_looking" optional="YES" attributeType="String"/>
+        <attribute name="why_are_you_reporting_this_product" optional="YES" attributeType="String"/>
+        <attribute name="write_about_your_problem" optional="YES" attributeType="String"/>
+        <attribute name="write_an_article_content_here" optional="YES" attributeType="String"/>
+        <attribute name="write_an_event_content_here" optional="YES" attributeType="String"/>
+        <attribute name="write_your_message_here" optional="YES" attributeType="String"/>
+        <attribute name="write_your_message_here_optional" optional="YES" attributeType="String"/>
+        <attribute name="year" optional="YES" attributeType="String"/>
+        <attribute name="yes" optional="YES" attributeType="String"/>
+        <attribute name="yesterday" optional="YES" attributeType="String"/>
+        <attribute name="you_blocked_this_user" optional="YES" attributeType="String"/>
+        <attribute name="you_cant_see_profile" optional="YES" attributeType="String"/>
+        <attribute name="you_havent_shared_any_folders_with_your_friends" optional="YES" attributeType="String"/>
+        <attribute name="your_device_does_not_support_camera" optional="YES" attributeType="String"/>
+        <attribute name="your_information" optional="YES" attributeType="String"/>
+        <attribute name="your_rating" optional="YES" attributeType="String"/>
+        <attribute name="your_request_to_join_group_has_been_sent_to_admin" optional="YES" attributeType="String"/>
+        <attribute name="your_storage_is_full_need_to_upgrade_storage" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="TblMessages" representedClassName="TblMessages" syncable="YES" codeGenerationType="class">
+        <attribute name="channel_id" optional="YES" attributeType="String"/>
+        <attribute name="chat_time" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="chat_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="created_at" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="forwarded_msg_id" optional="YES" attributeType="String"/>
+        <attribute name="full_name" optional="YES" attributeType="String"/>
+        <attribute name="group_id" optional="YES" attributeType="String"/>
+        <attribute name="isMediaDownloading" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isMediaUploadedOnServer" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="isMediaUploadingRunning" optional="YES" attributeType="Integer 16" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="localMediaUrl" optional="YES" attributeType="String"/>
+        <attribute name="media_name" optional="YES" attributeType="String"/>
+        <attribute name="message" optional="YES" attributeType="String"/>
+        <attribute name="message_actual_timestamp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="message_Delivered" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="message_id" optional="YES" attributeType="String"/>
+        <attribute name="msg_time" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="msg_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="msgdate" optional="YES" attributeType="String"/>
+        <attribute name="profile_image" optional="YES" attributeType="String"/>
+        <attribute name="publish_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="read_users" optional="YES" attributeType="String"/>
+        <attribute name="recv_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sender_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="status_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="thumb_name" optional="YES" attributeType="String"/>
+        <attribute name="thumb_url" optional="YES" attributeType="String"/>
+        <attribute name="users" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="TblNewsCategory" representedClassName="TblNewsCategory" syncable="YES" codeGenerationType="class">
+        <attribute name="category_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="category_name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="TblRelation" representedClassName="TblRelation" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="relationship_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="TblUser" representedClassName="TblUser" syncable="YES" codeGenerationType="class">
+        <attribute name="account_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="annual_income_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="badge_count" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="block_unblock_status" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="country_code" optional="YES" attributeType="String"/>
+        <attribute name="country_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dob" optional="YES" attributeType="String"/>
+        <attribute name="education_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="email_notify" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="employment_status" optional="YES" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="first_name" optional="YES" attributeType="String"/>
+        <attribute name="friend_block_unblock_status" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="friend_report_status" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="friend_status" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="friends" optional="YES" attributeType="Transformable"/>
+        <attribute name="gender" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="interests" optional="YES" attributeType="Transformable"/>
+        <attribute name="lang_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="last_name" optional="YES" attributeType="String"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="mobile" optional="YES" attributeType="String"/>
+        <attribute name="profession" optional="YES" attributeType="String"/>
+        <attribute name="profile_img" optional="YES" attributeType="String"/>
+        <attribute name="profile_url" optional="YES" attributeType="String"/>
+        <attribute name="push_notify" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="relationship_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="religion" optional="YES" attributeType="String"/>
+        <attribute name="short_biography" optional="YES" attributeType="String"/>
+        <attribute name="total_friends" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="total_like" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="total_post" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="user_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="user_type" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="visible_to_friend" optional="YES" attributeType="Integer 16" usesScalarValueType="YES"/>
+        <attribute name="visible_to_other" optional="YES" attributeType="Integer 16" usesScalarValueType="YES"/>
+    </entity>
+    <elements>
+        <element name="TblAdvertise" positionX="-45" positionY="135" width="128" height="165"/>
+        <element name="TblAnnualIncomes" positionX="-54" positionY="144" width="128" height="75"/>
+        <element name="TblChatGroupList" positionX="-45" positionY="135" width="128" height="269"/>
+        <element name="TblChatUserList" positionX="-45" positionY="135" width="128" height="285"/>
+        <element name="TblCountry" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="TblEducation" positionX="-36" positionY="153" width="128" height="75"/>
+        <element name="TblFeedbackList" positionX="-45" positionY="135" width="128" height="75"/>
+        <element name="TblInterest" positionX="-45" positionY="135" width="128" height="90"/>
+        <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
+        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="8923"/>
+        <element name="TblMessages" positionX="-45" positionY="135" width="128" height="463"/>
+        <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
+        <element name="TblRelation" positionX="-63" positionY="135" width="128" height="75"/>
+        <element name="TblUser" positionX="-63" positionY="18" width="128" height="630"/>
+    </elements>
+</model>

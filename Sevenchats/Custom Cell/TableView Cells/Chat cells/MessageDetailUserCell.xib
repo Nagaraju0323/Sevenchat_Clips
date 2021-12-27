@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Light.otf">
+            <string>Poppins-Light</string>
+        </array>
+        <array key="Poppins-Regular.otf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageDetailUserCell" rowHeight="65" id="YFw-18-ieD" customClass="MessageDetailUserCell" customModule="Sevenchats">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YFw-18-ieD" id="m6X-gQ-IBQ">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="Mrz-Nr-Rp2">
+                        <rect key="frame" x="20" y="13.5" width="38" height="38"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="38" id="828-yV-kAb"/>
+                            <constraint firstAttribute="width" constant="38" id="izX-ZI-dBG"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Dilly Bennett" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uDl-oW-Fmi" customClass="MIGenericLabel" customModule="MOOSA">
+                        <rect key="frame" x="66" y="15" width="289" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="yPM-ss-AGX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Delivered on: 22 Jun, 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKo-T5-hAd" customClass="MIGenericLabel" customModule="MOOSA">
+                        <rect key="frame" x="66" y="36" width="289" height="15.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="gRf-10-Mpa"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="11"/>
+                        <color key="textColor" red="0.50588235290000005" green="0.47843137250000001" blue="0.47843137250000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aqs-x5-AH0">
+                        <rect key="frame" x="66" y="63.5" width="289" height="1"/>
+                        <color key="backgroundColor" red="0.81960784310000001" green="0.77647058820000003" blue="0.77647058820000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="2wk-OQ-aPL"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="gKo-T5-hAd" secondAttribute="trailing" constant="20" id="3UH-Iy-tdT"/>
+                    <constraint firstAttribute="trailing" secondItem="Aqs-x5-AH0" secondAttribute="trailing" constant="20" id="4RB-3C-VtU"/>
+                    <constraint firstItem="Aqs-x5-AH0" firstAttribute="leading" secondItem="m6X-gQ-IBQ" secondAttribute="leading" constant="66" id="HIf-Fb-elm"/>
+                    <constraint firstAttribute="bottom" secondItem="Aqs-x5-AH0" secondAttribute="bottom" id="JES-ND-Jva"/>
+                    <constraint firstItem="gKo-T5-hAd" firstAttribute="top" secondItem="uDl-oW-Fmi" secondAttribute="bottom" constant="1" id="R3l-oP-8r4"/>
+                    <constraint firstItem="Mrz-Nr-Rp2" firstAttribute="leading" secondItem="m6X-gQ-IBQ" secondAttribute="leading" constant="20" id="U1t-h6-sEZ"/>
+                    <constraint firstAttribute="trailing" secondItem="uDl-oW-Fmi" secondAttribute="trailing" constant="20" id="ULo-fC-irH"/>
+                    <constraint firstItem="Aqs-x5-AH0" firstAttribute="top" secondItem="gKo-T5-hAd" secondAttribute="bottom" constant="12.5" id="Uch-DN-hEh"/>
+                    <constraint firstItem="uDl-oW-Fmi" firstAttribute="top" secondItem="m6X-gQ-IBQ" secondAttribute="top" constant="15" id="cCN-y7-x29"/>
+                    <constraint firstItem="uDl-oW-Fmi" firstAttribute="leading" secondItem="Mrz-Nr-Rp2" secondAttribute="trailing" constant="8" id="chc-wL-B0i"/>
+                    <constraint firstItem="gKo-T5-hAd" firstAttribute="leading" secondItem="Mrz-Nr-Rp2" secondAttribute="trailing" constant="8" id="hSk-16-EOB"/>
+                    <constraint firstItem="Mrz-Nr-Rp2" firstAttribute="centerY" secondItem="m6X-gQ-IBQ" secondAttribute="centerY" id="qx0-oO-dci"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="imgUser" destination="Mrz-Nr-Rp2" id="fsy-Vd-qlL"/>
+                <outlet property="lblDeliverTime" destination="gKo-T5-hAd" id="t8A-Va-2EY"/>
+                <outlet property="lblUserName" destination="uDl-oW-Fmi" id="3X2-1i-KSu"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="avtar.png" width="126" height="126"/>
+    </resources>
+</document>

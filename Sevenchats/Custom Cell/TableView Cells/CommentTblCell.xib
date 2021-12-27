@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.otf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentTblCell" rowHeight="120" id="vXI-Fx-dod" customClass="CommentTblCell" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vXI-Fx-dod" id="QOz-oa-1kf">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="mcP-cQ-VkH">
+                        <rect key="frame" x="20" y="10" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="b17-zx-MEc"/>
+                            <constraint firstAttribute="height" constant="40" id="xuV-Hh-1BD"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ha2-9N-V4f">
+                        <rect key="frame" x="20" y="10" width="40" height="40"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Lily Morie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9Q-bk-F7D" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                        <rect key="frame" x="70" y="10" width="64.5" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="RH6-5m-MnP"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j86-xQ-NSE">
+                        <rect key="frame" x="70" y="10" width="64.5" height="18"/>
+                    </button>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hailey Baldwin and Kendall jenner attended an " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjo-X2-AkS" customClass="ActiveLabel" customModule="ActiveLabel">
+                        <rect key="frame" x="70" y="53" width="285" height="39"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="ruo-Mx-xUw"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="13"/>
+                        <color key="textColor" red="0.34509803919999998" green="0.34509803919999998" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a day ago" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3EI-Lz-2Fz" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                        <rect key="frame" x="70" y="32" width="62" height="17"/>
+                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
+                        <color key="textColor" red="0.65490196079999996" green="0.67843137249999996" blue="0.67843137249999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G9g-4J-0Wg">
+                        <rect key="frame" x="20" y="119" width="335" height="1"/>
+                        <color key="backgroundColor" red="0.87058823529411766" green="0.8666666666666667" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="YKD-2H-ff4"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iV-cg-3St">
+                        <rect key="frame" x="337" y="15" width="30" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="Z7E-Ed-DEq"/>
+                        </constraints>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" image="ic_btn_nav_more"/>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="G9g-4J-0Wg" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Fjo-X2-AkS" secondAttribute="bottom" constant="5" id="0E4-lN-aBA"/>
+                    <constraint firstItem="j86-xQ-NSE" firstAttribute="width" secondItem="Z9Q-bk-F7D" secondAttribute="width" id="3i4-Au-Qpx"/>
+                    <constraint firstItem="Z9Q-bk-F7D" firstAttribute="top" secondItem="mcP-cQ-VkH" secondAttribute="top" id="6Qd-yU-MnD"/>
+                    <constraint firstItem="Z9Q-bk-F7D" firstAttribute="leading" secondItem="mcP-cQ-VkH" secondAttribute="trailing" constant="10" id="7WT-En-Pkp"/>
+                    <constraint firstItem="ha2-9N-V4f" firstAttribute="centerX" secondItem="mcP-cQ-VkH" secondAttribute="centerX" id="8nS-s7-ORN"/>
+                    <constraint firstAttribute="trailing" secondItem="Fjo-X2-AkS" secondAttribute="trailing" constant="20" id="9WJ-FP-rc2"/>
+                    <constraint firstItem="3EI-Lz-2Fz" firstAttribute="leading" secondItem="Z9Q-bk-F7D" secondAttribute="leading" id="Efy-8k-UCR"/>
+                    <constraint firstItem="j86-xQ-NSE" firstAttribute="centerX" secondItem="Z9Q-bk-F7D" secondAttribute="centerX" id="Gf9-d3-Upy"/>
+                    <constraint firstItem="3EI-Lz-2Fz" firstAttribute="top" secondItem="Z9Q-bk-F7D" secondAttribute="bottom" constant="4" id="HTz-hw-BHA"/>
+                    <constraint firstItem="ha2-9N-V4f" firstAttribute="centerY" secondItem="mcP-cQ-VkH" secondAttribute="centerY" id="NVO-we-CaE"/>
+                    <constraint firstItem="j86-xQ-NSE" firstAttribute="centerY" secondItem="Z9Q-bk-F7D" secondAttribute="centerY" id="OOV-8q-giN"/>
+                    <constraint firstItem="G9g-4J-0Wg" firstAttribute="leading" secondItem="QOz-oa-1kf" secondAttribute="leading" constant="20" id="RTm-DF-Oob"/>
+                    <constraint firstAttribute="bottom" secondItem="G9g-4J-0Wg" secondAttribute="bottom" id="SVW-J8-FTe"/>
+                    <constraint firstItem="Fjo-X2-AkS" firstAttribute="top" secondItem="3EI-Lz-2Fz" secondAttribute="bottom" constant="4" id="TZR-DF-IrE"/>
+                    <constraint firstItem="mcP-cQ-VkH" firstAttribute="leading" secondItem="QOz-oa-1kf" secondAttribute="leading" constant="20" id="Tga-bw-pmv"/>
+                    <constraint firstItem="0iV-cg-3St" firstAttribute="top" secondItem="QOz-oa-1kf" secondAttribute="top" constant="15" id="XsA-h0-sIh"/>
+                    <constraint firstItem="j86-xQ-NSE" firstAttribute="height" secondItem="Z9Q-bk-F7D" secondAttribute="height" id="Ybd-77-Qfa"/>
+                    <constraint firstAttribute="trailing" secondItem="G9g-4J-0Wg" secondAttribute="trailing" constant="20" id="gJc-kz-SR6"/>
+                    <constraint firstItem="mcP-cQ-VkH" firstAttribute="top" secondItem="QOz-oa-1kf" secondAttribute="top" constant="10" id="igc-oZ-mhF"/>
+                    <constraint firstItem="ha2-9N-V4f" firstAttribute="height" secondItem="mcP-cQ-VkH" secondAttribute="height" id="ixT-cm-gYj"/>
+                    <constraint firstAttribute="trailing" secondItem="0iV-cg-3St" secondAttribute="trailing" constant="8" id="m1V-l0-BmH"/>
+                    <constraint firstItem="Fjo-X2-AkS" firstAttribute="leading" secondItem="mcP-cQ-VkH" secondAttribute="trailing" constant="10" id="q7H-k9-i4V"/>
+                    <constraint firstItem="ha2-9N-V4f" firstAttribute="width" secondItem="mcP-cQ-VkH" secondAttribute="width" id="wRd-fb-ZQy"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="btnMoreOption" destination="0iV-cg-3St" id="nHa-VA-Yv6"/>
+                <outlet property="btnUserImage" destination="ha2-9N-V4f" id="1LQ-sT-6CY"/>
+                <outlet property="btnUserName" destination="j86-xQ-NSE" id="sep-TL-ge6"/>
+                <outlet property="imgUser" destination="mcP-cQ-VkH" id="d7C-vV-Uwq"/>
+                <outlet property="lblCommentPostDate" destination="3EI-Lz-2Fz" id="ONh-pv-AzO"/>
+                <outlet property="lblCommentText" destination="Fjo-X2-AkS" id="Lqe-gZ-ZRV"/>
+                <outlet property="lblUserName" destination="Z9Q-bk-F7D" id="Kz7-hC-wZW"/>
+                <outlet property="viewDevider" destination="G9g-4J-0Wg" id="hMn-rb-Qoa"/>
+            </connections>
+            <point key="canvasLocation" x="131.15942028985509" y="139.95535714285714"/>
+        </tableViewCell>
+    </objects>
+    <designables>
+        <designable name="Fjo-X2-AkS">
+            <size key="intrinsicContentSize" width="311" height="20"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="avtar.png" width="126" height="126"/>
+        <image name="ic_btn_nav_more" width="5" height="17.5"/>
+    </resources>
+</document>

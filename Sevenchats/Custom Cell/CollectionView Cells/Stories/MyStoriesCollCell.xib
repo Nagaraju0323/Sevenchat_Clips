@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-SemiBold.otf">
+            <string>Poppins-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyStoriesCollCell" id="rKw-fX-ksY" customClass="MyStoriesCollCell" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Wf-Pq-hUa">
+                        <rect key="frame" x="0.0" y="0.0" width="95" height="95"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" image="child" translatesAutoresizingMaskIntoConstraints="NO" id="E7j-wK-Kct">
+                                <rect key="frame" x="22.5" y="10" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="E7j-wK-Kct" secondAttribute="height" id="CwD-yW-t0t"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Stories" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fQm-lR-JI1">
+                                <rect key="frame" x="10" y="65" width="75" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="i8d-s5-2Ei"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="11"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kox-Ef-ys2">
+                                <rect key="frame" x="58" y="40" width="20" height="20"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="QPt-mM-rWj"/>
+                                    <constraint firstAttribute="width" constant="20" id="ddP-pG-SbD"/>
+                                </constraints>
+                                <state key="normal" image="pluslatest"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="E7j-wK-Kct" firstAttribute="top" secondItem="3Wf-Pq-hUa" secondAttribute="top" constant="10" id="2yR-8D-ycv"/>
+                            <constraint firstAttribute="trailing" secondItem="fQm-lR-JI1" secondAttribute="trailing" constant="10" id="6DB-Lf-W0P"/>
+                            <constraint firstAttribute="bottom" secondItem="fQm-lR-JI1" secondAttribute="bottom" constant="10" id="8QC-Fn-fNp"/>
+                            <constraint firstItem="fQm-lR-JI1" firstAttribute="top" secondItem="E7j-wK-Kct" secondAttribute="bottom" constant="5" id="LGq-Xh-mBu"/>
+                            <constraint firstItem="Kox-Ef-ys2" firstAttribute="top" secondItem="E7j-wK-Kct" secondAttribute="bottom" constant="-20" id="ONt-M0-Pes"/>
+                            <constraint firstItem="E7j-wK-Kct" firstAttribute="centerX" secondItem="3Wf-Pq-hUa" secondAttribute="centerX" id="POx-3R-DuT"/>
+                            <constraint firstItem="Kox-Ef-ys2" firstAttribute="leading" secondItem="E7j-wK-Kct" secondAttribute="trailing" constant="-14.5" id="h9t-F2-Rn5"/>
+                            <constraint firstItem="fQm-lR-JI1" firstAttribute="leading" secondItem="3Wf-Pq-hUa" secondAttribute="leading" constant="10" id="kis-8c-DDM"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="Yhz-83-gU1"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="3Wf-Pq-hUa" secondAttribute="trailing" id="F20-bj-LfQ"/>
+                <constraint firstItem="3Wf-Pq-hUa" firstAttribute="top" secondItem="rKw-fX-ksY" secondAttribute="top" id="TgQ-R6-CCp"/>
+                <constraint firstItem="3Wf-Pq-hUa" firstAttribute="leading" secondItem="rKw-fX-ksY" secondAttribute="leading" id="aaU-BE-1vw"/>
+                <constraint firstAttribute="bottom" secondItem="3Wf-Pq-hUa" secondAttribute="bottom" id="exT-Iy-3nY"/>
+            </constraints>
+            <size key="customSize" width="85" height="84"/>
+            <connections>
+                <outlet property="btnMore" destination="Kox-Ef-ys2" id="Cun-8L-koe"/>
+                <outlet property="profileImgView" destination="E7j-wK-Kct" id="avK-t0-09g"/>
+            </connections>
+            <point key="canvasLocation" x="258.6330935251799" y="81.155778894472363"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="child" width="1920" height="1220"/>
+        <image name="pluslatest" width="24" height="24"/>
+    </resources>
+</document>

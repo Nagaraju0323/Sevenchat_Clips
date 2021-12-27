@@ -1,2 +1,2 @@
-# ios2
-Repo created for ios development
+# ios1
+Repo for ios development

@@ -1,0 +1,50 @@
+Upload dSYM
+/Volumes/MyDisk/Project/Sevenchats\ App/Pods/FirebaseCrashlytics/upload-symbols -gsp /Volumes/MyDisk/Project/Sevenchats\ App/Sevenchats/AppGeneralFiles/GoogleService-Info.plist -p ios /Users/ghanshyam/Desktop/appDsyms.zip
+
+
+Add script into archive post-action
+Edit Scheme > Archive > Post Action
+
+${PODS_ROOT}/FirebaseCrashlytics/upload-symbols -gsp ${SRCROOT}/Sevenchats/AppGeneralFiles/GoogleService-Info.plist -p ios ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}
+
+
+# Home Post
+ArticleDetailViewController      -> HomeArticleCell
+ImageDetailViewController        -> HomeGalleryCell
+ChirpyDetailsViewController      -> HomeChirpyTblCell
+ChirpyImageDetailsViewController -> HomeChirpyImageTblCell
+ShoutsDetailViewController       -> HomeShoutsTblCell
+ForumDetailViewController        -> HomeFourmTblCell
+EventDetailViewController        -> HomeEventsCell
+EventDetailImageViewController   -> HomeEventImageTblCell
+PollDetailsViewController        -> HomePollTblCell
+
+
+
+# Home Posts of Shared
+ArticleSharedDetailViewController
+ImageSharedDetailViewController
+ChirpySharedDetailsViewController
+ChirpySharedImageDetailsViewController
+ShoutsSharedDetailViewController
+ForumSharedDetailViewController
+EventSharedDetailViewController
+EventSharedDetailImageViewController
+PollSharedDetailsViewController
+
+
+ProductDetailVC
+
+
+
+MessageReceiverTblCell
+MessageSenderTblCell
+
+ImageSenderTblCell
+ImageReceiverTblCell
+
+AudioSenderTblCell
+AudioReceiverTblCell
+
+LocationSenderTblCell
+LocationReceiverTblCell

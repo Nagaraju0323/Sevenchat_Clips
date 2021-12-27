@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.otf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CalendarHeaderView" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOS-nI-Hq4">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.78823529411764703" green="0.8784313725490196" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Bz3-Qm-M76"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqC-Ft-rTb">
+                    <rect key="frame" x="20" y="0.0" width="70" height="40"/>
+                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                    <state key="normal" title="All Events">
+                        <color key="titleColor" red="0.60784313725490191" green="0.61960784313725492" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nmf-EA-aL8">
+                    <rect key="frame" x="105" y="0.0" width="70" height="40"/>
+                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                    <state key="normal" title="My Events">
+                        <color key="titleColor" red="0.60784313725490191" green="0.61960784313725492" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <state key="selected">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ud8-Wb-ADM">
+                    <rect key="frame" x="0.0" y="39" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.78823529411764703" green="0.8784313725490196" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="wtU-9d-yQc"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NZW-hh-hs4">
+                    <rect key="frame" x="191" y="0.0" width="70" height="39"/>
+                    <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
+                    <state key="normal" title="Holidays">
+                        <color key="titleColor" red="0.60784313729999995" green="0.61960784310000006" blue="0.59215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <state key="selected">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" red="0.94117647058823528" green="0.96078431372549022" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ud8-Wb-ADM" secondAttribute="trailing" id="1Vh-pe-GLP"/>
+                <constraint firstItem="QOS-nI-Hq4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="BdU-N2-Lo8"/>
+                <constraint firstAttribute="trailing" secondItem="QOS-nI-Hq4" secondAttribute="trailing" id="CIn-cd-zLS"/>
+                <constraint firstItem="nmf-EA-aL8" firstAttribute="width" secondItem="bqC-Ft-rTb" secondAttribute="width" id="Dek-FW-vUx"/>
+                <constraint firstItem="nmf-EA-aL8" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Hbw-hN-Qlc"/>
+                <constraint firstItem="bqC-Ft-rTb" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="MKE-8v-8aS"/>
+                <constraint firstItem="bqC-Ft-rTb" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="QHw-LB-EJl"/>
+                <constraint firstItem="NZW-hh-hs4" firstAttribute="width" secondItem="nmf-EA-aL8" secondAttribute="width" id="Sra-xH-CGg"/>
+                <constraint firstItem="ud8-Wb-ADM" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="WXP-hE-m41"/>
+                <constraint firstItem="ud8-Wb-ADM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Wqb-uk-xIk"/>
+                <constraint firstItem="ud8-Wb-ADM" firstAttribute="top" secondItem="NZW-hh-hs4" secondAttribute="bottom" id="XXA-X1-TUa"/>
+                <constraint firstItem="nmf-EA-aL8" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="YOJ-Zt-GQs"/>
+                <constraint firstItem="NZW-hh-hs4" firstAttribute="leading" secondItem="nmf-EA-aL8" secondAttribute="trailing" constant="16" id="ZQO-dy-cA6"/>
+                <constraint firstItem="NZW-hh-hs4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fB6-sl-KY3"/>
+                <constraint firstItem="nmf-EA-aL8" firstAttribute="leading" secondItem="bqC-Ft-rTb" secondAttribute="trailing" constant="15" id="jaJ-Sb-4TG"/>
+                <constraint firstItem="bqC-Ft-rTb" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="pSr-hz-Q1Y"/>
+                <constraint firstItem="QOS-nI-Hq4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="rMT-BL-uuo"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnAllEvent" destination="bqC-Ft-rTb" id="ekY-Zo-oy9"/>
+                <outlet property="btnHolidays" destination="NZW-hh-hs4" id="jmf-4l-JXF"/>
+                <outlet property="btnMyEvent" destination="nmf-EA-aL8" id="KeI-vU-ePs"/>
+            </connections>
+            <point key="canvasLocation" x="25.5" y="52"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="dCz-un-kYs" customClass="AdvertiseView" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="3mI-Hg-pa9">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="w7M-aL-Dy9">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="dCz-un-kYs" id="3oS-pp-dr9"/>
+                        <outlet property="delegate" destination="dCz-un-kYs" id="8q0-PC-wbq"/>
+                    </connections>
+                </collectionView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_top_shadow" translatesAutoresizingMaskIntoConstraints="NO" id="DM7-dV-8YM">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="HZd-ME-SR7"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QNF-oU-kuN">
+                    <rect key="frame" x="340" y="5" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="30" id="8jm-8l-kX0"/>
+                        <constraint firstAttribute="height" constant="30" id="WJS-4q-yrw"/>
+                    </constraints>
+                    <state key="normal" image="ic_close_add"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.14901960780000001" green="0.58823529409999997" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="QNF-oU-kuN" secondAttribute="trailing" constant="5" id="CC0-6g-zN8"/>
+                <constraint firstItem="3mI-Hg-pa9" firstAttribute="leading" secondItem="dCz-un-kYs" secondAttribute="leading" id="Hhj-cQ-i6G"/>
+                <constraint firstItem="DM7-dV-8YM" firstAttribute="leading" secondItem="dCz-un-kYs" secondAttribute="leading" id="MHj-kd-8Ea"/>
+                <constraint firstItem="3mI-Hg-pa9" firstAttribute="top" secondItem="dCz-un-kYs" secondAttribute="top" id="Nn8-Ci-oWo"/>
+                <constraint firstItem="QNF-oU-kuN" firstAttribute="top" secondItem="dCz-un-kYs" secondAttribute="top" constant="5" id="YJm-RI-ndN"/>
+                <constraint firstAttribute="bottom" secondItem="3mI-Hg-pa9" secondAttribute="bottom" id="j6o-hZ-62d"/>
+                <constraint firstAttribute="trailing" secondItem="DM7-dV-8YM" secondAttribute="trailing" id="jqb-5S-qdZ"/>
+                <constraint firstAttribute="trailing" secondItem="3mI-Hg-pa9" secondAttribute="trailing" id="oUh-S8-Gbv"/>
+                <constraint firstItem="DM7-dV-8YM" firstAttribute="top" secondItem="dCz-un-kYs" secondAttribute="top" id="ojm-CG-EPL"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnCloseAdd" destination="QNF-oU-kuN" id="u0c-mY-paf"/>
+                <outlet property="clAdvertise" destination="3mI-Hg-pa9" id="b7A-fp-Bir"/>
+            </connections>
+            <point key="canvasLocation" x="83" y="-176"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_close_add" width="18" height="18"/>
+        <image name="ic_top_shadow" width="639" height="205"/>
+    </resources>
+</document>

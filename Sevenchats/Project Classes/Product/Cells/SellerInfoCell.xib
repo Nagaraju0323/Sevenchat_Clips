@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.otf">
+            <string>Poppins-Medium</string>
+        </array>
+        <array key="Poppins-Regular.otf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="264" id="KGk-i7-Jjw" customClass="SellerInfoCell" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="264"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="263.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" text="Seller Information" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8P-yg-ABp" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                        <rect key="frame" x="20" y="4" width="123" height="20"/>
+                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                        <color key="textColor" red="0.61176470588235299" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2gK-tO-v0w">
+                        <rect key="frame" x="111" y="44" width="98.5" height="94"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="UkS-tt-Z6m">
+                                <rect key="frame" x="19" y="0.0" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="W9q-sv-bBR"/>
+                                    <constraint firstAttribute="width" secondItem="UkS-tt-Z6m" secondAttribute="height" multiplier="1:1" id="aBh-6Y-4Mh"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="752" text="Lily Morie" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZRI-xy-jCN" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                <rect key="frame" x="10" y="70" width="78.5" height="24"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lib-SE-YtT">
+                                <rect key="frame" x="0.0" y="0.0" width="98.5" height="94"/>
+                                <connections>
+                                    <action selector="onUserPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Lr2-55-WWB"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Lib-SE-YtT" secondAttribute="bottom" id="0tZ-jk-Mrw"/>
+                            <constraint firstAttribute="trailing" secondItem="ZRI-xy-jCN" secondAttribute="trailing" constant="10" id="28P-I6-ttp"/>
+                            <constraint firstItem="ZRI-xy-jCN" firstAttribute="top" secondItem="UkS-tt-Z6m" secondAttribute="bottom" constant="10" id="46s-Lb-9SL"/>
+                            <constraint firstItem="Lib-SE-YtT" firstAttribute="leading" secondItem="2gK-tO-v0w" secondAttribute="leading" id="KFL-Ki-Cq4"/>
+                            <constraint firstItem="ZRI-xy-jCN" firstAttribute="leading" secondItem="2gK-tO-v0w" secondAttribute="leading" constant="10" id="SUs-pM-znx"/>
+                            <constraint firstAttribute="trailing" secondItem="Lib-SE-YtT" secondAttribute="trailing" id="Zzp-fU-wW8"/>
+                            <constraint firstItem="UkS-tt-Z6m" firstAttribute="centerX" secondItem="2gK-tO-v0w" secondAttribute="centerX" id="bR5-Yg-JIk"/>
+                            <constraint firstItem="Lib-SE-YtT" firstAttribute="top" secondItem="2gK-tO-v0w" secondAttribute="top" id="brn-IO-IYH"/>
+                            <constraint firstItem="UkS-tt-Z6m" firstAttribute="top" secondItem="2gK-tO-v0w" secondAttribute="top" id="iuN-8n-NLp"/>
+                            <constraint firstAttribute="bottom" secondItem="ZRI-xy-jCN" secondAttribute="bottom" id="xh7-3v-qah"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="juR-bP-Mwo">
+                        <rect key="frame" x="27" y="153" width="266" height="40"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NXU-GM-uCO" customClass="GradientButton" customModule="Sevenchats" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="129" height="40"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="pHt-dg-oqF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="8" maxY="0.0"/>
+                                <state key="normal" title="Contact Seller">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onContactSellerPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8OT-Ap-3l3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dFG-jx-rog" customClass="GradientButton" customModule="Sevenchats" customModuleProvider="target">
+                                <rect key="frame" x="137" y="0.0" width="129" height="40"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                <state key="normal" title="Buy Now">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onBuyPressd:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Qct-UX-zpd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="juR-bP-Mwo" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="DIy-Rw-rYg"/>
+                    <constraint firstItem="2gK-tO-v0w" firstAttribute="top" secondItem="C8P-yg-ABp" secondAttribute="bottom" constant="20" id="G6u-Hc-KJy"/>
+                    <constraint firstItem="C8P-yg-ABp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="NYy-kG-Bxb"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="juR-bP-Mwo" secondAttribute="bottom" constant="20" id="csP-Xx-ugD"/>
+                    <constraint firstItem="C8P-yg-ABp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="dPm-TZ-jds"/>
+                    <constraint firstItem="2gK-tO-v0w" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="lLM-8r-QxQ"/>
+                    <constraint firstItem="juR-bP-Mwo" firstAttribute="top" secondItem="2gK-tO-v0w" secondAttribute="bottom" constant="15" id="n7w-cp-nHc"/>
+                    <constraint firstItem="juR-bP-Mwo" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="yZT-fv-iEp"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnBuyNow" destination="dFG-jx-rog" id="lta-pk-51i"/>
+                <outlet property="btnContactSeller" destination="NXU-GM-uCO" id="Ra6-Mu-6oc"/>
+                <outlet property="imgSeller" destination="UkS-tt-Z6m" id="cZP-6t-s9B"/>
+                <outlet property="lblSellerInfo" destination="C8P-yg-ABp" id="rwb-cG-sxz"/>
+                <outlet property="lblSellerName" destination="ZRI-xy-jCN" id="Bgi-xK-wWa"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="183.48214285714286"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="avtar.png" width="126" height="126"/>
+    </resources>
+</document>

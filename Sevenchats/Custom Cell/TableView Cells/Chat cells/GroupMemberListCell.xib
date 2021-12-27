@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.otf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="91" id="KGk-i7-Jjw" customClass="GroupMemberListCell" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buF-Tq-Pcr" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                        <rect key="frame" x="30" y="15" width="45.5" height="24"/>
+                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dKR-Fp-lfJ">
+                        <rect key="frame" x="265.5" y="15" width="24.5" height="24.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="dKR-Fp-lfJ" secondAttribute="height" multiplier="1:1" id="OGS-dO-fy3"/>
+                        </constraints>
+                        <state key="normal" image="ic_small_checkmark_unselected"/>
+                    </button>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GeL-JB-zrO">
+                        <rect key="frame" x="20" y="90" width="280" height="1"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="Vbc-Ht-bZR"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="GeL-JB-zrO" secondAttribute="trailing" constant="20" id="161-Z7-rm0"/>
+                    <constraint firstItem="buF-Tq-Pcr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="AR0-Ec-FCv"/>
+                    <constraint firstAttribute="bottom" secondItem="GeL-JB-zrO" secondAttribute="bottom" id="CiI-MP-cHo"/>
+                    <constraint firstItem="dKR-Fp-lfJ" firstAttribute="centerY" secondItem="buF-Tq-Pcr" secondAttribute="centerY" id="R6b-Ya-73V"/>
+                    <constraint firstAttribute="trailing" secondItem="dKR-Fp-lfJ" secondAttribute="trailing" constant="30" id="VkU-SJ-YFK"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="buF-Tq-Pcr" secondAttribute="bottom" constant="15" id="YiN-ob-XSk"/>
+                    <constraint firstItem="dKR-Fp-lfJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="buF-Tq-Pcr" secondAttribute="trailing" constant="10" id="hEg-Ug-zBj"/>
+                    <constraint firstItem="buF-Tq-Pcr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="nDx-Ir-xLJ"/>
+                    <constraint firstItem="GeL-JB-zrO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="yR9-oJ-vcI"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnRadio" destination="dKR-Fp-lfJ" id="JBM-JI-VHd"/>
+                <outlet property="lblName" destination="buF-Tq-Pcr" id="M9j-fI-jNy"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="119.53125"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_small_checkmark_unselected" width="24.5" height="24.5"/>
+    </resources>
+</document>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="DNI-PN-E2j" customClass="HomeAddPostMenuView" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BCp-fy-V8S">
+                    <rect key="frame" x="290" y="522" width="85" height="85"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="85" id="DUa-jJ-oET"/>
+                        <constraint firstAttribute="width" constant="85" id="ytR-FU-Zap"/>
+                    </constraints>
+                    <state key="normal" image="ic_home_cancel"/>
+                    <connections>
+                        <action selector="btnCloseCLK:" destination="DNI-PN-E2j" eventType="touchUpInside" id="yg9-hs-Hfr"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dLs-Cm-6vX">
+                    <rect key="frame" x="120" y="257" width="170" height="350"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="717-Ge-1tg">
+                            <rect key="frame" x="0.0" y="0.0" width="170" height="350"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="170" id="lMF-BC-Ooe"/>
+                                <constraint firstAttribute="height" constant="350" id="mIt-Ce-HQ7"/>
+                            </constraints>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="717-Ge-1tg" secondAttribute="bottom" id="CBe-HS-Cej"/>
+                        <constraint firstAttribute="trailing" secondItem="717-Ge-1tg" secondAttribute="trailing" id="MQG-ID-26z"/>
+                        <constraint firstItem="717-Ge-1tg" firstAttribute="leading" secondItem="dLs-Cm-6vX" secondAttribute="leading" id="Oto-bS-gSt"/>
+                        <constraint firstItem="717-Ge-1tg" firstAttribute="top" secondItem="dLs-Cm-6vX" secondAttribute="top" id="gJf-0p-Bmi"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Dx6-Kg-ZG8"/>
+            <color key="backgroundColor" white="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Dx6-Kg-ZG8" firstAttribute="bottom" secondItem="BCp-fy-V8S" secondAttribute="bottom" priority="250" constant="60" id="CIu-Jf-mef"/>
+                <constraint firstItem="BCp-fy-V8S" firstAttribute="leading" secondItem="dLs-Cm-6vX" secondAttribute="trailing" id="cl3-7S-jge"/>
+                <constraint firstItem="Dx6-Kg-ZG8" firstAttribute="bottom" secondItem="dLs-Cm-6vX" secondAttribute="bottom" constant="60" id="nnx-R1-9Yr"/>
+                <constraint firstItem="Dx6-Kg-ZG8" firstAttribute="trailing" secondItem="BCp-fy-V8S" secondAttribute="trailing" id="wBf-4G-AzB"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="btnClose" destination="BCp-fy-V8S" id="6ZE-8z-QMu"/>
+                <outlet property="cntHeightTBl" destination="mIt-Ce-HQ7" id="0Bs-7N-iGx"/>
+                <outlet property="tblPostMenu" destination="717-Ge-1tg" id="mRO-0u-yBd"/>
+                <outlet property="viewPopUp" destination="dLs-Cm-6vX" id="LnT-G3-q0z"/>
+            </connections>
+            <point key="canvasLocation" x="115.3125" y="138.90845070422534"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_home_cancel" width="130.5" height="127"/>
+    </resources>
+</document>

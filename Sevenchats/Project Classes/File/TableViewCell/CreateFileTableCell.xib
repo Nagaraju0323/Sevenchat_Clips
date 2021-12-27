@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.otf">
+            <string>Poppins-Medium</string>
+        </array>
+        <array key="Poppins-Regular.otf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CreateFileTableCell" rowHeight="60" id="8Zd-yp-yPd" customClass="CreateFileTableCell" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8Zd-yp-yPd" id="OIY-Rj-gUT">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9UJ-L7-evL" customClass="MIGenericView" customModule="Sevenchats" customModuleProvider="target">
+                        <rect key="frame" x="20" y="5" width="335" height="49.5"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iin-w0-D53">
+                                <rect key="frame" x="0.0" y="0.0" width="335" height="49.5"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYt-9b-urL">
+                                        <rect key="frame" x="0.0" y="0.0" width="5" height="49.5"/>
+                                        <color key="backgroundColor" red="0.47843137250000001" green="0.66666666669999997" blue="0.39607843139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="5" id="Jt4-1L-4z5"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="faI-JS-7Cv">
+                                        <rect key="frame" x="13" y="4" width="87.5" height="41.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="filename.png" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Io-qU-9GO" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="87.5" height="23.5"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dd-mm-yyyy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofL-jg-aqs" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="27.5" width="87.5" height="14"/>
+                                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
+                                                <color key="textColor" red="0.60392156860000001" green="0.61176470589999998" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="uhq-cG-oPc">
+                                        <rect key="frame" x="195" y="4" width="136" height="41.5"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="tSp-wI-22z">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="41.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="60" id="iT8-u2-tZc"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SdV-Lz-i2g">
+                                                <rect key="frame" x="65" y="0.0" width="30" height="41.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="qwu-id-hkq"/>
+                                                </constraints>
+                                                <state key="normal" image="ic_close_green"/>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T6B-H4-6G2">
+                                                <rect key="frame" x="100" y="0.0" width="36" height="41.5"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xOX-Vr-C8b">
+                                                        <rect key="frame" x="0.0" y="8" width="36" height="26"/>
+                                                        <state key="normal" image="ic_share_files"/>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="xOX-Vr-C8b" firstAttribute="leading" secondItem="T6B-H4-6G2" secondAttribute="leading" id="5YH-TU-g1A"/>
+                                                    <constraint firstItem="xOX-Vr-C8b" firstAttribute="centerY" secondItem="T6B-H4-6G2" secondAttribute="centerY" id="6Ro-2J-10p"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xOX-Vr-C8b" secondAttribute="trailing" id="HbQ-ZO-l9K"/>
+                                                    <constraint firstItem="xOX-Vr-C8b" firstAttribute="top" relation="greaterThanOrEqual" secondItem="T6B-H4-6G2" secondAttribute="top" id="fhe-Xo-H4R"/>
+                                                    <constraint firstAttribute="width" constant="36" id="jwS-wZ-j0L"/>
+                                                    <constraint firstItem="xOX-Vr-C8b" firstAttribute="centerX" secondItem="T6B-H4-6G2" secondAttribute="centerX" id="lSg-hW-0uP"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="pYt-9b-urL" firstAttribute="height" secondItem="Iin-w0-D53" secondAttribute="height" id="0JL-vk-bIr"/>
+                                    <constraint firstItem="uhq-cG-oPc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="faI-JS-7Cv" secondAttribute="trailing" constant="8" id="8Nh-uJ-GPD"/>
+                                    <constraint firstItem="faI-JS-7Cv" firstAttribute="leading" secondItem="pYt-9b-urL" secondAttribute="trailing" constant="8" id="RR6-Nw-7Ai"/>
+                                    <constraint firstAttribute="bottom" secondItem="uhq-cG-oPc" secondAttribute="bottom" constant="4" id="Xar-8H-RqL"/>
+                                    <constraint firstItem="faI-JS-7Cv" firstAttribute="top" secondItem="Iin-w0-D53" secondAttribute="top" constant="4" id="gae-Rk-rdu"/>
+                                    <constraint firstItem="uhq-cG-oPc" firstAttribute="top" secondItem="Iin-w0-D53" secondAttribute="top" constant="4" id="hCV-3L-JRU"/>
+                                    <constraint firstAttribute="bottom" secondItem="faI-JS-7Cv" secondAttribute="bottom" constant="4" id="q39-pB-JSg"/>
+                                    <constraint firstItem="pYt-9b-urL" firstAttribute="leading" secondItem="Iin-w0-D53" secondAttribute="leading" id="qii-Tp-SYC"/>
+                                    <constraint firstAttribute="trailing" secondItem="uhq-cG-oPc" secondAttribute="trailing" constant="4" id="viQ-HE-BLe"/>
+                                    <constraint firstItem="pYt-9b-urL" firstAttribute="top" secondItem="Iin-w0-D53" secondAttribute="top" id="xiX-jH-1UR"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Iin-w0-D53" firstAttribute="leading" secondItem="9UJ-L7-evL" secondAttribute="leading" id="Jg5-8b-BEE"/>
+                            <constraint firstAttribute="trailing" secondItem="Iin-w0-D53" secondAttribute="trailing" id="YKZ-V2-Bn5"/>
+                            <constraint firstItem="Iin-w0-D53" firstAttribute="top" secondItem="9UJ-L7-evL" secondAttribute="top" id="Yzi-V0-asc"/>
+                            <constraint firstAttribute="bottom" secondItem="Iin-w0-D53" secondAttribute="bottom" id="hYf-Hr-3qH"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="9UJ-L7-evL" secondAttribute="bottom" constant="5" id="Ai1-6K-CLZ"/>
+                    <constraint firstItem="9UJ-L7-evL" firstAttribute="top" secondItem="OIY-Rj-gUT" secondAttribute="top" constant="5" id="JKV-9Y-vjB"/>
+                    <constraint firstItem="9UJ-L7-evL" firstAttribute="leading" secondItem="OIY-Rj-gUT" secondAttribute="leading" constant="20" id="Mw2-7B-6wl"/>
+                    <constraint firstAttribute="trailing" secondItem="9UJ-L7-evL" secondAttribute="trailing" constant="20" id="q90-PW-YM1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="btnShareFile" destination="xOX-Vr-C8b" id="lzs-ok-Gew"/>
+                <outlet property="btnStatus" destination="SdV-Lz-i2g" id="u2V-kU-q6X"/>
+                <outlet property="imgV" destination="tSp-wI-22z" id="3oe-Ht-mPF"/>
+                <outlet property="lblFileDate" destination="ofL-jg-aqs" id="SKF-rm-U8O"/>
+                <outlet property="lblFileName" destination="0Io-qU-9GO" id="z4m-BT-Dgq"/>
+                <outlet property="viewBack" destination="9UJ-L7-evL" id="gt1-LD-iEv"/>
+                <outlet property="viewMain" destination="Iin-w0-D53" id="Bw8-fj-dQO"/>
+                <outlet property="vwShareFile" destination="T6B-H4-6G2" id="baI-aO-aQj"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="1.jpg" width="284" height="177"/>
+        <image name="ic_close_green" width="15" height="15"/>
+        <image name="ic_share_files" width="18" height="26"/>
+    </resources>
+</document>

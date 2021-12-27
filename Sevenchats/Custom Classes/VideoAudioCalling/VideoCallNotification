@@ -1,0 +1,16 @@
+
+{
+"twi_message_id": "RUd8767f7cb2dee26384a6d9489506ae33",
+"aps": {
+"alert": {
+"body": "This is the body for all Bindings",
+"title": "Short title for Watch."
+}
+},
+"identity": "User3",
+"notification_type": "VideoCall",
+"from-identity": "User2",
+"room_name": "UserRoom3",
+"notification_id": "123sdsad"
+}
+

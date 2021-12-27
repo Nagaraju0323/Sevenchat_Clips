@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.otf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ConnectAllHeaderView" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="434" height="124"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMB-7R-0E0" customClass="MIGenericView" customModule="Sevenchats" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="434" height="52"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connect All" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2I-pR-U4v" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                            <rect key="frame" x="20" y="0.0" width="361" height="52"/>
+                            <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right" translatesAutoresizingMaskIntoConstraints="NO" id="MFr-Up-abu">
+                            <rect key="frame" x="389" y="0.0" width="45" height="52"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="45" id="nSF-y4-FOp"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lht-Jh-z2z">
+                            <rect key="frame" x="0.0" y="0.0" width="434" height="52"/>
+                            <connections>
+                                <action selector="onConnectAllPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="jMb-O8-sJj"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="MFr-Up-abu" secondAttribute="bottom" id="28q-8Q-VmT"/>
+                        <constraint firstItem="MFr-Up-abu" firstAttribute="leading" secondItem="B2I-pR-U4v" secondAttribute="trailing" constant="8" id="68R-Id-RW4"/>
+                        <constraint firstItem="MFr-Up-abu" firstAttribute="top" secondItem="HMB-7R-0E0" secondAttribute="top" id="D7R-mQ-gcu"/>
+                        <constraint firstItem="Lht-Jh-z2z" firstAttribute="top" secondItem="HMB-7R-0E0" secondAttribute="top" id="EI2-9d-dMT"/>
+                        <constraint firstItem="Lht-Jh-z2z" firstAttribute="leading" secondItem="HMB-7R-0E0" secondAttribute="leading" id="KVB-lh-ni3"/>
+                        <constraint firstAttribute="bottom" secondItem="Lht-Jh-z2z" secondAttribute="bottom" id="M7i-Hh-KO4"/>
+                        <constraint firstAttribute="width" secondItem="HMB-7R-0E0" secondAttribute="height" multiplier="25:3" id="O5G-cB-SY3"/>
+                        <constraint firstAttribute="bottom" secondItem="B2I-pR-U4v" secondAttribute="bottom" id="T4c-GK-S0M"/>
+                        <constraint firstItem="B2I-pR-U4v" firstAttribute="leading" secondItem="HMB-7R-0E0" secondAttribute="leading" constant="20" id="Wqk-lK-1cW"/>
+                        <constraint firstAttribute="trailing" secondItem="MFr-Up-abu" secondAttribute="trailing" id="bER-GB-jAU"/>
+                        <constraint firstItem="B2I-pR-U4v" firstAttribute="top" secondItem="HMB-7R-0E0" secondAttribute="top" id="iHj-F2-RrJ"/>
+                        <constraint firstAttribute="trailing" secondItem="Lht-Jh-z2z" secondAttribute="trailing" id="xo2-OU-gx7"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="HMB-7R-0E0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="VJR-U8-fuL"/>
+                <constraint firstItem="HMB-7R-0E0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="rfQ-Wi-4b0"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="HMB-7R-0E0" secondAttribute="bottom" id="y8v-fh-MXt"/>
+                <constraint firstAttribute="trailing" secondItem="HMB-7R-0E0" secondAttribute="trailing" id="z0b-4D-sS3"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="btnSelectAllFriend" destination="Lht-Jh-z2z" id="1u8-s3-mRG"/>
+                <outlet property="imgSelectAllFriend" destination="MFr-Up-abu" id="n8Z-no-5tf"/>
+                <outlet property="lblSelectAll" destination="B2I-pR-U4v" id="IWR-Wj-cc2"/>
+            </connections>
+            <point key="canvasLocation" x="146.37681159420291" y="-120.53571428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_right" width="16.5" height="12"/>
+    </resources>
+</document>

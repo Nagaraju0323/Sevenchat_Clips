@@ -1,0 +1,577 @@
+//
+//  CompleteProfileViewController.swift
+//  Sevenchats
+//
+//  Created by mac-0005 on 29/08/18.
+//  Copyright © 2018 mac-0005. All rights reserved.
+//
+
+import UIKit
+
+class CompleteProfileViewController: ParentViewController {
+    
+    @IBOutlet var txtViewBiography : GenericTextView!
+    @IBOutlet var txtStatus : MIGenericTextFiled!
+    @IBOutlet var txtEducation : MIGenericTextFiled!
+    @IBOutlet var txtReligion : MIGenericTextFiled!
+    @IBOutlet var txtProfession : MIGenericTextFiled!
+    @IBOutlet var txtIncomeLevel : MIGenericTextFiled!
+    @IBOutlet var txtGender : MIGenericTextFiled!
+    @IBOutlet var lblPersonalInterest : UILabel!
+    @IBOutlet var lblProfession : UILabel!
+    @IBOutlet var viewAddInterest : UIView!
+    @IBOutlet var scrollViewContainer : UIView!
+    @IBOutlet var clInterest : UICollectionView!
+    @IBOutlet var btnEmployed : UIButton!
+    @IBOutlet var btnUnEmployed : UIButton!
+    @IBOutlet var btnStudent : UIButton!
+    @IBOutlet var btnAddInterest : UIButton!
+    
+    @IBOutlet var btnTextfiledClearStatus : UIButton!
+    @IBOutlet var btnTextfiledClearEducation : UIButton!
+    @IBOutlet var btnTextfiledClearIncomLevel : UIButton!
+    @IBOutlet var vwProfessionAndIncome : UIView!
+    
+    @IBOutlet var scrollView : UIScrollView!
+    
+    var arrInterest = [[String : Any]]()
+    var relationshipID = 0
+    var incomeID = 0
+    var educationID = 0
+    var educationName = ""
+    var relationShip = ""
+    var inCome = ""
+   
+    
+    //Newchanges
+    var firstName_edit:String?
+    var lastName_edit:String?
+    var dob_edit:String?
+    var isSelected:Bool?
+  
+   
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        Initialization()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateUIAccordingToLanguage()
+        btnAddInterest.isHidden = true
+        lblProfession.isHidden = true
+        viewAddInterest.isHidden = true
+        lblPersonalInterest.isHidden = true
+        
+        viewAddInterest.backgroundColor = .clear
+        
+    }
+    
+    // MARK:- ---------- Initialization
+    
+    func Initialization(){
+        self.title = CNavCompleteProfile
+        
+        viewAddInterest.layer.cornerRadius = 3
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_save_profile"), style: .plain, target: self, action: #selector(btnCompleteClicked(_:)))
+        
+        self.prefilledUserDetail()
+        
+        txtGender.setPickerData(arrPickerData: [CRegisterGenderMale, CRegisterGenderFemale ,CRegisterGenderOther], selectedPickerDataHandler: { (text, row, component) in
+        }, defaultPlaceholder: "")
+        
+    }
+    
+    func updateUIAccordingToLanguage(){
+        
+        if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
+            // Reverse Flow...
+            btnEmployed.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 3)
+            btnEmployed.contentHorizontalAlignment = .right
+            
+            btnUnEmployed.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 3)
+            btnUnEmployed.contentHorizontalAlignment = .right
+            
+            btnStudent.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 3)
+            btnStudent.contentHorizontalAlignment = .right
+            
+            clInterest.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        }else{
+            // Normal Flow...
+            btnEmployed.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
+            btnEmployed.contentHorizontalAlignment = .left
+            
+            btnUnEmployed.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
+            btnUnEmployed.contentHorizontalAlignment = .left
+            
+            btnStudent.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
+            btnStudent.contentHorizontalAlignment = .left
+            
+            clInterest.transform = CGAffineTransform.identity
+        }
+        
+        txtViewBiography.placeHolder = CProfilePlaceholderBiography
+        txtGender.placeHolder = CRegisterPlaceholderGender
+        txtStatus.placeHolder = CProfilePlaceholderStatus
+        txtEducation.placeHolder = CProfilePlaceholderEducation
+        txtReligion.placeHolder = CProfilePlaceholderReligiousInclination
+        txtProfession.placeHolder = CProfilePlaceholderEnterProfession
+        txtIncomeLevel.placeHolder = CProfilePlaceholderReligiousIncomeLevel
+        lblPersonalInterest.text = CProfilePlaceholderReligiousPersonalInterest
+        lblProfession.text = CProfilePlaceholderProfession
+        btnAddInterest.setTitle("+" + "    " + CBtnAddYourInterest, for: .normal)
+        btnEmployed.setTitle(CProfilePlaceholderEmployed, for: .normal)
+        btnUnEmployed.setTitle(CBtnUnemployed, for: .normal)
+        btnStudent.setTitle(CBtnStudent, for: .normal)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.scrollView.contentOffset = CGPoint.zero
+        }
+    }
+    
+    func prefilledUserDetail() {
+        
+        self.loadRelationList()
+        self.loadAnnualIncomeList()
+        self.loadEducationList()
+        
+        txtViewBiography.text = appDelegate.loginUser?.short_biography
+        txtReligion.text = appDelegate.loginUser?.religion
+        txtStatus.text = appDelegate.loginUser?.relationship
+        txtEducation.text  = appDelegate.loginUser?.education_name
+        txtIncomeLevel.text = appDelegate.loginUser?.annual_income
+        
+        if Int((appDelegate.loginUser?.gender)!) == CMale {
+            txtGender.text = CRegisterGenderMale
+        } else if Int((appDelegate.loginUser?.gender)!) == CFemale {
+            txtGender.text = CRegisterGenderFemale
+        } else{
+            txtGender.text = CRegisterGenderOther
+        }
+        
+        switch appDelegate.loginUser?.employment_status {
+        case 1:
+            self.btnProfessionCLK(btnEmployed)
+            txtProfession.text = appDelegate.loginUser?.profession
+        case 2:
+            self.btnProfessionCLK(btnUnEmployed)
+            txtProfession.text = nil
+        case 3:
+            self.btnProfessionCLK(btnStudent)
+            txtProfession.text = nil
+        default:
+            /*txtProfession.hide(byHeight: true)
+            _ = txtProfession.setConstraintConstant(0, edge: .top, ancestor: true)*/
+            
+            self.vwProfessionAndIncome.hide(byHeight: true)
+            break
+        }
+        
+        GCDMainThread.async {
+            if !(self.txtProfession.text?.isBlank)! {
+                self.txtProfession.updatePlaceholderFrame(true)
+            }
+            
+            if !(self.txtIncomeLevel.text?.isBlank)! {
+                self.txtIncomeLevel.updatePlaceholderFrame(true)
+            }
+            
+            if !(self.txtViewBiography.text?.isBlank)! {
+                self.txtViewBiography.updatePlaceholderFrame(true)
+            }
+            
+            for txtInfo in self.scrollViewContainer.subviews{
+                if let textInfo = txtInfo as? MIGenericTextFiled {
+                    if !(textInfo.text?.isBlank)! {
+                        textInfo.updatePlaceholderFrame(true)
+                        textInfo.showHideClearTextButton()
+                    }
+                }
+            }
+        }
+        
+//        arrInterest = appDelegate.loginUser?.interests as! [[String : AnyObject]]
+        guard let addIntrest = appDelegate.loginUser?.interests as? [[String : AnyObject]] else {
+            return
+        }
+        arrInterest = addIntrest
+        clInterest.reloadData()
+    }
+    
+    
+    func loadRelationList(){
+        //Oldcode by Mi
+        /*
+         let arr = TblRelation.fetch(predicate: NSPredicate(format: "%K == %d", CRelationship_id, (appDelegate.loginUser?.relationship_id)!), orderBy: CName, ascending: true)
+        let arrData = TblRelation.fetch(predicate: nil, orderBy: CName, ascending: true)
+        let arrRelation = arrData?.value(forKeyPath: CName) as? [Any]
+         */
+        let arr = TblRelation.fetch(predicate: NSPredicate(format: "%K == %s", CName, CName), orderBy:CName, ascending: true)
+        let arrData = TblRelation.fetch(predicate: nil, orderBy: CName, ascending: true)
+        let arrRelation = arrData?.value(forKeyPath: CName) as? [Any]
+        
+        //...Prefill relation status
+        if (arr?.count)! > 0 {
+            let dict = arr![0] as? TblRelation
+            txtStatus.text = dict?.name
+            self.btnTextfiledClearStatus.isSelected = true
+            //Oldcode by Mi
+//             self.relationshipID = Int(Int64((dict?.relationship_id)!))
+            self.relationShip = dict?.name ?? ""
+        }
+
+        btnTextfiledClearStatus.touchUpInside { [weak self] (sender) in
+            guard let self = self else { return }
+            self.relationshipID = 0
+            self.btnTextfiledClearStatus.isSelected = false
+            self.txtStatus.text = nil
+            self.relationShip = ""
+            self.txtStatus.updatePlaceholderFrame(false)
+            self.txtStatus.resignFirstResponder()
+        }
+        
+        if arrRelation?.count != 0 {
+            self.txtStatus.setPickerData(arrPickerData: arrRelation!, selectedPickerDataHandler: { [weak self] (text, row, component) in
+                guard let self = self else { return }
+                self.btnTextfiledClearStatus.isSelected = true
+                let dict = arrData![row] as AnyObject
+//                self.relationshipID = dict.value(forKey: CRelationship_id) as! Int
+                self.relationShip = dict.value(forKey: CName) as! String
+            }, defaultPlaceholder: "")
+        }
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "newDataNotificationForItemEdit"), object: nil)
+    }
+    
+    func loadAnnualIncomeList(){
+       
+        //Oldcode by Mi
+//        let arr = TblAnnualIncomes.fetch(predicate: NSPredicate(format: "%K == %d", CAnnual_income_id, appDelegate.loginUser?.annual_income_id ?? 0), orderBy: CIncome, ascending: true)
+//        let arrData = TblAnnualIncomes.fetch(predicate: nil, orderBy: CIncome, ascending: true)
+//        let arrIncome = arrData?.value(forKeyPath: CIncome) as? [Any]
+       
+        let arr = TblAnnualIncomes.fetch(predicate: NSPredicate(format: "%K == %s", CIncome,CIncome), orderBy: CIncome, ascending: true)
+        let arrData = TblAnnualIncomes.fetch(predicate: nil, orderBy: CIncome, ascending: true)
+        let arrIncome = arrData?.value(forKeyPath: CIncome) as? [Any]
+        
+        
+        //...Prefill income
+        if (arrData?.count)! > 0 {
+            let dict = arrData![0] as? TblAnnualIncomes
+            txtIncomeLevel.text = dict?.income
+            self.btnTextfiledClearIncomLevel.isSelected = true
+//            self.incomeID = Int(Int64((dict?.annual_income_id)!))
+           // self.incomeID = Int(Int64((dict?.annual_income_id)!))
+            self.inCome = dict?.income ?? ""
+        }
+
+        btnTextfiledClearIncomLevel.touchUpInside { [weak self] (sender) in
+            guard let self = self else { return }
+            self.incomeID = 0
+            self.inCome = ""
+            self.btnTextfiledClearIncomLevel.isSelected = false
+            self.txtIncomeLevel.text = nil
+            self.txtIncomeLevel.updatePlaceholderFrame(false)
+            self.txtIncomeLevel.resignFirstResponder()
+        }
+        
+        if arrIncome?.count != 0 {
+            self.txtIncomeLevel.setPickerData(arrPickerData: arrIncome!, selectedPickerDataHandler: { [weak self] (text, row, component) in
+                guard let self = self else { return }
+                self.btnTextfiledClearIncomLevel.isSelected = true
+                let dict = arrData![row] as AnyObject
+//              self.incomeID = dict.value(forKey: CAnnual_income_id) as! Int
+                self.inCome = dict.value(forKey: CIncome) as! String
+            }, defaultPlaceholder: "")
+        }
+    }
+    
+    func loadEducationList() {
+        
+        //Old code by Mi
+        /*let arr = TblEducation.fetch(predicate: NSPredicate(format: "%K == %d", CEducation_id, appDelegate.loginUser?.education_id ?? 0), orderBy: CName, ascending: true)
+        let arrData = TblEducation.fetch(predicate: nil, orderBy: CName, ascending: true)
+        let arrEducation = arrData?.value(forKeyPath: CName) as? [Any]
+         */
+        
+        
+        let arr = TblEducation.fetch(predicate: NSPredicate(format: "%K == %s", CName, CName), orderBy: CName, ascending: true)
+        let arrData = TblEducation.fetch(predicate: nil, orderBy: CName, ascending: true)
+        let arrEducation = arrData?.value(forKeyPath: CName) as? [Any]
+        
+        //...Prefill education
+        if (arr?.count)! > 0 {
+            let dict = arr![0] as? TblEducation
+            txtEducation.text = dict?.name
+            self.btnTextfiledClearEducation.isSelected = true
+            self.educationName = (dict?.name ?? "")
+//            self.educationID = Int(Int64((dict?.education_id)!))
+        }
+
+        btnTextfiledClearEducation.touchUpInside { [weak self] (sender) in
+            guard let self = self else { return }
+            self.educationID = 0
+            self.educationName = ""
+            self.btnTextfiledClearEducation.isSelected = false
+            self.txtEducation.text = nil
+            self.txtEducation.updatePlaceholderFrame(false)
+            self.txtEducation.resignFirstResponder()
+        }
+        
+        if arrEducation?.count != 0 {
+            self.txtEducation.setPickerData(arrPickerData: arrEducation!, selectedPickerDataHandler: { [weak self] (text, row, component) in
+                guard let self = self else { return }
+                self.btnTextfiledClearEducation.isSelected = true
+                let dict = arrData![row] as AnyObject
+                //Oldcode by Mi
+//                self.educationID = dict.value(forKey: CEducation_id) as! Int
+                self.educationName = (dict.name ?? "")
+            }, defaultPlaceholder: "")
+        }
+    }
+    
+
+}
+
+// MARK:- --------- UICollectionView Delegate/Datasources
+extension CompleteProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return arrInterest.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BubbleWithCancelCollCell", for: indexPath) as! BubbleWithCancelCollCell
+//        let strCat = arrInterest[indexPath.row].valueForString(key: "name")
+        let strCat = arrInterest[indexPath.row].valueForString(key: "interest_type")
+        cell.lblBubbleText.text = strCat
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        arrInterest.remove(at: indexPath.row)
+        clInterest.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let fontToResize =  CFontPoppins(size: 12, type: .light).setUpAppropriateFont()
+        let title = arrInterest[indexPath.row].valueForString(key: "interest_type")
+        var size = title.size(withAttributes: [NSAttributedString.Key.font: fontToResize!])
+        size.width = CGFloat(ceilf(Float(size.width + 65)))
+        size.height = clInterest.frame.size.height
+        return size
+        
+    }
+}
+
+// MARK:- ------------ API
+extension CompleteProfileViewController{
+
+    func completeProfile() {
+        
+        var gender = 1
+        
+        if txtGender.text == CRegisterGenderMale {
+            gender = CMale
+        } else if txtGender.text == CRegisterGenderFemale {
+            gender = CFemale
+        } else {
+            gender = COther
+        }
+        
+        var interestID = ""
+        if arrInterest.count > 0 {
+            interestID = arrInterest.map({"\($0.valueForInt(key: "id") ?? 0)"}).joined(separator: ",")
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = DateFormatter.shared().locale
+
+        
+        var emplymenntStatus = 0
+        var professionText = ""
+        if btnEmployed.isSelected{
+            emplymenntStatus = 1
+            professionText = txtProfession.text!
+        }else if btnUnEmployed.isSelected{
+            emplymenntStatus = 2
+            professionText = CBtnUnemployed
+        }else if btnStudent.isSelected{
+            emplymenntStatus = 3
+            professionText = CBtnStudent
+        }
+        
+        if !btnEmployed.isSelected{
+            incomeID = 0
+        }
+        
+        var dict : [String:Any] = [
+            CFirstname : appDelegate.loginUser?.first_name ?? "",
+            CLastname : appDelegate.loginUser?.last_name ?? "",
+            //CDob : DateFormatter.shared().string(fromDate: date!, dateFormat: "dd MMM yyyy") ,
+            CDob : dob_edit ?? "" ,
+            CShort_biography : txtViewBiography.text ?? "",
+            CGender : gender,
+            CRelationship_id : relationshipID,
+            CAnnual_income_id : incomeID,
+            CEducation_id : educationID,
+            CReligion : txtReligion.text ?? "",
+            CEmployment_status : emplymenntStatus,
+            CProfession : professionText,
+            CInterest_ids : interestID
+        ]
+
+//        let countryID = NSNumber(value: appDelegate.loginUser?.country_id ?? 0).intValue
+//        let stateID = NSNumber(value: appDelegate.loginUser?.state_id ?? 0).intValue
+//        let cityID = NSNumber(value: appDelegate.loginUser?.city_id ?? 0).intValue
+//        if countryID != 0{
+//            dict["country"] = countryID
+//        }
+//        if stateID != 0{
+//            dict["state_id"] = stateID
+//        }
+//        if cityID != 0{
+//            dict["city_id"] = cityID
+//        }
+        
+        guard let langName = appDelegate.loginUser?.lang_name else {return}
+        guard let userID = appDelegate.loginUser?.user_id else {return}
+        guard let txtCity = appDelegate.loginUser?.city else {return}
+        guard let txtmobile = appDelegate.loginUser?.mobile else {return}
+        guard let txtemail = appDelegate.loginUser?.email else {return}
+        
+        let dictcomp:[String:Any] = [
+        "user_acc_type":"1",
+        "first_name":firstName_edit ?? "",
+        "last_name":lastName_edit ?? "",
+        "gender":gender.toString,
+        "religion":txtReligion.text ?? "",
+        "city_name":txtCity,
+        "profile_image":appDelegate.loginUser?.profile_img ?? "",
+        "cover_image":appDelegate.loginUser?.cover_image ?? "",
+        "mobile":txtmobile,
+        "email":txtemail,
+        "education":txtEducation.text ?? "",
+        "dob":dob_edit ?? "",
+        "short_biography":txtViewBiography.text ?? "",
+        "relationship":txtStatus.text ?? "",
+        "profession":professionText,
+        "address_line1":txtCity,
+        "latitude":0,
+        "longitude":0,
+        "user_type": "1",
+        "lang_name": langName,
+        "status_id":"1",
+        "income":inCome,
+        "employment_status":emplymenntStatus.description
+        ]
+        
+        
+        let dictUserDetails:[String:Any] = [
+        "user_acc_type":"1",
+        "first_name":firstName_edit ?? "",
+        "last_name":lastName_edit ?? "",
+        "gender":gender.toString,
+        "religion":txtReligion.text ?? "",
+        "city_name":txtCity,
+        "profile_image":appDelegate.loginUser?.profile_img ?? "",
+        "cover_image":appDelegate.loginUser?.cover_image ?? "",
+        "mobile":txtmobile,
+        "email":txtemail,
+        "dob":dob_edit ?? "",
+        "short_biography":txtViewBiography.text ?? "",
+        "relationship":txtStatus.text ?? "",
+        "profession":professionText,
+        "address_line1":txtCity,
+        "latitude":0,
+        "longitude":0,
+        "user_type": "1",
+        "lang_name": langName,
+        "status_id":"1",
+        "user_id":userID.description,
+        "country_name":appDelegate.loginUser?.country ?? "",
+        "state_name":appDelegate.loginUser?.state ?? "",
+        "education":txtEducation.text ?? "",
+        "employment_status":emplymenntStatus.description,
+        "annual_income" : inCome,
+            
+        ]
+        
+     
+        APIRequest.shared().editProfile(dict: dictcomp as [String : AnyObject], para: dictUserDetails as [String : AnyObject], userID:userID.description, dob: userID.description ) { (response, error) in
+
+            if response != nil && error == nil {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+}
+
+// MARK:- ------------ Action Event
+extension CompleteProfileViewController{
+    
+    @objc fileprivate func btnCompleteClicked(_ sender : UIBarButtonItem) {
+        self.completeProfile()
+    }
+    
+    @IBAction func btnAddInterestCLK(_ sender : UIButton){
+        
+        let objInterest : SelectInterestsViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "SelectInterestsViewController") as! SelectInterestsViewController
+        objInterest.isBackButtomHide = false
+        objInterest.arrSelectedInterest = arrInterest
+        self.navigationController?.pushViewController(objInterest, animated: true)
+        
+    }
+    
+    @IBAction func btnProfessionCLK(_ sender : UIButton){
+        
+        switch sender.tag {
+        case 0:
+            btnEmployed.isSelected = !btnEmployed.isSelected
+            btnUnEmployed.isSelected = false
+            btnStudent.isSelected = false
+            break
+        case 1:
+            btnUnEmployed.isSelected = !btnUnEmployed.isSelected
+            btnEmployed.isSelected = false
+            btnStudent.isSelected = false
+            break
+        case 2:
+            btnStudent.isSelected = !btnStudent.isSelected
+            btnEmployed.isSelected = false
+            btnUnEmployed.isSelected = false
+            break
+            
+        default:
+            break
+        }
+        
+        if btnEmployed.isSelected{
+            /*txtProfession.hide(byHeight: false)
+            _ = txtProfession.setConstraintConstant(15, edge: .top, ancestor: true)*/
+            self.vwProfessionAndIncome.hide(byHeight: false)
+
+        }else{
+            /*txtProfession.hide(byHeight: true)
+            _ = txtProfession.setConstraintConstant(0, edge: .top, ancestor: true)*/
+            
+            self.vwProfessionAndIncome.hide(byHeight: true)
+        }
+        
+        GCDMainThread.async {
+            self.txtProfession.updateBottomLineAndPlaceholderFrame()
+        }
+        
+    }
+}

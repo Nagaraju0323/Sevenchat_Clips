@@ -1,0 +1,1205 @@
+//
+//  MyFriendsViewController.swift
+//  Sevenchats
+//
+//  Created by mac-0005 on 29/08/18.
+//  Copyright © 2018 mac-0005. All rights reserved.
+//
+
+import UIKit
+//
+class MyFriendsViewController: ParentViewController {
+    
+    @IBOutlet weak var viewSearchBar : UIView!
+    @IBOutlet weak var btnSearch : UIButton!
+    @IBOutlet weak var btnBack : UIButton!
+    @IBOutlet weak var btnCancel : UIButton!
+    @IBOutlet weak var txtSearch : UITextField!{
+        didSet{
+            txtSearch.returnKeyType = .search
+        }
+    }
+    @IBOutlet weak var lblTitle : UILabel!
+    @IBOutlet weak var cnNavigationHeight : NSLayoutConstraint!
+    @IBOutlet weak var tblFriendList : UITableView!
+    @IBOutlet weak var clTabBar : UICollectionView!
+    
+    var selectedIndexPath = IndexPath(item: 0, section: 0)
+    
+    var isRefreshingUserData = false
+    var arrFriendList = [[String:Any]]()
+    var pageNumber = 1
+    var refreshControl = UIRefreshControl()
+    var apiTask : URLSessionTask?
+    var isFromSideMenu = false
+    var arrList = [[String : Any]?]()
+    var arrRequestList = [[String : Any]?]()
+    var arrPendingList = [[String : Any]?]()
+    var Friend_status : Int?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        Initialization()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateUIAccordingToLanguage()
+        self.getFriendList(txtSearch.text, showLoader: true)
+        self.getListFriends("", showLoader: true)
+        self.getRequestList("", showLoader: true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(NotificationRecived), name: NSNotification.Name(rawValue: "NotificationRecived"), object: nil)
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    @objc func NotificationRecived(){
+        DispatchQueue.main.async {
+            self.tblFriendList.reloadData()
+        }
+        
+    }
+    
+    
+    
+    // MARK:- --------- Initialization
+    func Initialization(){
+        NotificationCenter.default.addObserver(self, selector: #selector(NotificationRecived), name: NSNotification.Name(rawValue: "NotificationRecived"), object: nil)
+        
+        cnNavigationHeight.constant = IS_iPhone_X_Series ? 84 : 64
+        
+        GCDMainThread.async {
+            self.viewSearchBar.layer.cornerRadius = self.viewSearchBar.frame.size.height/2
+            self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
+            self.refreshControl.tintColor = ColorAppTheme
+            self.tblFriendList.pullToRefreshControl = self.refreshControl
+        }
+        self.addBackOrHomeBurgerButton()
+        
+    }
+    
+    func updateUIAccordingToLanguage(){
+        
+        if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
+            // Reverse Flow...
+            btnSearch.contentHorizontalAlignment = .left
+            //btnBack.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        }else{
+            // Normal Flow...
+            btnSearch.contentHorizontalAlignment = .right
+            //btnBack.transform = CGAffineTransform.identity
+        }
+        
+        btnCancel.setTitle(CBtnCancel, for: .normal)
+        lblTitle.text = CProfileFriends
+        
+    }
+    
+    func addBackOrHomeBurgerButton(){
+        
+        if isFromSideMenu{
+            self.view.tag = 110
+            var imgMenu : UIImage?
+            if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
+                imgMenu = UIImage(named: "ic_sidemenu_reverse")
+                self.btnBack.setImage(imgMenu, for: .normal)
+            }
+            else{
+                imgMenu = UIImage(named: "ic_sidemenu")
+                self.btnBack.setImage(imgMenu, for: .normal)
+            }
+        }else{
+            self.view.tag = 109
+            var imgBack : UIImage?
+            if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
+                imgBack = UIImage(named: "ic_back_reverse")!
+            }else{
+                imgBack = UIImage(named: "ic_back")!
+            }
+            self.btnBack.setImage(imgBack, for: .normal)
+        }
+        self.btnBack.addTarget(self, action: #selector(onBackButtonAction), for: .touchUpInside)
+    }
+    
+    @objc func onBackButtonAction(){
+        
+        if isFromSideMenu{
+            appDelegate.showSidemenu()
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+}
+// MARK:- --------- Api Functions
+extension MyFriendsViewController{
+    @objc func pullToRefresh() {
+        if apiTask?.state == URLSessionTask.State.running {
+            apiTask?.cancel()
+        }
+        
+        self.pageNumber = 1
+        refreshControl.beginRefreshing()
+        self.getFriendList(txtSearch.text, showLoader: false)
+    }
+    
+    fileprivate func getFriendList(_ search : String?, showLoader : Bool) {
+        
+        if apiTask?.state == URLSessionTask.State.running {
+            apiTask?.cancel()
+        }
+        
+        var reqType = 0
+        switch selectedIndexPath.item {
+        case 0:
+            reqType = 0
+        case 1:
+            reqType = 1
+        default:
+            reqType = 2
+        }
+        
+        // Add load more indicator here...
+        if self.pageNumber > 2 {
+            self.tblFriendList.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+        }else{
+            self.tblFriendList.tableFooterView = nil
+        }
+        guard let user_Id = appDelegate.loginUser?.user_id else {
+            return
+        }
+        
+        apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: reqType, search: search, group_id : Int(user_Id), showLoader: showLoader, completion: { [weak self] (response, error) in
+            guard let self = self else { return }
+            self.refreshControl.endRefreshing()
+            self.tblFriendList.tableFooterView = nil
+            if response != nil{
+                if reqType == 0 {
+                    if let arrList = response!["my_friends"] as? [[String:Any]]{
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1{
+                            self.arrFriendList.removeAll()
+                            self.tblFriendList.reloadData()
+                        }
+                        // Add Data here...
+                        if arrList.count > 0{
+                            self.arrFriendList = self.arrFriendList + arrList
+                            self.tblFriendList.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                }else if reqType == 1{
+                    if let arrList = response!["frndReq"] as? [[String:Any]]{
+                        
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1{
+                            self.arrFriendList.removeAll()
+                            self.tblFriendList.reloadData()
+                        }
+                        
+                        // Add Data here...
+                        if arrList.count > 0{
+                            self.arrFriendList = self.arrFriendList + arrList
+                            self.tblFriendList.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                }else {
+                    if let arrList = response!["pendingReq"] as? [[String:Any]]{
+                        
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1{
+                            self.arrFriendList.removeAll()
+                            self.tblFriendList.reloadData()
+                        }
+                        
+                        // Add Data here...
+                        if arrList.count > 0{
+                            self.arrFriendList = self.arrFriendList + arrList
+                            self.tblFriendList.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                }
+            }
+        })
+        
+    }
+    
+    //    // Update Friend status Friend/Unfriend/Cancel Request
+    //    func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?)
+    //    {
+    //        APIRequest.shared().friendRquestStatus(userID: userid, status: status, completion: { [weak self] (response, error) in
+    //            guard let self = self else { return }
+    //            if response != nil{
+    //                var frndInfo = userInfo
+    //                if let data = response![CJsonData] as? [String : Any]{
+    //                    frndInfo[CFriend_status] = data.valueForInt(key: CFriend_status)
+    //
+    //                    if let index = self.arrFriendList.firstIndex(where: {$0[CUserId] as? Int == userid}){
+    //                        self.arrFriendList.remove(at: index)
+    //                        self.isRefreshingUserData = true
+    //                        UIView.performWithoutAnimation {
+    //                            self.tblFriendList.reloadData()
+    //                            self.isRefreshingUserData = false
+    //                        }
+    //                        DispatchQueue.main.async {
+    //                            if let profoleVC = self.getViewControllerFromNavigation(MyProfileViewController.self){
+    //                                profoleVC.pullToRefresh()
+    //                            }
+    //                        }
+    //                    }
+    //
+    //                }
+    //            }
+    //        })
+    //    }
+    //
+    //MARK:- FRIEND STATUS
+       
+    func getListFriends(_ search : String?, showLoader : Bool) {
+        
+        guard let user_Id = appDelegate.loginUser?.user_id else {return}
+        
+        apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 0, search: search, group_id : Int(user_Id), showLoader: showLoader, completion: { [weak self] (response, error) in
+            guard let self = self else { return }
+            self.refreshControl.endRefreshing()
+            //  self.tblFriendList.tableFooterView = nil
+            if response != nil{
+                if let arrList = response!["my_friends"] as? [[String:Any]]{
+                    self.arrList = arrList
+                }
+                
+            }
+        })
+        
+    }
+    func getRequestList(_ search : String?, showLoader : Bool) {
+        
+        guard let user_Id = appDelegate.loginUser?.user_id else {return}
+        apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 1, search: search, group_id : Int(user_Id), showLoader: showLoader, completion: { [weak self] (response, error) in
+            guard let self = self else { return }
+            self.refreshControl.endRefreshing()
+            //  self.tblFriendList.tableFooterView = nil
+            if response != nil{
+                if let arrList = response!["frndReq"] as? [[String:Any]]{
+                    self.arrRequestList = arrList
+                }
+                
+            }
+        })
+        
+    }
+    
+    func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?){
+        let friend_ID = userInfo.valueForInt(key: "friend_user_id")
+        let dict :[String:Any]  =  [
+            "user_id":  userid!.toString,
+            "friend_user_id": friend_ID!.toString,
+            "request_type": status!.toString
+        ]
+        APIRequest.shared().friendRquestStatus(dict: dict, completion: { [weak self] (response, error) in
+            guard let self = self else { return }
+            if response != nil{
+                
+                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+                    if  metaData.valueForString(key: "message") == "Request accepted successfully"{
+                        guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
+                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                        guard let image = appDelegate.loginUser?.profile_img else { return }
+                        guard let firstName = appDelegate.loginUser?.first_name else {return}
+                        guard let lassName = appDelegate.loginUser?.last_name else {return}
+                        MIGeneralsAPI.shared().sendNotification(friend_ID!.toString, userID: friend_ID!.toString, subject: "Friend Request Accepted", MsgType: "FRIEND_ACCEPT", MsgSent:"User Your Friend Request is Accepted", showDisplayContent: "User Your Friend Request is Accepted", senderName: firstName + lassName)
+                        
+                        MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:"Connections",type:CFriendsrequestaccept,title:"Connections",name:name,icon:image)
+                        
+                        
+                    }
+                }
+                
+                var frndInfo = userInfo
+                if let index = self.arrFriendList.firstIndex(where: {$0["friend_user_id"] as? String == friend_ID!.toString}){
+                    //                        if let index = self.arrFriendList.firstIndex(where: {$0[CUserId] as? Int == userid}){
+                    self.arrFriendList.remove(at: index)
+                    self.isRefreshingUserData = true
+                    UIView.performWithoutAnimation {
+                        self.tblFriendList.reloadData()
+                        self.isRefreshingUserData = false
+                    }
+                    DispatchQueue.main.async {
+                        if let profoleVC = self.getViewControllerFromNavigation(MyProfileViewController.self){
+                            profoleVC.pullToRefresh()
+                        }
+                    }
+                }
+                
+                let metaInfo = response![CJsonMeta] as? [String:Any] ?? [:]
+                guard let firstName = appDelegate.loginUser?.first_name else {return}
+                guard let lassName = appDelegate.loginUser?.last_name else {return}
+                let message = metaInfo["message"] as? String ?? "0"
+                if message == "0"{
+                    MIGeneralsAPI.shared().sendNotification( friend_ID!.toString, userID: friend_ID!.toString, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent: "", showDisplayContent: "accepted your friend request", senderName: firstName + lassName)
+                }
+                
+                
+                
+                //                    if let data = response![CJsonData] as? [String : Any]{
+                //                        frndInfo[CFriend_status] = data.valueForInt(key: CFriend_status)
+                //                        if let index = self.arrFriendList.firstIndex(where: {$0["friend_user_id"] as? String == friend_ID!.toString}){
+                ////                        if let index = self.arrFriendList.firstIndex(where: {$0[CUserId] as? Int == userid}){
+                //                            self.arrFriendList.remove(at: index)
+                //                            self.isRefreshingUserData = true
+                //                            UIView.performWithoutAnimation {
+                //                                self.tblFriendList.reloadData()
+                //                                self.isRefreshingUserData = false
+                //                            }
+                //                            DispatchQueue.main.async {
+                //                                if let profoleVC = self.getViewControllerFromNavigation(MyProfileViewController.self){
+                //                                    profoleVC.pullToRefresh()
+                //                                }
+                //                            }
+                //                        }
+                //
+                //                    }
+            }
+        })
+        
+    }
+    
+    
+    
+}
+
+// MARK:- --------- UICollectionView Delegate/Datasources
+extension MyFriendsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: clTabBar.frame.size.width/3, height: clTabBar.frame.size.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyFriendListTabBarCollCell", for: indexPath) as! MyFriendListTabBarCollCell
+        
+        if indexPath == selectedIndexPath{
+            cell.lblType.textColor = CRGB(r: 143, g: 174, b: 93)
+            cell.viewBottomLine.isHidden = false
+        }else{
+            cell.lblType.textColor = CRGB(r: 115, g: 124, b: 124)
+            cell.viewBottomLine.isHidden = true
+        }
+        
+        switch indexPath.item {
+        case 0:
+            cell.lblType.text = CTabAllFriend
+        case 1:
+            cell.lblType.text = CTabRequestSend
+        default:
+            cell.lblType.text = CTabPendingRequest
+        }
+        
+        // Load more data...
+        if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData {
+            self.getFriendList(txtSearch.text, showLoader: false)
+        }
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if selectedIndexPath == indexPath{
+            return
+        }
+        
+        if apiTask?.state == URLSessionTask.State.running {
+            apiTask?.cancel()
+        }
+        
+        selectedIndexPath = indexPath
+        clTabBar.reloadData()
+        arrFriendList.removeAll()
+        tblFriendList.reloadData()
+        pageNumber = 1
+        self.getFriendList(txtSearch.text, showLoader: false)
+    }
+}
+
+// MARK:- --------- UITableView Datasources/Delegate
+extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var strEmptyMessage = ""
+        switch selectedIndexPath.item {
+        case 0:
+            strEmptyMessage = CNoFriendsFound
+        case 1:
+            strEmptyMessage = CNoRequestDataSent
+        default:
+            strEmptyMessage = CNoPendingRequestYet
+        }
+        if arrFriendList.isEmpty{
+            self.tblFriendList.setEmptyMessage(strEmptyMessage)
+        }else{
+            self.tblFriendList.restore()
+        }
+        return arrFriendList.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 65
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendTblCell", for: indexPath) as? MyFriendTblCell {
+            let userInfo = arrFriendList[indexPath.row]
+            cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
+            cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+            
+            cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
+                guard let _ = self else { return }
+                
+                var frndStatus = 0
+                var alertMessage = ""
+                do{
+                    
+                    for data in self?.arrList ?? []{
+                        if userInfo.valueForString(key: "friend_user_id") == data?.valueForString(key: "friend_user_id"){
+                            self?.Friend_status = 5
+                        }
+                    }
+                    for data in self?.arrRequestList ?? []{
+                        if userInfo.valueForString(key: "friend_user_id") == data?.valueForString(key: "friend_user_id"){
+                            self?.Friend_status = 1
+                        }
+                    }
+                    
+                }
+                // switch userInfo.valueForInt(key: CFriend_status) {
+                switch self?.Friend_status {
+                case 1:
+                    frndStatus = CFriendRequestCancel
+                    alertMessage = CMessageCancelRequest
+                case 5:
+                    frndStatus = CFriendRequestUnfriend
+                    alertMessage = CMessageUnfriend
+                default:
+                    break
+                }
+                self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                    self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 4)
+                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+            }
+            
+            cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in
+                guard let _ = self else { return }
+                self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 5)
+            }
+            
+            cell.btnRejectRequest.touchUpInside { [weak self] (sender) in
+                guard let _ = self else { return }
+                
+                self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                    self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 3)
+                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+                
+            }
+            
+            
+            switch selectedIndexPath.item {
+            case 0:
+                cell.viewAcceptReject.isHidden = true
+                cell.btnUnfriendCancelRequest.isHidden = false
+                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+            case 1:
+                cell.viewAcceptReject.isHidden = true
+                cell.btnUnfriendCancelRequest.isHidden = false
+                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+            default:
+                cell.viewAcceptReject.isHidden = false
+                cell.btnUnfriendCancelRequest.isHidden = true
+            }
+            
+            // Load more data...
+            //            if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData {
+            //                self.getFriendList(txtSearch.text, showLoader: false)
+            //            }
+            
+            return cell
+        }
+        
+        return tableView.tableViewDummyCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let userInfo = arrFriendList[indexPath.row]
+        //        appDelegate.moveOnProfileScreen(userInfo.valueForString(key: CUserId), self)
+        //        appDelegate.moveOnProfileScreenNew(userInfo.valueForString(key: CFriendID), userInfo.valueForString(key: CUsermailID), self)
+        appDelegate.moveOnProfileScreenNew(userInfo.valueForString(key: "friend_user_id"), userInfo.valueForString(key: CUsermailID), self)
+        
+        
+        
+        
+    }
+}
+
+// MARK:- --------- Action Event
+extension MyFriendsViewController {
+    
+    @IBAction func btnSearchCancelCLK(_ sender : UIButton){
+        
+        switch sender.tag {
+        case 0:
+            lblTitle.isHidden = true
+            viewSearchBar.isHidden = false
+            btnCancel.isHidden = false
+            btnSearch.isHidden = true
+            break
+        case 1:
+            
+            txtSearch.resignFirstResponder()
+            lblTitle.isHidden = false
+            viewSearchBar.isHidden = true
+            btnCancel.isHidden = true
+            btnSearch.isHidden = false
+            
+            // Clear all search data...
+            if !(txtSearch.text?.isBlank)! {
+                txtSearch.text = nil
+                self.pageNumber = 1
+                self.getFriendList(txtSearch.text, showLoader: false)
+            }
+            
+            break
+            
+        case 2:
+            txtSearch.text = nil
+            break
+            
+        default:
+            break
+            
+        }
+        
+    }
+}
+
+// MARK:- --------- UITextField Delegate
+extension MyFriendsViewController : UITextFieldDelegate {
+    
+    @IBAction func textFieldDidChanged(_ textFiled : UITextField){
+        if apiTask?.state == URLSessionTask.State.running {
+            apiTask?.cancel()
+        }
+        
+        if (textFiled.text?.count)! < 2{
+            pageNumber = 1
+            arrFriendList.removeAll()
+            tblFriendList.reloadData()
+            self.getFriendList("", showLoader: false)
+            return
+        }
+        
+        pageNumber = 1
+        self.getFriendList(txtSearch.text, showLoader: false)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return textField.resignFirstResponder()
+    }
+}
+
+//
+//class MyFriendsViewController: ParentViewController {
+//
+//    @IBOutlet weak var viewSearchBar : UIView!
+//    @IBOutlet weak var btnSearch : UIButton!
+//    @IBOutlet weak var btnBack : UIButton!
+//    @IBOutlet weak var btnCancel : UIButton!
+//    @IBOutlet weak var txtSearch : UITextField!{
+//        didSet{
+//            txtSearch.returnKeyType = .search
+//        }
+//    }
+//    @IBOutlet weak var lblTitle : UILabel!
+//    @IBOutlet weak var cnNavigationHeight : NSLayoutConstraint!
+//    @IBOutlet weak var tblFriendList : UITableView!
+//    @IBOutlet weak var clTabBar : UICollectionView!
+//
+//    var selectedIndexPath = IndexPath(item: 0, section: 0)
+//
+//    var isRefreshingUserData = false
+//    var arrFriendList = [[String:Any]]()
+//    var arrReqFriendList = [[String:Any]]()
+//    var arrpenFriendList = [[String:Any]]()
+//    var pageNumber = 1
+//    var refreshControl = UIRefreshControl()
+//    var apiTask : URLSessionTask?
+//    var isFromSideMenu = false
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        Initialization()
+//    }
+//
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.updateUIAccordingToLanguage()
+//    }
+//    override func didReceiveMemoryWarning() {
+//        super.didReceiveMemoryWarning()
+//    }
+//
+//    // MARK:- --------- Initialization
+//    func Initialization(){
+//
+//        cnNavigationHeight.constant = IS_iPhone_X_Series ? 84 : 64
+//
+//        GCDMainThread.async {
+//            self.viewSearchBar.layer.cornerRadius = self.viewSearchBar.frame.size.height/2
+//            self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
+//            self.refreshControl.tintColor = ColorAppTheme
+//            self.tblFriendList.pullToRefreshControl = self.refreshControl
+//        }
+//        self.addBackOrHomeBurgerButton()
+//        self.getFriendList(txtSearch.text, showLoader: true)
+//    }
+//
+//    func updateUIAccordingToLanguage(){
+//
+//        if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
+//            // Reverse Flow...
+//            btnSearch.contentHorizontalAlignment = .left
+//            //btnBack.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+//        }else{
+//            // Normal Flow...
+//            btnSearch.contentHorizontalAlignment = .right
+//            //btnBack.transform = CGAffineTransform.identity
+//        }
+//
+//        btnCancel.setTitle(CBtnCancel, for: .normal)
+//        lblTitle.text = CProfileFriends
+//
+//    }
+//
+//    func addBackOrHomeBurgerButton(){
+//
+//        if isFromSideMenu{
+//            self.view.tag = 110
+//            var imgMenu : UIImage?
+//            if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
+//                imgMenu = UIImage(named: "ic_sidemenu_reverse")
+//                self.btnBack.setImage(imgMenu, for: .normal)
+//            }
+//            else{
+//                imgMenu = UIImage(named: "ic_sidemenu")
+//                self.btnBack.setImage(imgMenu, for: .normal)
+//            }
+//        }else{
+//            self.view.tag = 109
+//            var imgBack : UIImage?
+//            if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
+//                imgBack = UIImage(named: "ic_back_reverse")!
+//            }else{
+//                imgBack = UIImage(named: "ic_back")!
+//            }
+//            self.btnBack.setImage(imgBack, for: .normal)
+//        }
+//        self.btnBack.addTarget(self, action: #selector(onBackButtonAction), for: .touchUpInside)
+//    }
+//
+//    @objc func onBackButtonAction(){
+//
+//        if isFromSideMenu{
+//            appDelegate.showSidemenu()
+//        }else{
+//            self.navigationController?.popViewController(animated: true)
+//        }
+//    }
+//}
+//// MARK:- --------- Api Functions
+//extension MyFriendsViewController{
+//    @objc func pullToRefresh() {
+//        if apiTask?.state == URLSessionTask.State.running {
+//            apiTask?.cancel()
+//        }
+//
+//        self.pageNumber = 1
+//        refreshControl.beginRefreshing()
+//        self.getFriendList(txtSearch.text, showLoader: false)
+//    }
+//
+//    fileprivate func getFriendList(_ search : String?, showLoader : Bool) {
+//
+//        if apiTask?.state == URLSessionTask.State.running {
+//            apiTask?.cancel()
+//        }
+//
+//        var reqType = 0
+//        switch selectedIndexPath.item {
+//        case 0:
+//            reqType = 0
+//        case 1:
+//            reqType = 1
+//        default:
+//            reqType = 2
+//        }
+//
+//        // Add load more indicator here...
+//        if self.pageNumber > 2 {
+//            self.tblFriendList.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+//        }else{
+//            self.tblFriendList.tableFooterView = nil
+//        }
+//
+//        //Add userId
+//        guard let userid = appDelegate.loginUser?.user_id else {
+//            return
+//        }
+//        let userID = userid.description
+//
+//
+//        self.arrFriendList.removeAll()
+////        self.arrReqFriendList.removeAll()
+////        self.arrpenFriendList.removeAll()
+//        apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: reqType, UserID: userID, group_id : nil, showLoader: showLoader, completion: { [weak self] (response, error) in
+//            guard let self = self else { return }
+//            self.refreshControl.endRefreshing()
+//            self.tblFriendList.tableFooterView = nil
+//
+//            if response != nil{
+//                if let arrList = response!["my_friends"] as? [[String:Any]]{
+//
+//                    // Remove all data here when page number == 1
+//                    if self.pageNumber == 1{
+//                        self.arrFriendList.removeAll()
+//                        self.tblFriendList.reloadData()
+//                    }
+//
+//                    // Add Data here...
+//                    if arrList.count > 0{
+//                        self.arrFriendList = self.arrFriendList + arrList
+//                        self.tblFriendList.reloadData()
+//                        self.pageNumber += 1
+//                    }
+//                }
+//                self.arrReqFriendList.removeAll()
+//                if let arrList = response!["frndReq"] as? [[String:Any]]{
+//
+//                    // Remove all data here when page number == 1
+//                    if self.pageNumber == 1{
+//                        self.arrReqFriendList.removeAll()
+//                        self.tblFriendList.reloadData()
+//                    }
+//
+//                    // Add Data here...
+//                    if arrList.count > 0{
+//                        self.arrReqFriendList = self.arrReqFriendList + arrList
+//                        self.tblFriendList.reloadData()
+//                        self.pageNumber += 1
+//                    }
+//                }
+//                //        self.arrpenFriendList.removeAll()
+//                        self.arrpenFriendList.removeAll()
+//                if let arrList = response!["pendingReq"] as? [[String:Any]]{
+//
+//                    // Remove all data here when page number == 1
+//                    if self.pageNumber == 1{
+//                        self.arrpenFriendList.removeAll()
+//                        self.tblFriendList.reloadData()
+//                    }
+//
+//                    // Add Data here...
+//                    if arrList.count > 0{
+//                        self.arrpenFriendList = self.arrpenFriendList + arrList
+//                        self.tblFriendList.reloadData()
+//                        self.pageNumber += 1
+//                    }
+//                }
+//            }
+//        })
+//   }
+//
+//    // Update Friend status Friend/Unfriend/Cancel Request
+//    func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?){
+//        let friend_ID = userInfo.valueForInt(key: "friend_user_id")
+//               let dict :[String:Any]  =  [
+//                   "user_id":  userid!.toString,
+//                   "friend_user_id": friend_ID!.toString,
+//                   "request_type": status!.toString
+//                   ]
+//        APIRequest.shared().friendRquestStatus(dict: dict, completion: { [weak self] (response, error) in
+//            guard let self = self else { return }
+//            if response != nil{
+//                var frndInfo = userInfo
+//                if let data = response![CJsonData] as? [String : Any]{
+//                    frndInfo[CFriend_status] = data.valueForInt(key: CFriend_status)
+//
+//                    if let index = self.arrFriendList.firstIndex(where: {$0[CUserId] as? Int == userid}){
+//                        self.arrFriendList.remove(at: index)
+//                        self.isRefreshingUserData = true
+//                        UIView.performWithoutAnimation {
+//                            self.tblFriendList.reloadData()
+//                            self.isRefreshingUserData = false
+//                        }
+//                        DispatchQueue.main.async {
+//                            if let profoleVC = self.getViewControllerFromNavigation(MyProfileViewController.self){
+//                                profoleVC.pullToRefresh()
+//                            }
+//                        }
+//                    }
+//
+//                }
+//            }
+//        })
+//
+//    }
+//}
+//
+//// MARK:- --------- UICollectionView Delegate/Datasources
+//extension MyFriendsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+//    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        return 1
+//    }
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//
+//        return 3
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: clTabBar.frame.size.width/3, height: clTabBar.frame.size.height)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyFriendListTabBarCollCell", for: indexPath) as! MyFriendListTabBarCollCell
+//
+//        if indexPath == selectedIndexPath{
+//            cell.lblType.textColor = CRGB(r: 143, g: 174, b: 93)
+//            cell.viewBottomLine.isHidden = false
+//        }else{
+//            cell.lblType.textColor = CRGB(r: 115, g: 124, b: 124)
+//            cell.viewBottomLine.isHidden = true
+//        }
+//
+//        switch indexPath.item {
+//        case 0:
+//            cell.lblType.text = CTabAllFriend
+//        case 1:
+//            cell.lblType.text = CTabRequestSend
+//        default:
+//            cell.lblType.text = CTabPendingRequest
+//        }
+//
+//        // Load more data...
+//        if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData {
+//            self.getFriendList(txtSearch.text, showLoader: false)
+//        }
+//
+//        return cell
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//
+//        if selectedIndexPath == indexPath{
+//            return
+//        }
+//
+//        if apiTask?.state == URLSessionTask.State.running {
+//            apiTask?.cancel()
+//        }
+//
+//        selectedIndexPath = indexPath
+//        clTabBar.reloadData()
+//        arrFriendList.removeAll()
+//        arrReqFriendList.removeAll()
+//        arrpenFriendList.removeAll()
+//        tblFriendList.reloadData()
+//        pageNumber = 1
+//        self.getFriendList(txtSearch.text, showLoader: false)
+//    }
+//}
+//
+//// MARK:- --------- UITableView Datasources/Delegate
+//extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        var strEmptyMessage = ""
+//        switch selectedIndexPath.item {
+//        case 0:
+//            strEmptyMessage = CNoFriendsFound
+//        case 1:
+//            strEmptyMessage = CNoRequestDataSent
+//        default:
+//            strEmptyMessage = CNoPendingRequestYet
+//        }
+//
+//        switch selectedIndexPath.item {
+//        case 0:
+//            if arrFriendList.isEmpty{
+//                self.tblFriendList.setEmptyMessage(strEmptyMessage)
+//            }else{
+//                self.tblFriendList.restore()
+//            }
+//            return arrFriendList.count
+//        case 1:
+//            if arrReqFriendList.isEmpty{
+//                self.tblFriendList.setEmptyMessage(strEmptyMessage)
+//            }else{
+//                self.tblFriendList.restore()
+//            }
+//            return arrReqFriendList.count
+//        default:
+//            if arrpenFriendList.isEmpty{
+//                self.tblFriendList.setEmptyMessage(strEmptyMessage)
+//            }else{
+//                self.tblFriendList.restore()
+//            }
+//            return arrpenFriendList.count
+//        }
+//
+////        if arrFriendList.isEmpty{
+////            self.tblFriendList.setEmptyMessage(strEmptyMessage)
+////        }else{
+////            self.tblFriendList.restore()
+////        }
+////        return arrFriendList.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 65
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//        if let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendTblCell", for: indexPath) as? MyFriendTblCell {
+//
+//            switch selectedIndexPath.item {
+//            case 0:
+//                let userInfo = arrFriendList[indexPath.row]
+//                cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
+//                cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: "profile_image"), true)
+//                cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
+//                    guard let _ = self else { return }
+//
+//                    var frndStatus = 0
+//                    var alertMessage = ""
+//                    switch userInfo.valueForInt(key: CFriend_status) {
+//                    case 1:
+//                        frndStatus = CFriendRequestUnfriend
+//                        alertMessage = CMessageUnfriend
+//                    case 5:
+//                        frndStatus = CFriendRequestCancel
+//                        alertMessage = CMessageCancelRequest
+//                    default:
+//                        break
+//                    }
+//                    self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+//                        self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
+//                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//                }
+//
+//                cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in
+//                    guard let _ = self else { return }
+//
+//                    self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 5)
+//                }
+//
+//                cell.btnRejectRequest.touchUpInside { [weak self] (sender) in
+//                    guard let _ = self else { return }
+//
+//                    self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+//                        self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 3)
+//                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//
+//                }
+//
+//            case 1:
+//                let userInfo = arrReqFriendList[indexPath.row]
+//                cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
+//                cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: "profile_image"), true)
+//                cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
+//                    guard let _ = self else { return }
+//
+//                    var frndStatus = 0
+//                    var alertMessage = ""
+//                    switch userInfo.valueForInt(key: CFriend_status) {
+//                    case 1:
+//                        frndStatus = CFriendRequestCancel
+//                        alertMessage = CMessageCancelRequest
+//                    case 5:
+//                        frndStatus = CFriendRequestUnfriend
+//                        alertMessage = CMessageUnfriend
+//                    default:
+//                        break
+//                    }
+//                    self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+//                        self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
+//                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//                }
+//
+//                cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in
+//                    guard let _ = self else { return }
+//
+//                    self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 5)
+//                }
+//
+//                cell.btnRejectRequest.touchUpInside { [weak self] (sender) in
+//                    guard let _ = self else { return }
+//
+//                    self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+//                        self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 3)
+//                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//
+//                }
+//
+//            default:
+//                let userInfo = arrpenFriendList[indexPath.row]
+//                cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
+//
+////                cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+//                cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: "profile_image"), true)
+//
+//
+//                cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
+//                    guard let _ = self else { return }
+//
+//                    var frndStatus = 0
+//                    var alertMessage = ""
+//                    switch userInfo.valueForInt(key: CFriend_status) {
+//                    case 1:
+//                        frndStatus = CFriendRequestCancel
+//                        alertMessage = CMessageCancelRequest
+//                    case 5:
+//                        frndStatus = CFriendRequestUnfriend
+//                        alertMessage = CMessageUnfriend
+//                    default:
+//                        break
+//                    }
+//                    self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+//                        self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
+//                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//                }
+//
+//                cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in
+//                    guard let _ = self else { return }
+//
+//                    self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 5)
+//                }
+//
+//                cell.btnRejectRequest.touchUpInside { [weak self] (sender) in
+//                    guard let _ = self else { return }
+//
+//                    self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+//                        self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 3)
+//                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//                }
+//            }
+//            switch selectedIndexPath.item {
+//            case 0:
+//                cell.viewAcceptReject.isHidden = true
+//                cell.btnUnfriendCancelRequest.isHidden = false
+//                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+//            case 1:
+//                cell.viewAcceptReject.isHidden = true
+//                cell.btnUnfriendCancelRequest.isHidden = false
+//                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+//            default:
+//                cell.viewAcceptReject.isHidden = false
+//                cell.btnUnfriendCancelRequest.isHidden = true
+//            }
+////             Load more data...
+////            if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData {
+////                self.getFriendList(txtSearch.text, showLoader: false)
+////            }
+//            return cell
+//        }
+//
+//        return tableView.tableViewDummyCell()
+//    }
+//
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let userInfo = arrFriendList[indexPath.row]
+//
+//        appDelegate.moveOnProfileScreen(userInfo.valueForString(key: CUserId), self)
+//    }
+//}
+//
+//// MARK:- --------- Action Event
+//extension MyFriendsViewController {
+//
+//    @IBAction func btnSearchCancelCLK(_ sender : UIButton){
+//
+//        switch sender.tag {
+//        case 0:
+//            lblTitle.isHidden = true
+//            viewSearchBar.isHidden = false
+//            btnCancel.isHidden = false
+//            btnSearch.isHidden = true
+//            break
+//        case 1:
+//
+//            txtSearch.resignFirstResponder()
+//            lblTitle.isHidden = false
+//            viewSearchBar.isHidden = true
+//            btnCancel.isHidden = true
+//            btnSearch.isHidden = false
+//
+//            // Clear all search data...
+//            if !(txtSearch.text?.isBlank)! {
+//                txtSearch.text = nil
+//                self.pageNumber = 1
+//                self.getFriendList(txtSearch.text, showLoader: false)
+//            }
+//
+//            break
+//
+//        case 2:
+//            txtSearch.text = nil
+//            break
+//
+//        default:
+//            break
+//
+//        }
+//
+//    }
+//}
+//
+//// MARK:- --------- UITextField Delegate
+//extension MyFriendsViewController : UITextFieldDelegate {
+//
+//    @IBAction func textFieldDidChanged(_ textFiled : UITextField){
+//        if apiTask?.state == URLSessionTask.State.running {
+//            apiTask?.cancel()
+//        }
+//
+//        if (textFiled.text?.count)! < 2{
+//            pageNumber = 1
+//            arrFriendList.removeAll()
+//            tblFriendList.reloadData()
+//            self.getFriendList("", showLoader: false)
+//            return
+//        }
+//
+//        pageNumber = 1
+//        self.getFriendList(txtSearch.text, showLoader: false)
+//    }
+//
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        return textField.resignFirstResponder()
+//    }
+//}

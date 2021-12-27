@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Medium.otf">
+            <string>Poppins-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="HomeAddPostCollCell" customModule="Sevenchats" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zI9-ZG-Y4X">
+                        <rect key="frame" x="15" y="15" width="70" height="70"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_home_post_articles" translatesAutoresizingMaskIntoConstraints="NO" id="odj-zp-v9r">
+                                <rect key="frame" x="20" y="7.5" width="30" height="30.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="odj-zp-v9r" secondAttribute="height" multiplier="1:1" id="HFf-ZN-faI"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forum" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKc-WM-Oas" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="43" width="70" height="18.5"/>
+                                <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="UKc-WM-Oas" secondAttribute="trailing" id="5hb-Fk-XQu"/>
+                            <constraint firstItem="odj-zp-v9r" firstAttribute="centerX" secondItem="zI9-ZG-Y4X" secondAttribute="centerX" id="Gi7-oH-Hij"/>
+                            <constraint firstAttribute="width" secondItem="zI9-ZG-Y4X" secondAttribute="height" multiplier="1:1" id="Naf-ku-hA3"/>
+                            <constraint firstItem="UKc-WM-Oas" firstAttribute="top" secondItem="odj-zp-v9r" secondAttribute="bottom" constant="5" id="PWt-em-Aeq"/>
+                            <constraint firstItem="odj-zp-v9r" firstAttribute="centerY" secondItem="zI9-ZG-Y4X" secondAttribute="centerY" multiplier="0.65" id="aAG-w7-tru"/>
+                            <constraint firstItem="odj-zp-v9r" firstAttribute="width" secondItem="zI9-ZG-Y4X" secondAttribute="width" multiplier="0.43" id="hX1-BK-ajf"/>
+                            <constraint firstItem="UKc-WM-Oas" firstAttribute="leading" secondItem="zI9-ZG-Y4X" secondAttribute="leading" id="xBf-LP-GIC"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="zI9-ZG-Y4X" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.7" id="Bw6-wt-SQn"/>
+                <constraint firstItem="zI9-ZG-Y4X" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="C7D-vv-Nhm"/>
+                <constraint firstItem="zI9-ZG-Y4X" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="baU-eu-TFJ"/>
+            </constraints>
+            <connections>
+                <outlet property="imgPost" destination="odj-zp-v9r" id="beh-ba-Uk1"/>
+                <outlet property="lblTitle" destination="UKc-WM-Oas" id="dis-Cr-du4"/>
+            </connections>
+            <point key="canvasLocation" x="12.800000000000001" y="74.662668665667169"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_home_post_articles" width="17" height="21"/>
+    </resources>
+</document>

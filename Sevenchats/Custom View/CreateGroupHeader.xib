@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Light.otf">
+            <string>Poppins-Light</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="i7j-QG-0Zt" customClass="CreateGroupHeader" customModule="MOOSA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FPr-Lx-aNF" customClass="MIGenericView" customModule="MOOSA" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="emP-pv-dDb" customClass="MIGenericButton" customModule="MOOSA" customModuleProvider="target">
+                            <rect key="frame" x="289" y="0.0" width="71" height="45"/>
+                            <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="13"/>
+                            <state key="normal" title="+Add More"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 members selected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yhv-3w-o5E" customClass="MIGenericLabel" customModule="MOOSA" customModuleProvider="target">
+                            <rect key="frame" x="20" y="0.0" width="133" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="ToM-Qq-Ggd"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="13"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="emP-pv-dDb" secondAttribute="trailing" constant="15" id="EEv-dM-weT"/>
+                        <constraint firstAttribute="bottom" secondItem="Yhv-3w-o5E" secondAttribute="bottom" id="GaA-6z-uDk"/>
+                        <constraint firstAttribute="bottom" secondItem="emP-pv-dDb" secondAttribute="bottom" id="Qny-ea-p2Z"/>
+                        <constraint firstItem="Yhv-3w-o5E" firstAttribute="top" secondItem="FPr-Lx-aNF" secondAttribute="top" id="SEG-fN-u0t"/>
+                        <constraint firstItem="emP-pv-dDb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Yhv-3w-o5E" secondAttribute="trailing" constant="8" id="qLp-PC-L59"/>
+                        <constraint firstItem="Yhv-3w-o5E" firstAttribute="leading" secondItem="FPr-Lx-aNF" secondAttribute="leading" constant="20" id="uMA-0X-Pgh"/>
+                        <constraint firstItem="emP-pv-dDb" firstAttribute="top" secondItem="FPr-Lx-aNF" secondAttribute="top" id="wzg-mx-MzV"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="KGv-TA-8Fu"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="FPr-Lx-aNF" firstAttribute="top" secondItem="X6X-Ku-t3e" secondAttribute="top" id="UQ5-vR-UDj"/>
+                <constraint firstItem="FPr-Lx-aNF" firstAttribute="bottom" secondItem="X6X-Ku-t3e" secondAttribute="bottom" id="cYO-5T-7tx"/>
+                <constraint firstItem="FPr-Lx-aNF" firstAttribute="trailing" secondItem="X6X-Ku-t3e" secondAttribute="trailing" id="lq2-FM-g2j"/>
+                <constraint firstItem="FPr-Lx-aNF" firstAttribute="leading" secondItem="X6X-Ku-t3e" secondAttribute="leading" id="te5-Lh-Vua"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="X6X-Ku-t3e"/>
+            <connections>
+                <outlet property="btnAddMore" destination="emP-pv-dDb" id="xMV-cP-s16"/>
+                <outlet property="lblMemberCount" destination="Yhv-3w-o5E" id="NbJ-1h-KVj"/>
+            </connections>
+        </view>
+    </objects>
+</document>

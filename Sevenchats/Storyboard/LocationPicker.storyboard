@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.otf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Location PickerVC-->
+        <scene sceneID="nLV-LW-GpW">
+            <objects>
+                <viewController storyboardIdentifier="LocationPickerVC" id="0Cd-PH-mPQ" customClass="LocationPickerVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pzD-x6-GsT">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Q5D-0D-cZQ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E5F-2l-v17">
+                                <rect key="frame" x="0.0" y="44" width="414" height="46"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHM-QK-qJl" customClass="VisualEffectView" customModule="Sevenchats" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="46"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="FQP-CR-spe">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="46"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ahmeddabad, gujarat, india" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wba-jX-loH">
+                                                    <rect key="frame" x="10" y="10" width="346" height="26"/>
+                                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIT-Rs-eNb">
+                                                    <rect key="frame" x="366" y="8" width="40" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="Gxj-IS-Dy0"/>
+                                                    </constraints>
+                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <state key="normal" image="ic_send"/>
+                                                    <connections>
+                                                        <action selector="onSendLocation:" destination="0Cd-PH-mPQ" eventType="touchUpInside" id="sIY-mI-U4c"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="cIT-Rs-eNb" secondAttribute="trailing" constant="8" id="6Ad-YH-A1X"/>
+                                                <constraint firstItem="cIT-Rs-eNb" firstAttribute="centerY" secondItem="FQP-CR-spe" secondAttribute="centerY" id="CGA-gE-Fbw"/>
+                                                <constraint firstItem="cIT-Rs-eNb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="FQP-CR-spe" secondAttribute="top" constant="8" id="Fee-fE-m2R"/>
+                                                <constraint firstItem="wba-jX-loH" firstAttribute="leading" secondItem="FQP-CR-spe" secondAttribute="leading" constant="10" id="MXS-jw-nWX"/>
+                                                <constraint firstItem="wba-jX-loH" firstAttribute="top" secondItem="FQP-CR-spe" secondAttribute="top" constant="10" id="XTK-KL-qxh"/>
+                                                <constraint firstItem="cIT-Rs-eNb" firstAttribute="leading" secondItem="wba-jX-loH" secondAttribute="trailing" constant="10" id="Xdj-gz-vs5"/>
+                                                <constraint firstAttribute="bottom" secondItem="wba-jX-loH" secondAttribute="bottom" constant="10" id="hmc-Tw-Sxx"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="light"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="dHM-QK-qJl" secondAttribute="trailing" id="gsS-nh-5uK"/>
+                                    <constraint firstItem="dHM-QK-qJl" firstAttribute="leading" secondItem="E5F-2l-v17" secondAttribute="leading" id="wuO-L0-txG"/>
+                                    <constraint firstItem="dHM-QK-qJl" firstAttribute="top" secondItem="E5F-2l-v17" secondAttribute="top" id="x11-e1-dRr"/>
+                                    <constraint firstAttribute="bottom" secondItem="dHM-QK-qJl" secondAttribute="bottom" id="xyZ-dj-sHK"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_location_pin" translatesAutoresizingMaskIntoConstraints="NO" id="cah-0T-UZF">
+                                <rect key="frame" x="191" y="415" width="32" height="32"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Rzf-eV-bqt" firstAttribute="trailing" secondItem="Q5D-0D-cZQ" secondAttribute="trailing" id="09q-u1-zDM"/>
+                            <constraint firstItem="cah-0T-UZF" firstAttribute="centerY" secondItem="Q5D-0D-cZQ" secondAttribute="centerY" id="Cq5-U2-aFJ"/>
+                            <constraint firstItem="Q5D-0D-cZQ" firstAttribute="leading" secondItem="Rzf-eV-bqt" secondAttribute="leading" id="M4L-6G-XhC"/>
+                            <constraint firstItem="Q5D-0D-cZQ" firstAttribute="top" secondItem="pzD-x6-GsT" secondAttribute="top" id="V31-aH-umT"/>
+                            <constraint firstItem="E5F-2l-v17" firstAttribute="leading" secondItem="Rzf-eV-bqt" secondAttribute="leading" id="b0q-8s-KzZ"/>
+                            <constraint firstItem="E5F-2l-v17" firstAttribute="top" secondItem="Rzf-eV-bqt" secondAttribute="top" id="eh3-nR-dFw"/>
+                            <constraint firstItem="Rzf-eV-bqt" firstAttribute="trailing" secondItem="E5F-2l-v17" secondAttribute="trailing" id="oiH-tO-nUy"/>
+                            <constraint firstItem="Rzf-eV-bqt" firstAttribute="bottom" secondItem="Q5D-0D-cZQ" secondAttribute="bottom" id="rB8-lM-SFD"/>
+                            <constraint firstItem="cah-0T-UZF" firstAttribute="centerX" secondItem="Q5D-0D-cZQ" secondAttribute="centerX" id="rD4-Cj-Npc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Rzf-eV-bqt"/>
+                    </view>
+                    <connections>
+                        <outlet property="imgSelectLocation" destination="cah-0T-UZF" id="jKJ-LR-OO0"/>
+                        <outlet property="imgSelectLocationHorzConst" destination="Cq5-U2-aFJ" id="PmN-Bf-yB9"/>
+                        <outlet property="lblAddress" destination="wba-jX-loH" id="RWJ-Hs-tUJ"/>
+                        <outlet property="mapView" destination="Q5D-0D-cZQ" id="TUR-2n-NLV"/>
+                        <outlet property="vwAddress" destination="E5F-2l-v17" id="JUC-U8-Vvk"/>
+                        <outlet property="vwBlur" destination="dHM-QK-qJl" id="HPf-Jg-8R1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vTA-ye-57H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-39.130434782608695" y="81.696428571428569"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_location_pin" width="32" height="32"/>
+        <image name="ic_send" width="30" height="30"/>
+    </resources>
+</document>
