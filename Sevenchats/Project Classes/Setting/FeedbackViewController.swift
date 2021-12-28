@@ -204,9 +204,6 @@ extension FeedbackViewController{
                             }else if self.txtCategory.text == "Need help with"{
                                 MIGeneralsAPI.shared().addRewardsPoints(CNeedhelpwithfeedback,message:"Feedback",type:CNeedhelpwithfeedback,title:"Feedback",name:name,icon:image)
                             }
-
-
-
                         }
                         
                         self.navigationController?.popViewController(animated: true)

@@ -13,6 +13,10 @@
 		180A6A5426CD8E3E00C1F3F2 /* Hindi.json in Resources */ = {isa = PBXBuildFile; fileRef = 180A6A5326CD8E3E00C1F3F2 /* Hindi.json */; };
 		180A6F8F256782BA00912A8F /* BubbleWithCancelCollCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180A6F8E256782BA00912A8F /* BubbleWithCancelCollCells.swift */; };
 		180E1E1C2632C14E00973A27 /* AudioAnimation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 180E1E1B2632C14E00973A27 /* AudioAnimation.gif */; };
+		18222BCF277A2BAE0018A8A2 /* MIToastAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222BCB277A2BA20018A8A2 /* MIToastAlert.swift */; };
+		18222BD0277A2BAE0018A8A2 /* MIPopUpOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222BCC277A2BA60018A8A2 /* MIPopUpOverlay.swift */; };
+		18222BD1277A2BAE0018A8A2 /* MILoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222BCD277A2BAB0018A8A2 /* MILoader.swift */; };
+		18222BD2277A2BAE0018A8A2 /* MIPopUpOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222BCE277A2BAE0018A8A2 /* MIPopUpOverlay.xib */; };
 		1836482A26E1E33C000440FA /* ChatSocketIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836482926E1E33C000440FA /* ChatSocketIO.swift */; };
 		1838BA6D275F302D00A9372C /* SocketIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838BA6C275F302D00A9372C /* SocketIO.swift */; };
 		1838BA71275F350D00A9372C /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1838BA70275F350D00A9372C /* SocketIO.framework */; };
@@ -60,10 +64,6 @@
 		1864F6A925F61B95001C69A5 /* HomeStoriesTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864F6A825F61B95001C69A5 /* HomeStoriesTblCell.swift */; };
 		1878AE5C261190B1004CE9A6 /* SwipeReplayMsgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1878AE5B261190B1004CE9A6 /* SwipeReplayMsgView.swift */; };
 		1878AE5F261190C4004CE9A6 /* SwipeReplayMsgView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1878AE5E261190C4004CE9A6 /* SwipeReplayMsgView.xib */; };
-		189BCC9F2736A295000DC2C9 /* MIPopUpOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189BCC9B2736A292000DC2C9 /* MIPopUpOverlay.swift */; };
-		189BCCA02736A295000DC2C9 /* MIPopUpOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 189BCC9C2736A293000DC2C9 /* MIPopUpOverlay.xib */; };
-		189BCCA12736A295000DC2C9 /* MILoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189BCC9D2736A294000DC2C9 /* MILoader.swift */; };
-		189BCCA22736A295000DC2C9 /* MIToastAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189BCC9E2736A295000DC2C9 /* MIToastAlert.swift */; };
 		18A7A6A7272BBFF700C43A1F /* StoredLstMsg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7A6A6272BBFF700C43A1F /* StoredLstMsg.swift */; };
 		18A7A6A9272C27D000C43A1F /* ExtensionDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7A6A8272C27D000C43A1F /* ExtensionDict.swift */; };
 		18BD809025F8958300FE318A /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BD808E25F8958200FE318A /* ContentViewController.swift */; };
@@ -626,6 +626,10 @@
 		180E1E1B2632C14E00973A27 /* AudioAnimation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = AudioAnimation.gif; sourceTree = "<group>"; };
 		181F07D226D3A88D00A7BA49 /* SocketRocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SocketRocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		181F07D326D3A88D00A7BA49 /* StompClientLib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StompClientLib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		18222BCB277A2BA20018A8A2 /* MIToastAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIToastAlert.swift; sourceTree = "<group>"; };
+		18222BCC277A2BA60018A8A2 /* MIPopUpOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIPopUpOverlay.swift; sourceTree = "<group>"; };
+		18222BCD277A2BAB0018A8A2 /* MILoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MILoader.swift; sourceTree = "<group>"; };
+		18222BCE277A2BAE0018A8A2 /* MIPopUpOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MIPopUpOverlay.xib; sourceTree = "<group>"; };
 		1836482926E1E33C000440FA /* ChatSocketIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatSocketIO.swift; sourceTree = "<group>"; };
 		1838BA6C275F302D00A9372C /* SocketIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIO.swift; sourceTree = "<group>"; };
 		1838BA6E275F30FC00A9372C /* SocketIO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SocketIO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -674,10 +678,6 @@
 		1864F6A825F61B95001C69A5 /* HomeStoriesTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStoriesTblCell.swift; sourceTree = "<group>"; };
 		1878AE5B261190B1004CE9A6 /* SwipeReplayMsgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeReplayMsgView.swift; sourceTree = "<group>"; };
 		1878AE5E261190C4004CE9A6 /* SwipeReplayMsgView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwipeReplayMsgView.xib; sourceTree = "<group>"; };
-		189BCC9B2736A292000DC2C9 /* MIPopUpOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIPopUpOverlay.swift; sourceTree = "<group>"; };
-		189BCC9C2736A293000DC2C9 /* MIPopUpOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MIPopUpOverlay.xib; sourceTree = "<group>"; };
-		189BCC9D2736A294000DC2C9 /* MILoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MILoader.swift; sourceTree = "<group>"; };
-		189BCC9E2736A295000DC2C9 /* MIToastAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIToastAlert.swift; sourceTree = "<group>"; };
 		18A7A6A6272BBFF700C43A1F /* StoredLstMsg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredLstMsg.swift; sourceTree = "<group>"; };
 		18A7A6A8272C27D000C43A1F /* ExtensionDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDict.swift; sourceTree = "<group>"; };
 		18BD808E25F8958200FE318A /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
@@ -2271,10 +2271,10 @@
 		62E1A557240E2EC4001BD7A8 /* AlertView:Loader */ = {
 			isa = PBXGroup;
 			children = (
-				189BCC9D2736A294000DC2C9 /* MILoader.swift */,
-				189BCC9B2736A292000DC2C9 /* MIPopUpOverlay.swift */,
-				189BCC9C2736A293000DC2C9 /* MIPopUpOverlay.xib */,
-				189BCC9E2736A295000DC2C9 /* MIToastAlert.swift */,
+				18222BCD277A2BAB0018A8A2 /* MILoader.swift */,
+				18222BCC277A2BA60018A8A2 /* MIPopUpOverlay.swift */,
+				18222BCE277A2BAE0018A8A2 /* MIPopUpOverlay.xib */,
+				18222BCB277A2BA20018A8A2 /* MIToastAlert.swift */,
 			);
 			path = "AlertView:Loader";
 			sourceTree = "<group>";
@@ -2551,7 +2551,6 @@
 				62E1A605240E2EC5001BD7A8 /* CreateFileTableCell.xib in Resources */,
 				62E1A705240E2EC5001BD7A8 /* HomeSharedEventImageTblCell.xib in Resources */,
 				62E1A7CA240E2EC5001BD7A8 /* Poppins-Bold.otf in Resources */,
-				189BCCA02736A295000DC2C9 /* MIPopUpOverlay.xib in Resources */,
 				62E1A7CF240E2EC5001BD7A8 /* Poppins-ExtraBold.otf in Resources */,
 				62E1A737240E2EC5001BD7A8 /* Home Post in Resources */,
 				62E1A6AE240E2EC5001BD7A8 /* ImageZoomCollCell.xib in Resources */,
@@ -2632,6 +2631,7 @@
 				4541C3D5245AFC9700193914 /* Forward.storyboard in Resources */,
 				62E1A751240E2EC5001BD7A8 /* ChatListHeaderView.xib in Resources */,
 				62E1A7C3240E2EC5001BD7A8 /* Poppins-BoldItalic.otf in Resources */,
+				18222BD2277A2BAE0018A8A2 /* MIPopUpOverlay.xib in Resources */,
 				62E1A74A240E2EC5001BD7A8 /* AdvertiseView.xib in Resources */,
 				62E1A7BE240E2EC5001BD7A8 /* SIL Open Font License.txt in Resources */,
 				62E1A75A240E2EC5001BD7A8 /* SegmentView.xib in Resources */,
@@ -2838,7 +2838,6 @@
 				62E1A600240E2EC5001BD7A8 /* FilesVC.swift in Sources */,
 				62E1A6A5240E2EC5001BD7A8 /* ProfileStatesCollCell.swift in Sources */,
 				184E18452608724900E1D5D7 /* CountryHldList.swift in Sources */,
-				189BCCA22736A295000DC2C9 /* MIToastAlert.swift in Sources */,
 				62E1A770240E2EC5001BD7A8 /* ExtensionUISearchBar.swift in Sources */,
 				18BD809625F895BD00FE318A /* usersCollectionViewCell.swift in Sources */,
 				62E1A6A2240E2EC5001BD7A8 /* VideoViewCollViewCell.swift in Sources */,
@@ -2913,7 +2912,7 @@
 				62E1A5DF240E2EC5001BD7A8 /* CreateShoutsViewController.swift in Sources */,
 				62E1A7A1240E2EC5001BD7A8 /* TVIVideoHelper+CallKit.swift in Sources */,
 				62E1A639240E2EC5001BD7A8 /* ProductGalleryImagesCell.swift in Sources */,
-				189BCCA12736A295000DC2C9 /* MILoader.swift in Sources */,
+				18222BD1277A2BAE0018A8A2 /* MILoader.swift in Sources */,
 				62E1A624240E2EC5001BD7A8 /* GroupMemberRequestViewController.swift in Sources */,
 				62E1A790240E2EC5001BD7A8 /* MDLFriendsList.swift in Sources */,
 				62E1A649240E2EC5001BD7A8 /* ProductDetailVC.swift in Sources */,
@@ -2954,6 +2953,7 @@
 				62E1A71B240E2EC5001BD7A8 /* EventInviteesAcceptedTblCell.swift in Sources */,
 				62E1A6BF240E2EC5001BD7A8 /* HomeChirpyTblCell.swift in Sources */,
 				62E1A5F3240E2EC5001BD7A8 /* ChatListViewController.swift in Sources */,
+				18222BCF277A2BAE0018A8A2 /* MIToastAlert.swift in Sources */,
 				62E1A65E240E2EC5001BD7A8 /* OtherUserFriendListViewController.swift in Sources */,
 				62E1A6E5240E2EC5001BD7A8 /* ImageReceiverTblCell.swift in Sources */,
 				62E1A715240E2EC5001BD7A8 /* InviteSectionCell.swift in Sources */,
@@ -3209,7 +3209,7 @@
 				62E1A5E1240E2EC5001BD7A8 /* ChirpyDetailsViewController.swift in Sources */,
 				62E1A667240E2EC5001BD7A8 /* FavWebSiteDetailViewController.swift in Sources */,
 				62E1A6B2240E2EC5001BD7A8 /* LineSeparatorTblCell.swift in Sources */,
-				189BCC9F2736A295000DC2C9 /* MIPopUpOverlay.swift in Sources */,
+				18222BD0277A2BAE0018A8A2 /* MIPopUpOverlay.swift in Sources */,
 				62E1A65A240E2EC5001BD7A8 /* RewardCategoryHeaderView.swift in Sources */,
 				62E1A626240E2EC5001BD7A8 /* ConfirmGroupViewController.swift in Sources */,
 				62E1A64A240E2EC5001BD7A8 /* AddEditProductVC.swift in Sources */,

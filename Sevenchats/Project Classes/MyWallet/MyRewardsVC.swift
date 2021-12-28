@@ -129,42 +129,12 @@ extension MyRewardsVC {
         self.refreshControl.beginRefreshing()
         self.getRewardsSummaryNew(isLoader: false)
     }
-    
-//    fileprivate func getRewardsSummary(isLoader: Bool) {
-//
-//        guard let userId = appDelegate.loginUser?.user_id.description else { return }
-//        dict["user_id"] = userId
-//
-//        APIRequest.shared().rewardsSummaryNew(dict:dict,showLoader: isLoader) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//
-//            self.refreshControl.endRefreshing()
-//            print(response as Any)
-//            if response != nil {
-//                GCDMainThread.async {
-//                    self.arrHistory.removeAll()
-//                   let arrData = response![CData] as? [[String : Any]] ?? []
-////                   _ = arrData.map({self.arrHistory.append(MDLRewardSummary(fromDictionary: $0))})
-//                    for arrData_temp in arrData{
-//                        let name =  arrData_temp["name"] as? String
-//                        print("name_print\(name)")
-//                    }
-//                    let points = response?["total_points"] ?? ""
-//
-//                    self.rewards = MDLRewards(points: points as! Int)
-//
-//                    self.tblHistory.reloadData()
-//                }
-//            }
-//        }
-//    }
-    
-    
     fileprivate func getRewardsSummaryNew(isLoader: Bool) {
         
         guard let userID = appDelegate.loginUser?.user_id.description else { return }
         
-        dict["user_id"] = userID
+//        dict["user_id"] = userID
+        dict[CUserId] = userID
         
         APIRequest.shared().rewardsSummaryNew(dict:dict,showLoader: isLoader) { [weak self] (response, error) in
             guard let self = self else { return }

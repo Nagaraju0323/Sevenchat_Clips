@@ -32,6 +32,7 @@ class CompleteProfileViewController: ParentViewController {
     @IBOutlet var btnTextfiledClearIncomLevel : UIButton!
     @IBOutlet var vwProfessionAndIncome : UIView!
     
+    
     @IBOutlet var scrollView : UIScrollView!
     
     var arrInterest = [[String : Any]]()
@@ -41,6 +42,8 @@ class CompleteProfileViewController: ParentViewController {
     var educationName = ""
     var relationShip = ""
     var inCome = ""
+    var currentPage : Int = 0
+    var apiTask : URLSessionTask?
    
     
     //Newchanges
@@ -292,14 +295,6 @@ class CompleteProfileViewController: ParentViewController {
     }
     
     func loadEducationList() {
-        
-        //Old code by Mi
-        /*let arr = TblEducation.fetch(predicate: NSPredicate(format: "%K == %d", CEducation_id, appDelegate.loginUser?.education_id ?? 0), orderBy: CName, ascending: true)
-        let arrData = TblEducation.fetch(predicate: nil, orderBy: CName, ascending: true)
-        let arrEducation = arrData?.value(forKeyPath: CName) as? [Any]
-         */
-        
-        
         let arr = TblEducation.fetch(predicate: NSPredicate(format: "%K == %s", CName, CName), orderBy: CName, ascending: true)
         let arrData = TblEducation.fetch(predicate: nil, orderBy: CName, ascending: true)
         let arrEducation = arrData?.value(forKeyPath: CName) as? [Any]
@@ -398,7 +393,7 @@ extension CompleteProfileViewController{
         formatter.calendar = Calendar(identifier: .gregorian)
         formatter.locale = DateFormatter.shared().locale
 
-        
+        var user_acc_type = "1"
         var emplymenntStatus = 0
         var professionText = ""
         if btnEmployed.isSelected{
@@ -431,28 +426,15 @@ extension CompleteProfileViewController{
             CProfession : professionText,
             CInterest_ids : interestID
         ]
-
-//        let countryID = NSNumber(value: appDelegate.loginUser?.country_id ?? 0).intValue
-//        let stateID = NSNumber(value: appDelegate.loginUser?.state_id ?? 0).intValue
-//        let cityID = NSNumber(value: appDelegate.loginUser?.city_id ?? 0).intValue
-//        if countryID != 0{
-//            dict["country"] = countryID
-//        }
-//        if stateID != 0{
-//            dict["state_id"] = stateID
-//        }
-//        if cityID != 0{
-//            dict["city_id"] = cityID
-//        }
-        
         guard let langName = appDelegate.loginUser?.lang_name else {return}
         guard let userID = appDelegate.loginUser?.user_id else {return}
         guard let txtCity = appDelegate.loginUser?.city else {return}
         guard let txtmobile = appDelegate.loginUser?.mobile else {return}
         guard let txtemail = appDelegate.loginUser?.email else {return}
         
+        
         let dictcomp:[String:Any] = [
-        "user_acc_type":"1",
+        "user_acc_type":user_acc_type,
         "first_name":firstName_edit ?? "",
         "last_name":lastName_edit ?? "",
         "gender":gender.toString,
@@ -479,7 +461,7 @@ extension CompleteProfileViewController{
         
         
         let dictUserDetails:[String:Any] = [
-        "user_acc_type":"1",
+        "user_acc_type":user_acc_type,
         "first_name":firstName_edit ?? "",
         "last_name":lastName_edit ?? "",
         "gender":gender.toString,
@@ -509,13 +491,88 @@ extension CompleteProfileViewController{
         ]
         
      
-        APIRequest.shared().editProfile(dict: dictcomp as [String : AnyObject], para: dictUserDetails as [String : AnyObject], userID:userID.description, dob: userID.description ) { (response, error) in
-
+        APIRequest.shared().editProfile(dict: dictcomp as [String : AnyObject], para: dictUserDetails as [String : AnyObject], userID:userID.description, dob: userID.description ) { [self] (response, error) in
             if response != nil && error == nil {
+               
+                let lastname = self.lastName_edit ?? ""
+                let firstName = self.firstName_edit ?? ""
+                let gender = gender.toString
+                let religion = self.txtReligion.text ?? ""
+                let profile = appDelegate.loginUser?.profile_img ?? ""
+                let cover = appDelegate.loginUser?.cover_image ?? ""
+                let dob = self.dob_edit ?? ""
+                let bio = self.txtViewBiography.text ?? ""
+                let reltionship  = self.txtStatus.text ?? ""
+                let latitude  = 0
+                let lang = 0
+                let user_type = "1"
+                let status_id = "1"
+                let income = self.inCome
+                let user_id = userID.description
+                let country_name = appDelegate.loginUser?.country ?? ""
+                let state_name = appDelegate.loginUser?.state ?? ""
+                let education = txtEducation.text ?? ""
+                
+                if !lastname.isEmpty && !firstName.isEmpty && !user_acc_type.isEmpty && !gender.isEmpty && !religion.isEmpty && !txtCity.isEmpty && !profile.isEmpty && !cover.isEmpty && !txtmobile.isEmpty && !txtemail.isEmpty && !dob.isEmpty && !bio.isEmpty && !reltionship.isEmpty && !professionText.isEmpty && !txtCity.isEmpty && !latitude.description.isEmpty && !lang.description.isEmpty && !user_type.isEmpty && !status_id.isEmpty && !langName.isEmpty && !emplymenntStatus.description.isEmpty && !income.isEmpty && !user_id.isEmpty && !country_name.isEmpty && !state_name.isEmpty  && !education.isEmpty{
+                    print("this is calling ")
+                     self.getRewardsDetail(isLoader:true)
+                }
+                
+                
+                
+                
                 self.navigationController?.popViewController(animated: true)
             }
         }
     }
+    
+    
+     func getRewardsDetail(isLoader: Bool) {
+        
+        self.currentPage = 1
+        if apiTask?.state == URLSessionTask.State.running {
+            return
+        }
+        var dict = [String:Any]()
+        guard let userID = appDelegate.loginUser?.user_id.description else { return}
+        dict["user_id"] = userID
+        dict["category_id"] = "1007720"
+        dict["page"] = "1"
+        dict["limit"] = "20"
+        apiTask = APIRequest.shared().rewardsDetail(param:dict,showLoader: isLoader) { [weak self] (response, error) in
+            guard let self = self else { return }
+            
+            if response != nil {
+                GCDMainThread.async {
+                    if self.currentPage == 1 {
+                        
+                    }
+                    self.currentPage += 1
+                    
+//                    guard  let errorUserinfo = response?["error"] as? String else {return}
+////                    let errorMsg = errorUserinfo.stringAfter(":")
+////                    if errorMsg ==  " No Rewards History Details Found "{
+////                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+////                        guard let image = appDelegate.loginUser?.profile_img else { return }
+////                        MIGeneralsAPI.shared().addRewardsPoints(CCompleteprofile,message:"Complete_profile",type:CCompleteprofile,title:"Complete profile",name:name,icon:image)
+////                    }
+                    
+                    let arrData = response!["rewards_history"] as? [String : Any] ?? [:]
+                    let arrDatas = arrData["rewards_history"] as? [[String : Any]] ?? [[:]]
+                    for arrDataPoint in arrDatas{
+                        if arrDataPoint["type"] as? String == "Complete profile" || arrDataPoint["type"] as? String == "Register profile"{
+                        }else {
+                          
+                            let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                            guard let image = appDelegate.loginUser?.profile_img else { return }
+                            MIGeneralsAPI.shared().addRewardsPoints(CCompleteprofile,message:"Complete_profile",type:CCompleteprofile,title:"Complete profile",name:name,icon:image)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 // MARK:- ------------ Action Event
@@ -573,5 +630,19 @@ extension CompleteProfileViewController{
             self.txtProfession.updateBottomLineAndPlaceholderFrame()
         }
         
+    }
+}
+
+extension Optional where Wrapped == String {
+    func isEmptyOrWhitespace() -> Bool {
+        // Check nil
+        guard let this = self else { return true }
+        
+        // Check empty string
+        if this.isEmpty {
+            return true
+        }
+        // Trim and check empty string
+        return (this.trimmingCharacters(in: .whitespaces) == "")
     }
 }

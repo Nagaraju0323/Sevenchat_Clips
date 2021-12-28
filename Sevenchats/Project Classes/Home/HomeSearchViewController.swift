@@ -141,7 +141,7 @@ extension HomeSearchViewController  {
     fileprivate func loadMore(_ indexPath : IndexPath) {
         // Load more data...
         if indexPath == tblEvents.lastIndexPath() && !self.isRefreshingUserData {
-//            self.getSearchDataFromServer(txtSearch.text, "new")
+            self.getSearchDataFromServer(txtSearch.text, "new")
         }
     }
     
@@ -156,57 +156,110 @@ extension HomeSearchViewController  {
 //        self.getSearchDataFromServer(txtSearch.text,"new")
     }
     
+//    func getSearchDataFromServer(_ searchText : String?, _ typeLook : String?){
+//        if apiTask?.state == URLSessionTask.State.running {
+//            return
+//        }
+//
+//        // Add load more indicator here...
+//        if self.timeStamp != nil {
+//            self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+//        }else{
+//            self.tblEvents.tableFooterView = nil
+//        }
+////        timestamp: timeStamp, is_post: isPost, type: typeLook, search_type: searchType, search: searchText
+//        param[CName] = searchText
+//        param[CPage] = pageNumber.description
+//        param[CLimitS] = CLimitTW
+//
+//
+//         APIRequest.shared().userSearchDetail(Param: param){ [weak self] (response, error) in
+////        apiTask = APIRequest.shared().userSearchDetail(Param:param) { [weak self] (response, error) in
+//            guard let self = self else { return }
+//            if response != nil{
+//                self.refreshControl.endRefreshing()
+//                self.tblEvents.restore()
+//                self.tblEvents.tableFooterView = nil
+//
+//                if response != nil{
+//                    if let arrList = response![CJsonData] as? [[String:Any]]{
+//                        // Remove all data here when page number == 1
+//                        if self.timeStamp == nil{
+//                            self.arrHomeSearch.removeAll()
+//                            self.tblEvents.reloadData()
+//                        }
+//
+//                        // Add Data here...
+//                        if arrList.count > 0 {
+//                            self.arrHomeSearch = self.arrHomeSearch + arrList
+//                            self.tblEvents.reloadData()
+//
+//                            if let metaInfo = response![CJsonMeta] as? [String:Any]{
+////                                self.timeStamp = metaInfo.valueForDouble(key: "timestamp")!
+////                                self.isPost = metaInfo.valueForInt(key: "is_post")!
+//                            }
+//                        } else {
+//                            
+//                            self.arrHomeSearch.count != 0 ? self.tblEvents.restore() : self.tblEvents.setEmptyMessage(CMessageNoDataFound)
+//                        }
+//                    }
+//                }else {
+//                    print("this is calling")
+//                }
+//            }
+//        }
+//    }
+    
     func getSearchDataFromServer(_ searchText : String?, _ typeLook : String?){
-        if apiTask?.state == URLSessionTask.State.running {
-            return
-        }
-        
-        // Add load more indicator here...
-        if self.timeStamp != nil {
-            self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-        }else{
-            self.tblEvents.tableFooterView = nil
-        }
-//        timestamp: timeStamp, is_post: isPost, type: typeLook, search_type: searchType, search: searchText
-        param[CName] = searchText
-        param[CPage] = pageNumber.description
-        param[CLimitS] = CLimitTW
-        
-        
-         APIRequest.shared().userSearchDetail(Param: param){ [weak self] (response, error) in
-//        apiTask = APIRequest.shared().userSearchDetail(Param:param) { [weak self] (response, error) in
-            guard let self = self else { return }
-            if response != nil{
-                self.refreshControl.endRefreshing()
-                self.tblEvents.restore()
-                self.tblEvents.tableFooterView = nil
-                
-                if response != nil{
-                    if let arrList = response![CJsonData] as? [[String:Any]]{
-                        // Remove all data here when page number == 1
-                        if self.timeStamp == nil{
-                            self.arrHomeSearch.removeAll()
-                            self.tblEvents.reloadData()
-                        }
-                        
-                        // Add Data here...
-                        if arrList.count > 0 {
-                            self.arrHomeSearch = self.arrHomeSearch + arrList
-                            self.tblEvents.reloadData()
-                            
-                            if let metaInfo = response![CJsonMeta] as? [String:Any]{
-//                                self.timeStamp = metaInfo.valueForDouble(key: "timestamp")!
-//                                self.isPost = metaInfo.valueForInt(key: "is_post")!
+    
+                if apiTask?.state == URLSessionTask.State.running {
+                    return
+                }
+    
+                // Add load more indicator here...
+                if self.pageNumber > 2 {
+                    self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+                }else{
+                    self.tblEvents.tableFooterView = nil
+                }
+            
+        let serchTextStr = searchText?.firstCharacterUpperCase()
+          
+            param[CName] = serchTextStr
+            param[CPage] = pageNumber.description
+            param[CLimitS] = CLimitTW
+            
+    
+        APIRequest.shared().userSearchDetail(Param: param){ [weak self] (response, error) in
+                    guard let self = self else { return }
+                    self.tblEvents.tableFooterView = nil
+                    self.refreshControl.endRefreshing()
+    
+                    if response != nil && error == nil {
+                        if let arrList = response!["users"] as? [[String : Any]] {
+    
+                            // Remove all data here when page number == 1
+                            if self.pageNumber == 1 {
+                                self.arrHomeSearch.removeAll()
+                                self.tblEvents.reloadData()
                             }
-                        } else {
-                            
-                            self.arrHomeSearch.count != 0 ? self.tblEvents.restore() : self.tblEvents.setEmptyMessage(CMessageNoDataFound)
+    
+                            // Add Data here...
+                            if arrList.count > 0 {
+                                self.arrHomeSearch = self.arrHomeSearch + arrList
+                                self.tblEvents.reloadData()
+                                self.pageNumber += 1
+                            }
                         }
                     }
                 }
-            }
         }
-    }
+    
+    
+    
+    
+    
+    
     
     func deletePost(_ postId : Int, _ index : Int){
         weak var weakSelf = self
@@ -239,11 +292,11 @@ extension HomeSearchViewController  {
                 
                 if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
                     if  metaData.valueForString(key: "message") == "Request sent successfully"{
-                            guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
+                        guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lassName = appDelegate.loginUser?.last_name else {return}
                         MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "Request sent successfully", MsgType: "FRIEND_REQUEST", MsgSent:"Request sent successfully", showDisplayContent: "User sendt Request successfully", senderName: firstName + lassName)
-                            }
+                        }
                 }
                 
                 var frndInfo = userInfo

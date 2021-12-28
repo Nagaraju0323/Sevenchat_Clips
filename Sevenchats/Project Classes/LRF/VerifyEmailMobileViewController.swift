@@ -23,6 +23,7 @@ class VerifyEmailMobileViewController: ParentViewController {
     
     var isEmailVerify : Bool = false
     var dict = [String : AnyObject]()
+    var dictSingupdatas = [String : Any]()
     var otpCode = ""
     var userEmail = String()
     var userMobile = String()
@@ -31,6 +32,8 @@ class VerifyEmailMobileViewController: ParentViewController {
     var isverify_Success:Bool?
     var apiStatusCode = 0
     var url:URL?
+    var passwordStr = ""
+    var profileImgUrlupdate = "" 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,9 +78,6 @@ class VerifyEmailMobileViewController: ParentViewController {
 
 // MARK:- --------- API
 extension VerifyEmailMobileViewController {
-    
-    
-    
     
     func verifyEmail() {
         let api  = CAPITagverifyEmailOTP
@@ -129,15 +129,6 @@ extension VerifyEmailMobileViewController {
                 body["country_id"] = dict.valueForInt(key: CCountry_id) ?? 0
             }
         }
-        
-//        APIRequest.shared().resendVerificationCode(api : api, body: body) { (response, error) in
-//            if response != nil && error == nil {
-//                let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject]
-//                let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject]
-//                //self.txtVerificationCode.text = self.isEmailVerify ? responseData?.valueForString(key: "email_verify_code") : responseData?.valueForString(key: "mobile_verify_code")
-//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaData?.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: nil)
-//            }
-//        }
     }
     
     func redirectOnSuccess( step : Int){
@@ -192,25 +183,7 @@ extension VerifyEmailMobileViewController {
                     AudioTokenService.shared.callGetAudioTokenAPI(identity: myAudioIdentity, isForRegister: true)
                 }
             }
-            /*let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
-             if self.apiStatusCode == CStatusTwelve && isAppLaunchHere {
-             CUserDefaults.set(false, forKey: UserDefaultIsAppLaunchHere)
-             CUserDefaults.synchronize()
-             appDelegate.initHomeViewController()
-             } else if self.apiStatusCode == CStatusZero && !isAppLaunchHere {
-             CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
-             CUserDefaults.synchronize()
-             appDelegate.initHomeViewController()
-             } else if self.isFromEditProfile{
-             self.navigationController?.popToRootViewController(animated: true)
-             } else if let inviteContancVC = CStoryboardLRF.instantiateViewController(withIdentifier: "InviteAndConnectViewController") as? InviteAndConnectViewController{
-             
-             inviteContancVC.isFromSideMenu = false
-             self.navigationController?.pushViewController(inviteContancVC, animated: true)
-             
-             TVITokenService.shared.callBindUserAPI()
-             AudioTokenService.shared.callGetAudioTokenAPI(identity: myAudioIdentity, isForRegister: true)
-             }*/
+           
         }
     }
     
@@ -218,9 +191,9 @@ extension VerifyEmailMobileViewController {
     func redirectOnSuccessAfter(otp:String){
         
         if isEmail_Mobile == true {
-            self.url = URL(string: "https://dev.sevenchats.com:7443/auth/verifyEmailOTP?email=\(userEmail)&otp=\(otp)")
+            self.url = URL(string: "\(BASEURLOTP)auth/verifyEmailOTP?email=\(userEmail)&otp=\(otp)")
         }else {
-            self.url = URL(string:"https://dev.sevenchats.com:7443/auth/verifyMobileOTP?mobile=\(userMobile)&otp=\(otp)")
+            self.url = URL(string:"\(BASEURLOTP)auth/verifyMobileOTP?mobile=\(userMobile)&otp=\(otp)")
         }
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "GET"
@@ -246,13 +219,12 @@ extension VerifyEmailMobileViewController {
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
                 guard let userMsg = dict?["message"] as? String else { return }
                 if userMsg == "invalid_otp"{
-                    
                     self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                         self.dismiss(animated: true, completion: nil)
                     })
                 }else {
                     DispatchQueue.main.async (execute: { () -> Void in
-                        self.UserDetailsfeath(userEmailId:self.userEmail,accessToken:"")
+                        self.singupRegisterUser(param:self.dictSingupdatas)
                     })
                 }
             }catch let error  {
@@ -261,8 +233,7 @@ extension VerifyEmailMobileViewController {
         })
         task.resume()
     }
-    
-    
+  
     
     func UserDetailsfeath(userEmailId:String,accessToken:String) {
         
@@ -278,7 +249,7 @@ extension VerifyEmailMobileViewController {
                     guard let image = appDelegate.loginUser?.profile_img else { return }
                     MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image)
                     
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "UserOTP is Valid", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Signup Successly", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                         self.dismiss(animated: true, completion: nil)
                         self.isverify_Success = true
                         self.navigationController?.popToRootViewController(animated: true)
@@ -345,4 +316,95 @@ extension VerifyEmailMobileViewController{
         }
         return nil
     }
+}
+/********************************************************
+ * Author :  Chadriak.R                                 *
+ * Model  : Singup & Create Register                    *
+ * Description:                                         *
+ ********************************************************/
+
+
+extension VerifyEmailMobileViewController{
+    
+    func singupRegisterUser(param:[String:Any]){
+        APIRequest.shared().signUpUser(dict: param as [String : AnyObject]) { (response, error) in
+            if response != nil && error == nil {
+                let msgError = response?["error"] as? String
+                let errorMsg = msgError?.stringAfter(":")
+                if errorMsg == " User Mobile Number is Exists" ||  errorMsg == " User email Exists"{
+                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                } else {
+                    let dict = response?.value(forKey: CJsonData) as! [String : AnyObject]
+                    self.uploadUserProfile(userID: dict.valueForInt(key: CUserId)!, signUpResponse: response, imageEmpty:false)
+                    self.registerUserName(username:self.userEmail,password:self.passwordStr)
+                }
+                
+            }
+        }
+    }
+    
+    
+    func registerUserName(username:String,password:String){
+        let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
+        let url = URL(string: "http://dev.sevenchats.com:3001/auth/register")
+        var request : URLRequest = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
+        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
+        request.httpBody = data
+        
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) in
+            if let error = error{
+                print("somethis\(error)")
+            }
+            else if let response = response {
+            }else if let data = data{
+            }
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            let decoder = JSONDecoder()
+            let token_type = (String(data: responseData, encoding: .utf8))
+            do {
+                let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                guard let userMsg = dict?["message"] as? String else { return }
+                DispatchQueue.main.async {
+                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+                    self.UserDetailsfeath(userEmailId:self.userEmail,accessToken:"")
+                    MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
+                }
+            } catch let error  {
+                print("error trying to convert data to \(error)")
+            }
+        })
+        task.resume()
+    }
+    
+    
+    func uploadUserProfile(userID : Int, signUpResponse : AnyObject?,imageEmpty:Bool) {
+        if imageEmpty == true{
+            print("image empty convert text to image")
+        }else {
+            let dict : [String : Any] =  [
+                "user_id":userID,
+                "profile_image":profileImgUrlupdate
+            ]
+            //Profileimage Upload Image
+            APIRequest.shared().uploadUserProfile(userID: userID, para:dict,profileImgName:profileImgUrlupdate) { (response, error) in
+                if response != nil && error == nil {
+                    print("message::::::::::::::uploadprifileimage")
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
 }

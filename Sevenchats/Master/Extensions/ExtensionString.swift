@@ -170,6 +170,7 @@ extension String {
        return self.replacingOccurrences(of: string, with: replacement, options: NSString.CompareOptions.literal, range: nil)
    }
 
+    
    func removeWhitespace() -> String {
        return self.replace(string: " ", replacement: "")
    }
@@ -205,6 +206,14 @@ extension String {
     func fileExtension() -> String {
         return URL(fileURLWithPath: self).pathExtension
     }
+    
+        func firstCharacterUpperCase() -> String? {
+            guard !isEmpty else { return nil }
+            let lowerCasedString = self.lowercased()
+            return lowerCasedString.replacingCharacters(in: lowerCasedString.startIndex...lowerCasedString.startIndex, with: String(lowerCasedString[lowerCasedString.startIndex]).uppercased())
+        }
+   
+    
  }
 
 

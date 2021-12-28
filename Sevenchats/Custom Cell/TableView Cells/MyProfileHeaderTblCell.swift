@@ -515,28 +515,7 @@ extension MyProfileHeaderTblCell{
 
 
 //MARK :- API CALL
-//extension MyProfileHeaderTblCell{
-//
-//    func friendsListFromServer(){
-//
-//        guard  let userID = appDelegate.loginUser?.user_id else {return}
-//        apiTask = APIRequest.shared().getMyfriendList(page: self.pageNumber, user_id: Int(userID), search_type: nil) { [weak self](response, error) in
-//                   if response != nil && error == nil {
-//
-//                    GCDMainThread.async{
-//                    let totalCnt = response?["total_my_friends"] as? Int
-//                       print("print\(String(describing: totalCnt))")
-//                       self?.btnTotalFriend.setTitle("\(totalCnt!)", for: .normal)
-//                    let arrFriendslist = response?["my_friends"] as? [[String : Any]] ?? [[:]]
-//                    self?.arrFriends = arrFriendslist
-//                }
-//            }
-//        }
-//    }
-//}
-
 extension MyProfileHeaderTblCell{
-    
     func friendsListFromServer(){
         guard  let userID = appDelegate.loginUser?.user_id else {return}
         apiTask = APIRequest.shared().getMyfriendList(page: self.pageNumber, user_id: Int(userID), search_type: nil) { [weak self](response, error) in
@@ -544,7 +523,6 @@ extension MyProfileHeaderTblCell{
                 GCDMainThread.async{
                     let totalCnt = response?["total_my_friends"] as? Int
                     self?.totalFriendsCnt = totalCnt ?? 0
-//                    self?.btnTotalFriend.setTitle("\(self?.totalFriendsCnt.toString)", for: .normal)
                     self?.btnTotalFriend.setTitle(self?.totalFriendsCnt.toString, for: .normal)
                 }
             }

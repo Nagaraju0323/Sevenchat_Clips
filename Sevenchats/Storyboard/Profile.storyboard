@@ -3954,7 +3954,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="450"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nature1" translatesAutoresizingMaskIntoConstraints="NO" id="PMR-wE-aEL">
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CoverImage" translatesAutoresizingMaskIntoConstraints="NO" id="PMR-wE-aEL">
                                                             <rect key="frame" x="0.0" y="-5" width="375" height="150"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="150" id="gfu-Ge-2ZB"/>
@@ -3976,7 +3976,7 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zach Braff" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6L-fC-P1W" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                            <rect key="frame" x="110" y="154" width="245" height="23.333333333333343"/>
+                                                            <rect key="frame" x="110" y="154" width="245" height="28"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="OOC-gQ-1O5"/>
                                                             </constraints>
@@ -4125,7 +4125,7 @@
                                                             </constraints>
                                                         </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icL-HE-uoQ">
-                                                            <rect key="frame" x="10" y="200" width="125" height="30.333333333333343"/>
+                                                            <rect key="frame" x="10" y="200" width="125" height="39.666666666666657"/>
                                                             <color key="backgroundColor" red="0.023529411760000001" green="0.75294117650000003" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="125" id="dQe-FU-gzN"/>
@@ -4259,7 +4259,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFI-ls-Kff">
-                                                            <rect key="frame" x="338" y="149.33333333333334" width="30" height="30"/>
+                                                            <rect key="frame" x="338" y="154" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="F4E-1d-JYs"/>
                                                                 <constraint firstAttribute="width" constant="30" id="vQR-lH-wPJ"/>
@@ -4405,6 +4405,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="CoverImage" width="3024" height="654"/>
         <image name="avtar.png" width="126" height="126"/>
         <image name="child" width="1920" height="1220"/>
         <image name="ic_Profile_friends" width="128" height="128"/>
@@ -4432,7 +4433,6 @@
         <image name="ic_request_decline" width="23.666666030883789" height="23.666666030883789"/>
         <image name="ic_small_checkmark_selected" width="22.666666030883789" height="22.666666030883789"/>
         <image name="ic_small_checkmark_unselected" width="22.666666030883789" height="22.666666030883789"/>
-        <image name="nature1" width="769" height="401"/>
         <image name="photo" width="24" height="24"/>
         <image name="tom.jpg" width="300" height="250"/>
         <image name="user_placeholder.png" width="300" height="300"/>

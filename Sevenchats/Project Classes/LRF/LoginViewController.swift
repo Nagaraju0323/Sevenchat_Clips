@@ -451,7 +451,7 @@ class LoginViewController: ParentViewController {
         lblSignUp.isHidden = true
         lblSocialogin.isUserInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.btnSignupCLK_lbl))
-//      lblSignUp.isUserInteractionEnabled = true
+        //      lblSignUp.isUserInteractionEnabled = true
         lblSocialogin.addGestureRecognizer(tap)
         
         
@@ -482,7 +482,7 @@ class LoginViewController: ParentViewController {
         let attributedString = NSMutableAttributedString(string: CLoginDontHaveAccount, attributes:attrs)
         let normalString = NSMutableAttributedString(string: " \(CRegisterSignup)", attributes:attrs1)
         attributedString.append(normalString)
-//        lblSignUp.attributedText = attributedString
+        //        lblSignUp.attributedText = attributedString
         lblSocialogin.attributedText = attributedString
     }
     
@@ -490,12 +490,12 @@ class LoginViewController: ParentViewController {
         self.setAttributedString()
         
         txtEmail.placeHolder = CRegisterPlaceholderEmail
-//        txtEmail.placeHolder = CLoginPlaceholderEmailMobile
+        //        txtEmail.placeHolder = CLoginPlaceholderEmailMobile
         txtPWD.placeHolder = CLoginPlaceholderPassword
         btnForgotPWD.setTitle(CLoginBtnForgot, for: .normal)
         btnSignIn.setTitle(CLoginBtnSignIn, for: .normal)
-//        lblSocialogin.text = CLoginWithSocial
-//        lblSocialogin.text = CLoginWithSocial
+        //        lblSocialogin.text = CLoginWithSocial
+        //        lblSocialogin.text = CLoginWithSocial
         
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
             // Reverse Flow...
@@ -571,7 +571,7 @@ extension LoginViewController:GenericTextFieldDelegate{
         let updatedText = text.replacingCharacters(in: textRange,with: string)
         if string.isBlank{
             if updatedText.isValidPhoneNo && !updatedText.isEmpty{
-               // cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+                // cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
                 cnTxtEmailLeading.constant = 20
                 txtCountryCode.isHidden = true
             }else{
@@ -590,7 +590,7 @@ extension LoginViewController:GenericTextFieldDelegate{
                 if textField.text?.count ?? 0 >= 15{
                     return false
                 }
-               // cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+                // cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
                 cnTxtEmailLeading.constant = 20
                 txtCountryCode.isHidden = true
             }else{
@@ -789,11 +789,11 @@ extension LoginViewController{
         let CWebSiteLink = "https://dev.sevenchats.com:7443/forgot_password"
         
         if UIApplication.shared.canOpenURL(URL(string: CWebSiteLink)!){
-                   UIApplication.shared.open(URL(string: CWebSiteLink)!, options: [:], completionHandler: nil)
-         }
+            UIApplication.shared.open(URL(string: CWebSiteLink)!, options: [:], completionHandler: nil)
+        }
         
-//        let objForgot = CStoryboardLRF.instantiateViewController(withIdentifier: "ForgotPWDViewController")
-//        self.navigationController?.pushViewController(objForgot, animated: true)
+        //        let objForgot = CStoryboardLRF.instantiateViewController(withIdentifier: "ForgotPWDViewController")
+        //        self.navigationController?.pushViewController(objForgot, animated: true)
         
         //        if let inviteContancVC = CStoryboardLRF.instantiateViewController(withIdentifier: "InviteAndConnectViewController") as? InviteAndConnectViewController{
         //            inviteContancVC.isFromSideMenu = false
@@ -807,21 +807,18 @@ extension LoginViewController{
 extension LoginViewController{
     
     func loginUser(){
-     
+        
         self.LoginWithToken(userEmailId:txtEmail.text!)
     }
     
     //UserDetails featch from Back
     func UserDetailsfeath(userEmailId:String,accessToken:String) {
-       
         let dict:[String:Any] = [
             CEmail_Mobile : userEmailId,
         ]
-        
         APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
-                    print("message::::::::::::::uploadprifileimage")
                     self.redirectAfterLogin(response: response, socialDetail: [:])
                 }
             }
@@ -838,12 +835,6 @@ extension LoginViewController{
             CLongitude : MILocationManager.shared().currentLocation?.coordinate.longitude ?? 0.0
         ] as [String : Any]
         
-//        APIRequest.shared().socialLogin(dict: dictParam as [String : AnyObject]) { (response, error) in
-//            
-//            if response != nil && error == nil {
-//                self.redirectAfterLogin(response: response, socialDetail: dict)
-//            }
-//        }
     }
     
     func redirectAfterLogin(response : AnyObject?, socialDetail : [String : AnyObject]) {
@@ -853,17 +844,17 @@ extension LoginViewController{
         let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject]
         
         if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-
+            
             if metaData.valueForInt(key: CJsonStatus) ==  CStatusTen {
                 //...If user not logged in that time user will be redirect on signup screen
-
+                
                 if let objSingUp = CStoryboardLRF.instantiateViewController(withIdentifier: "RegisterViewController") as? RegisterViewController {
-
+                    
                     objSingUp.dictSocial = socialDetail
                     objSingUp.isSocialSignup = true
                     self.navigationController?.pushViewController(objSingUp, animated: true)
                 }
-
+                
             } else if metaData.valueForInt(key: CJsonStatus) == CStatusFour {
                 //...Email or mobile number is not verified
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaData.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: { (action) in
@@ -875,21 +866,21 @@ extension LoginViewController{
                         } else {
                             //objVerify.otpCode = responseData?.valueForString(key: "mobile_verify_code") ?? ""
                         }
-
+                        
                         objVerify.dict =  [
                             CEmail : responseData?.valueForString(key: CEmail) as AnyObject,
                             CMobile : responseData?.valueForString(key: CMobile) as AnyObject,
                             CCountry_id : responseData?.valueForInt(key: CCountry_id) as AnyObject
                         ]
-
+                        
                         self.navigationController?.pushViewController(objVerify, animated: true)
                     }
                 })
             } else {
                 //  MIMQTT.shared().MQTTInitialSetup()
-//                MIGeneralsAPI.shared().getAdvertisementList()
+                //  MIGeneralsAPI.shared().getAdvertisementList()
                 appDelegate.initHomeViewController()
-//                MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: nil)
+                //                MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: nil)
                 //                TVITokenService.shared.bindVoIPToken()
                 //                AudioTokenService.shared.callGetAudioTokenAPI(identity: myAudioIdentity, isForRegister: true)
             }
@@ -905,7 +896,6 @@ extension LoginViewController{
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         let data : Data = "username=\(txtEmail.text!)&password=\(txtPWD.text!)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
         let url = URL(string: "http://dev.sevenchats.com:3001/auth/login")
-//        let url = URL(string: "https://qa.sevenchats.com:7443/auth/login")
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
@@ -929,13 +919,12 @@ extension LoginViewController{
                 }
                 _ = JSONDecoder()
                 let token_type = (String(data: responseData, encoding: .utf8))
-                print("token_error\(token_type)")
                 do {
                     let dict = try self.convertStringToDictionary(text: token_type ?? "")
                     guard let usertoken = dict?["token_type"] as? String else { return  }
                     guard let access_token = dict?["access_token"] as? String else { return }
-//                    CUserDefaults.setValue(access_token, forKey: UserDefaultDeviceToken)
-//                    CUserDefaults.synchronize()
+                    //                    CUserDefaults.setValue(access_token, forKey: UserDefaultDeviceToken)
+                    //                    CUserDefaults.synchronize()
                     self.UserDetailsfeath(userEmailId:userEmailId,accessToken:access_token)
                 }catch let error  {
                     print("error trying to convert data to \(error)")
@@ -954,7 +943,6 @@ extension LoginViewController{
                 return json
             } catch {
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CLoginAlertMessage , btnOneTitle: CBtnOk, btnOneTapped: nil)
-                print("Something went wrong")
                 MILoader.shared.hideLoader()
                 
             }

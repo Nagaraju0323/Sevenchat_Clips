@@ -58,9 +58,26 @@ extension MIGeneralsAPI {
         self.loadPointsConfigs()
         self.loadRewardsCategory()
         self.loadProductCategory()
+        self.loadUserRewardPoings()
     
         
         
+    }
+    
+    
+    func loadUserRewardPoings() {
+        
+        if let userID = appDelegate.loginUser?.user_id {
+            
+            let dict:[String:Any] = [
+                CUserId : userID.description
+            ]
+            
+            APIRequest.shared().rewardsSummaryNew(dict: dict,showLoader : true) { (response, error) in
+                if response != nil {
+                }
+            }
+        }
     }
     
     func laodLoginUserDetail() {
@@ -2143,11 +2160,8 @@ extension MIGeneralsAPI {
             "content":contentStr,
             "icon":profileImgRlc
         ]
-
-        print("dict\(dict)")
-        APIRequest.shared().sendNotification(notifications: dict) { (response, error) in
+         APIRequest.shared().sendNotification(notifications: dict) { (response, error) in
         if response != nil && error == nil {
-        print("response\(response)")
         }
       }
     }
@@ -2184,7 +2198,7 @@ extension MIGeneralsAPI {
         print("dict\(dict)")
         APIRequest.shared().rewardsAdding(param: dict) { (response, error) in
         if response != nil && error == nil {
-        print("response\(response)")
+       
         }
       }
     }

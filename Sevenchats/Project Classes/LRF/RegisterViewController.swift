@@ -53,6 +53,7 @@ class RegisterViewController: ParentViewController {
     var latitude : Double = 0.0
     var longitude : Double = 0.0
     var dictSocial : [String : AnyObject]? = [:]
+    var dictSinup : [String : Any]? = [:]
     var isSocialSignup : Bool = false
     var imgName = ""
     var profileImgUrl = ""
@@ -441,20 +442,25 @@ extension RegisterViewController {
             "religion":""
         ] as [String : Any]
         
-        APIRequest.shared().signUpUser(dict: dict as [String : AnyObject]) { (response, error) in
-            if response != nil && error == nil {
-                let msgError = response?["error"] as? String
-                let errorMsg = msgError?.stringAfter(":")
-                if errorMsg == " User Mobile Number is Exists" ||  errorMsg == " User email Exists"{
-                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                } else {
-                    let dict = response?.value(forKey: CJsonData) as! [String : AnyObject]
-                    self.uploadUserProfile(userID: dict.valueForInt(key: CUserId)!, signUpResponse: response, imageEmpty:false)
-                    self.registerUserName(username:self.txtEmail.text ?? "",password:self.txtPWD.text ?? "")
-                }
-                
-            }
-        }
+        
+        dictSinup = dict
+        
+        
+        
+//        APIRequest.shared().signUpUser(dict: dict as [String : AnyObject]) { (response, error) in
+//            if response != nil && error == nil {
+//                let msgError = response?["error"] as? String
+//                let errorMsg = msgError?.stringAfter(":")
+//                if errorMsg == " User Mobile Number is Exists" ||  errorMsg == " User email Exists"{
+//                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                } else {
+//                    let dict = response?.value(forKey: CJsonData) as! [String : AnyObject]
+//                    self.uploadUserProfile(userID: dict.valueForInt(key: CUserId)!, signUpResponse: response, imageEmpty:false)
+//                    self.registerUserName(username:self.txtEmail.text ?? "",password:self.txtPWD.text ?? "")
+//                }
+//
+//            }
+//        }
     }
     
     
@@ -535,7 +541,7 @@ extension RegisterViewController {
         }
     }
     
-    func redirectToVerificationScreen(signUpResponse : AnyObject?,message:String) {
+    func redirectToVerificationScreen() {
         MILoader.shared.hideLoader()
         CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
         CUserDefaults.synchronize()
@@ -563,7 +569,7 @@ extension RegisterViewController {
         //
         
         //...Load Common api
-        MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
+        
         
         //        let responseData = signUpResponse?.value(forKey: CJsonData) as? [String : AnyObject]
         //        let metaData = signUpResponse?.value(forKey: CJsonMeta) as? [String : AnyObject]
@@ -592,6 +598,9 @@ extension RegisterViewController {
         //                self.navigationController?.pushViewController(objVerify, animated: true)
         //            }
         //        }
+        
+   
+        
     }
 }
 
@@ -752,6 +761,9 @@ extension RegisterViewController{
         let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + txtEmail.text! + "\n" + txtMobileNumber.text!
         self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
             self.signup()
+            self.redirectToVerificationScreen()
+            
+            
         }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
     }
     
@@ -816,7 +828,7 @@ extension RegisterViewController{
                 guard let userMsg = dict?["message"] as? String else { return }
                 DispatchQueue.main.async {
                     MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-                    self.redirectToVerificationScreen(signUpResponse: response,message: userMsg)
+//                    self.redirectToVerificationScreen()
                 }
             } catch let error  {
                 print("error trying to convert data to \(error)")
@@ -843,16 +855,17 @@ extension RegisterViewController{
         let api  = CAPITagverifyEmailOTP
         APIRequest.shared().verifyEmail(api: api,email : txtEmail.text ?? "", verifyCode: txtEmail.text!) { (response, error) in
             if response != nil && error == nil{
-                if let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject] {
+                
+//                if let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject] {
                     if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
                         objVerify.userEmail = self.txtEmail.text ?? ""
+                        objVerify.passwordStr = self.txtPWD.text ?? ""
                         objVerify.isEmail_Mobile = true
+                        objVerify.dictSingupdatas = self.dictSinup ?? [:]
                         objVerify.userMobile = self.txtMobileNumber.text ?? ""
                         self.navigationController?.pushViewController(objVerify, animated: true)
                     }
-                    
-                    
-                }
+//                }
             }else {
                 guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
                 let errorMsg = errorUserinfo.stringAfter(":")
@@ -866,11 +879,12 @@ extension RegisterViewController{
         let api = CAPITagVerifyMobile
         APIRequest.shared().verifyMobile(api : api, email : txtEmail.text ?? "", mobile: txtMobileNumber.text ?? "") { (response, error) in
             if response != nil && error == nil{
-                
                 if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
                     objVerify.userEmail = self.txtEmail.text ?? ""
                     objVerify.isEmail_Mobile = false
+                    objVerify.dictSingupdatas = self.dictSinup ?? [:]
                     objVerify.userMobile = self.txtMobileNumber.text ?? ""
+                    objVerify.passwordStr = self.txtPWD.text ?? ""
                     self.navigationController?.pushViewController(objVerify, animated: true)
                 }
                 

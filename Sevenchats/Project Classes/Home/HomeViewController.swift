@@ -294,23 +294,6 @@ extension HomeViewController {
                                 self.pageNumber += 1
                             }
                         }
-                        
-    //                    let data = response!["post_listing"] as! [String:Any]
-    //                    if let arrList = data["post"] as? [[String : Any]] {
-    //                        //if let arrList = response![CJsonData] as? [[String : Any]] {
-    //                        // Remove all data here when page number == 1
-    //                        if self.pageNumber == 1 {
-    //                            self.arrPostList.removeAll()
-    //                            self.tblUser.reloadData()
-    //                        }
-    //
-    //                        // Add Data here...
-    //                        if arrList.count > 0 {
-    //                            self.arrPostList = self.arrPostList + arrList
-    //                            self.tblUser.reloadData()
-    //                            self.pageNumber += 1
-    //                        }
-    //                    }
                     }
                 }
                 

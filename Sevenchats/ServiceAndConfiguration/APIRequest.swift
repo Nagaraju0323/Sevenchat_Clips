@@ -23,8 +23,9 @@ let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
 var BASEURLCHAT: String     =   "https://dev.sevenchats.com:7443/"
 
 //MARK: - OTP
-var BASEURLOTP: String     =   "http://dev.sevenchats.com:9581/"
-var BASEEMAILOTP:String    =   "http://dev.sevenchats.com:9481/"
+var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
+var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
+
 //MARK: - AUTHENTICATION
 var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
 
@@ -32,13 +33,14 @@ var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
 var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
 var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
 
+//var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7443/"
+//var BASEURLSENDNOTIF : String  =  " https://qa.sevenchats.com:7443/"
+
 //MARK:- SockeIO key
 let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
 
 //MARK:- MINIO
-
 let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
-
 
 
 let CAPIVesrion                     = "v1"
@@ -50,8 +52,6 @@ let CAPITagAnnualIncomes            = "annual-incomes"
 let CAPITagEducations               = "educations"
 let CAPITagCMS                      = "cms"
 let CAPITagQuotes                   = "quotes/all"
-
-//let CAPITagSignUp                   = "sign-up"
 let CAPITagSaveProfileImage         = "save-profile-image"
 let CAPITagLogin                    = "login"
 let CAPITagSocialLogin              = "social-login"
@@ -214,7 +214,6 @@ let CContactSellerAPI = "contact-seller/"
 let CMarkAsSoldAPI = "mark-as-sold/"
 
 let CProductCommentListAPI = "product-comments-list/"
-//let CProductCommentListAPI = "product-comments-list/"
 let CCommentOnProduct = "comment-product"
 let CDeleteProductComment = "delete-product-comment/"
 let CProductUserLikes = "product-likes/"
@@ -1077,31 +1076,6 @@ extension APIRequest {
     
     
     func stateList(timestamp : AnyObject, countryID: String, completion: @escaping ClosureCompletion) -> URLSessionTask?{
-        
-        //MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        /*
-         Oldcode by Mi
-        let param : [String: Any] = [
-            "timestamp":timestamp,
-            "country_id" : countryID
-        ]
-        return Networking.sharedInstance.GET(apiTag: CAPITagState, param: param as [String : AnyObject], successBlock: { (task, response) in
-            //MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagState){
-                completion(response, nil)
-            }
-            
-        }, failureBlock: { (task, message, error) in
-            //MILoader.shared.hideLoader()
-            completion(nil, error)
-            if error?.code == CStatus405{
-                appDelegate.logOut()
-            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-            } else {
-                //self.countryList(timestamp: timestamp, completion: completion)
-            }
-        })
-        */
         let countryName = countryID.replace(string: " ", replacement: "%20")
         return Networking.sharedInstance.GETNEW(apiTag: CAPITagState + countryName , param:nil, successBlock: { (task, response) in
             //MILoader.shared.hideLoader()
@@ -1119,46 +1093,19 @@ extension APIRequest {
                 //self.countryList(timestamp: timestamp, completion: completion)
             }
         })
-        
-        
     }
     
     func cityList(timestamp : AnyObject, stateId : String, completion: @escaping ClosureCompletion) -> URLSessionTask?{
-     
-        /* Oldcode by Mi
-         let param : [String: Any] = [
-            "timestamp":timestamp,
-            "state_id" : stateId
-        ]
-        //MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        return Networking.sharedInstance.GET(apiTag: CAPITagCity, param: param as [String : AnyObject], successBlock: { (task, response) in
-            //MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCity){
-                completion(response, nil)
-            }
-            
-        }, failureBlock: { (task, message, error) in
-           //MILoader.shared.hideLoader()
-            completion(nil, error)
-            if error?.code == CStatus405{
-                appDelegate.logOut()
-            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-            } else {
-                //self.countryList(timestamp: timestamp, completion: completion)
-            }
-        })
-         */
-        
+ 
         let stateName = stateId.replace(string: " ", replacement: "%20")
         return Networking.sharedInstance.GETNEW(apiTag: CAPITagCity + stateName, param:nil, successBlock: { (task, response) in
-            //MILoader.shared.hideLoader()
+            MILoader.shared.hideLoader()
             completion(response, nil)
 //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCity){
 //              
 //            }
             
         }, failureBlock: { (task, message, error) in
-           //MILoader.shared.hideLoader()
             completion(nil, error)
             if error?.code == CStatus405{
                 appDelegate.logOut()
@@ -1171,31 +1118,9 @@ extension APIRequest {
         
     }
 
-//    func getFeedbackCategoryList (completion : @escaping ClosureCompletion) {
-//
-//        _ = Networking.sharedInstance.GET(apiTag: CAPITagFeedbackList, param: [:], successBlock: { (task, response) in
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFeedbackList) {
-//                self.storeFeebackCategoryList(response : response as! [String : AnyObject])
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.getFeedbackCategoryList(completion: completion)
-//            }
-//        })
-//    }
-    
-    
     func getRelationList (completion : @escaping ClosureCompletion) {
         
         _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagRelship, param: [:], successBlock: { (task, response) in
-            
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagRelations){
                 self.storeRelationList(response : response as! [String : AnyObject])
                 completion(response, nil)
@@ -1249,30 +1174,6 @@ extension APIRequest {
         })
     }
     
-   /*Oldcode by Mi
-     func loadCMS(completion : @escaping ClosureCompletion) {
-        
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        
-        _ = Networking.sharedInstance.POST(apiTag: CAPITagCMS, param: [:], successBlock: { (task, response) in
-            
-            MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCMS) {
-                completion(response, nil)
-            }
-            
-        }, failureBlock: { (task, message, error) in
-            MILoader.shared.hideLoader()
-            completion(nil, error)
-            if error?.code == CStatus405{
-                appDelegate.logOut()
-            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-            } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagCMS, error: error)
-            }
-        })
-    }*/
-    
     func loadCMS(completion : @escaping ClosureCompletion) {
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
@@ -1296,32 +1197,6 @@ extension APIRequest {
         })
     }
     
-    /*Oldcode by Mi
-    func loadQuotes(page : Int?, shouldShowLoader : Bool?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-        
-        if shouldShowLoader!{
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        }
-        
-        return Networking.sharedInstance.POST(apiTag: CAPITagQuotes, param: [CPage : page as AnyObject, CPer_page : CLimit as AnyObject], successBlock: { (task, response) in
-            
-            MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagQuotes) {
-                completion (response, nil)
-            }
-            
-        }, failureBlock: { (task, message, error) in
-            MILoader.shared.hideLoader()
-            completion(nil, error)
-            if error?.code == CStatus405{
-                appDelegate.logOut()
-            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-            } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagQuotes, error: error)
-            }
-        })!
-    }
-    */
     
     func loadQuotes(page : Int?, shouldShowLoader : Bool?, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
@@ -1616,16 +1491,12 @@ extension APIRequest {
         }
         
         var para = [ String : Any]()
-//        if langName != nil{
-//            para["lang_name"] = langName
-//        }
         if interestType != nil{
             para["category_type"] = interestType
             para["lang_name"] = langName
         }
 
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagProductcategory, param: para as [String : AnyObject], successBlock: { (task, response) in
-            
             MILoader.shared.hideLoader()
 //            self.storeSubInterestInLocal(response: response as! [String : AnyObject])
             completion(response, nil)
@@ -1983,12 +1854,6 @@ extension APIRequest {
     
     func userDetailNew(userID : String, apiKeyCall: String, completion : @escaping ClosureCompletion) {
                
-               //MILoader.shared.showLoader(type: .circularRing, message: nil)
-              // let apiUserDetailTag = CAPITagUser + "/" + (userID ?? "")
-    //           let dict : [String:Any]  =  [
-    //               "email":userID
-    //           ]
-    //
             var apiTag = ""
             if CAPITagUserNew == apiKeyCall {
                 apiTag = CAPITagUserNew + userID.description
@@ -2215,9 +2080,9 @@ extension APIRequest {
         
         
         _ = Networking.sharedInstance.POSTJSONOTPEmail(apiTag: api, param: dict as [String:AnyObject], successBlock: { (task, response) in
+            completion(response, nil)
             MILoader.shared.hideLoader()
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagVerifyEmail) {
-                
                 completion(response, nil)
             }
             
@@ -6636,10 +6501,6 @@ extension APIRequest {
         if include_user_id != nil{
             para["user_id"] = include_user_id
         }
-
-//        if (commentId ?? 0) != 0{
-//            apiURL += "/" + commentId!.description
-//        }
         _ = Networking.sharedInstance.DELETJSON(apiTag: apiURL, param: para as [String : AnyObject], successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
@@ -6790,6 +6651,8 @@ extension APIRequest {
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagRewards, param: dict as [String:AnyObject], successBlock: { (task, reponse) in
             MILoader.shared.hideLoader()
             completion(reponse, nil)
+            self.storeUserRewardPoints(response: reponse as! [String : AnyObject])
+            
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -7173,29 +7036,8 @@ extension APIRequest {
             CoreData.saveContext()
         }
     }
-    
-    
-    
-    
-    
-  
+ 
     func storeCountryInLocal(response : [String : AnyObject]) {
-      //Oldcode by Mi
-      /*  if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
-            for item in data {
-                
-                let tblCountry = TblCountry.findOrCreate(dictionary: ["country_id":Int16(item.valueForInt(key: CId)!)]) as! TblCountry
-                
-                tblCountry.country_code = item.valueForString(key: CCountrycode)
-                tblCountry.country_iso = item.valueForString(key: CCountryIso)
-                tblCountry.country_name = item.valueForString(key: CCountryName)
-                tblCountry.countryname_code = "\(item.valueForString(key: CCountryName)) - \(item.valueForString(key: CCountrycode))"
-            }
-            CoreData.saveContext()
-        }*/
-        
-      
-        
          if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
               for item in data {
                   let tblCountry = TblCountry.findOrCreate(dictionary: [CCountryName:(item.valueForString(key: CCountryName))]) as! TblCountry
@@ -7206,9 +7048,6 @@ extension APIRequest {
               }
               CoreData.saveContext()
           }
-
-        
-        
     }
     
     func storePointsConfigsInLocal(response : [String : AnyObject]) {
@@ -7239,6 +7078,19 @@ extension APIRequest {
           }
     }
     
+    func storeUserRewardPoints(response : [String : AnyObject]) {
+        if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
+            for item in data {
+                let tblRewardPts = TblRewardPoint.findOrCreate(dictionary: [CName:(item.valueForString(key: CName))]) as! TblRewardPoint
+                tblRewardPts.name = item.valueForString(key: CName)
+                tblRewardPts.points = item.valueForString(key: CPointreward)
+            }
+            CoreData.saveContext()
+        }
+    }
+    
+    
+    
     func storeFeebackCategoryList(response : [String : AnyObject]) {
         
         // Frist remove all Feedback and store updated list
@@ -7259,20 +7111,6 @@ extension APIRequest {
     }
     
     func storeRelationList(response : [String : AnyObject]) {
-        
-        // Frist remove all Relation and store updated list
-        //Oldcode by Mi
-        /*TblRelation.deleteAllObjects()
-        CoreData.saveContext()
-        if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
-            for item in data {
-                if let tblRelation = TblRelation.findOrCreate(dictionary: [CRelationship_id : Int64(item.valueForInt(key: CRelationship_id)!)]) as? TblRelation {
-                    tblRelation.name = item.valueForString(key:CName)
-                }
-            }
-            CoreData.saveContext()
-        }*/
-        //Newcode by Mi
         TblRelation.deleteAllObjects()
         CoreData.saveContext()
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
@@ -7287,20 +7125,6 @@ extension APIRequest {
     }
     
     func storeAnnualIncome(response : [String : AnyObject]) {
-        
-        // Frist remove all Annual Income and store updated data
-        //Oldcode by Mi
-//        TblAnnualIncomes.deleteAllObjects()
-//        CoreData.saveContext()
-//        if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
-//            for item in data {
-//                let tblAnnualIncome = TblAnnualIncomes.findOrCreate(dictionary : [CAnnual_income_id : Int64(item.valueForInt(key: CAnnual_income_id)!)]) as! TblAnnualIncomes
-//                tblAnnualIncome.income = item.valueForString(key: CIncome)
-//            }
-//            CoreData.saveContext()
-//        }
-       
-//        TblAnnualIncomes.deleteAllObjects()
         CoreData.saveContext()
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
             for item in data {
@@ -7314,22 +7138,6 @@ extension APIRequest {
     }
     
     func storeEducationList(response : [String : AnyObject]) {
-        
-        // Oldcode by MiTeam
-        // Frist remove all Education list and store updated data
-       /* TblEducation.deleteAllObjects()
-        CoreData.saveContext()
-        
-        if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
-            
-            for item in data {
-                let tblEducation = TblEducation.findOrCreate(dictionary: [CEducation_id : Int64(item.valueForInt(key: CEducation_id)!)]) as! TblEducation
-                tblEducation.name = item.valueForString(key: CName)
-            }
-            CoreData.saveContext()
-        }*/
-        
-      
         TblEducation.deleteAllObjects()
         CoreData.saveContext()
         
@@ -7371,7 +7179,7 @@ extension APIRequest {
             for item in data {
                 let tblLanguage = TblLanguage.findOrCreate(dictionary: [CLang_id : Int64(item.valueForString(key: "lang_id")) ?? 0]) as! TblLanguage
                 
-                tblLanguage.name = item.valueForString(key: "lang_name")
+                tblLanguage.name = item.valueForString(key: CLang_name)
                 tblLanguage.lang_code = item.valueForString(key: CLang_code)
                 tblLanguage.orientation = item.valueForBool(key: CLangOrientation)
             }
@@ -7402,31 +7210,7 @@ extension APIRequest {
                         
                     }
             }
-//
-//                           let chatInfo = TblChatGroupList.findOrCreate(dictionary: [CGroupId:dataGroups.valueForString(key: CGroupId)]) as! TblChatGroupList
-//                           chatInfo.group_id = item.valueForString(key: CGroupId)
-//                           chatInfo.created_at = item.valueForString(key: CCreated_By)
-//                           //chatInfo.datetime = item.valueForDouble(key: CDateTime)!
-//                           chatInfo.group_image = item.valueForString(key: CGroupImage)
-//                           chatInfo.group_link = item.valueForString(key: CGroupLink)
-//                           chatInfo.group_title = item.valueForString(key: CGroupTitle)
-//                           chatInfo.group_type = item.valueForString(key: CGroupType)
-//                           chatInfo.last_message = item.valueForString(key: CLast_Message)
-//                          // chatInfo.msg_type = Int16(item.valueForInt(key: CMsg_type)!)
-//                           chatInfo.pending_request = item.valueForString(key: CGroupPendingRequest)
-//                           //chatInfo.unread_count = Int32(item.valueForInt(key: CUnreadCount)!)
-//                           chatInfo.address = item.valueForString(key: CAddress)
-//                          // chatInfo.latitude = Double(item.valueForDouble(key: CLatitude) ?? 0.0)
-//                         //  chatInfo.longitude = Double(item.valueForDouble(key: CLongitude) ?? 0.0)
-//
-//                           chatInfo.status_id = item.valueForString(key: CStatus_id)
-//                           //...Convert Timestamp in Local
-//                         //  chatInfo.chat_time = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestamp(timestamp: item.valueForDouble(key: CChat_Time)!/1000) ?? 0.0
-                           
-//                       }
-            
             CoreData.saveContext()
-//        }
     }
     
     // Store user chat list to local..
@@ -7434,8 +7218,6 @@ extension APIRequest {
         if let data = response.valueForJSON(key: CJsonData) as? [[String : Any]] {
             
             for item in data {
-              
-//                let chatInfo = TblChatUserList.findOrCreate(dictionary: [CFriendId:(item.valueForString(key: CFriendId)) ?? "0"]) as! TblChatUserList
                 let chatInfo = TblChatUserList.findOrCreate(dictionary: [Cuser_id:item.valueForString(key: Cuser_id)]) as! TblChatUserList
                 
 //                chatInfo.id = Int64(item.valueForInt(key: CId)!)
@@ -7446,143 +7228,13 @@ extension APIRequest {
                 chatInfo.image = item.valueForString(key: CImage)
                 chatInfo.message = item.valueForString(key: CMessage)
                 chatInfo.isOnline = item.valueForBool(key: CIs_Online)
-                chatInfo.email = item.valueForString(key: "email")
-            
-//                chatInfo.is_blocked = Int16(item.valueForInt(key: CIs_blocked)!)
-//                chatInfo.is_login_blocked = Int16(item.valueForInt(key: CIs_login_blocked)!)
-//                chatInfo.block_unblock_status = Int16(item.valueForInt(key: CBlock_unblock_status)!)
-//                chatInfo.friend_status = Int16(item.valueForInt(key: CFriend_status)!)
-//                chatInfo.unread_cnt = Int32(item.valueForInt(key: CUnreadCnt)!)
-//                chatInfo.created_at = item.valueForDouble(key: CCreated_at)!
-//                chatInfo.status_id = Int16(item.valueForInt(key: CStatus_id)!)
-                
+                chatInfo.email = item.valueForString(key: CEmail)
                 chatInfo.address = item.valueForString(key: CAddress)
-//                chatInfo.latitude = Double(item.valueForDouble(key: CLatitude) ?? 0.0)
-//                chatInfo.longitude = Double(item.valueForDouble(key: CLongitude) ?? 0.0)
-                
-                //...Convert Timestamp in Local
-//                chatInfo.chat_time = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestamp(timestamp: item.valueForDouble(key: CChat_Time)!/1000) ?? 0.0
             }
             
             CoreData.saveContext()
         }
     }
-    
-    // Store Application messages to local
-//    func saveMessagesToLocal(response:[String:Any]) {
-//
-//        if let data = response.valueForJSON(key: CJsonData) as? [String:Any] {
-//            if let arrMessageInfo = data.valueForJSON(key: CJsonMessages) as? [[String:Any]] {
-//                for messageInfo in arrMessageInfo {
-//                    let message_id = messageInfo.valueForString(key: CMessage_id)
-//
-//                    let objMessageInfo = TblMessages.findOrCreate(dictionary: [CMessage_id:message_id]) as! TblMessages
-//                    objMessageInfo.message_id = message_id
-//                    objMessageInfo.profile_image = messageInfo.valueForString(key: CProfileImage)
-//                    objMessageInfo.message = messageInfo.valueForString(key: CMessage)
-//                    objMessageInfo.full_name = messageInfo.valueForString(key: CFullName)
-//                    objMessageInfo.msg_type = Int16(messageInfo.valueForString(key: CMsg_type))!
-//                    objMessageInfo.sender_id = Int64(messageInfo.valueForString(key: CSender_Id))!
-//                    objMessageInfo.recv_id = Int64(messageInfo.valueForString(key: CRecv_id))!
-//                    objMessageInfo.chat_type = Int16(messageInfo.valueForString(key: CChat_type))!
-//                    objMessageInfo.users = messageInfo.valueForString(key: CUsers)
-//                    objMessageInfo.group_id = messageInfo.valueForString(key: CGroupId)
-//                    objMessageInfo.thumb_url = messageInfo.valueForString(key: CThumb_Url)
-//                    objMessageInfo.thumb_name = messageInfo.valueForString(key: CThumb_Name)
-//                    objMessageInfo.publish_type = Int16(messageInfo.valueForString(key: CPublishType))!
-//
-//                    objMessageInfo.address = messageInfo.valueForString(key: CAddress)
-//                    objMessageInfo.latitude = Double(messageInfo.valueForDouble(key: CLatitude) ?? 0.0)
-//                    objMessageInfo.longitude = Double(messageInfo.valueForDouble(key: CLongitude) ?? 0.0)
-//
-//                    objMessageInfo.status_id = Int16(messageInfo.valueForString(key: CStatus_id))!
-//
-//                    objMessageInfo.forwarded_msg_id = messageInfo.valueForString(key: "forwarded_msg_id")
-//                    // If message delete by admin/User then convert msg type to as a Text message.
-//                    if objMessageInfo.status_id == 2 || objMessageInfo.status_id == 3 {
-//                        objMessageInfo.msg_type = 1
-//                    }
-//
-//                    // to check Media is uploaded on server
-//                    objMessageInfo.isMediaUploadedOnServer = true
-//
-//                    // Checked for message read status..
-//                    if objMessageInfo.sender_id == appDelegate.loginUser?.user_id {
-//
-//                        // If read user is empty..
-//                        if messageInfo.valueForString(key: CRead_Users).isBlank {
-//                            objMessageInfo.message_Delivered = 2
-//                        }else {
-//                            let arrReadUsers = messageInfo.valueForString(key: CRead_Users).components(separatedBy: ",")
-//                            objMessageInfo.read_users = (arrReadUsers as NSArray).componentsJoined(by: ",")
-//                            let arrUsers = (objMessageInfo.users! as NSString).components(separatedBy: ",")
-//
-//                            // Delivered = 3, Not Delivered = 2
-//                            objMessageInfo.message_Delivered = arrUsers.count - 1 == arrReadUsers.count ? 3 : 2
-//                        }
-//                    }else {
-//                        objMessageInfo.message_Delivered = 3
-//                    }
-//
-//
-//                    // Check for if video/Audio already downloaded...
-//                    if objMessageInfo.msg_type == 3 || objMessageInfo.msg_type == 4 {
-//
-//                        let documentsDirectory = CTopMostViewController.applicationDocumentsDirectory()
-//
-//                        var mediaName = ""
-//                        var mediaPath = ""
-//                        if objMessageInfo.msg_type == 3 {
-//                            // Video
-//                            mediaName = "\(CApplicationName ?? "")_\(objMessageInfo.message_id ?? "").mp4"
-//                        }else {
-//                            // Audio
-//                            mediaName = "\(CApplicationName ?? "")_\(objMessageInfo.message_id ?? "").caf"
-//                        }
-//
-//                        mediaPath = documentsDirectory! + "/" + mediaName
-//                        if FileManager.default.fileExists(atPath: mediaPath) {
-//                            objMessageInfo.localMediaUrl = mediaName
-//                        }
-//                    }
-//
-//                    //...Convert server Timestamp in Local
-//                    objMessageInfo.chat_time = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestamp(timestamp: messageInfo.valueForDouble(key: CChat_Time)!/1000) ?? 0.0
-//
-//                    //...Convert Timestamp in Local
-//                    //                    objMessageInfo.created_at = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestamp(timestamp: messageInfo.valueForDouble(key: CCreated_at) ?? 0.0) ?? 0.0
-//
-//                    objMessageInfo.message_actual_timestamp = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestamp(timestamp: messageInfo.valueForDouble(key: CChat_Time) ?? 0.0) ?? 0.0
-//                    objMessageInfo.created_at = objMessageInfo.message_actual_timestamp
-//
-//                    objMessageInfo.msg_time = objMessageInfo.created_at / 1000
-//
-//                    // Create channel id for OTO chat..
-//                    if objMessageInfo.chat_type == 1 {
-//                        objMessageInfo.channel_id = objMessageInfo.sender_id == appDelegate.loginUser?.user_id ? CMQTTUSERTOPIC + "\(appDelegate.loginUser?.user_id ?? 0)/\(objMessageInfo.recv_id)" : CMQTTUSERTOPIC + "\(appDelegate.loginUser?.user_id ?? 0)/\(objMessageInfo.sender_id)"
-//
-//                    }else {
-//                        // channel id for Group chat..
-//                        objMessageInfo.channel_id = messageInfo.valueForString(key: CChannel_id)
-//                    }
-//                    let formate = "dd MMM, yyyy"
-//                    objMessageInfo.msgdate = DateFormatter.dateStringFrom(timestamp: objMessageInfo.msg_time, withFormate: formate)
-//                    let formatter = DateFormatter()
-//                    formatter.dateFormat = formate
-//                    formatter.calendar = Calendar(identifier: .gregorian)
-//                    formatter.locale = DateFormatter.shared().locale
-//                    formatter.timeZone = NSTimeZone.local
-//                    let date = DateFormatter.shared().date(from: objMessageInfo.msgdate!)
-//                    let temTimestamp = date?.timeIntervalSince1970
-//                    objMessageInfo.msgdate = "\(temTimestamp ?? 0.0)"
-//                }
-//
-//                CoreData.saveContext()
-//                MIMQTT.shared().updateMessageTimeAccordingToDevice()
-//            }
-//        }
-//
-//    }
     
     // Store user Advertise List to local..
     func storeAdvertiseList(response : [String : Any]) {
@@ -8457,29 +8109,11 @@ struct JSONStringArrayEncodings: ParameterEncoding {
 
     func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
         var urlRequest = try urlRequest.asURLRequest()
-
-        
         let data = try JSONSerialization.data(withJSONObject: array, options: [])
-//        let jsonData = try JSONSerialization.data(withJSONObject: array, options: .prettyPrinted)
-//
-//        let jsonData = try! JSONSerialization.data(withJSONObject: array, options: JSONSerialization.WritingOptions.prettyPrinted)
-//
-//        let jsonString = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-//        let trimmedString = jsonString.components(separatedBy: .whitespacesAndNewlines).joined()
-//        let imgStr_first = trimmedString.replacingOccurrences(of: "\\/\\/", with: "//")
-//        let imgStr_second = imgStr_first.replacingOccurrences(of: "\\/", with: "/")
-//        let imgStr_thrid = imgStr_second.replacingOccurrences(of: "\"", with: "")
-//        let imgStr_four = imgStr_thrid.replacingOccurrences(of: "\\", with: "\\\"")
-//
-        
-        
-
         if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
-
         urlRequest.httpBody = data
-
         return urlRequest
     }
     
