@@ -358,8 +358,8 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
         if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
             let chatInfo = chatUserInfo.dictionaryWithValues(forKeys: Array((chatUserInfo.entity.attributesByName.keys)))
             userDetailVC.iObject = chatInfo
-            userDetailVC.isCreateNewChat = true
-            userDetailVC.userID = chatInfo.valueForString(key: CUserId).toInt
+            userDetailVC.ChatListPage = true
+            userDetailVC.userID = chatInfo.valueForString(key:"user_id").toInt
 //            userDetailVC.userID = Int(chatUserInfo.friend_id)
             userDetailVC.userIDuser = chatInfo.valueForString(key:CUserId)
             userDetailVC.userEmail = chatInfo.valueForString(key: "email")

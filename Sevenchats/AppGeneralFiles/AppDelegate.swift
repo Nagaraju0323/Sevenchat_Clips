@@ -421,7 +421,7 @@ extension AppDelegate {
                 sideMenuController.rightViewWidth = 250.0;
                 sideMenuController.rightViewPresentationStyle = .scaleFromBig
             }
-            
+          
         } else {
             // For Left side
             if let rootSideVC = CStoryboardHome.instantiateViewController(withIdentifier: "SideMenuViewController") as? SideMenuViewController {

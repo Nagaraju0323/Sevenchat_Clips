@@ -220,7 +220,7 @@ extension ChatFriendViewController{
                         if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
                             userDetailVC.isCreateNewChat = true
                             userDetailVC.iObject = userInfo
-                            userDetailVC.userID = userInfo.valueForString(key: CUserId).toInt
+                            userDetailVC.userID = userInfo.valueForString(key: "friend_user_id").toInt
                             userDetailVC.friendUserId = userInfo.valueForString(key: "friend_user_id")
                             userDetailVC.userIDuser = userInfo.valueForString(key:CUserId)
                             self.navigationController?.pushViewController(userDetailVC, animated: true)

@@ -1939,7 +1939,7 @@
                                                                         <constraint firstAttribute="width" constant="30" id="lsj-Ci-4bE"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="11"/>
-                                                                    <state key="normal" title="500"/>
+                                                                    <state key="normal" title="0"/>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3186,7 +3186,7 @@
                                                                         <constraint firstAttribute="width" constant="30" id="wpl-p9-cfm"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="11"/>
-                                                                    <state key="normal" title="500"/>
+                                                                    <state key="normal" title="0"/>
                                                                     <connections>
                                                                         <action selector="onTotalFriends:" destination="bA5-BE-8kS" eventType="touchUpInside" id="LQm-qs-8Xm"/>
                                                                     </connections>
@@ -3647,7 +3647,7 @@
                                                                         <constraint firstAttribute="width" constant="30" id="Zpl-gb-BeY"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="11"/>
-                                                                    <state key="normal" title="500"/>
+                                                                    <state key="normal" title="0"/>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -4095,7 +4095,7 @@
                                                                         <constraint firstAttribute="height" constant="30" id="ccs-lj-MLh"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="11"/>
-                                                                    <state key="normal" title="500"/>
+                                                                    <state key="normal" title="0"/>
                                                                     <connections>
                                                                         <action selector="onTotalFriends:" destination="nni-xz-k2c" eventType="touchUpInside" id="7lB-QW-lcE"/>
                                                                     </connections>

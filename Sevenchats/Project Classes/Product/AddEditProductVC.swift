@@ -787,7 +787,7 @@ class AddEditProductVC: ParentViewController {
         didSet{
             self.txtLocation.txtDelegate = self
             self.txtLocation.isScrollEnabled = true
-            self.txtLocation.textLimit = "75"
+            self.txtLocation.textLimit = "200"
         }
     }
     @IBOutlet weak var txtLastDOP : MIGenericTextFiled!
@@ -862,6 +862,8 @@ class AddEditProductVC: ParentViewController {
     var apiTag = ""
     var userID = ""
     var currentPage : Int = 1
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
     
     var isEdit = ""
     var categorysubName : String?
@@ -1328,6 +1330,7 @@ extension AddEditProductVC {
             self.txtLocation.layoutIfNeeded()
         }
     }
+    
     
     fileprivate func isValideAllFileds() -> Bool{
         
@@ -1893,8 +1896,6 @@ extension AddEditProductVC {
 
 extension AddEditProductVC{
     
-    
-    
     func loadInterestList(interestType : String, showLoader : Bool) {
 
         if apiTask?.state == URLSessionTask.State.running {
@@ -1921,4 +1922,33 @@ extension AddEditProductVC{
     }
     
     
+}
+
+
+extension AddEditProductVC{
+
+@IBAction func btnSelectLocationCLK(_ sender : UIButton){
+    
+    guard let locationPicker = CStoryboardLocationPicker.instantiateViewController(withIdentifier: "LocationPickerVC") as? LocationPickerVC else {
+        return
+    }
+    locationPicker.prefixLocation = CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
+    locationPicker.showCurrentLocationButton = true
+    locationPicker.completion = { [weak self] (placeDetail) in
+        guard let self = self else { return }
+        
+        self.txtLocation.text = placeDetail?.formattedAddress
+        self.latitude = placeDetail?.coordinate?.latitude ?? 0.0
+        self.longitude = placeDetail?.coordinate?.longitude ?? 0.0
+    }
+    self.navigationController?.pushViewController(locationPicker, animated: true)
+    
+    /*MILocationManager.shared().openGMSPlacePicker(self) { [weak self] (place) in
+        guard let self = self else { return }
+        self.txtLocation.text = place.formattedAddress
+        self.latitude = place.coordinate?.latitude ?? 0.0
+        self.longitude = place.coordinate?.longitude ?? 0.0
+    }*/
+}
+
 }

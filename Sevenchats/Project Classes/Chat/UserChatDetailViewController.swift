@@ -1284,6 +1284,7 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
     var topcNameLocal = ""
     var changeTopic = ""
     var uploadImgUrl:String?
+    var ChatListPage:Bool!
     
     let session = AVAudioSession.sharedInstance()
     let synthesizer = AVSpeechSynthesizer()
@@ -1330,6 +1331,7 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         messageidListItems.removeAll()
+//        ChatSocketIo.shared().SocketInitilized()
         
 //        if self.fetchHome.numberOfSections(in: tblChat) == 0{
 //            self.getMessagesFromServer(isNew: true)
@@ -1647,16 +1649,17 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
                 topcName = String(value_two) + "_" + String(value_one)
             }
             ChatSocketIo.shared().createTopicTouser(userTopic:"/topic/" + topcName)
-        }else {
-            guard let value_one = userID, let value_two = Int(friendUserId ) else {return}
+        }
+        if ChatListPage == true {
+            guard let value_one = userID, let value_two = appDelegate.loginUser?.user_id else {return}
             if value_one > value_two{
                 topcName = String(value_one) + "_" + String(value_two)
             }else{
                 topcName = String(value_two) + "_" + String(value_one)
             }
             ChatSocketIo.shared().createTopicTouser(userTopic:"/topic/" + topcName)
-            
-        }
+           }
+    
     }
     
     //autoDelete Notification values Recievied
@@ -2501,9 +2504,11 @@ extension UserChatDetailViewController {
 extension UserChatDetailViewController {
     
     @IBAction func btnMainBackCLK(_ sender : UIButton){
-        if isCreateNewChat{
+        if isCreateNewChat == true{
             self.navigationController?.popToRootViewController(animated: true)
-        }else{
+        }else if ChatListPage == true{
+            self.navigationController?.popViewController(animated: true)
+        }else {
             self.navigationController?.popViewController(animated: true)
         }
     }
@@ -2587,6 +2592,10 @@ extension UserChatDetailViewController {
 //                return
 //            }
         }
+        if isCreateNewChat == true {
+            createTopictoChat()
+        }
+        
         if isCopySeleted == true{
             self.lblDeleteCount.text = ""
         }
