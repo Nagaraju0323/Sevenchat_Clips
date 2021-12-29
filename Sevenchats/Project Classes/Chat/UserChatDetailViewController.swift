@@ -1822,9 +1822,10 @@ extension UserChatDetailViewController {
                     dict?.removeValue(forKey: "content")
                     var dictcontent =  self.convertToDictionarywithtry(from: dictcont ?? "")
                     if dictcontent?["type"] == "image" || dictcontent?["type"] == "video" || dictcontent?["type"] == "audio" {
-                        let txtMsgfrom = dictcontent?["message"]?.replace(string: "\\", replacement: "")
-                        let imagedict = self.convertToDictionarywithtry(from: txtMsgfrom ?? "")
-                        imagepath = imagedict?["image_path"] ?? ""
+//                        let txtMsgfrom = dictcontent?["message"]?.replace(string: "\\", replacement: "")
+//                        let imagedict = self.convertToDictionarywithtry(from: txtMsgfrom ?? "")
+//                        imagepath = imagedict?["image_path"] ?? ""
+                        imagepath = dictcontent?["message"] ?? ""
                         txtmsg = imagepath
                     }else {
                         txtmsg = dictcontent?["message"] ?? ""
@@ -3217,6 +3218,68 @@ extension UserChatDetailViewController{
 extension UserChatDetailViewController{
     
     
+//    func ImageAttachemntApiCall(uploadImgUrl:String,type:String,thumbLine:UIImage){
+//
+//        var uploadString = ""
+//        guard let user_id = appDelegate.loginUser?.user_id else { return }
+//        guard let firstName = appDelegate.loginUser?.first_name  else { return }
+//        guard let lastName = appDelegate.loginUser?.last_name else { return }
+//        guard let profileImage = appDelegate.loginUser?.profile_img else { return }
+//        if let userid = self.userID{
+//
+//            let content:[String:Any]  = [
+//                "mime": "image",
+//                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+//                "image_path":uploadImgUrl
+//            ]
+//            do {
+//                let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
+//                let jsonString = String(data: jsonData, encoding: .utf8)
+//                let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
+//                let imgStr_first = trimmedString?.replacingOccurrences(of: "\\/\\/", with: "//")
+//                let imgStr_second = imgStr_first?.replacingOccurrences(of: "\\/", with: "/")
+//                let imgStr_Third = imgStr_second?.replacingOccurrences(of: "\"", with: "\\\"")
+//                uploadString = imgStr_Third ?? ""
+//
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//
+//            let contentString:[String:Any]  = [
+//                "message": uploadString,
+//                "type": type,
+//                "name" : firstName + lastName,
+//                "profile_image":profileImage
+//            ]
+//            let dictAsString = asString(jsonDictionary: contentString)
+//            let trimmedString = dictAsString.components(separatedBy: .whitespacesAndNewlines).joined()
+//            let dict:[String:Any] = [
+//                "sender": user_id.description,
+//                "topic" : topcName,
+//                "content":trimmedString,
+//            ]
+//            print(":::::::::dictinory\(dict)::::::::::")
+//            sessionTask = APIRequest.shared().userSentMsg(dict:dict) { [weak self] (response, error) in
+//                guard let self = self else { return }
+//                self.refreshControl.endRefreshing()
+//                self.tblChat.tableFooterView = UIView()
+//                if response != nil && error == nil {
+//                    DispatchQueue.main.async{
+//                        guard let arrList = response as? [String:Any] else { return }
+//                        self.fetchHome.loadData()
+//                        ChatSocketIo.shared().socketDelegate = self
+//                        if let arrStatus = arrList["message"] as? String{
+//                            print("arrStatus,\(arrStatus)")
+//                        }
+//                    }
+//                }
+//            }
+//            self.tblChat.scrollToBottom()
+//        }
+//    }
+    
+    
+    
     func ImageAttachemntApiCall(uploadImgUrl:String,type:String,thumbLine:UIImage){
         
         var uploadString = ""
@@ -3225,37 +3288,21 @@ extension UserChatDetailViewController{
         guard let lastName = appDelegate.loginUser?.last_name else { return }
         guard let profileImage = appDelegate.loginUser?.profile_img else { return }
         if let userid = self.userID{
-            
-            let content:[String:Any]  = [
-                "mime": "image",
-                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
-                "image_path":uploadImgUrl
-            ]
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
-                let jsonString = String(data: jsonData, encoding: .utf8)
-                let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
-                let imgStr_first = trimmedString?.replacingOccurrences(of: "\\/\\/", with: "//")
-                let imgStr_second = imgStr_first?.replacingOccurrences(of: "\\/", with: "/")
-                let imgStr_Third = imgStr_second?.replacingOccurrences(of: "\"", with: "\\\"")
-                uploadString = imgStr_Third ?? ""
-                
-            } catch {
-                print(error.localizedDescription)
-            }
-            
+
             let contentString:[String:Any]  = [
-                "message": uploadString,
+                "message": uploadImgUrl,
                 "type": type,
                 "name" : firstName + lastName,
-                "profile_image":profileImage
+                "profile_image":profileImage,
+                "chat":"chat",
             ]
             let dictAsString = asString(jsonDictionary: contentString)
             let trimmedString = dictAsString.components(separatedBy: .whitespacesAndNewlines).joined()
+            let uploadimage = trimmedString.replacingOccurrences(of: "\\/", with: "/")
             let dict:[String:Any] = [
                 "sender": user_id.description,
                 "topic" : topcName,
-                "content":trimmedString,
+                "content":uploadimage,
             ]
             print(":::::::::dictinory\(dict)::::::::::")
             sessionTask = APIRequest.shared().userSentMsg(dict:dict) { [weak self] (response, error) in
@@ -3276,6 +3323,7 @@ extension UserChatDetailViewController{
             self.tblChat.scrollToBottom()
         }
     }
+    
 }
 
 

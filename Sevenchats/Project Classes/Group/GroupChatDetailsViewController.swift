@@ -2848,9 +2848,9 @@ extension GroupChatDetailsViewController {
                     dict?.removeValue(forKey: "content")
                     var dictcontent =  self.convertToDictionarywithtry(from: dictcont ?? "")
                     if dictcontent?["type"] == "image" || dictcontent?["type"] == "video" || dictcontent?["type"] == "audio" {
-                        let txtMsgfrom = dictcontent?["message"]?.replace(string: "\\", replacement: "")
-                        let imagedict = self.convertToDictionarywithtry(from: txtMsgfrom ?? "")
-                        imagepath = imagedict?["image_path"] ?? ""
+//                        let txtMsgfrom = dictcontent?["message"]?.replace(string: "\\", replacement: "")
+//                        let imagedict = self.convertToDictionarywithtry(from: txtMsgfrom ?? "")
+                        imagepath = dictcontent?["message"] ?? ""
                         txtmsg = imagepath
                     }else {
                         txtmsg = dictcontent?["message"] ?? ""
@@ -3563,7 +3563,7 @@ extension GroupChatDetailsViewController {
                                     }else {
                                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                                         guard let lassName = appDelegate.loginUser?.last_name else {return}
-                                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "Message", MsgType: "GROUP_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a GROUP message to you", senderName: firstName + lastName)
+                                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "Message", MsgType: "GROUP_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a GROUP message to you", senderName: firstName + lassName)
                                     }
                                 }
                             }
@@ -4301,6 +4301,62 @@ extension GroupChatDetailsViewController{
 }
 extension GroupChatDetailsViewController {
     
+//    func ImageAttachemntApiCall(uploadImgUrl:String,type:String,thumbLine:UIImage){
+//
+//        var uploadString = ""
+//        guard let user_ID = appDelegate.loginUser?.user_id else { return }
+//        guard let firstName = appDelegate.loginUser?.first_name  else { return }
+//        guard let lastName = appDelegate.loginUser?.last_name else { return }
+//        guard let profileImage = appDelegate.loginUser?.profile_img else { return }
+//
+//            let content:[String:Any]  = [
+//                "mime": "image",
+//                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+//                "image_path":uploadImgUrl
+//            ]
+//            do {
+//                let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
+//                let jsonString = String(data: jsonData, encoding: .utf8)
+//                let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
+//                let imgStr_first = trimmedString?.replacingOccurrences(of: "\\/\\/", with: "//")
+//                let imgStr_second = imgStr_first?.replacingOccurrences(of: "\\/", with: "/")
+//                let imgStr_Third = imgStr_second?.replacingOccurrences(of: "\"", with: "\\\"")
+//                uploadString = imgStr_Third ?? ""
+//
+//            } catch {
+//                print(error.localizedDescription)
+//            }
+//
+//        let contentString:[String:Any]  = [
+//            "message": uploadString,
+//            "type": type,
+//            "chat" : "group",
+//            "name" : firstName + lastName,
+//            "profile_image":profileImage
+//
+//        ]
+//        let dictAsString = asString(jsonDictionary: contentString)
+//        let trimmedString = dictAsString.components(separatedBy: .whitespacesAndNewlines).joined()
+//        let dict:[String:Any] = [
+//            "sender": user_ID.description,
+//            "topic" : group_id,
+//            "content":trimmedString,
+//        ]
+//        sessionTask = APIRequest.shared().userSentMsg(dict:dict) { [weak self] (response, error) in
+//            guard let self = self else { return }
+//            self.refreshControl.endRefreshing()
+//            self.tblChat.tableFooterView = UIView()
+//            if response != nil && error == nil {
+//                self.fetchHome.loadData()
+//                ChatSocketIo.shared().socketDelegate = self
+//                let strArr = self.arrMembers.map({$0.valueForString(key: CUserId) })
+//                strArr.forEach { friends_ID in
+//                    MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "Message", MsgType: "GROUP_MESSAGE", MsgSent:"send Attachment", showDisplayContent: "send a GROUP message to you", senderName: "Group")
+//                }
+//            }
+//        }
+//    }
+    
     func ImageAttachemntApiCall(uploadImgUrl:String,type:String,thumbLine:UIImage){
         
         var uploadString = ""
@@ -4309,26 +4365,26 @@ extension GroupChatDetailsViewController {
         guard let lastName = appDelegate.loginUser?.last_name else { return }
         guard let profileImage = appDelegate.loginUser?.profile_img else { return }
         
-            let content:[String:Any]  = [
-                "mime": "image",
-                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
-                "image_path":uploadImgUrl
-            ]
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
-                let jsonString = String(data: jsonData, encoding: .utf8)
-                let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
-                let imgStr_first = trimmedString?.replacingOccurrences(of: "\\/\\/", with: "//")
-                let imgStr_second = imgStr_first?.replacingOccurrences(of: "\\/", with: "/")
-                let imgStr_Third = imgStr_second?.replacingOccurrences(of: "\"", with: "\\\"")
-                uploadString = imgStr_Third ?? ""
-                
-            } catch {
-                print(error.localizedDescription)
-            }
+//            let content:[String:Any]  = [
+//                "mime": "image",
+//                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+//                "image_path":uploadImgUrl
+//            ]
+//            do {
+//                let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
+//                let jsonString = String(data: jsonData, encoding: .utf8)
+//                let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
+//                let imgStr_first = trimmedString?.replacingOccurrences(of: "\\/\\/", with: "//")
+//                let imgStr_second = imgStr_first?.replacingOccurrences(of: "\\/", with: "/")
+//                let imgStr_Third = imgStr_second?.replacingOccurrences(of: "\"", with: "\\\"")
+//                uploadString = imgStr_Third ?? ""
+//
+//            } catch {
+//                print(error.localizedDescription)
+//            }
             
         let contentString:[String:Any]  = [
-            "message": uploadString,
+            "message": uploadImgUrl,
             "type": type,
             "chat" : "group",
             "name" : firstName + lastName,
@@ -4337,10 +4393,11 @@ extension GroupChatDetailsViewController {
         ]
         let dictAsString = asString(jsonDictionary: contentString)
         let trimmedString = dictAsString.components(separatedBy: .whitespacesAndNewlines).joined()
+        let uploadimage = trimmedString.replacingOccurrences(of: "\\/", with: "/")
         let dict:[String:Any] = [
             "sender": user_ID.description,
             "topic" : group_id,
-            "content":trimmedString,
+            "content":uploadimage,
         ]
         sessionTask = APIRequest.shared().userSentMsg(dict:dict) { [weak self] (response, error) in
             guard let self = self else { return }
@@ -4351,11 +4408,19 @@ extension GroupChatDetailsViewController {
                 ChatSocketIo.shared().socketDelegate = self
                 let strArr = self.arrMembers.map({$0.valueForString(key: CUserId) })
                 strArr.forEach { friends_ID in
-                    MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "Message", MsgType: "GROUP_MESSAGE", MsgSent:"send Attachment", showDisplayContent: "send a GROUP message to you", senderName: "Group")
+                    if friends_ID == user_ID.description{
+                    }else {
+                        guard let firstName = appDelegate.loginUser?.first_name else {return}
+                        guard let lassName = appDelegate.loginUser?.last_name else {return}
+                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "Message", MsgType: "GROUP_MESSAGE", MsgSent: "send Attachment" as? String, showDisplayContent: "send a GROUP message to you", senderName: firstName + lassName)
+                    }
                 }
             }
         }
     }
+    
+    
+    
 }
 
 extension GroupChatDetailsViewController{

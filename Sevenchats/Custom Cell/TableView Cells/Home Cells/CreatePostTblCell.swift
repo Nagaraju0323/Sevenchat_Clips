@@ -364,6 +364,11 @@ extension CreatePostTblCell{
         APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagshouts) { (response, error) in
             if response != nil && error == nil{
                 print("responsevalues",response)
+                
+                
+                
+                
+                
 //                if self.shoutsType == .shareQuote{
 //                    (appDelegate.sideMenuController.leftViewController as? SideMenuViewController)?.selectIndex(0)
 //                    appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
@@ -387,6 +392,10 @@ extension CreatePostTblCell{
                 if let metaInfo = response![CJsonMeta] as? [String:Any]{
                     let timeStamp = metaInfo.valueForString(key: "status")
                     if timeStamp == "0"{
+                        
+                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                        guard let image = appDelegate.loginUser?.profile_img else { return }
+                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:"post_point",type:CPostcreate,title:"Shout Add",name:name,icon:image)
                         self.textViewMessage.text = ""
                         self.onDataAvailable?(true)
                     }

@@ -299,12 +299,6 @@ extension HomeViewController {
                 
             }
         }
-        
-    
-    
-    
-    
-    
     
     func getPostListFromServer(showLoader : Bool){
         if apiTask?.state == URLSessionTask.State.running {

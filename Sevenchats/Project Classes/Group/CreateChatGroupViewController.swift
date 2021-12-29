@@ -453,7 +453,6 @@ extension CreateChatGroupViewController{
                              break
                          }
                      }
-                     
                      if moveBack {
                          self.navigationController?.popViewController(animated: true)
                          GCDMainThread.async {

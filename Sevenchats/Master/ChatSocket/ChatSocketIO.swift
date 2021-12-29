@@ -248,9 +248,10 @@ extension ChatSocketIo: StompClientLibDelegate{
             msgType = dict["type"] ?? ""
             if msgType == "image" || msgType == "audio" || msgType == "video"{
                 do {
-                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
-                    let dict = try? convertToDictionary(from: txtMsgfrom)
-                    image_path = dict?["image_path"]
+//                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
+//                    let dict = try? convertToDictionary(from: txtMsgfrom)
+//                    let msgText  = dict["message"] ?? ""
+                    image_path = dict["message"]
                     txtmessage = image_path ?? ""
                 }catch {
                     print(error)
@@ -298,9 +299,9 @@ extension ChatSocketIo: StompClientLibDelegate{
             msgType = dict["type"] ?? ""
             if msgType == "image" || msgType == "audio" || msgType == "video"{
                 do {
-                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
-                    let dict = try? convertToDictionary(from: txtMsgfrom)
-                    image_path = dict?["image_path"]
+//                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
+//                    let dict = try? convertToDictionary(from: txtMsgfrom)
+                    image_path = dict["message"]
                     txtmessage = image_path ?? ""
                 }catch {
                     print(error)
@@ -347,9 +348,9 @@ extension ChatSocketIo: StompClientLibDelegate{
                 msgType = dict["type"] ?? ""
                 if msgType == "image" || msgType == "audio" || msgType == "video"{
                 do {
-                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
-                    let dict = try? convertToDictionary(from: txtMsgfrom)
-                    image_path = dict?["image_path"]
+//                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
+//                    let dict = try? convertToDictionary(from: txtMsgfrom)
+                    image_path = dict["message"]
                     txtmessage = image_path
                     
                 }catch {
@@ -404,23 +405,23 @@ extension ChatSocketIo: StompClientLibDelegate{
                 msgType = dict["type"] ?? ""
                 if msgType == "image"{
                 do {
-                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
-                    let dict = try? convertToDictionary(from: txtMsgfrom)
-                    image_path = dict?["image_path"]
+//                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
+//                    let dict = try? convertToDictionary(from: txtMsgfrom)
+                    image_path = dict["message"]
                     txtmessage = image_path
                 }catch {
                     print(error)
                 }
                 }else if msgType == "audio"{
-                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
-                    let dict = try? convertToDictionary(from: txtMsgfrom)
-                    image_path = dict?["image_path"]
+//                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
+//                    let dict = try? convertToDictionary(from: txtMsgfrom)
+                    image_path = dict["message"]
                     txtmessage = image_path
                     
                 }else if msgType == "video"{
-                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
-                    let dict = try? convertToDictionary(from: txtMsgfrom)
-                    image_path = dict?["image_path"]
+//                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
+//                    let dict = try? convertToDictionary(from: txtMsgfrom)
+                    image_path = dict["message"]
                     txtmessage = image_path
                 } else {
                 txtmessage = msgText

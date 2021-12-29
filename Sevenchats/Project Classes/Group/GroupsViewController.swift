@@ -181,13 +181,13 @@ extension GroupsViewController {
         self.tblGroups.tableFooterView = nil
         var apiTimeStamp : Double = 0
         
-        if !isNew {
-            // When need old data...
-            if let chatInfo = MIGeneralsAPI.shared().fetchChatGroupObjectFromLocal(isNew: !isNew) {
-                apiTimeStamp = chatInfo.datetime
-                self.tblGroups.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-            }
-        }
+//        if !isNew {
+//            // When need old data...
+//            if let chatInfo = MIGeneralsAPI.shared().fetchChatGroupObjectFromLocal(isNew: !isNew) {
+//                apiTimeStamp = chatInfo.datetime
+//                self.tblGroups.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+//            }
+//        }
         apiTask = APIRequest.shared().getGroupChatList(timestamp: apiTimeStamp,search:userid.description , showLoader: true) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil {
