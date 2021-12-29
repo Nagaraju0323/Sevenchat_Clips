@@ -1323,7 +1323,16 @@
             "no_users": "ಯಾವುದೇ ಬಳಕೆದಾರರು ಕಂಡುಬಂದಿಲ್ಲ",
             "no_groups": "ಯಾವುದೇ ಗುಂಪುಗಳು ಕಂಡುಬಂದಿಲ್ಲ",
             "alert_Cancel_post": "ಪೋಸ್ಟ್ ರದ್ದುಮಾಡಿ",
-            "are_you_sure_you_want_to_cancel_this_post": "ಈ ಪೋಸ್ಟ್ ಅನ್ನು ರದ್ದುಗೊಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?"
+            "are_you_sure_you_want_to_cancel_this_post": "ಈ ಪೋಸ್ಟ್ ಅನ್ನು ರದ್ದುಗೊಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?",
+            "group_is_added_successfully":"ಗುಂಪನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಸೇರಿಸಲಾಗಿದೆ",
+            "live_in": "ವಾಸಿತಿರುವೊತ್ತು",
+            "relationship_status":"ಸಂಬಂಧದ ಸ್ಥಿತಿ",
+            "user_removed_from_group_successfully":"ಬಳಕೆದಾರರನ್ನು ಗುಂಪಿನಿಂದ ಯಶಸ್ವಿಯಾಗಿ ತೆಗೆದುಹಾಕಲಾಗಿದೆ",
+            "group_deleted_successfully":"ಗುಂಪನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಳಿಸಲಾಗಿದೆ",
+            "success":"ಯಶಸ್ಸು",
+            "comment_removed_successfully":"ಕಾಮೆಂಟ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ತೆಗೆದುಹಾಕಲಾಗಿದೆ",
+            "product_already_reported":"ಉತ್ಪನ್ನವನ್ನು ಈಗಾಗಲೇ ವರದಿ ಮಾಡಲಾಗಿದೆ",
+            "your_request_is_on_the_way_We_will_investigate_and_take_an_action_soon":"ನಿಮ್ಮ ವಿನಂತಿಯು ದಾರಿಯಲ್ಲಿದೆ. ನಾವು ಮಾಡುತ್ತೇವೆ ತನಿಖೆ ನಡೆಸಿ ಶೀಘ್ರ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ"
         }
     },
     "meta": {

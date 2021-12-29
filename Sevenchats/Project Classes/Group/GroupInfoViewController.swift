@@ -311,6 +311,7 @@ extension GroupInfoViewController{
                         guard let groupID = appDelegate.loginUser?.user_id else { return }
 //                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: groupID.description, subject: "Group is Removed successfully", MsgType: "GROUP_REMOVE", MsgSent: "", showDisplayContent: "Group is Removed successfully")
                         self.navigationController?.popToRootViewController(animated: true)
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CgroupRemoved, btnOneTitle: CBtnOk, btnOneTapped: nil)
                     }
                 }
             }

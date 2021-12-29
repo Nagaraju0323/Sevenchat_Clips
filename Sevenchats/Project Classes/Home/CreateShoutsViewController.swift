@@ -165,6 +165,7 @@ extension CreateShoutsViewController{
         guard let userid = appDelegate.loginUser?.user_id else {return}
         let userID = userid.description
         let txtshout = textViewMessage.text.replace(string: "\n", replacement: "\\n")
+//        let txtshouts = txtshout.replace(string: "\"g", replacement: "\\\"")
         
         var dict :[String:Any]  =  [
             "user_id":userID,

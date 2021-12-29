@@ -374,9 +374,10 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
         lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
         
        // lblLocation.text = "Lives in \(userInfo.valueForString(key: CCountryName) ) \(userInfo.valueForString(key: CStateName))"
-        lblLocation.text = "Lives in \(userInfo.valueForString(key: "city")) , \(userInfo.valueForString(key: "country"))"
-                lblStatus.text = "Relationship \(userInfo.valueForString(key: "relationship"))"
-        
+       // lblLocation.text = "Lives in \(userInfo.valueForString(key: "city")) , \(userInfo.valueForString(key: "country"))"
+        //lblStatus.text = "Relationship \(userInfo.valueForString(key: "relationship"))"
+        lblLocation.text =  CLive_in + (appDelegate.loginUser?.city ?? "")
+        lblStatus.text = CRelationship_Status + (appDelegate.loginUser?.relationship ?? "")
         
         switch Int(userInfo.valueForString(key: CGender)) {
         case CMale :

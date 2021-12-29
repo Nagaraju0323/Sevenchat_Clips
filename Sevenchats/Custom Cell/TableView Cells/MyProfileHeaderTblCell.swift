@@ -138,7 +138,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
             //            lblBdate.textAlignment = .left
         }
         
-        //        lblTitleFriends.text = CProfileFriends NG
+      lblTitleFriends.text = CProfileFriends
         //        lblTitleFriends.text = ""
         btnViewCompleteProfile.setTitle(CProfileBtnViewCompleteProfile, for: .normal)
         btnShare.setTitle(CBtnShare, for: .normal)
@@ -155,7 +155,9 @@ class MyProfileHeaderTblCell: UITableViewCell {
             lblStatus.text = dict?.name
         }
         lblUserName.text = "\(appDelegate.loginUser?.first_name ?? "") \(appDelegate.loginUser?.last_name ?? "")"
-        lblLocation.text = "Lives in \(appDelegate.loginUser?.country ?? "") \(appDelegate.loginUser?.state ?? "")"
+      //  lblLocation.text = "Lives in \(appDelegate.loginUser?.country ?? "") \(appDelegate.loginUser?.state ?? "")"
+        lblLocation.text =  CLive_in + (appDelegate.loginUser?.city ?? "")
+        lblStatus.text = CRelationship_Status + (appDelegate.loginUser?.relationship ?? "")
         switch Int((appDelegate.loginUser?.gender)!) {
         case CMale :
             lblGender.text = CRegisterGenderMale

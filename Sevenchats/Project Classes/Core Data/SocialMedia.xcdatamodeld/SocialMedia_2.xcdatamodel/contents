@@ -207,6 +207,7 @@
         <attribute name="city" optional="YES" attributeType="String"/>
         <attribute name="clip_must_not_exceed_100" optional="YES" attributeType="String"/>
         <attribute name="comment" optional="YES" attributeType="String"/>
+        <attribute name="comment_removed_successfully" optional="YES" attributeType="String"/>
         <attribute name="comments" optional="YES" attributeType="String"/>
         <attribute name="complete" optional="YES" attributeType="String"/>
         <attribute name="confirm" optional="YES" attributeType="String"/>
@@ -327,10 +328,12 @@
         <attribute name="gallery_edited_successfully" optional="YES" attributeType="String"/>
         <attribute name="go_to_website" optional="YES" attributeType="String"/>
         <attribute name="group_call_from" optional="YES" attributeType="String"/>
+        <attribute name="group_deleted_successfully" optional="YES" attributeType="String"/>
         <attribute name="group_details" optional="YES" attributeType="String"/>
         <attribute name="group_image_required" optional="YES" attributeType="String"/>
         <attribute name="group_info_add_more" optional="YES" attributeType="String"/>
         <attribute name="group_info_link" optional="YES" attributeType="String"/>
+        <attribute name="group_is_added_successfully" optional="YES" attributeType="String"/>
         <attribute name="group_member" optional="YES" attributeType="String"/>
         <attribute name="group_member_not_selected" optional="YES" attributeType="String"/>
         <attribute name="group_members" optional="YES" attributeType="String"/>
@@ -380,6 +383,7 @@
         <attribute name="likes" optional="YES" attributeType="String"/>
         <attribute name="link_copied" optional="YES" attributeType="String"/>
         <attribute name="link_to_payment" optional="YES" attributeType="String"/>
+        <attribute name="live_in" optional="YES" attributeType="String"/>
         <attribute name="location" optional="YES" attributeType="String"/>
         <attribute name="location_services_disabled" optional="YES" attributeType="String"/>
         <attribute name="login_dont_have_an_account" optional="YES" attributeType="String"/>
@@ -530,6 +534,7 @@
         <attribute name="posts_select_friends" optional="YES" attributeType="String"/>
         <attribute name="preparing_to_export" optional="YES" attributeType="String"/>
         <attribute name="privacy_policy" optional="YES" attributeType="String"/>
+        <attribute name="product_already_reported" optional="YES" attributeType="String"/>
         <attribute name="product_created_success" optional="YES" attributeType="String"/>
         <attribute name="product_description" optional="YES" attributeType="String"/>
         <attribute name="product_price" optional="YES" attributeType="String"/>
@@ -596,6 +601,7 @@
         <attribute name="register_take_photo" optional="YES" attributeType="String"/>
         <attribute name="reject" optional="YES" attributeType="String"/>
         <attribute name="relationship_id_messagenot_valid" optional="YES" attributeType="String"/>
+        <attribute name="relationship_status" optional="YES" attributeType="String"/>
         <attribute name="religious_inclination" optional="YES" attributeType="String"/>
         <attribute name="remove" optional="YES" attributeType="String"/>
         <attribute name="remove_photo" optional="YES" attributeType="String"/>
@@ -711,6 +717,7 @@
         <attribute name="str_in" optional="YES" attributeType="String"/>
         <attribute name="student" optional="YES" attributeType="String"/>
         <attribute name="subscription_cancel_alert_message" optional="YES" attributeType="String"/>
+        <attribute name="success" optional="YES" attributeType="String"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="targeted_content_cant_blank" optional="YES" attributeType="String"/>
         <attribute name="terms_and_conditions" optional="YES" attributeType="String"/>
@@ -744,6 +751,7 @@
         <attribute name="url_not_found" optional="YES" attributeType="String"/>
         <attribute name="user" optional="YES" attributeType="String"/>
         <attribute name="user_deleted_this_message" optional="YES" attributeType="String"/>
+        <attribute name="user_removed_from_group_successfully" optional="YES" attributeType="String"/>
         <attribute name="using" optional="YES" attributeType="String"/>
         <attribute name="validation_for_age_in_post" optional="YES" attributeType="String"/>
         <attribute name="verify_code_cant_blank" optional="YES" attributeType="String"/>
@@ -782,6 +790,7 @@
         <attribute name="your_information" optional="YES" attributeType="String"/>
         <attribute name="your_message_has_been_sent_to_seller" optional="YES" attributeType="String"/>
         <attribute name="your_rating" optional="YES" attributeType="String"/>
+        <attribute name="your_request_is_on_the_way_We_will_investigate_and_take_an_action_soon" optional="YES" attributeType="String"/>
         <attribute name="your_request_to_join_group_has_been_sent_to_admin" optional="YES" attributeType="String"/>
         <attribute name="your_storage_is_full_need_to_upgrade_storage" optional="YES" attributeType="String"/>
     </entity>
@@ -959,7 +968,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10109"/>
+        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10244"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>
@@ -968,10 +977,10 @@
         <element name="TblProductSubCategory" positionX="0" positionY="153" width="128" height="59"/>
         <element name="TblRelation" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="TblRewardCategory" positionX="-9" positionY="144" width="128" height="89"/>
+        <element name="TblRewardPoint" positionX="-9" positionY="144" width="128" height="59"/>
         <element name="TblSpentTime" positionX="-45" positionY="135" width="128" height="103"/>
         <element name="TblSubIntrest" positionX="-45" positionY="144" width="128" height="74"/>
         <element name="TblTotalFriends" positionX="-27" positionY="162" width="128" height="104"/>
         <element name="TblUser" positionX="-63" positionY="18" width="128" height="1004"/>
-        <element name="TblRewardPoint" positionX="-9" positionY="144" width="128" height="59"/>
     </elements>
 </model>

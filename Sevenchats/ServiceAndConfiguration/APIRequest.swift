@@ -7271,6 +7271,20 @@ extension APIRequest {
             let tblLanguageText = TblLanguageText.findOrCreate(dictionary: [CLang_code : (data.valueForString(key: "lang_code"))]) as! TblLanguageText
             
             //LRF screen Messages...
+            
+            tblLanguageText.live_in = dict?.valueForString(key: "live_in")
+            tblLanguageText.relationship_status = dict?.valueForString(key: "relationship_status")
+            tblLanguageText.user_removed_from_group_successfully = dict?.valueForString(key: "user_removed_from_group_successfully")
+            tblLanguageText.group_deleted_successfully = dict?.valueForString(key: "group_deleted_successfully")
+            tblLanguageText.comment_removed_successfully = dict?.valueForString(key: "comment_removed_successfully")
+            tblLanguageText.your_request_is_on_the_way_We_will_investigate_and_take_an_action_soon = dict?.valueForString(key: "your_request_is_on_the_way_We_will_investigate_and_take_an_action_soon")
+            tblLanguageText.success = dict?.valueForString(key: "success")
+            tblLanguageText.group_is_added_successfully = dict?.valueForString(key: "group_is_added_successfully")
+            tblLanguageText.product_already_reported = dict?.valueForString(key: "product_already_reported")
+            
+            
+            
+            
             tblLanguageText.login_dont_have_an_account = dict?.valueForString(key: "login_dont_have_an_account")
             tblLanguageText.login_email_not_registered_with_us = dict?.valueForString(key: "login_email_not_registered_with_us")
             tblLanguageText.login_email_or_mobile = dict?.valueForString(key: "login_email_or_mobile")

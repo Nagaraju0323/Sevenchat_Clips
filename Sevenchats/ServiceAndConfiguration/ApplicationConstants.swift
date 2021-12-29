@@ -170,10 +170,11 @@ let PASSWORDALLOWCHAR = "!@#$%ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwx
 //MARK:- Google Client ID and Place Picker Key
 
 let CGoogleClientID = "1045965359994-o9s380d6cu7o19katai53452pdn68gkf.apps.googleusercontent.com"
+//let CGoogleAPIKey = "AIzaSyD7woCwx7MTjP2dU4RR85g10yZpECaH2EE"
 let CGoogleAPIKey = "AIzaSyD7woCwx7MTjP2dU4RR85g10yZpECaH2EE"
 
 //let CGooglePlacePickerKey = "AIzaSyATj-D2T6HVygZFzd4yQM6PWkzJR9x5N5s"
-let CGooglePlacePickerKey = "AIzaSyAOsvyW-5cQd9yT-yEZLAXNJ-o1n9u9a_s"
+let CGooglePlacePickerKey = "AIzaSyBl8HBDx1j8SBsg_pNqpPfwPD6-6DrugSc"
 
 
 

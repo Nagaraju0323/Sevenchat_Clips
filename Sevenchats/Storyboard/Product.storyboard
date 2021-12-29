@@ -396,28 +396,6 @@
                                                                             <constraint firstAttribute="width" constant="20" id="FO9-LC-a5r"/>
                                                                         </constraints>
                                                                     </imageView>
-                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleAspectFit" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mZr-nz-aCK" customClass="GenericTextView" customModule="Sevenchats" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="299" height="50"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="height" constant="50" id="w74-6d-Vsv"/>
-                                                                        </constraints>
-                                                                        <color key="textColor" red="0.51764705879999995" green="0.60392156860000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="12"/>
-                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="string" keyPath="textLimit" value="200"/>
-                                                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderBackgroundColor">
-                                                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderBackgroundColor">
-                                                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                            <userDefinedRuntimeAttribute type="color" keyPath="bottomLineColor">
-                                                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
-                                                                    </textView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uuv-fW-huc">
                                                                         <rect key="frame" x="0.0" y="49" width="335" height="1"/>
                                                                         <color key="backgroundColor" red="0.26274509800000001" green="0.27450980390000002" blue="0.26274509800000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -428,18 +406,41 @@
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <textField opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwk-jJ-d5a" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                                                        <rect key="frame" x="10" y="0.0" width="287" height="45"/>
+                                                                        <color key="textColor" red="0.55294117649999996" green="0.71372549019999998" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                                                <color key="value" red="0.55294117649999996" green="0.71372549019999998" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </textField>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O7E-cB-DBM">
+                                                                        <rect key="frame" x="9" y="-3" width="328" height="47"/>
+                                                                        <connections>
+                                                                            <action selector="btnSelectLocationCLK:" destination="KUN-Ho-MaJ" eventType="touchUpInside" id="lmz-Td-Myx"/>
+                                                                        </connections>
+                                                                    </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
+                                                                    <constraint firstItem="nwk-jJ-d5a" firstAttribute="leading" secondItem="vqc-Pj-KVQ" secondAttribute="leading" constant="10" id="B2u-Iz-IC8"/>
                                                                     <constraint firstAttribute="trailing" secondItem="Uuv-fW-huc" secondAttribute="trailing" id="C1f-fc-UUz"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="O7E-cB-DBM" secondAttribute="trailing" constant="-2" id="E9y-w8-rYf"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="O7E-cB-DBM" secondAttribute="bottom" constant="6" id="EdM-rV-Ivj"/>
+                                                                    <constraint firstItem="O7E-cB-DBM" firstAttribute="width" secondItem="vqc-Pj-KVQ" secondAttribute="width" multiplier="0.979104" id="Hb1-ns-X19"/>
                                                                     <constraint firstAttribute="bottom" secondItem="Uuv-fW-huc" secondAttribute="bottom" id="HnJ-uY-B2k"/>
-                                                                    <constraint firstItem="mZr-nz-aCK" firstAttribute="top" secondItem="vqc-Pj-KVQ" secondAttribute="top" id="KMX-b5-CMa"/>
-                                                                    <constraint firstItem="ZEP-e1-Okv" firstAttribute="leading" secondItem="mZr-nz-aCK" secondAttribute="trailing" constant="8" id="Z4r-b1-wo9"/>
+                                                                    <constraint firstItem="O7E-cB-DBM" firstAttribute="top" secondItem="vqc-Pj-KVQ" secondAttribute="top" constant="-3" id="Q4e-8U-R8b"/>
+                                                                    <constraint firstItem="ZEP-e1-Okv" firstAttribute="leading" secondItem="nwk-jJ-d5a" secondAttribute="trailing" constant="10" id="ZBm-CH-bNJ"/>
+                                                                    <constraint firstItem="O7E-cB-DBM" firstAttribute="height" secondItem="vqc-Pj-KVQ" secondAttribute="height" multiplier="0.94" id="auh-et-pXW"/>
                                                                     <constraint firstAttribute="bottom" secondItem="ZEP-e1-Okv" secondAttribute="bottom" constant="5" id="bE6-tR-41a"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="mZr-nz-aCK" secondAttribute="bottom" id="jUr-LS-qPQ"/>
-                                                                    <constraint firstItem="mZr-nz-aCK" firstAttribute="leading" secondItem="vqc-Pj-KVQ" secondAttribute="leading" id="n6H-V1-nza"/>
+                                                                    <constraint firstItem="nwk-jJ-d5a" firstAttribute="top" secondItem="vqc-Pj-KVQ" secondAttribute="top" id="cKp-pc-dt0"/>
                                                                     <constraint firstItem="ZEP-e1-Okv" firstAttribute="top" secondItem="vqc-Pj-KVQ" secondAttribute="top" constant="5" id="nfC-Bt-qNV"/>
+                                                                    <constraint firstItem="O7E-cB-DBM" firstAttribute="leading" secondItem="vqc-Pj-KVQ" secondAttribute="leading" constant="9" id="oEy-1y-O9j"/>
                                                                     <constraint firstItem="Uuv-fW-huc" firstAttribute="leading" secondItem="vqc-Pj-KVQ" secondAttribute="leading" id="szo-UU-J5Y"/>
+                                                                    <constraint firstItem="Uuv-fW-huc" firstAttribute="top" secondItem="nwk-jJ-d5a" secondAttribute="bottom" constant="4" id="ub8-xu-XHd"/>
                                                                     <constraint firstAttribute="trailing" secondItem="ZEP-e1-Okv" secondAttribute="trailing" constant="8" id="xiM-Lq-wjD"/>
                                                                 </constraints>
                                                             </view>
@@ -450,7 +451,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I accept all the terns and conditions including all the privacy policies" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZ9-st-hjh" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                        <rect key="frame" x="20" y="883.5" width="335" height="42"/>
+                                                        <rect key="frame" x="20" y="883.5" width="335" height="39.5"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -518,9 +519,8 @@
                         <outlet property="txtCitys" destination="sQI-sf-tA6" id="ndM-Xz-fyu"/>
                         <outlet property="txtCountrys" destination="1yC-NZ-m2c" id="wI9-yX-3VQ"/>
                         <outlet property="txtCurrencyList" destination="dfw-wi-v1u" id="g6V-Cf-B8J"/>
-                        <outlet property="txtHeightLocation" destination="w74-6d-Vsv" id="gcm-qJ-Y57"/>
                         <outlet property="txtLastDOP" destination="09L-2j-jfa" id="2gF-NN-Nol"/>
-                        <outlet property="txtLocation" destination="mZr-nz-aCK" id="lbz-Cs-qe1"/>
+                        <outlet property="txtLocation" destination="nwk-jJ-d5a" id="hmn-ca-OtK"/>
                         <outlet property="txtProductDesc" destination="efN-Sk-mNx" id="tNX-C4-fVh"/>
                         <outlet property="txtProductPrice" destination="R4g-1h-Nx9" id="9GT-xL-seW"/>
                         <outlet property="txtProductTitle" destination="1op-VO-qOE" id="Q8d-ZK-5aQ"/>
@@ -2470,9 +2470,6 @@
         </scene>
     </scenes>
     <designables>
-        <designable name="95b-jq-mn1">
-            <size key="intrinsicContentSize" width="148" height="28"/>
-        </designable>
         <designable name="A2B-NX-uX8">
             <size key="intrinsicContentSize" width="10" height="37"/>
         </designable>
@@ -2480,10 +2477,7 @@
             <size key="intrinsicContentSize" width="10" height="37"/>
         </designable>
         <designable name="gZ9-st-hjh">
-            <size key="intrinsicContentSize" width="474" height="21"/>
-        </designable>
-        <designable name="mZr-nz-aCK">
-            <size key="intrinsicContentSize" width="10" height="34"/>
+            <size key="intrinsicContentSize" width="474" height="20"/>
         </designable>
         <designable name="sU0-Bz-wol">
             <size key="intrinsicContentSize" width="10" height="37"/>
@@ -2492,7 +2486,7 @@
             <size key="intrinsicContentSize" width="10" height="37"/>
         </designable>
         <designable name="t9u-TZ-lev">
-            <size key="intrinsicContentSize" width="474" height="21"/>
+            <size key="intrinsicContentSize" width="474" height="20"/>
         </designable>
     </designables>
     <resources>

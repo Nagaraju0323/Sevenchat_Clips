@@ -197,6 +197,8 @@ var CResetAlertConfirmPWDBlank: String{ return appDelegate.langugaeText?.reset_c
 var CResetAlertPWDConfirmPWDNotMatch: String{ return appDelegate.langugaeText?.reset_new_password_and_confirm_password_mismatch ?? "New password and confirm password do not match" }
 
 //MARK:- Profile Screen
+var CLive_in: String{ return appDelegate.langugaeText?.live_in ?? "Live" }
+var CRelationship_Status: String{ return appDelegate.langugaeText?.relationship_status ?? "Relationship" }
 var CNavEditProfile: String{ return appDelegate.langugaeText?.edit_profile ?? "Edit Profile" }
 var CNavCompleteProfile: String{ return appDelegate.langugaeText?.profile_complete ?? "Complete Profile" }
 var CNavMyProfile: String{ return appDelegate.langugaeText?.my_profile ?? "My Profile" }
@@ -388,6 +390,8 @@ var CMessageSelectContactGroupImage : String{ return appDelegate.langugaeText?.p
 var CMessageImagePostUpdated : String{ return appDelegate.langugaeText?.gallery_edited_successfully ?? "Gallery has been updated" }
 
 //MARK:- Group Chat Related messages
+var CgroupCreated: String{ return CLocalize(text: appDelegate.langugaeText?.group_is_added_successfully ?? "group is added successfully")}
+var CgroupRemoved: String{ return CLocalize(text: appDelegate.langugaeText?.group_deleted_successfully ?? "group deleted successfully")}
 
 var CNavMemberRequest: String{ return appDelegate.langugaeText?.member_request ?? "Member request" }
 var CNavNewGroup: String{ return appDelegate.langugaeText?.new_group ?? "New group" }
@@ -793,6 +797,12 @@ var CBlankReviewText: String{
 }
 
 //MARK: - Product Detail
+var CProductReport: String{
+    return CLocalize(text: appDelegate.langugaeText?.your_request_is_on_the_way_We_will_investigate_and_take_an_action_soon ?? "CReportProduct")
+}
+var CProductAlreadyReport: String{
+    return CLocalize(text: appDelegate.langugaeText?.product_already_reported ?? "CReportProduct")
+}
 var CPaymentPreference: String{
     return CLocalize(text: appDelegate.langugaeText?.payment_preference ?? "Payment Preferences")
 }

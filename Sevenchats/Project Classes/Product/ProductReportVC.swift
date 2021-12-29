@@ -139,7 +139,7 @@ extension ProductReportVC {
                 GCDMainThread.async {
                     self?.navigationController?.popToRootViewController(animated: true)
                     if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                        CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaInfo.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CProductReport, btnOneTitle: CBtnOk, btnOneTapped: nil)
                     }
                 }
             }else{

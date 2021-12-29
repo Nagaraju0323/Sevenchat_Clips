@@ -458,7 +458,7 @@ extension CreateChatGroupViewController{
                          self.navigationController?.popViewController(animated: true)
                          GCDMainThread.async {
                              if let metaInfo = response![CJsonMeta] as? [String : Any]{
-                                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaInfo.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: nil)
+                                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CgroupCreated, btnOneTitle: CBtnOk, btnOneTapped: nil)
                              }
                          }
                      }
