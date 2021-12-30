@@ -249,7 +249,7 @@ extension VerifyEmailMobileViewController {
                     guard let image = appDelegate.loginUser?.profile_img else { return }
                     MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image)
                     
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Signup Successly", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterSuccess, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                         self.dismiss(animated: true, completion: nil)
                         self.isverify_Success = true
                         self.navigationController?.popToRootViewController(animated: true)

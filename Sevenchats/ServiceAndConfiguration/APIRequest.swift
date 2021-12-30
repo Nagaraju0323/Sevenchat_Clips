@@ -7387,6 +7387,8 @@ extension APIRequest {
             
             
             //Sidemenu Messages...
+            tblLanguageText.sidemenu_PSL = dict?.valueForString(key: "sidemenu_PSL")
+            tblLanguageText.successfully_signup = dict?.valueForString(key: "successfully_signup")
             tblLanguageText.sidemenu_chats = dict?.valueForString(key: "sidemenu_chats")
             tblLanguageText.sidemenu_connect_invite = dict?.valueForString(key: "sidemenu_connect_invite")
             tblLanguageText.sidemenu_event_calendar = dict?.valueForString(key: "sidemenu_event_calendar")

@@ -37,6 +37,7 @@ var CComment: String{ return CLocalize(text: appDelegate.langugaeText?.comment ?
 var CNavReportUser: String{ return appDelegate.langugaeText?.report_user ?? "Report User" }
 var CNavReportGroup: String{ return appDelegate.langugaeText?.report_group ?? "Report group" }
 var CNavNews: String{ return appDelegate.langugaeText?.sidemenu_news ?? "News"}
+var CNavPSL: String{ return appDelegate.langugaeText?.sidemenu_PSL ?? "PSL"}
 var CNavAboutUs: String{ return appDelegate.langugaeText?.about_us ?? "About Us" }
 var CNavPrivacyPolicy: String{ return appDelegate.langugaeText?.privacy_policy ?? "Privacy Policy" }
 var CNavGroups: String{ return appDelegate.langugaeText?.sidemenu_groups ?? "Groups" }
@@ -116,6 +117,7 @@ var CLoginAlertPasswordBlank: String{ return appDelegate.langugaeText?.login_pas
 //MARK:- Register Screen
 var CRegisterTitle: String{ return appDelegate.langugaeText?.register ?? "Register" }
 var CRegisterSignup: String{ return appDelegate.langugaeText?.register_signup ?? "Sign Up" }
+var CRegisterSuccess: String{ return appDelegate.langugaeText?.successfully_signup ?? "Sign Up Successfully" }
 var CRegisterPlaceholderFirstName: String{ return appDelegate.langugaeText?.register_first_name ?? "First Name" }
 var CRegisterPlaceholderLastName: String{ return appDelegate.langugaeText?.register_last_name ?? "Last Name" }
 var CRegisterPlaceholderEmail: String{ return appDelegate.langugaeText?.register_email ?? "Email Address" }
@@ -231,8 +233,10 @@ var CSideProfile: String{ return appDelegate.langugaeText?.sidemenu_profile ?? "
 var CSideChat: String{ return appDelegate.langugaeText?.sidemenu_chats ?? "Chats" }
 var CSideGroups: String{ return appDelegate.langugaeText?.sidemenu_groups ?? "Groups" }
 var CSideQuotes: String{ return appDelegate.langugaeText?.sidemenu_quotes ?? "Quotes" }
+
 var CSidePostAds: String{ return appDelegate.langugaeText?.sidemenu_post_ads ?? "Post Ads" }
 var CSideNews: String{ return appDelegate.langugaeText?.sidemenu_news ?? "News" }
+var CSidePSL: String{ return  appDelegate.langugaeText?.sidemenu_PSL ?? "Public Service" }
 var CSideFavWebSites: String{ return appDelegate.langugaeText?.sidemenu_fav_websites ?? "Fav. web sites" }
 var CSideConnectInvite: String{ return appDelegate.langugaeText?.sidemenu_connect_invite ?? "Connect & Invite" }
 var CSideEventCalendar: String{ return appDelegate.langugaeText?.sidemenu_event_calendar ?? "Event Calendar" }

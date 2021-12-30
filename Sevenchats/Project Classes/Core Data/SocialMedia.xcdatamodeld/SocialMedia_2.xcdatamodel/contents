@@ -700,6 +700,7 @@
         <attribute name="sidemenu_notifications" optional="YES" attributeType="String"/>
         <attribute name="sidemenu_post_ads" optional="YES" attributeType="String"/>
         <attribute name="sidemenu_profile" optional="YES" attributeType="String"/>
+        <attribute name="sidemenu_PSL" optional="YES" attributeType="String"/>
         <attribute name="sidemenu_quotes" optional="YES" attributeType="String"/>
         <attribute name="sidemenu_settings" optional="YES" attributeType="String"/>
         <attribute name="skip" optional="YES" attributeType="String"/>
@@ -718,6 +719,7 @@
         <attribute name="student" optional="YES" attributeType="String"/>
         <attribute name="subscription_cancel_alert_message" optional="YES" attributeType="String"/>
         <attribute name="success" optional="YES" attributeType="String"/>
+        <attribute name="successfully_signup" optional="YES" attributeType="String"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="targeted_content_cant_blank" optional="YES" attributeType="String"/>
         <attribute name="terms_and_conditions" optional="YES" attributeType="String"/>
@@ -968,7 +970,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10244"/>
+        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10274"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>

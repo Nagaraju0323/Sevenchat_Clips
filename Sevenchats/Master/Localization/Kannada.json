@@ -1332,7 +1332,9 @@
             "success":"ಯಶಸ್ಸು",
             "comment_removed_successfully":"ಕಾಮೆಂಟ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ತೆಗೆದುಹಾಕಲಾಗಿದೆ",
             "product_already_reported":"ಉತ್ಪನ್ನವನ್ನು ಈಗಾಗಲೇ ವರದಿ ಮಾಡಲಾಗಿದೆ",
-            "your_request_is_on_the_way_We_will_investigate_and_take_an_action_soon":"ನಿಮ್ಮ ವಿನಂತಿಯು ದಾರಿಯಲ್ಲಿದೆ. ನಾವು ಮಾಡುತ್ತೇವೆ ತನಿಖೆ ನಡೆಸಿ ಶೀಘ್ರ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ"
+            "your_request_is_on_the_way_We_will_investigate_and_take_an_action_soon":"ನಿಮ್ಮ ವಿನಂತಿಯು ದಾರಿಯಲ್ಲಿದೆ. ನಾವು ಮಾಡುತ್ತೇವೆ ತನಿಖೆ ನಡೆಸಿ ಶೀಘ್ರ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ",
+            "successfully_signup":"ಯಶಸ್ವಿಯಾಗಿ ಸೈನ್ ಅಪ್",
+            "sidemenu_PSL":"ಸಾರ್ವಜನಿಕ ಸೇವೆ",
         }
     },
     "meta": {

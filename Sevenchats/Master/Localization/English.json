@@ -6,4 +6,9 @@
     "success":"Success",
     "product_already_reported":"Product already reported",
     "comment_removed_successfully":"Comment removed successfully",
-    "your_request_is_on_the_way_We_will_investigate_and_take_an_action_soon":"Your request is on the way. We will investigate and take an action soon"}},"meta":{"status":0,"message":"Success"}}
+    "your_request_is_on_the_way_We_will_investigate_and_take_an_action_soon":"Your request is on the way. We will investigate and take an action, soon",
+    "successfully_signup":"Successfully Sign Up",
+    "sidemenu_PSL":"Public Service",
+   
+    
+}},"meta":{"status":0,"message":"Success"}}

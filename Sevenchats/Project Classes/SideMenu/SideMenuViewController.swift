@@ -43,6 +43,8 @@ class SideMenuViewController: ParentViewController {
 //            [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), kNotificationCount:0],
             [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_chat"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_chat"), kNotificationCount:0],
             [CTitle:CSideNews as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_news"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_news"), kNotificationCount:0],
+            [CTitle:CSidePSL as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_news"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_news"), kNotificationCount:0],
+
             [CTitle:CSideNotifications as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_notification"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_notification"), kNotificationCount:0],
             [CTitle:CStores as Any, CImage:UIImage(named: "ic_store_unselected")!, CImageSelected:UIImage(named: "ic_store_unselected")!, kNotificationCount:0],
 //            [CTitle:CFileTitle as Any, CImage:UIImage(named: "ic_menu_file")!, CImageSelected:UIImage(named: "ic_menu_file")!, kNotificationCount:0],
@@ -143,6 +145,8 @@ extension SideMenuViewController {
 //            [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), kNotificationCount:0],
             [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_chat"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_chat"), kNotificationCount:userCount],
             [CTitle:CSideNews as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_news"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_news"), kNotificationCount:0],
+            [CTitle:CSidePSL as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_news"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_news"), kNotificationCount:0],
+
             [CTitle:CSideNotifications as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_notification"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_notification"), kNotificationCount:notificationCount],
             [CTitle:CStores as Any, CImage:UIImage(named: "ic_store_unselected")!, CImageSelected:UIImage(named: "ic_store_unselected")!, kNotificationCount:0],
 //            [CTitle:CFileTitle as Any, CImage:UIImage(named: "ic_menu_file")!, CImageSelected:UIImage(named: "ic_menu_file")!, kNotificationCount:0],
@@ -383,6 +387,10 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
             
         case CSideNews:
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardSideMenu.instantiateViewController(withIdentifier: "NewsViewController"))
+            appDelegate.hideSidemenu()
+            break
+        case CSidePSL:
+            appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardSideMenu.instantiateViewController(withIdentifier: "PSLViewController"))
             appDelegate.hideSidemenu()
             break
             
