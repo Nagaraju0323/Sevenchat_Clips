@@ -111,13 +111,8 @@ class HomeSearchViewController: ParentViewController {
             
             self.timeStamp = nil
             self.isPost = nil
-            
 //            self.getSearchDataFromServer(self.txtSearch.text, "new")
-            
-            
             }, defaultPlaceholder: "")
-        
-//        txtSearchDropdown.text = CTypeAll
         txtSearchDropdown.text = CTypeUser
        
     }
@@ -225,8 +220,9 @@ extension HomeSearchViewController  {
             
         let serchTextStr = searchText?.firstCharacterUpperCase()
           
+//            serchTextStr = "Sh"
             param[CName] = serchTextStr
-            param[CPage] = pageNumber.description
+            param[CPage] = "1"
             param[CLimitS] = CLimitTW
             
     
@@ -234,16 +230,14 @@ extension HomeSearchViewController  {
                     guard let self = self else { return }
                     self.tblEvents.tableFooterView = nil
                     self.refreshControl.endRefreshing()
-    
+            self.arrHomeSearch.removeAll()
                     if response != nil && error == nil {
                         if let arrList = response!["users"] as? [[String : Any]] {
-    
                             // Remove all data here when page number == 1
                             if self.pageNumber == 1 {
                                 self.arrHomeSearch.removeAll()
                                 self.tblEvents.reloadData()
                             }
-    
                             // Add Data here...
                             if arrList.count > 0 {
                                 self.arrHomeSearch = self.arrHomeSearch + arrList
@@ -254,12 +248,6 @@ extension HomeSearchViewController  {
                     }
                 }
         }
-    
-    
-    
-    
-    
-    
     
     func deletePost(_ postId : Int, _ index : Int){
         weak var weakSelf = self
@@ -1946,8 +1934,9 @@ extension HomeSearchViewController {
         txtSearch.text = nil
         timeStamp = nil
         isPost = nil
-        arrHomeSearch.removeAll()
+       
         tblEvents.restore()
+        arrHomeSearch.removeAll()
         tblEvents.reloadData()
     }
     
