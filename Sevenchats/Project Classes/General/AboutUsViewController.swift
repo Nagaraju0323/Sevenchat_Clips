@@ -22,7 +22,7 @@ class AboutUsViewController: ParentViewController {
         didSet{
             let webConfiguration = WKWebViewConfiguration()
             webView = WKWebView(frame: vwWebView.bounds, configuration: webConfiguration)
-            //webView.navigationDelegate = self
+//            webView.navigationDelegate = self
             vwWebView.addSubview(webView)
             vwWebView.sendSubviewToBack(webView)
             NSLayoutConstraint.activate([

@@ -16,31 +16,37 @@ import LGSideMenuController
 /// Live
 //var BASEURL: String          =   "http://dev1.sevenchats.com:2020/api/v1/"
 //MARK: - Dev
-var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
+//var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
 let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
-
 //MARK: - CHAT
 var BASEURLCHAT: String     =   "https://dev.sevenchats.com:7443/"
-
 //MARK: - OTP
 var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
 var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
-
 //MARK: - AUTHENTICATION
 var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
-
 //MARK: - Notification
 var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
 var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
-
-//var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7443/"
-//var BASEURLSENDNOTIF : String  =  " https://qa.sevenchats.com:7443/"
-
 //MARK:- SockeIO key
 let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
-
 //MARK:- MINIO
 let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
+
+
+
+
+
+//MARK: - Dev
+//var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/"
+
+
+
+
+
+
+
+
 
 
 let CAPIVesrion                     = "v1"

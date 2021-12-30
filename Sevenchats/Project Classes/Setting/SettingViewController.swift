@@ -35,13 +35,13 @@ class SettingViewController: ParentViewController {
         if appDelegate.loginUser?.account_type == 0 {
 //            arrSettings = [CSettingEditprofile,CSettingProfilePreference,CSettingChangePassword,CSettingPushNotification,CSettingEmailNotification,CSettingLanguageSetting,CSettingFeedback,CSettingRestorePurchased,CSettingAboutus,CSettingTermsAndConditions,CSettingPrivacyPolicy]
 //
-            arrSettings = [CSettingEditprofile,CSettingProfilePreference,CSettingChangePassword,CSettingPushNotification,CSettingEmailNotification,CSettingLanguageSetting,CSettingFeedback,CSettingRestorePurchased,CSettingAboutus,CSettingTermsAndConditions,CSettingPrivacyPolicy]
+            arrSettings = [CSettingEditprofile,CSettingProfilePreference,CSettingChangePassword,CSettingLanguageSetting,CSettingFeedback,CSettingAboutus,CSettingTermsAndConditions,CSettingPrivacyPolicy]
             
         } else {
             // For Socail Login....
 //            arrSettings = [CSettingEditprofile,CSettingProfilePreference,CSettingPushNotification,CSettingEmailNotification,CSettingLanguageSetting,CSettingFeedback,CSettingRestorePurchased,CSettingAboutus,CSettingTermsAndConditions,CSettingPrivacyPolicy]
             
-            arrSettings = [CSettingEditprofile,CSettingProfilePreference,CSettingPushNotification,CSettingEmailNotification,CSettingLanguageSetting,CSettingFeedback,CSettingRestorePurchased,CSettingAboutus,CSettingTermsAndConditions,CSettingPrivacyPolicy]
+            arrSettings = [CSettingEditprofile,CSettingProfilePreference,CSettingLanguageSetting,CSettingFeedback,CSettingAboutus,CSettingTermsAndConditions,CSettingPrivacyPolicy]
         }
         let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
         if !isAppLaunchHere {

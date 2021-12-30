@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -255,7 +255,7 @@
                                                         </constraints>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentTblCell" rowHeight="80" id="sJ9-ax-mIx" customClass="CommentTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                                                                <rect key="frame" x="0.0" y="24.5" width="375" height="80"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sJ9-ax-mIx" id="504-cR-1Bg">
                                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -525,7 +525,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="QuotesTblCell" rowHeight="187" id="v8S-f6-lQ5" customClass="QuotesTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="187"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="375" height="187"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="v8S-f6-lQ5" id="9Vk-A7-SJt">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="187"/>
@@ -747,7 +747,7 @@
                                         <color key="backgroundColor" red="0.97647058823529409" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsTblCell" rowHeight="200" id="t3b-QK-t8g" customClass="NewsTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="200"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="375" height="200"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t3b-QK-t8g" id="BP4-P7-n8v">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>

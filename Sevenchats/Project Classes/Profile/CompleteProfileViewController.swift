@@ -252,12 +252,7 @@ class CompleteProfileViewController: ParentViewController {
     }
     
     func loadAnnualIncomeList(){
-       
-        //Oldcode by Mi
-//        let arr = TblAnnualIncomes.fetch(predicate: NSPredicate(format: "%K == %d", CAnnual_income_id, appDelegate.loginUser?.annual_income_id ?? 0), orderBy: CIncome, ascending: true)
-//        let arrData = TblAnnualIncomes.fetch(predicate: nil, orderBy: CIncome, ascending: true)
-//        let arrIncome = arrData?.value(forKeyPath: CIncome) as? [Any]
-       
+
         let arr = TblAnnualIncomes.fetch(predicate: NSPredicate(format: "%K == %s", CIncome,CIncome), orderBy: CIncome, ascending: true)
         let arrData = TblAnnualIncomes.fetch(predicate: nil, orderBy: CIncome, ascending: true)
         let arrIncome = arrData?.value(forKeyPath: CIncome) as? [Any]
@@ -514,14 +509,9 @@ extension CompleteProfileViewController{
                 let education = txtEducation.text ?? ""
                 
                 if !lastname.isEmpty && !firstName.isEmpty && !user_acc_type.isEmpty && !gender.isEmpty && !religion.isEmpty && !txtCity.isEmpty && !profile.isEmpty && !cover.isEmpty && !txtmobile.isEmpty && !txtemail.isEmpty && !dob.isEmpty && !bio.isEmpty && !reltionship.isEmpty && !professionText.isEmpty && !txtCity.isEmpty && !latitude.description.isEmpty && !lang.description.isEmpty && !user_type.isEmpty && !status_id.isEmpty && !langName.isEmpty && !emplymenntStatus.description.isEmpty && !income.isEmpty && !user_id.isEmpty && !country_name.isEmpty && !state_name.isEmpty  && !education.isEmpty{
-                    print("this is calling ")
                      self.getRewardsDetail(isLoader:true)
                 }
-                
-                
-                
-                
-                self.navigationController?.popViewController(animated: true)
+             self.navigationController?.popViewController(animated: true)
             }
         }
     }
