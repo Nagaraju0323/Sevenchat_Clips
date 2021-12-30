@@ -11,6 +11,9 @@ import AVFoundation
 import AVKit
 import Photos
 
+
+
+//public var switchCam = Bool()
 public var switchCam = Bool()
 
 public protocol PhotoEditorDelegate {
