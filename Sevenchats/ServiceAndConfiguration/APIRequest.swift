@@ -16,7 +16,7 @@ import LGSideMenuController
 /// Live
 //var BASEURL: String          =   "http://dev1.sevenchats.com:2020/api/v1/"
 //MARK: - Dev
-//var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
+var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
 let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
 //MARK: - CHAT
 var BASEURLCHAT: String     =   "https://dev.sevenchats.com:7443/"
@@ -38,7 +38,8 @@ let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 
 
 //MARK: - Dev
-//var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/"
+//var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin"
+
 
 
 

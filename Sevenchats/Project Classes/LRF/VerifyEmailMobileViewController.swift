@@ -187,54 +187,6 @@ extension VerifyEmailMobileViewController {
         }
     }
     
-    
-    func redirectOnSuccessAfter(otp:String){
-        
-        if isEmail_Mobile == true {
-            self.url = URL(string: "\(BASEURLOTP)auth/verifyEmailOTP?email=\(userEmail)&otp=\(otp)")
-        }else {
-            self.url = URL(string:"\(BASEURLOTP)auth/verifyMobileOTP?mobile=\(userMobile)&otp=\(otp)")
-        }
-        var request : URLRequest = URLRequest(url: url!)
-        request.httpMethod = "GET"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
-        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let task = session.dataTask(with: request, completionHandler: {
-            (data, response, error) in
-            if let error = error{
-                print("somethis\(error)")
-            }
-            else if let response = response {
-            }else if let data = data{
-            }
-            guard let responseData = data else {
-                print("Error: did not receive data")
-                return
-            }
-            let decoder = JSONDecoder()
-            let token_type = (String(data: responseData, encoding: .utf8))
-            do {
-                let dict = try self.convertStringToDictionary(text: token_type ?? "")
-                guard let userMsg = dict?["message"] as? String else { return }
-                if userMsg == "invalid_otp"{
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
-                        self.dismiss(animated: true, completion: nil)
-                    })
-                }else {
-                    DispatchQueue.main.async (execute: { () -> Void in
-                        self.singupRegisterUser(param:self.dictSingupdatas)
-                    })
-                }
-            }catch let error  {
-                print("error trying to convert data to \(error)")
-            }
-        })
-        task.resume()
-    }
-  
-    
     func UserDetailsfeath(userEmailId:String,accessToken:String) {
         
         let dict:[String:Any] = [
@@ -320,7 +272,7 @@ extension VerifyEmailMobileViewController{
 /********************************************************
  * Author :  Chadriak.R                                 *
  * Model  : Singup & Create Register                    *
- * Description:                                         *
+ * Description: API Calls                               *
  ********************************************************/
 
 
@@ -338,11 +290,9 @@ extension VerifyEmailMobileViewController{
                     self.uploadUserProfile(userID: dict.valueForInt(key: CUserId)!, signUpResponse: response, imageEmpty:false)
                     self.registerUserName(username:self.userEmail,password:self.passwordStr)
                 }
-                
             }
         }
     }
-    
     
     func registerUserName(username:String,password:String){
         let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
@@ -393,7 +343,6 @@ extension VerifyEmailMobileViewController{
                 "user_id":userID,
                 "profile_image":profileImgUrlupdate
             ]
-            //Profileimage Upload Image
             APIRequest.shared().uploadUserProfile(userID: userID, para:dict,profileImgName:profileImgUrlupdate) { (response, error) in
                 if response != nil && error == nil {
                     print("message::::::::::::::uploadprifileimage")
@@ -402,7 +351,51 @@ extension VerifyEmailMobileViewController{
         }
     }
     
-    
+    func redirectOnSuccessAfter(otp:String){
+        
+        if isEmail_Mobile == true {
+            self.url = URL(string: "\(BASEURLOTP)auth/verifyEmailOTP?email=\(userEmail)&otp=\(otp)")
+        }else {
+            self.url = URL(string:"\(BASEURLOTP)auth/verifyMobileOTP?mobile=\(userMobile)&otp=\(otp)")
+        }
+        var request : URLRequest = URLRequest(url: url!)
+        request.httpMethod = "GET"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
+        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) in
+            if let error = error{
+                print("somethis\(error)")
+            }
+            else if let response = response {
+            }else if let data = data{
+            }
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            let decoder = JSONDecoder()
+            let token_type = (String(data: responseData, encoding: .utf8))
+            do {
+                let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                guard let userMsg = dict?["message"] as? String else { return }
+                if userMsg == "invalid_otp"{
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                        self.dismiss(animated: true, completion: nil)
+                    })
+                }else {
+                    DispatchQueue.main.async (execute: { () -> Void in
+                        self.singupRegisterUser(param:self.dictSingupdatas)
+                    })
+                }
+            }catch let error  {
+                print("error trying to convert data to \(error)")
+            }
+        })
+        task.resume()
+    }
     
     
     
