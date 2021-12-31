@@ -145,9 +145,23 @@ class CompleteProfileViewController: ParentViewController {
         
         txtViewBiography.text = appDelegate.loginUser?.short_biography
         txtReligion.text = appDelegate.loginUser?.religion
-        txtStatus.text = appDelegate.loginUser?.relationship
-        txtEducation.text  = appDelegate.loginUser?.education_name
-        txtIncomeLevel.text = appDelegate.loginUser?.annual_income
+        if appDelegate.loginUser?.relationship == "null"{
+            txtStatus.text = ""
+        }else {
+            txtStatus.text = appDelegate.loginUser?.relationship
+        }
+        
+        if appDelegate.loginUser?.education_name == "null"{
+            txtEducation.text  = ""
+        }else {
+            txtEducation.text  = appDelegate.loginUser?.education_name
+        }
+            
+        if appDelegate.loginUser?.annual_income == "null"{
+            txtIncomeLevel.text = ""
+        }else {
+            txtIncomeLevel.text = appDelegate.loginUser?.annual_income
+        }
         
         if Int((appDelegate.loginUser?.gender)!) == CMale {
             txtGender.text = CRegisterGenderMale

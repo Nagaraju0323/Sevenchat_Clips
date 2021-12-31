@@ -296,7 +296,7 @@ extension VerifyEmailMobileViewController{
     
     func registerUserName(username:String,password:String){
         let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
-        let url = URL(string: "http://dev.sevenchats.com:3001/auth/register")
+        let url = URL(string: "\(BASEAUTH)auth/register")
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");

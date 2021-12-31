@@ -199,6 +199,10 @@ extension GroupsViewController {
                     if arrList.count > 0 {
                         self.fetchGroupListFromLocal()
                     }
+                    if arrList.isEmpty{
+                        self.arrGroupList.removeAll()
+                        self.tblGroups.reloadData()
+                    }
                     DispatchQueue.main.async {
                         self.lblNoData.isHidden = self.arrGroupList.count > 0
                     }

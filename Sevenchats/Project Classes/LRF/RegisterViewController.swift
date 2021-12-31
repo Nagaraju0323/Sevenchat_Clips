@@ -442,88 +442,9 @@ extension RegisterViewController {
             "religion":""
         ] as [String : Any]
         
-        
         dictSinup = dict
-        
-        
-        
-//        APIRequest.shared().signUpUser(dict: dict as [String : AnyObject]) { (response, error) in
-//            if response != nil && error == nil {
-//                let msgError = response?["error"] as? String
-//                let errorMsg = msgError?.stringAfter(":")
-//                if errorMsg == " User Mobile Number is Exists" ||  errorMsg == " User email Exists"{
-//                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                } else {
-//                    let dict = response?.value(forKey: CJsonData) as! [String : AnyObject]
-//                    self.uploadUserProfile(userID: dict.valueForInt(key: CUserId)!, signUpResponse: response, imageEmpty:false)
-//                    self.registerUserName(username:self.txtEmail.text ?? "",password:self.txtPWD.text ?? "")
-//                }
-//
-//            }
-//        }
     }
-    
-    
-    
-    //MARK : - Register Api Calls After Success Messages
-    
-    //    func registerUserName(dict:[String:Any]){
-    //
-    //        APIRequest.shared().RegistersUser(dict: dict as [String : AnyObject]) { (response, error) in
-    //            if response != nil && error == nil {
-    //                _ = response?.value(forKey: CJsonData) as! [String : AnyObject]
-    //                self.redirectToVerificationScreen(signUpResponse: response)
-    //
-    //            }
-    //        }
-    //    }
-    //
-    
-    //    func uploadUserProfile(userID : Int, signUpResponse : AnyObject?) {
-    //        APIRequest.shared().uploadUserProfile(userID: userID, imgProfile: self.imgUser.image) { (response, error) in
-    //            if response != nil && error == nil {
-    //                self.redirectToVerificationScreen(signUpResponse: signUpResponse)
-    //            }
-    //        }
-    //    }
-    /* --- ----- ------- NEW UPLOADUSERPROFILE ------- ----- ------*/
-    /*Oldcode by Mi
-     func uploadUserProfile(userID : Int, signUpResponse : AnyObject?,imageEmpty:Bool) {
-     if imageEmpty == true {
-     let frstNameltr = (txtFirstName.text?.first)!
-     // let scndNameltr = (txtLastName.text?.first)!
-     //let convStrName = String(frstNameltr) + String(scndNameltr)
-     let convStrName = String(frstNameltr)
-     let text = convStrName
-     let attributes = [
-     NSAttributedString.Key.foregroundColor: UIColor.white,
-     NSAttributedString.Key.backgroundColor:#colorLiteral(red: 0, green: 0.7529411912, blue: 0.650980413, alpha: 1),
-     // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 3)
-     NSAttributedString.Key.font: UIFont.init(name: "AmericanTypewriter-Semibold", size: 40)
-     ]
-     
-     let textSize = text.size(withAttributes: attributes)
-     UIGraphicsBeginImageContextWithOptions(textSize, true, 0)
-     text.draw(at: CGPoint.zero, withAttributes: attributes)
-     let image = UIGraphicsGetImageFromCurrentImageContext()
-     UIGraphicsEndImageContext()
-     
-     APIRequest.shared().uploadUserProfile(userID: userID, imgProfile: image) { (response, error) in
-     if response != nil && error == nil {
-     self.redirectToVerificationScreen(signUpResponse: signUpResponse)
-     }
-     }
-     }else {
-     APIRequest.shared().uploadUserProfile(userID: userID, imgProfile: self.imgUser.image) { (response, error) in
-     if response != nil && error == nil {
-     self.redirectToVerificationScreen(signUpResponse: signUpResponse)
-     }
-     }
-     }
-     }
-     */
-    
-    
+
     func uploadUserProfile(userID : Int, signUpResponse : AnyObject?,imageEmpty:Bool) {
         if imageEmpty == true{
             print("image empty convert text to image")
@@ -559,47 +480,6 @@ extension RegisterViewController {
             print("You've pressed the destructive")
         }))
         self.present(alert, animated: true, completion: nil)
-        
-        
-        //        if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
-        //            objVerify.userEmail = txtEmail.text ?? ""
-        //            objVerify.userMobile = txtMobileNumber.text ?? ""
-        //            self.navigationController?.pushViewController(objVerify, animated: true)
-        //        }
-        //
-        
-        //...Load Common api
-        
-        
-        //        let responseData = signUpResponse?.value(forKey: CJsonData) as? [String : AnyObject]
-        //        let metaData = signUpResponse?.value(forKey: CJsonMeta) as? [String : AnyObject]
-        
-        //        if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
-        //            self.navigationController?.pushViewController(objVerify, animated: true)
-        //        }
-        //        if metaData?.valueForInt(key: CJsonStatus) == CStatusFour {
-        //            //...Email not verified
-        //            if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
-        //
-        //                /// Is email address modify after sign-in with social media.
-        //                //                let sameEmailAddress = ((self.dictSocial?.valueForString(key: CEmail) ?? "") == txtEmail.text ?? "")
-        //                //                objVerify.isEmailVerify = !(isSocialSignup && sameEmailAddress)
-        //                objVerify.isEmailVerify = false
-        //
-        //                //objVerify.isEmailVerify = true
-        //                objVerify.otpCode = ""
-        //                //objVerify.otpCode = responseData?.valueForString(key: "email_verify_code") ?? ""
-        //                objVerify.dict =  [
-        //                    CEmail : responseData?.valueForString(key: CEmail) as AnyObject,
-        //                    CMobile : responseData?.valueForString(key: CMobile) as AnyObject,
-        //                    CCountry_id : responseData?.valueForInt(key: CCountry_id) as AnyObject
-        //                ]
-        //
-        //                self.navigationController?.pushViewController(objVerify, animated: true)
-        //            }
-        //        }
-        
-   
         
     }
 }
@@ -798,44 +678,44 @@ extension RegisterViewController: GenericTextFieldDelegate {
 
 extension RegisterViewController{
     
-    func registerUserName(username:String,password:String){
-        let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
-        let url = URL(string: "http://dev.sevenchats.com:3001/auth/register")
-        var request : URLRequest = URLRequest(url: url!)
-        request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
-        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
-        request.httpBody = data
-        
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let task = session.dataTask(with: request, completionHandler: {
-            (data, response, error) in
-            if let error = error{
-                print("somethis\(error)")
-            }
-            else if let response = response {
-            }else if let data = data{
-            }
-            guard let responseData = data else {
-                print("Error: did not receive data")
-                return
-            }
-            let decoder = JSONDecoder()
-            let token_type = (String(data: responseData, encoding: .utf8))
-            do {
-                let dict = try self.convertStringToDictionary(text: token_type ?? "")
-                guard let userMsg = dict?["message"] as? String else { return }
-                DispatchQueue.main.async {
-                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//                    self.redirectToVerificationScreen()
-                }
-            } catch let error  {
-                print("error trying to convert data to \(error)")
-            }
-        })
-        task.resume()
-    }
+//    func registerUserName(username:String,password:String){
+//        let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
+//        let url = URL(string: "http://dev.sevenchats.com:3001/auth/register")
+//        var request : URLRequest = URLRequest(url: url!)
+//        request.httpMethod = "POST"
+//        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
+//        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
+//        request.httpBody = data
+//
+//        let config = URLSessionConfiguration.default
+//        let session = URLSession(configuration: config)
+//        let task = session.dataTask(with: request, completionHandler: {
+//            (data, response, error) in
+//            if let error = error{
+//                print("somethis\(error)")
+//            }
+//            else if let response = response {
+//            }else if let data = data{
+//            }
+//            guard let responseData = data else {
+//                print("Error: did not receive data")
+//                return
+//            }
+//            let decoder = JSONDecoder()
+//            let token_type = (String(data: responseData, encoding: .utf8))
+//            do {
+//                let dict = try self.convertStringToDictionary(text: token_type ?? "")
+//                guard let userMsg = dict?["message"] as? String else { return }
+//                DispatchQueue.main.async {
+//                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+////                    self.redirectToVerificationScreen()
+//                }
+//            } catch let error  {
+//                print("error trying to convert data to \(error)")
+//            }
+//        })
+//        task.resume()
+//    }
 }
 
 extension RegisterViewController{

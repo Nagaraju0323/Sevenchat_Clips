@@ -141,7 +141,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
       lblTitleFriends.text = CProfileFriends
         //        lblTitleFriends.text = ""
         btnViewCompleteProfile.setTitle(CProfileBtnViewCompleteProfile, for: .normal)
-        btnShare.setTitle(CBtnShare, for: .normal)
+        btnShare.setTitle(CMessageText, for: .normal)
     }
     
     func cellConfigureProfileDetail() {

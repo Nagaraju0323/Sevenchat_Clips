@@ -29,7 +29,7 @@ class SocketIOManager: NSObject {
     }
     
     private static var sharedInstance : SocketIOManager?
-    let manager : SocketManager = SocketManager(socketURL: URL(string:"ws://dev.sevenchats.com:1923")!, config: [.log(true), .compress])
+    let manager : SocketManager = SocketManager(socketURL: URL(string:BASEURLSOCKETNOTF)!, config: [.log(true), .compress])
     private var socketIOClient: SocketIOClient?
     
     override init() {

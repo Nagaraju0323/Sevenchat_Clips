@@ -19,7 +19,7 @@ import LGSideMenuController
 var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
 let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
 //MARK: - CHAT
-var BASEURLCHAT: String     =   "https://dev.sevenchats.com:7443/"
+var BASEURLCHATLASTMSG: String     =   "https://dev.sevenchats.com:7443/"
 //MARK: - OTP
 var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
 var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
@@ -33,16 +33,22 @@ let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
 //MARK:- MINIO
 let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 
+//MARK:- NotificationSocket
+let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
+
 
 
 
 
 //MARK: - Dev
-//var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin"
-
-
-
-
+//var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
+//var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
+//var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
+//var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
+//let SocketIoUrl = "http://qa.sevenchats.com:8080/ws-chat/websocket"
+//var BASEURLCHATLASTMSG: String   =   "http://qa.sevenchats.com:7444/"
+//let BASEMSGURL:String       =   "http://qa.sevenchats.com:7444/"
+//let BASEURLSOCKETNOTF: String = "ws://qa.sevenchats.com:7444"
 
 
 
@@ -519,7 +525,7 @@ extension Networking {
     
     
     func GETNEWPRMSG(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
-        let uRequest = SessionManager.default.request((BASEURLCHAT + tag), method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
+        let uRequest = SessionManager.default.request((BASEURLCHATLASTMSG + tag), method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task
     }
@@ -3708,7 +3714,7 @@ extension APIRequest {
         var dict = [String:Any]()
         dict["topic"] = chanelID
         
-        return Networking.sharedInstance.GETNEWPRMSG(apiTag: CAPITagUserChatLstDetails, param: dict as AnyObject as! [String : AnyObject], successBlock: { (task, response) in
+        return Networking.sharedInstance.GETNEWPRMSG(apiTag: CAPITagUserChatLstDetails, param: dict as AnyObject as? [String : AnyObject], successBlock: { (task, response) in
             completion (response, nil)
             
 //            if self.checkResponseStatusAndShowAlert(showAlert: false, responseobject: response, strApiTag: CAPITagUserChatList) {
