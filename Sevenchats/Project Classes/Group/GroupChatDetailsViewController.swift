@@ -3523,6 +3523,9 @@ extension GroupChatDetailsViewController {
     }
     
     @IBAction func btnSendCLK(_ sender : UIButton) {
+        
+//        ChatSocketIo.shared().SocketInitilized()
+        
         // Send Message to all user...
         if !txtViewMessage.text.isBlank {
             let arrUserIDS = arrMembers.map({$0.valueForString(key: CUserId) })
@@ -4358,6 +4361,8 @@ extension GroupChatDetailsViewController {
 //    }
     
     func ImageAttachemntApiCall(uploadImgUrl:String,type:String,thumbLine:UIImage){
+        
+//        ChatSocketIo.shared().SocketInitilized()
         
         var uploadString = ""
         guard let user_ID = appDelegate.loginUser?.user_id else { return }
