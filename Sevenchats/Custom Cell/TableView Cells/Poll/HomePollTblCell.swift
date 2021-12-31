@@ -85,24 +85,23 @@ extension HomePollTblCell{
         print("polls\(polls)")
         if isSelected == true {
             //myprofile
-            //                    let pollstring = postData["options"] as? String
-            //                    let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
-            //                    let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
-            //                    let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
-            //                    chngString = rplstr_Three
-            fullNameArr =  jsonToStringConvert(pollString: postData["options"] as? String ?? "")
+            let pollstring = postData["options"] as? String
+            let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
+            let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
+            let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
+            chngString = rplstr_Three
+            // fullNameArr =  jsonToStringConvert(pollString: postData["options"] as? String ?? "")
         }else {
             //homeviewcontroller
-            //                    let pollstring = postData["options"] as? String
-            //                    let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
-            //                    let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
-            //                    let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
-            //                    chngString = rplstr_Three
-            fullNameArr =  jsonToStringConvert(pollString: postData["options"] as? String ?? "")
+            let pollstring = postData["options"] as? String
+            let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
+            let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
+            let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
+            chngString = rplstr_Three
+            // fullNameArr =  jsonToStringConvert(pollString: postData["options"] as? String ?? "")
         }
         
-        
-        //        let fullNameArr:[String] = chngString?.components(separatedBy:",") ?? []
+        let fullNameArr:[String] = chngString?.components(separatedBy:",") ?? []
         var dictionary = [String: String]()
         for player in fullNameArr {
             dictionary["poll_text"] = player
@@ -183,13 +182,7 @@ extension HomePollTblCell{
 extension HomePollTblCell {
     
     @IBAction func onLikePressed(_ sender:UIButton){
-        
-        //        self.btnLike.isSelected = !self.btnLike.isSelected
-        //        self.likeCount = self.btnLike.isSelected ? self.likeCount + 1 : self.likeCount - 1
-        //        self.btnLikesCount.setTitle(appDelegate.getLikeString(like: self.likeCount), for: .normal)
-        //        MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.postID, rss_id: nil, type: 1, likeStatus: self.btnLike.isSelected ? 1 : 0, viewController: self.viewController)
         self.btnLike.isSelected = !self.btnLike.isSelected
-        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
@@ -280,7 +273,6 @@ extension HomePollTblCell {
 }
 
 extension HomePollTblCell{
-    
     
     func convertToDictionary(text: String) -> [String: Any]? {
         if let data = text.data(using: .utf8) {

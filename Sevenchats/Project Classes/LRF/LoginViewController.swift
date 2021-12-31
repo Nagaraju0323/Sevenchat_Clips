@@ -895,7 +895,8 @@ extension LoginViewController{
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         let data : Data = "username=\(txtEmail.text!)&password=\(txtPWD.text!)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
-        let url = URL(string: "http://dev.sevenchats.com:3001/auth/login")
+//        let url = URL(string: "http://dev.sevenchats.com:3001/auth/login")
+        let url = URL(string: "\(BASEAUTH)auth/login")
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");

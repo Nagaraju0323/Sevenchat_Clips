@@ -15,25 +15,25 @@ import LGSideMenuController
 //MARK:- ---------BASEURL __ TAG
 /// Live
 //var BASEURL: String          =   "http://dev1.sevenchats.com:2020/api/v1/"
-//MARK: - Dev
+////MARK: - Dev
 var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
 let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
-//MARK: - CHAT
+////MARK: - CHAT
 var BASEURLCHATLASTMSG: String     =   "https://dev.sevenchats.com:7443/"
-//MARK: - OTP
+////MARK: - OTP
 var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
 var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
-//MARK: - AUTHENTICATION
+////MARK: - AUTHENTICATION
 var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
-//MARK: - Notification
+////MARK: - Notification
 var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
 var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
-//MARK:- SockeIO key
+////MARK:- SockeIO key
 let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
-//MARK:- MINIO
+////MARK:- MINIO
 let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
-
-//MARK:- NotificationSocket
+//
+////MARK:- NotificationSocket
 let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
 
 
@@ -45,13 +45,12 @@ let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
 //var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
 //var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
 //var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
-//let SocketIoUrl = "http://qa.sevenchats.com:8080/ws-chat/websocket"
-//var BASEURLCHATLASTMSG: String   =   "http://qa.sevenchats.com:7444/"
-//let BASEMSGURL:String       =   "http://qa.sevenchats.com:7444/"
+//let SocketIoUrl = "https://qa.sevenchats.com:4443/ws-chat/websocket"
+//var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
+//let BASEMSGURL:String       =   "https://qa.sevenchats.com:7444/"
+//var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
+//var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
 //let BASEURLSOCKETNOTF: String = "ws://qa.sevenchats.com:7444"
-
-
-
 
 
 
