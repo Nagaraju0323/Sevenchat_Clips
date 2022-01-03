@@ -108,7 +108,7 @@ class RegisterViewController: ParentViewController {
         
         btnSingUp.layer.cornerRadius = 5
         imgUser.layer.cornerRadius = imgUser.frame.size.width / 2
-        txtDob.setMaximumDate(maxDate: Date().dateByAdd(years: -13))
+        txtDob.setMaximumDate(maxDate: Date().dateByAdd(years: -16))
         txtDob.setDatePickerMode(mode: .date)
         //txtDob.text = txtDob.datePickerDateFormatter?.string(from: txtDob.)
         txtDob.setDatePickerWithDateFormate(dateFormate: "dd MMM yyyy", defaultDate: Date(), isPrefilledDate: false) { (date) in

@@ -923,7 +923,7 @@ extension UserChatDetailViewController {
     func setFetchController() {
         
         
-//        createTopictoChat()
+        createTopictoChat()
         fetchHome = nil;
         if let userid = self.userID {
             print("topicname\(topcName)")

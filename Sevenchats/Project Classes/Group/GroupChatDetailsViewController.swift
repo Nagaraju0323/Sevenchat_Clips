@@ -3166,7 +3166,7 @@ extension GroupChatDetailsViewController {
 extension GroupChatDetailsViewController {
     
     func setFetchController() {
-        
+        createTopictoChat()
         fetchHome = nil;
         strChannelId = group_id
         fetchHome = self.fetchController(listView: tblChat, entity: "TblMessages", sortDescriptors: [NSSortDescriptor.init(key: CCreated_at, ascending: false)], predicate: NSPredicate(format: "\(CChannel_id) == %@", strChannelId as CVarArg), sectionKeyPath: "msgdate", cellIdentifier: "MessageSenderTblCell", batchSize: 20) { (indexpath, cell, item) -> (Void) in
@@ -3524,7 +3524,8 @@ extension GroupChatDetailsViewController {
     
     @IBAction func btnSendCLK(_ sender : UIButton) {
         
-//        ChatSocketIo.shared().SocketInitilized()
+        //for QA
+        ChatSocketIo.shared().SocketInitilized()
         
         // Send Message to all user...
         if !txtViewMessage.text.isBlank {
