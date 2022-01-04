@@ -211,8 +211,8 @@ extension ProductListCell {
                         }
                         guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
-                        guard let lassName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(self?.product.productUserID, userID: user_ID, subject: "liked your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Product", senderName: firstName + lassName)
+                        guard let lastName = appDelegate.loginUser?.last_name else {return}
+                        MIGeneralsAPI.shared().sendNotification(self?.product.productUserID, userID: user_ID, subject: "liked your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Product", senderName: firstName + lastName)
                         self?.notifcationIsSlected = false
                     }
                     

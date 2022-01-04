@@ -25,6 +25,7 @@ class CreatePostTblCell: UITableViewCell{
     var closureReload: ((Bool)-> Void)?
     var closureShowMessage: ((_ data :Int)-> ())?
     var onDataAvailable : ((_ data: Bool) -> ())?
+    @IBOutlet weak var topContainer : UIView!
     
     @IBOutlet weak var emjButton: UIButton!
     @IBOutlet weak var placeHolderLabel: UILabel!
@@ -54,6 +55,9 @@ class CreatePostTblCell: UITableViewCell{
  //   CShoutPlaceholderContents
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        topContainer.isHidden = true
+        viewSelectGroup.isHidden = true 
         textViewMessage.genericDelegate = self
         clGroupFriend.delegate = self
         clGroupFriend.dataSource = self

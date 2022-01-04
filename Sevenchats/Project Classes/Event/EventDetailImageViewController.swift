@@ -926,9 +926,9 @@ extension EventDetailImageViewController{
                     self?.btnLikeCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
-                    guard let lassName = appDelegate.loginUser?.last_name else {return}
+                    guard let lastName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post Event", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Event", senderName: firstName + lassName)
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post Event", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Event", senderName: firstName + lastName)
                         self?.notifcationIsSlected = false
                     }
                     MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.postIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
@@ -1236,10 +1236,10 @@ extension EventDetailImageViewController{
                             
                             let data = response![CJsonMeta] as? [String:Any] ?? [:]
                             guard let firstName = appDelegate.loginUser?.first_name else {return}
-                            guard let lassName = appDelegate.loginUser?.last_name else {return}
+                            guard let lastName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Comment to Post Event", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post Event", senderName: firstName + lassName)
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Comment to Post Event", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post Event", senderName: firstName + lastName)
                             }
                            
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)

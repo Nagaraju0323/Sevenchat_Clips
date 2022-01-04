@@ -37,6 +37,7 @@ class AddMediaViewController: ParentViewController {
     @IBOutlet weak var btnAddMoreFriends : UIButton!
     @IBOutlet weak var btnSelectGroupFriend : UIButton!
     @IBOutlet weak var viewSelectGroup : UIView!
+    @IBOutlet weak var topContainer : UIView!
     var profileImage:UIImage?
     
     
@@ -77,6 +78,8 @@ class AddMediaViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
+        topContainer.isHidden = true
+        viewSelectGroup.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {

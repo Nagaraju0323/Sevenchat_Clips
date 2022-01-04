@@ -387,7 +387,7 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
         lblLocation.attributedText = NSMutableAttributedString().bold(CLive_in).normal(" ").normal((userInfo.valueForString(key: "city") )).normal(" , ").normal(userInfo.valueForString(key: "state"))
         
         if userInfo.valueForString(key: "relationship") == "null"{
-            lblStatus.text = " "
+            lblStatus.attributedText = NSMutableAttributedString().bold("Relationship").normal("N/A")
         }else {
             lblStatus.attributedText = NSMutableAttributedString().bold("Relationship").normal(" ").normal((userInfo.valueForString(key: "relationship")))
         }
@@ -443,7 +443,7 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
         let user_id = userInfo.valueForString(key: "user_id")
         self.getFriendListFromServer(user_id)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) {
-            print("this acalling")
+           
 
             
             let totalFriend = self.frdsofFrds.count

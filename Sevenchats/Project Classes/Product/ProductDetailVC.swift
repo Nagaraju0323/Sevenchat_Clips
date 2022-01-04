@@ -728,10 +728,10 @@ extension ProductDetailVC {
                     let data = response![CJsonMeta] as? [String:Any] ?? [:]
                     guard let userID = appDelegate.loginUser?.user_id else{return}
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
-                    guard let lassName = appDelegate.loginUser?.last_name else {return}
+                    guard let lastName = appDelegate.loginUser?.last_name else {return}
                     let stausLike = data["status"] as? String ?? "0"
                     if stausLike == "0" {
-                        MIGeneralsAPI.shared().sendNotification(self.productUserID, userID: userID.description, subject: "Comment to Post Gallery", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post Gallery", senderName: firstName + lassName)
+                        MIGeneralsAPI.shared().sendNotification(self.productUserID, userID: userID.description, subject: "Comment to Post Gallery", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post Gallery", senderName: firstName + lastName)
                     }
                     
                     self.editCommentId =  nil

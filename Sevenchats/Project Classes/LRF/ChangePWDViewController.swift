@@ -93,7 +93,7 @@ func changePasswords(){
     
     let data : Data = "username=\(userName)&password=\(password)&grant_type=password&client_id=null&client_secret=null&old_password=\(old_password)".data(using: .utf8)!
     
-    let url = URL(string: "http://dev.sevenchats.com:3001/auth/resetPassword")
+    let url = URL(string: "\(BASEAUTH)auth/resetPassword")
 //    let url = URL(string: "https://qa.sevenchats.com:7443/auth/resetPassword")
     var request : URLRequest = URLRequest(url: url!)
     request.httpMethod = "PUT"

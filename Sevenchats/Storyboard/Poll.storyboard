@@ -357,6 +357,7 @@
                         <outlet property="cntTblAddQuestionHeight" destination="7UZ-rG-3Ck" id="Nvz-xG-LaF"/>
                         <outlet property="parentView" destination="EST-WS-nDZ" id="HTi-kX-gGK"/>
                         <outlet property="tblAddQuestion" destination="YWx-p0-QfB" id="SYQ-8l-bqJ"/>
+                        <outlet property="topContaier" destination="LrI-GO-AWe" id="MXZ-m9-bo8"/>
                         <outlet property="txtInviteType" destination="ZB6-5d-dHS" id="Mfi-43-p3m"/>
                         <outlet property="txtQuestion" destination="xBX-QK-HqB" id="5iw-Dm-TwZ"/>
                         <outlet property="viewSelectGroup" destination="4pl-xK-q4L" id="Lio-36-k7D"/>

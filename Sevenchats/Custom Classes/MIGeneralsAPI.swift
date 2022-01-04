@@ -2126,14 +2126,16 @@ extension MIGeneralsAPI {
     func sendNotification(_ receiverID: String?,userID:String?,subject:String?,MsgType:String?,MsgSent:String?,showDisplayContent:String?,senderName:String) {
         
         guard let firstName = appDelegate.loginUser?.first_name else {return}
-        guard let lassName = appDelegate.loginUser?.last_name else {return}
+        guard let lastName = appDelegate.loginUser?.last_name else {return}
         guard let profileImg = appDelegate.loginUser?.profile_img else {return}
         
         var contentStr = ""
         let content:[String:Any]  = [
             "subject":subject as Any,
             "senderName": senderName,
-            "content":"<b>\(firstName) \(lassName)</b> &nbsp\(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
+//            "content":"<b>\(firstName) \(lastName)</b> &nbsp\(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
+            "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
+          
             "link":"http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
             "type":MsgType as Any,
         ]

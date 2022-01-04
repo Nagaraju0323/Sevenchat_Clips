@@ -302,10 +302,6 @@
                                                                                 <constraint firstAttribute="height" constant="1" id="Keh-Ga-TCV"/>
                                                                             </constraints>
                                                                         </view>
-                                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="te7-Dj-rzd">
-                                                                            <rect key="frame" x="3" y="130" width="82" height="32.5"/>
-                                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                        </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F3n-sQ-RMx">
                                                                             <rect key="frame" x="5" y="123" width="312" height="46.5"/>
                                                                             <subviews>
@@ -568,9 +564,7 @@
                                                                         <constraint firstItem="oD7-yN-AcO" firstAttribute="trailing" secondItem="OtB-xk-FdQ" secondAttribute="trailing" constant="-6" id="TdW-eY-lkj"/>
                                                                         <constraint firstItem="ypL-ah-18q" firstAttribute="top" secondItem="KHs-Yk-4RC" secondAttribute="top" constant="3" id="V8g-Ej-p68"/>
                                                                         <constraint firstItem="S28-f0-MuB" firstAttribute="centerX" secondItem="ypL-ah-18q" secondAttribute="centerX" constant="3" id="VWB-92-UVN"/>
-                                                                        <constraint firstItem="te7-Dj-rzd" firstAttribute="leading" secondItem="ypL-ah-18q" secondAttribute="leading" id="WTO-EH-ywF"/>
                                                                         <constraint firstItem="OtB-xk-FdQ" firstAttribute="leading" secondItem="VgP-Qb-fEw" secondAttribute="leading" constant="4" id="ZHa-A5-89H"/>
-                                                                        <constraint firstAttribute="trailing" secondItem="te7-Dj-rzd" secondAttribute="trailing" constant="250" id="ZYr-M9-wKr"/>
                                                                         <constraint firstItem="cCM-Wd-bcC" firstAttribute="width" secondItem="cCM-Wd-bcC" secondAttribute="height" multiplier="67:10" id="aRD-FN-lmL"/>
                                                                         <constraint firstItem="VgP-Qb-fEw" firstAttribute="leading" secondItem="deD-Ou-OoP" secondAttribute="trailing" constant="5" id="chd-nU-VEp"/>
                                                                         <constraint firstItem="S28-f0-MuB" firstAttribute="centerY" secondItem="ypL-ah-18q" secondAttribute="centerY" constant="-1" id="fay-Ga-bbm"/>
@@ -581,7 +575,6 @@
                                                                         <constraint firstItem="wpz-c9-WuS" firstAttribute="top" secondItem="0ls-Ld-jkM" secondAttribute="bottom" constant="10" id="jPC-nD-nuR"/>
                                                                         <constraint firstAttribute="trailing" secondItem="F3n-sQ-RMx" secondAttribute="trailing" constant="18" id="jrS-4k-Lf4"/>
                                                                         <constraint firstItem="F3n-sQ-RMx" firstAttribute="top" secondItem="VgP-Qb-fEw" secondAttribute="bottom" constant="8.5" id="mBM-de-qD4"/>
-                                                                        <constraint firstItem="te7-Dj-rzd" firstAttribute="centerY" secondItem="F3n-sQ-RMx" secondAttribute="centerY" id="mCc-Jv-Pfo"/>
                                                                         <constraint firstItem="S28-f0-MuB" firstAttribute="width" secondItem="ypL-ah-18q" secondAttribute="width" multiplier="0.993711" id="mPQ-hU-AHL"/>
                                                                         <constraint firstItem="deD-Ou-OoP" firstAttribute="leading" secondItem="KHs-Yk-4RC" secondAttribute="leading" constant="7" id="mVe-wS-YTP"/>
                                                                         <constraint firstItem="cCM-Wd-bcC" firstAttribute="top" secondItem="F3n-sQ-RMx" secondAttribute="bottom" constant="8" id="qVj-UD-hmQ"/>
@@ -589,7 +582,6 @@
                                                                         <constraint firstItem="wpz-c9-WuS" firstAttribute="centerX" secondItem="deD-Ou-OoP" secondAttribute="centerX" id="vNT-w9-qxz"/>
                                                                         <constraint firstAttribute="trailing" secondItem="6Cf-Lt-F6Y" secondAttribute="trailing" constant="7" id="wfj-8h-2Tk"/>
                                                                         <constraint firstItem="ypL-ah-18q" firstAttribute="leading" secondItem="KHs-Yk-4RC" secondAttribute="leading" constant="3" id="xyq-jr-uAA"/>
-                                                                        <constraint firstItem="cCM-Wd-bcC" firstAttribute="top" secondItem="te7-Dj-rzd" secondAttribute="bottom" constant="15" id="zSl-pK-epl"/>
                                                                         <constraint firstItem="deD-Ou-OoP" firstAttribute="leading" secondItem="KHs-Yk-4RC" secondAttribute="leading" constant="7" id="zWO-s5-CQY"/>
                                                                     </constraints>
                                                                 </view>
@@ -627,6 +619,7 @@
                                                     <outlet property="lblTextCount" destination="XRL-os-rH9" id="xdE-Hm-ZnU"/>
                                                     <outlet property="placeHolderLabel" destination="OtB-xk-FdQ" id="YaB-RM-WgP"/>
                                                     <outlet property="textViewMessage" destination="VgP-Qb-fEw" id="cWM-IU-3AO"/>
+                                                    <outlet property="topContainer" destination="F3n-sQ-RMx" id="suI-YP-C8n"/>
                                                     <outlet property="viewMainContainer" destination="oAF-BJ-GPQ" id="wo3-8Q-r2U"/>
                                                     <outlet property="viewSelectGroup" destination="cCM-Wd-bcC" id="Hjh-U7-mK8"/>
                                                     <outlet property="viewSubContainer" destination="KHs-Yk-4RC" id="ZAH-4l-4LM"/>
@@ -1767,6 +1760,7 @@
                         <outlet property="lblUploadImage" destination="KcW-IN-j9n" id="3Ov-uz-rdM"/>
                         <outlet property="parentView" destination="SBp-VS-9jv" id="QrO-0J-Qcx"/>
                         <outlet property="scrollViewContainer" destination="UAV-2X-z4p" id="cYW-Y9-znQ"/>
+                        <outlet property="topContainer" destination="t8f-qE-jTo" id="cNd-xS-rA6"/>
                         <outlet property="txtArticleTitle" destination="CLp-XJ-svm" id="A1R-H4-QTS"/>
                         <outlet property="txtInviteType" destination="Nb2-SF-XGI" id="KXb-hG-R3X"/>
                         <outlet property="txtViewArticleContent" destination="CgA-JX-8fW" id="v5d-aA-ahx"/>
@@ -2632,6 +2626,7 @@
                         <outlet property="lblUploadImage" destination="1P0-hb-wXK" id="xX6-nh-8zG"/>
                         <outlet property="parentView" destination="Rca-0S-bWS" id="puX-y9-FOV"/>
                         <outlet property="scrollViewContainer" destination="xgk-cU-Pje" id="JbL-I5-Wlz"/>
+                        <outlet property="topContainer" destination="adc-lq-Lgx" id="IdS-Lq-KqW"/>
                         <outlet property="txtInviteType" destination="Re3-eI-btY" id="sBh-3s-tiY"/>
                         <outlet property="txtViewChirpyContent" destination="27N-SF-ftg" id="0B2-t0-zKB"/>
                         <outlet property="viewAddImageContainer" destination="42h-vG-WMG" id="eBW-zN-hw2"/>
@@ -3825,6 +3820,7 @@
                         <outlet property="clGroupFriend" destination="k1n-PF-jd7" id="Dpc-pr-pSL"/>
                         <outlet property="parentView" destination="oot-Oo-RKg" id="nwf-68-cVf"/>
                         <outlet property="scrollViewContainer" destination="m7D-FW-MUv" id="PQm-bm-N3B"/>
+                        <outlet property="topContainer" destination="iM0-8x-Bz4" id="3Fp-1c-7hf"/>
                         <outlet property="txtForumTitle" destination="N5A-Io-gz4" id="eKR-cE-k2x"/>
                         <outlet property="txtInviteType" destination="2ZS-KB-hCx" id="Ppd-J1-hTt"/>
                         <outlet property="txtViewForumMessage" destination="Aeh-pz-XMC" id="eSp-RX-HtU"/>
@@ -4539,6 +4535,7 @@
                         <outlet property="clGroupFriend" destination="PK8-zC-7NW" id="oji-9Z-4Qd"/>
                         <outlet property="colVMedia" destination="NMg-U7-cT7" id="eiC-Gn-LOj"/>
                         <outlet property="lblNote" destination="1cz-GC-b0v" id="Qs2-bI-cqB"/>
+                        <outlet property="topContainer" destination="iKL-if-nZh" id="7Gf-5C-wPd"/>
                         <outlet property="txtInviteType" destination="jRh-NA-CcV" id="0Ng-J0-r51"/>
                         <outlet property="viewSelectGroup" destination="dlw-Z1-XTp" id="FHm-ug-Tew"/>
                     </connections>
@@ -5530,6 +5527,7 @@
                         <outlet property="lblTextCount" destination="Eb2-IC-bnC" id="qKq-wD-OC6"/>
                         <outlet property="parentView" destination="fm4-dw-xTd" id="c8e-lx-g1q"/>
                         <outlet property="textViewMessage" destination="Dk2-ci-Omf" id="R5y-5O-nL5"/>
+                        <outlet property="topContainer" destination="juk-xD-XQN" id="Gd5-h2-aBv"/>
                         <outlet property="viewSelectGroup" destination="GEu-7J-ghV" id="Jpw-v6-eoX"/>
                     </connections>
                 </viewController>
@@ -6220,21 +6218,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WgR-5x-Wu1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="591" y="381"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="wuV-zO-3k5">
-            <objects>
-                <viewController id="aUu-ef-mJ2" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8XH-x9-s7E">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="5y8-aI-21y"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sUs-BG-zGa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="22" y="-376"/>
         </scene>
     </scenes>
     <resources>

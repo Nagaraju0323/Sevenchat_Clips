@@ -167,10 +167,10 @@ class AddEventViewController: ParentViewController {
      
         let arrInviteType = [CPostPostsInviteGroups, CPostPostsInviteContacts,  CPostPostsInvitePublic, CPostPostsInviteAllFriends]
         
-        txtInviteType.setPickerData(arrPickerData: arrInviteType, selectedPickerDataHandler: { [weak self] (text, row, component) in
-            guard let self = self else { return }
-            self.selectedInviteType = (row + 1)
-            }, defaultPlaceholder: CPostPostsInvitePublic)
+//        txtInviteType.setPickerData(arrPickerData: arrInviteType, selectedPickerDataHandler: { [weak self] (text, row, component) in
+//            guard let self = self else { return }
+//            self.selectedInviteType = (row + 1)
+//            }, defaultPlaceholder: CPostPostsInvitePublic)
         
         // By default `All type` selected
         self.selectedInviteType = 4
@@ -183,13 +183,13 @@ class AddEventViewController: ParentViewController {
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
             // Reverse Flow...
            
-            btnSelectGroupFriend.contentHorizontalAlignment = .right
-            clGroupFriend.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+//            btnSelectGroupFriend.contentHorizontalAlignment = .right
+//            clGroupFriend.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         }else{
             // Normal Flow...
             
-            btnSelectGroupFriend.contentHorizontalAlignment = .left
-            clGroupFriend.transform = CGAffineTransform.identity
+//            btnSelectGroupFriend.contentHorizontalAlignment = .left
+//            clGroupFriend.transform = CGAffineTransform.identity
         }
         
         if eventType == .editEvent{
@@ -197,7 +197,7 @@ class AddEventViewController: ParentViewController {
         }else{
             self.title = CNavAddEvent
         }
-        txtInviteType.placeHolder = CVisiblity
+//        txtInviteType.placeHolder = CVisiblity
         
         lblUploadImage.text = CUploadImage
         txtEventTitle.placeHolder = CEventPlaceholderTitle
@@ -209,7 +209,7 @@ class AddEventViewController: ParentViewController {
         txtEventEndDate.placeHolder = CEventPlaceholderEndDateTime
         txtLocation.placeholder = CEventPlaceholderLocation
         
-        btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
+//        btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
     }
     
 }
@@ -243,25 +243,25 @@ extension AddEventViewController{
         //...Set invite type
         self.selectedInviteType = eventInfo.valueForInt(key: CPublish_To) ?? 3
 
-        switch self.selectedInviteType {
-        case 1:
-            if let arrInvitee = eventInfo[CInvite_Groups] as? [[String : Any]]{
-                arrSelectedGroupFriends = arrInvitee
-            }
-        case 2:
-            if let arrInvitee = eventInfo[CInvite_Friend] as? [[String : Any]]{
-                arrSelectedGroupFriends = arrInvitee
-            }
-        default:
-            break
-        }
-        
-        if arrSelectedGroupFriends.count > 0{
-            self.clGroupFriend.reloadData()
-            self.clGroupFriend.isHidden = false
-            btnAddMoreFriends.isHidden = false
-            self.btnSelectGroupFriend.isHidden = true
-        }
+//        switch self.selectedInviteType {
+//        case 1:
+//            if let arrInvitee = eventInfo[CInvite_Groups] as? [[String : Any]]{
+//                arrSelectedGroupFriends = arrInvitee
+//            }
+//        case 2:
+//            if let arrInvitee = eventInfo[CInvite_Friend] as? [[String : Any]]{
+//                arrSelectedGroupFriends = arrInvitee
+//            }
+//        default:
+//            break
+//        }
+//
+//        if arrSelectedGroupFriends.count > 0{
+//            self.clGroupFriend.reloadData()
+////            self.clGroupFriend.isHidden = false
+////            btnAddMoreFriends.isHidden = false
+//            self.btnSelectGroupFriend.isHidden = true
+//        }
         
         GCDMainThread.async {
             for txtInfo in self.scrollViewContainer.subviews{
@@ -471,7 +471,7 @@ extension AddEventViewController{
 //        }
     }
    
-    //Newcode by Nagaraju
+    
 //    func loadInterestList(interestType : String, showLoader : Bool) {
 //
 //        if apiTask?.state == URLSessionTask.State.running {
@@ -641,34 +641,34 @@ extension AddEventViewController{
     func didChangeInviteType(){
         
         arrSelectedGroupFriends = []
-        clGroupFriend.reloadData()
-        clGroupFriend.isHidden = true
-        btnAddMoreFriends.isHidden = true
-        btnSelectGroupFriend.isHidden = false
+//        clGroupFriend.reloadData()
+//        clGroupFriend.isHidden = true
+//        btnAddMoreFriends.isHidden = true
+//        btnSelectGroupFriend.isHidden = false
         
-        switch self.selectedInviteType {
-        case 1:
-            self.txtInviteType.text = CPostPostsInviteGroups
-            viewSelectGroup.hide(byHeight: false)
-        case 2:
-            self.txtInviteType.text = CPostPostsInviteContacts
-            viewSelectGroup.hide(byHeight: false)
-        case 3:
-            //self.txtInviteType.text = CPostPostsInviteAllFriends
-          self.txtInviteType.text = CPostPostsInvitePublic
-            btnSelectGroupFriend.isHidden = true
-            viewSelectGroup.hide(byHeight: true)
-        case 4:
-            self.txtInviteType.text = CPostPostsInviteAllFriends
-           // self.txtInviteType.text = CPostPostsInvitePublic
-            btnSelectGroupFriend.isHidden = true
-            viewSelectGroup.hide(byHeight: true)
-        default:
-            break
-        }
+//        switch self.selectedInviteType {
+//        case 1:
+//            self.txtInviteType.text = CPostPostsInviteGroups
+//            viewSelectGroup.hide(byHeight: false)
+//        case 2:
+//            self.txtInviteType.text = CPostPostsInviteContacts
+//            viewSelectGroup.hide(byHeight: false)
+//        case 3:
+//            //self.txtInviteType.text = CPostPostsInviteAllFriends
+//          self.txtInviteType.text = CPostPostsInvitePublic
+//            btnSelectGroupFriend.isHidden = true
+//            viewSelectGroup.hide(byHeight: true)
+//        case 4:
+//            self.txtInviteType.text = CPostPostsInviteAllFriends
+//           // self.txtInviteType.text = CPostPostsInvitePublic
+//            btnSelectGroupFriend.isHidden = true
+//            viewSelectGroup.hide(byHeight: true)
+//        default:
+//            break
+//        }
         
         GCDMainThread.async {
-            self.txtInviteType.updatePlaceholderFrame(true)
+//            self.txtInviteType.updatePlaceholderFrame(true)
         }
     }
 

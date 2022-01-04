@@ -92,14 +92,6 @@ class ChatSocketIo: NSObject {
         }
         messageData?.isMediaDownloading = true
         CoreData.saveContext()
-//        let msgConvert = messageData?.message?.replace(string: "\\\"", replacement: "\"")
-//        do {
-//            let dict = try convertToDictionary(from: msgConvert ?? "")
-//            urlToDownload = dict["image_path"] ?? ""
-//            
-//        }catch let error {
-//            print("erro\(error)")
-//        }
         //download the file in a seperate thread.
         GCDBackgroundThread.sync {
             let urlToDownload = messageData?.message
@@ -248,9 +240,6 @@ extension ChatSocketIo: StompClientLibDelegate{
             msgType = dict["type"] ?? ""
             if msgType == "image" || msgType == "audio" || msgType == "video"{
                 do {
-//                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
-//                    let dict = try? convertToDictionary(from: txtMsgfrom)
-//                    let msgText  = dict["message"] ?? ""
                     image_path = dict["message"]
                     txtmessage = image_path ?? ""
                 }catch {
@@ -299,8 +288,6 @@ extension ChatSocketIo: StompClientLibDelegate{
             msgType = dict["type"] ?? ""
             if msgType == "image" || msgType == "audio" || msgType == "video"{
                 do {
-//                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
-//                    let dict = try? convertToDictionary(from: txtMsgfrom)
                     image_path = dict["message"]
                     txtmessage = image_path ?? ""
                 }catch {
@@ -405,22 +392,16 @@ extension ChatSocketIo: StompClientLibDelegate{
                 msgType = dict["type"] ?? ""
                 if msgType == "image"{
                 do {
-//                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
-//                    let dict = try? convertToDictionary(from: txtMsgfrom)
                     image_path = dict["message"]
                     txtmessage = image_path
                 }catch {
                     print(error)
                 }
                 }else if msgType == "audio"{
-//                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
-//                    let dict = try? convertToDictionary(from: txtMsgfrom)
                     image_path = dict["message"]
                     txtmessage = image_path
                     
                 }else if msgType == "video"{
-//                    let txtMsgfrom = msgText.replace(string: "\\", replacement: "")
-//                    let dict = try? convertToDictionary(from: txtMsgfrom)
                     image_path = dict["message"]
                     txtmessage = image_path
                 } else {
@@ -486,45 +467,6 @@ extension ChatSocketIo {
         dicPayload[CMedia_Name] = ""
         dicPayload["localMediaUrl"] = message
         
-//        dicPayload["media_name"] =
-        
-//        if let _cloleFile = cloleFile {
-//            dicPayload["localMediaUrl"] = _cloleFile.localMediaUrl
-//            dicPayload["media_name"] = _cloleFile.image
-//
-//            if !_cloleFile.thumbUrl.isEmpty {
-//                dicPayload["thumb_url"] = _cloleFile.thumbUrl
-//                dicPayload["thumb_name"] = _cloleFile.thumbName
-//            }
-//        }
-
-////        print(dicPayload)
-//        if chatType == .user {
-//            // FOR OTO CHAT Reciver id is always front user...
-//            if let index = arrUser.firstIndex(where: { $0 != "\(appDelegate.loginUser?.user_id ?? 0)"}) {
-//                dicPayload[CRecv_id] = arrUser[index]?.toInt ?? 0
-//            }
-//
-//            // Publish Text message directly
-//            if messageType == .text {
-//                for userId in arrUser {
-//                    MIMQTT.shared().MQTTPublishWithTopic(dicPayload, CMQTTUSERTOPIC + "\(userId ?? "0")")
-//                }
-//            }
-//        } else {
-//            // FOR Group CHAT
-//            for userId in arrUser {
-//                dicPayload[CRecv_id] = userId?.toInt
-//
-//                // Publish Text message directly
-//                if messageType == .text {
-//
-//                    MIMQTT.shared().MQTTPublishWithTopic(dicPayload, CMQTTUSERTOPIC + "\(userId ?? "0")")
-//                }
-//            }
-//        }
-
-       // print("deployed\(dicPayload)")
         self.saveMessageToLocal(messageInfo: dicPayload, msgDeliveredStatus: 1, localPayload: true,lastMsg:1,isfrom:1)
     }
     

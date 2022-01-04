@@ -436,6 +436,7 @@ class LoginViewController: ParentViewController {
     @IBOutlet weak var btnSignUpButton: UIButton!
     
     var country_id = 356
+    var CWebSiteLink = ""
     
     
     override func viewDidLoad() {
@@ -489,8 +490,8 @@ class LoginViewController: ParentViewController {
     func updateUIAccordingToLanguage() {
         self.setAttributedString()
         
-        txtEmail.placeHolder = CRegisterPlaceholderEmail
-        //        txtEmail.placeHolder = CLoginPlaceholderEmailMobile
+//        txtEmail.placeHolder = CLoginPlaceholderEmailMobile
+        txtEmail.placeHolder = CLoginPlaceholderEmailMobile
         txtPWD.placeHolder = CLoginPlaceholderPassword
         btnForgotPWD.setTitle(CLoginBtnForgot, for: .normal)
         btnSignIn.setTitle(CLoginBtnSignIn, for: .normal)
@@ -786,8 +787,11 @@ extension LoginViewController{
     @IBAction func btnForgotCLK(_ sender : UIButton){
         
         
-        let CWebSiteLink = "https://dev.sevenchats.com:7443/forgot_password"
-        
+        if BASEURL_Rew == "QA"{
+            CWebSiteLink = "https://qa.sevenchats.com:7444/forgot_password"
+        }else {
+             CWebSiteLink = "https://dev.sevenchats.com:7443/forgot_password"
+        }
         if UIApplication.shared.canOpenURL(URL(string: CWebSiteLink)!){
             UIApplication.shared.open(URL(string: CWebSiteLink)!, options: [:], completionHandler: nil)
         }
@@ -886,16 +890,11 @@ extension LoginViewController{
             }
         }
     }
-}
-
-
-extension LoginViewController{
     
     func LoginWithToken(userEmailId:String){
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         let data : Data = "username=\(txtEmail.text!)&password=\(txtPWD.text!)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
-//        let url = URL(string: "http://dev.sevenchats.com:3001/auth/login")
         let url = URL(string: "\(BASEAUTH)auth/login")
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "POST"

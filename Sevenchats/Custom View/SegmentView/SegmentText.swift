@@ -59,6 +59,6 @@ class SegmentText: UIView {
     
     //MARK: - Memory management methods
     deinit {
-        //print("### deinit -> \(self.className)")
+        //print("### deinit -> \(self.clastName)")
     }
 }

@@ -100,8 +100,8 @@ var CBtnDeleteForEveryone: String{ return appDelegate.langugaeText?.delete_for_e
 
 //MARK:- Login Screen
 var CLoginDontHaveAccount: String{ return appDelegate.langugaeText?.login_dont_have_an_account ?? "Do not have an Account?" }
-var CLoginPlaceholderEmailMobile: String{ return appDelegate.langugaeText?.login_email_or_mobile ?? "Email address" }
-//var CLoginPlaceholderEmailMobile: String{ return appDelegate.langugaeText?.login_email_or_mobile ?? "Email address/mobile number" }
+//var CLoginPlaceholderEmailMobile: String{ return appDelegate.langugaeText?.login_email_or_mobile ?? "Email address" }
+var CLoginPlaceholderEmailMobile: String{ return appDelegate.langugaeText?.login_email_or_mobile ?? "Email address/mobile number" }
 var CLoginPlaceholderPassword: String{ return appDelegate.langugaeText?.login_password ?? "Password" }
 var CLoginBtnForgot: String{ return appDelegate.langugaeText?.login_forgot_password ?? "Forgot password?" }
 var CLoginBtnSignIn: String{ return appDelegate.langugaeText?.login_signin ?? "Sign In" }

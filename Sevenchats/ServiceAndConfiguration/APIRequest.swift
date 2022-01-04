@@ -3091,7 +3091,7 @@ extension APIRequest {
             let dict : [String:Any]  =  [
                 "user_id":user_id?.description as Any,
                 "page" : page as Any,
-                "limit" : CLimit]
+                "limit" : CLimitTW]
             return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserMyfriendList, param: dict as [String : AnyObject], successBlock: { (task, response) in
                 completion(response, nil)
                 self.saveUserFriendsDetails(response: response as! [String:AnyObject])

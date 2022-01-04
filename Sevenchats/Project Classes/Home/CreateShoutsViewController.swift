@@ -18,6 +18,8 @@ class CreateShoutsViewController: ParentViewController {
     
     var shoutsType : ShoutsType!
     
+    @IBOutlet weak var topContainer : UIView!
+    
     @IBOutlet weak var clGroupFriend : UICollectionView!
     @IBOutlet weak var btnInviteGroup : UIButton!
     @IBOutlet weak var btnInviteContacts : UIButton!
@@ -35,6 +37,11 @@ class CreateShoutsViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
+        
+        topContainer.isHidden = true
+        viewSelectGroup.isHidden = true
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

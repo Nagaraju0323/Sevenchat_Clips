@@ -25,6 +25,7 @@ class AddPollViewController: ParentViewController {
     //MARK: - IBOutlet/Object/Variable Declaration
     //@IBOutlet weak var txt: UITextField!
     
+    @IBOutlet var topContaier : UIView!
     @IBOutlet var btnAddMoreFriends : UIButton!
     @IBOutlet var btnSelectGroupFriend : UIButton!
     @IBOutlet var clGroupFriend : UICollectionView!
@@ -65,6 +66,10 @@ class AddPollViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
+        
+        topContaier.isHidden = true
+        viewSelectGroup.isHidden = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

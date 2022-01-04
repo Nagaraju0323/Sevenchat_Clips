@@ -3566,8 +3566,8 @@ extension GroupChatDetailsViewController {
                                     if friends_ID == user_ID.description{
                                     }else {
                                         guard let firstName = appDelegate.loginUser?.first_name else {return}
-                                        guard let lassName = appDelegate.loginUser?.last_name else {return}
-                                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "Message", MsgType: "GROUP_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a GROUP message to you", senderName: firstName + lassName)
+                                        guard let lastName = appDelegate.loginUser?.last_name else {return}
+                                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "Message", MsgType: "GROUP_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a GROUP message to you", senderName: firstName + lastName)
                                     }
                                 }
                             }
@@ -4417,8 +4417,8 @@ extension GroupChatDetailsViewController {
                     if friends_ID == user_ID.description{
                     }else {
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
-                        guard let lassName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "Message", MsgType: "GROUP_MESSAGE", MsgSent: "send Attachment" as? String, showDisplayContent: "send a GROUP message to you", senderName: firstName + lassName)
+                        guard let lastName = appDelegate.loginUser?.last_name else {return}
+                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "Message", MsgType: "GROUP_MESSAGE", MsgSent: "send Attachment" as? String, showDisplayContent: "send a GROUP message to you", senderName: firstName + lastName)
                     }
                 }
             }

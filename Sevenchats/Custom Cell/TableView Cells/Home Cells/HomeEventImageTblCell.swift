@@ -376,10 +376,10 @@ extension HomeEventImageTblCell{
                     self?.btnLikesCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
-                    guard let lassName = appDelegate.loginUser?.last_name else {return}
+                    guard let lastName = appDelegate.loginUser?.last_name else {return}
                     
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post Event", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Event", senderName: firstName + lassName)
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post Event", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Event", senderName: firstName + lastName)
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
                             let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                             guard let image = appDelegate.loginUser?.profile_img else { return }

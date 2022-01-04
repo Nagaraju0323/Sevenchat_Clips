@@ -767,8 +767,8 @@ extension UserChatDetailViewController {
                     if metaData.valueForString(key: "message") == "User Blocked successfully" {
                         guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
-                        guard let lassName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(userid.description, userID: user_ID.description, subject: "User Blocked you", MsgType: "FRIEND_BLOCKED", MsgSent:"User Blocked you", showDisplayContent: "User Blocked you", senderName: firstName + lassName)
+                        guard let lastName = appDelegate.loginUser?.last_name else {return}
+                        MIGeneralsAPI.shared().sendNotification(userid.description, userID: user_ID.description, subject: "User Blocked you", MsgType: "FRIEND_BLOCKED", MsgSent:"User Blocked you", showDisplayContent: "User Blocked you", senderName: firstName + lastName)
                         self.txtViewMessage.isUserInteractionEnabled = false
                     }
                    }
@@ -1517,8 +1517,8 @@ extension UserChatDetailViewController {
                                 print("arrStatus,\(arrStatus)")
                                 guard let userid = appDelegate.loginUser?.user_id else { return}
                                 guard let firstName = appDelegate.loginUser?.first_name else {return}
-                                guard let lassName = appDelegate.loginUser?.last_name else {return}
-                                MIGeneralsAPI.shared().sendNotification(self.userID?.description, userID:userid.description , subject: "send a text message to you", MsgType: "CHAT_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a text message to you", senderName: firstName + lassName)
+                                guard let lastName = appDelegate.loginUser?.last_name else {return}
+                                MIGeneralsAPI.shared().sendNotification(self.userID?.description, userID:userid.description , subject: "send a text message to you", MsgType: "CHAT_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a text message to you", senderName: firstName + lastName)
                                 self.fetchHome.loadData()
                             }
                         }
@@ -2201,8 +2201,8 @@ extension UserChatDetailViewController{
                         
                         guard let userid = appDelegate.loginUser?.user_id else { return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
-                        guard let lassName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(self.userID?.description, userID:userid.description , subject: "send a text message to you", MsgType: "CHAT_MESSAGE", MsgSent: "Attachment" as? String, showDisplayContent: "send a text message to you", senderName: firstName + lassName)
+                        guard let lastName = appDelegate.loginUser?.last_name else {return}
+                        MIGeneralsAPI.shared().sendNotification(self.userID?.description, userID:userid.description , subject: "send a text message to you", MsgType: "CHAT_MESSAGE", MsgSent: "Attachment" as? String, showDisplayContent: "send a text message to you", senderName: firstName + lastName)
                         if let arrStatus = arrList["message"] as? String{
                             print("arrStatus,\(arrStatus)")
                         }

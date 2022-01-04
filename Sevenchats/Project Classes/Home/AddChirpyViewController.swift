@@ -16,6 +16,7 @@ enum ChirpyType : Int {
 class AddChirpyViewController: ParentViewController {
     
     var chirpyType : ChirpyType!
+    @IBOutlet weak var topContainer : UIView!
     
     @IBOutlet weak var viewAddImageContainer : UIView!
     @IBOutlet weak var viewUploadedImageContainer : UIView!
@@ -66,6 +67,8 @@ class AddChirpyViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
+        topContainer.isHidden = true
+        viewSelectGroup.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {

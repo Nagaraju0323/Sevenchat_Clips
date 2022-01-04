@@ -133,7 +133,7 @@ extension OtherUserFriendListViewController {
    fileprivate func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?) {
     let friend_ID = userInfo.valueForInt(key: "friend_user_id")
            let dict :[String:Any]  =  [
-               "user_id":  userid!.toString,
+            "user_id":  userid?.toString as Any,
                "friend_user_id": friend_ID!.toString,
                "request_type": status!.toString
                ]
@@ -223,6 +223,8 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
 
             cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
+                
+                self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 2)
                 self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 2)
             }
             

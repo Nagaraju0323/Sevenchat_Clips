@@ -260,8 +260,8 @@ func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:
                         }
                     }
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
-                    guard let lassName = appDelegate.loginUser?.last_name else {return}
-                    MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post Article", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Article", senderName: firstName + lassName)
+                    guard let lastName = appDelegate.loginUser?.last_name else {return}
+                    MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post Article", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Article", senderName: firstName + lastName)
                     self?.notifcationIsSlected = false
                 }
                 

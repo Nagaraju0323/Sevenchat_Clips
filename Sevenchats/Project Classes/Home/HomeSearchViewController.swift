@@ -282,8 +282,8 @@ extension HomeSearchViewController  {
                     if  metaData.valueForString(key: "message") == "Request sent successfully"{
                         guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
-                        guard let lassName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "Request sent successfully", MsgType: "FRIEND_REQUEST", MsgSent:"Request sent successfully", showDisplayContent: "User sendt Request successfully", senderName: firstName + lassName)
+                        guard let lastName = appDelegate.loginUser?.last_name else {return}
+                        MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "Request sent successfully", MsgType: "FRIEND_REQUEST", MsgSent:"Request sent successfully", showDisplayContent: "User sendt Request successfully", senderName: firstName + lastName)
                         }
                 }
                 

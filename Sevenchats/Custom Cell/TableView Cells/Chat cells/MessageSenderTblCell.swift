@@ -304,6 +304,7 @@ extension MessageSenderTblCell {
 //            }
             
             self.imgMessageDelivered.isHidden = false
+            
             switch messageInfo?.message_Delivered {
             case 1:
                 // Local

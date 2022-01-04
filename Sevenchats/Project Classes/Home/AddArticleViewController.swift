@@ -15,7 +15,11 @@ enum ArticleType : Int {
 
 class AddArticleViewController: ParentViewController {
     
+    
+    
     var articleType : ArticleType!
+    
+    @IBOutlet weak var topContainer : UIView!
     
     @IBOutlet weak var viewAddImageContainer : UIView!
     @IBOutlet weak var viewUploadedImageContainer : UIView!
@@ -56,6 +60,9 @@ class AddArticleViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
+        
+        topContainer.isHidden = true
+        viewSelectGroup.isHidden = true 
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -221,14 +228,14 @@ extension AddArticleViewController{
         
         guard let userID = appDelegate.loginUser?.user_id else {return}
         
-        let postcont = txtViewArticleContent.text.replace(string: "\n", replacement: "\\n")
+//        let postcont = txtViewArticleContent.text.replace(string: "\n", replacement: "\\n")
         
         var dict :[String:Any] = [
             CUserId:userID.description,
             "image":profileImgUrl,
             "post_title":txtArticleTitle.text ?? "",
             "post_category": categoryDropDownView.txtCategory.text ?? "" ,
-            "post_content":postcont,
+            "post_content":txtViewArticleContent.text ?? "",
             "age_limit":"16",
 //            "targeted_audience":"none",
 //            "selected_persons":"none"

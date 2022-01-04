@@ -18,6 +18,7 @@ class AddForumViewController: ParentViewController {
     var forumType : ForumType!
     
 
+    @IBOutlet weak var topContainer : UIView!
     @IBOutlet weak var clGroupFriend : UICollectionView!
     @IBOutlet weak var btnAddMoreFriends : UIButton!
     @IBOutlet weak var btnSelectGroupFriend : UIButton!
@@ -50,6 +51,8 @@ class AddForumViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
+        topContainer.isHidden = true
+        viewSelectGroup.isHidden = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
