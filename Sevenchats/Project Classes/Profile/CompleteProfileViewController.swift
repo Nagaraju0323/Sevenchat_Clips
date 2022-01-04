@@ -51,6 +51,7 @@ class CompleteProfileViewController: ParentViewController {
     var lastName_edit:String?
     var dob_edit:String?
     var isSelected:Bool?
+    var category_id = ""
   
    
     
@@ -537,10 +538,16 @@ extension CompleteProfileViewController{
         if apiTask?.state == URLSessionTask.State.running {
             return
         }
+        
+        if BASEURL_Rew == "QA"{
+            category_id = "44953672"
+        }else {
+            category_id = "1007720"
+        }
         var dict = [String:Any]()
         guard let userID = appDelegate.loginUser?.user_id.description else { return}
         dict["user_id"] = userID
-        dict["category_id"] = "1007720"
+        dict["category_id"] = category_id
         dict["page"] = "1"
         dict["limit"] = "20"
         apiTask = APIRequest.shared().rewardsDetail(param:dict,showLoader: isLoader) { [weak self] (response, error) in

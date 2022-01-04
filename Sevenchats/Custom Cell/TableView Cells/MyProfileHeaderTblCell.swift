@@ -156,16 +156,20 @@ class MyProfileHeaderTblCell: UITableViewCell {
             lblStatus.text = dict?.name
         }
         lblUserName.text = "\(appDelegate.loginUser?.first_name ?? "") \(appDelegate.loginUser?.last_name ?? "")"
-      //  lblLocation.text = "Lives in \(appDelegate.loginUser?.country ?? "") \(appDelegate.loginUser?.state ?? "")"
-        lblLocation.text =  CLive_in + (appDelegate.loginUser?.city ?? "")
-        lblStatus.text = CRelationship_Status + (appDelegate.loginUser?.relationship ?? "")
+      
+        lblLocation.attributedText = NSMutableAttributedString().bold(CLive_in).normal(" ").normal((appDelegate.loginUser?.city ?? ""))
+        
+        lblStatus.attributedText = NSMutableAttributedString().bold("Relationship").normal(" ").normal((appDelegate.loginUser?.relationship ?? ""))
+        
         switch Int((appDelegate.loginUser?.gender)!) {
         case CMale :
-            lblGender.text = CRegisterGenderMale
+            lblGender.attributedText = NSMutableAttributedString().bold("Gender").normal(" ").normal(CRegisterGenderMale)
         case CFemale :
-            lblGender.text = CRegisterGenderFemale
+            lblGender.attributedText = NSMutableAttributedString().bold("Gender").normal(" ").normal(CRegisterGenderFemale)
+
         default :
-            lblGender.text = CRegisterGenderOther
+            lblGender.attributedText = NSMutableAttributedString().bold("Gender").normal(" ").normal(CRegisterGenderOther)
+
         }
         
         //        lblMobileNo.text = "\(appDelegate.loginUser?.country_code ?? "") \(appDelegate.loginUser?.mobile ?? "")"
@@ -331,36 +335,118 @@ class MyProfileHeaderTblCell: UITableViewCell {
                      case 1:
 //                        let dict = arrFriends[0] as? TblTotalFriends
                          viewFriendFirst.hide(byWidth: false)
-                        btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
+                            btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        }
+                        
                      case 2:
+//                        viewFriendFirst.hide(byWidth: false)
+//                       btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+//                         viewFriendSecond.hide(byWidth: false)
+//                         _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//                         btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+            
                         viewFriendFirst.hide(byWidth: false)
-                       btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-                         viewFriendSecond.hide(byWidth: false)
-                         _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                         btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
+                            btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        }
+                        viewFriendSecond.hide(byWidth: false)
+                        _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+                        if (arrFriends[1] as! TblTotalFriends).profile_image == "" {
+                            btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        }
+            
+            
                      case 3:
+//                        viewFriendFirst.hide(byWidth: false)
+//                       btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+//                         viewFriendSecond.hide(byWidth: false)
+//                         _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//                        btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+//                         viewFriendThird.hide(byWidth: false)
+//                         _ = viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//                         btnFriendThird.sd_setImage(with: URL(string: ((arrFriends[2] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        
                         viewFriendFirst.hide(byWidth: false)
-                       btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-                         viewFriendSecond.hide(byWidth: false)
-                         _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                        btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-                         viewFriendThird.hide(byWidth: false)
-                         _ = viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                         btnFriendThird.sd_setImage(with: URL(string: ((arrFriends[2] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                       
+                        if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
+                            btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        }
+                        viewFriendSecond.hide(byWidth: false)
+                        _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+                        if (arrFriends[1] as! TblTotalFriends).profile_image == "" {
+                            btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        }
+                        viewFriendThird.hide(byWidth: false)
+                        _ = viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+                        
+                        
+                        if (arrFriends[2] as! TblTotalFriends).profile_image == "" {
+                            btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            btnFriendThird.sd_setImage(with: URL(string: ((arrFriends[2] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        }
+                       
+                        
+                        
+                        
+                        
                      case 4:
+//                        viewFriendFirst.hide(byWidth: false)
+//                       btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+//                         viewFriendSecond.hide(byWidth: false)
+//                         _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//                        btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+//                         viewFriendThird.hide(byWidth: false)
+//                         _ = viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//                           btnFriendThird.sd_setImage(with: URL(string: ((arrFriends[2] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+//                         viewFriendFourth.hide(byWidth: false)
+//                         _ = viewFriendFourth.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//                         btnFriendFourth.sd_setImage(with: URL(string: ((arrFriends[3] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+//
+//                         _ = btnTotalFriend.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+            
+            
                         viewFriendFirst.hide(byWidth: false)
-                       btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
+                            btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        }
                          viewFriendSecond.hide(byWidth: false)
                          _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                        btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        if (arrFriends[1] as! TblTotalFriends).profile_image == "" {
+                            btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        }
                          viewFriendThird.hide(byWidth: false)
                          _ = viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                           btnFriendThird.sd_setImage(with: URL(string: ((arrFriends[2] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        if (arrFriends[2] as! TblTotalFriends).profile_image == "" {
+                            btnFriendThird.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            btnFriendThird.sd_setImage(with: URL(string: ((arrFriends[2] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        }
                          viewFriendFourth.hide(byWidth: false)
-                         _ = viewFriendFourth.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                         btnFriendFourth.sd_setImage(with: URL(string: ((arrFriends[3] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        _ = viewFriendFourth.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+                        if (arrFriends[3] as! TblTotalFriends).profile_image == "" {
+                            btnFriendFourth.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            btnFriendFourth.sd_setImage(with: URL(string: ((arrFriends[3] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                        }
                          
                          _ = btnTotalFriend.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+            
                      default:
                          break;
                      }

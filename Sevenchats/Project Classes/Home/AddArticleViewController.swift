@@ -124,7 +124,7 @@ class AddArticleViewController: ParentViewController {
         // By default `All type` selected
         self.selectedInviteType = 4
         
-        txtArticleAgeLimit.textLimit = 3
+//        txtArticleAgeLimit.textLimit = 3
     }
     
  
@@ -151,7 +151,7 @@ class AddArticleViewController: ParentViewController {
         categoryDropDownView.txtCategory.placeholder = CArticlePlaceholderSelecetCategory
 //        subcategoryDropDownView.txtCategory.placeholder = CArticlePlaceholderSelecetCategory
         txtViewArticleContent.placeHolder = CArticlePlaceholderContent
-        txtArticleAgeLimit.placeHolder = CPostPlaceholderMinAge
+//        txtArticleAgeLimit.placeHolder = CPostPlaceholderMinAge
         txtInviteType.placeHolder = CVisiblity
         
         btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
@@ -198,7 +198,7 @@ extension AddArticleViewController{
         apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
         
         apiPara[CPost_Detail] = txtViewArticleContent.text
-        apiPara[CMin_Age] = txtArticleAgeLimit.text
+//        apiPara[CMin_Age] = txtArticleAgeLimit.text
         
 //        apiPara[CPublish_To] = self.selectedInviteType
 //        if self.selectedInviteType == 1{
@@ -229,7 +229,7 @@ extension AddArticleViewController{
             "post_title":txtArticleTitle.text ?? "",
             "post_category": categoryDropDownView.txtCategory.text ?? "" ,
             "post_content":postcont,
-            "age_limit":txtArticleAgeLimit.text ?? "",
+            "age_limit":"16",
 //            "targeted_audience":"none",
 //            "selected_persons":"none"
         ]
@@ -340,7 +340,7 @@ extension AddArticleViewController{
         categoryDropDownView.txtCategory.text = articleInfo.valueForString(key: CCategory)
         
         txtViewArticleContent.text = articleInfo.valueForString(key: CContent)
-        txtArticleAgeLimit.text = articleInfo.valueForString(key: CMinAge)
+//        txtArticleAgeLimit.text = articleInfo.valueForString(key: CMinAge)
         
         //...Set Event image
         if articleInfo.valueForString(key: CImage) != "" {
@@ -570,7 +570,7 @@ extension AddArticleViewController{
     @objc fileprivate func btnAddArticleClicked(_ sender : UIBarButtonItem) {
         
         self.resignKeyboard()
-        let ageValue = txtArticleAgeLimit.text?.toInt ?? 0
+//        let ageValue = txtArticleAgeLimit.text?.toInt ?? 0
 //        if imgArticle.image == nil{
 //            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageArticleImage, btnOneTitle: CBtnOk, btnOneTapped: nil)
 //        }else
@@ -580,11 +580,14 @@ extension AddArticleViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageArticleCategory, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else if (txtViewArticleContent.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageArticleContent, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else if (txtArticleAgeLimit.text?.isBlank)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePostAgeLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else if ageValue < 13 || ageValue > 999  {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMinumumAgeLimitBetween13To100, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
+        }
+//        else if (txtArticleAgeLimit.text?.isBlank)! {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePostAgeLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//        }
+//        else if ageValue < 13 || ageValue > 999  {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMinumumAgeLimitBetween13To100, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//        }
+        else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupArticle, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
             // call api here......

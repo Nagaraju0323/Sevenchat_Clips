@@ -32,9 +32,9 @@ import LGSideMenuController
 //let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
 //////MARK:- MINIO
 let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
-////
 //////MARK:- NotificationSocket
 //let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
+//let BASEURL_Rew: String = "Dev"
 
 
 
@@ -51,6 +51,8 @@ let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
 var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
 var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
 let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
+let BASEURL_Rew: String = "QA"
+
 
 
 
@@ -4507,13 +4509,18 @@ extension APIRequest {
     }
      */
    
-    func getFavWebSiteList(page : Int?, showLoader : Bool,userId:String, completion : @escaping ClosureCompletion) -> URLSessionTask {
+    func getFavWebSiteList(page : Int?,type : String?, showLoader : Bool,userId:String, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
         if showLoader {
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         let apiTag = CAPITagFavWebsitesNew + userId
-        return Networking.sharedInstance.GETNEWPR(apiTag: apiTag, param: [CPage : page as AnyObject, CPer_limit : CLimitNew as AnyObject], successBlock: { (task, response) in
+        var para = [String : Any]()
+        para[CPage] = page
+        para[CPer_limit] = CLimitNew
+        para[CType] = type
+
+        return Networking.sharedInstance.GETNEWPR(apiTag: apiTag, param: para as [String : AnyObject], successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {

@@ -1406,7 +1406,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UAV-2X-z4p">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="610"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="545"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sUV-Xp-qyV">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
@@ -1559,28 +1559,8 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </textView>
-                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qqa-pF-m58" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="425" width="335" height="50"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="Qqa-pF-m58" secondAttribute="height" multiplier="67:10" id="rl3-xQ-7g9"/>
-                                                        </constraints>
-                                                        <color key="textColor" red="0.51764705879999995" green="0.60392156860000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Minimum age limit"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </textField>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1R6-uT-5Kg">
-                                                        <rect key="frame" x="330" y="425" width="25" height="50"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="25" id="L6B-pl-a74"/>
-                                                        </constraints>
-                                                    </imageView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t8f-qE-jTo">
-                                                        <rect key="frame" x="20" y="490" width="335" height="50"/>
+                                                        <rect key="frame" x="20" y="425" width="335" height="50"/>
                                                         <subviews>
                                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nb2-SF-XGI" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
@@ -1608,7 +1588,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Lq-7m-HRP">
-                                                        <rect key="frame" x="20" y="540" width="335" height="50"/>
+                                                        <rect key="frame" x="20" y="475" width="335" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ztt-lo-YmW" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
@@ -1725,9 +1705,8 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="Qqa-pF-m58" secondAttribute="trailing" constant="20" id="0bK-Pm-t0H"/>
                                                     <constraint firstItem="5Lq-7m-HRP" firstAttribute="leading" secondItem="UAV-2X-z4p" secondAttribute="leading" constant="20" id="1rh-H9-oLW"/>
-                                                    <constraint firstItem="t8f-qE-jTo" firstAttribute="top" secondItem="Qqa-pF-m58" secondAttribute="bottom" constant="15" id="56T-jR-Lri"/>
+                                                    <constraint firstItem="t8f-qE-jTo" firstAttribute="top" secondItem="CgA-JX-8fW" secondAttribute="bottom" constant="15" id="3bj-fY-svg"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" id="8ZA-6u-nkv"/>
                                                     <constraint firstItem="IWc-3I-bmk" firstAttribute="height" secondItem="CLp-XJ-svm" secondAttribute="height" id="Ci8-yf-BAD"/>
                                                     <constraint firstItem="sUV-Xp-qyV" firstAttribute="top" secondItem="UAV-2X-z4p" secondAttribute="top" id="Dfa-tU-CDd"/>
@@ -1735,21 +1714,16 @@
                                                     <constraint firstItem="IWc-3I-bmk" firstAttribute="top" secondItem="CLp-XJ-svm" secondAttribute="bottom" constant="15" id="FD7-JY-GME"/>
                                                     <constraint firstAttribute="trailing" secondItem="5Lq-7m-HRP" secondAttribute="trailing" constant="20" id="GQN-03-hIu"/>
                                                     <constraint firstItem="t8f-qE-jTo" firstAttribute="leading" secondItem="UAV-2X-z4p" secondAttribute="leading" constant="20" id="IXq-9x-SCL"/>
-                                                    <constraint firstItem="1R6-uT-5Kg" firstAttribute="height" secondItem="Qqa-pF-m58" secondAttribute="height" id="N0n-4M-XqH"/>
                                                     <constraint firstAttribute="bottom" secondItem="5Lq-7m-HRP" secondAttribute="bottom" constant="20" id="RTM-Pw-XE1"/>
                                                     <constraint firstItem="5Lq-7m-HRP" firstAttribute="top" secondItem="t8f-qE-jTo" secondAttribute="bottom" id="ahl-MW-IaH"/>
                                                     <constraint firstItem="CLp-XJ-svm" firstAttribute="top" secondItem="sUV-Xp-qyV" secondAttribute="bottom" constant="15" id="byD-Ll-wwx"/>
-                                                    <constraint firstItem="Qqa-pF-m58" firstAttribute="top" secondItem="CgA-JX-8fW" secondAttribute="bottom" constant="15" id="dIf-IN-RpA"/>
                                                     <constraint firstItem="IWc-3I-bmk" firstAttribute="trailing" secondItem="CLp-XJ-svm" secondAttribute="trailing" id="fAi-f0-wRR"/>
                                                     <constraint firstItem="IWc-3I-bmk" firstAttribute="leading" secondItem="CLp-XJ-svm" secondAttribute="leading" id="fim-Ru-sy4"/>
                                                     <constraint firstAttribute="trailing" secondItem="t8f-qE-jTo" secondAttribute="trailing" constant="20" id="i5d-gr-AiL"/>
                                                     <constraint firstAttribute="trailing" secondItem="CLp-XJ-svm" secondAttribute="trailing" constant="20" id="jex-kc-Nq7"/>
-                                                    <constraint firstItem="Qqa-pF-m58" firstAttribute="leading" secondItem="UAV-2X-z4p" secondAttribute="leading" constant="20" id="k98-3a-x93"/>
-                                                    <constraint firstItem="1R6-uT-5Kg" firstAttribute="centerY" secondItem="Qqa-pF-m58" secondAttribute="centerY" id="ldg-Ip-O7X"/>
                                                     <constraint firstAttribute="trailing" secondItem="sUV-Xp-qyV" secondAttribute="trailing" id="mzK-ox-X7R"/>
                                                     <constraint firstItem="CLp-XJ-svm" firstAttribute="leading" secondItem="UAV-2X-z4p" secondAttribute="leading" constant="20" id="nme-pL-QVc"/>
                                                     <constraint firstAttribute="trailing" secondItem="CgA-JX-8fW" secondAttribute="trailing" constant="20" id="o92-ET-dyW"/>
-                                                    <constraint firstItem="1R6-uT-5Kg" firstAttribute="trailing" secondItem="Qqa-pF-m58" secondAttribute="trailing" id="tBq-Yf-bCC"/>
                                                     <constraint firstItem="sUV-Xp-qyV" firstAttribute="leading" secondItem="UAV-2X-z4p" secondAttribute="leading" id="xnN-wJ-b9K"/>
                                                     <constraint firstItem="CgA-JX-8fW" firstAttribute="top" secondItem="IWc-3I-bmk" secondAttribute="bottom" constant="15" id="zdf-0p-ts1"/>
                                                 </constraints>
@@ -1793,7 +1767,6 @@
                         <outlet property="lblUploadImage" destination="KcW-IN-j9n" id="3Ov-uz-rdM"/>
                         <outlet property="parentView" destination="SBp-VS-9jv" id="QrO-0J-Qcx"/>
                         <outlet property="scrollViewContainer" destination="UAV-2X-z4p" id="cYW-Y9-znQ"/>
-                        <outlet property="txtArticleAgeLimit" destination="Qqa-pF-m58" id="c9P-Fd-OXs"/>
                         <outlet property="txtArticleTitle" destination="CLp-XJ-svm" id="A1R-H4-QTS"/>
                         <outlet property="txtInviteType" destination="Nb2-SF-XGI" id="KXb-hG-R3X"/>
                         <outlet property="txtViewArticleContent" destination="CgA-JX-8fW" id="v5d-aA-ahx"/>
@@ -3576,7 +3549,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m7D-FW-MUv">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="465"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N5A-Io-gz4" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="15" width="335" height="50"/>
@@ -3650,26 +3623,8 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </textView>
-                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uPz-dD-P3l" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="275" width="335" height="50"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="uPz-dD-P3l" secondAttribute="height" multiplier="67:10" id="Bkd-pP-n3W"/>
-                                                        </constraints>
-                                                        <color key="textColor" red="0.51764705879999995" green="0.60392156860000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Minimum age limit"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </textField>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calender" translatesAutoresizingMaskIntoConstraints="NO" id="7bl-BV-08x">
-                                                        <rect key="frame" x="330" y="275" width="25" height="50"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="25" id="ajO-V9-Ex3"/>
-                                                        </constraints>
-                                                    </imageView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iM0-8x-Bz4">
-                                                        <rect key="frame" x="20" y="340" width="335" height="50"/>
+                                                        <rect key="frame" x="20" y="275" width="335" height="50"/>
                                                         <subviews>
                                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2ZS-KB-hCx" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
@@ -3696,7 +3651,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lLD-oI-yaj">
-                                                        <rect key="frame" x="20" y="395" width="335" height="50"/>
+                                                        <rect key="frame" x="20" y="330" width="335" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ivJ-IV-pYv" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
@@ -3813,25 +3768,19 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Aeh-pz-XMC" secondAttribute="trailing" constant="20" id="1O9-77-A6d"/>
-                                                    <constraint firstItem="7bl-BV-08x" firstAttribute="trailing" secondItem="uPz-dD-P3l" secondAttribute="trailing" id="8MN-2Z-TgS"/>
                                                     <constraint firstAttribute="trailing" secondItem="lLD-oI-yaj" secondAttribute="trailing" constant="20" id="DYF-rA-uva"/>
                                                     <constraint firstItem="iM0-8x-Bz4" firstAttribute="leading" secondItem="m7D-FW-MUv" secondAttribute="leading" constant="20" id="EU4-uC-nnQ"/>
                                                     <constraint firstItem="Aeh-pz-XMC" firstAttribute="leading" secondItem="m7D-FW-MUv" secondAttribute="leading" constant="20" id="HkX-UU-nOc"/>
                                                     <constraint firstItem="N5A-Io-gz4" firstAttribute="leading" secondItem="m7D-FW-MUv" secondAttribute="leading" constant="20" id="Jbg-LS-ACU"/>
-                                                    <constraint firstItem="uPz-dD-P3l" firstAttribute="top" secondItem="Aeh-pz-XMC" secondAttribute="bottom" constant="15" id="JxA-16-Yhi"/>
+                                                    <constraint firstItem="iM0-8x-Bz4" firstAttribute="top" secondItem="Aeh-pz-XMC" secondAttribute="bottom" constant="15" id="RoA-Pi-lAm"/>
                                                     <constraint firstAttribute="trailing" secondItem="N5A-Io-gz4" secondAttribute="trailing" constant="20" id="SiR-e2-Q4g"/>
-                                                    <constraint firstItem="uPz-dD-P3l" firstAttribute="leading" secondItem="m7D-FW-MUv" secondAttribute="leading" constant="20" id="VM6-o2-GuI"/>
-                                                    <constraint firstItem="7bl-BV-08x" firstAttribute="centerY" secondItem="uPz-dD-P3l" secondAttribute="centerY" id="Vqx-gm-Tfi"/>
                                                     <constraint firstItem="iM0-8x-Bz4" firstAttribute="width" secondItem="iM0-8x-Bz4" secondAttribute="height" multiplier="67:10" id="WeR-1Q-Ls8"/>
-                                                    <constraint firstItem="iM0-8x-Bz4" firstAttribute="top" secondItem="uPz-dD-P3l" secondAttribute="bottom" constant="15" id="XC6-eF-d9W"/>
                                                     <constraint firstItem="98L-g9-vne" firstAttribute="top" secondItem="N5A-Io-gz4" secondAttribute="bottom" constant="15" id="XLN-0O-rtP"/>
                                                     <constraint firstAttribute="trailing" secondItem="iM0-8x-Bz4" secondAttribute="trailing" constant="20" id="dM4-SW-4g4"/>
-                                                    <constraint firstItem="7bl-BV-08x" firstAttribute="height" secondItem="uPz-dD-P3l" secondAttribute="height" id="dog-Dl-O5g"/>
                                                     <constraint firstItem="Aeh-pz-XMC" firstAttribute="top" secondItem="98L-g9-vne" secondAttribute="bottom" constant="15" id="h1J-Tx-34w"/>
                                                     <constraint firstItem="98L-g9-vne" firstAttribute="height" secondItem="N5A-Io-gz4" secondAttribute="height" id="iWP-fG-ODR"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="kTF-es-JUq"/>
                                                     <constraint firstItem="N5A-Io-gz4" firstAttribute="top" secondItem="m7D-FW-MUv" secondAttribute="top" constant="15" id="mkx-iY-ekL"/>
-                                                    <constraint firstAttribute="trailing" secondItem="uPz-dD-P3l" secondAttribute="trailing" constant="20" id="tqE-w5-Wf8"/>
                                                     <constraint firstItem="98L-g9-vne" firstAttribute="leading" secondItem="N5A-Io-gz4" secondAttribute="leading" id="uDB-VZ-GcY"/>
                                                     <constraint firstAttribute="bottom" secondItem="lLD-oI-yaj" secondAttribute="bottom" constant="20" id="veF-ic-k38"/>
                                                     <constraint firstItem="98L-g9-vne" firstAttribute="trailing" secondItem="N5A-Io-gz4" secondAttribute="trailing" id="wpI-9V-T0y"/>
@@ -3876,7 +3825,6 @@
                         <outlet property="clGroupFriend" destination="k1n-PF-jd7" id="Dpc-pr-pSL"/>
                         <outlet property="parentView" destination="oot-Oo-RKg" id="nwf-68-cVf"/>
                         <outlet property="scrollViewContainer" destination="m7D-FW-MUv" id="PQm-bm-N3B"/>
-                        <outlet property="txtForumAgeLimit" destination="uPz-dD-P3l" id="9G1-Zu-JuU"/>
                         <outlet property="txtForumTitle" destination="N5A-Io-gz4" id="eKR-cE-k2x"/>
                         <outlet property="txtInviteType" destination="2ZS-KB-hCx" id="Ppd-J1-hTt"/>
                         <outlet property="txtViewForumMessage" destination="Aeh-pz-XMC" id="eSp-RX-HtU"/>
@@ -6297,7 +6245,6 @@
         <image name="ic_appLaunchHomr" width="831" height="866"/>
         <image name="ic_back" width="22.5" height="14"/>
         <image name="ic_btn_cancel_grey" width="18.5" height="18.5"/>
-        <image name="ic_calender" width="32" height="29.5"/>
         <image name="ic_close_add" width="18" height="18"/>
         <image name="ic_comment_count" width="15" height="15"/>
         <image name="ic_comment_send" width="37.5" height="38"/>

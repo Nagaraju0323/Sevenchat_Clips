@@ -288,13 +288,14 @@ extension VerifyEmailMobileViewController{
                 } else {
                     let dict = response?.value(forKey: CJsonData) as! [String : AnyObject]
                     self.uploadUserProfile(userID: dict.valueForInt(key: CUserId)!, signUpResponse: response, imageEmpty:false)
-                    self.registerUserName(username:self.userEmail,password:self.passwordStr)
+                    self.registerUserEmail(username:self.userEmail,password:self.passwordStr)
+                    self.registerUserMobile(username:self.userMobile,password:self.passwordStr)
                 }
             }
         }
     }
     
-    func registerUserName(username:String,password:String){
+    func registerUserEmail(username:String,password:String){
         let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
         let url = URL(string: "\(BASEAUTH)auth/register")
         var request : URLRequest = URLRequest(url: url!)
@@ -326,6 +327,46 @@ extension VerifyEmailMobileViewController{
                     MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
                     self.UserDetailsfeath(userEmailId:self.userEmail,accessToken:"")
                     MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
+                }
+            } catch let error  {
+                print("error trying to convert data to \(error)")
+            }
+        })
+        task.resume()
+    }
+    
+    func registerUserMobile(username:String,password:String){
+        let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
+        let url = URL(string: "\(BASEAUTH)auth/register")
+        var request : URLRequest = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
+        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
+        request.httpBody = data
+        
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) in
+            if let error = error{
+                print("somethis\(error)")
+            }
+            else if let response = response {
+            }else if let data = data{
+            }
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            let decoder = JSONDecoder()
+            let token_type = (String(data: responseData, encoding: .utf8))
+            do {
+                let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                guard let userMsg = dict?["message"] as? String else { return }
+                DispatchQueue.main.async {
+//                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//                    self.UserDetailsfeath(userEmailId:self.userEmail,accessToken:"")
+//                    MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
                 }
             } catch let error  {
                 print("error trying to convert data to \(error)")
@@ -396,8 +437,4 @@ extension VerifyEmailMobileViewController{
         })
         task.resume()
     }
-    
-    
-    
-    
 }

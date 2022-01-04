@@ -373,19 +373,36 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
         
         lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
         
-        lblLocation.text = "Lives in \(userInfo.valueForString(key: "city") ) \(userInfo.valueForString(key: "state"))"
-//        lblLocation.text = "Lives in \(userInfo.valueForString(key: "city")) , \(userInfo.valueForString(key: "country"))"
-        lblStatus.text = "Relationship \(userInfo.valueForString(key: "relationship"))"
-//        lblLocation.text =  CLive_in + (appDelegate.loginUser?.city ?? "")
-//        lblStatus.text = CRelationship_Status + (appDelegate.loginUser?.relationship ?? "")
+//        lblLocation.text = "Lives in \(userInfo.valueForString(key: "city") ) \(userInfo.valueForString(key: "state"))"
+//        lblStatus.text = "Relationship \(userInfo.valueForString(key: "relationship"))"
+//        switch Int(userInfo.valueForString(key: CGender)) {
+//        case CMale :
+//            lblGender.text = "Gender \(CRegisterGenderMale)"
+//        case CFemale :
+//            lblGender.text = "Gender \(CRegisterGenderFemale)"
+//        default :
+//            lblGender.text = "Relationship \(CRegisterGenderOther)"
+//        }
+        
+        lblLocation.attributedText = NSMutableAttributedString().bold(CLive_in).normal(" ").normal((userInfo.valueForString(key: "city") )).normal(" , ").normal(userInfo.valueForString(key: "state"))
+        
+        if userInfo.valueForString(key: "relationship") == "null"{
+            lblStatus.text = " "
+        }else {
+            lblStatus.attributedText = NSMutableAttributedString().bold("Relationship").normal(" ").normal((userInfo.valueForString(key: "relationship")))
+        }
+        
+     
         
         switch Int(userInfo.valueForString(key: CGender)) {
         case CMale :
-            lblGender.text = "Gender \(CRegisterGenderMale)"
+            lblGender.attributedText = NSMutableAttributedString().bold("Gender").normal(" ").normal(CRegisterGenderMale)
         case CFemale :
-            lblGender.text = "Gender \(CRegisterGenderFemale)"
+            lblGender.attributedText = NSMutableAttributedString().bold("Gender").normal(" ").normal(CRegisterGenderFemale)
+
         default :
-            lblGender.text = "Relationship \(CRegisterGenderOther)"
+            lblGender.attributedText = NSMutableAttributedString().bold("Gender").normal(" ").normal(CRegisterGenderOther)
+
         }
         
 //        lblEmail.text = userInfo.valueForString(key: CEmail)
@@ -444,45 +461,119 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
             
 //            let totalFriend = self.frdsofFrds.count
             if let arrFriends =  self.frdsofFrds as? [[String : Any]] {
-                if arrFriends.count > 0{
-                    switch arrFriends.count {
+                let arrFrdList = arrFriends.prefix(4)
+                let frdListCount = Array(arrFrdList)
+                
+//                if arrFriends.count > 0{
+                    switch frdListCount.count {
                     case 1:
                         self.viewFriendFirst.hide(byWidth: false)
-                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        print("image:::::\(arrFriends[0].valueForString(key: CImage))")
+                        
+                        if arrFriends[0].valueForString(key: CImage) == "" {
+                            self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        }
+                        
+                        
+//                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
                     case 2:
                         self.viewFriendFirst.hide(byWidth: false)
-                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        
+                        
+                        if arrFriends[0].valueForString(key: CImage) == "" {
+                            self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        }
                         self.viewFriendSecond.hide(byWidth: false)
                         _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                        self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+                        
+                        
+                        if arrFriends[1].valueForString(key: CImage) == "" {
+                            self.btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+                        }
+                        
                     case 3:
+//                        self.viewFriendFirst.hide(byWidth: false)
+//                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+//                        self.viewFriendSecond.hide(byWidth: false)
+//                        _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//                        self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+//                        self.viewFriendThird.hide(byWidth: false)
+//                        _ = self.viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//                        self.btnFriendThird.sd_setImage(with: URL(string: arrFriends[2].valueForString(key: CImage)), for: .normal, completed: nil)
+                        
                         self.viewFriendFirst.hide(byWidth: false)
-                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        
+                        if arrFriends[0].valueForString(key: CImage) == "" {
+                            self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        }
                         self.viewFriendSecond.hide(byWidth: false)
                         _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                        self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+                        
+                        if arrFriends[1].valueForString(key: CImage) == "" {
+                            self.btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+                        }
                         self.viewFriendThird.hide(byWidth: false)
                         _ = self.viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                        self.btnFriendThird.sd_setImage(with: URL(string: arrFriends[2].valueForString(key: CImage)), for: .normal, completed: nil)
+                        
+                        if arrFriends[2].valueForString(key: CImage) == "" {
+                            self.btnFriendThird.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            self.btnFriendThird.sd_setImage(with: URL(string: arrFriends[2].valueForString(key: CImage)), for: .normal, completed: nil)
+                        }
+                        
                     case 4:
                         self.viewFriendFirst.hide(byWidth: false)
-                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        
+                        if arrFriends[0].valueForString(key: CImage) == "" {
+                            self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        }
+                        
+//                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
                         self.viewFriendSecond.hide(byWidth: false)
                         _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                        self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+                        
+                        if arrFriends[1].valueForString(key: CImage) == "" {
+                            self.btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+                        }
+                        
+//                        self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
                         self.viewFriendThird.hide(byWidth: false)
                         _ = self.viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                        self.btnFriendThird.sd_setImage(with: URL(string: arrFriends[2].valueForString(key: CImage)), for: .normal, completed: nil)
+                        
+                        if arrFriends[2].valueForString(key: CImage) == "" {
+                            self.btnFriendThird.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            self.btnFriendThird.sd_setImage(with: URL(string: arrFriends[2].valueForString(key: CImage)), for: .normal, completed: nil)
+                        }
+                       
                         self.viewFriendFourth.hide(byWidth: false)
                         _ = self.viewFriendFourth.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                        self.btnFriendFourth.sd_setImage(with: URL(string: arrFriends[3].valueForString(key: CImage)), for: .normal, completed: nil)
-
+                        
+                        if arrFriends[3].valueForString(key: CImage) == "" {
+                            self.btnFriendFourth.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        }else {
+                            self.btnFriendFourth.sd_setImage(with: URL(string: arrFriends[3].valueForString(key: CImage)), for: .normal, completed: nil)
+                        }
                         _ = self.btnTotalFriend.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
                     default:
                         break;
                     }
                 }
-            }
+//            }
             // Put your code which should be executed with a delay here
         }
         

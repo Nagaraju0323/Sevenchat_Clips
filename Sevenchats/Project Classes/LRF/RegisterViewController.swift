@@ -675,6 +675,7 @@ extension RegisterViewController: GenericTextFieldDelegate {
  * Model   : RegisterUserName action shette             *
  * Changes   :                                          *
  ********************************************************/
+//MARK :- API CALL
 
 extension RegisterViewController{
     

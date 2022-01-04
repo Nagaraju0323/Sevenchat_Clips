@@ -1,15 +1,15 @@
 //
-//  FavWebSideViewController.swift
+//  PSLSideViewController.swift
 //  Sevenchats
 //
-//  Created by mac-0005 on 20/08/18.
-//  Copyright © 2018 mac-0005. All rights reserved.
+//  Created by CHANDU on 03/01/22.
+//  Copyright © 2022 mac-00020. All rights reserved.
 //
 
 import UIKit
 
-class FavWebSideViewController: ParentViewController {
-    
+class PSLSideViewController: ParentViewController {
+
     var arrFavWebSite = [[String:Any]]()
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
@@ -46,8 +46,8 @@ class FavWebSideViewController: ParentViewController {
     
     // MARK:- --------- Initialization
     func Initialization(){
-        self.title = CSideFavWebSites
-        tblFavWebSite.register(UINib(nibName: "FavWebSitesTblCell", bundle: nil), forCellReuseIdentifier: "FavWebSitesTblCell")
+        self.title = CSidePSL
+        tblFavWebSite.register(UINib(nibName: "PSLSitesTblCell", bundle: nil), forCellReuseIdentifier: "PSLSitesTblCell")
         tblFavWebSite.estimatedRowHeight = 200;
         tblFavWebSite.rowHeight = UITableView.automaticDimension;
         refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
@@ -58,7 +58,7 @@ class FavWebSideViewController: ParentViewController {
 }
 
 // MARK:- --------- Api Functions
-extension FavWebSideViewController{
+extension PSLSideViewController{
     @objc func pullToRefresh() {
         self.pageNumber = 1
         refreshControl.beginRefreshing()
@@ -132,7 +132,7 @@ extension FavWebSideViewController{
 }
 
 // MARK:- --------- UITableView Datasources/Delegate
-extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
+extension PSLSideViewController: UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -148,7 +148,7 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "FavWebSitesTblCell", for: indexPath) as? FavWebSitesTblCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "PSLSitesTblCell", for: indexPath) as? PSLSitesTblCell {
             
             
             let dicFavWeSite = arrFavWebSite[indexPath.row]
@@ -291,6 +291,3 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
          }*/
     }
 }
-
-
-

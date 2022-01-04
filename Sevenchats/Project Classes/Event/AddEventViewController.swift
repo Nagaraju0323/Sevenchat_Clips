@@ -175,7 +175,7 @@ class AddEventViewController: ParentViewController {
         // By default `All type` selected
         self.selectedInviteType = 4
         
-        txtAgeLimit.textLimit = 3
+//        txtAgeLimit.textLimit = 3
     }
     
     func updateUIAccordingToLanguage(){
@@ -204,7 +204,7 @@ class AddEventViewController: ParentViewController {
         categoryDropDownView.txtCategory.placeholder = CEventPlaceholderSelecetCategory
 //        subcategoryDropDownView.txtCategory.placeholder = CEventPlaceholderSelecetCategory
         txtViewContent.placeHolder = CEventPlaceholderContent
-        txtAgeLimit.placeHolder = CPostPlaceholderMinAge
+//        txtAgeLimit.placeHolder = CPostPlaceholderMinAge
         txtEventStartDate.placeHolder = CEventPlaceholderStartDateTime
         txtEventEndDate.placeHolder = CEventPlaceholderEndDateTime
         txtLocation.placeholder = CEventPlaceholderLocation
@@ -222,7 +222,7 @@ extension AddEventViewController{
         txtEventTitle.text = eventInfo.valueForString(key: CTitle)
         categoryDropDownView.txtCategory.text = eventInfo.valueForString(key: CCategory)
         txtViewContent.text = eventInfo.valueForString(key: CContent)
-        txtAgeLimit.text = eventInfo.valueForString(key: CMinAge)
+//        txtAgeLimit.text = eventInfo.valueForString(key: CMinAge)
         txtEventStartDate.text = DateFormatter.dateStringFrom(timestamp: eventInfo.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
         txtEventEndDate.text = DateFormatter.dateStringFrom(timestamp: eventInfo.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
         txtLocation.text = eventInfo.valueForString(key: CEvent_Location)
@@ -283,7 +283,7 @@ extension AddEventViewController{
         apiPara[CTitle] = txtEventTitle.text
         apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
         apiPara[CPost_Detail] = txtViewContent.text
-        apiPara[CMin_Age] = txtAgeLimit.text
+//        apiPara[CMin_Age] = txtAgeLimit.text
         apiPara[CEvent_Location] = txtLocation.text
         apiPara[CLatitude] = self.latitude
         apiPara[CLongitude] = self.longitude
@@ -322,7 +322,7 @@ extension AddEventViewController{
            "post_title":txtEventTitle.text ?? "",
            "post_category":categoryDropDownView.txtCategory.text ?? "",
            "post_content":txtAdv,
-           "age_limit":txtAgeLimit.text ?? "",
+           "age_limit":"16",
            "latitude":self.latitude,
             "longitude":self.longitude,
            "start_date":startEvntTime,
@@ -677,7 +677,7 @@ extension AddEventViewController{
         
         self.resignKeyboard()
         
-        let ageValue = txtAgeLimit.text?.toInt ?? 0
+//        let ageValue = txtAgeLimit.text?.toInt ?? 0
         
         if (txtEventTitle.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEventTitle, btnOneTitle: CBtnOk, btnOneTapped: nil)
@@ -685,11 +685,13 @@ extension AddEventViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEventCategory, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else if (txtViewContent.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEventContent, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else if (txtAgeLimit.text?.isBlank)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePostAgeLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else if ageValue < 13 || ageValue > 999  {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMinumumAgeLimitBetween13To100, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
+        }
+//        else if (txtAgeLimit.text?.isBlank)! {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePostAgeLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//        }else if ageValue < 13 || ageValue > 999  {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMinumumAgeLimitBetween13To100, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//        }
+        else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupEvent, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else if (txtEventStartDate.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEventStartDate, btnOneTitle: CBtnOk, btnOneTapped: nil)

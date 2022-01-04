@@ -389,24 +389,40 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeAddFrdTblCell", for: indexPath) as? HomeAddFrdTblCell {
             
-            cell.lblUserName.text = searchInfo.valueForString(key: CFirstname) + " " + searchInfo.valueForString(key: CLastname)
-            cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
-            
             if appDelegate.loginUser?.user_id == Int64(searchInfo.valueForString(key: CUserId)){
                 cell.btnAddFrd.isHidden = true
             }else{
                 cell.btnAddFrd.isHidden = false
+                cell.lblUserName.text = searchInfo.valueForString(key: CFirstname) + " " + searchInfo.valueForString(key: CLastname)
+                cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
             }
             
-            if searchInfo.valueForInt(key: CFriend_status) == 2 {
-                cell.btnAddFrd.isHidden = true
-                cell.viewAcceptReject.isHidden = false
-            }else{
+            //TODO
+//            if searchInfo.valueForInt(key: CFriend_status) == 2 {
+//                cell.btnAddFrd.isHidden = true
+//                cell.viewAcceptReject.isHidden = false
+//            }else{
+//                cell.btnAddFrd.isHidden = false
+//                cell.viewAcceptReject.isHidden = true
+//
+//                switch searchInfo.valueForInt(key: CFriend_status) {
+//                case 0:
+//                    cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
+//                case 1:
+//                    cell.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+//                case 5:
+//                    cell.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+//                default:
+//                    break
+//                }
+//            }
+            
+            
+            if searchInfo.valueForInt(key: CFriend_status) == 1 {
                 cell.btnAddFrd.isHidden = false
                 cell.viewAcceptReject.isHidden = true
-                
                 switch searchInfo.valueForInt(key: CFriend_status) {
-                case 0:
+                case 1:
                     cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
                 case 1:
                     cell.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
@@ -415,7 +431,14 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 default:
                     break
                 }
+                
+            }else{
+                cell.btnAddFrd.isHidden = true
+                cell.viewAcceptReject.isHidden = false
+                
+             
             }
+            
             
             cell.btnAddFrd.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }

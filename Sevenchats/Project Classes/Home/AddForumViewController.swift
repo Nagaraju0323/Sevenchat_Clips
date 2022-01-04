@@ -110,7 +110,7 @@ class AddForumViewController: ParentViewController {
 //        }
         
         
-        txtForumAgeLimit.textLimit = 3
+//        txtForumAgeLimit.textLimit = 3
         let arrInviteType = [CPostPostsInviteGroups, CPostPostsInviteContacts,  CPostPostsInvitePublic, CPostPostsInviteAllFriends]
         
         txtInviteType.setPickerData(arrPickerData: arrInviteType, selectedPickerDataHandler: { [weak self] (text, row, component) in
@@ -145,7 +145,7 @@ class AddForumViewController: ParentViewController {
         categoryDropDownView.txtCategory.placeholder = CForumPlaceholderSelecetCategory
 //        subcategoryDropDownView.txtCategory.placeholder = CForumPlaceholderSelecetCategory
         txtViewForumMessage.placeHolder = CForumPlaceholderContent
-        txtForumAgeLimit.placeHolder = CPostPlaceholderMinAge
+//        txtForumAgeLimit.placeHolder = CPostPlaceholderMinAge
         
         btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
     }
@@ -164,7 +164,7 @@ extension AddForumViewController{
         apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
         
         apiPara[CPost_Detail] = txtViewForumMessage.text
-        apiPara[CMin_Age] = txtForumAgeLimit.text
+//        apiPara[CMin_Age] = txtForumAgeLimit.text
         
         apiPara[CPublish_To] = self.selectedInviteType
 //        if self.selectedInviteType == 1{
@@ -196,7 +196,7 @@ extension AddForumViewController{
             "post_title":txtForumTitle.text!,
             "post_category":categoryDropDownView.txtCategory.text!,
             "post_content":addforum,
-            "age_limit":txtForumAgeLimit.text!,
+            "age_limit":"16",
         ]
             
         if self.selectedInviteType == 1{
@@ -290,7 +290,7 @@ extension AddForumViewController{
         txtForumTitle.text = forumInfo.valueForString(key: CTitle)
         categoryDropDownView.txtCategory.text = forumInfo.valueForString(key: CCategory)
         txtViewForumMessage.text = forumInfo.valueForString(key: CContent)
-        txtForumAgeLimit.text = forumInfo.valueForString(key: CMinAge)
+//        txtForumAgeLimit.text = forumInfo.valueForString(key: CMinAge)
         
         //...Set invite type
         self.selectedInviteType = forumInfo.valueForInt(key: CPublish_To) ?? 3
@@ -504,7 +504,7 @@ extension AddForumViewController{
     @objc fileprivate func btnAddForumClicked(_ sender : UIBarButtonItem) {
         self.resignKeyboard()
         
-        let ageValue = txtForumAgeLimit.text?.toInt ?? 0
+//        let ageValue = txtForumAgeLimit.text?.toInt ?? 0
         
         if (txtForumTitle.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageForumTitle, btnOneTitle: CBtnOk, btnOneTapped: nil)
@@ -512,11 +512,13 @@ extension AddForumViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageForumCategory, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else if (txtViewForumMessage.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageForumContent, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else if (txtForumAgeLimit.text?.isBlank)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePostAgeLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else if ageValue < 13 || ageValue > 999  {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMinumumAgeLimitBetween13To100, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
+        }
+//        else if (txtForumAgeLimit.text?.isBlank)! {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePostAgeLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//        }else if ageValue < 13 || ageValue > 999  {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMinumumAgeLimitBetween13To100, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//        }
+        else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupForum, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
             self.addEditForum()

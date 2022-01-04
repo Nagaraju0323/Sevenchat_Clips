@@ -226,7 +226,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zJx-ZF-hBC">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="815"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="750"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jq4-jh-8It">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
@@ -381,26 +381,8 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </textView>
-                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Fgh-5s-CbF" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="425" width="335" height="50"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="Fgh-5s-CbF" secondAttribute="height" multiplier="67:10" id="AxU-Ey-OSq"/>
-                                                        </constraints>
-                                                        <color key="textColor" red="0.51764705879999995" green="0.60392156860000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Minimum age limit"/>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </textField>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9hR-6P-Dmd">
-                                                        <rect key="frame" x="330" y="425" width="25" height="50"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="25" id="nnt-Mf-k8a"/>
-                                                        </constraints>
-                                                    </imageView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kvf-BQ-RJX">
-                                                        <rect key="frame" x="20" y="490" width="335" height="50"/>
+                                                        <rect key="frame" x="20" y="425" width="335" height="50"/>
                                                         <subviews>
                                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CJS-RN-RKc" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
@@ -428,7 +410,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CXH-CP-6af">
-                                                        <rect key="frame" x="20" y="540" width="335" height="50"/>
+                                                        <rect key="frame" x="20" y="475" width="335" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIF-is-ACB" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
@@ -543,7 +525,7 @@
                                                         </constraints>
                                                     </view>
                                                     <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fg0-PG-88b" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="605" width="335" height="50"/>
+                                                        <rect key="frame" x="20" y="540" width="335" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="fg0-PG-88b" secondAttribute="height" multiplier="67:10" id="WgX-pa-yxs"/>
                                                         </constraints>
@@ -555,13 +537,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calender" translatesAutoresizingMaskIntoConstraints="NO" id="eOt-lF-wM0">
-                                                        <rect key="frame" x="330" y="605" width="25" height="50"/>
+                                                        <rect key="frame" x="330" y="540" width="25" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="25" id="gIY-Xw-soZ"/>
                                                         </constraints>
                                                     </imageView>
                                                     <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="S4r-K8-P70" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="670" width="335" height="50"/>
+                                                        <rect key="frame" x="20" y="605" width="335" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="S4r-K8-P70" secondAttribute="height" multiplier="67:10" id="c7n-KV-MHk"/>
                                                         </constraints>
@@ -573,13 +555,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calender" translatesAutoresizingMaskIntoConstraints="NO" id="ssQ-zS-kBI">
-                                                        <rect key="frame" x="330" y="670" width="25" height="50"/>
+                                                        <rect key="frame" x="330" y="605" width="25" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="ssQ-zS-kBI" secondAttribute="height" multiplier="1:2" id="W21-Ra-Nbd"/>
                                                         </constraints>
                                                     </imageView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wBo-GR-tZs" customClass="MIGenericView" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="740" width="335" height="45"/>
+                                                        <rect key="frame" x="20" y="675" width="335" height="45"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_location" translatesAutoresizingMaskIntoConstraints="NO" id="aUe-HR-Bal">
                                                                 <rect key="frame" x="307" y="5" width="20" height="35"/>
@@ -626,7 +608,6 @@
                                                 <constraints>
                                                     <constraint firstItem="ssQ-zS-kBI" firstAttribute="centerY" secondItem="S4r-K8-P70" secondAttribute="centerY" id="08L-xy-OKh"/>
                                                     <constraint firstItem="FzZ-H4-LPR" firstAttribute="top" secondItem="Jq4-jh-8It" secondAttribute="bottom" constant="15" id="1pV-Zg-U9M"/>
-                                                    <constraint firstItem="kvf-BQ-RJX" firstAttribute="top" secondItem="Fgh-5s-CbF" secondAttribute="bottom" constant="15" id="20J-qK-v1q"/>
                                                     <constraint firstAttribute="trailing" secondItem="kvf-BQ-RJX" secondAttribute="trailing" constant="20" id="2DB-kX-QHH"/>
                                                     <constraint firstItem="Jq4-jh-8It" firstAttribute="leading" secondItem="zJx-ZF-hBC" secondAttribute="leading" id="2Qz-zG-eNG"/>
                                                     <constraint firstAttribute="trailing" secondItem="CXH-CP-6af" secondAttribute="trailing" constant="20" id="2hB-65-Nw4"/>
@@ -634,7 +615,6 @@
                                                     <constraint firstItem="fg0-PG-88b" firstAttribute="leading" secondItem="zJx-ZF-hBC" secondAttribute="leading" constant="20" id="3vZ-hw-Ct2"/>
                                                     <constraint firstItem="ssQ-zS-kBI" firstAttribute="height" secondItem="S4r-K8-P70" secondAttribute="height" id="55w-bW-MPT"/>
                                                     <constraint firstItem="kvf-BQ-RJX" firstAttribute="leading" secondItem="zJx-ZF-hBC" secondAttribute="leading" constant="20" id="5Go-23-FS3"/>
-                                                    <constraint firstItem="9hR-6P-Dmd" firstAttribute="centerY" secondItem="Fgh-5s-CbF" secondAttribute="centerY" id="65B-aT-taw"/>
                                                     <constraint firstItem="93G-RI-1ha" firstAttribute="top" secondItem="b1D-xO-ZRR" secondAttribute="bottom" constant="15" id="6rb-5p-7gl"/>
                                                     <constraint firstAttribute="trailing" secondItem="wBo-GR-tZs" secondAttribute="trailing" constant="20" id="9ni-yg-rag"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="B2H-hD-uuj"/>
@@ -642,21 +622,17 @@
                                                     <constraint firstItem="eOt-lF-wM0" firstAttribute="centerY" secondItem="fg0-PG-88b" secondAttribute="centerY" id="CuV-lO-sZU"/>
                                                     <constraint firstItem="kvf-BQ-RJX" firstAttribute="width" secondItem="kvf-BQ-RJX" secondAttribute="height" multiplier="67:10" id="Jfo-SA-g5k"/>
                                                     <constraint firstAttribute="trailing" secondItem="S4r-K8-P70" secondAttribute="trailing" constant="20" id="K05-6G-5Jc"/>
-                                                    <constraint firstItem="Fgh-5s-CbF" firstAttribute="top" secondItem="93G-RI-1ha" secondAttribute="bottom" constant="15" id="KJo-rM-8oq"/>
                                                     <constraint firstItem="CXH-CP-6af" firstAttribute="leading" secondItem="zJx-ZF-hBC" secondAttribute="leading" constant="20" id="Khh-KG-4p3"/>
                                                     <constraint firstAttribute="trailing" secondItem="FzZ-H4-LPR" secondAttribute="trailing" constant="20" id="Nhb-jy-Vid"/>
-                                                    <constraint firstItem="9hR-6P-Dmd" firstAttribute="trailing" secondItem="Fgh-5s-CbF" secondAttribute="trailing" id="Olh-Ix-no6"/>
                                                     <constraint firstItem="fg0-PG-88b" firstAttribute="top" secondItem="CXH-CP-6af" secondAttribute="bottom" constant="15" id="RWv-FE-wGa"/>
                                                     <constraint firstItem="wBo-GR-tZs" firstAttribute="leading" secondItem="zJx-ZF-hBC" secondAttribute="leading" constant="20" id="RtN-SI-WXi"/>
+                                                    <constraint firstItem="kvf-BQ-RJX" firstAttribute="top" secondItem="93G-RI-1ha" secondAttribute="bottom" constant="15" id="SAc-X7-qDF"/>
                                                     <constraint firstItem="eOt-lF-wM0" firstAttribute="trailing" secondItem="fg0-PG-88b" secondAttribute="trailing" id="Vqp-IW-5QN"/>
                                                     <constraint firstItem="wBo-GR-tZs" firstAttribute="top" secondItem="S4r-K8-P70" secondAttribute="bottom" constant="20" id="ZmM-70-HWE"/>
                                                     <constraint firstAttribute="trailing" secondItem="fg0-PG-88b" secondAttribute="trailing" constant="20" id="ckO-j5-HXm"/>
                                                     <constraint firstItem="b1D-xO-ZRR" firstAttribute="height" secondItem="FzZ-H4-LPR" secondAttribute="height" id="cvp-Ky-rJb"/>
                                                     <constraint firstItem="S4r-K8-P70" firstAttribute="leading" secondItem="zJx-ZF-hBC" secondAttribute="leading" constant="20" id="eiR-e7-vGs"/>
                                                     <constraint firstItem="FzZ-H4-LPR" firstAttribute="leading" secondItem="zJx-ZF-hBC" secondAttribute="leading" constant="20" id="gBw-bv-IZe"/>
-                                                    <constraint firstItem="9hR-6P-Dmd" firstAttribute="height" secondItem="Fgh-5s-CbF" secondAttribute="height" id="gRw-3X-o0V"/>
-                                                    <constraint firstItem="Fgh-5s-CbF" firstAttribute="leading" secondItem="zJx-ZF-hBC" secondAttribute="leading" constant="20" id="iOb-v7-oY8"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Fgh-5s-CbF" secondAttribute="trailing" constant="20" id="jkE-Z2-AFs"/>
                                                     <constraint firstAttribute="trailing" secondItem="wBo-GR-tZs" secondAttribute="trailing" constant="20" id="kY9-jX-mF6"/>
                                                     <constraint firstItem="b1D-xO-ZRR" firstAttribute="leading" secondItem="FzZ-H4-LPR" secondAttribute="leading" id="mBe-67-64c"/>
                                                     <constraint firstItem="93G-RI-1ha" firstAttribute="leading" secondItem="zJx-ZF-hBC" secondAttribute="leading" constant="20" id="nr5-e6-jfD"/>
@@ -710,7 +686,6 @@
                         <outlet property="lblUploadImage" destination="FFh-VT-7rv" id="ZfY-Ur-kz2"/>
                         <outlet property="parentView" destination="JE8-Cj-cb0" id="Wwh-ZJ-E3j"/>
                         <outlet property="scrollViewContainer" destination="zJx-ZF-hBC" id="7gt-Yh-4nq"/>
-                        <outlet property="txtAgeLimit" destination="Fgh-5s-CbF" id="kHt-sX-c3b"/>
                         <outlet property="txtEventEndDate" destination="S4r-K8-P70" id="pDI-zC-xpD"/>
                         <outlet property="txtEventStartDate" destination="fg0-PG-88b" id="mne-1c-AE2"/>
                         <outlet property="txtEventTitle" destination="FzZ-H4-LPR" id="YGt-xF-ajT"/>

@@ -46,18 +46,27 @@ class NewsWebViewController: ParentViewController {
             
             if isFavWebSite {
                 self.title = newInfo.valueForString(key: "title")
-                self.load(newInfo.valueForString(key: "favourite_website_url"))
+                self.load(newInfo.valueForString(key: "favourite_website_url"),isFrom:true)
             }else {
                 self.title = newInfo.valueForString(key: "title")
-                self.load(newInfo.valueForString(key: "url"))
+                self.load(newInfo.valueForString(key: "url"),isFrom:false)
             }
         }
     }
-    func load(_ urlString: String) {
-        if let url = URL(string: urlString) {
-            let request = URLRequest(url: url)
-            self.webView.load(request)
+    func load(_ urlString: String,isFrom:Bool) {
+        if isFrom == true {
+            if let url = URL(string: "https://\(urlString)") {
+                let request = URLRequest(url: url)
+                self.webView.load(request)
+            }
+        }else {
+            
+            if let url = URL(string:(urlString)) {
+                let request = URLRequest(url: url)
+                self.webView.load(request)
+            }
         }
+        
     }
 }
 
