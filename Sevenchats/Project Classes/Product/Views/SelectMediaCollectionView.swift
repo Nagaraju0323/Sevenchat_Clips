@@ -5,6 +5,11 @@
 //  Created by mac-00020 on 26/08/19.
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
+/********************************************************
+ * Author : Chandrika R                                  *
+ * Model  : product & Minio                              *
+ * option :Add product Images with Minio                 *
+ ********************************************************/
 
 import UIKit
 import TLPhotoPicker
@@ -12,7 +17,7 @@ import Photos
 import AssetsLibrary
 
 class SelectMediaCollectionView: UICollectionView {
-
+    
     //MARK: - IBOutlet/Object/Variable Declaration
     //@IBOutlet weak var vw: UIView!
     
@@ -26,6 +31,9 @@ class SelectMediaCollectionView: UICollectionView {
     var arrImagesVideo = [String]()
     var imgName = ""
     var imageString = ""
+    var content = [String:Any]()
+    var isSeletected = true
+    
     
     let imagePicker = UIImagePickerController()
     var photosPickerViewController = TLPhotosPickerViewController()
@@ -46,7 +54,8 @@ class SelectMediaCollectionView: UICollectionView {
         
         self.delegate = self
         self.dataSource =  self
-       
+        
+        
         imagePicker.delegate = self
         
         photosPickerViewController.delegate = self
@@ -58,6 +67,7 @@ class SelectMediaCollectionView: UICollectionView {
         self.contentInset = UIEdgeInsets(top: interItemsSpacing, left: interItemsSpacing, bottom: interItemsSpacing, right: interItemsSpacing)
         self.isPagingEnabled    = false
     }
+    
 }
 
 
@@ -74,13 +84,41 @@ extension SelectMediaCollectionView: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if arrMedia.count > indexPath.row{
-         
+            
             let media = arrMedia[indexPath.row]
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddMediaCollCell", for: indexPath) as? AddMediaCollCell else {
                 return UICollectionViewCell(frame: .zero)
             }
             
             cell.media = media
+            
+            if isSeletected == true{
+                let imgExt = media.serverImgURL ?? "".fileExtension()
+                if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
+                    self.content = [
+                        "mime": "video",
+                        "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                        "image_path":media.serverImgURL ?? ""
+                    ]
+                }else {
+                    self.content = [
+                        "mime": "image",
+                        "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                        "image_path":media.serverImgURL ?? ""
+                    ]
+                    
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: self.content as Any, options: .prettyPrinted)
+                        let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
+                        let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
+                        let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
+                        self.imageString = replaced1!
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                    self.arrImagesVideo.append(self.imageString)
+                }
+            }
             print(media)
             cell.btnClose.tag = indexPath.row
             cell.btnClose.touchUpInside { [weak self] (sender) in
@@ -88,15 +126,47 @@ extension SelectMediaCollectionView: UICollectionViewDelegate, UICollectionViewD
                 if self?.isConfirmAlertOnDelete ?? true{
                     self?.viewController?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAreYouSureToDeleteThisMedia, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
                         guard let _ = self else {return}
+                        self?.arrImagesVideo.removeAll()
                         let obj = self?.arrMedia[sender.tag]
                         if let mediaId = obj?.mediaID{
                             self?.arrDeletedApiImages.append(mediaId)
                         }
-                        //self?.selectedAssets.remove(at: sender.tag)
                         self?.arrMedia.remove(at: sender.tag)
+                        for mediafile in self?.arrMedia ?? [] {
+                            
+                            let imgExt = mediafile.serverImgURL ?? "".fileExtension()
+                            
+                            if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
+                                self?.content = [
+                                    "mime": "video",
+                                    "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                    "image_path":mediafile.serverImgURL ?? ""
+                                ]
+                            }else {
+                                self?.content = [
+                                    "mime": "image",
+                                    "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                    "image_path":mediafile.serverImgURL ?? ""
+                                ]
+                                
+                                do {
+                                    let jsonData = try JSONSerialization.data(withJSONObject: self?.content as Any, options: .prettyPrinted)
+                                    let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
+                                    let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
+                                    let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
+                                    //                                        print("replace1\(replaced1)")
+                                    self?.imageString = replaced1!
+                                } catch {
+                                    print(error.localizedDescription)
+                                }
+                            }
+                            self?.arrImagesVideo.append(self?.imageString ?? "")
+                            
+                        }
+                        self?.isSeletected = false
                         self?.reloadData()
                         
-                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                 }else{
                     let obj = self?.arrMedia[sender.tag]
                     if let mediaId = obj?.mediaID{
@@ -104,6 +174,7 @@ extension SelectMediaCollectionView: UICollectionViewDelegate, UICollectionViewD
                     }
                     self?.arrImagesVideo.remove(at: sender.tag)
                     self?.arrMedia.remove(at: sender.tag)
+                    self?.isSeletected = false
                     self?.reloadData()
                 }
             }
@@ -189,141 +260,72 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
         self.viewController?.present(imagePicker, animated: true)
     }
     
- //Addd images Minio
     
-    
-    /********************************************************
-     * Author : Chandrika R                                  *
-     * Model  : Group Create Notification                  *
-     * option                                               *
-     ********************************************************/
-    
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//
-//        let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String ?? ""
-//        if mediaType == "public.image"{
-//
-//
-//            var image:UIImage?
-//            if self.imagePicker.allowsEditing {
-//                image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
-//            } else {
-//                image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-//            }
-//            if image != nil{
-//                let media = MDLAddMedia(image: image, url:nil)
-//                media.isFromGallery = false
-//                media.assetType = .Image
-//                media.isDownloadedFromiCloud = true
-//                self.arrMedia.append(media)
-//                self.reloadData()
-//            }
-//
-//
-//
-//
-//
-//
-//
-//
-//        }else{
-//            if #available(iOS 11.0, *) {
-//                if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset {
-//                    PHImageManager.default().requestAVAsset(forVideo: asset, options: nil, resultHandler: { [weak self] (avAsset, audioMix, info) in
-//                        guard let `self` = self else {return}
-//                        if let urlasset = avAsset as? AVURLAsset {
-//                            self.createThumbnailOfVideoFromRemoteUrl(url: urlasset.url)
-//                        }
-//                    })
-//                }else{
-//                    let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
-//                    if videoURL != nil {
-//                        let asset = AVURLAsset(url: videoURL!, options: nil)
-//                        self.createThumbnailOfVideoFromRemoteUrl(url: asset.url)
-//                    }
-//                }
-//            } else {
-//                let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
-//                if videoURL != nil {
-//                    let asset = AVURLAsset(url: videoURL!, options: nil)
-//                    self.createThumbnailOfVideoFromRemoteUrl(url: asset.url)
-//                }
-//            }
-//        }
-//        picker.dismiss(animated: true)
-//    }
-    
-    
-     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String ?? ""
         if mediaType == "public.image"{
             var image:UIImage?
-//            var selectedImage: UIImage!
-               var imageUrl: URL!
+            //            var selectedImage: UIImage!
+            var imageUrl: URL!
             if self.imagePicker.allowsEditing {
                 image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
             } else {
                 image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
             }
-
+            
             if image != nil{
                 let media = MDLAddMedia(image: image, url:nil)
                 media.isFromGallery = false
                 media.assetType = .Image
-//                DispatchQueue.main.async {
-//                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-//                                           }
-                
                 if (info[UIImagePickerController.InfoKey.originalImage] as? UIImage) != nil {
                     let imgName = UUID().uuidString
                     let documentDirectory = NSTemporaryDirectory()
-                   let localPath = documentDirectory.appending(imgName)
+                    let localPath = documentDirectory.appending(imgName)
                     
-                        let modileNum = appDelegate.loginUser?.mobile
+                    let modileNum = appDelegate.loginUser?.mobile
+                    
+                    MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum ?? "", ImageSTt: image!,isFrom:"",uploadFrom:"")
+                    
+                    MInioimageupload.shared().callback = { [self] imgUrls in
+                        print("UploadImage::::::::::::::\(imgUrls)")
+                        self.imgName = imgUrls
+                        let content:[String:Any]  = [
+                            //                                "mime": "video",
+                            "mime": "image",
+                            "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                            "image_path":imgUrls
+                        ]
                         
-                        MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum ?? "", ImageSTt: image!,isFrom:"",uploadFrom:"")
-                        
-                        MInioimageupload.shared().callback = { [self] imgUrls in
-                            print("UploadImage::::::::::::::\(imgUrls)")
-                            self.imgName = imgUrls
-                            let content:[String:Any]  = [
-//                                "mime": "video",
-                                "mime": "image",
-                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
-                                "image_path":imgUrls
-                            ]
-                            
-                            do {
-                                let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
-                                let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
-                                let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
-                                let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                                //                                        print("replace1\(replaced1)")
-                                self.imageString = replaced1!
-                            } catch {
-                                print(error.localizedDescription)
-                            }
-                            self.arrImagesVideo.append(self.imageString)
-                            print("*****************\(self.arrImagesVideo)")
-                            if localPath.count == self.arrImagesVideo.count{
-                                print("Success")
-//                                DispatchQueue.main.async {
-//                                    MILoader.shared.hideLoader()
-//                                }
-                            }else{
-                                print("Failed")
-//                                DispatchQueue.main.async {
-//                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-//                                }
-                            }
+                        do {
+                            let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
+                            let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
+                            let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
+                            let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
+                            //                                        print("replace1\(replaced1)")
+                            self.imageString = replaced1!
+                        } catch {
+                            print(error.localizedDescription)
                         }
+                        self.arrImagesVideo.append(self.imageString)
+                        print("*****************\(self.arrImagesVideo)")
+                        if localPath.count == self.arrImagesVideo.count{
+                            print("Success")
+                            //                                DispatchQueue.main.async {
+                            //                                    MILoader.shared.hideLoader()
+                            //                                }
+                        }else{
+                            print("Failed")
+                            //                                DispatchQueue.main.async {
+                            //                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                            //                                }
+                        }
+                    }
                 }
                 
                 media.isDownloadedFromiCloud = true
                 self.arrMedia.append(media)
-            //                self.arrMediaString.append(media)
+                self.isSeletected = false
                 self.reloadData()
             }
         }else{
@@ -338,7 +340,7 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
                     let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
                     if videoURL != nil {
                         let asset = AVURLAsset(url: videoURL!, options: nil)
-                      
+                        
                         let modileNum = appDelegate.loginUser?.mobile
                         let sampleImage = UIImage()
                         
@@ -381,10 +383,6 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
         }
         picker.dismiss(animated: true)
     }
-    
-    
-    
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
     }
@@ -402,6 +400,7 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
             media.assetType = .Video
             media.isDownloadedFromiCloud = true
             self.arrMedia.append(media)
+            self.isSeletected = false
             self.reloadData()
         } catch {
             print(error.localizedDescription)
@@ -501,13 +500,10 @@ extension SelectMediaCollectionView {
 extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPhotosPickerLogDelegate {
     
     func shouldDismissPhotoPicker(withTLPHAssets: [TLPHAsset]) -> Bool {
-        
-        //self.selectedAssets = withTLPHAssets
         self.arrMedia = self.arrMedia.filter({!$0.isFromGallery})
         let dispatchGroup = DispatchGroup()
         for asset in withTLPHAssets{
             dispatchGroup.enter()
-            
             print("File Name :  \(asset.originalFileName ?? "File not found")")
             switch asset.type{
             case .video:
@@ -516,24 +512,174 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                 videoMedia.isFromGallery = false
                 videoMedia.fileName = asset.originalFileName
                 videoMedia.assetType = .Video
-                DispatchQueue.main.async {
-                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                }
+                //                DispatchQueue.main.async {
+                //                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                //                }
                 asset.tempCopyMediaFile { [weak self] (url, min) in
                     guard let _ = self else {return}
                     self?.arrImages.append(url.absoluteString)
                     videoMedia.url = url.absoluteString
                     let urlVidoes = UIImage()
                     self?.imgName = url.absoluteString
-//                    self?.imgName.stringToImage { [self](image) in
-                        let modileNum = appDelegate.loginUser?.mobile
+                    //                    self?.imgName.stringToImage { [self](image) in
+                    let modileNum = appDelegate.loginUser?.mobile
+                    
+                    MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum ?? "", ImageSTt: urlVidoes ,isFrom:"videos",uploadFrom:self?.imgName ?? "")
+                    
+                    MInioimageupload.shared().callback = { [self] imgUrls in
+                        print("UploadImage::::::::::::::\(imgUrls)")
+                        self?.imgName = imgUrls
                         
-                        MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum ?? "", ImageSTt: urlVidoes ,isFrom:"videos",uploadFrom:self?.imgName ?? "")
-                        
+                        let imgExt = imgUrls.fileExtension()
+                        print("imgExt\(imgExt)")
+                        if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
+                            content = [
+                                "mime": "video",
+                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                "image_path":imgUrls
+                            ]
+                        }else {
+                            content = [
+                                "mime": "image",
+                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                "image_path":imgUrls
+                            ]
+                        }
+                        do {
+                            let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
+                            let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
+                            let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
+                            let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
+                            //                                        print("replace1\(replaced1)")
+                            self?.imageString = replaced1!
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        self?.arrImagesVideo.append(self!.imageString)
+                        print("*****************\(self!.arrImagesVideo)")
+                        if self?.arrImages.count == self?.arrImagesVideo.count{
+                            print("Success")
+                            //                            DispatchQueue.main.async {
+                            //                                MILoader.shared.hideLoader()
+                            //                            }
+                        }else{
+                            print("Failed")
+                        }
+                    }
+                }
+                videoMedia.asset = asset
+                self.arrMedia.append(videoMedia)
+                self.isSeletected = false
+                self.reloadData()
+                exportVideo(asset: asset) { [weak self] (thum,url)in
+                    guard let _ = self else {return}
+                    if let media = self?.getAssetsFromFileName(fileName: asset.originalFileName ?? ""){
+                        media.image = thum
+                        media.url = url.absoluteString
+                        media.fileName = asset.originalFileName
+                        media.isDownloadedFromiCloud = true
+                        GCDMainThread.async {
+                            self?.isSeletected = false
+                            self?.reloadData()
+                        }
+                    }
+                    dispatchGroup.leave()
+                }
+                break
+            case .livePhoto:
+                
+                let imageMedia = MDLAddMedia()
+                imageMedia.isFromGallery = false
+                imageMedia.fileName = asset.originalFileName
+                imageMedia.assetType = .Image
+                //                DispatchQueue.main.async {
+                //                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                //                }
+                asset.tempCopyMediaFile { [weak self] (url, min) in
+                    guard let _ = self else {return}
+                    self?.arrImages.append(url.absoluteString)
+                    imageMedia.url = url.absoluteString
+                    let urlVidoes = UIImage()
+                    self?.imgName = url.absoluteString
+                    let modileNum = appDelegate.loginUser?.mobile
+                    MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum ?? "", ImageSTt: urlVidoes ,isFrom:"videos",uploadFrom:self?.imgName ?? "")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
                         MInioimageupload.shared().callback = { [self] imgUrls in
                             print("UploadImage::::::::::::::\(imgUrls)")
                             self?.imgName = imgUrls
+                            let content:[String:Any]  = [
+                                "mime": "video",
+                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                "image_path":imgUrls
+                            ]
                             
+                            do {
+                                let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
+                                let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
+                                let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
+                                let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
+                                //                                        print("replace1\(replaced1)")
+                                self?.imageString = replaced1!
+                            } catch {
+                                print(error.localizedDescription)
+                            }
+                            self?.arrImagesVideo.append(self!.imageString)
+                            print("*****************\(self!.arrImagesVideo)")
+                            if self?.arrImages.count == self?.arrImagesVideo.count{
+                                print("Success")
+                                //                                DispatchQueue.main.async {
+                                //                                    MILoader.shared.hideLoader()
+                                //                                }
+                            }else{
+                                print("Failed")
+                                //                                DispatchQueue.main.async {
+                                //                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                                //                                }
+                            }
+                        }
+                    }
+                }
+                
+                imageMedia.asset = asset
+                self.arrMedia.append(imageMedia)
+                getSelectedImage(asset: asset) { [weak self] (image) in
+                    guard let _ = self else {return}
+                    if let media = self?.getAssetsFromFileName(fileName: asset.originalFileName ?? ""){
+                        media.image = image
+                        media.fileName = asset.originalFileName
+                        media.isDownloadedFromiCloud = true
+                        GCDMainThread.async {
+                            self?.isSeletected = false
+                            self?.reloadData()
+                        }
+                    }
+                    dispatchGroup.leave()
+                }
+                break
+            case .photo :
+                let imageMedia = MDLAddMedia()
+                var content = [String:Any]()
+                imageMedia.fileName = asset.originalFileName
+                imageMedia.isFromGallery = false
+                imageMedia.assetType = .Image
+                //                DispatchQueue.main.async {
+                //                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                //                }
+                asset.tempCopyMediaFile { [weak self] (url, min) in
+                    guard let _ = self else {return}
+                    self?.arrImages.append(url.absoluteString)
+                    imageMedia.url = url.absoluteString
+                    
+                    self?.imgName = url.absoluteString
+                    self?.imgName.stringToImage {(image) in
+                        //                                    MInioimageupload.shared().uploadMinioimage(ImgnameStr:image!)
+                        guard let mobileNum = appDelegate.loginUser?.mobile else {
+                            return
+                        }
+                        MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                        MInioimageupload.shared().callback = { [self] imgUrls in
+                            print("UploadImage::::::::::::::\(imgUrls)")
+                            self?.imgName = imgUrls
                             let imgExt = imgUrls.fileExtension()
                             print("imgExt\(imgExt)")
                             if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
@@ -549,6 +695,7 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                                     "image_path":imgUrls
                                 ]
                             }
+                            
                             do {
                                 let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
                                 let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
@@ -560,254 +707,42 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                                 print(error.localizedDescription)
                             }
                             self?.arrImagesVideo.append(self!.imageString)
+                            
+                            
                             print("*****************\(self!.arrImagesVideo)")
                             if self?.arrImages.count == self?.arrImagesVideo.count{
                                 print("Success")
-                                DispatchQueue.main.async {
-                                    MILoader.shared.hideLoader()
-                                }
+                                //                                DispatchQueue.main.async {
+                                //                                    MILoader.shared.hideLoader()
+                                //                                }
                             }else{
                                 print("Failed")
+                                //                                DispatchQueue.main.async {
+                                //                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                                //                                }
                             }
-//                        }
+                        }
                     }
                 }
-                videoMedia.asset = asset
-                self.arrMedia.append(videoMedia)
-                self.reloadData()
-                exportVideo(asset: asset) { [weak self] (thum,url)in
+                imageMedia.asset = asset
+                self.arrMedia.append(imageMedia)
+                getSelectedImage(asset: asset) { [weak self] (image) in
                     guard let _ = self else {return}
                     if let media = self?.getAssetsFromFileName(fileName: asset.originalFileName ?? ""){
-                        media.image = thum
-                        media.url = url.absoluteString
-                        media.fileName = asset.originalFileName
+                        media.image = image
                         media.isDownloadedFromiCloud = true
+                        media.fileName = asset.originalFileName
                         GCDMainThread.async {
+                            self?.isSeletected = false
                             self?.reloadData()
                         }
                     }
                     dispatchGroup.leave()
                 }
                 break
-                        case .livePhoto:
-
-                            let imageMedia = MDLAddMedia()
-                            imageMedia.isFromGallery = false
-                            imageMedia.fileName = asset.originalFileName
-                            imageMedia.assetType = .Image
-                            DispatchQueue.main.async {
-                            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                                                       }
-                            asset.tempCopyMediaFile { [weak self] (url, min) in
-                                guard let _ = self else {return}
-                                self?.arrImages.append(url.absoluteString)
-                                imageMedia.url = url.absoluteString
-                                let urlVidoes = UIImage()
-                                self?.imgName = url.absoluteString
-                                        let modileNum = appDelegate.loginUser?.mobile
-                                        MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum ?? "", ImageSTt: urlVidoes ,isFrom:"videos",uploadFrom:self?.imgName ?? "")
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
-                                        MInioimageupload.shared().callback = { [self] imgUrls in
-                                            print("UploadImage::::::::::::::\(imgUrls)")
-                                            self?.imgName = imgUrls
-                                            let content:[String:Any]  = [
-                                                "mime": "video",
-                                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
-                                                "image_path":imgUrls
-                                            ]
-                                            
-                                            do {
-                                                let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
-                                                let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
-                                                let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
-                                                let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                                                //                                        print("replace1\(replaced1)")
-                                                self?.imageString = replaced1!
-                                            } catch {
-                                                print(error.localizedDescription)
-                                            }
-                                            self?.arrImagesVideo.append(self!.imageString)
-                                            print("*****************\(self!.arrImagesVideo)")
-                                            if self?.arrImages.count == self?.arrImagesVideo.count{
-                                            print("Success")
-                                            DispatchQueue.main.async {
-                                            MILoader.shared.hideLoader()
-                                                }
-                                            }else{
-                                            print("Failed")
-                                            DispatchQueue.main.async {
-                                            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                                            }
-                                            
-                                        }
-                                        }
-                                }
-                                
-                            }
-
-                            imageMedia.asset = asset
-                            self.arrMedia.append(imageMedia)
-                            getSelectedImage(asset: asset) { [weak self] (image) in
-                                guard let _ = self else {return}
-                                if let media = self?.getAssetsFromFileName(fileName: asset.originalFileName ?? ""){
-                                    media.image = image
-                                    media.fileName = asset.originalFileName
-                                    media.isDownloadedFromiCloud = true
-                                    GCDMainThread.async {
-                                        self?.reloadData()
-                                    }
-                                }
-                               dispatchGroup.leave()
-                            }
-                            break
-                            
-                            
-//                            videoMedia.asset = asset
-//                            self.arrMedia.append(videoMedia)
-//                            self.reloadData()
-//                            exportVideo(asset: asset) { [weak self] (thum,url)in
-//                                guard let _ = self else {return}
-//                                if let media = self?.getAssetsFromFileName(fileName: asset.originalFileName ?? ""){
-//                                    media.image = thum
-//                                    media.url = url.absoluteString
-//                                    media.fileName = asset.originalFileName
-//                                    media.isDownloadedFromiCloud = true
-//                                    GCDMainThread.async {
-//                                        self?.reloadData()
-//                                    }
-//                                }
-//                                dispatchGroup.leave()
-//                            }
-////
-//                            let imageMedia = MDLAddMedia()
-//                            imageMedia.fileName = asset.originalFileName
-//                            imageMedia.assetType = .Image
-//                            DispatchQueue.main.async {
-//                                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-//                            }
-//
-//                            imageMedia.asset = asset
-//                            self.arrMedia.append(imageMedia)
-//
-//                            getSelectedImage(asset: asset) { [weak self] (image) in
-//                                guard let _ = self else {return}
-//                                if let media = self?.getAssetsFromFileName(fileName: asset.originalFileName ?? ""){
-//                                    media.image = image
-//                                    media.fileName = asset.originalFileName
-//                                    media.isDownloadedFromiCloud = true
-//                                    GCDMainThread.async {
-//                                        self?.reloadData()
-//                                    }
-//                                }
-//                                dispatchGroup.leave()
-//                            }
-
-                            break
-                        case .photo :
-                           /* let imageMedia = MDLAddMedia()
-                            imageMedia.fileName = asset.originalFileName
-                            imageMedia.assetType = .Image
-                            imageMedia.asset = asset
-                            self.arrMedia.append(imageMedia)
-                            
-                            getSelectedImage(asset: asset) { [weak self] (image) in
-                                guard let _ = self else {return}
-                                if let media = self?.getAssetsFromFileName(fileName: asset.originalFileName ?? ""){
-                                    media.image = image
-                                    media.isDownloadedFromiCloud = true
-                                    media.fileName = asset.originalFileName
-                                    GCDMainThread.async {
-                                        self?.reloadData()
-                                    }
-                                }
-                                dispatchGroup.leave()
-                            }*/
-                            let imageMedia = MDLAddMedia()
-                            var content = [String:Any]()
-                            imageMedia.fileName = asset.originalFileName
-                            imageMedia.isFromGallery = false
-                            imageMedia.assetType = .Image
-                            DispatchQueue.main.async {
-                                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                            }
-                            asset.tempCopyMediaFile { [weak self] (url, min) in
-                            guard let _ = self else {return}
-                            self?.arrImages.append(url.absoluteString)
-                            imageMedia.url = url.absoluteString
-                               
-                                self?.imgName = url.absoluteString
-                                self?.imgName.stringToImage {(image) in
-//                                    MInioimageupload.shared().uploadMinioimage(ImgnameStr:image!)
-                                    guard let mobileNum = appDelegate.loginUser?.mobile else {
-                                        return
-                                    }
-                                    MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                                    MInioimageupload.shared().callback = { [self] imgUrls in
-                                        print("UploadImage::::::::::::::\(imgUrls)")
-                                        self?.imgName = imgUrls
-                                        let imgExt = imgUrls.fileExtension()
-                                        print("imgExt\(imgExt)")
-                                        if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
-                                            content = [
-                                                "mime": "video",
-                                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
-                                                "image_path":imgUrls
-                                            ]
-                                        }else {
-                                            content = [
-                                                "mime": "image",
-                                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
-                                                "image_path":imgUrls
-                                            ]
-                                        }
-
-                                        do {
-                                            let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
-                                            let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
-                                            let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
-                                            let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                                            //                                        print("replace1\(replaced1)")
-                                            self?.imageString = replaced1!
-                                        } catch {
-                                            print(error.localizedDescription)
-                                        }
-                                        self?.arrImagesVideo.append(self!.imageString)
-
-
-                                        print("*****************\(self!.arrImagesVideo)")
-                                        if self?.arrImages.count == self?.arrImagesVideo.count{
-                                            print("Success")
-                                            DispatchQueue.main.async {
-                                                MILoader.shared.hideLoader()
-                                            }
-                                        }else{
-                                            print("Failed")
-                                            DispatchQueue.main.async {
-                                                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            imageMedia.asset = asset
-                            self.arrMedia.append(imageMedia)
-                            getSelectedImage(asset: asset) { [weak self] (image) in
-                            guard let _ = self else {return}
-                                    if let media = self?.getAssetsFromFileName(fileName: asset.originalFileName ?? ""){
-                                                    media.image = image
-                                                    media.isDownloadedFromiCloud = true
-                                                    media.fileName = asset.originalFileName
-                                                    GCDMainThread.async {
-                                                        self?.reloadData()
-                                                    }
-                                                }
-                                                
-                                dispatchGroup.leave()
-                            }
-                           
-                            break
-                        }
+            }
         }
+        self.isSeletected = false
         self.reloadData()
         dispatchGroup.notify(queue: .main) {
             print("All Assets downloaded 👍")
@@ -879,11 +814,11 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
 
 extension SelectMediaCollectionView{
     func asString(jsonDictionary: [String:Any]) -> String {
-      do {
-        let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
-        return String(data: data, encoding: String.Encoding.utf8) ?? ""
-      } catch {
-        return ""
-      }
+        do {
+            let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
+            return String(data: data, encoding: String.Encoding.utf8) ?? ""
+        } catch {
+            return ""
+        }
     }
 }

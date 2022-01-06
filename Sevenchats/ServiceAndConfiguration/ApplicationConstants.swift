@@ -167,6 +167,8 @@ let CComponentJoinedString          = ", "
 let CWebSiteLink    = "https://beta.sevenchats.com/"
 let PASSWORDALLOWCHAR = "!@#$%ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
 
+let RISTRICTED_CHARACTERS = "!@#$%ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
+
 //MARK:- Google Client ID and Place Picker Key
 
 let CGoogleClientID = "1045965359994-o9s380d6cu7o19katai53452pdn68gkf.apps.googleusercontent.com"

@@ -642,14 +642,14 @@ extension AddEditProductVC {
             } catch { print(error) }
             
             let changeStr = repl.appending(ImgName)
-            let replac = changeStr.replacingOccurrences(of: "][", with: ",")
+            let replacs = ImgName.replacingOccurrences(of: "][", with: ",")
             let txtproductDesc = self.txtProductDesc.text.replace(string: "\n", replacement: "\\n")
             apiTag = CEditProductNew
             dict = [
                 "product_id": prouductID,
                 "category_name":categoryDropDownView.txtCategory.text ?? "",
                 "category_level1":subcategoryDropDownView.txtCategory.text ?? "",
-                "product_image":replac as Any,
+                "product_image":replacs,
                 "product_title":self.txtProductTitle.text?.trim ?? "",
                 "description":txtproductDesc,
                 "available_status":availableStatus,

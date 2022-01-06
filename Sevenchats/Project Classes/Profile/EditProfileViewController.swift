@@ -139,14 +139,14 @@ class EditProfileViewController: ParentViewController {
     
     func preFilledUserDetail (){
         
-        txtEmail.isEnabled = false
-        txtEmail.isUserInteractionEnabled = false
+        txtEmail.isEnabled = true
+        txtEmail.isUserInteractionEnabled = true
         
-        txtMobileNumber.isEnabled = false
-        txtMobileNumber.isUserInteractionEnabled = false
+        txtMobileNumber.isEnabled = true
+        txtMobileNumber.isUserInteractionEnabled = true
         
-        txtCountryCode.isEnabled = false
-        txtCountryCode.isUserInteractionEnabled = false
+        txtCountryCode.isEnabled = true
+        txtCountryCode.isUserInteractionEnabled = true
         
         self.loadCountryCodeList()
         self.loadCountryList()
@@ -268,11 +268,11 @@ extension EditProfileViewController {
     fileprivate func loadCountryList(){
         
         self.txtCountrys.isEnabled = true
-        self.txtStates.isEnabled = false
-        self.txtCitys.isEnabled = false
-        self.txtCountrys.isUserInteractionEnabled = false
-        self.txtStates.isUserInteractionEnabled = false
-        self.txtCitys.isUserInteractionEnabled = false
+        self.txtStates.isEnabled = true
+        self.txtCitys.isEnabled = true
+        self.txtCountrys.isUserInteractionEnabled = true
+        self.txtStates.isUserInteractionEnabled = true
+        self.txtCitys.isUserInteractionEnabled = true
         
         self.showHideCountryStateCityFileds()
         

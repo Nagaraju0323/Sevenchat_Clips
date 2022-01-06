@@ -122,47 +122,10 @@ extension AddMediaViewController {
             let objArry = arrCategory.filter({ (obj) -> Bool in
                 return ((obj[CCategoryName] as? String) == item)
             })
-            
-            //            if (objArry.count > 0) {
-            //
-            //                if let id = (objArry.first?[CId] as? Int16) {
-            //                    self.categoryID = Int(id)
-            //                }
-            //            }
             if (objArry.count > 0) {
                 self.categoryName = (objArry.first?[CCategoryName] as? String) ?? ""
             }
-            //            self.loadInterestList(interestType : self.categoryName ?? "" , showLoader : true)
         }
-        
-        
-        /// On select text from the auto-complition
-        //        subcategoryDropDownView.onSelectText = { [weak self] (item) in
-        //
-        //            guard let `self` = self else { return }
-        //
-        //            let objArry = self.arrSubCategory.filter({ (obj) -> Bool in
-        //                return ((obj[CinterestLevel2] as? String) == item)
-        //            })
-        //
-        //            if (objArry.count > 0) {
-        //                self.categorysubName = (objArry.first?[CinterestLevel2] as? String) ?? ""
-        //            }
-        //        }
-        
-        //        subcategoryDropDownView.onSelectText = { [weak self] (item) in
-        //
-        //            guard let `self` = self else { return }
-        //
-        //            let objArry = self.arrsubCategorys.filter({ (obj) -> Bool in
-        //                return ((obj.interestLevel2) == item)
-        //            })
-        //
-        //            if (objArry.count > 0) {
-        //                self.categorysubName = (objArry.first?.interestLevel2) ?? ""
-        //            }
-        //        }
-        
         
         let arrInviteType = [CPostPostsInviteGroups, CPostPostsInviteContacts,  CPostPostsInvitePublic, CPostPostsInviteAllFriends]
         
@@ -269,94 +232,14 @@ extension AddMediaViewController {
             }
         }
     }
-    
-    
-    
-    
-    //    fileprivate func loadGalleryDetailFromServer(){
-    //        if let imgID = self.imgPostId{
-    //            APIRequest.shared().viewPostDetail(postID: imgID) { [weak self] (response, error) in
-    //                guard let self = self else { return }
-    //                guard response != nil else {return}
-    //                guard let imgInfo = response![CJsonData] as? [String : Any] else{return}
-    //
-    //                //...Set invite type
-    //                GCDMainThread.async {
-    //                    self.categoryID = imgInfo.valueForInt(key: CCategory_Id)
-    //                    self.categoryDropDownView.txtCategory.text = imgInfo.valueForString(key: CCategory)
-    //                }
-    //
-    //                //...Set invite type
-    //                self.selectedInviteType = imgInfo.valueForInt(key: CPublish_To) ?? 3
-    //
-    //                switch self.selectedInviteType {
-    //                case 1:
-    //                    if let arrInvitee = imgInfo[CInvite_Groups] as? [[String : Any]]{
-    //                        self.arrSelectedGroupFriends = arrInvitee
-    //                    }
-    //                case 2:
-    //                    if let arrInvitee = imgInfo[CInvite_Friend] as? [[String : Any]]{
-    //                        self.arrSelectedGroupFriends = arrInvitee
-    //                    }
-    //                default:
-    //                    break
-    //                }
-    //
-    //                if self.arrSelectedGroupFriends.count > 0{
-    //                    self.clGroupFriend.reloadData()
-    //                    self.clGroupFriend.isHidden = false
-    //                    self.btnAddMoreFriends.isHidden = false
-    //                    self.btnSelectGroupFriend.isHidden = true
-    //                }
-    //
-    //                if let arrImg = imgInfo[CGalleryImages] as? [[String : Any]]{
-    //                    self.arrMedia = []
-    //                    self.arrMediaString = []
-    //                    for imgData in arrImg{
-    //                        let imgID = imgData.valueForString(key: CId)
-    //                        let media = MDLAddMedia(mediaID: imgID)
-    //                        media.isFromGallery = false
-    //                        media.uploadMediaStatus = .Succeed
-    //                        media.assetType = AssetTypes(rawValue: imgData.valueForInt(key: CType) ?? 0) ?? AssetTypes.Image
-    //                        if media.assetType == .Video{
-    //                            media.serverImgURL = imgData.valueForString(key: CThumbNail)
-    //                            media.url = imgData.valueForString(key: CImage)
-    //                        }else{
-    //                            media.serverImgURL = imgData.valueForString(key: CImage)
-    //                        }
-    //                        self.arrMedia.append(media)
-    //
-    //
-    //                    }
-    //                    GCDMainThread.async {
-    //                        self.colVMedia.reloadData()
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
     fileprivate func addEditImagePost(){
         
         var apiPara = [String : Any]()
         var apiParaGroups = [String]()
         var apiParaFriends = [String]()
-        
         apiPara[CPostType] = 2
         apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
         apiPara[CPublish_To] = self.selectedInviteType
-        
-        
-        //           if self.selectedInviteType == 1{
-        //               // For group...
-        //               let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-        //               apiPara[CGroup_Ids] = groupIDS
-        //           }else if self.selectedInviteType == 2{
-        //               // For Contact...
-        //               let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-        //               apiPara[CInvite_Ids] = userIDS
-        //           }
-        
-        
         var _arrMedia = self.arrMedia
         // When user editing the article....
         if imagePostType == .editImagePost{
@@ -366,8 +249,7 @@ extension AddMediaViewController {
             
             _arrMedia = self.arrMedia.filter({$0.uploadMediaStatus != .Succeed})
         }
-        //
-        do {
+         do {
             let data = try JSONEncoder().encode(arrImagesVideo)
             let string = String(data: data, encoding: .utf8)!
             let replaced2 = string.replacingOccurrences(of: "\"{", with: "{")
@@ -378,17 +260,12 @@ extension AddMediaViewController {
             self.imgUpoloadUrl = replaced5
             
         } catch { print(error) }
-        
-        
-        
         guard let userID = appDelegate.loginUser?.user_id else { return }
-        
         var dict :[String:Any]  =  [
             "user_id":userID.description,
             "post_category":categoryDropDownView.txtCategory.text ?? "",
             "images": imgUpoloadUrl,
         ]
-        
         if self.selectedInviteType == 1{
             let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
             apiParaGroups = groupIDS.components(separatedBy: ",")
@@ -434,76 +311,7 @@ extension AddMediaViewController {
             }
         }
     }
-    /* fileprivate func addEditImagePost(){
-     var apiPara = [String : Any]()
-     apiPara[CPostType] = 2
-     apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
-     apiPara[CPublish_To] = self.selectedInviteType
-     if self.selectedInviteType == 1{
-     // For group...
-     let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-     apiPara[CGroup_Ids] = groupIDS
-     }else if self.selectedInviteType == 2{
-     // For Contact...
-     let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-     apiPara[CInvite_Ids] = userIDS
-     }
-     
-     var _arrMedia = self.arrMedia
-     // When user editing the article....
-     if imagePostType == .editImagePost{
-     apiPara[CId] = imgPostId
-     let deletedIDS = self.arrDeletedApiImages.map({$0}).joined(separator: ",")
-     apiPara[CDeleteIds] = deletedIDS
-     
-     _arrMedia = self.arrMedia.filter({$0.uploadMediaStatus != .Succeed})
-     }
-     
-     print(apiPara)
-     /* Oldcode by Mi
-     APIRequest.shared().addEditImageVideoPost(para: apiPara, arrMedia: _arrMedia, shoudShowLoader: true) { [weak self] (response, error) in
-     guard let self = self else { return }
-     if response != nil && error == nil{
-     
-     if let imgInfo = response![CJsonData] as? [String : Any]{
-     MIGeneralsAPI.shared().refreshPostRelatedScreens(imgInfo,self.imgPostId, self, self.imagePostType == .editImagePost ? .editPost : .addPost)
-     
-     APIRequest.shared().saveNewInterest(interestID: imgInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: imgInfo.valueForString(key: CCategory))
-     }
-     self.navigationController?.popToRootViewController(animated: true)
-     CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.imagePostType == .editImagePost ? CMessageImagePostUpdated : CGalleryHasBeenPosted, btnOneTitle: CBtnOk, btnOneTapped: nil)
-     }
-     }
-     */
-     
-     
-     
-     guard let userID = appDelegate.loginUser?.user_id else { return }
-     
-     let dict :[String:Any]  =  [
-     "user_id":userID,
-     "post_category":categoryDropDownView.txtCategory.text ?? "",
-     //"images":["imagee15.jpeg","imagee16.jpeg","imagee17.jpeg"],
-     "images": self.arrMedia,
-     "targeted_audience":"VIP",
-     "selected_persons":"Test3"
-     ]
-     
-     
-     APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagsgallery) { [weak self] (response, error) in
-     guard let self = self else { return }
-     if response != nil && error == nil{
-     
-     if let imgInfo = response![CJsonData] as? [String : Any]{
-     MIGeneralsAPI.shared().refreshPostRelatedScreens(imgInfo,self.imgPostId, self, self.imagePostType == .editImagePost ? .editPost : .addPost)
-     
-     APIRequest.shared().saveNewInterest(interestID: imgInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: imgInfo.valueForString(key: CCategory))
-     }
-     self.navigationController?.popToRootViewController(animated: true)
-     CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.imagePostType == .editImagePost ? CMessageImagePostUpdated : CGalleryHasBeenPosted, btnOneTitle: CBtnOk, btnOneTapped: nil)
-     }
-     }
-     }*/
+
 }
 
 
@@ -673,54 +481,12 @@ extension AddMediaViewController  {
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String ?? ""
         if mediaType == "public.image"{
             var image:UIImage?
-            //            var selectedImage: UIImage!
             var imageUrl: URL!
             if self.imagePicker.allowsEditing {
                 image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
             } else {
                 image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
             }
-            
-            
-            //            if picker.sourceType == UIImagePickerController.SourceType.camera {
-            //
-            //                   let imgName = "\(UUID().uuidString).jpeg"
-            //                   let documentDirectory = NSTemporaryDirectory()
-            //                   let localPath = documentDirectory.appending(imgName)
-            //
-            //                let data = (image?.jpegData(compressionQuality: 0.3)!)! as NSData
-            //                   data.write(toFile: localPath, atomically: true)
-            //                   imageUrl = URL.init(fileURLWithPath: localPath)
-            //                 print("imageurl\(imageUrl)")
-            //               } else if let selectedImageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
-            //                   imageUrl = selectedImageUrl
-            //               }
-            //
-            
-            //            guard let imageURL = info[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
-            //                return
-            //            }
-            //
-            //            self.imgName = imageURL.absoluteString ?? ""
-            //            self.arrMediaString.append(self.imgName)
-            //
-            ////            self.imgName = imageURL.absoluteString ?? ""
-            //            MInioimageupload.shared().uploadMinioVideo(ImgnameStr:imageURL as URL)
-            //            MInioimageupload.shared().callback = { message in
-            //            print("UploadImage::::::::::::::\(message)")
-            //  //          self.profileImgUrl = message
-            //           }
-            //
-            //            if image != nil{
-            //                let media = MDLAddMedia(image: image, url:nil)
-            //                media.isFromGallery = false
-            //                media.assetType = .Image
-            //                media.isDownloadedFromiCloud = true
-            //                self.arrMedia.append(media)
-            ////                self.arrMediaString.append(media)
-            //                self.colVMedia.reloadData()
-            //            }
-            //*************************************** NEW CODE ************************************************
             if image != nil{
                 let media = MDLAddMedia(image: image, url:nil)
                 media.isFromGallery = false
@@ -742,7 +508,6 @@ extension AddMediaViewController  {
                         print("UploadImage::::::::::::::\(imgUrls)")
                         self.imgName = imgUrls
                         let content:[String:Any]  = [
-                            //                                "mime": "video",
                             "mime": "image",
                             "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                             "image_path":imgUrls
@@ -776,7 +541,6 @@ extension AddMediaViewController  {
                 
                 media.isDownloadedFromiCloud = true
                 self.arrMedia.append(media)
-                //                self.arrMediaString.append(media)
                 self.colVMedia.reloadData()
             }
         }else{
@@ -927,15 +691,12 @@ extension AddMediaViewController {
         
         asset.cloudImageDownload(progressBlock: { [weak self] (progress) in
             guard let _ = self else { return }
-            //guard let _ = self else {return}
             DispatchQueue.main.async {
                 print(progress)
             }
         }, completionBlock: { [weak self] (image) in
             guard let _ = self else { return }
-            //guard let _ = self else {return}
             if let _image = image {
-                //use image
                 DispatchQueue.main.async {
                     print(_image)
                     print("Image Path : \(asset.originalFileName ?? "")")
@@ -965,8 +726,6 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
             print("File Name :  \(asset.originalFileName ?? "File not found")")
             switch asset.type{
             case .video:
-                
-                //***************************** NEW CODE ********************************************
                 let videoMedia = MDLAddMedia()
                 videoMedia.isFromGallery = false
                 videoMedia.fileName = asset.originalFileName
@@ -982,7 +741,6 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                     let urlVidoes = UIImage()
                     self?.imgName = url.absoluteString
                     
-                    //                    self?.imgName.stringToImage { [self](image) in
                     let modileNum = appDelegate.loginUser?.mobile
                     
                     MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum ?? "", ImageSTt: urlVidoes ,isFrom:"videos",uploadFrom:self?.imgName ?? "")
@@ -1040,42 +798,6 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                     self?.dispatchGroup.leave()
                 }
                 break
-            /*let videoMedia = MDLAddMedia()
-             videoMedia.fileName = asset.originalFileName
-             videoMedia.assetType = .Video
-             videoMedia.asset = asset
-             self.arrMedia.append(videoMedia)
-             self.colVMedia.reloadData()
-             
-             asset.tempCopyMediaFile { [weak self] (url, min) in
-             self?.arrImages.append(url.absoluteString)
-             print("::::::::",url.absoluteString)
-             let urlStr = URL(string: url.absoluteString)
-             
-             MInioimageupload.shared().uploadMinioVideo(ImgnameStr:urlStr!)
-             MInioimageupload.shared().callback = { [self] imgUrls in
-             print("UploadImage::::::::::::::\(imgUrls)")
-             self?.imgName = imgUrls
-             self?.arrImagesVideo.append(imgUrls)
-             print("*****************\(self!.arrImagesVideo)")
-             }
-             
-             }
-             exportVideo(asset: asset) { [weak self] (thum,url)in
-             guard let _ = self else {return}
-             if let media = self?.getAssetsFromFileName(fileName: asset.originalFileName ?? ""){
-             media.image = thum
-             media.url = url.absoluteString
-             media.fileName = asset.originalFileName
-             media.isDownloadedFromiCloud = true
-             //                        self.arrImages.append(contentsOf: url.absoluteURL)
-             GCDMainThread.async {
-             self?.colVMedia.reloadData()
-             }
-             }
-             self?.dispatchGroup.leave()
-             }
-             break*/
             case .livePhoto:
                 let imageMedia = MDLAddMedia()
                 imageMedia.isFromGallery = false
@@ -1207,17 +929,6 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                                 
                             }
                         }
-                        
-                        //                                self?.imgName.stringToImage {(image) in
-                        //                                    guard let mobileNum = appDelegate.loginUser?.mobile else {return}
-                        //                                    MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!)
-                        //                                    MInioimageupload.shared().callback = { [self] imgUrls in
-                        //                                    print("UploadImage::::::::::::::\(imgUrls)")
-                        //                                        self?.imgName = imgUrls
-                        //                                        self?.arrImagesVideo.append(imgUrls)
-                        //                                        print("*****************\(self!.arrImagesVideo)")
-                        //                                    }
-                        
                     }
                 }
                 imageMedia.asset = asset
@@ -1235,26 +946,6 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                     
                     self?.dispatchGroup.leave()
                 }
-                //*********************************** OLD ******************************************
-                /*  let imageMedia = MDLAddMedia()
-                 imageMedia.fileName = asset.originalFileName
-                 imageMedia.assetType = .Image
-                 imageMedia.asset = asset
-                 self.arrMedia.append(imageMedia)
-                 
-                 
-                 getSelectedImage(asset: asset) { [weak self] (image) in
-                 guard let _ = self else {return}
-                 if let media = self?.getAssetsFromFileName(fileName: asset.originalFileName ?? ""){
-                 media.image = image
-                 media.isDownloadedFromiCloud = true
-                 media.fileName = asset.originalFileName
-                 GCDMainThread.async {
-                 self?.colVMedia.reloadData()
-                 }
-                 }
-                 self?.dispatchGroup.leave()
-                 }*/
                 break
             }
             
@@ -1438,66 +1129,6 @@ extension String {
 }
 
 //MARK: -Api call
-extension AddMediaViewController{
-    
-    //    func loadInterestList(interestType : String, showLoader : Bool) {
-    //
-    //        if apiTask?.state == URLSessionTask.State.running {
-    //            return
-    //        }
-    //        guard let langName = appDelegate.loginUser?.lang_name else {
-    //            return
-    //        }
-    //
-    //
-    //        apiTask = APIRequest.shared().getInterestSubListNew(langName : langName,interestType:interestType, page: currentPage, showLoader : showLoader) { (response, error) in
-    ////            self.refreshControl.endRefreshing()
-    ////            self.tblInterest.tableFooterView = nil
-    //            if response != nil && error == nil {
-    //                if let arrData = response![CJsonData] as? [[String : Any]]
-    //                {
-    //                    print(arrData)
-    //                    let arrsubCategory = self.fetchsubCategoryFromLocal()
-    //                    self.arrSubCategory = arrsubCategory
-    //                    /// Set Dropdown on txtCategory
-    //                    self.subcategoryDropDownView.arrDataSource = arrsubCategory.map({ (obj) -> String in
-    //                        return (obj[CinterestLevel2] as? String ?? "")
-    //
-    //
-    //                    })
-    //
-    //                }
-    //            }
-    //        }
-    //    }
-    
-    //    func loadInterestList(interestType : String, showLoader : Bool) {
-    //
-    //        if apiTask?.state == URLSessionTask.State.running {
-    //            return
-    //        }
-    //        guard let langName = appDelegate.loginUser?.lang_name else {return}
-    //
-    //        apiTask = APIRequest.shared().getInterestSubListNew(langName : langName,interestType:interestType, page: currentPage, showLoader : showLoader) { (response, error) in
-    //            self.arrsubCategorys.removeAll()
-    //            if response != nil && error == nil {
-    //                if let arrData = response![CJsonData] as? [[String : Any]]
-    //                {
-    //                    for obj in arrData{
-    //                        self.arrsubCategorys.append(MDLIntrestSubCategory(fromDictionary: obj))
-    //                    }
-    //
-    //                    self.subcategoryDropDownView.arrDataSource = self.arrsubCategorys.map({ (obj) -> String in
-    //                        return (obj.interestLevel2 ?? "")
-    //                    })
-    //
-    //                }
-    //            }
-    //        }
-    //    }
-    
-}
-
 extension AddMediaViewController{
     
     func fetchsubCategoryFromLocal() -> [[String : Any]] {

@@ -228,14 +228,14 @@ extension AddArticleViewController{
         
         guard let userID = appDelegate.loginUser?.user_id else {return}
         
-//        let postcont = txtViewArticleContent.text.replace(string: "\n", replacement: "\\n")
+        let postcont = txtViewArticleContent.text.replace(string: "\n", replacement: "\\n")
         
         var dict :[String:Any] = [
             CUserId:userID.description,
             "image":profileImgUrl,
             "post_title":txtArticleTitle.text ?? "",
             "post_category": categoryDropDownView.txtCategory.text ?? "" ,
-            "post_content":txtViewArticleContent.text ?? "",
+            "post_content":postcont,
             "age_limit":"16",
 //            "targeted_audience":"none",
 //            "selected_persons":"none"
@@ -604,3 +604,26 @@ extension AddArticleViewController{
     }
     
 }
+
+
+extension AddArticleViewController: GenericTextViewDelegate{
+    
+    
+        func genericTextView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    
+            if let paste = UIPasteboard.general.string{
+                print(paste.count)
+                print("paste\(paste.first)")
+            } else {
+               print("normaltyping")
+            }
+            return true
+    
+    
+    
+    
+        }
+    
+    
+}
+

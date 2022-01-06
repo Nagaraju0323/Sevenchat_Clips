@@ -54,11 +54,6 @@ class MDLProduct : NSObject, ProductBaseModel {
     var lastdateSelling:String!
     var productUserID:String!
     var productsubCategroy:String!
-    
-//    var productStateNew:String!
-    
-    
-    
     var paymentType : ProductPaymentMode{
         return ProductPaymentMode(rawValue: strPaymentType.toInt ?? 1) ?? .Offline
     }
@@ -67,47 +62,28 @@ class MDLProduct : NSObject, ProductBaseModel {
     var longitude : Double!
     var lastDateSelling : Double!
     var formatedPriceAmount : String{
-//        let currencyFormatter = NumberFormatter()
-//        currencyFormatter.usesGroupingSeparator = true
-//        currencyFormatter.numberStyle = .currency
-//        currencyFormatter.currencySymbol = ""
-//        //currencyFormatter.currencyCode = self.currencyName
-//        currencyFormatter.usesSignificantDigits = true
         let priceString = productPrice ?? ""
         return self.currencyName + " " + priceString
-        //return self.currencyName + " " + productPrice.description
     }
     
     init(fromDictionary dictionary: [String:Any]){
         productID  = dictionary["product_id"]  as? String ?? ""
-        
         address = dictionary["location"] as? String ?? ""
-//        address = dictionary["address"] as? String ?? ""
-//        category = dictionary["category"] as? String ?? ""
         category = dictionary["category_name"] as? String ?? ""
         categoryId = dictionary["category_id"] as? Int ?? 0
         createdAt = dictionary["created_at"] as? String ?? ""
-        
-        //currencyId = dictionary["currency_id"] as? Int ?? 0
         if dictionary["currency_id"] is Int{
             currencyId = dictionary["currency_id"] as? Int ?? 0
         }else{
             let strID = dictionary["currency_id"] as? String ?? "0"
             currencyId = strID.toInt ?? 0
         }
-        
-        
         currencyName = dictionary["currency_name"] as? String ?? ""
-        
         productsubCategroy = dictionary["category_level1"] as? String ?? ""
-//        firstName = dictionary["first_name"] as? String ?? ""
         firstName = dictionary["first_name"] as? String ?? ""
         id = dictionary["product_id"] as? Int ?? 0
-//        id = dictionary["id"] as? Int ?? 0
         isLike = dictionary["is_like"] as? Int ?? 0
         isSold = dictionary["is_sold"] as? Int ?? 0
-//        lastName = dictionary["last_name"] as? String ?? ""
-//        productDescription = dictionary["product_description"] as? String ?? ""
         lastName = dictionary["last_name"] as? String ?? ""
         productDescription = dictionary["description"] as? String ?? ""
         productPrice = dictionary["cost"] as? String ?? ""
@@ -117,48 +93,36 @@ class MDLProduct : NSObject, ProductBaseModel {
         totalLike = dictionary["total_like"] as? Int ?? 0
         userId = dictionary["user_id"] as? Int ?? 0
         productUserID = dictionary["user_id"] as? String ?? ""
-//        userProfileImage = dictionary["user_profile_image"] as? String ?? ""
         userProfileImage = dictionary["profile_image"] as? String ?? ""
-        
         latitude = dictionary["latitude"] as? Double ?? 0.0
         longitude = dictionary["longitude"] as? Double ?? 0.0
         strPaymentType = dictionary["payment_type"] as? String ?? "1"
         lastDateSelling = dictionary["created_at"] as? Double ?? 0.0
         product_id = dictionary["product_id"] as? String ?? ""
         userAsLiked = dictionary["user_has_liked"] as? String ?? ""
-        
         likes = dictionary["likes"] as? String ?? ""
         totalComments = dictionary["comments"] as? String ?? ""
-        
-        //countryID = dictionary["country_id"] as? Int ?? 0
         if dictionary["country_id"] is Int{
             countryID = dictionary["country_id"] as? Int ?? 0
         }else{
             let strID = dictionary["country_id"] as? String ?? "0"
             countryID = strID.toInt ?? 0
         }
-        
-        //stateID = dictionary["state_id"] as? Int ?? 0
         if dictionary["state_id"] is Int{
             stateID = dictionary["state_id"] as? Int ?? 0
         }else{
             let strID = dictionary["state_id"] as? String ?? "0"
             stateID = strID.toInt ?? 0
         }
-        
-        //cityID = dictionary["city_id"] as? Int ?? 0
         if dictionary["city_id"] is Int{
             cityID = dictionary["city_id"] as? Int ?? 0
         }else{
             let strID = dictionary["city_id"] as? String ?? "0"
             cityID = strID.toInt ?? 0
         }
-        
         if dictionary["available_status"] is String{
             productState = dictionary["available_status"] as? String ?? ""
         }
-        
-        
         countryName = dictionary["country_name"] as? String ?? ""
         stateName = dictionary["state_name"] as? String ?? ""
         cityName = dictionary["city_name"] as? String ?? ""
@@ -166,14 +130,10 @@ class MDLProduct : NSObject, ProductBaseModel {
         email = dictionary["email"] as? String ?? ""
         mobileNum = dictionary["mobile"] as? String ?? ""
         lastdateSelling = dictionary["last_date_selling"] as? String ?? ""
-        
         let arrGallerys = dictionary["product_image"] as? String
-//               print("arraGallerys\(arrGallerys)")
         galleyimagesArray = dictionary["product_image"] as? String
-             
         let dict = arrGallerys?.convertToDictionary()
         let arrDictGallery = dict ?? []
-//        let arrGallery = dictionary["product_image"] as?  [[String:Any]] ?? []
         print("arrGallerys\(arrDictGallery)")
         for imgData in arrDictGallery{
             let imgID = imgData.valueForString(key: CId)
@@ -183,8 +143,6 @@ class MDLProduct : NSObject, ProductBaseModel {
             media.assetType = AssetTypes(rawValue: imgData.valueForInt(key: CType) ?? 0) ?? AssetTypes.Image
             if media.assetType == .Video ||  imgData.valueForString(key: "mime") == "video"{
                 media.serverImgURL = imgData.valueForString(key: "image_path")
-                
-                
                 media.url = imgData.valueForString(key: "image_path")
             }else{
                 media.serverImgURL = imgData.valueForString(key: "image_path")
@@ -192,7 +150,7 @@ class MDLProduct : NSObject, ProductBaseModel {
             }
             self.galleryImages.append(media)
         }
-
+        
     }
 }
 
@@ -202,7 +160,6 @@ extension String{
             do {
                 return try JSONSerialization.jsonObject(with: data, options: []) as? [[String: Any]]
             } catch {
-//                print(error.localizedDescription)
             }
         }
         return nil

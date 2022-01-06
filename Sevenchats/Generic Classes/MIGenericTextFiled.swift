@@ -307,6 +307,7 @@ extension MIGenericTextFiled {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         if txtDelegate != nil{
+            
             return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersIn: range, replacementString: string))!
             
         }
