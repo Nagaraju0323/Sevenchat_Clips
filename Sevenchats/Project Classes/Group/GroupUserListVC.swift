@@ -118,15 +118,15 @@ extension GroupUserListVC {
             return
         }
         
-        if let videoChat  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "OneToOneVideoCallVC") as? OneToOneVideoCallVC {
-            
-            videoChat.id = groupId
-            videoChat.userImage = self.userImage
-            videoChat.fullName = self.fullName
-            videoChat.memberId = selectedUserIds
-            videoChat.roomType = .GroupRoom
-            self.navigationController?.pushViewController(videoChat, animated: true)
-        }
+//        if let videoChat  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "OneToOneVideoCallVC") as? OneToOneVideoCallVC {
+//
+//            videoChat.id = groupId
+//            videoChat.userImage = self.userImage
+//            videoChat.fullName = self.fullName
+//            videoChat.memberId = selectedUserIds
+//            videoChat.roomType = .GroupRoom
+//            self.navigationController?.pushViewController(videoChat, animated: true)
+//        }
     }
     
     func moveToAudioCallingScreen() {
@@ -138,14 +138,14 @@ extension GroupUserListVC {
             return
         }
         
-        if let audioCall  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "AudioCallVC") as? AudioCallVC {
-            
-            audioCall.userImage = self.userImage
-            audioCall.fullName = self.fullName
-            audioCall.members = selectedMembers
-            audioCall.roomType = .GroupRoom
-            self.navigationController?.pushViewController(audioCall, animated: true)
-        }
+//        if let audioCall  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "AudioCallVC") as? AudioCallVC {
+//
+//            audioCall.userImage = self.userImage
+//            audioCall.fullName = self.fullName
+//            audioCall.members = selectedMembers
+//            audioCall.roomType = .GroupRoom
+//            self.navigationController?.pushViewController(audioCall, animated: true)
+//        }
     }
 }
 

@@ -36,8 +36,6 @@ target 'Sevenchats' do
   pod 'Lightbox'
   pod 'Cosmos'
   pod 'ObjectMapper'
-  pod 'TwilioVideo', '~> 3.2'
-  pod 'TwilioVoice'
   pod 'SwiftySound'
   pod 'PhoneNumberKit'
   pod 'DropDown'

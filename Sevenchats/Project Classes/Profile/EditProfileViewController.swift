@@ -612,7 +612,7 @@ extension EditProfileViewController {
     
     func registerAudioToken(){
         if txtFirstName.text != oldFirstName || txtLastName.text != oldLastName{
-            AudioTokenService.shared.callGetAudioTokenAPI(identity: myAudioIdentity, isForRegister: true)
+//            AudioTokenService.shared.callGetAudioTokenAPI(identity: myAudioIdentity, isForRegister: true)
         }
     }
     

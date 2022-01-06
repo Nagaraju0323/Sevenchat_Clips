@@ -2504,7 +2504,6 @@
 				62E1A37A240E2E47001BD7A8 /* Resources */,
 				14DBAEC25A04EB4E43CEFA66 /* [CP] Embed Pods Frameworks */,
 				39BD7534A36FA1958F58751C /* [CP] Copy Pods Resources */,
-				62793AD3240E3A5700E906B7 /* ShellScript */,
 				62EB5B342424F2ED00409382 /* ShellScript */,
 				4503ABC3244875D500151D38 /* DSYM Script */,
 				181F07D826D3A88D00A7BA49 /* Embed Frameworks */,
@@ -2781,23 +2780,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\nif [ ! -d ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME} ]; then\n    echo \"Couldn't find dsym file\"\n    exit 1\nfi\n\necho \"DSYM : ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\necho \"Input File Path : ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\"\n";
-		};
-		62793AD3240E3A5700E906B7 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/bin/bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwilioVideo.framework/remove_archs\"\n";
 		};
 		62EB5B342424F2ED00409382 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

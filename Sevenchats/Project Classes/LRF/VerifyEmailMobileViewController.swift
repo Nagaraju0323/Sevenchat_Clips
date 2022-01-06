@@ -179,8 +179,8 @@ extension VerifyEmailMobileViewController {
                     inviteContancVC.isFromSideMenu = false
                     self.navigationController?.pushViewController(inviteContancVC, animated: true)
                     
-                    TVITokenService.shared.bindVoIPToken()
-                    AudioTokenService.shared.callGetAudioTokenAPI(identity: myAudioIdentity, isForRegister: true)
+//                    TVITokenService.shared.bindVoIPToken()
+//                    AudioTokenService.shared.callGetAudioTokenAPI(identity: myAudioIdentity, isForRegister: true)
                 }
             }
            

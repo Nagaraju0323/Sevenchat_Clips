@@ -6937,7 +6937,7 @@ extension APIRequest {
                     appDelegate.loginUser = tblUser
                     CoreData.saveContext()
             }
-            TVITokenService.shared.bindVoIPToken()
+//            TVITokenService.shared.bindVoIPToken()
 
         }
 

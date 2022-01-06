@@ -21,9 +21,9 @@ class AudioVideoNotification : NSObject {
     var userData : NotificationUserData!
     
     fileprivate var _notificationType : String?
-    var notificationType : CallNotificationType!{
-        return CallNotificationType(rawValue: _notificationType ?? "") ?? .None
-    }
+//    var notificationType : CallNotificationType!{
+//        return CallNotificationType(rawValue: _notificationType ?? "") ?? .None
+//    }
     
     
     
@@ -71,12 +71,12 @@ class NotificationUserData : NSObject {
     var mobile : String = ""
     var countryCode  : String = ""
     
-    var roomType : RoomType {
-        if channelType == "1To1"{
-            return .UserRoom
-        }
-        return .GroupRoom
-    }
+//    var roomType : RoomType {
+//        if channelType == "1To1"{
+//            return .UserRoom
+//        }
+//        return .GroupRoom
+//    }
     
     init(fromDictionary dictionary: [String:Any]){
         

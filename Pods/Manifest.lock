@@ -172,8 +172,6 @@ PODS:
   - SwiftySound (1.2.0)
   - TLPhotoPicker (2.0.11)
   - TrueTime (5.0.3)
-  - TwilioVideo (3.2.3)
-  - TwilioVoice (5.3.0)
 
 DEPENDENCIES:
   - ActiveLabel
@@ -205,8 +203,6 @@ DEPENDENCIES:
   - SwiftySound
   - TLPhotoPicker
   - TrueTime
-  - TwilioVideo (~> 3.2)
-  - TwilioVoice
 
 SPEC REPOS:
   trunk:
@@ -262,8 +258,6 @@ SPEC REPOS:
     - SwiftySound
     - TLPhotoPicker
     - TrueTime
-    - TwilioVideo
-    - TwilioVoice
 
 SPEC CHECKSUMS:
   ActiveLabel: 5e3f4de79a1952d4604b845a0610d4776e4b82b3
@@ -318,9 +312,7 @@ SPEC CHECKSUMS:
   SwiftySound: 9eb28bb14edb601b40027e44319e0ef8383f88bf
   TLPhotoPicker: a5c339732b8326bb16cbb4e00ed01a86f2bfbbb3
   TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
-  TwilioVideo: 6f0263ec3679454b1aa0808d91dcc14c273dc38d
-  TwilioVoice: 45b20d5447ca40658c2685916e3c87df171a8270
 
-PODFILE CHECKSUM: 91379993578a10ecce03bad75eef3d6461342ca3
+PODFILE CHECKSUM: 350adebaabeb5e92380173d973e5b2f0595c10cf
 
 COCOAPODS: 1.10.1

@@ -99,8 +99,8 @@ extension AppLaunchViewController {
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageLogout, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                 guard let _ = self else { return }
                 MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: 1)
-                TVITokenService.shared.deleteUserBindingAPI()
-                AudioTokenService.shared.unregisterTwilioVoice()
+//                TVITokenService.shared.deleteUserBindingAPI()
+//                AudioTokenService.shared.unregisterTwilioVoice()
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             //appDelegate.logOut()
         }

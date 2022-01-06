@@ -1393,31 +1393,31 @@ extension UserChatDetailViewController {
     
     @IBAction func btnVideoClicked(_ sender: UIButton) {
         guard let _userid = self.userID else { return }
-        if let videoChat  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "OneToOneVideoCallVC") as? OneToOneVideoCallVC {
-            videoChat.id = _userid
-            if let userInfo = self.iObject as? [String : Any] {
-                videoChat.userImage = userInfo.valueForString(key: CImage)
-                videoChat.fullName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-                
-            }
-            self.navigationController?.pushViewController(videoChat, animated: true)
-        }
+//        if let videoChat  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "OneToOneVideoCallVC") as? OneToOneVideoCallVC {
+//            videoChat.id = _userid
+//            if let userInfo = self.iObject as? [String : Any] {
+//                videoChat.userImage = userInfo.valueForString(key: CImage)
+//                videoChat.fullName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
+//                
+//            }
+//            self.navigationController?.pushViewController(videoChat, animated: true)
+//        }
     }
     
     @IBAction func btnAudioClicked(_ sender: UIButton) {
         guard let _userid = self.userID else { return }
-        if let audioCall  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "AudioCallVC") as? AudioCallVC {
-            if let userInfo = self.iObject as? [String: Any] {
-                let firstName = userInfo.valueForString(key: CFirstname)
-                let lastName = userInfo.valueForString(key: CLastname)
-                audioCall.member = Members(id: _userid, firstName: firstName, lastName: lastName)
-                audioCall.userImage = userInfo.valueForString(key: CImage)
-                audioCall.fullName = firstName + " " + lastName
-                
-            }
-            audioCall.roomType = .UserRoom
-            self.navigationController?.pushViewController(audioCall, animated: true)
-        }
+//        if let audioCall  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "AudioCallVC") as? AudioCallVC {
+//            if let userInfo = self.iObject as? [String: Any] {
+//                let firstName = userInfo.valueForString(key: CFirstname)
+//                let lastName = userInfo.valueForString(key: CLastname)
+//                audioCall.member = Members(id: _userid, firstName: firstName, lastName: lastName)
+//                audioCall.userImage = userInfo.valueForString(key: CImage)
+//                audioCall.fullName = firstName + " " + lastName
+//
+//            }
+//            audioCall.roomType = .UserRoom
+//            self.navigationController?.pushViewController(audioCall, animated: true)
+//        }
     }
     
     @IBAction func btnMoreCLK(_ sender : UIButton){

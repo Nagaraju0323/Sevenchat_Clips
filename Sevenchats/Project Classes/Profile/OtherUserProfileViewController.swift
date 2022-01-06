@@ -1068,30 +1068,30 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "AudioVideoButtonCell", for: indexPath) as? AudioVideoButtonCell {
                     let userInfo = arrUserDetail[0]
                     cell.btnAudioCall.touchUpInside {[weak self] (sender) in
-                        if let audioCall  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "AudioCallVC") as? AudioCallVC {
-                            //audioCall.id = _userid
-                            let firstName = userInfo.valueForString(key: CFirstname)
-                            let lastName = userInfo.valueForString(key: CLastname)
-                            let userid = userInfo.valueForInt(key: CUserId) ?? 0
-                            
-                            audioCall.member = Members(id: userid, firstName: firstName, lastName: lastName)
-                            audioCall.userImage = userInfo.valueForString(key: CImage)
-                            audioCall.fullName = firstName + " " + lastName
-                            
-                            audioCall.roomType = .UserRoom
-                            self?.navigationController?.pushViewController(audioCall, animated: true)
-                        }
+//                        if let audioCall  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "AudioCallVC") as? AudioCallVC {
+//                            //audioCall.id = _userid
+//                            let firstName = userInfo.valueForString(key: CFirstname)
+//                            let lastName = userInfo.valueForString(key: CLastname)
+//                            let userid = userInfo.valueForInt(key: CUserId) ?? 0
+//                            
+//                            audioCall.member = Members(id: userid, firstName: firstName, lastName: lastName)
+//                            audioCall.userImage = userInfo.valueForString(key: CImage)
+//                            audioCall.fullName = firstName + " " + lastName
+//                            
+////                            audioCall.roomType = .UserRoom
+//                            self?.navigationController?.pushViewController(audioCall, animated: true)
+//                        }
                     }
                     
                     cell.btnVideoCall.touchUpInside {[weak self] (sender) in
                         
-                        if let videoChat  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "OneToOneVideoCallVC") as? OneToOneVideoCallVC {
-                            let userid = userInfo.valueForInt(key: CUserId) ?? 0
-                            videoChat.id = userid
-                            videoChat.userImage = userInfo.valueForString(key: CImage)
-                            videoChat.fullName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-                            self?.navigationController?.pushViewController(videoChat, animated: true)
-                        }
+//                        if let videoChat  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "OneToOneVideoCallVC") as? OneToOneVideoCallVC {
+//                            let userid = userInfo.valueForInt(key: CUserId) ?? 0
+//                            videoChat.id = userid
+//                            videoChat.userImage = userInfo.valueForString(key: CImage)
+//                            videoChat.fullName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
+//                            self?.navigationController?.pushViewController(videoChat, animated: true)
+//                        }
                     }
                     
                     return cell

@@ -44,18 +44,25 @@ class AudioCall {
         let identity = members.map({$0.identity})
         return identity.joined(separator: ",")
     }
-    var roomType: RoomType = .UserRoom
+//    var roomType: RoomType = .UserRoom
     var fullName : String = ""
     var image : String = ""
     var mobile : String = ""
     var countryCode : String = ""
     var isSender = true
     
-    init(members : [Members], roomType: RoomType, name: String, image: String, isSender:Bool) {
+    init(members : [Members], name: String, image: String, isSender:Bool) {
         self.members = members
-        self.roomType = roomType
+    
         self.fullName = name
         self.image = image
         self.isSender = isSender
     }
+//    init(members : [Members], roomType: RoomType, name: String, image: String, isSender:Bool) {
+//        self.members = members
+//        self.roomType = roomType
+//        self.fullName = name
+//        self.image = image
+//        self.isSender = isSender
+//    }
 }

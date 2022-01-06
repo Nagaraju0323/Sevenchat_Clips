@@ -137,7 +137,7 @@ extension FirebasePushNotification {
         if let pushPayload = userInfo as? [String : Any]{
             print("willPresent ====== \(pushPayload)")
 //            if let _ = pushPayload["identity"] as? String {
-                VoIPNotificationHandler.shared().actionOnPushNotification(notification: pushPayload)
+//                VoIPNotificationHandler.shared().actionOnPushNotification(notification: pushPayload)
             
 //                return
 //            }
