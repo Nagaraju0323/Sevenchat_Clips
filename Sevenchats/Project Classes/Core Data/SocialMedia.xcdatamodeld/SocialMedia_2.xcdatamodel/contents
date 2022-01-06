@@ -856,6 +856,10 @@
         <attribute name="category_id" optional="YES" attributeType="String"/>
         <attribute name="category_level1" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="TblPslCategory" representedClassName="TblPslCategory" syncable="YES" codeGenerationType="class">
+        <attribute name="category_id" optional="YES" attributeType="String"/>
+        <attribute name="category_name" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="TblRelation" representedClassName="TblRelation" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="relationship_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -984,5 +988,6 @@
         <element name="TblSubIntrest" positionX="-45" positionY="144" width="128" height="74"/>
         <element name="TblTotalFriends" positionX="-27" positionY="162" width="128" height="104"/>
         <element name="TblUser" positionX="-63" positionY="18" width="128" height="1004"/>
+        <element name="TblPslCategory" positionX="-9" positionY="144" width="128" height="59"/>
     </elements>
 </model>

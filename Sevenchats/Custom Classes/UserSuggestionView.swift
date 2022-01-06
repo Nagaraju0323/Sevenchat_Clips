@@ -62,14 +62,14 @@ extension UserSuggestionView {
     func initialization() {
         GCDMainThread.async {
             self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
-            self.refreshControl.tintColor = ColorAppTheme
+            self.refreshControl.tintColor = ColorBlack
             self.tblfriendSuggestionList.pullToRefreshControl = self.refreshControl
             self.pageNumber = 1
             //            self.getFriendList()
         }
         
 //        self.layer.shadowColor = CRGB(r: 230, g: 235, b: 239).cgColor
-        self.layer.shadowColor = ColorAppTheme.cgColor
+        self.layer.shadowColor = ColorBlack.cgColor
         self.layer.shadowOpacity = 3
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.layer.shadowRadius = 3
@@ -87,42 +87,44 @@ extension UserSuggestionView {
     }
     
     func getFriendList()
-    {
-        if apiTask?.state == URLSessionTask.State.running {
-            return
-        }
-        //Add userId
-        guard let userid = appDelegate.loginUser?.user_id else {
-            return
-        }
-        let userID = userid.description
-        
-        
-        apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 0, search: userID, group_id : nil, showLoader: false, completion: {[weak self] (response, error) in
-            guard let self = self else { return }
-            self.refreshControl.endRefreshing()
-            if response != nil{
-                if let arrList = response![CJsonData] as? [[String:Any]]{
-                    //                    Remove all data here when page number == 1
-                    if self.pageNumber == 1{
-                        self.arrFilterUser.removeAll()
-                        self.tblfriendSuggestionList.reloadData()
-                    }
-                    
-                    //                    Add Data here...
-                    if arrList.count > 0{
-                        self.arrFilterUser = self.arrFilterUser + arrList
-                        self.tblfriendSuggestionList.reloadData()
-                        self.pageNumber += 1
-                        self.tblfriendSuggestionList.reloadData()
-                    }
-                    
-                    self.updateTablePeople(false)
-                }
-            }
-        })
-        
-    }
+       {
+           if apiTask?.state == URLSessionTask.State.running {
+               return
+           }
+           //Add userId
+
+   //        guard let user_id = appDelegate.loginUser?.user_id else {
+   //            return
+   //        }
+   //        let UserID = String(user_id)
+           let userID = appDelegate.loginUser?.user_id.description
+           
+           
+           apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 0, search: userID, group_id : userID?.toInt, showLoader: false, completion: {[weak self] (response, error) in
+               guard let self = self else { return }
+               self.refreshControl.endRefreshing()
+               if response != nil{
+                   if let arrList = response!["my_friends"] as? [[String:Any]]{
+                       //                    Remove all data here when page number == 1
+                       if self.pageNumber == 1{
+                           self.arrFilterUser.removeAll()
+                           self.tblfriendSuggestionList.reloadData()
+                       }
+                       
+                       //                    Add Data here...
+                       if arrList.count > 0{
+                           self.arrFilterUser = self.arrFilterUser + arrList
+                           self.tblfriendSuggestionList.reloadData()
+                           self.pageNumber += 1
+                           self.tblfriendSuggestionList.reloadData()
+                       }
+                       
+                       self.updateTablePeople(false)
+                   }
+               }
+           })
+           
+       }
 }
 
 // MARK:- Helper Functions
@@ -274,6 +276,10 @@ extension UserSuggestionView {
             if (range!.length > 0){
                 toBeSend = (toBeSend as NSString?)?.replacingCharacters(in: range!, with: NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId)) as String)
             }
+            
+    
+        let name = userInfo.valueForString(key: "first_name") + userInfo.valueForString(key: "last_name")
+                toBeSend = (toBeSend as NSString?)?.replacingCharacters(in: range!, with: NSString(format: kMentionFriendStringFormate as NSString, name) as String)
         }
         
         return toBeSend
@@ -309,7 +315,7 @@ extension UserSuggestionView {
                 let matchesUserName = regex.matches(in: string!, range: NSRange(string!.startIndex..., in: string!))
                 
                 for matches in matchesUserName {
-                    attributedString.setAttributes([NSAttributedString.Key.foregroundColor:ColorAppTheme, NSAttributedString.Key.font : CFontPoppins(size: 14, type: .meduim).setUpAppropriateFont() as Any], range: matches.range)
+                    attributedString.setAttributes([NSAttributedString.Key.foregroundColor:ColorBlack, NSAttributedString.Key.font : CFontPoppins(size: 14, type: .meduim).setUpAppropriateFont() as Any], range: matches.range)
                     //attributedString.addAttributes([NSAttributedString.Key.foregroundColor:ColorAppTheme, NSAttributedString.Key.font : CFontPoppins(size: 14, type: .meduim).setUpAppropriateFont() as Any], range: matches.range)
                 }
                 

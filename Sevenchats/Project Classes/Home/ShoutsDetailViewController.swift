@@ -85,6 +85,7 @@ class ShoutsDetailViewController: ParentViewController {
         super.viewWillAppear(animated)
         self.setShoutsDetailData(shoutInformations)
         self.updateUIAccordingToLanguage()
+        self.getCommentListFromServer()
         
     }
     
@@ -111,6 +112,7 @@ class ShoutsDetailViewController: ParentViewController {
         self.tblCommentList.pullToRefreshControl = self.refreshControl
         self.pageNumber = 1
         self.getShoutsDetailsFromServer()
+        
         
     }
     
@@ -333,21 +335,21 @@ extension ShoutsDetailViewController{
         }
     }
     
-    func updateShoutCommentSection(_ arrComm : [[String : Any]]){
-        
-        self.arrCommentList.removeAll()
-        
-        if arrComm.count > 0{
-            // Add last two comment here...
-            self.arrCommentList = arrComm
-            //         self.arrCommentList.append(arrComm.first!)
-            //         self.arrCommentList.append(arrComm[1])
-            
-        }else{
-            self.arrCommentList = arrComm
-        }
-        self.tblCommentList.reloadData()
-    }
+//    func updateShoutCommentSection(_ arrComm : [[String : Any]]){
+//        
+//        self.arrCommentList.removeAll()
+//        
+//        if arrComm.count > 0{
+//            // Add last two comment here...
+//            self.arrCommentList = arrComm
+//            //         self.arrCommentList.append(arrComm.first!)
+//            //         self.arrCommentList.append(arrComm[1])
+//            
+//        }else{
+//            self.arrCommentList = arrComm
+//        }
+//        self.tblCommentList.reloadData()
+//    }
 }
 
 // MARK:- --------- UITableView Datasources/Delegate

@@ -250,7 +250,17 @@ extension ArticleDetailViewController{
             self.lblArticleDescription.text = artInfo.valueForString(key: CContent)
             
             //self.imgArticle.loadImageFromUrl(artInfo.valueForString(key: CImage), false)
-            self.blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+//            self.blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+            
+            
+            let image = artInfo.valueForString(key: "image")
+            if image.isEmpty {
+                //                    blurImgView.isHidden = true
+                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+            }else{
+                blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+            }
+            
             
             self.articleImgURL = artInfo.valueForString(key: Cimages)
             self.imgUser.loadImageFromUrl(artInfo.valueForString(key: CUserProfileImage), true)
@@ -477,44 +487,6 @@ extension ArticleDetailViewController{
     
     fileprivate func getCommentListFromServer(showLoader: Bool){
         
-//        if apiTask?.state == URLSessionTask.State.running {
-//            return
-//        }
-//
-//        // Add load more indicator here...
-//        self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
-//
-//        apiTask = APIRequest.shared().getCommentList(page: pageNumber, showLoader: showLoader, post_id: articleID, rss_id: rssId) { [weak self] (response, error) in
-//
-//            guard let self = self else { return }
-//
-//            self.tblCommentList.tableFooterView = UIView()
-//            self.refreshControl.endRefreshing()
-//            self.apiTask?.cancel()
-//
-//            if response != nil {
-//
-//                if let arrList = response![CJsonData] as? [[String:Any]] {
-//
-//                    // Remove all data here when page number == 1
-//                    if self.pageNumber == 1 {
-//                        self.arrCommentList.removeAll()
-//                        self.tblCommentList.reloadData()
-//                    }
-//
-//                    // Add Data here...
-//                    if arrList.count > 0{
-//                        self.arrCommentList = self.arrCommentList + arrList
-//                        self.tblCommentList.reloadData()
-//                        self.pageNumber += 1
-//                    }
-//                }
-//
-//                print("arrCommentListCount : \(self.arrCommentList.count)")
-//                //self.lblNoData.isHidden = self.arrCommentList.count != 0
-//            }
-//        }
-        
         if let shoID = self.articleIDNew{
             if apiTask?.state == URLSessionTask.State.running {
                 self.refreshControl.endRefreshing()
@@ -628,7 +600,10 @@ extension ArticleDetailViewController: UITableViewDelegate, UITableViewDataSourc
             
             cell.lblCommentText.customize { [weak self] label in
                 guard let self = self else { return }
+                label.textColor = .black
                 label.text = commentText
+                
+                
                 label.minimumLineHeight = 0
                 label.configureLinkAttribute = { [weak self] (type, attributes, isSelected) in
                     guard let _ = self else { return  attributes}

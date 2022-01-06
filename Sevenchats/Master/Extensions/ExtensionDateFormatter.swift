@@ -126,7 +126,7 @@ extension DateFormatter{
          let dateFormatter = DateFormatter()
           dateFormatter.dateFormat = "dd MMM yyyy, hh:mm a"
           let date = dateFormatter.date(from: dateString)
-          self.timeZone = TimeZone(identifier: "GMT")
+        self.timeZone = NSTimeZone(name: "UTC") as TimeZone?
           dateFormatter.dateFormat = "yyy-MM-dd hh:mm a"
          let returnDate =  dateFormatter.string(from: date!)
         return returnDate

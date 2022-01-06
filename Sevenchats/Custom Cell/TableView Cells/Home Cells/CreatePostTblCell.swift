@@ -56,11 +56,15 @@ class CreatePostTblCell: UITableViewCell{
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        topContainer.isHidden = true
-        viewSelectGroup.isHidden = true 
+//        topContainer.isHidden = true
+//        viewSelectGroup.isHidden = true
+        
+      
+//        topContainer.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+//        viewSelectGroup.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         textViewMessage.genericDelegate = self
-        clGroupFriend.delegate = self
-        clGroupFriend.dataSource = self
+//        clGroupFriend.delegate = self
+//        clGroupFriend.dataSource = self
         lblTextCount.isHidden = true
         lblCreateShout.text = CCreateshout
         // Initialization code
@@ -90,7 +94,7 @@ class CreatePostTblCell: UITableViewCell{
 //        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnCreateShoutsClicked(_:)))]
         PostButton.addTarget(self, action:#selector(btnCreateShoutsClicked(_:)), for: .touchUpInside)
         
-        btnInviteTypeCLK(btnInviteAllFriend)
+//        btnInviteTypeCLK(btnInviteAllFriend)
         if shoutsType == .shareQuote{
             self.setQuoteText()
         }
@@ -115,40 +119,25 @@ class CreatePostTblCell: UITableViewCell{
             
         }else{
             // Normal Flow...
-            btnInviteGroup.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
-            btnInviteGroup.contentHorizontalAlignment = .left
-            
-            btnInviteContacts.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
-            btnInviteContacts.contentHorizontalAlignment = .left
-            
-            btnInviteAllFriend.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
-            btnInviteAllFriend.contentHorizontalAlignment = .left
-            
-            btnSelectGroupFriend.contentHorizontalAlignment = .left
-            clGroupFriend.transform = CGAffineTransform.identity
+//            btnInviteGroup.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
+//            btnInviteGroup.contentHorizontalAlignment = .left
+//
+//            btnInviteContacts.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
+//            btnInviteContacts.contentHorizontalAlignment = .left
+//
+//            btnInviteAllFriend.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
+//            btnInviteAllFriend.contentHorizontalAlignment = .left
+//
+//            btnSelectGroupFriend.contentHorizontalAlignment = .left
+//            clGroupFriend.transform = CGAffineTransform.identity
             lblCreateShout.textAlignment = .left
            
         }
-        
-//        var CProfilePost: String{ return appDelegate.langugaeText?.post ?? "Post"
-//        textViewMessage.placeHolder = CShoutPlaceholderContent
         PostButton.setTitle(CProfilePost, for: .normal)
-        btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
-        /*OLD CODE
-        btnInviteGroup.setTitle(CPostPostsInviteGroups, for: .normal)
-         */
-        
-        /*NEW CODE
-         */
+//        btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
 //        btnInviteGroup.setTitle(Cshout_groups, for: .normal)
-//        btnInviteContacts.setTitle(CCFriends, for: .normal)
-//        btnInviteAllFriend.setTitle(CPostPostsInviteAllFriends, for: .normal)
-
-        btnInviteGroup.setTitle(Cshout_groups, for: .normal)
-        btnInviteContacts.setTitle(Cshout_friends, for: .normal)
-        btnInviteAllFriend.setTitle(Cshout_public, for: .normal)
-
-        
+//        btnInviteContacts.setTitle(Cshout_friends, for: .normal)
+//        btnInviteAllFriend.setTitle(Cshout_public, for: .normal)
     }
     @IBAction func brtEmojiClick(_ sender:UIButton){
         textViewMessage.becomeFirstResponder()
@@ -276,14 +265,22 @@ extension CreatePostTblCell{
     
     @objc fileprivate func btnCreateShoutsClicked(_ sender : UIButton) {
        
+//        if (textViewMessage.text?.isBlank)! {
+//           self.closureShowMessage?(1)
+//
+//        }else if (btnInviteGroup.isSelected || btnInviteContacts.isSelected) && arrSelectedGroupFriends.count == 0 {
+//            self.closureShowMessage?(2)
+//        }else{
+//            self.addEditShout()
+//        }
         if (textViewMessage.text?.isBlank)! {
            self.closureShowMessage?(1)
             
-        }else if (btnInviteGroup.isSelected || btnInviteContacts.isSelected) && arrSelectedGroupFriends.count == 0 {
-            self.closureShowMessage?(2)
         }else{
             self.addEditShout()
         }
+        
+        
     }
     
     func addEditShout(){
@@ -322,30 +319,31 @@ extension CreatePostTblCell{
         dict[CTitle] = ""
         dict[CpostContent] = txtshout
         dict["age_limit"] = "20"
+        apiPara[CPublish_To] = 1
         
         
-        if btnInviteGroup.isSelected{
-            // For group...
-            apiPara[CPublish_To] = 1
+//        if btnInviteGroup.isSelected{
+//            // For group...
+//            apiPara[CPublish_To] = 1
+////            let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
+////            apiPara[CGroup_Ids] = groupIDS
+//
 //            let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-//            apiPara[CGroup_Ids] = groupIDS
-            
-            let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-            apiParaGroups = groupIDS.components(separatedBy: ",")
-            
-        }else if btnInviteContacts.isSelected{
-            // For Contact...
-            apiPara[CPublish_To] = 2
-//            let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-//            apiPara[CInvite_Ids] = userIDS
-            
-            let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
-            apiParaFriends = userIDS.components(separatedBy: ",")
-            
-        }else{
-            // For All Friend...
-            apiPara[CPublish_To] = 3
-        }
+//            apiParaGroups = groupIDS.components(separatedBy: ",")
+//
+//        }else if btnInviteContacts.isSelected{
+//            // For Contact...
+//            apiPara[CPublish_To] = 2
+////            let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
+////            apiPara[CInvite_Ids] = userIDS
+//
+//            let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
+//            apiParaFriends = userIDS.components(separatedBy: ",")
+//
+//        }else{
+//            // For All Friend...
+//            apiPara[CPublish_To] = 3
+//        }
         
         
         if apiParaGroups.isEmpty == false {
@@ -368,10 +366,6 @@ extension CreatePostTblCell{
         APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagshouts) { (response, error) in
             if response != nil && error == nil{
                 print("responsevalues",response)
-                
-                
-                
-                
                 
 //                if self.shoutsType == .shareQuote{
 //                    (appDelegate.sideMenuController.leftViewController as? SideMenuViewController)?.selectIndex(0)

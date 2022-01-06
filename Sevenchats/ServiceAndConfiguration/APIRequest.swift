@@ -16,42 +16,42 @@ import LGSideMenuController
 /// Live
 //var BASEURL: String          =   "http://dev1.sevenchats.com:2020/api/v1/"
 ////MARK: - Dev
-//var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
-//let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
+var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
+let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
 //////MARK: - CHAT
-//var BASEURLCHATLASTMSG: String     =   "https://dev.sevenchats.com:7443/"
+var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
 //////MARK: - OTP
-//var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
-//var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
+var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
+var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
 //////MARK: - AUTHENTICATION
-//var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
+var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
 //////MARK: - Notification
-//var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
-//var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
+var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
+var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
 //////MARK:- SockeIO key
-//let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
+let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
 //////MARK:- MINIO
 let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 //////MARK:- NotificationSocket
-//let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
-//let BASEURL_Rew: String = "Dev"
+let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
+let BASEURL_Rew: String = "Dev"
 
 
 
 
 
 //MARK: - QA
-var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
-var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
-var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
-var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
-let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
-var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
-let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
-var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
-var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
-let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
-let BASEURL_Rew: String = "QA"
+//var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
+//var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
+//var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
+//var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
+//let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
+//var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
+//let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
+//var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
+//var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
+//let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
+//let BASEURL_Rew: String = "QA"
 
 
 
@@ -306,6 +306,9 @@ let CAPITverifyMobileOTP = "verifyMobileOTP"
 let CAPITrewardAdd = "rewards/add"
 let CAPITagRewards = "rewards"
 let CAPITagRewardUser = "rewards/users/"
+
+
+let CAPITagPSLCategoryNew          = "categories/type/PSL"
 
 
 let CJsonResponse           = "response"
@@ -4431,6 +4434,26 @@ extension APIRequest {
         }
     
     
+    func getPslCategory(completion: @escaping ClosureCompletion) {
+
+        _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagPSLCategoryNew, param: nil, successBlock: { (task, response) in
+
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNewsCategory) {
+                self.storPSLCategory(response: response as! [String : AnyObject])
+                completion(response, nil)
+            }
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagNewsCategory, error: error)
+            }
+        })
+    }
+
+    
     
     
     
@@ -4472,6 +4495,38 @@ extension APIRequest {
             } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
             } else {
                 self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagNews, error: error)
+            }
+        })!
+    }
+    
+    
+    
+    func getPSLList(page : Int?,type : String?, showLoader : Bool,userId:String, completion: @escaping ClosureCompletion) -> URLSessionTask {
+        
+        
+        if showLoader {
+            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        }
+        let apiTag = CAPITagFavWebsitesNew 
+        var para = [String : Any]()
+        para[CPage] = page?.description
+        para[CPer_limit] = CLimitTW
+        para[CType] = type
+        
+        
+        return Networking.sharedInstance.GETNEWPR(apiTag: apiTag, param: para as AnyObject as? [String : AnyObject], successBlock: { (task, response) in
+            
+            MILoader.shared.hideLoader()
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWebsitesNew) {
+                completion(response, nil)
+            }
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagFavWebsitesNew, error: error)
             }
         })!
     }
@@ -7185,6 +7240,28 @@ extension APIRequest {
             CoreData.saveContext()
         }
     }
+    
+    
+    
+    func storPSLCategory(response: [String : AnyObject]) {
+        
+        // Frist remove all News Category list and store updated data
+        TblPslCategory.deleteAllObjects()
+        CoreData.saveContext()
+        
+        if let data = response.valueForJSON(key: CJsonData) as? [[String: Any]] {
+            var arrNews = data
+//            arrNews.append(["category_name" : CTypeAll, "id" : 0])
+            for item in arrNews {
+//                let newsCategory = TblNewsCategory.findOrCreate(dictionary: [CCategoryID: Int64(item.valueForInt(key: CId)!)]) as! TblNewsCategory
+                let newsCategory = TblPslCategory.findOrCreate(dictionary: [CCategoryName: (item.valueForString(key: CCategoryName))]) as! TblPslCategory
+                newsCategory.category_name = item.valueForString(key: CCategoryName)
+                newsCategory.category_id = item.valueForString(key: "category_id")
+            }
+            CoreData.saveContext()
+        }
+    }
+    
     
     func storeLanguageList(response : [String : AnyObject]) {
         

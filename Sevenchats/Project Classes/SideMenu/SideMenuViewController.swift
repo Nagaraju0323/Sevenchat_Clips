@@ -390,6 +390,8 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
             appDelegate.hideSidemenu()
             break
         case CSidePSL:
+//            appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardSideMenu.instantiateViewController(withIdentifier: "PSLSideViewController"))
+            
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardSideMenu.instantiateViewController(withIdentifier: "PSLSideViewController"))
             appDelegate.hideSidemenu()
             break

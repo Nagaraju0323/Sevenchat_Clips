@@ -86,6 +86,8 @@ extension ChangePWDViewController{
 
 func changePasswords(){
 
+    
+    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
     guard let userName = appDelegate.loginUser?.email else{ return}
     
     let password = txtNewPWD.text ?? ""
@@ -125,10 +127,24 @@ func changePasswords(){
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
                 guard let userMsg = dict?["message"] as? String else { return }
                 DispatchQueue.main.async {
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
-                    self.dismiss(animated: true, completion: nil)
-                    self.navigationController?.popToRootViewController(animated: true)
-                })
+                    if userMsg == "Something went wrong!"{
+                        MILoader.shared.hideLoader()
+
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Password Does not Match", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+//                            self.navigationController?.popToRootViewController(animated: true)
+                        })
+                        
+                    }else {
+                        MILoader.shared.hideLoader()
+
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                            self.navigationController?.popToRootViewController(animated: true)
+                        })
+                    }
+                    
+               
              }
             }catch let error  {
                 print("error trying to convert data to \(error)")

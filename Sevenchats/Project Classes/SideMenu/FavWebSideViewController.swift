@@ -83,34 +83,15 @@ extension FavWebSideViewController{
         guard let userID = appDelegate.loginUser?.user_id else {return}
         
         
-        apiTask = APIRequest.shared().getFavWebSiteList(page: pageNumber, type: "psl", showLoader: shouldShowLoader,userId:userID.description) { [weak self] (response, error) in
+        apiTask = APIRequest.shared().getFavWebSiteList(page: pageNumber, type: "FAV", showLoader: shouldShowLoader,userId:userID.description) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil{
                 //                self.arrFavWebSite.removeAll()
                 self.refreshControl.endRefreshing()
                 self.tblFavWebSite.tableFooterView = nil
-                
-                //                if let arrList = response![CJsonData] as? [[String:Any]]{
-                //
-                //                    // Remove all data here when page number == 1
-                //                    if self.pageNumber == 1{
-                //                        self.arrFavWebSite.removeAll()
-                //                    }
-                //                    self.isLoadMoreCompleted = arrList.isEmpty
-                //                    // Add Data here...
-                //                    if arrList.count > 0{
-                //                        self.arrFavWebSite = self.arrFavWebSite + arrList
-                //                        self.pageNumber += 1
-                //                    }
-                //                    DispatchQueue.main.async {
-                //                        self.tblFavWebSite.reloadData()
-                //                    }
-                //                }
+               
                 if let webarrList = response![CWebsites] as? [String:Any]{
-                    //                    let arrDatass = response!["products"] as? [String : Any] ?? [:]
                     let arrList = webarrList["favourite_websites"] as? [[String : Any]] ?? []
-                    
-                    // Remove all data here when page number == 1
                     if self.pageNumber == 1{
                         self.arrFavWebSite.removeAll()
                     }

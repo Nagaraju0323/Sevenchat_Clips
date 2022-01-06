@@ -52,6 +52,12 @@ class CreateChatGroupViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialization()
+        
+        btnSwitch.isHidden = true
+        lblCreateGroupLink.isHidden = true
+        btnPrivate.isHidden = true
+        btnPublic.isHidden = true 
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

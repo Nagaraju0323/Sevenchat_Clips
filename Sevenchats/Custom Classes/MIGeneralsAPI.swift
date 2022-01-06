@@ -59,6 +59,7 @@ extension MIGeneralsAPI {
         self.loadRewardsCategory()
         self.loadProductCategory()
         self.loadUserRewardPoings()
+        self.loadPslCategory()
     
         
         
@@ -299,6 +300,17 @@ extension MIGeneralsAPI {
             }
         })
     }
+    
+    
+    func loadPslCategory() {
+        
+        _ = APIRequest.shared().getPslCategory(completion: { (response, error) in
+            if response != nil && error == nil {
+            }
+        })
+    }
+    
+  
     
      func likeUnlikePostWebsite(post_id : Int?, rss_id : Int?, type : Int?, likeStatus : Int, viewController : UIViewController?){
        
@@ -1254,7 +1266,7 @@ extension MIGeneralsAPI {
                             if viewController.isKind(of: ShoutsDetailViewController.classForCoder()){
                                 if let shoutVC = viewController as? ShoutsDetailViewController{
 //                                    shoutVC.updateShoutCommentSection(arrComm, metaInfo.valueForInt(key: CTotal)!)
-                                    shoutVC.updateShoutCommentSection(arrComm)
+//                                    shoutVC.updateShoutCommentSection(arrComm)
                                 }
                             }
                             

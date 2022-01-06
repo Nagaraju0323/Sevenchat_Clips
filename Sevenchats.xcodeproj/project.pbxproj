@@ -64,6 +64,7 @@
 		1864F6A925F61B95001C69A5 /* HomeStoriesTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864F6A825F61B95001C69A5 /* HomeStoriesTblCell.swift */; };
 		1878AE5C261190B1004CE9A6 /* SwipeReplayMsgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1878AE5B261190B1004CE9A6 /* SwipeReplayMsgView.swift */; };
 		1878AE5F261190C4004CE9A6 /* SwipeReplayMsgView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1878AE5E261190C4004CE9A6 /* SwipeReplayMsgView.xib */; };
+		1893E99F2785B7B8000CC072 /* MDLPslCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893E99E2785B7B8000CC072 /* MDLPslCategory.swift */; };
 		18A7A6A7272BBFF700C43A1F /* StoredLstMsg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7A6A6272BBFF700C43A1F /* StoredLstMsg.swift */; };
 		18A7A6A9272C27D000C43A1F /* ExtensionDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A7A6A8272C27D000C43A1F /* ExtensionDict.swift */; };
 		18BD809025F8958300FE318A /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BD808E25F8958200FE318A /* ContentViewController.swift */; };
@@ -602,7 +603,6 @@
 		62E1A7D3240E2EC5001BD7A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5D2240E2EC4001BD7A8 /* AppDelegate.swift */; };
 		62E1A7D5240E2EC5001BD7A8 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5D5240E2EC4001BD7A8 /* SwiftyJSON.swift */; };
 		7C403150278345A20078AB35 /* PSLSideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40314F278345A20078AB35 /* PSLSideViewController.swift */; };
-		7C403152278345C00078AB35 /* PSLSiteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C403151278345C00078AB35 /* PSLSiteDetailViewController.swift */; };
 		7C40315927834E1F0078AB35 /* PSLSitesTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40315727834E1F0078AB35 /* PSLSitesTblCell.swift */; };
 		7C40315A27834E1F0078AB35 /* PSLSitesTblCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C40315827834E1F0078AB35 /* PSLSitesTblCell.xib */; };
 		A09326B63F9C017116863AC6 /* Pods_Sevenchats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27804AECFF1A40FF9011865E /* Pods_Sevenchats.framework */; };
@@ -682,6 +682,7 @@
 		1864F6A825F61B95001C69A5 /* HomeStoriesTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStoriesTblCell.swift; sourceTree = "<group>"; };
 		1878AE5B261190B1004CE9A6 /* SwipeReplayMsgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeReplayMsgView.swift; sourceTree = "<group>"; };
 		1878AE5E261190C4004CE9A6 /* SwipeReplayMsgView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwipeReplayMsgView.xib; sourceTree = "<group>"; };
+		1893E99E2785B7B8000CC072 /* MDLPslCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLPslCategory.swift; sourceTree = "<group>"; };
 		18A7A6A6272BBFF700C43A1F /* StoredLstMsg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredLstMsg.swift; sourceTree = "<group>"; };
 		18A7A6A8272C27D000C43A1F /* ExtensionDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDict.swift; sourceTree = "<group>"; };
 		18BD808E25F8958200FE318A /* ContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
@@ -1227,7 +1228,6 @@
 		62E1A5D5240E2EC4001BD7A8 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		73E644783A520D4D99BA5145 /* Pods-Sevenchats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.debug.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.debug.xcconfig"; sourceTree = "<group>"; };
 		7C40314F278345A20078AB35 /* PSLSideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLSideViewController.swift; sourceTree = "<group>"; };
-		7C403151278345C00078AB35 /* PSLSiteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLSiteDetailViewController.swift; sourceTree = "<group>"; };
 		7C40315727834E1F0078AB35 /* PSLSitesTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLSitesTblCell.swift; sourceTree = "<group>"; };
 		7C40315827834E1F0078AB35 /* PSLSitesTblCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PSLSitesTblCell.xib; sourceTree = "<group>"; };
 		F7BFE4C7823818FE87CD8731 /* Pods-Sevenchats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.release.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.release.xcconfig"; sourceTree = "<group>"; };
@@ -1768,7 +1768,6 @@
 				62E1A438240E2EC4001BD7A8 /* QuotesViewController.swift */,
 				62E1A439240E2EC4001BD7A8 /* FavWebSiteDetailViewController.swift */,
 				7C40314F278345A20078AB35 /* PSLSideViewController.swift */,
-				7C403151278345C00078AB35 /* PSLSiteDetailViewController.swift */,
 			);
 			path = SideMenu;
 			sourceTree = "<group>";
@@ -2354,6 +2353,7 @@
 			isa = PBXGroup;
 			children = (
 				62E1A582240E2EC4001BD7A8 /* MDLProductDetail.swift */,
+				1893E99E2785B7B8000CC072 /* MDLPslCategory.swift */,
 				18A7A6A6272BBFF700C43A1F /* StoredLstMsg.swift */,
 				62E1A583240E2EC4001BD7A8 /* FailureModel.swift */,
 				62E1A584240E2EC4001BD7A8 /* MDLProductCategory.swift */,
@@ -3111,6 +3111,7 @@
 				62E1A609240E2EC5001BD7A8 /* RestrictedFileTblCell.swift in Sources */,
 				1863D1022600D3CD00B5BDE8 /* EmojiCollectionViewCell.swift in Sources */,
 				454CC8B92462D04D004FF86B /* MDLCloneMedia.swift in Sources */,
+				1893E99F2785B7B8000CC072 /* MDLPslCategory.swift in Sources */,
 				62E1A612240E2EC5001BD7A8 /* LocationPickerVC.swift in Sources */,
 				62E1A67A240E2EC5001BD7A8 /* EventDetailImageViewController.swift in Sources */,
 				62E1A616240E2EC5001BD7A8 /* SongListViewController.swift in Sources */,
@@ -3242,7 +3243,6 @@
 				62E1A77D240E2EC5001BD7A8 /* ExtensionUITextField.swift in Sources */,
 				62E1A719240E2EC5001BD7A8 /* EventCommentTblHeader.swift in Sources */,
 				62E1A7AE240E2EC5001BD7A8 /* MICollectionViewBubbleLayout.swift in Sources */,
-				7C403152278345C00078AB35 /* PSLSiteDetailViewController.swift in Sources */,
 				62E1A706240E2EC5001BD7A8 /* HomeSharedEventImageTblCell.swift in Sources */,
 				62E1A620240E2EC5001BD7A8 /* AboutUsViewController.swift in Sources */,
 				62E1A72E240E2EC5001BD7A8 /* SpentTimeHelper.swift in Sources */,

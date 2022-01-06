@@ -239,9 +239,6 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
         }
         
         self.uploadMediaFileToServer()
-//        ChatSocketIo.shared().SocketInitilized()
-//        createTopictoChat()
-//        ChatSocketIo.shared().socketDelegate = self
         
     }
     override func viewWillDisappear(_ animated: Bool) {

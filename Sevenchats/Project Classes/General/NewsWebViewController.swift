@@ -31,6 +31,7 @@ class NewsWebViewController: ParentViewController {
     @IBOutlet weak var activityLoader : UIActivityIndicatorView!
 
     var isFavWebSite = false
+    var isPSLwebStire = false 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initialization()
@@ -47,12 +48,24 @@ class NewsWebViewController: ParentViewController {
             if isFavWebSite {
                 self.title = newInfo.valueForString(key: "title")
                 self.load(newInfo.valueForString(key: "favourite_website_url"),isFrom:true)
+            }else if isPSLwebStire{
+                self.title = newInfo.valueForString(key: "title")
+                self.loadPSL(newInfo.valueForString(key: "favourite_website_url"))
             }else {
                 self.title = newInfo.valueForString(key: "title")
                 self.load(newInfo.valueForString(key: "url"),isFrom:false)
             }
         }
     }
+    
+    func loadPSL(_ urlString: String) {
+       
+            if let url = URL(string: urlString) {
+                let request = URLRequest(url: url)
+                self.webView.load(request)
+            }
+        }
+    
     func load(_ urlString: String,isFrom:Bool) {
         if isFrom == true {
             if let url = URL(string: "https://\(urlString)") {

@@ -136,22 +136,6 @@ extension MyProfileViewController{
                 }
             }
         }
-
- 
-//    func myUserDetails(){
-//        if let userID = appDelegate.loginUser?.user_id{
-//            APIRequest.shared().userDetail(userID: Int(userID)) {[weak self] (response, error) in
-//                guard let _ = self else { return }
-//                self?.refreshControl.endRefreshing()
-//                if response != nil{
-//                    self?.tblUser.reloadData()
-//                    // Call post list api here........
-//                    self?.getPostListFromServer()
-//                }
-//            }
-//        }
-//    }
-    
     func getPostListFromServer() {
         
         if let userID = appDelegate.loginUser?.user_id {
