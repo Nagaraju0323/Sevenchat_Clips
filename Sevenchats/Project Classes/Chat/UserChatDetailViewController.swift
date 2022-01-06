@@ -1298,6 +1298,17 @@ extension UserChatDetailViewController: GenericTextViewDelegate {
     //
     //    }
     
+//    func genericTextView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText string: String) -> Bool {
+//
+//        if textView == txtViewMessage{
+//            let cs = NSCharacterSet(charactersIn: passwordRegex).inverted
+//            let filtered = string.components(separatedBy: cs).joined(separator: " ")
+//            return (string == filtered)
+//        }
+//        return true
+//    }
+//
+    
     
     func genericTextViewDidChange(_ textView: UITextView, height: CGFloat) {
         if textView.text.count < 1 || textView.text.trim.isBlank{

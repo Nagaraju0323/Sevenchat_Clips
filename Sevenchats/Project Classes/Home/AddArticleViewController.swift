@@ -15,8 +15,6 @@ enum ArticleType : Int {
 
 class AddArticleViewController: ParentViewController {
     
-    
-    
     var articleType : ArticleType!
     
     @IBOutlet weak var topContainer : UIView!
@@ -30,11 +28,16 @@ class AddArticleViewController: ParentViewController {
     
     @IBOutlet weak var txtArticleTitle : MIGenericTextFiled!
     @IBOutlet weak var txtArticleAgeLimit : MIGenericTextFiled!
-    @IBOutlet weak var txtViewArticleContent : GenericTextView!
+    @IBOutlet weak var txtViewArticleContent : GenericTextView!{
+        didSet{
+            self.txtViewArticleContent.txtDelegate = self
+            self.txtViewArticleContent.isScrollEnabled = true
+            self.txtViewArticleContent.textLimit = "150"
+        }
+    }
     @IBOutlet weak var viewSelectGroup : UIView!
     @IBOutlet weak var scrollViewContainer : UIView!
     @IBOutlet private weak var categoryDropDownView: CustomDropDownView!
-//    @IBOutlet private weak var subcategoryDropDownView: CustomDropDownView!
     
     @IBOutlet weak var clGroupFriend : UICollectionView!
     var apiTask : URLSessionTask?
@@ -76,6 +79,8 @@ class AddArticleViewController: ParentViewController {
     // MARK:- --------- Initialization
     func Initialization(){
         
+//        txtViewArticleContent.GenericTextViewDelegate = self
+        
         if articleType == .editArticle {
             self.loadArticleDetailFromServer()
         }
@@ -107,20 +112,6 @@ class AddArticleViewController: ParentViewController {
 //            self.loadInterestList(interestType : self.categoryName ?? "" , showLoader : true)
         }
         
-        /// On select text from the auto-complition
-//        subcategoryDropDownView.onSelectText = { [weak self] (item) in
-//
-//            guard let `self` = self else { return }
-//
-//            let objArry = self.arrsubCategorys.filter({ (obj) -> Bool in
-//                return ((obj.interestLevel2) == item)
-//            })
-//
-//            if (objArry.count > 0) {
-//                self.categorysubName = (objArry.first?.interestLevel2) ?? ""
-//            }
-//        }
-        
         let arrInviteType = [CPostPostsInviteGroups, CPostPostsInviteContacts,  CPostPostsInvitePublic, CPostPostsInviteAllFriends]
         
         txtInviteType.setPickerData(arrPickerData: arrInviteType, selectedPickerDataHandler: { [weak self] (text, row, component) in
@@ -130,11 +121,7 @@ class AddArticleViewController: ParentViewController {
         
         // By default `All type` selected
         self.selectedInviteType = 4
-        
-//        txtArticleAgeLimit.textLimit = 3
     }
-    
- 
     
     func updateUIAccordingToLanguage(){
         
@@ -169,31 +156,6 @@ class AddArticleViewController: ParentViewController {
 extension AddArticleViewController{
     
     
-//    func loadInterestList(interestType : String, showLoader : Bool) {
-//
-//        if apiTask?.state == URLSessionTask.State.running {
-//            return
-//        }
-//        guard let langName = appDelegate.loginUser?.lang_name else {return}
-//
-//        apiTask = APIRequest.shared().getInterestSubListNew(langName : langName,interestType:interestType, page: currentPage, showLoader : showLoader) { (response, error) in
-//            self.arrsubCategorys.removeAll()
-//            if response != nil && error == nil {
-//                if let arrData = response![CJsonData] as? [[String : Any]]
-//                {
-//                    for obj in arrData{
-//                        self.arrsubCategorys.append(MDLIntrestSubCategory(fromDictionary: obj))
-//                    }
-//
-//                    self.subcategoryDropDownView.arrDataSource = self.arrsubCategorys.map({ (obj) -> String in
-//                        return (obj.interestLevel2 ?? "")
-//                    })
-//
-//                }
-//            }
-//        }
-//    }
-    
     
     fileprivate func addEditArticle(){
         var apiPara = [String : Any]()
@@ -205,27 +167,10 @@ extension AddArticleViewController{
         apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
         
         apiPara[CPost_Detail] = txtViewArticleContent.text
-//        apiPara[CMin_Age] = txtArticleAgeLimit.text
-        
-//        apiPara[CPublish_To] = self.selectedInviteType
-//        if self.selectedInviteType == 1{
-//            // For group...
-//            let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-//            apiPara[CGroup_Ids] = groupIDS
-//        }else if self.selectedInviteType == 2{
-//            // For Contact...
-//            let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-//            apiPara[CInvite_Ids] = userIDS
-//        }
-        
-        
         // When user editing the article....
         if articleType == .editArticle{
             apiPara[CId] = articleID
         }
-        
-        //TODO ::------------------------
-        
         guard let userID = appDelegate.loginUser?.user_id else {return}
         
         let postcont = txtViewArticleContent.text.replace(string: "\n", replacement: "\\n")
@@ -237,8 +182,6 @@ extension AddArticleViewController{
             "post_category": categoryDropDownView.txtCategory.text ?? "" ,
             "post_content":postcont,
             "age_limit":"16",
-//            "targeted_audience":"none",
-//            "selected_persons":"none"
         ]
         
         if self.selectedInviteType == 1{
@@ -261,36 +204,6 @@ extension AddArticleViewController{
               }else {
                   dict[CSelectedPerson] = "none"
             }
-        
-        
-        /*Oldcode by Mi
-         APIRequest.shared().addEditPost(para: apiPara, image: imgArticle.image) { [weak self] (response, error) in
-         guard let self = self else { return }
-         if response != nil && error == nil{
-         self.navigationController?.popViewController(animated: true)
-         CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.articleType == .editArticle ? CMessageArticlePostUpdated : CMessageArticlePostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
-         if let articleInfo = response![CJsonData] as? [String : Any]{
-         
-         APIRequest.shared().saveNewInterest(interestID: articleInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: articleInfo.valueForString(key: CCategory))
-         MIGeneralsAPI.shared().refreshPostRelatedScreens(articleInfo,self.articleID, self, self.articleType == .editArticle ? .editPost : .addPost)
-         }
-         }
-         }
-         */
-        
-        
-        //        APIRequest.shared().addEditPost(para: dict, image: imgArticle.image,apiKeyCall:CAPITagarticles) { [weak self] (response, error) in
-        //            guard let self = self else { return }
-        //            if response != nil && error == nil{
-        //                self.navigationController?.popViewController(animated: true)
-        //                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.articleType == .editArticle ? CMessageArticlePostUpdated : CMessageArticlePostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        //                if let articleInfo = response![CJsonData] as? [String : Any]{
-        //
-        //                    APIRequest.shared().saveNewInterest(interestID: articleInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: articleInfo.valueForString(key: CCategory))
-        //                MIGeneralsAPI.shared().refreshPostRelatedScreens(articleInfo,self.articleID, self, self.articleType == .editArticle ? .editPost : .addPost)
-        //                }
-        //            }
-        //        }
         APIRequest.shared().addEditPost(para: dict, image: imgArticle.image,apiKeyCall: CAPITagarticles) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil && error == nil{
@@ -323,20 +236,6 @@ extension AddArticleViewController{
         }
         
     }
-    
-//    fileprivate func loadArticleDetailFromServer(){
-//        if let artID = self.articleID{
-//            APIRequest.shared().viewPostDetail(postID: artID) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                if response != nil {
-//                    if let articleIfo = response![CJsonData] as? [String : Any]{
-//                        self.setEventDetail(articleIfo)
-//                    }
-//                }
-//            }
-//        }
-//
-//    }
     
     fileprivate func setEventDetail (_ articleInfo : [String : Any]) {
         
@@ -484,23 +383,6 @@ extension AddArticleViewController{
                                   }
                               }
                 
-              /*  guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
-                    return
-                }
-                
-                self.imgName = imageURL.absoluteString ?? ""
-                
-                guard let mobileNum = appDelegate.loginUser?.mobile else {
-                    return
-                }
-                MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!)
-                
-//                MInioimageupload.shared().uploadMinioimage(ImgnameStr:image!)
-                //  MInioimageupload.shared().uploadMinioVideo(ImgnameStr:image!)
-                MInioimageupload.shared().callback = { message in
-                    print("UploadImage::::::::::::::\(message)")
-                    self.profileImgUrl = message
-                }*/
             }
         }
     }
@@ -577,10 +459,6 @@ extension AddArticleViewController{
     @objc fileprivate func btnAddArticleClicked(_ sender : UIBarButtonItem) {
         
         self.resignKeyboard()
-//        let ageValue = txtArticleAgeLimit.text?.toInt ?? 0
-//        if imgArticle.image == nil{
-//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageArticleImage, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//        }else
         if (txtArticleTitle.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageArticleTitle, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else if (categoryDropDownView.txtCategory.text?.isBlank)! {
@@ -588,12 +466,6 @@ extension AddArticleViewController{
         }else if (txtViewArticleContent.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageArticleContent, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }
-//        else if (txtArticleAgeLimit.text?.isBlank)! {
-//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePostAgeLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//        }
-//        else if ageValue < 13 || ageValue > 999  {
-//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMinumumAgeLimitBetween13To100, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//        }
         else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupArticle, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
@@ -605,25 +477,14 @@ extension AddArticleViewController{
     
 }
 
-
+// MARK:-  --------- Generic UITextView Delegate
 extension AddArticleViewController: GenericTextViewDelegate{
     
-    
-        func genericTextView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-    
-            if let paste = UIPasteboard.general.string{
-                print(paste.count)
-                print("paste\(paste.first)")
-            } else {
-               print("normaltyping")
-            }
-            return true
-    
-    
-    
-    
+    func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
+        
+        if textView == txtViewArticleContent{
+//            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
         }
-    
-    
+    }
 }
 

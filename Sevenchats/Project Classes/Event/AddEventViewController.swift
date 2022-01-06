@@ -31,7 +31,13 @@ class AddEventViewController: ParentViewController {
     @IBOutlet weak var viewSelectGroup : UIView!
     @IBOutlet weak var clGroupFriend : UICollectionView!
     
-    @IBOutlet weak var txtViewContent : GenericTextView!
+    @IBOutlet weak var txtViewContent : GenericTextView!{
+        didSet{
+            self.txtViewContent.txtDelegate = self
+            self.txtViewContent.isScrollEnabled = true
+            self.txtViewContent.textLimit = "150"
+        }
+    }
     @IBOutlet weak var txtEventTitle : MIGenericTextFiled!
    // @IBOutlet weak var txtCategory : MIGenericTextFiled!
     @IBOutlet weak var txtAgeLimit : MIGenericTextFiled!
@@ -104,43 +110,11 @@ class AddEventViewController: ParentViewController {
             let objArry = arrCategory.filter({ (obj) -> Bool in
                 return ((obj[CCategoryName] as? String) == item)
             })
-            
-//            if (objArry.count > 0) {
-//                self.categoryID = (objArry.first?[CId] as? Int) ?? 0
-//            }
             if (objArry.count > 0) {
                 self.categoryName = (objArry.first?[CCategoryName] as? String) ?? ""
             }
             
-           // self.loadInterestList(interestType : self.categoryName ?? "" , showLoader : true)
         }
-        /// On select text from the auto-complition
-//        subcategoryDropDownView.onSelectText = { [weak self] (item) in
-//
-//            guard let `self` = self else { return }
-//
-//            let objArry = self.arrSubCategory.filter({ (obj) -> Bool in
-//                return ((obj[CinterestLevel2] as? String) == item)
-//            })
-//
-//            if (objArry.count > 0) {
-//                self.categorysubName = (objArry.first?[CinterestLevel2] as? String) ?? ""
-//            }
-//        }
-
-        /// On select text from the auto-complition
-//        subcategoryDropDownView.onSelectText = { [weak self] (item) in
-//
-//            guard let `self` = self else { return }
-//
-//            let objArry = self.arrsubCategorys.filter({ (obj) -> Bool in
-//                return ((obj.interestLevel2) == item)
-//            })
-//
-//            if (objArry.count > 0) {
-//                self.categorysubName = (objArry.first?.interestLevel2) ?? ""
-//            }
-//        }
         
         txtEventStartDate.setDatePickerMode(mode: .dateAndTime)
         txtEventStartDate.setMinimumDate(minDate: Date())
@@ -166,30 +140,15 @@ class AddEventViewController: ParentViewController {
         }
      
         let arrInviteType = [CPostPostsInviteGroups, CPostPostsInviteContacts,  CPostPostsInvitePublic, CPostPostsInviteAllFriends]
-        
-//        txtInviteType.setPickerData(arrPickerData: arrInviteType, selectedPickerDataHandler: { [weak self] (text, row, component) in
-//            guard let self = self else { return }
-//            self.selectedInviteType = (row + 1)
-//            }, defaultPlaceholder: CPostPostsInvitePublic)
-        
         // By default `All type` selected
         self.selectedInviteType = 4
         
-//        txtAgeLimit.textLimit = 3
     }
     
     func updateUIAccordingToLanguage(){
         
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
-            // Reverse Flow...
-           
-//            btnSelectGroupFriend.contentHorizontalAlignment = .right
-//            clGroupFriend.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         }else{
-            // Normal Flow...
-            
-//            btnSelectGroupFriend.contentHorizontalAlignment = .left
-//            clGroupFriend.transform = CGAffineTransform.identity
         }
         
         if eventType == .editEvent{
@@ -197,19 +156,14 @@ class AddEventViewController: ParentViewController {
         }else{
             self.title = CNavAddEvent
         }
-//        txtInviteType.placeHolder = CVisiblity
         
         lblUploadImage.text = CUploadImage
         txtEventTitle.placeHolder = CEventPlaceholderTitle
         categoryDropDownView.txtCategory.placeholder = CEventPlaceholderSelecetCategory
-//        subcategoryDropDownView.txtCategory.placeholder = CEventPlaceholderSelecetCategory
         txtViewContent.placeHolder = CEventPlaceholderContent
-//        txtAgeLimit.placeHolder = CPostPlaceholderMinAge
         txtEventStartDate.placeHolder = CEventPlaceholderStartDateTime
         txtEventEndDate.placeHolder = CEventPlaceholderEndDateTime
         txtLocation.placeholder = CEventPlaceholderLocation
-        
-//        btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
     }
     
 }
@@ -242,27 +196,6 @@ extension AddEventViewController{
       
         //...Set invite type
         self.selectedInviteType = eventInfo.valueForInt(key: CPublish_To) ?? 3
-
-//        switch self.selectedInviteType {
-//        case 1:
-//            if let arrInvitee = eventInfo[CInvite_Groups] as? [[String : Any]]{
-//                arrSelectedGroupFriends = arrInvitee
-//            }
-//        case 2:
-//            if let arrInvitee = eventInfo[CInvite_Friend] as? [[String : Any]]{
-//                arrSelectedGroupFriends = arrInvitee
-//            }
-//        default:
-//            break
-//        }
-//
-//        if arrSelectedGroupFriends.count > 0{
-//            self.clGroupFriend.reloadData()
-////            self.clGroupFriend.isHidden = false
-////            btnAddMoreFriends.isHidden = false
-//            self.btnSelectGroupFriend.isHidden = true
-//        }
-        
         GCDMainThread.async {
             for txtInfo in self.scrollViewContainer.subviews{
                 if let textInfo = txtInfo as? MIGenericTextFiled {
@@ -292,16 +225,6 @@ extension AddEventViewController{
         apiPara[CEvent_End_Date] = DateFormatter.shared().convertDateIntoGMTDate(dateToConvert: txtEventEndDate.text, formate: CDateFormat)
         
         apiPara[CPublish_To] = self.selectedInviteType
-//        if self.selectedInviteType == 1{
-//            // For group...
-//            let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-//            apiPara[CGroup_Ids] = groupIDS
-//        }else if self.selectedInviteType == 2{
-//            // For Contact...
-//            let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-//            apiPara[CInvite_Ids] = userIDS
-//        }
-        
         // When user editing the article....
         if eventType == .editEvent{
             apiPara[CId] = eventID
@@ -372,53 +295,6 @@ extension AddEventViewController{
                         MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:"post_point",type:CPostcreate,title:"Event Add",name:name,icon:image)
                     }
                 }
-                
-//                if self.eventType == .editEvent {
-//                    for vwController in (self.navigationController?.viewControllers)! {
-//                        if vwController.isKind(of: EventListViewController.classForCoder()) {
-//
-//                            //...Redirect on event list screen when come from event flow
-//                            let eventVC = vwController as? EventListViewController
-//                            eventVC?.currentPage = 1
-//                            eventVC?.calendar.select(Date())
-//                            eventVC?.loadEventList(showLoader: false)
-//                            self.navigationController?.popToViewController(eventVC!, animated: true)
-//                            break
-//
-//                        } else if vwController.isKind(of: HomeViewController.classForCoder()) {
-//
-//                            //...Redirect on Home list screen when come from Home flow
-//                            let homeVC = vwController as? HomeViewController
-//                            self.navigationController?.popToViewController(homeVC!, animated: true)
-//                            break
-//
-//                        } else if vwController.isKind(of: MyProfileViewController.classForCoder()) {
-//
-//                            //...Redirect on My Profile screen when come from My Profile flow
-//                            let profileVC = vwController as? MyProfileViewController
-//                            self.navigationController?.popToViewController(profileVC!, animated: true)
-//                            break
-//                        }
-//                    }
-//                } else {
-//
-//                    for vwController in (self.navigationController?.viewControllers)! {
-//                        if vwController.isKind(of: EventListViewController.classForCoder()) {
-//                            let eventVC = vwController as? EventListViewController
-//                            eventVC?.currentPage = 1
-////                            eventVC?.loadEventDatesFromServer()
-//                         //   eventVC?.calendar.select(Date().)
-//
-//                            print("Selected DAte : ",DateFormatter.shared().string(fromDate: (eventVC?.calendar.selectedDate!)!, dateFormat: "dd MMM yyyy"))
-//                            eventVC?.loadEventList(showLoader: false)
-//                            break
-//                        }
-//                    }
-//
-//                    self.navigationController?.popViewController(animated: true)
-//                }
-             
-                
                 self.navigationController?.popViewController(animated: true)
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.eventType == .editEvent ? CMessageEventPostUpdated : CMessageEventPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
                
@@ -454,48 +330,6 @@ extension AddEventViewController{
                 }
             }
         }
-        
-    
-    func removeEventImage() {
-//        APIRequest.shared().removePostImage(postID: self.eventID) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil {
-//                self.isApiEventImage = false
-//                self.viewUploadedImageContainer.isHidden = true
-//                self.viewAddImageContainer.isHidden = false
-//                self.imgEvent.image = nil
-//                if let eventInfo = response![CJsonData] as? [String : Any]{
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(eventInfo, self.eventID, self, .editPost)
-//                }
-//            }
-//        }
-    }
-   
-    
-//    func loadInterestList(interestType : String, showLoader : Bool) {
-//
-//        if apiTask?.state == URLSessionTask.State.running {
-//            return
-//        }
-//        guard let langName = appDelegate.loginUser?.lang_name else {return}
-//
-//        apiTask = APIRequest.shared().getInterestSubListNew(langName : langName,interestType:interestType, page: currentPage, showLoader : showLoader) { (response, error) in
-//            self.arrsubCategorys.removeAll()
-//            if response != nil && error == nil {
-//                if let arrData = response![CJsonData] as? [[String : Any]]
-//                {
-//                    for obj in arrData{
-//                        self.arrsubCategorys.append(MDLIntrestSubCategory(fromDictionary: obj))
-//                    }
-//
-//                    self.subcategoryDropDownView.arrDataSource = self.arrsubCategorys.map({ (obj) -> String in
-//                        return (obj.interestLevel2 ?? "")
-//                    })
-//
-//                }
-//            }
-//        }
-//    }
 }
 
 // MARK:- --------- UICollectionView Delegate/Datasources
@@ -609,7 +443,7 @@ extension AddEventViewController{
         if eventType == .editEvent && self.isApiEventImage {
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeleteImage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](action) in
                 guard let self = self else { return }
-                self.removeEventImage()
+//                self.removeEventImage()
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
        
         } else {
@@ -686,11 +520,6 @@ extension AddEventViewController{
         }else if (txtViewContent.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEventContent, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }
-//        else if (txtAgeLimit.text?.isBlank)! {
-//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePostAgeLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//        }else if ageValue < 13 || ageValue > 999  {
-//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMinumumAgeLimitBetween13To100, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//        }
         else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupEvent, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else if (txtEventStartDate.text?.isBlank)! {
@@ -711,3 +540,13 @@ extension AddEventViewController{
     }
 }
 
+// MARK:-  --------- Generic UITextView Delegate
+extension AddEventViewController: GenericTextViewDelegate{
+    
+    func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
+        
+        if textView == txtViewContent{
+//            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
+        }
+    }
+}

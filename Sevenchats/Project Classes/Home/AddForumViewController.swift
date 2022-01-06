@@ -25,7 +25,13 @@ class AddForumViewController: ParentViewController {
     
     @IBOutlet weak var txtForumTitle : MIGenericTextFiled!
     @IBOutlet weak var txtForumAgeLimit : MIGenericTextFiled!
-    @IBOutlet weak var txtViewForumMessage : GenericTextView!
+    @IBOutlet weak var txtViewForumMessage : GenericTextView!{
+        didSet{
+                self.txtViewForumMessage.txtDelegate = self
+                self.txtViewForumMessage.isScrollEnabled = true
+                self.txtViewForumMessage.textLimit = "150"
+            }
+    }
     @IBOutlet weak var viewSelectGroup : UIView!
     @IBOutlet weak var scrollViewContainer : UIView!
     @IBOutlet private weak var categoryDropDownView: CustomDropDownView!
@@ -551,5 +557,28 @@ extension AddForumViewController{
         }
         return arrCategory
     }
+    
+}
+
+
+// MARK:-  --------- Generic UITextView Delegate
+extension AddForumViewController: GenericTextViewDelegate{
+    
+    func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
+        
+        if textView == txtViewForumMessage{
+//            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
+        }
+    }
+    
+  func genericTextView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText string: String) -> Bool {
+    
+            if textView == txtViewForumMessage{
+                let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
+                let filtered = string.components(separatedBy: cs).joined(separator: "")
+                return (string == filtered)
+            }
+            return true
+        }
     
 }

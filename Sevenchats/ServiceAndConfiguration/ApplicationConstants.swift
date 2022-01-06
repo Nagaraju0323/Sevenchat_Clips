@@ -167,7 +167,9 @@ let CComponentJoinedString          = ", "
 let CWebSiteLink    = "https://beta.sevenchats.com/"
 let PASSWORDALLOWCHAR = "!@#$%ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
 
-let RISTRICTED_CHARACTERS = "!@#$%ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
+let PASSWORDALLOWCHARCHAT = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789‘~!@#$%^&*()-_+={}[]|\\:;”’<>,.?/"
+let RISTRICTED_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890‘~!@#^&-_+=[]|/:;<>,.?"
+var passwordRegex = "^[A-Za-z0-9 !\"#$%&'()*+,-./:;<=>?@\\[\\\\\\]^_`{|}~].{8,}$"
 
 //MARK:- Google Client ID and Place Picker Key
 

@@ -33,7 +33,13 @@ class AddPollViewController: ParentViewController {
     @IBOutlet private weak var categoryDropDownView: CustomDropDownView!
 //    @IBOutlet private weak var subcategoryDropDownView: CustomDropDownView!
     
-    @IBOutlet var txtQuestion : GenericTextView!
+    @IBOutlet var txtQuestion : GenericTextView!{
+        didSet{
+            self.txtQuestion.txtDelegate = self
+            self.txtQuestion.isScrollEnabled = true
+            self.txtQuestion.textLimit = "150"
+        }
+    }
     
     @IBOutlet var tblAddQuestion : UITableView!
     @IBOutlet var cntTblAddQuestionHeight : NSLayoutConstraint!
@@ -601,4 +607,16 @@ extension AddPollViewController{
         
     }
     
+}
+
+
+// MARK:-  --------- Generic UITextView Delegate
+extension AddPollViewController: GenericTextViewDelegate{
+    
+    func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
+        
+        if textView == txtQuestion{
+//            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
+        }
+    }
 }
