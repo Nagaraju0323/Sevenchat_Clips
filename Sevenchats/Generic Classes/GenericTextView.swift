@@ -239,17 +239,21 @@ class GenericTextView: UITextView, UITextViewDelegate {
         }
     }
     
+ 
+  
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
 
         if txtDelegate != nil {
             _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
         }
-        
         // Check text limit here....
         if textLimit != nil {
             if textLimit?.toInt != 0 && !(textLimit?.isBlank)! {
                 return textView.text.count + (text.count - range.length) <= (textLimit?.toInt)!
             }
+            let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
+            let filtered = text.components(separatedBy: cs).joined(separator: "")
+            return (text == filtered)
         }
         
         return true

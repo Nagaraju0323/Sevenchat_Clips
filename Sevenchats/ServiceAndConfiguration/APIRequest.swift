@@ -255,6 +255,7 @@ let CAPITagSaveProfileImg = "users/saveprofile"
 let CAPITagFeedback = "feedbacks/add"
 let CAPITagFavWebsites = "websites/all"
 let CAPITagFavWebsitesNew = "websites/user/"
+let CAPITagPSLWebsites = "websites/type/"
 let CAPITagReportUserNew = "reports/add"
 
 let CAPITagarticles = "articles/add"
@@ -4507,14 +4508,14 @@ extension APIRequest {
         if showLoader {
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
-        let apiTag = CAPITagFavWebsitesNew 
-        var para = [String : Any]()
-        para[CPage] = page?.description
-        para[CPer_limit] = CLimitTW
-        para[CType] = type
+        let apiTag = CAPITagPSLWebsites + type!
+//        var para = [String : Any]()
+//        para[CPage] = page?.description
+//        para[CPer_limit] = CLimitTW
+//        para[CType] = type
         
         
-        return Networking.sharedInstance.GETNEWPR(apiTag: apiTag, param: para as AnyObject as? [String : AnyObject], successBlock: { (task, response) in
+        return Networking.sharedInstance.GETNEW(apiTag: apiTag, param: nil, successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWebsitesNew) {

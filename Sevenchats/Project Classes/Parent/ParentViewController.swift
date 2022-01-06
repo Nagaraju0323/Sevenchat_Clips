@@ -9,13 +9,13 @@
 import UIKit
 
 
-class ParentViewController: UIViewController, UIGestureRecognizerDelegate
-{
+class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
     @IBOutlet weak var parentView : UIView!
     
     var imgPickerController : UIImagePickerController? = UIImagePickerController()
     var isNavigateFromSidePanel : Bool = false
     var iObject : Any?
+  
     
     private var shadowImageView: UIImageView?
 

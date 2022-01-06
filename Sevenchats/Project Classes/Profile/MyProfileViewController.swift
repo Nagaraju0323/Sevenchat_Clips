@@ -322,45 +322,11 @@ extension MyProfileViewController{
                            }
                        }
                        
-   //                    let data = response!["post_listing"] as! [String:Any]
-   //                    if let arrList = data["post"] as? [[String : Any]] {
-   //                        //if let arrList = response![CJsonData] as? [[String : Any]] {
-   //                        // Remove all data here when page number == 1
-   //                        if self.pageNumber == 1 {
-   //                            self.arrPostList.removeAll()
-   //                            self.tblUser.reloadData()
-   //                        }
-   //
-   //                        // Add Data here...
-   //                        if arrList.count > 0 {
-   //                            self.arrPostList = self.arrPostList + arrList
-   //                            self.tblUser.reloadData()
-   //                            self.pageNumber += 1
-   //                        }
-   //                    }
                    }
                }
                
            }
        }
-       
-    
-//    func deletePost(_ postId : Int, _ index : Int, _ postType : String) {
-//        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-//            APIRequest.shared().deletePostNew(postID: postId, apiKeyCall: postType, completion: { [weak self](response, error) in
-//                guard let self = self else { return }
-//                if response != nil && error == nil{
-//                    self.arrPostList.remove(at: index)
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, postId, self, .deletePost)
-//                    UIView.performWithoutAnimation {
-//                        self.tblUser.reloadData()
-//                    }
-//                }
-//            })
-//        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-//    }
- 
-   //NEW:- NEW Delete Code
     func deletePostNew(_ postId : Int, _ index : Int, _ postType : [String : Any]) {
            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: {_ in
            
@@ -487,18 +453,6 @@ extension MyProfileViewController{
                })
                
            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-   //       self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-   //            APIRequest.shared().deletePostNew(postID: postId, apiKeyCall: postType, completion: { [weak self](response, error) in
-   //                guard let self = self else { return }
-   //                if response != nil && error == nil{
-   //                    self.arrPostList.remove(at: index)
-   //                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, postId, self, .deletePost)
-   //                    UIView.performWithoutAnimation {
-   //                        self.tblUser.reloadData()
-   //                    }
-   //                }
-   //            })
-   //        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
        }
        
     
@@ -509,22 +463,25 @@ extension MyProfileViewController{
         var dict = [String:Any]()
         dict[CUserId] = userID
         dict[CProfileImage] = profileImgUrl
-        
-        //  keepchange later
+         
         APIRequest.shared().uploadUserProfile(userID: Int(userID), para:dict,profileImgName:profileImgUrl){ [weak self] (response, error) in
             guard let self = self else { return }
             if let _response = response as? [String : AnyObject], error == nil {
+                MILoader.shared.hideLoader()
                 guard let dict = _response.valueForJSON(key: CJsonMeta) as? [String : AnyObject] else{
                     return
                 }
+                
                 if let sideMenuVc = appDelegate.sideMenuController.leftViewController as? SideMenuViewController {
                     sideMenuVc.updateUserProfile()
+                    
                 }
-                //  self.redirectOnSuccess(metaData: dict)
+//                DispatchQueue.main.async {
+//                    self.tblUser.reloadData()
+//                }
+                
             }
         }
-        
-        
     }
     
     func uploadCoverPic() {
@@ -538,6 +495,7 @@ extension MyProfileViewController{
         APIRequest.shared().uploadUserCover(dict: dict as [String : AnyObject],coverImage:coverImgUrl) { [weak self] (response, error) in
             guard let self = self else { return }
             if let _response = response as? [String : AnyObject], error == nil {
+                MILoader.shared.hideLoader()
                 guard let dict = _response.valueForJSON(key: CJsonMeta) as? [String : AnyObject] else{
                     return
                 }
@@ -573,34 +531,16 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
             if let cell = tableView.dequeueReusableCell(withIdentifier: "MyProfileHeaderTblCell", for: indexPath) as? MyProfileHeaderTblCell {
                 
                 cell.cellConfigureProfileDetail()
-//                cell.btnUserProfileStatus.touchUpInside { [weak self](sender) in
-//                    //                    self?.presentActivityViewController(mediaData: appDelegate.loginUser?.profile_url, contentTitle: CShareProfileContentMsg)
-//                    
-//                    //                            if self.imgUser.image != nil {
-//                    self?.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: "Basic", btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
-//                        guard let self = self else { return }
-//                    }, btnTwoTitle: "Complete", btnTwoStyle: .default, btnTwoTapped: { [weak self] (action) in
-//                        guard let self = self else { return }
-//                        
-//                    }, btnThreeTitle: "unfriends", btnThreeStyle: .default) { [weak self] (action) in
-//                        guard let self = self else { return }
-//                        
-//                    }
-//                }
                 cell.btnCoverChange.touchUpInside { [weak self](sender) in
                     guard let modileNum = appDelegate.loginUser?.mobile else {return}
-                    //                    self?.presentActivityViewController(mediaData: appDelegate.loginUser?.profile_url, contentTitle: CShareProfileContentMsg)
-                    //                            if self.imgUser.image != nil {
                     self?.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
                         guard let self = self else { return }
                         
                         self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
                             guard let self = self else { return }
                             if image != nil{
-                                //                                            self.uploadedImg = true
-                                //                                            self.imgEditIcon.isHidden = false
-                                //                                            self.imgUser.image = image
                                 cell.imgCover.image = image
+                                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
                                 
                                 guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {return}
                                 self.imgName = imageURL.absoluteString ?? ""
@@ -634,6 +574,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                                     self.coverImgUrl = message
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                                         self.uploadCoverPic()
+                                        
                                     })
                                 }
                                 
@@ -641,23 +582,8 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         })
                     }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
                         guard let self = self else { return }
-                        //                                    self.imgUser.image = nil
-                        //                                    self.imgEditIcon.isHidden = true
-                        //                                    self.uploadProfilePic()
                         cell.imgCover.image = nil
                     }
-                    
-                    //                            } else {
-                    //                                self.presentImagePickerController(allowEditing: true) { [weak self](image, info) in
-                    //                                    guard let self = self else { return }
-                    //                                    if image != nil{
-                    //                                        self.uploadedImg = true
-                    //                                        self.imgEditIcon.isHidden = false
-                    //                                        self.imgUser.image = image
-                    //                                    }
-                    //                                }
-                    //                            }
-                    
                 }
                 cell.btnProfileChange.touchUpInside {[weak self](sender) in
                     guard let modileNum = appDelegate.loginUser?.mobile else {
@@ -671,6 +597,8 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                             guard let self = self else { return }
                             if image != nil{
                                 cell.imgUser.image = image
+                                
+                                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
                                 let userID : Int64 = appDelegate.loginUser?.user_id ?? 0
                                 guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {return}
                                 self.imgName = imageURL.absoluteString ?? ""
@@ -682,21 +610,6 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                                         self.uploadProfilePic()
                                     })
                                 }
-                                
-                                /*keep change later
-                                 APIRequest.shared().uploadUserProfile(userID: Int(userID), imgProfile: cell.imgUser.image) { [weak self] (response, error) in
-                                 guard let self = self else { return }
-                                 if let _response = response as? [String : AnyObject], error == nil {
-                                 guard let dict = _response.valueForJSON(key: CJsonMeta) as? [String : AnyObject] else{
-                                 return
-                                 }
-                                 if let sideMenuVc = appDelegate.sideMenuController.leftViewController as? SideMenuViewController {
-                                 sideMenuVc.updateUserProfile()
-                                 }
-                                 // self.redirectOnSuccess(metaData: dict)
-                                 }
-                                 }*/
-                                
                             }
                         })
                         
@@ -713,109 +626,13 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.imgUser.image = nil
                     }
                 }
-                
-                
-                /* cell.btnCoverChange.touchUpInside { [weak self](sender) in
-                 //                    self?.presentActivityViewController(mediaData: appDelegate.loginUser?.profile_url, contentTitle: CShareProfileContentMsg)
-                 
-                 
-                 //                            if self.imgUser.image != nil {
-                 self?.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
-                 guard let self = self else { return }
-                 
-                 self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-                 guard let self = self else { return }
-                 if image != nil{
-                 //                                            self.uploadedImg = true
-                 //                                            self.imgEditIcon.isHidden = false
-                 //                                            self.imgUser.image = image
-                 cell.imgCover.image = image
-                 }
-                 })
-                 
-                 }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default, btnTwoTapped: { [weak self] (action) in
-                 guard let self = self else { return }
-                 self.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-                 guard let self = self else { return }
-                 if image != nil{
-                 //                                            self.uploadedImg = true
-                 //                                            self.imgEditIcon.isHidden = false
-                 //                                            self.imgUser.image = image
-                 cell.imgCover.image = image
-                 }
-                 })
-                 }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
-                 guard let self = self else { return }
-                 //                                    self.imgUser.image = nil
-                 //                                    self.imgEditIcon.isHidden = true
-                 //                                    self.uploadProfilePic()
-                 cell.imgCover.image = nil
-                 }
-                 
-                 //                            } else {
-                 //                                self.presentImagePickerController(allowEditing: true) { [weak self](image, info) in
-                 //                                    guard let self = self else { return }
-                 //                                    if image != nil{
-                 //                                        self.uploadedImg = true
-                 //                                        self.imgEditIcon.isHidden = false
-                 //                                        self.imgUser.image = image
-                 //                                    }
-                 //                                }
-                 //                            }
-                 
-                 }
-                 cell.btnProfileChange.touchUpInside {[weak self](sender) in
-                 self?.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
-                 guard let self = self else { return }
-                 
-                 self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-                 guard let self = self else { return }
-                 if image != nil{
-                 cell.imgUser.image = image
-                 let userID : Int64 = appDelegate.loginUser?.user_id ?? 0
-                 /*keep change later
-                 APIRequest.shared().uploadUserProfile(userID: Int(userID), imgProfile: cell.imgUser.image) { [weak self] (response, error) in
-                 guard let self = self else { return }
-                 if let _response = response as? [String : AnyObject], error == nil {
-                 guard let dict = _response.valueForJSON(key: CJsonMeta) as? [String : AnyObject] else{
-                 return
-                 }
-                 if let sideMenuVc = appDelegate.sideMenuController.leftViewController as? SideMenuViewController {
-                 sideMenuVc.updateUserProfile()
-                 }
-                 // self.redirectOnSuccess(metaData: dict)
-                 }
-                 }*/
-                 
-                 }
-                 })
-                 
-                 }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default, btnTwoTapped: { [weak self] (action) in
-                 guard let self = self else { return }
-                 self.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-                 guard let self = self else { return }
-                 if image != nil{
-                 cell.imgUser.image = image
-                 }
-                 })
-                 }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
-                 guard let self = self else { return }
-                 cell.imgUser.image = nil
-                 }
-                 }*/
-                
+
                 cell.onTotalFriendAction = { [weak self] in
                     if let frndVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyFriendsViewController") as? MyFriendsViewController {
                         self?.navigationController?.pushViewController(frndVC, animated: true)
                     }
                 }
-                
-                /*cell.btnTotalFriend.touchUpInside { [weak self](sender) in
-                 if let frndVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyFriendsViewController") as? MyFriendsViewController {
-                 self?.navigationController?.pushViewController(frndVC, animated: true)
-                 }
-                 }*/
-                
+
                 cell.btnViewCompleteProfile.touchUpInside { [weak self](sender) in
                     if let completeVC = CStoryboardProfile.instantiateViewController(withIdentifier: "OtherUserCompleteProfileViewController") as? OtherUserCompleteProfileViewController {
                         completeVC.isLoginUser = true
@@ -824,9 +641,6 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 
                 cell.btnShare.touchUpInside { [weak self](sender) in
-//                    self?.presentActivityViewController(mediaData: appDelegate.loginUser?.profile_url, contentTitle: CShareProfileContentMsg)
-                    
-                    
                     if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController") as? ChatListViewController{
                                        let nav = self?.viewController as? UINavigationController
                                            nav?.pushViewController(userDetailVC, animated: true)
@@ -1678,45 +1492,6 @@ extension MyProfileViewController{
     fileprivate func btnInterestedNotInterestedMayBeCLK(_ type : Int?, _ indexpath : IndexPath?){
         var postInfo = arrPostList[indexpath!.row]
         if type != postInfo.valueForInt(key: CIsInterested){
-            
-            // Update existing count here...
-           /* let totalIntersted = postInfo.valueForInt(key: CTotalInterestedUsers)
-            let totalNotIntersted = postInfo.valueForInt(key: CTotalNotInterestedUsers)
-            let totalMaybe = postInfo.valueForInt(key: CTotalMaybeInterestedUsers)
-            switch postInfo.valueForInt(key: CIsInterested) {
-            case CTypeInterested:
-                postInfo[CTotalInterestedUsers] = totalIntersted! - 1
-                break
-            case CTypeNotInterested:
-                postInfo[CTotalNotInterestedUsers] = totalNotIntersted! - 1
-                break
-            case CTypeMayBeInterested:
-                postInfo[CTotalMaybeInterestedUsers] = totalMaybe! - 1
-                break
-            default:
-                break
-            }
-            postInfo[CIsInterested] = type
-            
-            switch type {
-            case CTypeInterested:
-                postInfo[CTotalInterestedUsers] = totalIntersted! + 1
-                break
-            case CTypeNotInterested:
-                postInfo[CTotalNotInterestedUsers] = totalNotIntersted! + 1
-                break
-            case CTypeMayBeInterested:
-                postInfo[CTotalMaybeInterestedUsers] = totalMaybe! + 1
-                break
-            default:
-                break
-            }
-            var postId = postInfo.valueForInt(key: CId)
-            let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
-            if isSharedPost == 1{
-                postId = postInfo[COriginalPostId] as? Int ?? 0
-            }*/
-            //MARK:- NEW
                        let totalIntersted = postInfo.valueForString(key: "yes_count")
                        let totalNotIntersted = postInfo.valueForString(key:"no_count")
                        let totalMaybe = postInfo.valueForString(key: "maybe_count")
@@ -1753,9 +1528,6 @@ extension MyProfileViewController{
                        //var postId = postInfo.valueForInt(key: CId)
             let postId = postInfo.valueForString(key: "post_id")
             _ = postInfo.valueForInt(key: CIsSharedPost)
-           //            if isSharedPost == 1{
-           //                postId = postInfo[COriginalPostId] as? Int ?? 0
-           //            }
             MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
             
             arrPostList.remove(at: (indexpath?.row)!)
@@ -1811,71 +1583,6 @@ extension MyProfileViewController{
                 self.deletePostNew(postId.toInt ?? 0, index ?? 0, postInfo)
                 
             }
-            
-            
-            
-            
-//            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { (alert) in
-//                switch postInfo.valueForString(key: CPostTypeNew){
-//                case CStaticArticleIdNew:
-//                    if let addArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddArticleViewController") as? AddArticleViewController{
-//                        addArticleVC.articleType = .editArticle
-//                        addArticleVC.articleID = postId.toInt
-//                        self.navigationController?.pushViewController(addArticleVC, animated: true)
-//                    }
-//                case CStaticGalleryIdNew:
-//                    /*if let galleyVC = CStoryboardImage.instantiateViewController(withIdentifier: "GalleryPreviewViewController") as? GalleryPreviewViewController{
-//                     galleyVC.imagePostType = .editImagePost
-//                     galleyVC.imgPostId = postId
-//                     self.navigationController?.pushViewController(galleyVC, animated: true)
-//                     }*/
-//                    if let galleryListVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddMediaViewController") as? AddMediaViewController{
-//                        galleryListVC.imagePostType = .editImagePost
-//                        galleryListVC.imgPostId = postId.toInt
-//                        self.navigationController?.pushViewController(galleryListVC, animated: true)
-//                    }
-//                case CStaticChirpyIdNew:
-//                    if let addChirpyVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddChirpyViewController") as? AddChirpyViewController{
-//                        addChirpyVC.chirpyType = .editChirpy
-//                        addChirpyVC.chirpyID = postId.toInt
-//                        self.navigationController?.pushViewController(addChirpyVC, animated: true)
-//                    }
-//                case CStaticShoutIdNew:
-//                    if let createShoutsVC = CStoryboardHome.instantiateViewController(withIdentifier: "CreateShoutsViewController") as? CreateShoutsViewController{
-//                        createShoutsVC.shoutsType = .editShouts
-//                        createShoutsVC.shoutID = postId.toInt
-//                        self.navigationController?.pushViewController(createShoutsVC, animated: true)
-//                    }
-//
-//                case CStaticForumIdNew:
-//                    if let addForumVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddForumViewController") as? AddForumViewController{
-//                        addForumVC.forumType = .editForum
-//                        addForumVC.forumID = postId.toInt
-//                        self.navigationController?.pushViewController(addForumVC, animated: true)
-//                    }
-//
-//                case CStaticEventIdNew:
-//                    if let addEventVC = CStoryboardEvent.instantiateViewController(withIdentifier: "AddEventViewController") as? AddEventViewController{
-//                        addEventVC.eventType = .editEvent
-//                        addEventVC.eventID = postId.toInt
-//                        self.navigationController?.pushViewController(addEventVC, animated: true)
-//                    }
-//                case CStaticPollIdNew: // Poll Cell....
-//                    if let viewArticleVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
-//                        viewArticleVC.pollID = postId.toInt
-//                        self.navigationController?.pushViewController(viewArticleVC, animated: true)
-//                    }
-//                    break
-//
-//                default:
-//                    break
-//                }
-//
-//            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { (alert) in
-//               // self.deletePost(postId.toInt!, index!, postType)
-//                self.deletePostNew(postId.toInt ?? 0, index ?? 0, postInfo)
-//            }
-            
         }
     }
     

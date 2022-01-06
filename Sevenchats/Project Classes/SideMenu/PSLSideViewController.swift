@@ -9,7 +9,7 @@
 import UIKit
 
 class PSLSideViewController: ParentViewController {
-
+    
     @IBOutlet fileprivate weak var collNewCategory : UICollectionView!
     @IBOutlet fileprivate weak var tblNews : UITableView! {
         didSet {
@@ -21,13 +21,13 @@ class PSLSideViewController: ParentViewController {
     @IBOutlet fileprivate weak var cnImgVTopBgHeight : NSLayoutConstraint!
     @IBOutlet fileprivate weak var activityLoader : UIActivityIndicatorView!
     @IBOutlet fileprivate weak var lblNoData : UILabel!
-
+    
     var arrNewsCategory = [TblPslCategory]()
     var arrNews = [[String : Any]]()
     var arrNewsSGovt = [MDLPslCategory]()
     var arrNewsCGovt = [MDLPslCategory]()
     var arrNewsNgo = [MDLPslCategory]()
-
+    
     var selectedCateIndexPath = IndexPath(item: 0, section: 0)
     var apiTask : URLSessionTask?
     var refreshControl = UIRefreshControl()
@@ -93,7 +93,6 @@ extension PSLSideViewController {
             refreshControl.endRefreshing()
             return
         }
-        self.pageNumber = 1
         refreshControl.beginRefreshing()
         self.loadNewsListForParticularCategoryFromServer(categoryID: (arrNewsCategory[selectedCateIndexPath.row].category_name ?? ""), isShowLoader: false)
     }
@@ -103,59 +102,61 @@ extension PSLSideViewController {
         if apiTask?.state == URLSessionTask.State.running {
             return
         }
-//        if isShowLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
-//        }
-        
-        if self.pageNumber > 2 {
-            self.tblNews.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-        }else{
-            self.tblNews.tableFooterView = nil
+        if isShowLoader{
+            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
         }
+        
         guard let userID = appDelegate.loginUser?.user_id else {return}
         
-        apiTask = APIRequest.shared().getPSLList(page: pageNumber, type: "PSL", showLoader: isShowLoader,userId:userID.description){ [weak self] (response, error) in
-            guard let self = self else { return }
-            if response != nil{
-                //                self.arrFavWebSite.removeAll()
-                self.refreshControl.endRefreshing()
-                self.tblNews.tableFooterView = nil
-               
-                if let webarrList = response![CWebsites] as? [String:Any]{
-                    let arrList = webarrList["favourite_websites"] as? [[String : Any]] ?? []
-                    if self.pageNumber == 1{
-                        self.arrNews.removeAll()
+        var reqType = 0
+        switch selectedCateIndexPath.item {
+        case 0:
+            reqType = 0
+        case 1:
+            reqType = 1
+        default:
+            reqType = 2
+        }
+        apiTask = APIRequest.shared().getPSLList(page: pageNumber, type: "PSL", showLoader: isShowLoader,userId:userID.description, completion: { (response, error) in
+            MILoader.shared.hideLoader()
+            self.apiTask?.cancel()
+            self.refreshControl.endRefreshing()
+            self.activityLoader.stopAnimating()
+            
+            if response != nil && error == nil {
+                if let arrData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
+                    if reqType == 0 {
+                        self.arrNewsCGovt.removeAll()
+                        for Cgovt in arrData{
+                            
+                            if "Central Government" == Cgovt["category_name"] as? String ?? ""{
+                                self.arrNewsCGovt.append(MDLPslCategory.init(favourite_website_title: Cgovt["favourite_website_title"] as? String ?? "", category_name: Cgovt["category_name"] as? String ?? "", favourite_website_url: Cgovt["favourite_website_url"] as? String ?? "", description: Cgovt["description"] as? String ?? ""))
+                            }
+                        }
                     }
-                    self.isLoadMoreCompleted = arrList.isEmpty
-                    // Add Data here...
-                    if arrList.count > 0{
-                        self.arrNews = self.arrNews + arrList
-                        self.pageNumber += 1
+                    
+                    if reqType == 1 {
+                        self.arrNewsNgo.removeAll()
+                        for Ngo in arrData{
+                            if "Ngo" == Ngo["category_name"] as? String ?? ""{
+                                self.arrNewsNgo.append(MDLPslCategory.init(favourite_website_title: Ngo["favourite_website_title"] as? String ?? "", category_name: Ngo["category_name"] as? String ?? "", favourite_website_url: Ngo["favourite_website_url"] as? String ?? "", description: Ngo["description"] as? String ?? ""))
+                            }
+                        }
                     }
-                    DispatchQueue.main.async {
-                        self.tblNews.reloadData()
+                    
+                    if reqType == 2 {
+                        self.arrNewsSGovt.removeAll()
+                        for Sgovt in arrData{
+                            if "State Government" == Sgovt["category_name"] as? String ?? ""{
+                                self.arrNewsSGovt.append(MDLPslCategory.init(favourite_website_title: Sgovt["favourite_website_title"] as? String ?? "", category_name: Sgovt["category_name"] as? String ?? "", favourite_website_url: Sgovt["favourite_website_url"] as? String ?? "", description: Sgovt["description"] as? String ?? ""))
+                            }
+                        }
                     }
                 }
+                self.tblNews.reloadData()
+                self.lblNoData.isHidden = self.arrNewsSGovt.count > 0
             }
-        }
-        
-//
-//        {(response, error) in
-//            MILoader.shared.hideLoader()
-//            self.apiTask?.cancel()
-//            self.refreshControl.endRefreshing()
-//            self.activityLoader.stopAnimating()
-//
-//            if response != nil && error == nil {
-//                if let arrData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
-//                    self.arrNews.removeAll()
-//                    self.arrNews = arrData
-//                }
-//                self.tblNews.reloadData()
-//                self.lblNoData.isHidden = self.arrNews.count > 0
-//            }
-//        }
-//
+        })
     }
     
     fileprivate func shareNews(shareUrl:String) {
@@ -219,44 +220,50 @@ extension PSLSideViewController : UICollectionViewDelegateFlowLayout,UICollectio
 
 extension PSLSideViewController : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrNews.count
+        
+        switch selectedCateIndexPath.item {
+        case 0:
+            return arrNewsCGovt.count
+        case 1:
+            return arrNewsNgo.count
+        default:
+            return arrNewsSGovt.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTblCell") as? NewsTblCell {
-            
-            let newsInfo = arrNews[indexPath.row]
-            print("isSeletedCtg\(isSeletedCtg)")
-            
-//            if arrNewsCategory[selectedCateIndexPath.row].category_name ?? "" == newsInfo.valueForString(key: "category_name"){
-                cell.lblTitle.text = newsInfo.valueForString(key: "favourite_website_title")
-                cell.lblDesc.text = newsInfo.valueForString(key: "description")
-                
-                cell.lblProvidedBy.text = "\(CProvidedBy) \(newsInfo.valueForString(key: "source"))"
-                cell.imgVNews.loadImageFromUrl(newsInfo.valueForString(key: "urlToImage"), false)
-                
+            switch selectedCateIndexPath.item {
+            case 0:
+                let  newsInfo = arrNewsCGovt[indexPath.row]
+                cell.lblTitle.text = newsInfo.favourite_website_title
+                cell.lblDesc.text = newsInfo.description
                 cell.btnShare.touchUpInside { [weak self](sender) in
                     guard let self = self else { return }
-                    self.shareNews(shareUrl: newsInfo.valueForString(key: "favourite_website_url"))
-//                }
+                    self.shareNews(shareUrl: newsInfo.favourite_website_url)
+                }
+            case 1:
+                let  newsInfo = arrNewsNgo[indexPath.row]
+                cell.lblTitle.text = newsInfo.favourite_website_title
+                cell.lblDesc.text = newsInfo.description
+                cell.btnShare.touchUpInside { [weak self](sender) in
+                    guard let self = self else { return }
+                    self.shareNews(shareUrl: newsInfo.favourite_website_url)
+                }
+            default:
+                let  newsInfo = arrNewsSGovt[indexPath.row]
+                cell.lblTitle.text = newsInfo.favourite_website_title
+                cell.lblDesc.text = newsInfo.description
+                cell.btnShare.touchUpInside { [weak self](sender) in
+                    guard let self = self else { return }
+                    self.shareNews(shareUrl: newsInfo.favourite_website_url)
+                }
             }
-            
-//            cell.lblTitle.text = newsInfo.valueForString(key: "favourite_website_title")
-//            cell.lblDesc.text = newsInfo.valueForString(key: "description")
-//
-//            cell.lblProvidedBy.text = "\(CProvidedBy) \(newsInfo.valueForString(key: "source"))"
-//            cell.imgVNews.loadImageFromUrl(newsInfo.valueForString(key: "urlToImage"), false)
-//
-//            cell.btnShare.touchUpInside { [weak self](sender) in
-//                guard let self = self else { return }
-//                self.shareNews(shareUrl: newsInfo.valueForString(key: "favourite_website_url"))
-//            }
-            
             cell.lblProvidedBy.isHidden = true
             
             if indexPath == tableView.lastIndexPath() && !self.isLoadMoreCompleted{
-                self.loadNewsListForParticularCategoryFromServer(categoryID: (arrNewsCategory[selectedCateIndexPath.row].category_name ?? ""), isShowLoader: false)
+                //                self.loadNewsListForParticularCategoryFromServer(categoryID: (arrNewsCategory[selectedCateIndexPath.row].category_name ?? ""), isShowLoader: false)
             }
             return cell
         }
@@ -266,13 +273,33 @@ extension PSLSideViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let newsInfo = arrNews[indexPath.row]
         
-        if let newsWebVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "NewsWebViewController") as? NewsWebViewController {
-            newsWebVC.iObject = newsInfo
-            newsWebVC.isPSLwebStire = true
-            
-            self.navigationController?.pushViewController(newsWebVC, animated: true)
+        switch selectedCateIndexPath.item {
+        case 0:
+            let newsInfo = arrNewsCGovt[indexPath.row]
+            if let newsWebVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "NewsWebViewController") as? NewsWebViewController {
+                newsWebVC.pslTitle = newsInfo.favourite_website_title
+                newsWebVC.pslUrl = newsInfo.favourite_website_url
+                newsWebVC.isPSLwebStire = true
+                self.navigationController?.pushViewController(newsWebVC, animated: true)
+            }
+        case 1:
+            let newsInfo = arrNewsNgo[indexPath.row]
+            if let newsWebVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "NewsWebViewController") as? NewsWebViewController {
+                newsWebVC.pslTitle = newsInfo.favourite_website_title
+                newsWebVC.pslUrl = newsInfo.favourite_website_url
+                newsWebVC.isPSLwebStire = true
+                self.navigationController?.pushViewController(newsWebVC, animated: true)
+            }
+        default:
+            let newsInfo = arrNewsSGovt[indexPath.row]
+            if let newsWebVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "NewsWebViewController") as? NewsWebViewController {
+                newsWebVC.pslTitle = newsInfo.favourite_website_title
+                newsWebVC.pslUrl = newsInfo.favourite_website_url
+                newsWebVC.isPSLwebStire = true
+                self.navigationController?.pushViewController(newsWebVC, animated: true)
+            }
         }
     }
 }
+

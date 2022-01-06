@@ -246,6 +246,9 @@ class MIGenericTextFiled: UITextField {
 // MARK:- --------Textfiled Delegate methods
 extension MIGenericTextFiled {
     
+    
+    
+    
     @objc func textFieldDidChange(_ textField : UITextField){
         // Hide show clear button
         self.showHideClearTextButton()
@@ -296,6 +299,7 @@ extension MIGenericTextFiled {
         
         if txtDelegate != nil{
             return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersIn: range, replacementString: string))!
+           
         }
         return true
     }
@@ -304,6 +308,7 @@ extension MIGenericTextFiled {
         
         if txtDelegate != nil{
             return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersIn: range, replacementString: string))!
+            
         }
         return true
     }

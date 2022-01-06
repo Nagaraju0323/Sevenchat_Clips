@@ -70,30 +70,20 @@ class AddEditProductVC: ParentViewController {
     
     var arrCategory : [MDLProductCategory] = []
     var arrCurrency : [MDLCurrencies] = []
-    
     var apiTask : URLSessionTask?
-    
     var countryID : Int?
     var stateID : Int?
     var cityID : Int?
-    
     var countryName:String?
     var stateName : String?
     var cityName : String?
-    
     var categoryID : Int?
     var selectedCurrencyId: Int?
-    
-    
     var categoryName : String?
-    
     var myeditStart:String?
     var isEditMode = false
-    
     var selectedCurrencyName: String?
     var productImgEdit:String?
-    
-    
     var product : MDLProduct?
     fileprivate let lastSellingDateFormate = "yyyy-MM-dd"
     fileprivate let displaySellingDateFormate = "dd MMM, yyyy"
@@ -149,9 +139,7 @@ extension AddEditProductVC {
     
     /// On select text from the auto-complition
     categoryDropDownView.onSelectText = { [weak self] (item) in
-        
-        
-        
+
         guard let `self` = self else { return }
         
         let objArry = arrCategory.filter({ (obj) -> Bool in
@@ -163,8 +151,6 @@ extension AddEditProductVC {
         }
             self.loadInterestList(interestType : self.categoryName ?? "" , showLoader : true)
     }
-        
-        
         /// On select text from the auto-complition
         subcategoryDropDownView.onSelectText = { [weak self] (item) in
 
@@ -189,13 +175,9 @@ extension AddEditProductVC {
         
         self.collVMedia.isConfirmAlertOnDelete = self.isEditMode
         updateUIAccordingToLanguage()
-        
         txtProductDesc.viewBottomLine.backgroundColor = .clear
-        
         txtCurrencyList.text = ""
         self.setCurrenyList()
-//        categoryDropDownView.txtCategory.isEnabled = false
-        
         txtLastDOP.setDatePickerMode(mode: .date)
         txtLastDOP.setMinimumDate(minDate: Date())
         txtLastDOP.setDatePickerWithDateFormate(dateFormate:displaySellingDateFormate, defaultDate: Date(), isPrefilledDate: false) { [weak self] (date) in
@@ -204,9 +186,6 @@ extension AddEditProductVC {
         }
         self.setProductInfo()
         self.getCurrencies()
-//        self.getProductCategory()
-        //        self.addEditProduct()
-        print("isEditing\(isEditing)")
         
     }
     
@@ -231,9 +210,6 @@ extension AddEditProductVC {
         let strDate = formatter.date(from: myString)
         formatter.dateFormat = displaySellingDateFormate
         self.txtLastDOP.text = formatter.string(from: strDate!)
-        
-        //formatter.dateFormat = lastSellingDateFormate
-        //self.strSellingDate = formatter.string(from: strDate!)
         self.strSellingDate = DateFormatter.dateStringFrom(timestamp: date.timeIntervalSince1970, withFormate: lastSellingDateFormate)
     }
     
@@ -253,10 +229,6 @@ extension AddEditProductVC {
         
         lblMax5MediaUpload.text = CMax5MediaAllowedOf50MBEach
         lblAboutProduct.text = CAboutProduct
-        /*lblPaymentMode.text = CPaymentMode
-         lblOfflinePayment.text = COfflinePayment
-         lblOnlinePayment.text = COnlinePayment*/
-        
         categoryDropDownView.txtCategory.placeholder = CSelectProductCategory
         subcategoryDropDownView.txtCategory.placeholder = CSelectsubProductCategory
         txtProductTitle.placeHolder = CProductTitle
@@ -264,20 +236,13 @@ extension AddEditProductVC {
         txtProductDesc.placeHolder = CProductDescription
         txtProductPrice.placeHolder = CProductPrice
         txtLastDOP.placeHolder = CLastDateOfProductSelling
-//        txtLocation.placeHolder = CLocation
         txtLocation.placeholder = CEventPlaceholderLocation
         txtProductPrice.textLimit = 15
         txtProductDesc.textLimit = "1500"
         lblTextLimit.text = "0/\(txtProductDesc.textLimit ?? "0")"
-        
         txtCountrys.placeHolder = CCountryPlaceholder
         txtStates.placeHolder = CStatePlaceholder
         txtCitys.placeHolder = CCityPlaceholder
-        
-        //onOnlineOfflinePayment(btnRadioOffline)
-        
-        //btnLinkToPayment.setTitle(CLinkToPayment, for: .normal)
-        
         configTermsAndConditionLabel()
         
         loadCountryList()
@@ -346,21 +311,6 @@ extension AddEditProductVC {
             
             txtCountrys.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (select, index, component) in
                 guard let self = self else { return }
-                /*Oldcode by Mi
-                 let dict = arrCountry![index] as AnyObject
-                 let countryID = dict.value(forKey: CCountry_id) as? Int
-                 if countryID != self.countryID{
-                 self.countryID = dict.value(forKey: CCountry_id) as? Int
-                 self.txtStates.text = ""
-                 self.txtCitys.text = ""
-                 self.stateID = nil
-                 self.cityID = nil
-                 self.txtStates.isEnabled = false
-                 self.txtCitys.isEnabled = false
-                 self.showHideCountryStateCityFileds()
-                 self.loadStateList()
-                 }*/
-                
                 let dict = arrCountry![index] as AnyObject
                 let countryName = dict.value(forKey: CCountryName) as? String
                 if countryName != self.countryName {
@@ -384,16 +334,6 @@ extension AddEditProductVC {
             let states = arrState.compactMap({$0.stateName})
             self.txtStates.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
                 guard let self = self else {return}
-                /*Oldcode by Mi
-                 if arrState[row].stateId != self.stateID{
-                 self.stateID = arrState[row].stateId
-                 self.txtCitys.isEnabled = false
-                 self.txtCitys.text = ""
-                 self.showHideCountryStateCityFileds()
-                 self.loadCityList()
-                 }
-                 */
-                
                 if arrState[row].stateName != self.stateName{
                     self.stateName = arrState[row].stateName
                     self.txtCitys.isEnabled = false
@@ -410,9 +350,6 @@ extension AddEditProductVC {
         //...Load country list from server
         let timestamp : TimeInterval = 0
         
-        /*Oldcode by Mi
-         apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryID ?? 0) { [weak self] (response, error) in
-         */
         apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryName ?? "") { [weak self] (response, error) in
             guard let self = self else {return}
             if response != nil && error == nil {
@@ -447,11 +384,7 @@ extension AddEditProductVC {
             let states = arrCity.compactMap({$0.cityName})
             self.txtCitys.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
                 guard let self = self else {return}
-                /*Oldcode by Mi
-                 self.cityID = arrCity[row].cityId
-                 */
                 self.cityName = arrCity[row].cityName
-                //self.showHideCountryStateCityFileds()
             }, defaultPlaceholder: "")
         }
         if apiTask?.state == URLSessionTask.State.running && isCancelTask {
@@ -459,8 +392,6 @@ extension AddEditProductVC {
         }
         //...Load country list from server
         let timestamp : TimeInterval = 0
-        //Oldcode by Mi
-        //        apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateID ?? 0) { [weak self] (response, error) in
         apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateName ?? "") { [weak self] (response, error) in
             guard let self = self else {return}
             if response != nil && error == nil {
@@ -546,14 +477,7 @@ extension AddEditProductVC {
         self.setDate(date: date)
         self.availableStatus = _product.productState
         self.prouductID = _product.productID ?? ""
-        
-        /*if _product.paymentType == .Offline{
-         self.onOnlineOfflinePayment(btnRadioOffline)
-         }else{
-         self.onOnlineOfflinePayment(btnRadioOnline)
-         }*/
         let productimage = _product.galleyimagesArray as? String
-        
         self.productImgEdit = productimage
         self.collVMedia.arrMedia = _product.galleryImages
         self.collVMedia.reloadData()
@@ -606,28 +530,10 @@ extension AddEditProductVC {
             displayAlertMessage(meesage:CBlankProductPrice)
             return false
         }
-//        if (self.selectedCurrencyName ?? "").trim.isEmpty {
-//            displayAlertMessage(meesage:CBlankProductCurrencyPrice)
-//            return false
-//        }
         if (txtLastDOP.text ?? "").trim.isEmpty {
             displayAlertMessage(meesage:CBlankLastDateOfProductSelling)
             return false
         }
-        
-        //        if !(txtCountrys.superview?.isHidden ?? true) && (countryID ?? 0) == 0{
-        //            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankCountry, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        //            return false
-        //        }
-        //        if !(txtStates.superview?.isHidden ?? true) && (stateID ?? 0) == 0{
-        //            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankState, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        //            return false
-        //        }
-        //        if !(txtCitys.superview?.isHidden ?? true) && (cityID ?? 0) == 0{
-        //            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankCity, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        //            return false
-        //        }
-        
         if (txtLocation.text ?? "").trim.isEmpty {
             displayAlertMessage(meesage:CBlankProductLocation)
             return false
@@ -642,23 +548,6 @@ extension AddEditProductVC {
     /// On tap on payment button
     /// - Parameter sender: btnPayment
     @IBAction func onOnlineOfflinePayment(_ sender : UIButton){
-        /*sender.isSelected = true
-         if self.btnRadioOnline == sender{
-         self.btnRadioOffline.isSelected = false
-         }else{
-         self.btnRadioOnline.isSelected = false
-         }
-         DispatchQueue.main.async {
-         UIView.animate(withDuration: 0.3) {
-         if self.btnRadioOnline.isSelected{
-         self.vwLinkPayment.alpha = 1
-         self.vwLinkPayment.isHidden = false
-         }else{
-         self.vwLinkPayment.alpha = 0
-         self.vwLinkPayment.isHidden = true
-         }
-         }
-         }*/
     }
 }
 
@@ -711,8 +600,6 @@ extension AddEditProductVC {
                     }
                     self?.setCurrenyList()
                     if !(self?.arrCurrency.isEmpty ?? true){
-                        //                        self?.txtCurrencyList.text = self?.arrCurrency[0].currencyName ?? ""
-                        //                        self?.selectedCurrencyId = self?.arrCurrency[0].currencyId ?? nil
                         self?.txtCurrencyList.text = self?.arrCurrency[0].currencyName ?? ""
                         
                     }
@@ -721,159 +608,8 @@ extension AddEditProductVC {
         }
     }
     
-    //    fileprivate func addEditProduct(){
-    //
-    ////        let paymentMode = 1 // for Offile payment mode
-    //        /*if self.btnRadioOnline.isSelected{
-    //            paymentMode = 2 // for Online payment mode
-    //        }*/
-    //        var apiURL = CAddEditProduct
-    //        guard let userID = appDelegate.loginUser?.user_id else { return }
-    //        guard let firstName = appDelegate.loginUser?.first_name else { return }
-    //        guard let lastName = appDelegate.loginUser?.last_name else { return }
-    //        guard let email = appDelegate.loginUser?.email else { return }
-    //
-    //        do {
-    //                    let data = try JSONEncoder().encode(self.collVMedia.arrImagesVideo)
-    //                    let string = String(data: data, encoding: .utf8)!
-    //
-    //                    print("string\(string)")
-    //                    let replaced2 = string.replacingOccurrences(of: "\"{", with: "{")
-    //                    let replaced3 = replaced2.replacingOccurrences(of: "}\"", with: "}")
-    //                    let replaced4 = replaced3.replacingOccurrences(of: "\\/\\/", with: "//")
-    ////                    let replaced5 = replaced3.replacingOccurrences(of: "\\/", with: "/")
-    //
-    //                    ImgName = replaced4
-    //
-    //                } catch { print(error) }
-    //
-    //        if isEdit == true {
-    //
-    //            availableStatus = "yes"
-    //
-    //            let dict1 :[String:Any] = [
-    //                "product_id": prouductID,
-    //                "user_id":"41984096",
-    //                "category_name":categoryDropDownView.txtCategory.text ?? "",
-    //                "product_image":ImgName,
-    //                "product_title":self.txtProductTitle.text?.trim ?? "",
-    //                "description":self.txtProductDesc.text?.trim ?? "",
-    //                "available_status":availableStatus,
-    //                "cost":self.txtProductPrice.text ?? "0",
-    //                "currency_name":self.selectedCurrencyName ?? "",
-    //                "last_date_selling":self.strSellingDate,
-    //                "location":self.txtLocation.text ?? "",
-    //                "city_name":"Vapi",
-    //                "latitude":"60",
-    //                "longitude":"80",
-    //                "status_id":"1"
-    //
-    //            ]
-    //
-    //            var _arrMedia = self.collVMedia.arrMedia
-    //            if let _product = self.product{
-    //                // When user editing the article....
-    //                apiURL = CAddEditProduct + "/" + _product.id.description
-    //                let deletedIDS = self.collVMedia.arrDeletedApiImages.map({$0}).joined(separator: ",")
-    //                _arrMedia = self.collVMedia.arrMedia.filter({$0.uploadMediaStatus != .Succeed})
-    //            }
-    //            APIRequest.shared().EditProduct(apiTag: CEditProductNew, dict:dict1, arrMedia: _arrMedia, showLoader: true) { [weak self] (response, error) in
-    //                guard let self = self else { return }
-    //                if response != nil && error == nil{
-    //    //                guard  let jsonData = response![CJsonData] as? [String : Any] else{
-    //    //                    return
-    //    //                }
-    //    //                print(jsonData)
-    //                    var message = CProductHasBeenCreated
-    //                    if self.product != nil {
-    //                        message = CProductHasBeenUpdate
-    //                        let data = response![CData] as? [String : Any] ?? [:]
-    //                        let productObj = MDLProduct(fromDictionary: data)
-    //                        ProductHelper<UIViewController>.updateProduct(
-    //                            product: productObj,
-    //                            controller: self,
-    //                            refreshCnt:  [StoreListVC.self,ProductSearchVC.self, ProductDetailVC.self]
-    //                        )
-    //                    }else{
-    //                        ProductHelper.createProduct(controller: self, refreshCnt: [StoreListVC.self])
-    //                    }
-    //                  //  self.navigationController?.popToRootViewController(animated: true)
-    //                    self.navigationController?.popViewController(animated: true)
-    //                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
-    //                }
-    //            }
-    //          isEdit = false
-    //        }else{
-    //            var dict:[String:Any] = [
-    //                "user_id":userID,
-    //                "user_first_name": firstName,
-    //                "user_last_name": lastName,
-    //                "user_email": email,
-    //                "category_name":categoryDropDownView.txtCategory.text ?? "",
-    //                "product_image":ImgName,
-    //                "product_title":self.txtProductTitle.text?.trim ?? "",
-    //                "description":self.txtProductDesc.text?.trim ?? "",
-    //                "available_status":availableStatus,
-    //                "cost":self.txtProductPrice.text ?? "0",
-    //                "currency_name":self.selectedCurrencyName ?? "",
-    //                "last_date_selling":self.strSellingDate,
-    //                "location":self.txtLocation.text ?? "",
-    //                "latitude":"60",
-    //                "longitude":"80",
-    //                "status_id":"1"
-    //            ]
-    //
-    //            var _arrMedia = self.collVMedia.arrMedia
-    //            if let _product = self.product{
-    //                // When user editing the article....
-    //                apiURL = CAddEditProduct + "/" + _product.id.description
-    //                let deletedIDS = self.collVMedia.arrDeletedApiImages.map({$0}).joined(separator: ",")
-    //    //            body["delete_ids"] = deletedIDS
-    //                _arrMedia = self.collVMedia.arrMedia.filter({$0.uploadMediaStatus != .Succeed})
-    //            }
-    //            if (cityName ?? "") != ""{
-    //                dict["city_name"] = self.cityName!
-    //            }
-    //
-    //            APIRequest.shared().addEditProduct(apiTag: CAddProductNew, dict:dict, arrMedia: _arrMedia, showLoader: true) { [weak self] (response, error) in
-    //                guard let self = self else { return }
-    //                if response != nil && error == nil{
-    //    //                guard  let jsonData = response![CJsonData] as? [String : Any] else{
-    //    //                    return
-    //    //                }
-    //    //                print(jsonData)
-    //                    var message = CProductHasBeenCreated
-    //                    if self.product != nil {
-    //                        message = CProductHasBeenUpdate
-    //                        let data = response![CData] as? [String : Any] ?? [:]
-    //                        let productObj = MDLProduct(fromDictionary: data)
-    //                        ProductHelper<UIViewController>.updateProduct(
-    //                            product: productObj,
-    //                            controller: self,
-    //                            refreshCnt:  [StoreListVC.self,ProductSearchVC.self, ProductDetailVC.self]
-    //                        )
-    //                    }else{
-    //                        ProductHelper.createProduct(controller: self, refreshCnt: [StoreListVC.self])
-    //                    }
-    //                  //  self.navigationController?.popToRootViewController(animated: true)
-    //                    self.navigationController?.popViewController(animated: true)
-    //                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
-    //                }
-    //            }
-    //
-    //        }
-    //
-    //    }
-    
-    
     func addEditProduct(){
-        
         var dict = [String:Any]()
-        //        let paymentMode = 1 // for Offile payment mode
-        /*if self.btnRadioOnline.isSelected{
-         paymentMode = 2 // for Online payment mode
-         }*/
-        
         var apiURL = CAddEditProduct
         var currencyName = ""
         guard let userId = appDelegate.loginUser?.user_id else { return }
@@ -887,8 +623,6 @@ extension AddEditProductVC {
         }else{
             currencyName = txtCurrencyList.text ?? ""
         }
-        
-        
         if myeditStart == "editCLK"{
             var repl = ""
             repl = (productImgEdit?.replacingOccurrences(of: "\"", with: "\\\""))!
@@ -929,7 +663,6 @@ extension AddEditProductVC {
                 "address_line1":""
             ]
             if (userID ) != ""{
-                //            dict["user_id"] = self.userID
                 dict["user_id"] = userID
             }
             if (cityName ?? "") != ""{
@@ -940,21 +673,12 @@ extension AddEditProductVC {
                 // When user editing the article....
                 apiURL = apiTag + "/" + _product.id.description
                 let deletedIDS = self.collVMedia.arrDeletedApiImages.map({$0}).joined(separator: ",")
-                //                body["delete_ids"] = deletedIDS
                 _arrMedia = self.collVMedia.arrMedia.filter({$0.uploadMediaStatus != .Succeed})
             }
             
             APIRequest.shared().EditProduct(apiTag: CEditProductNew, dict:dict, arrMedia: _arrMedia, showLoader: true) { [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil && error == nil{
-                    //                guard  let jsonData = response![CJsonData] as? [String : Any] else{
-                    //                    return
-                    //                }
-                    //                print(jsonData)
-                    
-                    
-                    
-                    
                     var message = CProductHasBeenCreated
                     if self.product != nil {
                         message = CProductHasBeenUpdate
@@ -974,11 +698,7 @@ extension AddEditProductVC {
                     CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 }
             }
-            
-            //          isEdit = false
         }else{
-            
-            
             do {
                 let data = try JSONEncoder().encode(self.collVMedia.arrImagesVideo)
                 let string = String(data: data, encoding: .utf8)!
@@ -1070,37 +790,6 @@ extension AddEditProductVC {
             
         }
     }
-    
-    //Old Code By Mi
-    /*
-     APIRequest.shared().addEditProduct(apiTag: CAddProductNew, dict:dict, arrMedia: _arrMedia, showLoader: true) { [weak self] (response, error) in
-     guard let self = self else { return }
-     if response != nil && error == nil{
-     //                guard  let jsonData = response![CJsonData] as? [String : Any] else{
-     //                    return
-     //                }
-     //                print(jsonData)
-     var message = CProductHasBeenCreated
-     if self.product != nil {
-     message = CProductHasBeenUpdate
-     let data = response![CData] as? [String : Any] ?? [:]
-     let productObj = MDLProduct(fromDictionary: data)
-     ProductHelper<UIViewController>.updateProduct(
-     product: productObj,
-     controller: self,
-     refreshCnt:  [StoreListVC.self,ProductSearchVC.self, ProductDetailVC.self]
-     )
-     }else{
-     ProductHelper.createProduct(controller: self, refreshCnt: [StoreListVC.self])
-     }
-     //  self.navigationController?.popToRootViewController(animated: true)
-     self.navigationController?.popViewController(animated: true)
-     CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
-     }
-     }
-     */
-    
-    
     fileprivate func getProductCategory(isLoader : Bool = true){
         
         let _ = APIRequest.shared().productCategoriesList(searchText: "",showLoader: isLoader) { [weak self](response, error) in

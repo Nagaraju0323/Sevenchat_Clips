@@ -893,6 +893,7 @@ extension LoginViewController{
     
     func LoginWithToken(userEmailId:String){
         
+        
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         let data : Data = "username=\(txtEmail.text!)&password=\(txtPWD.text!)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
         let url = URL(string: "\(BASEAUTH)auth/login")
@@ -942,7 +943,7 @@ extension LoginViewController{
                 let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
                 return json
             } catch {
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CLoginAlertMessage , btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CLoginAlertEmailMobileBlank , btnOneTitle: CBtnOk, btnOneTapped: nil)
                 MILoader.shared.hideLoader()
                 
             }

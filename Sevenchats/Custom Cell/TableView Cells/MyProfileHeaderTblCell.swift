@@ -171,30 +171,11 @@ class MyProfileHeaderTblCell: UITableViewCell {
             lblGender.attributedText = NSMutableAttributedString().bold("Gender").normal(" ").normal(CRegisterGenderOther)
 
         }
-        
-        //        lblMobileNo.text = "\(appDelegate.loginUser?.country_code ?? "") \(appDelegate.loginUser?.mobile ?? "")"
-        
         let date = DateFormatter.shared().date(fromString: (appDelegate.loginUser?.dob)!, dateFormat: "yyyy-MM-dd")
-        //        lblBdate.text = DateFormatter.shared().string(fromDate: date!, dateFormat: "dd MMM yyyy")
-        //        lblBdate.text  = ""
-        //        lblMobileNo.text  = ""
-        
         imgCover.loadImageFromUrl((appDelegate.loginUser?.cover_image ?? ""), true)
         imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
         
         let totalFriend = appDelegate.loginUser?.total_friends ?? 0
-        //        lblTitleFriends.isHidden = (totalFriend == 0)
-        //self.cntBtnShareHorizontal.priority = totalFriend == 0 ? UILayoutPriority.defaultHigh : UILayoutPriority.defaultLow
-        //self.cntBtnShareTraling.priority = totalFriend == 0 ? UILayoutPriority.defaultLow : UILayoutPriority.defaultHigh
-        /*if let vwFriends = self.btnShare.superview, totalFriend == 0 {
-         let centerX  = vwFriends.bounds.width / 2 - (self.btnShare.bounds.width / 2)
-         self.cntBtnShareTraling.constant = centerX
-         self.layoutIfNeeded()
-         }*/
-        
-//        btnTotalFriend.hide(byWidth: !(totalFriend > 4))
-//        btnTotalFriend.setTitle("\(totalFriend)", for: .normal)
-        
         viewFriendFirst.hide(byWidth: true)
         viewFriendSecond.hide(byWidth: true)
         _ = viewFriendSecond.setConstraintConstant(0, edge: .leading, ancestor: true)
@@ -203,130 +184,8 @@ class MyProfileHeaderTblCell: UITableViewCell {
         viewFriendFourth.hide(byWidth: true)
         _ = viewFriendFourth.setConstraintConstant(0, edge: .leading, ancestor: true)
         
-        
         _ = appDelegate.loginUser?.user_id
-        
-       
-        
-        //      apiTask = APIRequest.shared().getMyfriendList(page: self.pageNumber, user_id: Int(userID ?? 0), search_type: nil) { [weak self](response, error) in
-        //                   if response != nil && error == nil {
-        //
-        //                       let totalCnt = response?["total_my_friends"] as? Int
-        //                       print("print\(String(describing: totalCnt))")
-        //                       self?.btnTotalFriend.setTitle("\(totalCnt!)", for: .normal)
-        //
-        //                       if let arrFriends = response?["my_friends"] as? [[String : Any]] {
-        //                           print(arrFriends)
-        //
-        //                        if arrFriends.count > 0 {
-        //                            switch arrFriends.count {
-        //                            case 1:
-        //                                self?.viewFriendFirst.hide(byWidth: false)
-        //                                self?.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
-        //                            case 2:
-        //                                self?.viewFriendFirst.hide(byWidth: false)
-        //                                self?.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
-        //                                self?.viewFriendSecond.hide(byWidth: false)
-        //                                _ = self?.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-        //                                self?.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
-        //                            case 3:
-        //                                self?.viewFriendFirst.hide(byWidth: false)
-        //                                self?.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
-        //                                self?.viewFriendSecond.hide(byWidth: false)
-        //                                _ = self?.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-        //                                self?.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
-        //                                self?.viewFriendThird.hide(byWidth: false)
-        //                                _ = self?.viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-        //                                self?.btnFriendThird.sd_setImage(with: URL(string: arrFriends[2].valueForString(key: CImage)), for: .normal, completed: nil)
-        //                            case 4:
-        //                                self?.viewFriendFirst.hide(byWidth: false)
-        //                                self?.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
-        //                                self?.viewFriendSecond.hide(byWidth: false)
-        //                                _ = self?.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-        //                                self?.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
-        //                                self?.viewFriendThird.hide(byWidth: false)
-        //                                _ = self?.viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-        //                                self?.btnFriendThird.sd_setImage(with: URL(string: arrFriends[2].valueForString(key: CImage)), for: .normal, completed: nil)
-        //                                self?.viewFriendFourth.hide(byWidth: false)
-        //                                _ = self?.viewFriendFourth.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-        //                                self?.btnFriendFourth.sd_setImage(with: URL(string: arrFriends[3].valueForString(key: CImage)), for: .normal, completed: nil)
-        //
-        //                                _ = self?.btnTotalFriend.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-        //                            default:
-        //                                break;
-        //                            }
-        //                        }
-        //                    }
-        //
-        //
-        //                       }
-        //                   }
-        
-        
-        //        let arrs = TblTotalFriends.fetch(predicate: NSPredicate(format: "%K == %d", CUserId, (appDelegate.loginUser?.user_id)!), orderBy: CUserId, ascending: true)
-        //            let arrDatas = TblTotalFriends.fetch(predicate: nil, orderBy: CUserId, ascending: true)
-        //            print("arrDatas\(arrDatas)")
-        
-        
-//        self.btnTotalFriend.setTitle("\(totalFriendsCnt)", for: .normal)
         let arrs = TblTotalFriends.fetch(predicate: nil, orderBy: "friend_user_id", ascending: true)
-        
-        
-    
-        
-        
-//        if (arrs!.count <= 4){
-//
-////            if !(arrcount! > 4) {
-//                if arrs!.count == 1{
-//                let dict = arrs![0] as? TblTotalFriends
-//                    viewFriendFirst.hide(byWidth: false)
-//                    btnFriendFirst.sd_setImage(with: URL(string: (dict?.profile_image)!), for: .normal, completed: nil)
-//                } else if arrs!.count == 2 {
-//                    let dict = arrs![0] as? TblTotalFriends
-//                    viewFriendFirst.hide(byWidth: false)
-//                    btnFriendFirst.sd_setImage(with: URL(string: (dict?.profile_image)!), for: .normal, completed: nil)
-//                    viewFriendSecond.hide(byWidth: false)
-//                    let dict1 = arrs![1] as? TblTotalFriends
-//                    _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                    btnFriendSecond.sd_setImage(with: URL(string: (dict1?.profile_image)!), for: .normal, completed: nil)
-//                }else if arrs!.count == 3 {
-//                    let dict = arrs![0] as? TblTotalFriends
-//                    viewFriendFirst.hide(byWidth: false)
-//                    btnFriendFirst.sd_setImage(with: URL(string: (dict?.profile_image)!), for: .normal, completed: nil)
-//                    viewFriendSecond.hide(byWidth: false)
-//                    let dict1 = arrs![1] as? TblTotalFriends
-//                    _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                    btnFriendSecond.sd_setImage(with: URL(string: (dict1?.profile_image)!), for: .normal, completed: nil)
-//                    viewFriendThird.hide(byWidth: false)
-//                    let dict2 = arrs![2] as? TblTotalFriends
-//                    _ = viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                    btnFriendThird.sd_setImage(with: URL(string: (dict2?.profile_image)!), for: .normal, completed: nil)
-//                } else if arrs!.count == 4 {
-//                    let dict = arrs![0] as? TblTotalFriends
-//                    viewFriendFirst.hide(byWidth: false)
-//                    btnFriendFirst.sd_setImage(with: URL(string: (dict?.profile_image)!), for: .normal, completed: nil)
-//                    viewFriendSecond.hide(byWidth: false)
-//                    let dict1 = arrs![1] as? TblTotalFriends
-//                    _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                    btnFriendSecond.sd_setImage(with: URL(string: (dict1?.profile_image)!), for: .normal, completed: nil)
-//                    viewFriendThird.hide(byWidth: false)
-//                    let dict2 = arrs![2] as? TblTotalFriends
-//                    _ = viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                    btnFriendThird.sd_setImage(with: URL(string: (dict2?.profile_image)!), for: .normal, completed: nil)
-//                    viewFriendFourth.hide(byWidth: false)
-//                    let dict3 = arrs![3] as? TblTotalFriends
-//                    _ = viewFriendFourth.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                    btnFriendFourth.sd_setImage(with: URL(string: (dict3?.profile_image)!), for: .normal, completed: nil)
-//                    _ = btnTotalFriend.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//            }
-//        }
-        
-        
-        
-//        if let arrFriends = appDelegate.loginUser?.friends as? [[String : Any]] {
-        
-        
         if  let arrFriends =  TblTotalFriends.fetch(predicate: nil, orderBy: "friend_user_id", ascending: true){
             let arrFrdList = arrFriends.prefix(4)
             let frdListCount = Array(arrFrdList)
@@ -342,12 +201,6 @@ class MyProfileHeaderTblCell: UITableViewCell {
                         }
                         
                      case 2:
-//                        viewFriendFirst.hide(byWidth: false)
-//                       btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-//                         viewFriendSecond.hide(byWidth: false)
-//                         _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                         btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-            
                         viewFriendFirst.hide(byWidth: false)
                         if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
                             btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
@@ -364,14 +217,6 @@ class MyProfileHeaderTblCell: UITableViewCell {
             
             
                      case 3:
-//                        viewFriendFirst.hide(byWidth: false)
-//                       btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-//                         viewFriendSecond.hide(byWidth: false)
-//                         _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                        btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-//                         viewFriendThird.hide(byWidth: false)
-//                         _ = viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                         btnFriendThird.sd_setImage(with: URL(string: ((arrFriends[2] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
                         
                         viewFriendFirst.hide(byWidth: false)
                        
@@ -397,25 +242,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
                             btnFriendThird.sd_setImage(with: URL(string: ((arrFriends[2] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
                         }
                        
-                        
-                        
-                        
-                        
                      case 4:
-//                        viewFriendFirst.hide(byWidth: false)
-//                       btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-//                         viewFriendSecond.hide(byWidth: false)
-//                         _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                        btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-//                         viewFriendThird.hide(byWidth: false)
-//                         _ = viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                           btnFriendThird.sd_setImage(with: URL(string: ((arrFriends[2] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-//                         viewFriendFourth.hide(byWidth: false)
-//                         _ = viewFriendFourth.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-//                         btnFriendFourth.sd_setImage(with: URL(string: ((arrFriends[3] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-//
-//                         _ = btnTotalFriend.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-            
             
                         viewFriendFirst.hide(byWidth: false)
                         if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
@@ -549,59 +376,6 @@ extension MyProfileHeaderTblCell: UICollectionViewDelegate, UICollectionViewData
         return size
     }
 }
-
-extension MyProfileHeaderTblCell{
-    
-    
-    @IBAction func btnUploadImageCLK(_ sender : UIButton){
-        
-        //        if self.imgUser.image != nil {
-        //            self.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
-        //                guard let self = self else { return }
-        //
-        //                self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-        //                    guard let self = self else { return }
-        //                    if image != nil{
-        //                        self.uploadedImg = true
-        //                        self.imgEditIcon.isHidden = false
-        //                        self.imgUser.image = image
-        //                    }
-        //                })
-        //
-        //            }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default, btnTwoTapped: { [weak self] (action) in
-        //                guard let self = self else { return }
-        //                self.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-        //                    guard let self = self else { return }
-        //                    if image != nil{
-        //                        self.uploadedImg = true
-        //                        self.imgEditIcon.isHidden = false
-        //                        self.imgUser.image = image
-        //                    }
-        //                })
-        //            }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
-        //                guard let self = self else { return }
-        //                self.imgUser.image = nil
-        //                self.imgEditIcon.isHidden = true
-        //                self.uploadProfilePic()
-        //            }
-        //
-        //        } else {
-        //            self.presentImagePickerController(allowEditing: true) { [weak self](image, info) in
-        //                guard let self = self else { return }
-        //                if image != nil{
-        //                    self.uploadedImg = true
-        //                    self.imgEditIcon.isHidden = false
-        //                    self.imgUser.image = image
-        //                }
-        //            }
-        //        }
-        
-        
-        
-    }
-    
-}
-
 
 //MARK :- API CALL
 extension MyProfileHeaderTblCell{
