@@ -572,8 +572,7 @@ extension AddForumViewController: GenericTextViewDelegate{
     }
     
   func genericTextView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText string: String) -> Bool {
-    
-            if textView == txtViewForumMessage{
+          if textView == txtViewForumMessage{
                 let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
                 let filtered = string.components(separatedBy: cs).joined(separator: "")
                 return (string == filtered)

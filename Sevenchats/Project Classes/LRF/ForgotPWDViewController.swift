@@ -196,11 +196,7 @@ extension ForgotPWDViewController{
 extension ForgotPWDViewController {
     
     func forgotPassword() {
-        
-                
-       
       
-        
         
 //        var dict = [String : AnyObject]()
 //        var isEnterEmail = true

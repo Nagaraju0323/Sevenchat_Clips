@@ -434,6 +434,7 @@ class LoginViewController: ParentViewController {
     @IBOutlet var cnTxtEmailLeading : NSLayoutConstraint!
     @IBOutlet weak var socialStackView: UIStackView!
     @IBOutlet weak var btnSignUpButton: UIButton!
+    var isEmailMobile = false
     
     var country_id = 356
     var CWebSiteLink = ""
@@ -721,20 +722,21 @@ extension LoginViewController{
         
         if (txtEmail.text?.isBlank)!{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CLoginAlertEmailMobileBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            
-            
-            
             return
         }else{
             if self.txtEmail.text?.range(of:"@") != nil || self.txtEmail.text?.rangeOfCharacter(from: CharacterSet.letters) != nil  {
                 if !(self.txtEmail.text?.isValidEmail)! {
                     self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CLoginAlertValidEmail, btnOneTitle: CBtnOk , btnOneTapped: nil)
                     return
+                }else {
+                    self.isEmailMobile = false
                 }
             }else{
                 if !(self.txtEmail.text?.isValidPhoneNo)! || ((self.txtEmail.text?.count)! > 10 || (self.txtEmail.text?.count)! < 6) {
                     self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CLoginAlertValidMobileNumber, btnOneTitle: CBtnOk , btnOneTapped: nil)
                     return
+                }else {
+                    self.isEmailMobile = true
                 }
             }
         }
@@ -785,8 +787,7 @@ extension LoginViewController{
     
     
     @IBAction func btnForgotCLK(_ sender : UIButton){
-        
-        
+
         if BASEURL_Rew == "QA"{
             CWebSiteLink = "https://qa.sevenchats.com:7444/forgot_password"
         }else {
@@ -795,14 +796,6 @@ extension LoginViewController{
         if UIApplication.shared.canOpenURL(URL(string: CWebSiteLink)!){
             UIApplication.shared.open(URL(string: CWebSiteLink)!, options: [:], completionHandler: nil)
         }
-        
-        //        let objForgot = CStoryboardLRF.instantiateViewController(withIdentifier: "ForgotPWDViewController")
-        //        self.navigationController?.pushViewController(objForgot, animated: true)
-        
-        //        if let inviteContancVC = CStoryboardLRF.instantiateViewController(withIdentifier: "InviteAndConnectViewController") as? InviteAndConnectViewController{
-        //            inviteContancVC.isFromSideMenu = false
-        //            self.navigationController?.pushViewController(inviteContancVC, animated: true)
-        //        }
     }
 }
 
@@ -811,7 +804,6 @@ extension LoginViewController{
 extension LoginViewController{
     
     func loginUser(){
-        
         self.LoginWithToken(userEmailId:txtEmail.text!)
     }
     
@@ -828,6 +820,22 @@ extension LoginViewController{
             }
         }
     }
+    
+    
+    func UserDetailsfeathMobile(userEmailId:String,accessToken:String) {
+        let dict:[String:Any] = [
+            CMobile : userEmailId,
+        ]
+        APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject]) { (response, error) in
+            if response != nil && error == nil {
+                DispatchQueue.main.async {
+                    self.redirectAfterLogin(response: response, socialDetail: [:])
+                }
+            }
+        }
+    }
+    
+    
     
     func socialLogin(dict : [String : AnyObject]) {
         
@@ -881,19 +889,12 @@ extension LoginViewController{
                     }
                 })
             } else {
-                //  MIMQTT.shared().MQTTInitialSetup()
-                //  MIGeneralsAPI.shared().getAdvertisementList()
                 appDelegate.initHomeViewController()
-                //                MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: nil)
-                //                TVITokenService.shared.bindVoIPToken()
-                //                AudioTokenService.shared.callGetAudioTokenAPI(identity: myAudioIdentity, isForRegister: true)
             }
         }
     }
     
     func LoginWithToken(userEmailId:String){
-        
-        
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         let data : Data = "username=\(txtEmail.text!)&password=\(txtPWD.text!)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
         let url = URL(string: "\(BASEAUTH)auth/login")
@@ -926,7 +927,13 @@ extension LoginViewController{
                     guard let access_token = dict?["access_token"] as? String else { return }
                     //                    CUserDefaults.setValue(access_token, forKey: UserDefaultDeviceToken)
                     //                    CUserDefaults.synchronize()
-                    self.UserDetailsfeath(userEmailId:userEmailId,accessToken:access_token)
+                    if self.isEmailMobile == true{
+                        self.UserDetailsfeathMobile(userEmailId:userEmailId,accessToken:access_token)
+                    }else {
+                        self.UserDetailsfeath(userEmailId:userEmailId,accessToken:access_token)
+                    }
+                    
+                    
                 }catch let error  {
                     print("error trying to convert data to \(error)")
                 }

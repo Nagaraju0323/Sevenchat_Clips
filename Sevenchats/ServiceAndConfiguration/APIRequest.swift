@@ -37,9 +37,6 @@ let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
 let BASEURL_Rew: String = "Dev"
 
 
-
-
-
 //MARK: - QA
 //var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
 //var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
@@ -52,8 +49,6 @@ let BASEURL_Rew: String = "Dev"
 //var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
 //let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
 //let BASEURL_Rew: String = "QA"
-
-
 
 
 let CAPIVesrion                     = "v1"
@@ -81,23 +76,20 @@ let CAPITagResendEditVerification   = "edit-resend-verification-code"
 let CAPITagForgotPassword           = "forgot-password"
 let CAPITaglanguages                = "languages"
 let CAPITagEditProfile              = "users/update"
-//let CAPITagEditProfile              = "edit-profile"
 let CAPITagUser                     = "user"
 let CAPITagUsers                     = "users/id"
 let CAPITagUsersDetails             = "user/details"
+let CAPITagUsersMobileDetails       = "user/details/mobile"
 let CAPITagUserNew                   = "users/"
 let CAPITagUserBlockUnblock         = "user-block-unblock"
-//let CAPITagFriendStatus             = "friend-status"
 let CAPITagFriendStatus             = "friends/handleRequest"
 let CAPITagConnectInviteStatus      = "connect-invite-status"
 let CAPITagConnectAll               = "connect-all"
-
 let CAPITagAddInterest              = "add-interest"
 let CAPITagAddInterestRequest       = "add-interest-request"
 let CAPITagInterests                = "interests"
 let CAPITagProductcategory          = "productcategory"
 let CAPITagCategoryType             = "categories/type/"
-
 let CAPITagChangePassword           = "change-password"
 let CAPITagChangeProfilePreferences = "change-profile-preferences"
 let CAPITagChangeProfilePreferencesNew = "users/saveuserpreferences"
@@ -107,24 +99,19 @@ let CAPITagCommentList = "comments"
 let CAPITagAddComment = "add-comment"
 let CAPITagDeleteComment = "delete-comment/"
 let CAPITagLikeUnlike = "like-unlike"
-//let CAPITagEventInterest = "event-interest"
 let CAPITagEventInterest = "events/choice"
 let CAPITagAdvertisementList = "advertisement-list"
 let CAPITagDeviceToken = "device-token"
 let CAPITagHomeSearch = "search-by-type1"
 let CAPITagHomeSearchUsers = "users"
-
 let CAPITagSearchUsers = "user/details/name"
-
 let CAPITagHomePosts = "postlisting/home"
 let CAPITagHomePostsNew = "postlisting/"
 let CAPITagUserPost = "user-post"
 let CAPITagUserPostNew = "mypost/post"
 let CAPITagUserPostFilter = "mypost/"
 let CAPITagUserMyfriendList = "friends/myfriends"
-
 let CAPITagFriendsList = "friends-list"
-//let CAPITagBlockUsers = "block-users"
 let CAPITagBlockUsers = "friends/block"
 let CAPITagFriendOfFriends = "friendsOfFriends"
 let CAPITagAddEditGroup = "add-edit-group"
@@ -134,46 +121,34 @@ let CAPITagMediaUpload = "media-upload"
 let CAPITagAddPost = "add-post"
 let CAPITagSaveGallery = "save-gallery"
 let CAPITagReportUser = "report-user"
-//let CAPITagFeedback = "feedback"
-
 let CAPITagGroupsList = "groups-list"
-//let CAPITagUserChatList = "user-chat-list"
 let CAPITagUserChatList = "chatfriends/"
 let CAPITagUserTopic = "api/createTopic"
 let CAPITagUserChatDetails = "user-chat-details"
 let CAPITagUserChatLstDetails = "api/getLastMessages"
 let CAPITagGroupChatDetails = "group-chat-details"
 let CAPITagReadUser = "read-user"
-
 let CAPITagLikes = "likes/"
 let CAPITagNotificationUnreadCount = "unread-count"
-
 let CAPITagPendingGroupRequest = "pending-group-request"
-
 let CAPITagGroupsDetail             = "group-details"
 let CAPITagGroupsExit               = "exit-group"
-
 let CAPITagGroupsExit_NEW           = "groups/remove"
 let CAPITagGroupsDelete_NEW         = "groups/delete"
-
 let CAPITagAddGroupMember           = "add-group-member"
 let CAPITagAddGroupMember_New       = "groups/addmember"
 let CAPITagRemoveGroupMember        = "remove-group-member"
 let CAPITagRemoveGroupMemberNew     = "groups/remove"
-
 let CAPITagDeleteGroup              = "delete-group"
 let CAPITagGroupRequestStatus       = "group-request-status"
 let CAPITagSearchGroup              = "search-group"
 let CAPITagJoinGroup                = "join-group"
-
 let CAPITagViewPost                 = "post"
 let CAPITagPostDelete               = "post/delete"
-
 let CAPITagEventCalendar            = "event-calendar"
 let CAPITagRemovePostImage          = "remove-post-image"
 let CAPITagDeletePost               = "post/delete"
 let CAPITagEventDates               = "event-dates"
-
 let CAPITagNewsCategory             = "news-category"
 let CAPITagNewsCategoryNew          = "newscategories"
 let CAPITagNews                     = "news"
@@ -186,7 +161,6 @@ let CAPITagRemoveAdvertisement      = "remove-advertisement"
 let CAPITagVotePollsOption          = "polls/option"
 let CAPITagVoteDetailsPollsList     = "polls/users"
 let CAPITagVoteDetailsPolls         = "polls/details"
-
 let CAPITagFolders      = "folders"
 let CAPITagCreateFolder = "create-folder"
 let CAPITagCreateFiles = "create-files"
@@ -201,16 +175,13 @@ let CStoragePlan = "storage-plan"
 let CUpgradeStorage = "upgrade-storage"
 let CRestrictedFileType = "allowed-file-type"
 let CCheckFilesExist = "check-files"
-
 let CProductCategoriesList = "categories-list?"
 let CProductCategoriesListNew = "categories"
 let CProductCategories = "/type/Product"
 let CAddEditProduct = "add-edit/product"
- 
 let CAddProductNew  = "products/add"
 let CAddProductDetail  = "products/id"
 let CEditProductNew = "products/update"
-
 let CCurrencies = "currencies"
 let CProductList = "product-list"
 let CDeleteProduct = "product/delete/"
@@ -218,30 +189,24 @@ let CLikeUnlikeProduct = "like-product"
 let CLikeUnlikeProducts = "likes/add"
 let CLikeUnlikeProductCount = "likes/"
 let CdeleteProduct = "products/delete/"
-
 let CReportProduct = "report-product"
 let CReportProductNew = "reportproduct/add"
 let CProductDetail = "product-detail/"
 let CSellerDetail = "seller-detail/"
 let CContactSellerAPI = "contact-seller/"
 let CMarkAsSoldAPI = "mark-as-sold/"
-
 let CProductCommentListAPI = "product-comments-list/"
 let CCommentOnProduct = "comment-product"
 let CDeleteProductComment = "delete-product-comment/"
 let CProductUserLikes = "product-likes/"
-
 let CAPITagEventAttendees = "event-attendees"
 let CAPITagGroupUserList = "group-users-list/"
-
 let CAPITagWalletSummary = "wallet-summary"
 let CAPITagWalletSummaryNew = "pointsconfigs"
 let CAPITagWalletDetail = "wallet-detail"
 let CAPITagForceUpdate = "force-update"
 let CAPITagCloneFile = "clone-file"
 let CAPITagCheckAutoDeleteStaus = "check-auto-delete-status"
-
-
 let CEducation_Name      = "education_name"
 let CAPITagAnnualIncome  = "incomes"
 let CAPITagCountry       = "countries"
@@ -257,7 +222,6 @@ let CAPITagFavWebsites = "websites/all"
 let CAPITagFavWebsitesNew = "websites/user/"
 let CAPITagPSLWebsites = "websites/type/"
 let CAPITagReportUserNew = "reports/add"
-
 let CAPITagarticles = "articles/add"
 let CAPITagchirpies = "chirpies/add"
 let CAPITagevents = "events/add"
@@ -266,15 +230,11 @@ let CAPITagshouts = "shouts/add"
 let CAPITagsgallery = "galleries/add"
 let CAPITagpolls = "polls/add"
 let CProductListNew = "products"
-
 let CPollUsers = "polls/users"
 let CProductListusers = "products/user/"
 let CProductListuser = "products/type/"
-//let CProductListusers = "products/user/"
-//let CAPITagshouts = "shouts/add"
 let CCurrenciesNew = "currencyconversion"
 let CAPITagFriendsListNew = "friends/"
-
 let CAPITagFriendsofFrd = "friends/"
 let CAPITagChatMsg = "api/send"
 let CAPITagGroupsListNew = "groups/user/"
@@ -282,7 +242,6 @@ let CProductCommentListAPINew = "comments/"
 let CCommentOnProductnew = "comments/add"
 let CCommentdelProductnew = "comments/delete"
 let CAPITagSaveCoverImg = "users/savecover"
-
 let CAPITagarticlesDelete = "articles/update"
 let CAPITagchirpiesDelete = "chirpies/update"
 let CAPITageventsDelete = "events/update"
@@ -290,7 +249,6 @@ let CAPITagforumsDelete = "forums/update"
 let CAPITagshoutsDelete = "shouts/update"
 let CAPITagsgalleryDelete = "galleries/update"
 let CAPITagpollsDelete = "polls/update"
-
 let CAPITagarticlesDetials = "articles/"
 let CAPITagchirpiesDetials = "chirpies/"
 let CAPITageventsDetials = "events/"
@@ -298,7 +256,6 @@ let CAPITagforumsDetials = "forums/"
 let CAPITagshoutsDetials = "shouts/"
 let CAPITagsgalleryDetials = "galleries/"
 let CAPITagpollsDetials = "polls/details"
-//let CAPITagUserNew      = "users/"
 let CAPITagUserIdNew    = "users/id/"
 let CAPITagGroups   = "groups/"
 let CAPITFriendsList = "friends_list"
@@ -307,10 +264,7 @@ let CAPITverifyMobileOTP = "verifyMobileOTP"
 let CAPITrewardAdd = "rewards/add"
 let CAPITagRewards = "rewards"
 let CAPITagRewardUser = "rewards/users/"
-
-
 let CAPITagPSLCategoryNew          = "categories/type/PSL"
-
 
 let CJsonResponse           = "response"
 let CJsonMessage            = "message"
@@ -423,12 +377,12 @@ class Networking: NSObject
                 length = req!.request!.httpBody!.count
             }
             
-           /*Oldcode Mi
-            let printableString = "\(req!.request!.httpMethod!) '\(req!.request!.url!.absoluteString)': \(String(describing: req!.request!.allHTTPHeaderFields)) \(body) [\(length) bytes]"
-            
-            print("API Request: \(printableString)")
- 
-            */
+            /*Oldcode Mi
+             let printableString = "\(req!.request!.httpMethod!) '\(req!.request!.url!.absoluteString)': \(String(describing: req!.request!.allHTTPHeaderFields)) \(body) [\(length) bytes]"
+             
+             print("API Request: \(printableString)")
+             
+             */
         }
     }
     
@@ -489,20 +443,6 @@ extension Networking {
             }
         }
     }
-    
-    // HTTPs Methods
-//    func GET(param parameters:[String: AnyObject]?, success:ClosureSuccess?,  failure:ClosureError?) -> URLSessionTask? {
-//        let uRequest = SessionManager.default.request(BASEURL!, method: .get, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-//        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-//        return uRequest.task
-//    }
-    
-//    func GET(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
-//        let uRequest = SessionManager.default.request((BASEURL! + tag), method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
-//        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-//        return uRequest.task
-//    }
-    
     func GETNEWTest(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
         let uRequest = SessionManager.default.request((tag), method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers)
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
@@ -520,7 +460,7 @@ extension Networking {
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task
     }
-   
+    
     func GETNEWPRNOTF(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
         let uRequest = SessionManager.default.request((BASEURLNOTIFICATION + tag), method: .get, parameters: parameters, encoding: URLEncoding.default, headers: headers)
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
@@ -538,107 +478,51 @@ extension Networking {
     func POSTJSON(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
         
         let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
-    
+        
         let uRequest = SessionManager.default.request((BASEURLNEW + tag), method: .post, parameters: nil, encoding: parameterEncoding, headers: internalheaders ?? headers)
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task
     }
     
     func POSTJSONOTP(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
-            
-            let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
-        
-            let uRequest = SessionManager.default.request((BASEURLOTP + tag), method: .post, parameters: nil, encoding: parameterEncoding, headers: internalheaders ?? headers)
-            self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-            return uRequest.task
-        }
-    
-    func POSTJSONOTPEmail(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
-            
-            let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
-        
-            let uRequest = SessionManager.default.request((BASEEMAILOTP + tag), method: .post, parameters: nil, encoding: parameterEncoding, headers: internalheaders ?? headers)
-            self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-            return uRequest.task
-        }
-    
-    
-    func POSTJSONMSG(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
         
         let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
+        
+        let uRequest = SessionManager.default.request((BASEURLOTP + tag), method: .post, parameters: nil, encoding: parameterEncoding, headers: internalheaders ?? headers)
+        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+        return uRequest.task
+    }
     
-        let uRequest = SessionManager.default.request((BASEMSGURL + tag), method: .post, parameters: nil, encoding: parameterEncoding, headers: internalheaders ?? headers)
+    func POSTJSONOTPEmail(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
+        
+        let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
+        
+        let uRequest = SessionManager.default.request((BASEEMAILOTP + tag), method: .post, parameters: nil, encoding: parameterEncoding, headers: internalheaders ?? headers)
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task
     }
     
     
-    
-//    func POST(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
-//        let uRequest = SessionManager.default.request((BASEURL! + tag), method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: internalheaders ?? headers)
-//        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-//        return uRequest.task
-//    }
-    
-    
- 
+    func POSTJSONMSG(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
+        
+        let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
+        
+        let uRequest = SessionManager.default.request((BASEMSGURL + tag), method: .post, parameters: nil, encoding: parameterEncoding, headers: internalheaders ?? headers)
+        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+        return uRequest.task
+    }
     
     func POSTPARA(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
-            let uRequest = SessionManager.default.request((BASEURLNEW + tag), method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: internalheaders ?? headers)
-            self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-            return uRequest.task
-        }
+        let uRequest = SessionManager.default.request((BASEURLNEW + tag), method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: internalheaders ?? headers)
+        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+        return uRequest.task
+    }
     
     func POSTAUTH(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
-            let uRequest = SessionManager.default.request((BASEAUTH + tag), method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: internalheaders ?? headers)
-            self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-            return uRequest.task
-        }
-    
-    
-    
-//    func POST(param parameters:[String: AnyObject]?, tag:String?, multipartFormData: @escaping (MultipartFormData) -> Void, success:ClosureSuccess?,  failure:ClosureError?) -> Void {
-//
-//        SessionManager.default.upload(multipartFormData: { (multipart) in
-//            multipartFormData(multipart)
-//
-//            if parameters != nil {
-//                for (key, value) in parameters! {
-//                    multipart.append("\(value)".data(using: .utf8)!, withName: key)
-//                    //  multipart.append(value.data(using: String.Encoding.utf8.rawValue)! , withName: key)
-//                }
-//            }
-//
-//        },  to: (BASEURL! + (tag ?? "")), method: HTTPMethod.post , headers: headers) { (encodingResult) in
-//            switch encodingResult {
-//            case .success(let uRequest, _, _):
-//                self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-//                break
-//            case .failure(let encodingError):
-//                print(encodingError)
-//                break
-//            }
-//        }
-//    }
-    
-//    func HEAD(param parameters: [String: AnyObject]?, success : ClosureSuccess?, failure:ClosureError?) -> URLSessionTask {
-//        let uRequest = SessionManager.default.request(BASEURL!, method: .head, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-//        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-//        return uRequest.task!
-//    }
-//
-//    func PATCH(param parameters: [String: AnyObject]?, success : ClosureSuccess?, failure:ClosureError?) -> URLSessionTask {
-//        let uRequest = SessionManager.default.request(BASEURL!, method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-//        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-//        return uRequest.task!
-//    }
-//
-//    func PUT(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
-//
-//        let uRequest = SessionManager.default.request(BASEURL!+tag, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-//        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-//        return uRequest.task!
-//    }
+        let uRequest = SessionManager.default.request((BASEAUTH + tag), method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: internalheaders ?? headers)
+        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+        return uRequest.task
+    }
     
     func PUTJSON(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
         
@@ -663,33 +547,16 @@ extension Networking {
         
         let parameterEncoding = JSONStringArrayEncodings.init(array: (parameters ?? [:]) as [String:Any])
         
-    
+        
         let uRequest = SessionManager.default.request((BASEURLSENDNOTIF + tag), method: .post, parameters: nil, encoding: parameterEncoding, headers: internalheaders ?? headers)
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task
     }
-    
-    
-//    func PUT(param parameters: [String: AnyObject]?, success : ClosureSuccess?, failure:ClosureError?) -> URLSessionTask {
-//        
-//        let uRequest = SessionManager.default.request(BASEURL!, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-//        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-//        return uRequest.task!
-//    }
-//    
-//    func DELETE(param parameters: [String: AnyObject]?, success : ClosureSuccess?, failure:ClosureError?) -> URLSessionTask {
-//        let uRequest = SessionManager.default.request(BASEURL!, method: .delete, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
-//        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
-//        return uRequest.task!
-//    }
-    
     func DELETENEW(apiTag tag:String,param parameters: [String: AnyObject]?, success : ClosureSuccess?, failure:ClosureError?) -> URLSessionTask {
         let uRequest = SessionManager.default.request(BASEURLNEW + tag, method: .delete, parameters: nil, encoding: JSONEncoding.default, headers: headers)
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task!
     }
-    
-    
     
     func DELETJSON(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
         
@@ -708,7 +575,7 @@ extension Networking {
             
             self.logging(response: response)
             if(response.result.error == nil && ([200, 201, 401] .contains(response.response!.statusCode)) ) {
-
+                
                 if self.vwUnderMaintenance != nil {
                     self.vwUnderMaintenance?.removeFromSuperview()
                     self.vwUnderMaintenance =  nil
@@ -733,8 +600,8 @@ extension Networking {
                     if response.result.error != nil {
                         print("error\(response.result.error as NSError? as Any)")
                         /* Oldcode by Mi
-                        failure!(uRequest.task!,nil, response.result.error as NSError?)
-                        */
+                         failure!(uRequest.task!,nil, response.result.error as NSError?)
+                         */
                     }
                     else {
                         let dict = response.result.value as? [String : AnyObject]
@@ -754,7 +621,7 @@ extension Networking {
 //MARK:- ---------General
 //MARK:-
 class APIRequest: NSObject {
-
+    
     typealias ClosureCompletion = (_ response:AnyObject?, _ error:NSError?) -> Void
     typealias successCallBack = (([String:AnyObject]?) -> ())
     typealias failureCallBack = ((String) -> ())
@@ -825,7 +692,7 @@ class APIRequest: NSObject {
                 return false
             }
         }
-
+        
         if  responseObject?.valueForString(key: CStatusCode).toInt == CStatus200 {
             return  true
         } else {
@@ -868,7 +735,7 @@ class APIRequest: NSObject {
                 
             case CStatus200 : //register from admin
                 return true
-           
+                
             case CStatus500 : //register from admin
                 return true
                 
@@ -909,28 +776,24 @@ class APIRequest: NSObject {
     
     
     func actionOnAPIFailure(errorMessage:String?, showAlert:Bool, strApiTag:String,error:NSError?) -> Void {
-      
+        
         guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
         let errorMsg = errorUserinfo.stringAfter(":")
         if showAlert && errorMessage != nil{
             //            MIAlertController().present(CTopMostViewController, title: "", message: appDelegate.fetchAppropriateMessage(key: errorMessage!))
-//            CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+            //            CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }
         print("API Error =" + "\(strApiTag )" + "\(String(describing: error?.localizedDescription))" )
     }
     
 }
 
-
-
 //MARK:- ---------API Functions
 
 extension APIRequest {
-    
     //TODO:
     //TODO: --------------GENERAL API--------------
     //TODO:
-    
     func getLanguageList(showLoader : Bool, completion : @escaping ClosureCompletion) {
         
         if showLoader {
@@ -956,62 +819,37 @@ extension APIRequest {
     }
     
     func loadLanguagesText(completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-//
-//        let langID = CUserDefaults.value(forKey: UserDefaultSelectedLangID) as! Int
-//        _ = Networking.sharedInstance.GET(apiTag: "\(CAPITaglanguages)/\(langID)", param: [:], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITaglanguages){
-//                DispatchQueue.main.async {
-//                    self.storeLanguageText(response: response as! [String : AnyObject])
-//                    completion(response, nil)
-//                }
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITaglanguages, error: error)
-//            }
-//        })
-//
-        
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
         let langID = CUserDefaults.value(forKey: UserDefaultSelectedLangID) as! Int
         let langName = CUserDefaults.value(forKey: UserDefaultSelectedLang) as! String
         
         _ = Networking.sharedInstance.GETNEW(apiTag: "\(CAPITaglanguages)/\(langID)", param: [:], successBlock: { (task, response) in
-     
+            
             MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITaglanguages){
-                DispatchQueue.main.async {
-                    if langName == "English"{
-                      let url = Bundle.main.url(forResource: "English", withExtension: "json")!
-                      let data = try! Data(contentsOf: url)
-                      let JSON = try! JSONSerialization.jsonObject(with: data, options: [])
-                        self.storeLanguageText(response: JSON as! [String : AnyObject])
-                    } else if langName == "Kannada" {
-                            let url = Bundle.main.url(forResource: "Kannada", withExtension: "json")!
-                            let data = try! Data(contentsOf: url)
-                            let JSON = try! JSONSerialization.jsonObject(with: data, options: [])
-                            print("JSON\(JSON)")
-                            self.storeLanguageText(response: JSON as! [String : AnyObject])
-                        }else if langName == "Hindi" {
-                            let url = Bundle.main.url(forResource: "Hindi", withExtension: "json")!
-                            let data = try! Data(contentsOf: url)
-                            let JSON = try! JSONSerialization.jsonObject(with: data, options: [])
-                            print("JSON\(JSON)")
-                            self.storeLanguageText(response: JSON as! [String : AnyObject])
-                        }
-//                    self.storeLanguageText(response: response as! [String : AnyObject])
-                    completion(response, nil)
+            //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITaglanguages){
+            DispatchQueue.main.async {
+                if langName == "English"{
+                    let url = Bundle.main.url(forResource: "English", withExtension: "json")!
+                    let data = try! Data(contentsOf: url)
+                    let JSON = try! JSONSerialization.jsonObject(with: data, options: [])
+                    self.storeLanguageText(response: JSON as! [String : AnyObject])
+                } else if langName == "Kannada" {
+                    let url = Bundle.main.url(forResource: "Kannada", withExtension: "json")!
+                    let data = try! Data(contentsOf: url)
+                    let JSON = try! JSONSerialization.jsonObject(with: data, options: [])
+                    print("JSON\(JSON)")
+                    self.storeLanguageText(response: JSON as! [String : AnyObject])
+                }else if langName == "Hindi" {
+                    let url = Bundle.main.url(forResource: "Hindi", withExtension: "json")!
+                    let data = try! Data(contentsOf: url)
+                    let JSON = try! JSONSerialization.jsonObject(with: data, options: [])
+                    print("JSON\(JSON)")
+                    self.storeLanguageText(response: JSON as! [String : AnyObject])
                 }
-//            }
+                //                    self.storeLanguageText(response: response as! [String : AnyObject])
+                completion(response, nil)
+            }
+            //            }
             
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
@@ -1023,9 +861,6 @@ extension APIRequest {
                 self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITaglanguages, error: error)
             }
         })
-        
-        
-        
     }
     
     func countryList(timestamp : AnyObject, completion: @escaping ClosureCompletion) {
@@ -1089,9 +924,6 @@ extension APIRequest {
         })
     }
     
-    
-    
-    
     func stateList(timestamp : AnyObject, countryID: String, completion: @escaping ClosureCompletion) -> URLSessionTask?{
         let countryName = countryID.replace(string: " ", replacement: "%20")
         return Networking.sharedInstance.GETNEW(apiTag: CAPITagState + countryName , param:nil, successBlock: { (task, response) in
@@ -1113,14 +945,14 @@ extension APIRequest {
     }
     
     func cityList(timestamp : AnyObject, stateId : String, completion: @escaping ClosureCompletion) -> URLSessionTask?{
- 
+        
         let stateName = stateId.replace(string: " ", replacement: "%20")
         return Networking.sharedInstance.GETNEW(apiTag: CAPITagCity + stateName, param:nil, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             completion(response, nil)
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCity){
-//              
-//            }
+            //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCity){
+            //
+            //            }
             
         }, failureBlock: { (task, message, error) in
             completion(nil, error)
@@ -1131,10 +963,8 @@ extension APIRequest {
                 //self.countryList(timestamp: timestamp, completion: completion)
             }
         })
-        
-        
     }
-
+    
     func getRelationList (completion : @escaping ClosureCompletion) {
         
         _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagRelship, param: [:], successBlock: { (task, response) in
@@ -1220,21 +1050,12 @@ extension APIRequest {
         if shouldShowLoader!{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
-//        return Networking.sharedInstance.GETNEW(apiTag: CAPITagQuotes, param: nil, successBlock: { (task, response) in
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagQuotes, param: [CPage : page as AnyObject, CPer_limit : CLimit as AnyObject], successBlock: { (task, response) in
             
-            return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagQuotes, param: [CPage : page as AnyObject, CPer_limit : CLimit as AnyObject], successBlock: { (task, response) in
-                
-                MILoader.shared.hideLoader()
-                if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagQuotes) {
-                    completion (response, nil)
-                }
-            
-            
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagQuotes) {
-//                completion (response, nil)
-//                print("response")
-//            }
+            MILoader.shared.hideLoader()
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagQuotes) {
+                completion (response, nil)
+            }
             
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
@@ -1247,77 +1068,6 @@ extension APIRequest {
             }
         })!
     }
-    
-    
-//    func removeAdvertisement(transactionId: String?, completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagRemoveAdvertisement, param: [CTransaction_id: transactionId as AnyObject, CTransaction_from: 2 as AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagRemoveAdvertisement) {
-//
-//                if let responseData = response?.value(forKey: CJsonData) as? [String : Any] {
-//                    appDelegate.loginUser?.user_type = responseData.valueForBool(key: CUser_type)
-//                    CoreData.saveContext()
-//                }
-//
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagRemoveAdvertisement, error: error)
-//            }
-//        })
-//    }
-    
-    
-    //TODO:
-    //TODO: --------------INTEREST API--------------
-    //TODO:
-    
-//    func getInterestList(search : String?, type : Int?, page : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        if showLoader {
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//
-//        var para = [ String : Any]()
-//        if search != nil{
-//            para["search"] = search
-//        }
-//        if page != nil{
-//            para[CPage] = page
-//            para[CPer_page] = CLimit
-//        }
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagInterests, param: para as [String : AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagInterests) {
-//                self.storeInterestInLocal(response: response as! [String : AnyObject])
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagInterests, error: error)
-//            }
-//        })!
-//
-//    }
     
     //TODO:
     //TODO: --------------INTEREST API--------------
@@ -1497,10 +1247,6 @@ extension APIRequest {
         })!
     }
     
-    
-    
-    
-    
     func getInterestSubListNew(langName : String?, interestType:String?, page : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
         if showLoader {
@@ -1512,15 +1258,15 @@ extension APIRequest {
             para["category_type"] = interestType
             para["lang_name"] = langName
         }
-
+        
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagProductcategory, param: para as [String : AnyObject], successBlock: { (task, response) in
             MILoader.shared.hideLoader()
-//            self.storeSubInterestInLocal(response: response as! [String : AnyObject])
+            //            self.storeSubInterestInLocal(response: response as! [String : AnyObject])
             completion(response, nil)
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagInterests) {
-                self.storeProductSubCategoryInLocal(response: response as! [String : AnyObject])
-//                completion(response, nil)
-//            }
+            //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagInterests) {
+            self.storeProductSubCategoryInLocal(response: response as! [String : AnyObject])
+            //                completion(response, nil)
+            //            }
             
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
@@ -1535,217 +1281,54 @@ extension APIRequest {
         
     }
     
-    
-    
-//    func addInterestRequest(interest_name : String, completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagAddInterestRequest, param: [CInterest_name : interest_name as AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddInterestRequest) {
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagAddInterestRequest, error: error)
-//            }
-//        })
-//    }
-    
-//    func addInterestWithID (interestID : String?, completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagAddInterest, param: [CInterest_ids : interestID as AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddInterest) {
-//                completion (response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagAddInterest, error: error)
-//            }
-//        })
-//    }
-    
-    
-    //TODO:
-    //TODO: --------------LRF API--------------
-    //TODO:
-//    Oldcode by Mi
-//    func loginUser(dict : [String : AnyObject], completion : @escaping ClosureCompletion){
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagLogin, param: dict, successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//
-//            /*if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLogin){
-//
-//                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-//                    if metaData.valueForInt(key: CJsonStatus) == CStatusZero {
-//                        self.saveUserDetail(response: response as! [String : AnyObject])
-//                    }
-//                }
-//                completion(response, nil)
-//            }*/
-//            if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-//
-//                if metaData.valueForInt(key: CJsonStatus) == CStatusZero {
-//                    self.saveUserDetail(response: response as! [String : AnyObject])
-//                    CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
-//                    CUserDefaults.synchronize()
-//                    completion(response, nil)
-//                } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTwelve {
-//                    self.saveUserDetail(response: response as! [String : AnyObject])
-//                    CUserDefaults.set(false, forKey: UserDefaultIsAppLaunchHere)
-//                    CUserDefaults.synchronize()
-//                    completion(response, nil)
-//
-//                } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTen || metaData.valueForInt(key: CJsonStatus) == CStatusFour {
-//                    completion(response, nil)
-//                } else {
-//                    let message = metaData.valueForString(key: CJsonMessage)
-//                    GCDMainThread.async {
-//                        CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                    }
-//                }
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagLogin, error: error)
-//            }
-//        })
-//    }
-    
-  
-//   func loginUser(dict : [String : AnyObject], completion : @escaping ClosureCompletion){
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagLogin, param: dict, successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLogin){
-//
-//                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-//                    if metaData.valueForString(key: CJsonStatus) == CStatusZeros {
-//                        self.saveUserDetail(response: response as! [String : AnyObject])
-//                    }
-//                }
-//                completion(response, nil)
-//            }
-//            if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-//
-//                if metaData.valueForInt(key: CJsonStatus) == CStatusZero {
-//                    self.saveUserDetail(response: response as! [String : AnyObject])
-//                    CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
-//                    CUserDefaults.synchronize()
-//                    completion(response, nil)
-//                } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTwelve {
-//                    self.saveUserDetail(response: response as! [String : AnyObject])
-//                    CUserDefaults.set(false, forKey: UserDefaultIsAppLaunchHere)
-//                    CUserDefaults.synchronize()
-//                    completion(response, nil)
-//
-//                } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTen || metaData.valueForInt(key: CJsonStatus) == CStatusFour {
-//                    completion(response, nil)
-//                } else {
-//                    let message = metaData.valueForString(key: CJsonMessage)
-//                    GCDMainThread.async {
-//                        CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                    }
-//                }
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagLogin, error: error)
-//            }
-//        })
-//    }
-    
-    
     func loginUser(dict : [String : AnyObject], completion : @escaping ClosureCompletion){
-
-        
-         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-         _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagLogin, param: dict, successBlock: { (task, response) in
-             MILoader.shared.hideLoader()
-
-             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLogin){
-
-                 if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-                     if metaData.valueForString(key: CJsonStatus) == CStatusZeros {
-                         self.saveUserDetail(response: response as! [String : AnyObject])
-                     }
-                 }
-                 completion(response, nil)
-             }
-             if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-
-                 if metaData.valueForInt(key: CJsonStatus) == CStatusZero {
-                     self.saveUserDetail(response: response as! [String : AnyObject])
-                     CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
-                     CUserDefaults.synchronize()
-                     completion(response, nil)
-                 } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTwelve {
-                     self.saveUserDetail(response: response as! [String : AnyObject])
-                     CUserDefaults.set(false, forKey: UserDefaultIsAppLaunchHere)
-                     CUserDefaults.synchronize()
-                     completion(response, nil)
-
-                 } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTen || metaData.valueForInt(key: CJsonStatus) == CStatusFour {
-                     completion(response, nil)
-                 } else {
-                     let message = metaData.valueForString(key: CJsonMessage)
-                     GCDMainThread.async {
-                         CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                     }
-                 }
-             }
-
-         }, failureBlock: { (task, message, error) in
-             MILoader.shared.hideLoader()
-             completion(nil, error)
-             if error?.code == CStatus405{
-                 appDelegate.logOut()
-             } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-             } else {
-                 self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagLogin, error: error)
-             }
-         })
-     }
-    
-    
-    /********************************************************
-     * Author :  Chandrika.R                                 *
-     * Model  : Group Create Notification                 *
-     * Description:                                       *
-     ********************************************************/
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagLogin, param: dict, successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLogin){
+                
+                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+                    if metaData.valueForString(key: CJsonStatus) == CStatusZeros {
+                        self.saveUserDetail(response: response as! [String : AnyObject])
+                    }
+                }
+                completion(response, nil)
+            }
+            if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+                
+                if metaData.valueForInt(key: CJsonStatus) == CStatusZero {
+                    self.saveUserDetail(response: response as! [String : AnyObject])
+                    CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
+                    CUserDefaults.synchronize()
+                    completion(response, nil)
+                } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTwelve {
+                    self.saveUserDetail(response: response as! [String : AnyObject])
+                    CUserDefaults.set(false, forKey: UserDefaultIsAppLaunchHere)
+                    CUserDefaults.synchronize()
+                    completion(response, nil)
+                    
+                } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTen || metaData.valueForInt(key: CJsonStatus) == CStatusFour {
+                    completion(response, nil)
+                } else {
+                    let message = metaData.valueForString(key: CJsonMessage)
+                    GCDMainThread.async {
+                        CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    }
+                }
+            }
+            
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagLogin, error: error)
+            }
+        })
+    }
     
     func loadUserDetailsList(searchText:String,showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
         
@@ -1771,61 +1354,9 @@ extension APIRequest {
             }
         })
     }
-    
-//    func socialLogin(dict : [String : AnyObject], completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagSocialLogin, param: dict, successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//
-//            if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-//
-//                if metaData.valueForInt(key: CJsonStatus) == CStatusZero {
-//                    self.saveUserDetail(response: response as! [String : AnyObject])
-//                    CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
-//                    CUserDefaults.synchronize()
-//                    completion(response, nil)
-//                } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTwelve {
-//                    self.saveUserDetail(response: response as! [String : AnyObject])
-//                    CUserDefaults.set(false, forKey: UserDefaultIsAppLaunchHere)
-//                    CUserDefaults.synchronize()
-//                    completion(response, nil)
-//                } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTen || metaData.valueForInt(key: CJsonStatus) == CStatusFour {
-//                    completion(response, nil)
-//                } else {
-//                    let message = metaData.valueForString(key: CJsonMessage)
-//                    GCDMainThread.async {
-//                        CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                    }
-//                }
-//            }
-//
-//            /*if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSocialLogin){
-//
-//                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-//                    if metaData.valueForInt(key: CJsonStatus) == CStatusZero {
-//                        self.saveUserDetail(response: response as! [String : AnyObject])
-//                    }
-//                }
-//                completion(response, nil)
-//            }*/
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagSocialLogin, error: error)
-//            }
-//        })
-//    }
-    
-  
     func userDetails(para:[String:AnyObject], completion : @escaping ClosureCompletion) {
         
-            _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersDetails, param: para , successBlock: { (task, response) in
+        _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersDetails, param: para , successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
             let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
@@ -1848,7 +1379,7 @@ extension APIRequest {
                     self.saveUserDetail(response: _response)
                 }
             }
-
+            
             if metaData.valueForString(key: CJsonStatus) == CStatusZeros && !isAppLaunchHere {
                 CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
                 CUserDefaults.synchronize()
@@ -1868,67 +1399,38 @@ extension APIRequest {
         })
     }
     
-    
-    func userDetailNew(userID : String, apiKeyCall: String, completion : @escaping ClosureCompletion) {
-               
-            var apiTag = ""
-            if CAPITagUserNew == apiKeyCall {
-                apiTag = CAPITagUserNew + userID.description
-            } else if CAPITagUserIdNew == apiKeyCall {
-             apiTag = CAPITagUserIdNew + userID.description
-            }
-               _ = Networking.sharedInstance.GETNEW(apiTag: apiTag, param: nil, successBlock: { (task, response) in
-                   
-                   MILoader.shared.hideLoader()
-                   let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
-                   guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {
-                       completion(nil, nil)
-                       return
-                   }
-                   guard let _response = response as? [String : AnyObject] else {
-                       completion(nil, nil)
-                       return
-                   }
-                   guard let responseData = _response.valueForJSON(key: CJsonData) as? [String : AnyObject] else {
-                       completion(_response as AnyObject, nil)
-                       return
-                   }
-    //               if Int64(responseData.valueForInt(key: "user_id") ?? 0) == appDelegate.loginUser?.user_id {
-    //                   self.saveUserDetail(response: _response)
-    //               }
-                   
-                   if metaData.valueForInt(key: CJsonStatus) == CStatusZero && !isAppLaunchHere {
-                       CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
-                       CUserDefaults.synchronize()
-                       appDelegate.initHomeViewController()
-                   }
-                   
-                   completion(response, nil)
-                   
-               }, failureBlock: { (task, message, error) in
-                   MILoader.shared.hideLoader()
-                   completion(nil, error)
-                   if error?.code == CStatus405{
-                       appDelegate.logOut()
-                   } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                   } else {
-                       self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagUser, error: error)
-                   }
-               })
-           }
-    
-    
-    func signUpUser(dict : [String : AnyObject], completion : @escaping ClosureCompletion) {
-       
-        /* Oldcode by Mi
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+    func userDetailsMobile(para:[String:AnyObject], completion : @escaping ClosureCompletion) {
         
-        _ = Networking.sharedInstance.POST(apiTag: CAPITagSignUp, param: dict, successBlock: { (task, response) in
+        _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersMobileDetails, param: para , successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSignUp){
-                completion(response, nil)
+            let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
+            guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {
+                completion(nil, nil)
+                return
             }
+            guard let _response = response as? [String : AnyObject] else {
+                completion(nil, nil)
+                return
+            }
+            
+            guard let responseData = _response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] else {
+                completion(_response as AnyObject, nil)
+                return
+            }
+            for response in responseData{
+                self.saveUserDetail(response: _response)
+                if (response.valueForString(key: "user_id")) == appDelegate.loginUser?.user_id.description {
+                    self.saveUserDetail(response: _response)
+                }
+            }
+            
+            if metaData.valueForString(key: CJsonStatus) == CStatusZeros && !isAppLaunchHere {
+                CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
+                CUserDefaults.synchronize()
+                appDelegate.initHomeViewController()
+            }
+            completion(response, nil)
             
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
@@ -1937,20 +1439,65 @@ extension APIRequest {
                 appDelegate.logOut()
             } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
             } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagSignUp, error: error)
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagUser, error: error)
             }
         })
-        */
+    }
+    
+    func userDetailNew(userID : String, apiKeyCall: String, completion : @escaping ClosureCompletion) {
+        
+        var apiTag = ""
+        if CAPITagUserNew == apiKeyCall {
+            apiTag = CAPITagUserNew + userID.description
+        } else if CAPITagUserIdNew == apiKeyCall {
+            apiTag = CAPITagUserIdNew + userID.description
+        }
+        _ = Networking.sharedInstance.GETNEW(apiTag: apiTag, param: nil, successBlock: { (task, response) in
+            
+            MILoader.shared.hideLoader()
+            let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
+            guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {
+                completion(nil, nil)
+                return
+            }
+            guard let _response = response as? [String : AnyObject] else {
+                completion(nil, nil)
+                return
+            }
+            guard let responseData = _response.valueForJSON(key: CJsonData) as? [String : AnyObject] else {
+                completion(_response as AnyObject, nil)
+                return
+            }
+            
+            if metaData.valueForInt(key: CJsonStatus) == CStatusZero && !isAppLaunchHere {
+                CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
+                CUserDefaults.synchronize()
+                appDelegate.initHomeViewController()
+            }
+            
+            completion(response, nil)
+            
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagUser, error: error)
+            }
+        })
+    }
+    
+    
+    func signUpUser(dict : [String : AnyObject], completion : @escaping ClosureCompletion) {
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
         _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagSignUp, param: dict, successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSignUp){
-                completion(response, nil)
-//            }
-            
+            completion(response, nil)
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -1963,85 +1510,11 @@ extension APIRequest {
         })
         
     }
-    
-    /********************************************************
-     * Author :  Chandrika R                                *
-     * Model  :Register with user name                      *
-     * option                                               *
-     ********************************************************/
-    
-    
-    //Register User NEw APi
-   
-//    func RegistersUser(dict : [String : AnyObject], completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagRegister, param: dict, successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagRegister){
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagRegister, error: error)
-//            }
-//        })
-//
-//    }
-    
-    
-    
-    
-    /*Oldcode by Mi
-    func uploadUserProfile(userID : Int, imgProfile : UIImage?, completion : @escaping ClosureCompletion){
-        
-        var imgData = Data()
-        if imgProfile != nil{
-            imgData = (imgProfile?.jpegData(compressionQuality: 0.5))!
-        }
-        
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        
-        _ = Networking.sharedInstance.POST(param: [CUserId : userID as AnyObject], tag: CAPITagSaveProfileImage, multipartFormData: { (formData) in
-            
-            if imgData.count != 0 {
-                formData.append(imgData, withName: CProfileImage, fileName:  String(format: "%.0f.jpg", Date().timeIntervalSince1970 * 1000), mimeType: "image/jpeg")
-            }
-        }, success: { (task, response) in
-            
-            MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSaveProfileImage){
-                appDelegate.loginUser?.profile_img = (response?.value(forKey: CJsonData) as? [String : AnyObject])?.valueForString(key: CImage)
-                CoreData.saveContext()
-                completion(response, nil)
-            }
-        }, failure: { (task, message, error) in
-            MILoader.shared.hideLoader()
-            completion(nil, error)
-            if error?.code == CStatus405{
-                appDelegate.logOut()
-            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-            } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagSaveProfileImage, error: error)
-            }
-        })
-    }*/
-  
     func uploadUserProfile(userID : Int, para: [String : Any],profileImgName:String, completion : @escaping ClosureCompletion){
-            
-        
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         _ = Networking.sharedInstance.PUTJSON(apiTag:CAPITagSaveProfileImg , param: para, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
-        
+            
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSaveProfileImg) {
                 appDelegate.loginUser?.profile_img = profileImgName
                 CoreData.saveContext()
@@ -2059,11 +1532,9 @@ extension APIRequest {
         })
     }
     
-    
-    
     func uploadUserCover(dict : [String : AnyObject],coverImage:String, completion : @escaping ClosureCompletion){
-                
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
         _ = Networking.sharedInstance.PUTJSON(apiTag:CAPITagSaveCoverImg , param: dict, successBlock: { (task, response) in
             
@@ -2085,8 +1556,7 @@ extension APIRequest {
             }
         })
         
-        }
-    
+    }
     
     func verifyEmail(api:String, email : String,verifyCode : String, completion : @escaping ClosureCompletion) {
         
@@ -2115,111 +1585,15 @@ extension APIRequest {
         })
     }
     
-    /********************************************************
-     * Author :  Chandrika.R                                   *
-     * Model  : Group Create Notification                   *
-     * Description: Send Otp to Email_Id                    *
-     ********************************************************/
-    
-    
-//    func verifyEmail(api:String, email : String,verifyCode : String, completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: api, param: [CEmail : email as AnyObject, CVerifyCode : verifyCode as AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagVerifyEmail) {
-//
-//                if api == CAPITagVerifyEditEmail{
-//                    //appDelegate.loginUser?.email = email
-//                    let userId = appDelegate.loginUser?.user_id ?? 0
-//                    self.updateEmailPhone(
-//                        userId: userId,
-//                        email: email,
-//                        mobile: nil,
-//                        countryCodeId: nil
-//                    )
-//                }
-//
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagVerifyEmail, error: error)
-//            }
-//        })
-//    }
-    
-    
-    
     func verifyMobile(api: String, email : String, mobile : String, completion : @escaping ClosureCompletion) {
         
         let para : [String:Any]  =
             [
-            "to":mobile.description
+                "to":mobile.description
             ]
         _ = Networking.sharedInstance.POSTJSONOTP(apiTag: CAPITagVerifyEditMobileNew, param: para, successBlock: { (task, response) in
             
             completion(response, nil)
-//            self.saveUserDetail(response: response as! [String : AnyObject])
-            
-//            MILoader.shared.hideLoader()
-//            if api == CAPITagVerifyMobile {
-//                //self.saveUserDetail(response: (response as! [String : AnyObject]))
-//                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-//
-//                    if metaData.valueForInt(key: CJsonStatus) == CStatusZero {
-//                        self.saveUserDetail(response: response as! [String : AnyObject])
-//                        //CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
-//                        //CUserDefaults.synchronize()
-//                        completion(response, nil)
-//                    } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTwelve {
-////                        self.saveUserDetail(response: response as! [String : AnyObject])
-//                        //CUserDefaults.set(false, forKey: UserDefaultIsAppLaunchHere)
-//                        //CUserDefaults.synchronize()
-//                        completion(response, nil)
-//                    } else {
-//                        let message = metaData.valueForString(key: CJsonMessage)
-//                        GCDMainThread.async {
-//                            CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                        }
-//                    }
-//                }
-//            } else {
-//                let userId = appDelegate.loginUser?.user_id ?? 0
-//                self.updateEmailPhone(
-//                    userId: userId,
-//                    email: email,
-//                    mobile: mobile,
-//                    countryCodeId: NSNumber(value: countryId).int64Value
-//                )
-//                 completion(response, nil)
-//            }
-            /*if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagVerifyMobile){
-                if api == CAPITagVerifyMobile{
-                    self.saveUserDetail(response: (response as! [String : AnyObject]))
-                }else{
-                    let userId = appDelegate.loginUser?.user_id ?? 0
-                    self.updateEmailPhone(
-                        userId: userId,
-                        email: email,
-                        mobile: mobile,
-                        countryCodeId: NSNumber(value: countryId).int64Value
-                    )
-                    /*appDelegate.loginUser?.email = email
-                    appDelegate.loginUser?.mobile = mobile
-                    appDelegate.loginUser?.country_code_id = NSNumber(value: countryId).int64Value*/
-                }
-                completion(response, nil)
-            }*/
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -2231,344 +1605,21 @@ extension APIRequest {
             }
         })
     }
-    
-//    func verifyMobileNew(email : String, mobile : String, completion : @escaping ClosureCompletion) {
-//        
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        
-//        
-//        _ = Networking.sharedInstance.POSTJSONAUTH(apiTag: CAPITagVerifyMobile, param: ["to" : mobile as AnyObject], successBlock: { (task, response) in
-//            
-//            MILoader.shared.hideLoader()
-//                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-//                    if metaData.valueForInt(key: CJsonStatus) == CStatusZero {
-//                        self.saveUserDetail(response: response as! [String : AnyObject])
-//                        completion(response, nil)
-//                    } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTwelve {
-//                        self.saveUserDetail(response: response as! [String : AnyObject])
-//                        completion(response, nil)
-//                    } else {
-//                        let message = metaData.valueForString(key: CJsonMessage)
-//                        GCDMainThread.async {
-//                            CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                        }
-//                    }
-//                }
-//         
-//        
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagVerifyMobile, error: error)
-//            }
-//        })
-//    }
-    
-    
-    
-    
-//    func forgotPassword (dict : [String : AnyObject], completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagForgotPassword, param: dict, successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagForgotPassword) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagForgotPassword, error: error)
-//            }
-//        })
-//    }
-    
-    /********************************************************
-     * Author :  Chandrika R                                *
-     * Model  :single action shette & remvoe the edit       *
-     * option                                               *
-     ********************************************************/
-
-    
-//    func forgotPassword (dict : [String : AnyObject], completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagForgotPassword, param: dict, successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagForgotPassword) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagForgotPassword, error: error)
-//            }
-//        })
-//    }
-    
-    
-    
-    
-//    func resendVerificationCode (api : String, body:[String:Any], completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: api, param: body as [String : AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagResendVerification) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagResendVerification, error: error)
-//            }
-//        })
-//    }
-    
-    
-//    func VerifyVerificationCode (body:[String:Any], completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(api:CAPITverifyMobileOTP,body as [String : AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagResendVerification) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagResendVerification, error: error)
-//            }
-//        })
-//    }
-    
-    
-    
-    
-//    func resetPassword (otp : String, oldPwd : String,email_or_mobile : String?, type : Int?, completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagResetPassword, param: [COTP : otp as AnyObject, CPassword : oldPwd as AnyObject, CEmail_or_mobile : email_or_mobile as AnyObject, CType : type as AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagResetPassword) {
-//                completion (response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagResetPassword, error: error)
-//            }
-//        })
-//    }
-    
-//    func syncUserForInviteConnect (common_id : String?, type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        //        MILoader.shared.showLoader(type: .circularRing, message: "")
-//        let param : [String:AnyObject] =  ["common_id" : common_id as AnyObject, "type" : type as AnyObject]
-//        return Networking.sharedInstance.POST(apiTag: CAPITagConnectInviteStatus, param: param, successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagConnectInviteStatus) {
-//                completion (response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagConnectInviteStatus, error: error)
-//            }
-//        })!
-//    }
-    
-//    func connectAllFriend (user_id : String, completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagConnectAll, param: [CUserId : user_id as AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagConnectAll) {
-//                completion (response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagConnectAll, error: error)
-//            }
-//        })
-//    }
-    
-    
-    //TODO:
-    //TODO: --------------PROFILE API--------------
-    //TODO:
-    
-    
-//    func userDetail(userID : Int?, completion : @escaping ClosureCompletion) {
-//        
-//        //MILoader.shared.showLoader(type: .circularRing, message: nil)
-//        let apiUserDetailTag = CAPITagUser + "/" + "\(userID ?? 0)"
-//        _ = Networking.sharedInstance.GET(apiTag: apiUserDetailTag, param: nil, successBlock: { (task, response) in
-//            
-//            MILoader.shared.hideLoader()
-//            let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
-//            guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {
-//                completion(nil, nil)
-//                return
-//            }
-//            guard let _response = response as? [String : AnyObject] else {
-//                completion(nil, nil)
-//                return
-//            }
-//            
-//            guard let responseData = _response.valueForJSON(key: CJsonData) as? [String : AnyObject] else {
-//                completion(_response as AnyObject, nil)
-//                return
-//            }
-//            
-//            if Int64(responseData.valueForInt(key: "user_id") ?? 0) == appDelegate.loginUser?.user_id {
-//                self.saveUserDetail(response: _response)
-//            }
-//            
-//            if metaData.valueForInt(key: CJsonStatus) == CStatusZero && !isAppLaunchHere {
-//                CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
-//                CUserDefaults.synchronize()
-//                appDelegate.initHomeViewController()
-//            }
-//            
-//            completion(response, nil)
-//            
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagUser, error: error)
-//            }
-//        })
-//    }
-    
-    
-    
-    
-    //0:Unblock, 1:Block
-//    func blockUnblockUser(userID : Int?,block_unblock_status : Int?, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagUserBlockUnblock, param: [CUserId : userID as AnyObject, CBlock_unblock_status : block_unblock_status as AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserBlockUnblock) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagUserBlockUnblock, error: error)
-//            }
-//        })
-//    }
     //MARK:-
-        func blockUnblockUserNew(userID : String?,block_unblock_status : String?, completion : @escaping ClosureCompletion) {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-            let para :[String:Any]  =  [
-                "user_id": appDelegate.loginUser?.user_id ?? "",
-                "friend_user_id": userID?.description ?? "",
-                "request_type": block_unblock_status?.description ?? ""
-                ]
-           // _ = Networking.sharedInstance.POST(apiTag: CAPITagUserBlockUnblock, param: [CUserId : userID as AnyObject, CBlock_unblock_status : block_unblock_status as AnyObject], successBlock: { (task, response) in
-            _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagFriendStatus, param: para, successBlock: { (task, response) in
-                MILoader.shared.hideLoader()
-                completion(response, nil)
-    //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserBlockUnblock) {
-    //                completion(response, nil)
-    //            }
-            }, failureBlock: { (task, message, error) in
-                MILoader.shared.hideLoader()
-                completion(nil, error)
-                if error?.code == CStatus405{
-                    appDelegate.logOut()
-                } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                } else {
-                    self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagFriendStatus, error: error)
-                }
-            })
-        }
-    func friendRquestStatus(dict : Any, completion : @escaping ClosureCompletion) {
-           
-//           MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-          print(dict)
-           _ = Networking.sharedInstance.POSTPARA(apiTag: CAPITagFriendStatus, param: dict as? [String : AnyObject], successBlock: { (task, response) in
-               MILoader.shared.hideLoader()
-               completion(response, nil)
-            
-//               if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFriendStatus) {
-//
-//               }
-           }, failureBlock: { (task, message, error) in
-               completion(nil, error)
-           })
-    }
-    
-    /*func friendRquestStatus(userID : Int?,status : Int?, completion : @escaping ClosureCompletion) {
+    func blockUnblockUserNew(userID : String?,block_unblock_status : String?, completion : @escaping ClosureCompletion) {
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        
-        _ = Networking.sharedInstance.POST(apiTag: CAPITagFriendStatus, param: [CUserId : userID as AnyObject, CStatus : status as AnyObject], successBlock: { (task, response) in
-            
+        let para :[String:Any]  =  [
+            "user_id": appDelegate.loginUser?.user_id ?? "",
+            "friend_user_id": userID?.description ?? "",
+            "request_type": block_unblock_status?.description ?? ""
+        ]
+        // _ = Networking.sharedInstance.POST(apiTag: CAPITagUserBlockUnblock, param: [CUserId : userID as AnyObject, CBlock_unblock_status : block_unblock_status as AnyObject], successBlock: { (task, response) in
+        _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagFriendStatus, param: para, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFriendStatus) {
-                completion(response, nil)
-            }
+            completion(response, nil)
+            //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserBlockUnblock) {
+            //                completion(response, nil)
+            //            }
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -2579,8 +1630,19 @@ extension APIRequest {
                 self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagFriendStatus, error: error)
             }
         })
-    }*/
-   
+    }
+    func friendRquestStatus(dict : Any, completion : @escaping ClosureCompletion) {
+        
+        //           MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        print(dict)
+        _ = Networking.sharedInstance.POSTPARA(apiTag: CAPITagFriendStatus, param: dict as? [String : AnyObject], successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            completion(response, nil)
+            
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+        })
+    }
     
     func getFriendList(page : Int?,request_type : Int?, search : String?,group_id : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
@@ -2593,13 +1655,13 @@ extension APIRequest {
         case 2:
             ApiTag = CAPITagFriendsofFrd  + "pending"
         default:
-           print("defauts:::::::")
+            print("defauts:::::::")
         }
         var para = [String : Any]()
         para[CPage] = page?.description
         para[CPer_limit] = CLimitTW
         para["user_id"] = group_id?.description
-
+        
         
         if showLoader {
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
@@ -2607,10 +1669,10 @@ extension APIRequest {
         
         return Networking.sharedInstance.GETNEWPR(apiTag: ApiTag, param: para as [String : AnyObject], successBlock: { (task, response) in
             completion(response, nil)
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFriendsList) {
-                MILoader.shared.hideLoader()
-                
-//            }
+            //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFriendsList) {
+            MILoader.shared.hideLoader()
+            
+            //            }
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -2622,44 +1684,6 @@ extension APIRequest {
             }
         })!
     }
-    
-//
-//    func getFriendList(page : Int?,request_type : Int?, UserID : String?,group_id : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-////        var para = [String : Any]()
-////        para[CPage] = page
-////        para[CPer_page] = CLimit
-////        para["request_type"] = request_type
-////        para["search"] = search
-////        if group_id != nil{
-////            para[CGroupId] = group_id
-////        }
-//
-//        if showLoader {
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        return Networking.sharedInstance.GETNEW(apiTag: CAPITagFriendsListNew + UserID!, param: nil, successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            completion(response, nil)
-////            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFriendsListNew) {
-////                print("respoinse::::::::\(String(describing: response))")
-//////                MILoader.shared.hideLoader()
-////                completion(response, nil)
-////
-////            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagFriendsListNew, error: error)
-//            }
-//        })!
-//    }
-  
-
     func getFriendListNew(page : Int?,request_type : Int?, search : String?,group_id : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
         if showLoader {
@@ -2670,9 +1694,9 @@ extension APIRequest {
         return Networking.sharedInstance.GETNEW(apiTag: CAPITagFriendsListNew + Userid, param: nil, successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {
-//                completion(response, nil)
-//            }
+            //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {
+            //                completion(response, nil)
+            //            }
             completion(response, nil)
             
         }, failureBlock: { (task, message, error) in
@@ -2687,23 +1711,19 @@ extension APIRequest {
         })!
         
     }
-    
-    
-    //chatfriends List
-    
     func getChatFriendsAdd(user_id:String?,friend_user_id:String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
         var dict = [String:Any]()
         dict[CUserId] = user_id
         dict[CFriendID] = friend_user_id
         dict[CFriend_status] = "1"
-
+        
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         return Networking.sharedInstance.POSTJSON(apiTag: CAPITagUserChatList + "add", param: dict, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {
-//                completion(response, nil)
-//            }
+            //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {
+            //                completion(response, nil)
+            //            }
             completion(response, nil)
             
         }, failureBlock: { (task, message, error) in
@@ -2718,19 +1738,17 @@ extension APIRequest {
         })!
         
     }
-    
-    //Create Topic for chat Frdiends
     func ChatFriendsTopicCrt(TopicName:String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-
+        
         var dict = [String:Any]()
         dict["topic"] = TopicName
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         return Networking.sharedInstance.POSTJSONMSG(apiTag: CAPITagUserTopic , param: dict, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {
-//                completion(response, nil)
-//            }
+            //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {
+            //                completion(response, nil)
+            //            }
             completion(response, nil)
             
         }, failureBlock: { (task, message, error) in
@@ -2745,33 +1763,30 @@ extension APIRequest {
         })!
         
     }
- 
+    
     func getOtherUserFriendListNew(user_id : String?, completion : @escaping ClosureCompletion) -> URLSessionTask{
-            
-            
-            var para = [String : Any]()
-            para["user_id"] = appDelegate.loginUser?.user_id.description
-            para["friend_user_id"] = user_id
-            para["limit"] = CLimitTW
-            para["page"] = "1"
-            
-          
-           return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagFriendOfFriends, param: para as [String : AnyObject], successBlock: { (task, response) in
-
-          //  return Networking.sharedInstance.POSTJSON(apiTag: CAPITagFriendOfFriends, param: para as [String : AnyObject],successBlock: { (task, response) in
-                completion(response, nil)
-           
-            }, failureBlock: { (task, message, error) in
-                completion(nil, error)
-                if error?.code == CStatus405{
-                    appDelegate.logOut()
-                } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                } else {
-                    self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagFriendOfFriends, error: error)
-                }
-            })!
-        }
+        var para = [String : Any]()
+        para["user_id"] = appDelegate.loginUser?.user_id.description
+        para["friend_user_id"] = user_id
+        para["limit"] = CLimitTW
+        para["page"] = "1"
         
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagFriendOfFriends, param: para as [String : AnyObject], successBlock: { (task, response) in
+            
+            //  return Networking.sharedInstance.POSTJSON(apiTag: CAPITagFriendOfFriends, param: para as [String : AnyObject],successBlock: { (task, response) in
+            completion(response, nil)
+            
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagFriendOfFriends, error: error)
+            }
+        })!
+    }
+    
     
     func getOtherUserFriendList(page : Int?, user_id : Int?, search : String?, completion : @escaping ClosureCompletion) -> URLSessionTask{
         
@@ -2782,15 +1797,8 @@ extension APIRequest {
         if search != nil && !(search?.isBlank)!{
             para["search"] = search
         }
-        
-       // return Networking.sharedInstance.POST(apiTag: CAPITagFriendOfFriends, param: para as [String : AnyObject], successBlock: { (task, response) in
-       // _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagFriendOfFriends, param: para, successBlock: { (task, response) in
         return Networking.sharedInstance.POSTJSON(apiTag: CAPITagFriendOfFriends, param: para as [String : AnyObject],successBlock: { (task, response) in
             completion(response, nil)
-//
-//            self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFriendOfFriends) {
-//                completion(response, nil)
-//            }
         }, failureBlock: { (task, message, error) in
             completion(nil, error)
             if error?.code == CStatus405{
@@ -2807,7 +1815,7 @@ extension APIRequest {
     //TODO:
     
     func editProfile (dict : [String : AnyObject],para : [String : AnyObject],userID:String,dob:String, completion : @escaping ClosureCompletion) {
-      
+        
         var arrList = [[String:Any]]() //array of dictionaries
         arrList.removeAll()
         arrList.append(contentsOf: [para])
@@ -2820,9 +1828,6 @@ extension APIRequest {
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
         _ = Networking.sharedInstance.PUTJSON(apiTag:CAPITagEditProfile , param: dict, successBlock: { (task, response) in
-        
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagEditProfile, param: dict, successBlock: { (task, response) in
-            
             MILoader.shared.hideLoader()
             if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
                 
@@ -2844,11 +1849,6 @@ extension APIRequest {
                 }
             }
             
-            /*if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagEditProfile) {
-                self.saveUserDetail(response: response as! [String : AnyObject])
-                completion(response, nil)
-            }*/
-            
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -2861,325 +1861,52 @@ extension APIRequest {
         })
     }
     
-//    func changePassword(oldPwd : String?, newPwd : String, completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagChangePassword, param: ["old_password" : oldPwd as AnyObject, CPassword : newPwd as AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagChangePassword) {
-//                self.saveUserDetail(response: response as! [String : AnyObject])
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagChangePassword, error: error)
-//            }
-//        })
-//    }
-  //MARK:- NEW CODE
-    
     func changeProfilePreferencesNew(profileDetials : [String:Any], completion : @escaping ClosureCompletion) {
-            
-  
         _ = Networking.sharedInstance.PUTJSON(apiTag:CAPITagChangeProfilePreferencesNew , param: profileDetials, successBlock: { (task, response) in
             completion(response, nil)
-            }, failureBlock: { (task, message, error) in
-                completion(nil, error)
-                if error?.code == CStatus405{
-                    appDelegate.logOut()
-                } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                } else {
-                    self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagChangeProfilePreferencesNew, error: error)
-                }
-            })
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagChangeProfilePreferencesNew, error: error)
+            }
+        })
+    }
+    
+    func getBlockUserList(page : Int?, search : String?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
+        
+        if showLoader {
+            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         
-//    func changeProfilePreferences(friend_visible_status : Int?, unknown_visible_status : Int?, completion : @escaping ClosureCompletion) {
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagChangeProfilePreferences, param: ["friends_visible_status" : friend_visible_status as AnyObject, "unknown_visible_status" : unknown_visible_status as AnyObject], successBlock: { (task, response) in
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagChangeProfilePreferences) {
-//
-//                let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject]
-//                appDelegate.loginUser?.visible_to_friend =
-//                    Int16(responseData!.valueForInt(key: CVisible_to_friend)!)
-//                appDelegate.loginUser?.visible_to_other =
-//                    Int16(responseData!.valueForInt(key: CVisible_to_other)!)
-//                CoreData.saveContext()
-//
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagChangeProfilePreferences, error: error)
-//            }
-//        })
-//    }
-    
-//    func changeNotificationStatus(email_status : Int, push_status : Int, completion : @escaping ClosureCompletion) {
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagChangeNotificationStatus, param: [CPush_notify : push_status as AnyObject, CEmail_notify : email_status as AnyObject], successBlock: { (task, response) in
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagChangeNotificationStatus) {
-//
-//                let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject]
-//                appDelegate.loginUser?.push_notify = responseData!.valueForBool(key: CPush_notify)
-//                appDelegate.loginUser?.email_notify = responseData!.valueForBool(key: CEmail_notify)
-//                CoreData.saveContext()
-//
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagChangeNotificationStatus, error: error)
-//            }
-//        })
-//    }
-    
-//    func getBlockUserList(page : Int?, search : String?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        if showLoader {
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagBlockUsers, param: [CPage : page as AnyObject, CPer_page : CLimit as AnyObject, "search" : search as AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagBlockUsers) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagBlockUsers, error: error)
-//            }
-//        })!
-//    }
-    func getBlockUserList(page : Int?, search : String?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
-            
-            if showLoader {
-                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-            }
-            
         let dict : [String:Any]  =  [
             "user_id": appDelegate.loginUser?.user_id,
             "limit" : CLimit,
             "page": page
         ]
-           return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagBlockUsers, param: dict as [String : AnyObject], successBlock: { (task, response) in
-           // return Networking.sharedInstance.POST(apiTag: CAPITagBlockUsers, param: [CPage : page as AnyObject, CPer_page : CLimit as AnyObject, "search" : search as AnyObject], successBlock: { (task, response) in
-                MILoader.shared.hideLoader()
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagBlockUsers, param: dict as [String : AnyObject], successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
             completion(response, nil)
-    //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagBlockUsers) {
-    //                completion(response, nil)
-    //            }
-            }, failureBlock: { (task, message, error) in
-                MILoader.shared.hideLoader()
-                completion(nil, error)
-                if error?.code == CStatus405{
-                    appDelegate.logOut()
-                } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                } else {
-                    self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagBlockUsers, error: error)
-                }
-            })!
-        }
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagBlockUsers, error: error)
+            }
+        })!
+    }
     //TODO:
     //TODO: --------------HOME APIS --------------
     //TODO:
     
     
     //MARK:-
-       func getPostListNew(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-           
-           var para = [String : Any]()
-           para[CPage] = page
-           para[CPer_page] = CLimit
-           
-           if user_id != nil{
-           para[CUserId] = user_id
-           }
-           
-           if search_type != nil{
-               para[CSearchType] = search_type
-           }
-     
-           let dict : [String:Any]  =  [
-               "user_id":user_id?.description as Any,
-               "post_type" : search_type
-              
-               
-           ]
-           return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagHomePostsNew, param: dict as [String : AnyObject], successBlock: { (task, response) in
-          completion(response, nil)
-   //        if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagHomePostsNew) {
-   //            completion(response, nil)
-   //        }
-       }, failureBlock: { (task, message, error) in
-           completion(nil, error)
-           if error?.code == CStatus405{
-//           appDelegate.logOut()
-       } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-       } else {
-           self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagHomePostsNew, error: error)
-       }
-       })!
-       }
-       
-    
-    
-    
-    func getPostList(userID:Int,page : Int?,filter : [[String : Any]]?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
-        
-        var para = [String : Any]()
-        para[CPage] = page
-        para[CPer_page] = CLimit
-        
-        if filter != nil{
-            para[CFilterPost] = filter
-        }
-        
-//        let dict : [String:Any]  =
-//        [
-////            "user_id":"245788816",
-//            "user_id":"245788816",
-//            "page" : page as Any,
-//            "limit" : "20"
-//        ]
-//
-        var dict = [String:Any] ()
-        dict[CUserId] = userID.description
-        dict[CPage] = page?.description
-        dict[CPer_limit] = CLimitTT.description
-        
-        
-        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagHomePosts, param: dict as [String : AnyObject], successBlock: { (task, response) in
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserPost) {
-                completion(response, nil)
-            }
-        }, failureBlock: { (task, message, error) in
-                    completion(nil, error)
-                    if error?.code == CStatus405{
-                        appDelegate.logOut()
-                    } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                    } else {
-                        self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagHomePosts, error: error)
-                    }
-                })!
-    }
-    //----------------------------------------NEW CODE----------------------------------------------
-    
-    
-    
-    func getMyfriendList(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-            
-            let dict : [String:Any]  =  [
-                "user_id":user_id?.description as Any,
-                "page" : page as Any,
-                "limit" : CLimitTW]
-            return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserMyfriendList, param: dict as [String : AnyObject], successBlock: { (task, response) in
-                completion(response, nil)
-                self.saveUserFriendsDetails(response: response as! [String:AnyObject])
-        }, failureBlock: { (task, message, error) in
-            completion(nil, error)
-            if error?.code == CStatus405{
-            appDelegate.logOut()
-        } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-        } else {
-            self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagUserPostNew, error: error)
-        }
-        })!
-        }
-        
-  //MARK:- New Filter API
-    func getUserPostListNew(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-         
-         var para = [String : Any]()
-         para[CPage] = page
-         para[CPer_page] = CLimit
-         
-         if user_id != nil{
-         para[CUserId] = user_id
-         }
-         
-         if search_type != nil{
-             para[CSearchType] = search_type
-         }
-   
-         let dict : [String:Any]  =  [
-             "user_id":user_id?.description as Any,
-             "post_type" : search_type
-         ]
-         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserPostFilter, param: dict as [String : AnyObject], successBlock: { (task, response) in
-             completion(response, nil)
- //        if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserPostFilter) {
- //            completion(response, nil)
- //        }
-     }, failureBlock: { (task, message, error) in
-         completion(nil, error)
-         if error?.code == CStatus405{
-         appDelegate.logOut()
-     } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-     } else {
-         self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagUserPostFilter, error: error)
-     }
-     })!
-     }
-  
-    func getUserPostList(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-        
-        var para = [String : Any]()
-        para[CPage] = page
-        para[CPer_page] = CLimit
-        
-        if user_id != nil{
-        para[CUserId] = user_id
-        }
-        
-        if search_type != nil{
-            para[CSearchType] = search_type
-        }
-  
-        let dict : [String:Any]  =  [
-            "user_id":user_id?.description as Any,
-            "page" : page as Any,
-            "limit" : CLimit
-            
-        ]
-        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserPostNew, param: dict as [String : AnyObject], successBlock: { (task, response) in
-        if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserPost) {
-            completion(response, nil)
-        }
-    }, failureBlock: { (task, message, error) in
-        completion(nil, error)
-        if error?.code == CStatus405{
-        appDelegate.logOut()
-    } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-    } else {
-        self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagUserPostNew, error: error)
-    }
-    })!
-    }
-    /* func getUserPostList(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
+    func getPostListNew(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
         var para = [String : Any]()
         para[CPage] = page
@@ -3193,7 +1920,38 @@ extension APIRequest {
             para[CSearchType] = search_type
         }
         
-        return Networking.sharedInstance.POST(apiTag: CAPITagUserPost, param: para as [String : AnyObject], successBlock: { (task, response) in
+        let dict : [String:Any]  =  [
+            "user_id":user_id?.description as Any,
+            "post_type" : search_type
+            
+            
+        ]
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagHomePostsNew, param: dict as [String : AnyObject], successBlock: { (task, response) in
+            completion(response, nil)
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                //           appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagHomePostsNew, error: error)
+            }
+        })!
+    }
+    func getPostList(userID:Int,page : Int?,filter : [[String : Any]]?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
+        
+        var para = [String : Any]()
+        para[CPage] = page
+        para[CPer_page] = CLimit
+        
+        if filter != nil{
+            para[CFilterPost] = filter
+        }
+        var dict = [String:Any] ()
+        dict[CUserId] = userID.description
+        dict[CPage] = page?.description
+        dict[CPer_limit] = CLimitTT.description
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagHomePosts, param: dict as [String : AnyObject], successBlock: { (task, response) in
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserPost) {
                 completion(response, nil)
             }
@@ -3203,398 +1961,198 @@ extension APIRequest {
                 appDelegate.logOut()
             } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
             } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagUserPost, error: error)
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagHomePosts, error: error)
             }
         })!
-    }*/
+    }
+    //----------------------------------------NEW CODE----------------------------------------------
+    func getMyfriendList(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
+        
+        let dict : [String:Any]  =  [
+            "user_id":user_id?.description as Any,
+            "page" : page as Any,
+            "limit" : CLimitTW]
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserMyfriendList, param: dict as [String : AnyObject], successBlock: { (task, response) in
+            completion(response, nil)
+            self.saveUserFriendsDetails(response: response as! [String:AnyObject])
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagUserPostNew, error: error)
+            }
+        })!
+    }
     
-//    func getHomeSearchList(timestamp : Double?, is_post :  Int?, type :  String?, search_type : Int?, search : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        var para = [String : Any]()
-//        para[CPer_page] = CLimit
-//
-//        if (timestamp != nil){
-//            para["timestamp"] = timestamp
-//        }
-//
-//        if (is_post != nil){
-//            para["is_post"] = is_post
-//        }
-//
-//        if (type != nil){
-//            para["type"] = type
-//        }
-//
-//        if (search != nil){
-//            para["search"] = search
-//        }
-//
-//        if (search_type != nil){
-//            para[CSearchType] = search_type
-//        }
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagHomeSearch, param: para as [String : AnyObject], successBlock: { (task, response) in
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagHomeSearch) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagHomeSearch, error: error)
-//            }
-//        })!
-//    }
+    //MARK:- New Filter API
+    func getUserPostListNew(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
+        
+        var para = [String : Any]()
+        para[CPage] = page
+        para[CPer_page] = CLimit
+        
+        if user_id != nil{
+            para[CUserId] = user_id
+        }
+        if search_type != nil{
+            para[CSearchType] = search_type
+        }
+        let dict : [String:Any]  =  [
+            "user_id":user_id?.description as Any,
+            "post_type" : search_type
+        ]
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserPostFilter, param: dict as [String : AnyObject], successBlock: { (task, response) in
+            completion(response, nil)
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagUserPostFilter, error: error)
+            }
+        })!
+    }
     
- 
-    
-//    func getHomeSearchUserList(timestamp : Double?, is_post :  Int?, type :  String?, search_type : Int?, search : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        return Networking.sharedInstance.GETNEW(apiTag: CAPITagHomeSearchUsers, param: nil, successBlock: { (task, response) in
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagHomeSearchUsers) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagHomeSearchUsers, error: error)
-//            }
-//        })!
-//    }
-
-    
-    
-//    func userSearchDetail(Param:[String:Any], completion : @escaping ClosureCompletion) -> URLSessionTask {
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.GETNEWPR(apiTag:CAPITagSearchUsers, param:Param as [String : AnyObject], successBlock: { (task, response) in
-//                MILoader.shared.hideLoader()
-//                if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagViewPost){
-//                    completion(response, nil)
-//                }
-//
-//            }, failureBlock: { (task, message, error) in
-//                MILoader.shared.hideLoader()
-//                completion(nil, error)
-//                if error?.code == CStatus405{
-//                    appDelegate.logOut()
-//                } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//                } else {
-//                    self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagViewPost, error: error)
-//                }
-//            })
-//        }
-    
+    func getUserPostList(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
+        
+        var para = [String : Any]()
+        para[CPage] = page
+        para[CPer_page] = CLimit
+        
+        if user_id != nil{
+            para[CUserId] = user_id
+        }
+        
+        if search_type != nil{
+            para[CSearchType] = search_type
+        }
+        
+        let dict : [String:Any]  =  [
+            "user_id":user_id?.description as Any,
+            "page" : page as Any,
+            "limit" : CLimit
+            
+        ]
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserPostNew, param: dict as [String : AnyObject], successBlock: { (task, response) in
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserPost) {
+                completion(response, nil)
+            }
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagUserPostNew, error: error)
+            }
+        })!
+    }
     
     
     func userSearchDetail(Param:[String:Any], completion : @escaping ClosureCompletion) {
-//                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-            
-            
-            _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagSearchUsers, param: Param as [String : AnyObject], successBlock: { (task, response) in
-                    MILoader.shared.hideLoader()
-                    completion(response, nil)
-//                    if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagViewPost) {
-    //                    self.saveUserDetail(response: response as! [String : AnyObject])
-//                        completion(response, nil)
-//                    }
-                },failureBlock: { (task, message, error) in
-                    MILoader.shared.hideLoader()
-                    completion(nil, error)
-                    if error?.code == CStatus405{
-                        appDelegate.logOut()
-                    } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                    } else {
-                        self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagViewPost, error: error)
-                    }
-                })
-            }
-    
-    
-    
-//    func viewPostDetail(postID : Int?, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        
-//        _ = Networking.sharedInstance.GET(apiTag: "\(CAPITagViewPost)/\(postID ?? 0)", param: [:], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagViewPost){
-//                completion(response, nil)
-//            }
-//            
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagViewPost, error: error)
-//            }
-//        })
-//    }
-    
-    
-    
-    //========================================NEWCODE==========================================
-    
-    func viewPostDetailNew(postID : Int,apiKeyCall: String, completion : @escaping ClosureCompletion) {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        
-            var CAPITagurl = ""
-            if CAPITagarticlesDetials == apiKeyCall || CAPITagchirpiesDetials == apiKeyCall || CAPITageventsDetials == apiKeyCall  || CAPITagforumsDetials == apiKeyCall || CAPITagsgalleryDetials == apiKeyCall || CAPITagpollsDetials == apiKeyCall  || CAPITagshoutsDetials == apiKeyCall{
-                CAPITagurl = apiKeyCall
-            }
-            
-        let apiTag = CAPITagurl + postID.toString
-        
-            _ = Networking.sharedInstance.GETNEW(apiTag: apiTag, param: nil, successBlock: { (task, response) in
-                MILoader.shared.hideLoader()
-                if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: apiTag) {
-//                    self.saveUserDetail(response: response as! [String : AnyObject])
-                    completion(response, nil)
-                }
-            },failureBlock: { (task, message, error) in
-                MILoader.shared.hideLoader()
-                completion(nil, error)
-                if error?.code == CStatus405{
-                    appDelegate.logOut()
-                } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                } else {
-                    self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagViewPost, error: error)
-                }
-            })
-        }
-    func viewPollDetailNew(postID : Int, completion : @escaping ClosureCompletion) {
-//                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-            
-            var para = [String:Any]()
-        para["id"] =  postID.toString
-            
-            _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagpollsDetials, param: para as [String : AnyObject], successBlock: { (task, response) in
-                    MILoader.shared.hideLoader()
-                    completion(response, nil)
-//                    if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagViewPost) {
-    //                    self.saveUserDetail(response: response as! [String : AnyObject])
-//                        completion(response, nil)
-//                    }
-                },failureBlock: { (task, message, error) in
-                    MILoader.shared.hideLoader()
-                    completion(nil, error)
-                    if error?.code == CStatus405{
-                        appDelegate.logOut()
-                    } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                    } else {
-                        self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagViewPost, error: error)
-                    }
-                })
-            }
-      
- //MARK:- NEW Delete Code
-    
-    func deletePostNew(postDetials : [String:Any],apiKeyCall: String, completion : @escaping ClosureCompletion) {
-           MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-           var CAPITagurl = ""
-           if apiKeyCall == "post_article"{
-               CAPITagurl = CAPITagarticlesDelete
-           }else if apiKeyCall == "post_gallery"{
-               CAPITagurl = CAPITagsgalleryDelete
-           }else if apiKeyCall == "post_chirpy"{
-               CAPITagurl = CAPITagchirpiesDelete
-           }else if apiKeyCall == "post_shout"{
-               CAPITagurl = CAPITagshoutsDelete
-           }else if apiKeyCall == "post_forum"{
-               CAPITagurl = CAPITagforumsDelete
-           }else if apiKeyCall == "post_event"{
-               CAPITagurl = CAPITageventsDelete
-           }else if apiKeyCall == "post_poll"{
-               CAPITagurl = CAPITagpollsDelete
-           }
-
-         let  Apitag = CAPITagurl
-          // _ = Networking.sharedInstance.DELETJSON(apiTag: Apitag, param: nil, successBlock: { (task, response) in
-           
-     _ = Networking.sharedInstance.PUTJSON(apiTag:Apitag , param: postDetials, successBlock: { (task, response) in
-               
-               MILoader.shared.hideLoader()
-               completion(response, nil)
-
-           }, failureBlock: { (task, message, error) in
-               MILoader.shared.hideLoader()
-               completion(nil, error)
-               if error?.code == CStatus405{
-                   appDelegate.logOut()
-               } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-               } else {
-                   self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagurl, error: error)
-               }
-           })
-           }
-           
-    
-//    func deletePostNew(postID : Int?,apiKeyCall: String, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        var CAPITagurl = ""
-//        if apiKeyCall == "post_article"{
-//            CAPITagurl = CAPITagarticlesDelete
-//        }else if apiKeyCall == "post_gallery"{
-//            CAPITagurl = CAPITagarticlesDelete
-//        }else if apiKeyCall == "post_chirpy"{
-//            CAPITagurl = CAPITagchirpiesDelete
-//        }else if apiKeyCall == "post_shout"{
-//            CAPITagurl = CAPITagshoutsDelete
-//        }else if apiKeyCall == "post_forum"{
-//            CAPITagurl = CAPITagforumsDelete
-//        }else if apiKeyCall == "post_event"{
-//            CAPITagurl = CAPITageventsDelete
-//        }else if apiKeyCall == "post_poll"{
-//            CAPITagurl = CAPITagpollsDelete
-//        }
-//
-//        let  Apitag = CAPITagurl + postID!.toString
-//        _ = Networking.sharedInstance.DELETJSON(apiTag: Apitag, param: nil, successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            completion(response, nil)
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagurl, error: error)
-//            }
-//        })
-//        }
-        
-    
-//   func deletePost(postID : Int?, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        
-//        _ = Networking.sharedInstance.GET(apiTag: "\(CAPITagPostDelete)/\(postID ?? 0)", param: [:], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagPostDelete){
-//                completion(response, nil)
-//            }else{
-//                completion(nil, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagPostDelete, error: error)
-//            }
-//        })
-//    }
-    
-    
-    //TODO:
-    //TODO: --------------POST APIS --------------
-    //TODO:
-    
-//    func addEditImagePost(para : [String : Any], images : [Data]?, shoudShowLoader : Bool, completion : @escaping ClosureCompletion) {
-//        
-//        if shoudShowLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        
-//        Networking.sharedInstance.POST(param: para as [String : AnyObject], tag: CAPITagSaveGallery, multipartFormData: { (formData) in
-//            for imgData in images!{
-//                formData.append(imgData, withName: "\(CImage)[]", fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
-//            }
-//            
-//        }, success: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSaveGallery) {
-//                completion(response, nil)
-//            }
-//        }) { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagSaveGallery, error: error)
-//            }
-//        }
-//    }
-    
-//    func addEditImageVideoPost(para : [String : Any], arrMedia : [MDLAddMedia]?, shoudShowLoader : Bool, completion : @escaping ClosureCompletion) {
-//
-//        if shoudShowLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//
-//        Networking.sharedInstance.POST(param: para as [String : AnyObject], tag: CAPITagSaveGallery, multipartFormData: { (formData) in
-//            for media in arrMedia ?? []{
-//                if media.assetType == .Video{
-//                    if let videoUrl = URL(string: media.url ?? ""){
-//                        do {
-//                            let data = try Data(contentsOf: videoUrl, options: .mappedIfSafe)
-//                            formData.append(data, withName: "\(CImage)[]", fileName: "\(Date().timeIntervalSince1970).mp4", mimeType: "video/mp4")
-//                        }catch{}
-//                    }
-//                }else{
-//                    if let img = media.image, let imgData = img.jpegData(compressionQuality: 0.9){
-//                        formData.append(imgData, withName: "\(CImage)[]", fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
-//                    }
-//                }
-//            }
-//        }, success: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSaveGallery) {
-//                completion(response, nil)
-//            }
-//        }) { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagSaveGallery, error: error)
-//            }
-//        }
-//    }
-    /*Oldcode by Mi
-    func addEditPost(para : [String : Any], image : UIImage?, completion : @escaping ClosureCompletion) {
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        
-        var imgData = Data()
-        if image != nil{
-            imgData = (image?.jpegData(compressionQuality: 0.9))!
-        }
-        
-        Networking.sharedInstance.POST(param: para as [String : AnyObject], tag: CAPITagAddPost, multipartFormData: { (formData) in
-            if imgData.count != 0 {
-                formData.append(imgData, withName: CImage, fileName:  String(format: "%.0f.jpg", Date().timeIntervalSince1970 * 1000), mimeType: "image/jpeg")
-            }
-        }, success: { (task, response) in
+        _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagSearchUsers, param: Param as [String : AnyObject], successBlock: { (task, response) in
             MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddPost) {
-                completion(response, nil)
-            }
-        }) { (task, message, error) in
+            completion(response, nil)
+        },failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
             if error?.code == CStatus405{
                 appDelegate.logOut()
             } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
             } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagAddPost, error: error)
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagViewPost, error: error)
             }
+        })
+    }
+    
+    //========================================NEWCODE==========================================
+    
+    func viewPostDetailNew(postID : Int,apiKeyCall: String, completion : @escaping ClosureCompletion) {
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        
+        var CAPITagurl = ""
+        if CAPITagarticlesDetials == apiKeyCall || CAPITagchirpiesDetials == apiKeyCall || CAPITageventsDetials == apiKeyCall  || CAPITagforumsDetials == apiKeyCall || CAPITagsgalleryDetials == apiKeyCall || CAPITagpollsDetials == apiKeyCall  || CAPITagshoutsDetials == apiKeyCall{
+            CAPITagurl = apiKeyCall
         }
-    }*/
-   
+        
+        let apiTag = CAPITagurl + postID.toString
+        
+        _ = Networking.sharedInstance.GETNEW(apiTag: apiTag, param: nil, successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: apiTag) {
+                //                    self.saveUserDetail(response: response as! [String : AnyObject])
+                completion(response, nil)
+            }
+        },failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagViewPost, error: error)
+            }
+        })
+    }
+    func viewPollDetailNew(postID : Int, completion : @escaping ClosureCompletion) {
+        var para = [String:Any]()
+        para["id"] =  postID.toString
+        
+        _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagpollsDetials, param: para as [String : AnyObject], successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            completion(response, nil)
+        },failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagViewPost, error: error)
+            }
+        })
+    }
+    
+    //MARK:- NEW Delete Code
+    func deletePostNew(postDetials : [String:Any],apiKeyCall: String, completion : @escaping ClosureCompletion) {
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        var CAPITagurl = ""
+        if apiKeyCall == "post_article"{
+            CAPITagurl = CAPITagarticlesDelete
+        }else if apiKeyCall == "post_gallery"{
+            CAPITagurl = CAPITagsgalleryDelete
+        }else if apiKeyCall == "post_chirpy"{
+            CAPITagurl = CAPITagchirpiesDelete
+        }else if apiKeyCall == "post_shout"{
+            CAPITagurl = CAPITagshoutsDelete
+        }else if apiKeyCall == "post_forum"{
+            CAPITagurl = CAPITagforumsDelete
+        }else if apiKeyCall == "post_event"{
+            CAPITagurl = CAPITageventsDelete
+        }else if apiKeyCall == "post_poll"{
+            CAPITagurl = CAPITagpollsDelete
+        }
+        
+        let  Apitag = CAPITagurl
+        _ = Networking.sharedInstance.PUTJSON(apiTag:Apitag , param: postDetials, successBlock: { (task, response) in
+            
+            MILoader.shared.hideLoader()
+            completion(response, nil)
+            
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagurl, error: error)
+            }
+        })
+    }
     func addEditPost(para : [String : Any], image : UIImage?,apiKeyCall: String, completion : @escaping ClosureCompletion) {
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         print("print\(para)")
@@ -3608,9 +2166,6 @@ extension APIRequest {
             
             self.saveUserDetail(response: response as! [String : AnyObject])
             completion(response, nil)
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagurl) {
-//
-//            }
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -3622,51 +2177,6 @@ extension APIRequest {
             }
         })
     }
-    
-    
-    
-    
-//    func removePostImage(postID : Int?, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.GET(apiTag: "\(CAPITagRemovePostImage)/\(postID ?? 0)", param: [:], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagRemovePostImage){
-//                completion(response, nil)
-//            }
-//
-//        }) { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagRemovePostImage, error: error)
-//            }
-//        }
-//    }
-    
-//    func removePost(postID : Int?, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.GET(apiTag: "\(CAPITagDeletePost)/\(postID ?? 0)", param: [:], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagDeletePost){
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagDeletePost, error: error)
-//            }
-//        })
-//    }
-    
     
     //TODO:
     //TODO: --------------OTO CHAT APIS --------------
@@ -3699,154 +2209,54 @@ extension APIRequest {
         
     }
     
-//    func userMesageList (timestamp:Double, recv_id:Any?, completion: @escaping ClosureCompletion) -> URLSessionTask? {
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagUserChatLstDetails, param: ["timestamp" : timestamp as AnyObject, "recv_id" : recv_id as AnyObject], successBlock: { (task, response) in
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: false, responseobject: response, strApiTag: CAPITagUserChatList) {
-//                self.saveMessagesToLocal(response: response as! [String : Any])
-//                completion (response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            completion (nil, error)
-//        })
-//    }
-    
-    
     func userMesageListNew (chanelID:String, completion: @escaping ClosureCompletion) -> URLSessionTask? {
         var dict = [String:Any]()
         dict["topic"] = chanelID
         
         return Networking.sharedInstance.GETNEWPRMSG(apiTag: CAPITagUserChatLstDetails, param: dict as AnyObject as? [String : AnyObject], successBlock: { (task, response) in
             completion (response, nil)
-            
-//            if self.checkResponseStatusAndShowAlert(showAlert: false, responseobject: response, strApiTag: CAPITagUserChatList) {
-////                self.saveMessagesToLocal(response: response as! [String : Any])
-//                completion (response, nil)
-//            }
-            
         }, failureBlock: { (task, message, error) in
             completion (nil, error)
         })
     }
-    
     
     //TODO:
     //TODO: --------------SocetIO Send Messages APIS --------------
     //TODO:
     
     func userSentMsg(dict:[String:Any], completion: @escaping ClosureCompletion) -> URLSessionTask? {
-        
         return Networking.sharedInstance.POSTJSONMSG(apiTag: CAPITagChatMsg, param:dict, successBlock: { (task, response) in
             
             completion (response, nil)
-//            self.saveMessagesToLocal(response: response as! [String : Any])
-//            if self.checkResponseStatusAndShowAlert(showAlert: false, responseobject: response, strApiTag: CAPITagUserChatList) {
-//                self.saveMessagesToLocal(response: response as! [String : Any])
-//                completion (response, nil)
-//            }
-            
         }, failureBlock: { (task, message, error) in
             completion (nil, error)
         })
     }
     
-    
-    
-    
-    /*
-     Auto Delete Status NEW CODE
-     
-     */
-    
-//    func userCheckAutoStatus(completion: @escaping ClosureCompletion) -> URLSessionTask? {
-//
-//        return Networking.sharedInstance.GET(apiTag: CAPITagCheckAutoDeleteStaus, param:nil, successBlock: { (task, response) in
-//            completion(response, nil)
-//        }, failureBlock: { (task, message, error) in
-//            completion (nil, error)
-//        })
-//    }
-    
-    
-    
-//    func chatMediaUpload(msgType : Int?, chatType : Int?, mediaData: Data?, videoThumbData: Data?, completion : @escaping ClosureCompletion) {
-//
-//        var para = [String : Any]()
-//        para["msg_type"] = msgType
-//        para["chat_type"] = chatType
-//
-//        if mediaData == nil{
-//            print("File not found =========== ")
-//        }
-//
-//        Networking.sharedInstance.POST(param: para as [String : AnyObject], tag: CAPITagMediaUpload, multipartFormData: { (formData) in
-//            if mediaData!.count != 0 {
-//                if msgType == 2 || msgType == 6 {
-//                    // IMAGE
-//                    formData.append(mediaData!, withName: CFile, fileName:  String(format: "%.0f.jpg", Date().timeIntervalSince1970 * 1000), mimeType: "image/jpeg")
-//                }else if msgType == 3 {
-//                    // Video
-//                    formData.append(mediaData!, withName: CFile, fileName:  String(format: "video%.0f.mov", Date().timeIntervalSince1970 * 1000), mimeType: "video/mp4")
-//
-//                    // Video Thumbnail
-//                    if videoThumbData != nil {
-//                        if videoThumbData?.count != 0 {
-//                            formData.append(videoThumbData!, withName: CThumbNail, fileName:  String(format: "%.0f.jpg", Date().timeIntervalSince1970 * 1000), mimeType: "image/jpeg")
-//                        }
-//                    }
-//
-//                }else {
-//                    // AUDIO
-//                    formData.append(mediaData!, withName: CFile, fileName:  String(format: "audio%.0f.mp3", Date().timeIntervalSince1970 * 1000), mimeType: "audio/mpeg")
-//
-//                }
-//            }
-//        }, success: { (task, response) in
-//            //            if self.checkResponseStatusAndShowAlert(showAlert: false, responseobject: response, strApiTag: CAPITagMediaUpload) {
-//            completion(response, nil)
-//            //            }
-//        }) { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:false, strApiTag: CAPITagMediaUpload, error: error)
-//            }
-//        }
-//    }
-    
     //TODO: --------------CHAT GROUPS APIS --------------
     
     func chatMessagePost(para : [String : Any], showLoader:Bool, completion : @escaping ClosureCompletion) {
-            
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-            
-//            var imgData : Data?
-//            if image != nil{
-//                imgData = (image?.jpegData(compressionQuality: 0.9))!
-//            }
-            let _ = Networking.sharedInstance.POSTJSONMSG(apiTag: CAPITagChatMsg, param: para, successBlock: { (task, response) in
-//                MILoader.shared.hideLoader()
+        
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        
+        let _ = Networking.sharedInstance.POSTJSONMSG(apiTag: CAPITagChatMsg, param: para, successBlock: { (task, response) in
+            //                MILoader.shared.hideLoader()
+            completion(response, nil)
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagReportUserNew) {
                 completion(response, nil)
-                if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagReportUserNew) {
-                    completion(response, nil)
-                }else{
-                    completion(nil, nil)
-                }
-            }, failureBlock: { (task, message, error) in
-                completion(nil, error)
-                MILoader.shared.hideLoader()
-                if error?.code == CStatus405{
-                    appDelegate.logOut()
-                } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                } else {
-                    self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagReportUserNew, error: error)
-                }
-            })
+            }else{
+                completion(nil, nil)
+            }
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            MILoader.shared.hideLoader()
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagReportUserNew, error: error)
+            }
+        })
     }
     
     //TODO:
@@ -3872,14 +2282,6 @@ extension APIRequest {
             self.storeGroupChatList(response: response as! [String : Any])
             completion(response, nil)
             
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagGroupsListNew) {
-//                if timestamp == 0 {
-//                    TblChatGroupList.deleteAllObjects()
-//                    CoreData.saveContext()
-//                }
-//
-//            }
-            
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -3892,46 +2294,6 @@ extension APIRequest {
         })!
         
     }
-    
-//    func getGroupPendingRequest(group_id : Int?, search : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//        return Networking.sharedInstance.POST(apiTag: CAPITagPendingGroupRequest, param: [CGroupId : group_id as AnyObject, "search" : search as AnyObject], successBlock: { (task, response) in
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagPendingGroupRequest) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagPendingGroupRequest, error: error)
-//            }
-//        })!
-//
-//    }
-    
-//    func groupDetail(group_id : Int?,shouldShowLoader : Bool, completion : @escaping ClosureCompletion) {
-//        if shouldShowLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagGroupsDetail, param: [CGroupId : group_id as AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagGroupsDetail) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagGroupsDetail, error: error)
-//            }
-//        })
-//    }
-   
     
     func groupDetail(group_id : String?,shouldShowLoader : Bool, completion : @escaping ClosureCompletion) {
         if shouldShowLoader{
@@ -3959,11 +2321,9 @@ extension APIRequest {
         })
     }
     
-    
-    
     func exitGroup(group_id : String?,user_id : String?,user_type : Int, completion : @escaping ClosureCompletion) {
         var para = [String : Any]()
-
+        
         if user_id != nil{
             para[Cuser_id] = user_id?.description
         }
@@ -3996,37 +2356,16 @@ extension APIRequest {
         })
     }
     
-//    func addMemberInGroup(group_id : Int?, group_users_id : String?, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagAddGroupMember, param: [CGroupId : group_id as AnyObject,CGroupUsersId : group_users_id as AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddGroupMember) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagAddGroupMember, error: error)
-//            }
-//        })
-//    }
-    
-    
     func addMemberInGroup(group_id : Int?, group_users_id : String?,frdsList:[String], completion : @escaping ClosureCompletion) {
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
         var para = [String : Any]()
-
+        
         if group_users_id != nil{
             
             para[CGroupId] = group_id?.description
         }
-
+        
         if group_id != nil{
             para["friends_list"] = frdsList
         }
@@ -4047,42 +2386,16 @@ extension APIRequest {
             }
         })
     }
-  
-    
-    
-//    func removeMemberFromGroup(group_id : Int?, group_users_id : String?, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagRemoveGroupMember, param: [CGroupId : group_id as AnyObject,CGroupUsersId : group_users_id as AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagRemoveGroupMember) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagRemoveGroupMember, error: error)
-//            }
-//        })
-//    }
-    
     
     func removeMemberFromGroup(group_id : Int?, group_users_id : String?, completion : @escaping ClosureCompletion) {
-
+        
         var para = [String : Any]()
-
         if group_users_id != nil{
             para[Cuser_id] = group_users_id?.description
         }
-
         if group_id != nil{
             para[CGroupId] = group_id?.description
         }
-        
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
@@ -4102,150 +2415,8 @@ extension APIRequest {
             }
         })
     }
-    
-    
-    
-    
-    
-//    func deleteGroup(group_id : Int?, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagDeleteGroup, param: [CGroupId : group_id as AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagDeleteGroup) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagDeleteGroup, error: error)
-//            }
-//        })
-//
-//    }
-    
-//    func groupRequestStatus(group_id : Int?, user_id : Int?, status : Int?, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagGroupRequestStatus, param: [CGroupId : group_id as AnyObject,CUserId : user_id as AnyObject,CStatus : status as AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagGroupRequestStatus) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagGroupRequestStatus, error: error)
-//            }
-//        })
-//    }
-    
-//    func joinGroup(group_id : Int?, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagJoinGroup, param: [CGroupId : group_id as AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if let meta = response?.value(forKey: CJsonMeta) as? [String : Any] {
-//                switch meta.valueForInt(key: CJsonStatus) {
-//                case 0, 1:
-//                    DispatchQueue.main.asyncAfter(deadline: .now()+0.8) {
-//                        CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: meta.valueForString(key: CMessage), btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                    }
-//                    completion(response, nil)
-//                    break
-//                default:break
-//                }
-//            }
-//            /*if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagJoinGroup) {
-//                completion(response, nil)
-//            }*/
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagJoinGroup, error: error)
-//            }
-//        })
-//    }
-    
-    
-    //MI Old api
-    
-    /*func addEditChatGroup(para : [String : Any], image : UIImage?, completion : @escaping ClosureCompletion) {
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        
-        var imgData = Data()
-        if image != nil{
-            imgData = (image?.jpegData(compressionQuality: 0.9))!
-        }
-        print("Request Body : \(para)")
-        Networking.sharedInstance.POST(param: para as [String : AnyObject], tag: CAPITagAddEditGroup, multipartFormData: { (formData) in
-            if imgData.count != 0 {
-                formData.append(imgData, withName: CGroupImage, fileName:  String(format: "%.0f.jpg", Date().timeIntervalSince1970 * 1000), mimeType: "image/jpeg")
-            }
-        }, success: { (task, response) in
-            MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddEditGroup) {
-                completion(response, nil)
-            }
-        }) { (task, message, error) in
-            MILoader.shared.hideLoader()
-            completion(nil, error)
-            if error?.code == CStatus405{
-                appDelegate.logOut()
-            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-            } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagAddEditGroup, error: error)
-            }
-        }
-    }*/
-    
-    
-    
-//    func addEditChatGroup(para : [String : Any], image : UIImage?, completion : @escaping ClosureCompletion) {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        var imgData = Data()
-//        if image != nil{
-//            imgData = (image?.jpegData(compressionQuality: 0.9))!
-//        }
-//        print("Request Body : \(para)")
-//        Networking.sharedInstance.POST(param: para as [String : AnyObject], tag: CAPITagAddEditGroup, multipartFormData: { (formData) in
-//            if imgData.count != 0 {
-//                formData.append(imgData, withName: CGroupImage, fileName:  String(format: "%.0f.jpg", Date().timeIntervalSince1970 * 1000), mimeType: "image/jpeg")
-//            }
-//        }, success: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddEditGroup) {
-//                completion(response, nil)
-//            }
-//        }) { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagAddEditGroup, error: error)
-//            }
-//        }
-//    }
-    
-    
-    
     func addEditChatGroup(para : [String : Any],image : UIImage?, completion : @escaping ClosureCompletion) {
-
+        
         print("::::::::\(para)")
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
@@ -4253,10 +2424,6 @@ extension APIRequest {
             
             MILoader.shared.hideLoader()
             completion(response, nil)
-            
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddEditGroup){
-//                completion(response, nil)
-//            }
             
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
@@ -4270,13 +2437,9 @@ extension APIRequest {
         })
     }
     
-    
-    
     func EditChatGroup(para : [String : Any],image : UIImage?, completion : @escaping ClosureCompletion) {
-
-        print("::::::::\(para)")
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         _ = Networking.sharedInstance.PUTJSON(apiTag: CAPITagEditGroup, param: para, successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
@@ -4295,150 +2458,30 @@ extension APIRequest {
             }
         })
     }
-    
-    
-    
-//    func searchGroupForJoin(search : String?, page : Int?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagSearchGroup, param: ["search" : search as AnyObject, CPage : page as AnyObject, CPer_page : CLimit as AnyObject], successBlock: { (task, response) in
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSearchGroup){
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//
-//            if error?.code == 1009 || error?.code == 1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagSearchGroup, error: error)
-//            }
-//
-//        })!
-//    }
-    
-//    func groupChatDetails(timestamp:Double, group_id:Any?, completion: @escaping ClosureCompletion) -> URLSessionTask? {
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagGroupChatDetails, param: ["timestamp" : timestamp as AnyObject, "group_id" : group_id as AnyObject], successBlock: { (task, response) in
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: false, responseobject: response, strApiTag: CAPITagGroupChatDetails) {
-////                self.saveMessagesToLocal(response: response as! [String : Any])
-//                completion (response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            completion (nil, error)
-//        })
-//    }
-    
-//    func messageDetails(message_id:Any?, completion: @escaping ClosureCompletion) -> URLSessionTask? {
-//
-//        MILoader.shared.showLoader(type: .activityIndicator, message: nil)
-//        return Networking.sharedInstance.POST(apiTag: CAPITagReadUser, param: ["message_id" : message_id as AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: false, responseobject: response, strApiTag: CAPITagReadUser) {
-//                completion (response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion (nil, error)
-//        })
-//    }
-    
-    //TODO:
-    //TODO: --------------EVENT APIS --------------
-    //TODO:
-    
-//    func getEventDates(completion : @escaping ClosureCompletion){
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagEventDates, param: ["timezone":TimeZone.current.identifier as AnyObject], successBlock: { (task, response) in
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagEventDates){
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus1005 || error?.code == CStatus1009 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagEventDates, error: error)
-//            }
-//        })
-//    }
-    
-//    func getEventList(parameters:[String:Any], showloader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        if showloader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagEventCalendar, param: parameters as [String:AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagEventCalendar){
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagEventCalendar, error: error)
-//            }
-//        })!
-//    }
-    
-    
-    //TODO:
-    //TODO: --------------NEWS API--------------
-    //TODO:
-    
-//    func getNewsCategory(completion: @escaping ClosureCompletion) {
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagNewsCategory, param: [:], successBlock: { (task, response) in
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNewsCategory) {
-//                self.storeNewsCategory(response: response as! [String : AnyObject])
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagNewsCategory, error: error)
-//            }
-//        })
-//    }
-    
-    
-        func getNewsCategory(completion: @escaping ClosureCompletion) {
-    
-            _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagNewsCategoryNew, param: nil, successBlock: { (task, response) in
-    
-                if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNewsCategory) {
-                    self.storeNewsCategory(response: response as! [String : AnyObject])
-                    completion(response, nil)
-                }
-            }, failureBlock: { (task, message, error) in
-                completion(nil, error)
-                if error?.code == CStatus405{
-                    appDelegate.logOut()
-                } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                } else {
-                    self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagNewsCategory, error: error)
-                }
-            })
-        }
+    func getNewsCategory(completion: @escaping ClosureCompletion) {
+        
+        _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagNewsCategoryNew, param: nil, successBlock: { (task, response) in
+            
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNewsCategory) {
+                self.storeNewsCategory(response: response as! [String : AnyObject])
+                completion(response, nil)
+            }
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagNewsCategory, error: error)
+            }
+        })
+    }
     
     
     func getPslCategory(completion: @escaping ClosureCompletion) {
-
+        
         _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagPSLCategoryNew, param: nil, successBlock: { (task, response) in
-
+            
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNewsCategory) {
                 self.storPSLCategory(response: response as! [String : AnyObject])
                 completion(response, nil)
@@ -4453,33 +2496,6 @@ extension APIRequest {
             }
         })
     }
-
-    
-    
-    
-    
-    
-//    func getNewsList(categoryId: String?, completion: @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagNews, param: [CCategoryID: categoryId as AnyObject, CCountry_id: appDelegate.loginUser?.country_id as AnyObject], successBlock: { (task, response) in
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNews) {
-//                completion(response, nil)
-//            }else{
-//                completion(nil, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagNews, error: error)
-//            }
-//        })!
-//    }
-    
-
     func getNewsList(para : [String:Any], completion: @escaping ClosureCompletion) -> URLSessionTask {
         
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagNews, param: para as AnyObject as? [String : AnyObject], successBlock: { (task, response) in
@@ -4500,21 +2516,12 @@ extension APIRequest {
         })!
     }
     
-    
-    
     func getPSLList(page : Int?,type : String?, showLoader : Bool,userId:String, completion: @escaping ClosureCompletion) -> URLSessionTask {
-        
         
         if showLoader {
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         let apiTag = CAPITagPSLWebsites + type!
-//        var para = [String : Any]()
-//        para[CPage] = page?.description
-//        para[CPer_limit] = CLimitTW
-//        para[CType] = type
-        
-        
         return Networking.sharedInstance.GETNEW(apiTag: apiTag, param: nil, successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
@@ -4532,39 +2539,9 @@ extension APIRequest {
         })!
     }
     
-    
-    
     //TODO:
     //TODO: --------------FAV WEBSITE --------------
     //TODO:
-   /*Oldcode by Mi
-        func getFavWebSiteList(page : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
-        
-        if showLoader {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        }
-        
-        return Networking.sharedInstance.GET(apiTag: CAPITagFavWeb, param: [CPage : page as AnyObject, CPer_page : CLimit as AnyObject], successBlock: { (task, response) in
-            
-            MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {
-                completion(response, nil)
-            }
-            
-        }, failureBlock: { (task, message, error) in
-            MILoader.shared.hideLoader()
-            completion(nil, error)
-            if error?.code == CStatus405{
-                appDelegate.logOut()
-            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-            } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagFavWeb, error: error)
-            }
-        })!
-        
-    }
-     */
-   
     func getFavWebSiteList(page : Int?,type : String?, showLoader : Bool,userId:String, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
         if showLoader {
@@ -4575,7 +2552,7 @@ extension APIRequest {
         para[CPage] = page
         para[CPer_limit] = CLimitNew
         para[CType] = type
-
+        
         return Networking.sharedInstance.GETNEWPR(apiTag: apiTag, param: para as [String : AnyObject], successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
@@ -4601,77 +2578,9 @@ extension APIRequest {
     //TODO: --------------GENERAL APIS --------------
     //TODO:
     
-//    func getNotificationCount(completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagNotificationUnreadCount, param: nil, successBlock: { (task, response) in
-//            if self.checkResponseStatusAndShowAlert(showAlert: false, responseobject: response, strApiTag: CAPITagNotificationUnreadCount) {
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:false, strApiTag: CAPITagNotificationUnreadCount, error: error)
-//            }
-//        })!
-//
-//    }
-    
-    
-    /*Oldcode By Mi
-     func feedbackApplication(message : String?, feedback_id : Int?, image : UIImage?, completion : @escaping ClosureCompletion) {
-        
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        
-        var para = [String : Any]()
-        para["api_version"] = CAPIVesrion
-        para["device_name"] = UIDevice.current.name
-        para["os_version"] = UIDevice.current.systemVersion
-        para["platform"] = "Ios"
-        
-        if message != nil {
-            para["message"] = message
-        }
-        
-        if feedback_id != nil {
-            para["feedback_id"] = feedback_id
-        }
-        
-        var imgData : Data?
-        if image != nil{
-            imgData = (image?.jpegData(compressionQuality: 0.9))!
-        }
-        
-        Networking.sharedInstance.POST(param: para as [String : AnyObject], tag: CAPITagFeedback, multipartFormData: { (formData) in
-            if imgData != nil{
-                formData.append(imgData!, withName: CImage, fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
-            }
-        }, success: { (task, response) in
-            MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFeedback) {
-                completion(response, nil)
-            }
-        }) { (task, message, error) in
-            MILoader.shared.hideLoader()
-            completion(nil, error)
-            if error?.code == CStatus405{
-                appDelegate.logOut()
-            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-            } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagFeedback, error: error)
-            }
-        }
-    }*/
-    
     func feedbackApplication(dict : [String : Any], completion : @escaping ClosureCompletion) {
-
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        
         _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagFeedback, param: dict, successBlock: { (task, response) in
-            
             MILoader.shared.hideLoader()
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSignUp){
                 completion(response, nil)
@@ -4688,29 +2597,25 @@ extension APIRequest {
             }
         })
     }
-   
+    
     
     func getLikeList(page : Int?, post_id : String?, rss_id : Int?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-
+        
         var para = [String : Any]()
         para[CPage] = page
         para[CPer_limit] = CLimitNew
-
+        
         if post_id != nil {
             para[CPostId] = post_id
         }
-
+        
         if rss_id != nil {
             para[CRssId] = rss_id
         }
         let apiTag = CAPITagLikes + (post_id ?? "0").description
-        //let apiTag = CAPITagLikes + "204828688"
         return Networking.sharedInstance.GETNEW(apiTag: apiTag, param: nil, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSignUp){
-                completion(response, nil)
-//            }
-            
+            completion(response, nil)
         }, failureBlock: { (task, message, error) in
             completion(nil, error)
             if error?.code == CStatus405{
@@ -4722,8 +2627,7 @@ extension APIRequest {
         })!
     }
     
-    /*************OldCode by Mi******************
-     func reportPostUserRSS(para : [String : Any], image : UIImage?, completion : @escaping ClosureCompletion) {
+    func reportPostUserRSS(para : [String : Any], image : UIImage?, completion : @escaping ClosureCompletion) {
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
@@ -4731,275 +2635,49 @@ extension APIRequest {
         if image != nil{
             imgData = (image?.jpegData(compressionQuality: 0.9))!
         }
-        
-        Networking.sharedInstance.POST(param: para as [String : AnyObject], tag: CAPITagReportUser, multipartFormData: { (formData) in
-            if imgData != nil{
-                formData.append(imgData!, withName: CImage, fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
-            }
-        }, success: { (task, response) in
+        let _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagReportUserNew, param: para, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagReportUser) {
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagReportUserNew) {
                 completion(response, nil)
+            }else{
+                completion(nil, nil)
             }
-        }) { (task, message, error) in
-            MILoader.shared.hideLoader()
+        }, failureBlock: { (task, message, error) in
             completion(nil, error)
+            MILoader.shared.hideLoader()
             if error?.code == CStatus405{
                 appDelegate.logOut()
             } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
             } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagReportUser, error: error)
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagReportUserNew, error: error)
             }
-        }
-    }*/
-    
-
-    func reportPostUserRSS(para : [String : Any], image : UIImage?, completion : @escaping ClosureCompletion) {
-            
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-            
-            var imgData : Data?
-            if image != nil{
-                imgData = (image?.jpegData(compressionQuality: 0.9))!
-            }
-            let _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagReportUserNew, param: para, successBlock: { (task, response) in
-                MILoader.shared.hideLoader()
-                if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagReportUserNew) {
-                    completion(response, nil)
-                }else{
-                    completion(nil, nil)
-                }
-            }, failureBlock: { (task, message, error) in
-                completion(nil, error)
-                MILoader.shared.hideLoader()
-                if error?.code == CStatus405{
-                    appDelegate.logOut()
-                } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-                } else {
-                    self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagReportUserNew, error: error)
-                }
-            })
+        })
     }
     
-    
-//    func getCommentList(page : Int?, showLoader : Bool, post_id : Int?, rss_id: Int?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        if showLoader {
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//
-//        var para = [String : Any]()
-//        para[CPage] = page
-//        para[CPer_page] = CLimit
-//
-//        // To Get Post comment list...
-//        if post_id != nil{
-//            para["post_id"] = post_id
-//        }
-//
-//        // To Get website comment list...
-//        if rss_id != nil{
-//            para["rss_id"] = rss_id
-//        }
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagCommentList, param: para as [String : AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCommentList) {
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagCommentList, error: error)
-//            }
-//        })!
-//
-//    }
-    
-//    func sendComment(post_id : Int?,commentId : Int? ,rss_id: Int?, type : Int?, comment : String?, include_user_id : String?, completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        var para = [String : Any]()
-//        para["comment"] = comment
-//        para["type"] = type
-//
-//        if include_user_id != nil{
-//            para["include_user_id"] = include_user_id
-//        }
-//        // To add comment on Post...
-//        if post_id != nil{
-//            para["post_id"] = post_id
-//        }
-//
-//        // To add comment on Website...
-//        if rss_id != nil{
-//            para["rss_id"] = rss_id
-//        }
-//        var apiURL = CAPITagAddComment
-//        if (commentId ?? 0) != 0{
-//            apiURL += "/" + commentId!.description
-//        }
-//
-//        _ = Networking.sharedInstance.POST(apiTag: apiURL, param: para as [String : AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddComment) {
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagAddComment, error: error)
-//            }
-//        })
-//
-//    }
-//    func deleteComment(commentId : Int?, completion : @escaping ClosureCompletion) {
-//        let apiTag = CAPITagDeleteComment + (commentId?.description ?? "0")
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        _ = Networking.sharedInstance.GET(apiTag : apiTag, param: nil, successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddComment) {
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagAddComment, error: error)
-//            }
-//        })
-//    }
-//    func likeUnlikePostWebsite(post_id : Int?, rss_id: Int?, type : Int?, like_unlike_status : Int?, completion : @escaping ClosureCompletion) {
-//
-//        var para = [String : Any]()
-//        para["like_unlike_status"] = like_unlike_status
-//        para["type"] = type
-//
-//        // To add comment on Post...
-//        if post_id != nil{
-//            para["post_id"] = post_id
-//        }
-//
-//        // To add comment on Website...
-//        if rss_id != nil{
-//            para["rss_id"] = rss_id
-//        }
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagLikeUnlike, param: para as [String : AnyObject], successBlock: { (task, response) in
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLikeUnlike) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//        })
-//
-//    }
-    
-//    func interestMayBeNotInterest(post_id : Int?, type : Int?, completion : @escaping ClosureCompletion) {
-//        var para = [String : Any]()
-//        para["interest_status"] = type
-//
-//        // To add comment on Post...
-//        if post_id != nil{
-//            para["post_id"] = post_id
-//        }
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagEventInterest, param: para as [String : AnyObject], successBlock: { (task, response) in
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagEventInterest) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//        })
-//
-//    }
-    
     func interestMayBeNotInterest(post_id : Int?, type : Int?, completion : @escaping ClosureCompletion) {
-            var para = [String : Any]()
-            para["choice"] = type?.description
-            para["user_id"] = appDelegate.loginUser?.user_id
-            
-            // To add comment on Post...
-            if post_id != nil{
-                para["post_id"] = post_id?.description
-            }
-            
-            _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagEventInterest, param: para as [String : AnyObject], successBlock: { (task, response) in
-                
-//                completion(response, nil)
-                if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagEventInterest) {
-                    completion(response, nil)
-                }
-            }, failureBlock: { (task, message, error) in
-                completion(nil, error)
-            })
-            
+        var para = [String : Any]()
+        para["choice"] = type?.description
+        para["user_id"] = appDelegate.loginUser?.user_id
+        
+        // To add comment on Post...
+        if post_id != nil{
+            para["post_id"] = post_id?.description
         }
-    
-//    func advertisementList(page : Int?, completion : @escaping ClosureCompletion) {
-//
-//        var para = [String : Any]()
-//        para[CPage] = page
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagAdvertisementList, param: para as [String : AnyObject], successBlock: { (task, response) in
-//            if self.checkResponseStatusAndShowAlert(showAlert: false, responseobject: response, strApiTag: CAPITagAdvertisementList) {
-//                self.storeAdvertiseList(response: response as! [String : Any])
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//        })
-//
-//    }
-    
-    //TODO:
-    //TODO: --------------Notifications APIS --------------
-    //TODO:
-    
-//    func getNotificationList(timestamp : Double?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagNotificationList, param: ["timestamp": timestamp as AnyObject], successBlock: { (task, response) in
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNotificationList){
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagNotificationList, error: error)
-//            }
-//        })!
-//    }
-    
-    /********************************************************
-     * Author :  Chandrika R                                *
-     * Model  : userNotification                            *
-     * option  :                                            *
-     ********************************************************/
+        
+        _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagEventInterest, param: para as [String : AnyObject], successBlock: { (task, response) in
+            
+            //                completion(response, nil)
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagEventInterest) {
+                completion(response, nil)
+            }
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+        })
+        
+    }
     
     func getNotificationList(receiver : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-
+        
         var param = [String:Any]()
         param["receiver"] = receiver
         param["type"] = "1"
@@ -5021,26 +2699,6 @@ extension APIRequest {
             }
         })!
     }
- 
-    
-//    func readNotification(notificationIDs: String?, completion: @escaping ClosureCompletion) {
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagReadNotifications, param: ["notification_ids": notificationIDs as AnyObject], successBlock: { (task, response) in
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagReadNotifications){
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagReadNotifications, error: error)
-//            }
-//        })
-//    }
-    
     
     func readNotification(notificationIDs: String?, completion: @escaping ClosureCompletion) {
         
@@ -5060,16 +2718,9 @@ extension APIRequest {
         })
     }
     
-    
-    /********************************************************
-     * Author :  Chandrika.R                                *
-     * Model  : Send & Create Notification                  *
-     * Description:                                         *
-     ********************************************************/
-    
     func sendNotification(notifications:[String:Any], completion: @escaping ClosureCompletion) {
         
-            _ = Networking.sharedInstance.POSTJSONNOTF(apiTag: CAPITagNotifier, param: notifications as [String:Any], successBlock: { (task, response) in
+        _ = Networking.sharedInstance.POSTJSONNOTF(apiTag: CAPITagNotifier, param: notifications as [String:Any], successBlock: { (task, response) in
             
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNotifier){
                 completion(response, nil)
@@ -5085,88 +2736,7 @@ extension APIRequest {
         })
     }
     
-    
- 
-    
-    
-    
-//    func addAndRemoveDeviceToken(device_token : String?, is_logout : Int?, completion : @escaping ClosureCompletion) -> URLSessionTask{
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        var para = [String : Any]()
-//        para["device_token"] = device_token
-//        if is_logout != nil {
-//            para["is_logout"] = is_logout
-//        }
-//        para["device_type"] = "2"
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagDeviceToken, param: para as [String : AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagDeviceToken) {
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagDeviceToken, error: error)
-//            }
-//        })!
-//    }
-    
     // MARK: ----------- Poll Detail ----------------
-//    func addEditPoll(para : [String : Any], completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        let _ = Networking.sharedInstance.POST(apiTag: CAPITagAddPost, param: para as [String : AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddPost) {
-//                completion(response, nil)
-//            }else{
-//                completion(nil, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            MILoader.shared.hideLoader()
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagAddPost, error: error)
-//            }
-//        })
-//    }
-    
-//    func voteForPoll(para : [String : Any], completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagVotePolls, param: para as [String : AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCMS) {
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagCMS, error: error)
-//            }
-//        })
-//    }
-    
     func voteForPoll(para : [String : Any], completion : @escaping ClosureCompletion) {
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
@@ -5176,7 +2746,7 @@ extension APIRequest {
             MILoader.shared.hideLoader()
             completion(response, nil)
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCMS) {
-               
+                
             }
             
         }, failureBlock: { (task, message, error) in
@@ -5190,25 +2760,13 @@ extension APIRequest {
             }
         })
     }
-    
-    //Options
-    
     func votePollDetailsList(optionText : String?,postID : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         var para = [ String : Any]()
         para["id"] = postID
         para["option"] = optionText
-//        let apitag = "https://dev.sevenchats.com:8443/admin/polls/users?id=\(postID!)&option=\(optionText!)"
-            return Networking.sharedInstance.GETNEWPR(apiTag: CPollUsers, param: para as [String : AnyObject], successBlock: { (task, reponse) in
+        return Networking.sharedInstance.GETNEWPR(apiTag: CPollUsers, param: para as [String : AnyObject], successBlock: { (task, reponse) in
             MILoader.shared.hideLoader()
-//            self.storeInterestInLocal(response: response as! [String : AnyObject])
-                completion(reponse, nil)
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagInterests) {
-//                self.storeInterestInLocal(response: response as! [String : AnyObject])
-//                completion(response, nil)
-//            }
-            
+            completion(reponse, nil)
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -5221,9 +2779,6 @@ extension APIRequest {
         })!
         
     }
-    
-    
-    //Vote for poll Details
     func votePollDetails(para : [String:Any], completion : @escaping ClosureCompletion) {
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
@@ -5252,108 +2807,6 @@ extension APIRequest {
     //TODO:
     //TODO: -------------- File Folders APIS --------------
     //TODO:
-    
-//    func myFolderSharedFolders(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion) -> URLSessionTask?{
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//
-//        return  Networking.sharedInstance.POST(apiTag: CAPITagFolders, param: param as [String : AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFolders) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagFolders, error: error)
-//            }
-//
-//        }) ?? nil
-//
-//    }
-    
-    //MARK: --------------Create Folders APIS --------------
-    
-//    func createFolder(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion ) {
-//       // MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagCreateFolder, param: param as [String : AnyObject], successBlock: { (task, reponse) in
-//            //MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagCreateFolder, error: error)
-//            }
-//        })
-//    }
-    
-//    func createFile(param: [String : Any], key:String ,assets: MDLAddMedia?, showLoader : Bool , completion: @escaping ClosureCompletion ) {
-//
-//        Networking.sharedInstance.POST(param: param as [String : AnyObject], tag: CAPITagCreateFiles, multipartFormData: { (formData) in
-//            if let media = assets{
-//                if media.assetType == .Image {
-//                    if let img = media.image, let imgData = img.jpegData(compressionQuality: 0.9){
-//                        var fileName : String = media.fileName ?? "\(Date().timeIntervalSince1970)"
-//                        let arrFileName = fileName.components(separatedBy: ".")
-//                        if arrFileName.count == 2{
-//                            fileName = arrFileName[0]
-//                            fileName += "." + arrFileName[1].lowercased()
-//                        }
-//                        //fileName = fileName.replacingOccurrences(of: ".", with: "")
-//                        //fileName += ".jpeg"
-//                        formData.append(imgData, withName: "\(key)", fileName: fileName, mimeType: "image/jpeg")
-//                    }
-//                }else{
-//                    if let videoUrl = URL(string: media.url ?? ""){
-//                        do {
-//                            let data = try Data(contentsOf: videoUrl, options: .mappedIfSafe)
-//                            var fileName : String = media.fileName ?? "\(Date().timeIntervalSince1970)"
-//                            let arrFileName = fileName.components(separatedBy: ".")
-//                            if arrFileName.count == 2{
-//                                fileName = arrFileName[0]
-//                                fileName += "." + arrFileName[1].lowercased()
-//                            }
-//                            //fileName = fileName.replacingOccurrences(of: ".", with: "")
-//                            //fileName += videoUrl.extentionOfPath
-//                            formData.append(data, withName: "\(key)", fileName: fileName, mimeType: videoUrl.mimeType())
-//                        }catch{}
-//                    }
-//                }
-//            }
-//        }, success: { (task, response) in
-//            GCDMainThread.async {
-//                if self.checkResponseStatusAndShowAlert(showAlert: false, responseobject: response, strApiTag: CAPITagCreateFiles) {
-//                    completion(response, nil)
-//                }else{
-//                    completion(response, nil)
-//                }
-//            }
-//        }) { (task, message, error) in
-//
-//            GCDMainThread.async {
-//                completion(nil, error)
-//                if error?.code == CStatus405{
-//                    appDelegate.logOut()
-//                } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//                } else {
-//                    //self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagSaveGallery, error: error)
-//                }
-//            }
-//        }
-//    }
     
     func uploadFiles(apiName: String,param: [String : Any], key:String ,assets: MDLAddMedia?,  progressBlock:@escaping ((Double)->Void), completion: @escaping ClosureCompletion ) {
         
@@ -5436,304 +2889,7 @@ extension APIRequest {
         })
     }
     
-    //MARK: --------------Delete Folder APIS --------------
     
-//    func deleteFolder(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion ) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagDeleteFolder, param: param as [String : AnyObject], successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    
-    //MARK: --------------Shared  Friend List API --------------
-    
-//    func sharedFriendList(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion) -> URLSessionTask?{
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagFriendsList, param: param as [String : AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            completion(response, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil,error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagFriendsList, error: error)
-//            }
-//        }) ?? nil
-//    }
-    
-    //MARK: --------------Remove Shared Friend API --------------
-    
-//    func removeSharedFriendList(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagRemoveShared, param: param as [String : AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            completion(response, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil,error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagRemoveShared, error: error)
-//            }
-//        })
-//    }
-    
-    //MARK: --------------Shared Folder API --------------
-    
-//    func ShareFolder(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagShareFolder, param: param as [String : AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            completion(response, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil,error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagShareFolder, error: error)
-//            }
-//        })
-//    }
-    
-    
-    //MARK: --------------Search Folder API --------------
-    
-//    func searchFileFolder(param: [String : Any], search: String, showLoader : Bool, completion: @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagFolders, param: param as [String : AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            completion(response, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil,error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagFolders, error: error)
-//            }
-//        })
-//    }
-    
-//    func fileList(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagFilesList, param: param as [String : AnyObject], successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagCreateFolder, error: error)
-//            }
-//        }) ?? nil
-//    }
-    
-    
-    //MARK: --------------Shered Friends List API --------------
-    
-//    func sharedFriendsList(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion) -> URLSessionTask?{
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//
-//        return Networking.sharedInstance.POST(apiTag: CAPITagSharedFriendList, param: param as [String : AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            completion(response, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil,error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagSharedFriendList, error: error)
-//            }
-//        }) ?? nil
-//    }
-    
-    //MARK: -------------- User Storage --------------
-//    func userStorage( showLoader : Bool, completion: @escaping ClosureCompletion )  -> URLSessionTask? {
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        return Networking.sharedInstance.POST(apiTag: CUserStorage, param: nil, successBlock: { (task, reponse) in
-//
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagCreateFolder, error: error)
-//            }
-//        })
-//    }
-    
-//    func deleteFile(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion ) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CDeleteFile, param: param as [String : AnyObject], successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    
-//    func upgradStoragePlanList( showLoader : Bool, completion: @escaping ClosureCompletion )  -> URLSessionTask? {
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        return Networking.sharedInstance.POST(apiTag: CStoragePlan, param: nil, successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagCreateFolder, error: error)
-//            }
-//        })
-//    }
-    
-//    func upgradStoragePlan(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion )  -> URLSessionTask? {
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        return Networking.sharedInstance.POST(apiTag: CUpgradeStorage, param: param as [String : AnyObject], successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagCreateFolder, error: error)
-//            }
-//        })
-//    }
-    
-//    func restrictedFiles(showLoader : Bool, completion: @escaping ClosureCompletion ) {
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        _ = Networking.sharedInstance.POST(apiTag: CRestrictedFileType, param:nil, successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    
-//    func checkFilesExists(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion ) {
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        _ = Networking.sharedInstance.POST(apiTag: CCheckFilesExist, param:param as [String : AnyObject], successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    //Product list Oldcode by MI
-    
-//    func productCategoriesList(searchText:String,showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        //let apiTag = CProductCategoriesList + "search=" + searchText
-//        let param : [String : Any] = [
-//            "search" : searchText
-//        ]
-//        return Networking.sharedInstance.GET(apiTag: CProductCategoriesList, param:param as [String : AnyObject], successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    
- 
     func productCategoriesList(searchText:String,showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
         
         if showLoader{
@@ -5747,7 +2903,7 @@ extension APIRequest {
         return Networking.sharedInstance.GETNEW(apiTag: Apitag, param:param as [String : AnyObject], successBlock: { (task, reponse) in
             MILoader.shared.hideLoader()
             completion(reponse, nil)
-//            self.storeProductCategoryInLocal(response: reponse as! [String : AnyObject])
+            //            self.storeProductCategoryInLocal(response: reponse as! [String : AnyObject])
             
             
         }, failureBlock: { (task, message, error) in
@@ -5761,14 +2917,6 @@ extension APIRequest {
             }
         })
     }
-    
-    /********************************************************
-     * Author :  Chandrika.R                                *
-     * Model  : List Product Level Category                 *
-     * Description:                                         *
-     ********************************************************/
-
-    
     
     func productLevelCategoriesList(searchText:String,showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
         
@@ -5797,19 +2945,11 @@ extension APIRequest {
         })
     }
     
-    
-    
-    
-    
-    
-    
-    
     func getCurrenciesList(showLoader : Bool, completion: @escaping ClosureCompletion ) {
         
         if showLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
-//let _ = Networking.sharedInstance.GETNEW(apiTag: CCurrenciesNew, param: nil, successBlock: { (task, reponse) in
         let _ = Networking.sharedInstance.GETNEW(apiTag: CCurrencies, param: nil, successBlock: { (task, reponse) in
             MILoader.shared.hideLoader()
             completion(reponse, nil)
@@ -5824,26 +2964,6 @@ extension APIRequest {
             }
         })
     }
-    
-//    func getStateList(showLoader : Bool, completion: @escaping ClosureCompletion ) {
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        let _ = Networking.sharedInstance.GET(apiTag: CCurrencies, param: nil, successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
     
     func getProductList(param : [String : Any],userID:String, showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
         
@@ -5864,13 +2984,9 @@ extension APIRequest {
             }
         })
     }
-   
+    
     
     func getProductListCategory(param : [String : Any],category:String, showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
-        
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
         let categories = category.replace(string: " ", replacement: "%20")
         return Networking.sharedInstance.GETNEWPR(apiTag: CProductListuser + categories, param: param as [String : AnyObject], successBlock: { (task, reponse) in
             MILoader.shared.hideLoader()
@@ -5886,22 +3002,13 @@ extension APIRequest {
             }
         })
     }
-    
-    
-    
-    
     func getmyProductList(param : [String : Any], showLoader : Bool,userID:String, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
-        
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-       
         let tag = CProductListusers + userID
         
         return Networking.sharedInstance.GETNEWPR(apiTag: tag , param: param as [String : AnyObject], successBlock: { (task, reponse) in
-            completion(reponse, nil)
             MILoader.shared.hideLoader()
-//            completion(reponse, nil)
+            completion(reponse, nil)
+            
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -5914,14 +3021,12 @@ extension APIRequest {
         })
     }
     
-    
-    
     func deleteProduct(productID : Int, showLoader : Bool, completion: @escaping ClosureCompletion ){
         
         if showLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
-//        let apiURL = CDeleteProduct + productID.description
+        //        let apiURL = CDeleteProduct + productID.description
         let apiURL = CdeleteProduct + productID.description
         let _ = Networking.sharedInstance.DELETENEW(apiTag: apiURL, param: nil, success: { (task, reponse) in
             MILoader.shared.hideLoader()
@@ -5937,72 +3042,32 @@ extension APIRequest {
             }
         }
     }
-   /*Oldcode by Mi
-    func addEditProduct(apiTag : String, param:[String:Any], arrMedia : [MDLAddMedia]?, showLoader : Bool, completion: @escaping ClosureCompletion ){
+    func addEditProduct(apiTag : String, dict:[String:Any], arrMedia : [MDLAddMedia]?, showLoader : Bool, completion: @escaping ClosureCompletion ){
         
         if showLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
-        
-        Networking.sharedInstance.POST(param: param as [String : AnyObject], tag: apiTag, multipartFormData: { (formData) in
-            for media in arrMedia ?? []{
-                if media.assetType == .Video{
-                    if let videoUrl = URL(string: media.url ?? ""){
-                        do {
-                            let data = try Data(contentsOf: videoUrl, options: .mappedIfSafe)
-                            formData.append(data, withName: "\(CImage)[]", fileName: "\(Date().timeIntervalSince1970).mp4", mimeType: "video/mp4")
-                        }catch{}
-                    }
-                }else{
-                    if let img = media.image, let imgData = img.jpegData(compressionQuality: 0.9){
-                        formData.append(imgData, withName: "\(CImage)[]", fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
-                    }
-                }
-            }
-        }, success: { (task, response) in
+        print(dict)
+        _ = Networking.sharedInstance.POSTJSON(apiTag: CAddProductNew, param: dict, successBlock: { (task, response) in
+            
             MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSaveGallery) {
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAddProductNew){
                 completion(response, nil)
             }
-        }) { (task, message, error) in
+            
+        }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
             if error?.code == CStatus405{
                 appDelegate.logOut()
             } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
             } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagSaveGallery, error: error)
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAddProductNew, error: error)
             }
-        }
+        })
     }
-    */
     
-    func addEditProduct(apiTag : String, dict:[String:Any], arrMedia : [MDLAddMedia]?, showLoader : Bool, completion: @escaping ClosureCompletion ){
-           
-           if showLoader{
-               MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-           }
-        print(dict)
-           _ = Networking.sharedInstance.POSTJSON(apiTag: CAddProductNew, param: dict, successBlock: { (task, response) in
-               
-               MILoader.shared.hideLoader()
-               if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAddProductNew){
-                   completion(response, nil)
-               }
-               
-           }, failureBlock: { (task, message, error) in
-               MILoader.shared.hideLoader()
-               completion(nil, error)
-               if error?.code == CStatus405{
-                   appDelegate.logOut()
-               } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-               } else {
-                   self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAddProductNew, error: error)
-               }
-           })
-       }
-           
-           
+    
     
     func productEditProduct(apiTag : String, dict:[String:Any], showLoader : Bool, completion: @escaping ClosureCompletion ){
         
@@ -6028,80 +3093,15 @@ extension APIRequest {
         })
     }
     
-       
-       func EditProduct(apiTag : String, dict:[String:Any], arrMedia : [MDLAddMedia]?, showLoader : Bool, completion: @escaping ClosureCompletion ){
-           
-           if showLoader{
-               MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-           }
-           _ = Networking.sharedInstance.PUTJSON(apiTag:CEditProductNew , param: dict, successBlock: { (task, response) in
-               
-               MILoader.shared.hideLoader()
-               if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CEditProductNew){
-                   completion(response, nil)
-               }
-               
-           }, failureBlock: { (task, message, error) in
-               MILoader.shared.hideLoader()
-               completion(nil, error)
-               if error?.code == CStatus405{
-                   appDelegate.logOut()
-               } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-               } else {
-                   self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CEditProductNew, error: error)
-               }
-           })
-           
-        
-        
-           
-           
-           
-   //
-   //        Networking.sharedInstance.POSTJSON(param: dict, tag: apiTag, multipartFormData: { (formData),<#arg#>  in
-   //            for media in arrMedia ?? []{
-   //                if media.assetType == .Video{
-   //                    if let videoUrl = URL(string: media.url ?? ""){
-   //                        do {
-   //                            let data = try Data(contentsOf: videoUrl, options: .mappedIfSafe)
-   //                            formData.append(data, withName: "\(CImage)[]", fileName: "\(Date().timeIntervalSince1970).mp4", mimeType: "video/mp4")
-   //                        }catch{}
-   //                    }
-   //                }else{
-   //                    if let img = media.image, let imgData = img.jpegData(compressionQuality: 0.9){
-   //                        formData.append(imgData, withName: "\(CImage)[]", fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
-   //                    }
-   //                }
-   //            }
-   //        }, success: { (task, response) in
-   //            MILoader.shared.hideLoader()
-   //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSaveGallery) {
-   //                completion(response, nil)
-   //            }
-   //        }) { (task, message, error) in
-   //            MILoader.shared.hideLoader()
-   //            completion(nil, error)
-   //            if error?.code == CStatus405{
-   //                appDelegate.logOut()
-   //            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-   //            } else {
-   //                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagSaveGallery, error: error)
-   //            }
-   //        }
-       }
-    /*func addEditProduct(apiTag : String, dict:[String:Any], arrMedia : [MDLAddMedia]?, showLoader : Bool, completion: @escaping ClosureCompletion ){
+    func EditProduct(apiTag : String, dict:[String:Any], arrMedia : [MDLAddMedia]?, showLoader : Bool, completion: @escaping ClosureCompletion ){
         
         if showLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
-        
-        
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        
-        _ = Networking.sharedInstance.POSTJSON(apiTag: CAddEditProductNew, param: dict, successBlock: { (task, response) in
+        _ = Networking.sharedInstance.PUTJSON(apiTag:CEditProductNew , param: dict, successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAddEditProductNew){
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CEditProductNew){
                 completion(response, nil)
             }
             
@@ -6112,74 +3112,11 @@ extension APIRequest {
                 appDelegate.logOut()
             } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
             } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAddEditProductNew, error: error)
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CEditProductNew, error: error)
             }
         })
         
-        
-        
-        
-//
-//        Networking.sharedInstance.POSTJSON(param: dict, tag: apiTag, multipartFormData: { (formData),<#arg#>  in
-//            for media in arrMedia ?? []{
-//                if media.assetType == .Video{
-//                    if let videoUrl = URL(string: media.url ?? ""){
-//                        do {
-//                            let data = try Data(contentsOf: videoUrl, options: .mappedIfSafe)
-//                            formData.append(data, withName: "\(CImage)[]", fileName: "\(Date().timeIntervalSince1970).mp4", mimeType: "video/mp4")
-//                        }catch{}
-//                    }
-//                }else{
-//                    if let img = media.image, let imgData = img.jpegData(compressionQuality: 0.9){
-//                        formData.append(imgData, withName: "\(CImage)[]", fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
-//                    }
-//                }
-//            }
-//        }, success: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSaveGallery) {
-//                completion(response, nil)
-//            }
-//        }) { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagSaveGallery, error: error)
-//            }
-//        }
-    }*/
-    
-    
-//    func likeUnlikeProduct(productId : Int, isLike : Int, completion : @escaping ClosureCompletion) {
-//
-//        var para = [String : Any]()
-//        para["product_id"] = productId
-//        para["like_unlike_status"] = isLike
-//        _ = Networking.sharedInstance.POST(apiTag: CLikeUnlikeProduct, param: para as [String : AnyObject], successBlock: { (task, response) in
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLikeUnlike) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//        })
-//    }
-    
-//    func likeUnlikeProduct(productId : Int, isLike : Int, completion : @escaping ClosureCompletion) {
-//
-//        var para = [String : Any]()
-//        para["product_id"] = productId
-//        para["like_unlike_status"] = isLike
-//        _ = Networking.sharedInstance.POST(apiTag: CLikeUnlikeProduct, param: para as [String : AnyObject], successBlock: { (task, response) in
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLikeUnlike) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//        })
-//    }
+    }
     
     func likeUnlikeProducts(userId:Int,productId : Int, isLike : Int, completion : @escaping ClosureCompletion) {
         let isLikes = String(isLike)
@@ -6191,7 +3128,7 @@ extension APIRequest {
         para["like_status"] = isLikes.description
         
         
-    _ = Networking.sharedInstance.POSTJSON(apiTag: CLikeUnlikeProducts, param: para as [String : AnyObject], successBlock: { (task, response) in
+        _ = Networking.sharedInstance.POSTJSON(apiTag: CLikeUnlikeProducts, param: para as [String : AnyObject], successBlock: { (task, response) in
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLikeUnlike) {
                 completion(response, nil)
             }
@@ -6210,7 +3147,7 @@ extension APIRequest {
     func deleteProduct(productId : String, completion : @escaping ClosureCompletion) {
         
         let apiTags = CdeleteProduct + productId
-         
+        
         _ = Networking.sharedInstance.DELETENEW(apiTag:apiTags , param:nil, success: { (task, response) in
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLikeUnlike) {
                 completion(response, nil)
@@ -6219,21 +3156,14 @@ extension APIRequest {
             completion(nil, error)
         })
     }
-
-    func likeUnlikeProductCount(productId : Int,completion : @escaping ClosureCompletion) {
     
-//        if showLoader {
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-//        }
-           let apiTags  = CLikeUnlikeProductCount + String(productId)
+    func likeUnlikeProductCount(productId : Int,completion : @escaping ClosureCompletion) {
+        
+        let apiTags  = CLikeUnlikeProductCount + String(productId)
         
         _ = Networking.sharedInstance.GETNEW(apiTag:apiTags, param: [:], successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             completion(response, nil)
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITaglanguages){
-////                self.storeLanguageList(response: response as! [String : AnyObject])
-//                completion(response, nil)
-//            }
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -6246,53 +3176,11 @@ extension APIRequest {
         })
     }
     
-    
-    
-    
-    
-//    func reportProduct(para : [String : Any], completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        _ = Networking.sharedInstance.POST(apiTag: CReportProduct, param: para as [String : AnyObject], successBlock: { (task, response) in
-//             MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLikeUnlike) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//             MILoader.shared.hideLoader()
-//            completion(nil, error)
-//        })
-//    }
-    
-//    func reportProduct(para : [String : Any], completion : @escaping ClosureCompletion) {
-//
-//        _ = Networking.sharedInstance.POSTJSON(apiTag: CReportProductNew, param: para as [String : AnyObject], successBlock: { (task, response) in
-//             MILoader.shared.hideLoader()
-////            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLikeUnlike) {
-//                completion(response, nil)
-////            }
-//        }, failureBlock: { (task, message, error) in
-//             MILoader.shared.hideLoader()
-//            completion(nil, error)
-//        })
-//    }
-    
-    
     func reportProduct(para : [String : Any],completion : @escaping ClosureCompletion) {
-    
-//        if showLoader {
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-//        }
-//           let apiTags  = CLikeUnlikeProductCount + String(productId)
         
         _ = Networking.sharedInstance.POSTJSON(apiTag:CReportProductNew, param: para as [String : AnyObject], successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             completion(response, nil)
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITaglanguages){
-////                self.storeLanguageList(response: response as! [String : AnyObject])
-//                completion(response, nil)
-//            }
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -6305,38 +3193,8 @@ extension APIRequest {
         })
     }
     
-    
-    
-    
-   /* Old Code MI
-    func getProductDetail(productID:Int,userID:String, showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
-        
-        let apiTag = CProductDetail + productID.description
-        if showLoader{
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        }
-        return Networking.sharedInstance.GET(apiTag: apiTag, param: nil, successBlock: { (task, reponse) in
-            MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: reponse, strApiTag: CAPITagLikeUnlike) {
-                completion(reponse, nil)
-            }
-            //completion(reponse, nil)
-        }, failureBlock: { (task, message, error) in
-            MILoader.shared.hideLoader()
-            completion(nil, error)
-            if error?.code == CStatus405{
-                appDelegate.logOut()
-            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-            } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-            }
-        })
-    }
-    */
-    
-    
     func getProductDetail(para : [String:Any],productID:Int,userID:String, showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
-       
+        
         if showLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
@@ -6358,96 +3216,6 @@ extension APIRequest {
         })
     }
     
-    
-    
-//    func markAsSold(productId:String, completion: @escaping ClosureCompletion ) {
-//
-//        let apiTag = CMarkAsSoldAPI + productId.description
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        let _ = Networking.sharedInstance.GET(apiTag: apiTag, param: nil, successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    
-//    func getSellerInfo(sellerId:Int, completion: @escaping ClosureCompletion ) {
-//
-//        let apiTag = CSellerDetail + sellerId.description
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        let _ = Networking.sharedInstance.GET(apiTag: apiTag, param: nil, successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    
-//    func contactSeller(sellerId:Int, para : [String : Any], completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//         let apiTag = CContactSellerAPI + sellerId.description
-//        _ = Networking.sharedInstance.POST(apiTag: apiTag, param: para as [String : AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagLikeUnlike) {
-//                completion(response, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//        })
-//    }
-    
-//    func sendProductComment(productId : Int, commentId : Int?, comment : String?, include_user_id : String?, completion : @escaping ClosureCompletion) {
-//
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//
-//        var apiURL = CCommentOnProduct
-//        var para = [String : Any]()
-//        para["comment"] = comment
-//        para["product_id"] = productId
-//        if include_user_id != nil{
-//            para["include_user_id"] = include_user_id
-//        }
-//
-//        if (commentId ?? 0) != 0{
-//            apiURL += "/" + commentId!.description
-//        }
-//        _ = Networking.sharedInstance.POST(apiTag: apiURL, param: para as [String : AnyObject], successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddComment) {
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagAddComment, error: error)
-//            }
-//        })
-//    }
-    
-  
     func sendProductCommentnew(productId : String, commentId : Int?, comment : String?, include_user_id : String?, completion : @escaping ClosureCompletion) {
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
@@ -6459,7 +3227,7 @@ extension APIRequest {
         if include_user_id != nil{
             para["user_id"] = include_user_id
         }
-
+        
         if (commentId ?? 0) != 0{
             apiURL += "/" + commentId!.description
         }
@@ -6482,36 +3250,6 @@ extension APIRequest {
         })
     }
     
-    
-//    func getProductCommentList(page : Int, showLoader : Bool, productId : Int, completion : @escaping ClosureCompletion) -> URLSessionTask? {
-//
-//        if showLoader {
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//
-//        var para = [String : Any]()
-//        para[CPage] = page
-//        para[CPer_page] = CLimit
-//        let apiTag =  CProductCommentListAPI + productId.description
-//        return Networking.sharedInstance.GET(apiTag: apiTag, param: para as [String : AnyObject], successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: reponse, strApiTag: CAPITagCommentList) {
-//                completion(reponse, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagCommentList, error: error)
-//            }
-//        })
-//    }
-    
-    
-    
     func getProductCommentLists(page : Int, showLoader : Bool, productId : String, completion : @escaping ClosureCompletion) -> URLSessionTask? {
         
         if showLoader {
@@ -6525,9 +3263,6 @@ extension APIRequest {
         return Networking.sharedInstance.GETNEW(apiTag: apiTag, param: para as [String : AnyObject], successBlock: { (task, reponse) in
             MILoader.shared.hideLoader()
             completion(reponse, nil)
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: reponse, strApiTag: CProductCommentListAPINew) {
-//                completion(reponse, nil)
-//            }
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
@@ -6539,31 +3274,6 @@ extension APIRequest {
             }
         })
     }
-    
-    
-//    func deleteProductComment(commentId : Int?, completion : @escaping ClosureCompletion) {
-//        let apiTag = CDeleteProductComment + (commentId?.description ?? "0")
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        _ = Networking.sharedInstance.GET(apiTag : apiTag, param: nil, successBlock: { (task, response) in
-//
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagAddComment) {
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagAddComment, error: error)
-//            }
-//        })
-//    }
-    
-    //NEW Code by Nagarju
     func deleteProductCommentNew(productId : String, commentId : String?, comment : String?, include_user_id : String?, completion : @escaping ClosureCompletion) {
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
@@ -6593,112 +3303,9 @@ extension APIRequest {
             }
         })
     }
-    
-//    func productsLikesUserList(page : Int?,productId : Int?, completion : @escaping ClosureCompletion) -> URLSessionTask? {
-//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        var para = [String : Any]()
-//        para[CPage] = page
-//        para[CPer_page] = CLimit
-//        
-//        let apiTag = CProductUserLikes + (productId ?? 0).description
-//        return Networking.sharedInstance.GET(apiTag: apiTag, param: para as [String : AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagPostDelete){
-//                completion(response, nil)
-//            }else{
-//                completion(nil, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagPostDelete, error: error)
-//            }
-//        })
-//    }
-    
-//    func getEventInveetiList(page : Int, postId : Int, type:Int, completion : @escaping ClosureCompletion) -> URLSessionTask {
-//
-//        var para = [String : Any]()
-//        para[CPage] = page
-//        para[CPer_page] = CLimit
-//        para["type"] = type
-//
-//        let apiURL = CAPITagEventAttendees + "/" + postId.description
-//
-//        return Networking.sharedInstance.GET(apiTag: apiURL, param: para as [String : AnyObject], successBlock: { (task, response) in
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagEventAttendees) {
-//                completion(response, nil)
-//            }
-//
-//        }, failureBlock: { (task, message, error) in
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagEventAttendees, error: error)
-//            }
-//        })!
-//    }
-    
-//    func getGroupMemberUserList(groupId:Int, param : [String : Any],showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
-//        let apiTag = CAPITagGroupUserList + groupId.description
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        return Networking.sharedInstance.GET(apiTag: apiTag, param:param as [String : AnyObject], successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    
-    //MARK: -------------- Rewards API --------------
-    
-//    func rewardsSummary(showLoader : Bool, completion: @escaping ClosureCompletion) {
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        _ = Networking.sharedInstance.GET(apiTag: CAPITagWalletSummary, param: nil, successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    
-
-    /********************************************************
-     * Author :  Chandrika.R                                *
-     * Model  : Add Rewards                                 *
-     * Description: Adding Rewards Based Points confif      *
-     ********************************************************/
-    
-
-    
     func rewardsAdding(param:[String:Any], completion: @escaping ClosureCompletion) {
         
-            _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITrewardAdd, param: param as [String:Any], successBlock: { (task, response) in
+        _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITrewardAdd, param: param as [String:Any], successBlock: { (task, response) in
             
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNotifier){
                 completion(response, nil)
@@ -6738,59 +3345,11 @@ extension APIRequest {
             }
         })
     }
-    
-    
-    
-//    func rewardsSummary(showLoader : Bool, completion: @escaping ClosureCompletion) {
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagWalletSummaryNew, param: nil, successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    
-    
-    
-//    func rewardsDetail(type:Int, page:Int,showLoader : Bool, completion: @escaping ClosureCompletion) -> URLSessionTask? {
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        let apiTag = CAPITagWalletDetail + "/" + type.description + "?page=" + page.description
-//        return Networking.sharedInstance.GET(apiTag: apiTag, param: nil, successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    
-    
     func rewardsDetail(param:[String:Any],showLoader : Bool, completion: @escaping ClosureCompletion) -> URLSessionTask? {
         
         if showLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
-//        let apiTag = CAPITagWalletDetail + "/" + type.description + "?page=" + page.description
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagRewardUser, param: param as [String:AnyObject], successBlock: { (task, reponse) in
             MILoader.shared.hideLoader()
             completion(reponse, nil)
@@ -6805,48 +3364,6 @@ extension APIRequest {
             }
         })
     }
-    
-    
-//    func forceUpdate( completion: @escaping ClosureCompletion) {
-//
-//        let _ = Networking.sharedInstance.GET(apiTag: CAPITagForceUpdate, param: nil, successBlock: { (task, reponse) in
-//            MILoader.shared.hideLoader()
-//            completion(reponse, nil)
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
-//            }
-//        })
-//    }
-    
-//    func cloneFile(param: [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion ) {
-//
-//        if showLoader{
-//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//        }
-//        _ = Networking.sharedInstance.POST(apiTag: CAPITagCloneFile, param: param as [String : AnyObject], successBlock: { (task, response) in
-//            MILoader.shared.hideLoader()
-//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagPostDelete){
-//                completion(response, nil)
-//            }else{
-//                completion(nil, nil)
-//            }
-//        }, failureBlock: { (task, message, error) in
-//            MILoader.shared.hideLoader()
-//            completion(nil, error)
-//            if error?.code == CStatus405{
-//                appDelegate.logOut()
-//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-//            } else {
-//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagCreateFolder, error: error)
-//            }
-//        })
-//    }
 }
 
 //MARK:- --------- Store in Local
@@ -6855,9 +3372,8 @@ extension APIRequest {
     
     func saveUserDetail(response : [String : AnyObject]) {
         
-        
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
-
+            
             for dict in data{
                 
                 let tblUser = TblUser.findOrCreate(dictionary: [CUserId : Int64(dict.valueForString(key: CUserId)) ?? ""]) as! TblUser
@@ -6869,7 +3385,7 @@ extension APIRequest {
                 tblUser.address = dict.valueForString(key: CAddress)
                 tblUser.annual_income_id = Int64(dict.valueForString(key: CAnnual_income)) ?? 0
                 tblUser.annual_income = dict.valueForString(key: "annual_income")
-              
+                
                 tblUser.badge_count = 0
                 tblUser.block_unblock_status = false
                 tblUser.dob = dict.valueForString(key: CDob)
@@ -6881,77 +3397,53 @@ extension APIRequest {
                 tblUser.friend_status = false
                 tblUser.friends = dict.valueForJSON(key: CFriends) as? NSObject
                 tblUser.gender = Int16(dict.valueForString(key: CGender)) ?? 0
-                
-//                tblUser.interests = dict.valueForJSON(key: CInterest) as? NSObject
                 tblUser.push_notify = dict.valueForBool(key: CPush_notify)
                 tblUser.email_notify = dict.valueForBool(key: CEmail_notify)
                 tblUser.lang_name = dict.valueForString(key: "lang_name")
-                
-//                tblUser.latitude = dict.valueForDouble(key: CLatitude)!
                 tblUser.latitude = Double(dict.valueForString(key: CLatitude)) ?? 0.0
                 tblUser.longitude = Double(dict.valueForString(key: CLongitude)) ?? 0.0
-//                tblUser.longitude = dict.valueForDouble(key: CLongitude)!
                 tblUser.mobile = dict.valueForString(key: CMobile)
                 tblUser.profession = dict.valueForString(key: CProfession)
                 tblUser.relationship_id = Int64(dict.valueForString(key: "relationship") ) ?? 0
                 tblUser.relationship = dict.valueForString(key: "relationship")
                 tblUser.religion = dict.valueForString(key: CReligion)
                 tblUser.short_biography = dict.valueForString(key: CShort_biography)
-//                tblUser.total_friends = Int64(dict.valueForInt(key: CTotal_friends)!)
                 tblUser.total_like = Int64(dict.valueForString(key: "likes")) ?? 0
-//                tblUser.total_post = Int64(dict.valueForInt(key: CTotal_post)!)
-//                tblUser.total_ads = Int64(dict.valueForInt(key: "total_ads") ?? 0)
-//                tblUser.total_data_uploaded = Double(dict.valueForDouble(key: "total_data_uploaded") ?? 0.0)
                 tblUser.user_type = true
                 tblUser.user_types = dict.valueForString(key: "user_type")
                 tblUser.visible_to_friend = Int16(dict.valueForString(key: CVisible_to_friend)) ?? 0
                 tblUser.visible_to_other = Int16(dict.valueForString(key: CVisible_to_other)) ?? 0
                 tblUser.profile_url = dict.valueForString(key: "profile_image")
-                
                 tblUser.cover_image = dict.valueForString(key: "cover_image")
                 tblUser.education_name = dict.valueForString(key: "education_name")
-                
-//                tblUser.country_code_id = Int64(dict.valueForInt(key: CCountry_id)!)
-//                tblUser.country_id = Int64(dict.valueForInt(key: "country")!)
                 tblUser.country = dict.valueForString(key: CCountryName)
-//                tblUser.state_id = Int64(dict.valueForInt(key: CState_id)!)
                 tblUser.state = dict.valueForString(key: CStateName)
-//                tblUser.city_id = Int64(dict.valueForInt(key: CCity_id)!)
                 tblUser.city = dict.valueForString(key: CCityName)
                 tblUser.status_id = dict.valueForString(key: CStatus_id)
-                
                 tblUser.account_type = Int16(dict.valueForString(key: CAccounttype)) ?? 0
-                
-                
-//
-//                if let accType = dict.valueForString(key: CAccounttype) {
-//                    tblUser.account_type = Int16(accType) ?? 0
-//                }
                 let arrCountry = TblCountry.fetch(predicate: NSPredicate(format:"%K == %s", CCountryName, (dict.valueForString(key: "country_name"))))
                 
                 if (arrCountry?.count)! > 0{
                     tblUser.country_code = ((arrCountry![0] as! TblCountry).country_code)
                 }
-                    CUserDefaults.setValue(dict.valueForString(key: CUserId), forKey: UserDefaultUserID)
-                    CUserDefaults.synchronize()
-                    appDelegate.loginUser = tblUser
-                    CoreData.saveContext()
+                CUserDefaults.setValue(dict.valueForString(key: CUserId), forKey: UserDefaultUserID)
+                CUserDefaults.synchronize()
+                appDelegate.loginUser = tblUser
+                CoreData.saveContext()
             }
-//            TVITokenService.shared.bindVoIPToken()
-
         }
-
+        
         let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjY2NGViZmYyMDM1YjIzZjk3OTg3MDdmYTgwOWYyNTBmZTk2NDVlMGQ3NTg1OGFlMjNiMTA3MTAxNTFhNjFlNTMwZWVmOTkxNDQ3OTUyYWI0In0.eyJhdWQiOiI3IiwianRpIjoiNjY0ZWJmZjIwMzViMjNmOTc5ODcwN2ZhODA5ZjI1MGZlOTY0NWUwZDc1ODU4YWUyM2IxMDcxMDE1MWE2MWU1MzBlZWY5OTE0NDc5NTJhYjQiLCJpYXQiOjE2Mjk0NzU5ODgsIm5iZiI6MTYyOTQ3NTk4OCwiZXhwIjoxNjYxMDExOTg4LCJzdWIiOiI1MjYiLCJzY29wZXMiOltdfQ.cjUBHTR8X8w__fLmKFpDL4l8N9E_EIaoJmZb8QIhvD7cBjvOk0fY2HF88OoBtuGDO7maFkfk0ayZ2LXRzP5EhZY43_imlnZVuM-8XN7OYwlW2N1pW1nYZKmNSjOSukHd4cIhq0iuFTEzYHVnVgI84ctGsVO8aU9lnX4h1YpOLuOON2VwbsYxHS8oITGGhL7AUu2ywmwtODlh2rGKDOAGezLeRu20xu-llDaTwRsalIFW1KNC720PWGmHTogoei2-96-W9hskJVXMDMWjyUO87C1W9LqFQjj5k-33Yx7EYA7AYSFxoYo1CLmFYphjiPT5EU50Fosl3QAu4udH-rNpLQdEJJthw-FcKaJJsaHaYnZ5GMKX_sJFfhT2feMp-9bjbvtx0bh6bjAISZj9TgN8LwVB_3uNUJ4G9AZD7zY-JumxaId91UUcdm9XFbQXeh3PkB1H1ceGmg3cD-SWkI2LjS3QL0IcUVVRXhMaEgBvY_oC_W1Hdkkd3riSBOn5W7-oLVQy0irzyDKqBbw4TS4rjHUNy1oUqY6vppNVgRfgLVN0RfVPbymQi1V2EmNMs1UGbhyqQyCndWfX_B-J2QUV2kK5uR36hkdzbKu23wE3k8PVN_mKYHtU3ASQCYQWBs1e6gZxDWw0X4t1CKLJjtC93lE2aB_JaZ5N-5_os5vISVM"
-
-
+        
+        
         if let metaData = response.valueForJSON(key: CJsonMeta) as? [String : AnyObject] {
             //...Save userID and token in Userdefault
-
+            
             if metaData.valueForString(key: "token") != "" {
-
+                
                 CUserDefaults.setValue(metaData.valueForString(key: "token"), forKey: UserDefaultDeviceToken)
             }else {
-
+                
                 CUserDefaults.setValue(token, forKey: UserDefaultDeviceToken)
             }
             CUserDefaults.synchronize()
@@ -6960,7 +3452,7 @@ extension APIRequest {
     
     
     func saveUserFriendsDetails(response : [String : AnyObject]) {
-   
+        
         if let data = response.valueForJSON(key: "my_friends") as? [[String : AnyObject]] {
             TblTotalFriends.deleteAllObjects()
             for dict in data{
@@ -6970,7 +3462,7 @@ extension APIRequest {
                 tblUsers.profile_image = dict.valueForString(key: CImage)
                 tblUsers.user_id = Int64(dict.valueForString(key:CUserId)) ?? 0
                 tblUsers.friend_user_id = Int64(dict.valueForString(key: "friend_user_id")) ?? 0
-             
+                
             }
             CoreData.saveContext()
         }
@@ -7005,10 +3497,6 @@ extension APIRequest {
             CoreData.saveContext()
         }
     }
-   
-    
- 
-    
     func storeProductCategoryInLocal(response : [String : AnyObject]) {
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
             TblProductCategory.deleteAllObjects()
@@ -7020,8 +3508,6 @@ extension APIRequest {
             CoreData.saveContext()
         }
     }
-    
-    
     func storeProductSubCategoryInLocal(response : [String : AnyObject]) {
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
             TblProductSubCategory.deleteAllObjects()
@@ -7029,28 +3515,18 @@ extension APIRequest {
                 let tblproductSubCat = TblProductSubCategory.findOrCreate(dictionary: [CCategory_level1:(item.valueForString(key: CCategory_level1))]) as! TblProductSubCategory
                 tblproductSubCat.category_level1 = item.valueForString(key: "category_level1")
             }
-            
             CoreData.saveContext()
         }
     }
-    
-    
-    
-    
-    //SubCategory
     func storeSubInterestInLocal(response : [String : AnyObject]) {
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
-//            TblSubIntrest.deleteAllObjects()
             for item in data {
                 let tblInterest = TblSubIntrest.findOrCreate(dictionary: [CInterestID:(item.valueForString(key: CInterestID))]) as! TblSubIntrest
                 tblInterest.interest_level2 = item.valueForString(key: CinterestLevel2)
             }
-            
             CoreData.saveContext()
         }
     }
-    
-    
     func storeArticleInLocal(response : [String : AnyObject]) {
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
             for item in data {
@@ -7060,7 +3536,6 @@ extension APIRequest {
             CoreData.saveContext()
         }
     }
-
     func storeArticleInChirpy(response : [String : AnyObject]) {
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
             for item in data {
@@ -7070,8 +3545,6 @@ extension APIRequest {
             CoreData.saveContext()
         }
     }
-
-   
     func storeArticleInEvent(response : [String : AnyObject]) {
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
             for item in data {
@@ -7110,23 +3583,23 @@ extension APIRequest {
             CoreData.saveContext()
         }
     }
- 
+    
     func storeCountryInLocal(response : [String : AnyObject]) {
-         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
-              for item in data {
-                  let tblCountry = TblCountry.findOrCreate(dictionary: [CCountryName:(item.valueForString(key: CCountryName))]) as! TblCountry
-                  tblCountry.country_code = item.valueForString(key: "phone_prefix")
-                  tblCountry.country_iso = item.valueForString(key: CCountryIso)
-                  tblCountry.country_name = item.valueForString(key: CCountryName)
-                  tblCountry.countryname_code = "\(item.valueForString(key: CCountryName)) - \(item.valueForString(key: CCountrycode))"
-              }
-              CoreData.saveContext()
-          }
+        if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
+            for item in data {
+                let tblCountry = TblCountry.findOrCreate(dictionary: [CCountryName:(item.valueForString(key: CCountryName))]) as! TblCountry
+                tblCountry.country_code = item.valueForString(key: "phone_prefix")
+                tblCountry.country_iso = item.valueForString(key: CCountryIso)
+                tblCountry.country_name = item.valueForString(key: CCountryName)
+                tblCountry.countryname_code = "\(item.valueForString(key: CCountryName)) - \(item.valueForString(key: CCountrycode))"
+            }
+            CoreData.saveContext()
+        }
     }
     
     func storePointsConfigsInLocal(response : [String : AnyObject]) {
-         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
-              for item in data {
+        if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
+            for item in data {
                 let tblPointsConfig = TblPointsConfig.findOrCreate(dictionary: [Cpoints_config_id:(item.valueForString(key: Cpoints_config_id))]) as! TblPointsConfig
                 tblPointsConfig.points_config_id = item.valueForString(key: "points_config_id")
                 tblPointsConfig.category = item.valueForString(key: "category")
@@ -7134,22 +3607,22 @@ extension APIRequest {
                 tblPointsConfig.min_points = item.valueForString(key: "min_points")
                 tblPointsConfig.max_points = item.valueForString(key: "max_points")
                 tblPointsConfig.created_at = item.valueForString(key: "created_at")
-               
-              }
-              CoreData.saveContext()
-          }
+                
+            }
+            CoreData.saveContext()
+        }
     }
     
     func storeRewardCategoryInLocal(response : [String : AnyObject]) {
         TblRewardCategory.deleteAllObjects()
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
-              for item in data {
+            for item in data {
                 let tblRewardCategory = TblRewardCategory.findOrCreate(dictionary: [CCategory_Id:(item.valueForString(key: CCategory_Id))]) as! TblRewardCategory
                 tblRewardCategory.category_id = item.valueForString(key: "category_id")
                 tblRewardCategory.category_name = item.valueForString(key: "category_name")
-              }
-              CoreData.saveContext()
-          }
+            }
+            CoreData.saveContext()
+        }
     }
     
     func storeUserRewardPoints(response : [String : AnyObject]) {
@@ -7163,25 +3636,17 @@ extension APIRequest {
         }
     }
     
-    
-    
     func storeFeebackCategoryList(response : [String : AnyObject]) {
-        
-        // Frist remove all Feedback and store updated list
         TblFeedbackList.deleteAllObjects()
         CoreData.saveContext()
-        
         if let arrFeedback = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
-            
             for catInfo in arrFeedback {
                 if let categoryList = TblFeedbackList.findOrCreate(dictionary: [CId : Int64(catInfo.valueForInt(key: CId)!)]) as? TblFeedbackList {
                     categoryList.name = catInfo.valueForString(key: CName)
                 }
             }
-            
             CoreData.saveContext()
         }
-        
     }
     
     func storeRelationList(response : [String : AnyObject]) {
@@ -7194,7 +3659,7 @@ extension APIRequest {
                 }
             }
             CoreData.saveContext()
-}
+        }
         
     }
     
@@ -7207,8 +3672,6 @@ extension APIRequest {
             }
             CoreData.saveContext()
         }
-        
-        
     }
     
     func storeEducationList(response : [String : AnyObject]) {
@@ -7225,16 +3688,11 @@ extension APIRequest {
     }
     
     func storeNewsCategory(response: [String : AnyObject]) {
-        
-        // Frist remove all News Category list and store updated data
         TblNewsCategory.deleteAllObjects()
         CoreData.saveContext()
-        
         if let data = response.valueForJSON(key: CJsonData) as? [[String: Any]] {
-            var arrNews = data
-//            arrNews.append(["category_name" : CTypeAll, "id" : 0])
-            for item in arrNews {
-//                let newsCategory = TblNewsCategory.findOrCreate(dictionary: [CCategoryID: Int64(item.valueForInt(key: CId)!)]) as! TblNewsCategory
+            //            var arrNews = data
+            for item in data {
                 let newsCategory = TblNewsCategory.findOrCreate(dictionary: [CCategoryName: (item.valueForString(key: CCategoryName))]) as! TblNewsCategory
                 newsCategory.category_name = item.valueForString(key: CCategoryName)
             }
@@ -7242,19 +3700,13 @@ extension APIRequest {
         }
     }
     
-    
-    
     func storPSLCategory(response: [String : AnyObject]) {
-        
-        // Frist remove all News Category list and store updated data
         TblPslCategory.deleteAllObjects()
         CoreData.saveContext()
         
         if let data = response.valueForJSON(key: CJsonData) as? [[String: Any]] {
             var arrNews = data
-//            arrNews.append(["category_name" : CTypeAll, "id" : 0])
             for item in arrNews {
-//                let newsCategory = TblNewsCategory.findOrCreate(dictionary: [CCategoryID: Int64(item.valueForInt(key: CId)!)]) as! TblNewsCategory
                 let newsCategory = TblPslCategory.findOrCreate(dictionary: [CCategoryName: (item.valueForString(key: CCategoryName))]) as! TblPslCategory
                 newsCategory.category_name = item.valueForString(key: CCategoryName)
                 newsCategory.category_id = item.valueForString(key: "category_id")
@@ -7263,13 +3715,9 @@ extension APIRequest {
         }
     }
     
-    
     func storeLanguageList(response : [String : AnyObject]) {
-        
-        // Frist remove all Language list and store updated data
         TblLanguage.deleteAllObjects()
         CoreData.saveContext()
-        
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
             
             for item in data {
@@ -7285,28 +3733,28 @@ extension APIRequest {
     
     // Store group chat list to local..
     func storeGroupChatList(response : [String : Any]) {
-                    TblChatGroupList.deleteAllObjects()
-                    CoreData.saveContext()
-                    if let items = response.valueForJSON(key: "data") as? [[String : Any]] {
-                    for item in items{
-                    let chatInfo = TblChatGroupList.findOrCreate(dictionary: [CGroupId:item.valueForString(key: CGroupId)]) as! TblChatGroupList
-                        chatInfo.group_id = item.valueForString(key: CGroupId)
-                        chatInfo.created_at = item.valueForString(key: "updated_at")
-                        chatInfo.group_image = item.valueForString(key: CGroupImage)
-                        chatInfo.group_link = item.valueForString(key: CGroupLink)
-                        chatInfo.group_title = item.valueForString(key: CGroupTitle)
-                        chatInfo.group_type = item.valueForString(key: CGroupType)
-                        chatInfo.last_message = item.valueForString(key: CLast_Message)
-                        chatInfo.pending_request = item.valueForString(key: CGroupPendingRequest)
-                        chatInfo.address = item.valueForString(key: CAddress)
-                        chatInfo.status_id = item.valueForString(key: CStatus_id)
-                        chatInfo.block_unblock_status = item.valueForString(key: "block_unblock_status")
-                        chatInfo.group_admin = item.valueForString(key: "group_admin")
-                        chatInfo.group_admin = item.valueForString(key: "group_admin")
-                        
-                    }
+        TblChatGroupList.deleteAllObjects()
+        CoreData.saveContext()
+        if let items = response.valueForJSON(key: "data") as? [[String : Any]] {
+            for item in items{
+                let chatInfo = TblChatGroupList.findOrCreate(dictionary: [CGroupId:item.valueForString(key: CGroupId)]) as! TblChatGroupList
+                chatInfo.group_id = item.valueForString(key: CGroupId)
+                chatInfo.created_at = item.valueForString(key: "updated_at")
+                chatInfo.group_image = item.valueForString(key: CGroupImage)
+                chatInfo.group_link = item.valueForString(key: CGroupLink)
+                chatInfo.group_title = item.valueForString(key: CGroupTitle)
+                chatInfo.group_type = item.valueForString(key: CGroupType)
+                chatInfo.last_message = item.valueForString(key: CLast_Message)
+                chatInfo.pending_request = item.valueForString(key: CGroupPendingRequest)
+                chatInfo.address = item.valueForString(key: CAddress)
+                chatInfo.status_id = item.valueForString(key: CStatus_id)
+                chatInfo.block_unblock_status = item.valueForString(key: "block_unblock_status")
+                chatInfo.group_admin = item.valueForString(key: "group_admin")
+                chatInfo.group_admin = item.valueForString(key: "group_admin")
+                
             }
-            CoreData.saveContext()
+        }
+        CoreData.saveContext()
     }
     
     // Store user chat list to local..
@@ -7315,10 +3763,7 @@ extension APIRequest {
             
             for item in data {
                 let chatInfo = TblChatUserList.findOrCreate(dictionary: [Cuser_id:item.valueForString(key: Cuser_id)]) as! TblChatUserList
-                
-//                chatInfo.id = Int64(item.valueForInt(key: CId)!)
                 chatInfo.user_id = (item.valueForString(key:CUserId ))
-//                chatInfo.msg_type = Int16(item.valueForInt(key: CMsg_type)!)
                 chatInfo.first_name = item.valueForString(key: CFirstname)
                 chatInfo.last_name = item.valueForString(key: CLastname)
                 chatInfo.image = item.valueForString(key: CImage)
@@ -7362,12 +3807,8 @@ extension APIRequest {
         if let data = response.valueForJSON(key: CJsonData) as? [String : AnyObject] {
             
             let dict = data.valueForJSON(key: "language_text") as? [String : AnyObject]
-            
-//            let tblLanguageText = TblLanguageText.findOrCreate(dictionary: [CLang_id : Int64(data.valueForInt(key: "lang_id") ?? 0)]) as! TblLanguageText
             let tblLanguageText = TblLanguageText.findOrCreate(dictionary: [CLang_code : (data.valueForString(key: "lang_code"))]) as! TblLanguageText
-            
             //LRF screen Messages...
-            
             tblLanguageText.live_in = dict?.valueForString(key: "live_in")
             tblLanguageText.relationship_status = dict?.valueForString(key: "relationship_status")
             tblLanguageText.user_removed_from_group_successfully = dict?.valueForString(key: "user_removed_from_group_successfully")
@@ -7377,10 +3818,6 @@ extension APIRequest {
             tblLanguageText.success = dict?.valueForString(key: "success")
             tblLanguageText.group_is_added_successfully = dict?.valueForString(key: "group_is_added_successfully")
             tblLanguageText.product_already_reported = dict?.valueForString(key: "product_already_reported")
-            
-            
-            
-            
             tblLanguageText.login_dont_have_an_account = dict?.valueForString(key: "login_dont_have_an_account")
             tblLanguageText.login_email_not_registered_with_us = dict?.valueForString(key: "login_email_not_registered_with_us")
             tblLanguageText.login_email_or_mobile = dict?.valueForString(key: "login_email_or_mobile")
@@ -7962,7 +4399,7 @@ extension APIRequest {
             tblLanguageText.preparing_to_export = dict?.valueForString(key: "preparing_to_export")
             tblLanguageText.downloading = dict?.valueForString(key: "downloading")
             tblLanguageText.file_already_exist_in_folder = dict?.valueForString(key: "file_already_exist_in_folder")
-
+            
             tblLanguageText.message = dict?.valueForString(key: "message")
             tblLanguageText.you_cant_see_profile = dict?.valueForString(key: "you_cant_see_profile")
             
@@ -8135,48 +4572,31 @@ extension APIRequest {
             tblLanguageText.forward = dict?.valueForString(key: "forward")
             tblLanguageText.invites_decline_for_event = dict?.valueForString(key: "invites_decline_for_event")
             tblLanguageText.invites_maybe_for_event = dict?.valueForString(key: "invites_maybe_for_event")
-            /*
-            tblLanguageText. = dict?.valueForString(key: "")
-            tblLanguageText. = dict?.valueForString(key: "")
-            tblLanguageText. = dict?.valueForString(key: "")*/
-            
             appDelegate.langugaeText = tblLanguageText
             CoreData.saveContext()
         }
     }
-    
     /// Function for the store new category in Local database
-
     func saveNewInterest(interestID: Int, interestName: String) {
-        
         guard let arrInterest: [TblInterest] = TblInterest.fetchAllObjects() as? [TblInterest] else {return}
-        
         let interestData = arrInterest.filter({$0.id == Int16(interestID)})
-        
         if (interestData.count == 0) {
-            
             let tblInterest = TblInterest.findOrCreate(dictionary: ["id":
-                Int16(interestID)]) as! TblInterest
-            
+                                                                        Int16(interestID)]) as! TblInterest
             tblInterest.id = Int16(interestID)
             tblInterest.name = interestName
             tblInterest.type = 1
             
             CoreData.saveContext()
         }
-        
         if var arrCategory = appDelegate.loginUser?.interests as? [[String: Any]] {
-            
             var dicData = [String: Any]()
-            
             for category in arrCategory {
-                
                 if category[CId] as? Int != interestID {
                     dicData[CId] = interestID
                     dicData[CName] = interestName
                 }
             }
-            
             if dicData.count > 0 {
                 arrCategory.append(dicData)
             }
@@ -8185,40 +4605,31 @@ extension APIRequest {
     }
 }
 
-
 struct JSONStringArrayEncoding: ParameterEncoding {
     private let array: [String : Any]
-
+    
     init(array: [String : Any]) {
         self.array = array
     }
-
+    
     func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
         var urlRequest = try urlRequest.asURLRequest()
-
         let data = try JSONSerialization.data(withJSONObject: array, options: [])
-
         if urlRequest.value(forHTTPHeaderField: "Content-Type") == nil {
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
-
         urlRequest.httpBody = data
-
         return urlRequest
     }
 }
 
-
-
-
-
 struct JSONStringArrayEncodings: ParameterEncoding {
     private let array: [String : Any]
-
+    
     init(array: [String : Any]) {
         self.array = array
     }
-
+    
     func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
         var urlRequest = try urlRequest.asURLRequest()
         let data = try JSONSerialization.data(withJSONObject: array, options: [])
@@ -8229,14 +4640,14 @@ struct JSONStringArrayEncodings: ParameterEncoding {
         return urlRequest
     }
     
-        func convertToDictionary(text: String) -> [String: Any]? {
-            if let data = text.data(using: .utf8) {
-                do {
-                    return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                } catch {
-                    print(error.localizedDescription)
-                }
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
             }
-            return nil
         }
+        return nil
+    }
 }
