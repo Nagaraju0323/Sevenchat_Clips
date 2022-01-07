@@ -570,7 +570,7 @@ extension AddForumViewController: GenericTextViewDelegate{
 //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
         }
     }
-    
+    //change as peer new 
   func genericTextView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText string: String) -> Bool {
           if textView == txtViewForumMessage{
                 let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
@@ -579,5 +579,7 @@ extension AddForumViewController: GenericTextViewDelegate{
             }
             return true
         }
+    
+    
     
 }
