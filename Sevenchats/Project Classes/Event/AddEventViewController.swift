@@ -36,10 +36,11 @@ class AddEventViewController: ParentViewController {
             self.txtViewContent.txtDelegate = self
             self.txtViewContent.isScrollEnabled = true
             self.txtViewContent.textLimit = "150"
+            self.txtViewContent.type = "1"
         }
     }
     @IBOutlet weak var txtEventTitle : MIGenericTextFiled!
-   // @IBOutlet weak var txtCategory : MIGenericTextFiled!
+   
     @IBOutlet weak var txtAgeLimit : MIGenericTextFiled!
     @IBOutlet weak var txtEventStartDate : MIGenericTextFiled!
     @IBOutlet weak var txtEventEndDate : MIGenericTextFiled!
@@ -87,10 +88,12 @@ class AddEventViewController: ParentViewController {
     // MARK:- --------- Initialization
     
     func Initialization(){
+        
+        txtEventTitle.txtDelegate = self
+        
         if eventType == .editEvent{
             self.loadEventDetailFromServer()
         }
-        
         viewUploadedImageContainer.isHidden = true
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddEventClicked(_:)))]
@@ -548,5 +551,21 @@ extension AddEventViewController: GenericTextViewDelegate{
         if textView == txtViewContent{
 //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
         }
+    }
+}
+
+
+extension AddEventViewController: GenericTextFieldDelegate {
+   
+    @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    if textField == txtEventTitle{
+        if txtEventTitle.text?.count ?? 0 > 20{
+            return false
+        }
+        let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
+        let filtered = string.components(separatedBy: cs).joined(separator: "")
+        return (string == filtered)
+    }
+    return true
     }
 }

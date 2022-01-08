@@ -221,14 +221,6 @@ class EditProfileViewController: ParentViewController {
             imgEditIcon.isHidden = false
         }
         
-//        if appDelegate.loginUser?.profile_img != "" {
-//            imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_img ?? ""), true)
-//            btnUploadImage.setImage(UIImage(), for: .normal)
-//            imgEditIcon.isHidden = false
-//        } else{
-//            imgEditIcon.isHidden = true
-//        }
-//
         GCDMainThread.async {
             self.showHideCountryStateCityFileds()
             self.txtCountrys.updatePlaceholderFrame(true)
@@ -293,21 +285,6 @@ extension EditProfileViewController {
             
             txtCountrys.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (select, index, component) in
                 guard let self = self else { return }
-                /*Oldcode by Mi
-                 let dict = arrCountry![index] as AnyObject
-                 let countryID = dict.value(forKey: CCountry_id) as? Int
-                 if countryID != self.countryID{
-                     self.countryID = dict.value(forKey: CCountry_id) as? Int
-                     self.txtStates.text = ""
-                     self.txtCitys.text = ""
-                     self.stateID = nil
-                     self.cityID = nil
-                     self.txtStates.isEnabled = false
-                     self.txtCitys.isEnabled = false
-                     self.showHideCountryStateCityFileds()
-                     self.loadStateList()
-                 }*/
-              
                 let dict = arrCountry![index] as AnyObject
                 let countryName = dict.value(forKey: CCountryName) as? String
                 if countryName != self.countryName {
@@ -331,16 +308,6 @@ extension EditProfileViewController {
             let states = arrState.compactMap({$0.stateName})
             self.txtStates.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
                 guard let self = self else {return}
-                /*Oldcode by Mi
-                    if arrState[row].stateId != self.stateID{
-                    self.stateID = arrState[row].stateId
-                    self.txtCitys.isEnabled = false
-                    self.txtCitys.text = ""
-                    self.showHideCountryStateCityFileds()
-                    self.loadCityList()
-                }
-                */
-                
                 if arrState[row].stateName != self.stateName{
                     self.stateName = arrState[row].stateName
                     self.txtCitys.isEnabled = false
@@ -405,8 +372,6 @@ extension EditProfileViewController {
         }
         //...Load country list from server
         let timestamp : TimeInterval = 0
-        //Oldcode by Mi
-//        apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateID ?? 0) { [weak self] (response, error) in
         apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateName ?? "") { [weak self] (response, error) in
             guard let self = self else {return}
             if response != nil && error == nil {
@@ -594,8 +559,6 @@ extension EditProfileViewController {
             CUserId: userID.description,
             CCoverImage: coverImgUrl
         ]
-        
- //  keepchange later
         APIRequest.shared().uploadUserCover(dict: dict as [String : AnyObject], coverImage: coverImgUrl) { [weak self] (response, error) in
             guard let self = self else { return }
             if let _response = response as? [String : AnyObject], error == nil {
@@ -786,82 +749,6 @@ extension EditProfileViewController{
                     })
                 }
             }
-            
-//            CUserDefaults.synchronize()
-            
-//            if isremovedImage == true {
-//                self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
-//                    guard let self = self else { return }
-//                    self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-//                        guard let self = self else { return }
-//                        if image != nil{
-//                            self.uploadedImg = true
-//                            self.imgEditIcon.isHidden = false
-//                            self.imgUser.image = image
-//                            self.isremovedImage = false
-//                        }
-//                    })
-//                }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default) { [weak self] (action) in
-//                    guard let self = self else { return }
-//                    self.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-//                        guard let self = self else { return }
-//                        if image != nil{
-//                            self.uploadedImg = true
-//                            self.imgEditIcon.isHidden = false
-//                            self.imgUser.image = image
-//                            self.isremovedImage = false
-//                        }
-//                    })
-//                }
-//            }else{
-//                self.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
-//                    guard let self = self else { return }
-//                    self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-//                        guard let self = self else { return }
-//                        if image != nil{
-//                            self.uploadedImg = true
-//                            self.imgEditIcon.isHidden = false
-//                            self.imgUser.image = image
-//                            self.isremovedImage = false
-//                        }
-//                    })
-//
-//                }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default, btnTwoTapped: { [weak self] (action) in
-//                    guard let self = self else { return }
-//                    self.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-//                        guard let self = self else { return }
-//                        if image != nil{
-//                            self.uploadedImg = true
-//                            self.imgEditIcon.isHidden = false
-//                            self.imgUser.image = image
-//                            self.isremovedImage = false
-//                        }
-//                    })
-//                }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
-//                    guard let self = self else { return }
-//                    /****************NEW CODE****************/
-//                    let frstNameltr = (self.txtFirstName.text?.first)!
-//                            let convStrName = String(frstNameltr)
-//                            let text = convStrName
-//                            let attributes = [
-//                              NSAttributedString.Key.foregroundColor: UIColor.white,
-//                                NSAttributedString.Key.backgroundColor:#colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1),
-//                                // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 3)
-//                              NSAttributedString.Key.font: UIFont.init(name: "AmericanTypewriter-Semibold", size: 40),
-//                            ]
-//                            let textSize = text.size(withAttributes: attributes)
-//                            UIGraphicsBeginImageContextWithOptions(textSize, true, 0)
-//                            text.draw(at: CGPoint.zero, withAttributes: attributes)
-//                            let image = UIGraphicsGetImageFromCurrentImageContext()
-//                            UIGraphicsEndImageContext()
-//                    self.isremovedImage = true
-//                    self.imgUser.image = image
-//                    CUserDefaults.set(1, forKey:"imageReplaced")
-//                    CUserDefaults.synchronize()
-//                    self.imgEditIcon.isHidden = true
-//                    self.uploadProfilePic()
-//                }
-//            }
         } else {
             self.presentImagePickerController(allowEditing: true) { [weak self](image, info) in
                 guard let self = self else { return }

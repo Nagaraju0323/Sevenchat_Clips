@@ -7,6 +7,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+
+/*********************************************************
+ * Author : Chandrika.R                                 *
+ * Model   : RegisterUserName action shette             *
+ * Changes   :                                          *
+ ********************************************************/
+
 import UIKit
 import CoreLocation
 //import GooglePlacePicker
@@ -228,20 +235,6 @@ extension RegisterViewController {
             
             txtCountrys.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (select, index, component) in
                 guard let self = self else { return }
-                /*Oldcode by Mi
-                 let dict = arrCountry![index] as AnyObject
-                 let countryID = dict.value(forKey: CCountry_id) as? Int
-                 if countryID != self.countryID{
-                 self.countryID = dict.value(forKey: CCountry_id) as? Int
-                 self.txtStates.text = ""
-                 self.txtCitys.text = ""
-                 self.stateID = nil
-                 self.cityID = nil
-                 self.txtStates.isEnabled = false
-                 self.txtCitys.isEnabled = false
-                 self.showHideCountryStateCityFileds()
-                 self.loadStateList()
-                 }*/
                 let dict = arrCountry![index] as AnyObject
                 let countryName = dict.value(forKey: CCountryName) as? String
                 if countryName != self.countryName {
@@ -265,15 +258,6 @@ extension RegisterViewController {
             let states = arrState.compactMap({$0.stateName})
             self.txtStates.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
                 guard let self = self else {return}
-                /*Oldcode by Mi
-                 if arrState[row].stateId != self.stateID{
-                 self.stateID = arrState[row].stateId
-                 self.txtCitys.isEnabled = false
-                 self.txtCitys.text = ""
-                 self.showHideCountryStateCityFileds()
-                 self.loadCityList()
-                 }
-                 */
                 
                 if arrState[row].stateName != self.stateName{
                     self.stateName = arrState[row].stateName
@@ -291,9 +275,6 @@ extension RegisterViewController {
         //...Load country list from server
         let timestamp : TimeInterval = 0
         
-        /*Oldcode by Mi
-         apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryID ?? 0) { [weak self] (response, error) in
-         */
         apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryName ?? "") { [weak self] (response, error) in
             guard let self = self else {return}
             if response != nil && error == nil {
@@ -339,8 +320,6 @@ extension RegisterViewController {
         }
         //...Load country list from server
         let timestamp : TimeInterval = 0
-        //Oldcode by Mi
-        //        apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateID ?? 0) { [weak self] (response, error) in
         apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateName ?? "") { [weak self] (response, error) in
             guard let self = self else {return}
             if response != nil && error == nil {
@@ -499,12 +478,6 @@ extension RegisterViewController{
             self.longitude = placeDetail?.coordinate?.longitude ?? 0.0
         }
         self.navigationController?.pushViewController(locationPicker, animated: true)
-        
-        /*MILocationManager.shared().openGMSPlacePicker(self) { (place) in
-         self.txtLocation.text = place.formattedAddress
-         self.latitude = place.coordinate?.latitude ?? 0.0
-         self.longitude = place.coordinate?.longitude ?? 0.0
-         }*/
     }
     
     @IBAction func btnUploadImageCLK(_ sender : UIButton) {
@@ -620,24 +593,6 @@ extension RegisterViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertDobBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
-        /*if (txtLocation.text?.isBlank)! {
-         self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertLocationBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
-         return
-         }*/
-        
-        //        if (txtCountrys.text?.isEmpty ?? true) && (countryID ?? 0) == 0{
-        //            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankCountry, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        //            return
-        //        }
-        //        if !(txtStates.superview?.isHidden ?? true) && (stateID ?? 0) == 0{
-        //            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankState, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        //            return
-        //        }
-        //        if !(txtCitys.superview?.isHidden ?? true) && (cityID ?? 0) == 0{
-        //            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankCity, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        //            return
-        //        }
-        
         let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + txtEmail.text! + "\n" + txtMobileNumber.text!
         self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
             self.signup()
@@ -670,54 +625,7 @@ extension RegisterViewController: GenericTextFieldDelegate {
     }
 }
 
-/*********************************************************
- * Author : Chandrika.R                                 *
- * Model   : RegisterUserName action shette             *
- * Changes   :                                          *
- ********************************************************/
 //MARK :- API CALL
-
-extension RegisterViewController{
-    
-//    func registerUserName(username:String,password:String){
-//        let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
-//        let url = URL(string: "http://dev.sevenchats.com:3001/auth/register")
-//        var request : URLRequest = URLRequest(url: url!)
-//        request.httpMethod = "POST"
-//        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
-//        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
-//        request.httpBody = data
-//
-//        let config = URLSessionConfiguration.default
-//        let session = URLSession(configuration: config)
-//        let task = session.dataTask(with: request, completionHandler: {
-//            (data, response, error) in
-//            if let error = error{
-//                print("somethis\(error)")
-//            }
-//            else if let response = response {
-//            }else if let data = data{
-//            }
-//            guard let responseData = data else {
-//                print("Error: did not receive data")
-//                return
-//            }
-//            let decoder = JSONDecoder()
-//            let token_type = (String(data: responseData, encoding: .utf8))
-//            do {
-//                let dict = try self.convertStringToDictionary(text: token_type ?? "")
-//                guard let userMsg = dict?["message"] as? String else { return }
-//                DispatchQueue.main.async {
-//                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-////                    self.redirectToVerificationScreen()
-//                }
-//            } catch let error  {
-//                print("error trying to convert data to \(error)")
-//            }
-//        })
-//        task.resume()
-//    }
-}
 
 extension RegisterViewController{
     func convertStringToDictionary(text: String) -> [String:AnyObject]? {
@@ -780,8 +688,6 @@ extension RegisterViewController{
             }
         }
     }
-    
-    
     
 }
 

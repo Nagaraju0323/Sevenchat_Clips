@@ -181,17 +181,20 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
             //        cell.btnSelectAnwer.isUserInteractionEnabled = !self.isSelected
             cell.didSelected = { [weak self] (index) in
                 guard let _ = self else {return}
+                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
                 let optiontext = option.pollText
                 self?.apiForVoteForPoll(optiontext ?? "")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
-                    //                    self?.updateVoteCountReload?(self?.refereshData ?? [:])
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) {
+                    
+                    MILoader.shared.hideLoader()
+                    // self?.updateVoteCountReload?(self?.refereshData ?? [:])
                     self?.updateindex?(index)
                     let total = Double(self?.totalVotesNew ?? "0.0") ?? 0
                     cell.progressV.setProgress(Float(total), animated: false)
                     cell.lblPercentage.text = "\(Int((total * 100).rounded()))%"
-                    //                    cell.btnCheckAnwer.isHidden = true
+                    //cell.btnCheckAnwer.isHidden = true
                     cell.btnSelectAnwer.isSelected = true
-                    //                    cell.btnCheckAnwer.isHidden = true
+                    //cell.btnCheckAnwer.isHidden = true
                 }
             }
         }

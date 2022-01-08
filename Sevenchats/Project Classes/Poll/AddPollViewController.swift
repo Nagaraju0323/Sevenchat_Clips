@@ -619,4 +619,6 @@ extension AddPollViewController: GenericTextViewDelegate{
 //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
         }
     }
+    
+
 }

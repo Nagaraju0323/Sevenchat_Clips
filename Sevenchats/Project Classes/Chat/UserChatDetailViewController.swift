@@ -102,7 +102,13 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
     @IBOutlet weak var btnMore : UIButton!
     @IBOutlet private weak var btnVideo: UIButton!
     @IBOutlet private weak var btnAudio: UIButton!
-    @IBOutlet weak var txtViewMessage : GenericTextView!
+    @IBOutlet weak var txtViewMessage : GenericTextView!{
+        didSet{
+            self.txtViewMessage.txtDelegate = self
+            self.txtViewMessage.type = "2f"
+            
+        }
+    }
     @IBOutlet weak var lblTitle : UILabel!
     @IBOutlet weak var btnSwipeforward : UIButton!
     @IBOutlet weak var btnCopy : UIButton!

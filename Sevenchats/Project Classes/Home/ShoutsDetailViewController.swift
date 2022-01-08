@@ -279,21 +279,6 @@ extension ShoutsDetailViewController{
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
         }
     }
-    //    fileprivate func deleteShoutPost(){
-    //
-    //        if let shoID = self.shoutID{
-    //            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-    //                APIRequest.shared().deletePost(postID: shoID, completion: { [weak self] (response, error) in
-    //                    guard let self = self else { return }
-    //                    if response != nil && error == nil{
-    //                        self.navigationController?.popViewController(animated: true)
-    //                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, shoID, self, .deletePost)
-    //                    }
-    //                })
-    //            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-    //        }
-    //    }
-    
     fileprivate func getCommentListFromServer(){
         if let shoID = self.shoutIDNew{
             if apiTask?.state == URLSessionTask.State.running {
@@ -335,21 +320,7 @@ extension ShoutsDetailViewController{
         }
     }
     
-//    func updateShoutCommentSection(_ arrComm : [[String : Any]]){
-//        
-//        self.arrCommentList.removeAll()
-//        
-//        if arrComm.count > 0{
-//            // Add last two comment here...
-//            self.arrCommentList = arrComm
-//            //         self.arrCommentList.append(arrComm.first!)
-//            //         self.arrCommentList.append(arrComm[1])
-//            
-//        }else{
-//            self.arrCommentList = arrComm
-//        }
-//        self.tblCommentList.reloadData()
-//    }
+
 }
 
 // MARK:- --------- UITableView Datasources/Delegate
@@ -609,98 +580,15 @@ extension ShoutsDetailViewController{
         
     }
     
-    
-    //    func addEditComment(){
-    //
-    //        // Get Final text for comment..
-    //        let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
-    //        // Get Mention user's Ids..
-    //        let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-    //        guard let userID = appDelegate.loginUser?.user_id else{
-    //            return
-    //        }
-    //        let userId = userID.description
-    //
-    //        APIRequest.shared().sendProductCommentnew(productId:productIds, commentId : self.editCommentId, comment: strComment, include_user_id: userId)  { [weak self] (response, error) in
-    //            guard let self = self else { return }
-    //            DispatchQueue.main.async {
-    //                if response != nil && error == nil {
-    //
-    //                    self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
-    //                    self.txtViewComment.text = ""
-    //                    self.btnSend.isUserInteractionEnabled = false
-    //                    self.btnSend.alpha = 0.5
-    //                    self.txtViewComment.updatePlaceholderFrame(false)
-    //                    if let comment = response!["meta"] as? [String : Any] {
-    //                        if (comment["status"] as? String ?? "") == "0"{
-    //                            if self.isEditBtnCLK == true {
-    //                                self.arrCommentList.remove(at: self.index_Row ?? 0)
-    //                                self.commentsInfo["comment"] = strComment
-    //                                self.arrCommentList.insert(self.commentsInfo, at: self.index_Row ?? 0)
-    //                                self.tblProduct.reloadData()
-    //                                UIView.performWithoutAnimation {
-    //                                    let indexPath = IndexPath(item: self.index_Row ?? 0, section: 1)
-    //                                    if (self.tblProduct.indexPathsForVisibleRows?.contains(indexPath))!{
-    //                                        self.tblProduct.reloadRows(at: [indexPath], with: .none)
-    //                                    }
-    //                                }
-    //                                self.isEditBtnCLK = false
-    //                            }else {
-    //                                var productCount = self.product?.totalComments.toInt ?? 0
-    //                                productCount += 1
-    //                                self.product?.totalComments = productCount.toString
-    //                                self.getCommentListFromServer(showLoader: true)
-    //                                ProductHelper<UIViewController>.updateProductData(product: self.product!, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
-    //                                self.isEditBtnCLK = false
-    //                            }
-    //
-    //                        }
-    //                        self.genericTextViewDidChange(self.txtViewComment, height: 10)
-    //                    }
-    //
-    //
-    //                    self.editCommentId =  nil
-    //                    //                    self.tblProduct.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: false)
-    //                    //self.lblNoData.isHidden = self.arrCommentList.count != 0
-    //                }
-    //            }
-    //        }
-    //    }
-    
-    
-    
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
         
-        // if Int64(shoutInformation.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
         if shoutInformation.valueForString(key: "user_email") == appDelegate.loginUser?.email{
-//            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self] (alert) in
-//                guard let self = self else { return }
-//                if let shoID = self.shoutID{
-//                    if let createShoutsVC = CStoryboardHome.instantiateViewController(withIdentifier: "CreateShoutsViewController") as? CreateShoutsViewController{
-//                        createShoutsVC.setBlock(block: { (objetInfo, message) in
-//                            if let shoutInfo = objetInfo as? [String : Any]{
-//                                //                                self.setShoutsDetailData(shoutInfo)
-//                            }
-//                        })
-//                        createShoutsVC.shoutsType = .editShouts
-//                        createShoutsVC.shoutID = shoID
-//                        self.navigationController?.pushViewController(createShoutsVC, animated: true)
-//                    }
-//                }
-//
-//            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
-//                guard let self = self else { return }
-//                self.deleteShoutPost(self.shoutInformation)
-//            }
             self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
                 guard let _ = self else {return}
                 DispatchQueue.main.async {
                     self?.deleteShoutPost(self?.shoutInformation)
-    
                 }
             }
-            
-            
         }else{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportShout
@@ -713,46 +601,6 @@ extension ShoutsDetailViewController{
     }
     
     @IBAction func btnLikeCLK(_ sender : UIButton){
-        //        if sender.tag == 0{
-        //            // LIKE CLK
-        //            btnLike.isSelected = !btnLike.isSelected
-        //            likeCount = btnLike.isSelected ? likeCount + 1 : likeCount - 1
-        //
-        //            btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-        //            MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.shoutID, rss_id: nil, type: 1, likeStatus: btnLike.isSelected ? 1 : 0, viewController: self)
-        //        }else{
-        //            // LIKE COUNT CLK
-        //            if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
-        //                likeVC.postID = self.shoutID
-        //                self.navigationController?.pushViewController(likeVC, animated: true)
-        //            }
-        //
-        //        }
-        
-        
-        //        self.btnLike.isSelected = !self.btnLike.isSelected
-        //        if self.btnLike.isSelected == true{
-        //            likeCount = 1
-        //        }else {
-        //            likeCount = 2
-        //        }
-        //        guard let userID = appDelegate.loginUser?.user_id else {
-        //            return
-        //        }
-        //        APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId:(self.shoutIDNew)?.toInt ?? 0 , isLike: likeCount){ [weak self](response, error) in
-        //            guard let _ = self else { return }
-        //            if response != nil {
-        //                GCDMainThread.async {
-        //                    let data = response![CJsonMeta] as? [String:Any] ?? [:]
-        //                    let stausLike = data["status"] as? String ?? "0"
-        //                    if stausLike == "0"{
-        //                        self?.likeCountfromSever(shoutId:self?.shoutIDNew ?? "0")
-        //                    }
-        //                }
-        //            }
-        //        }
-        
-        
         self.btnLike.isSelected = !self.btnLike.isSelected
         
         if self.btnLike.isSelected == true{
@@ -785,23 +633,7 @@ extension ShoutsDetailViewController{
             }
         }
     }
-    
-    //    func likeCountfromSever(shoutId: String){
-    //
-    //        let ShoutID = shoutId.toInt ?? 0
-    //        APIRequest.shared().likeUnlikeProductCount(productId:ShoutID){ [weak self](response, error) in
-    //            guard let _ = self else { return }
-    //            if response != nil {
-    //                GCDMainThread.async { [self] in
-    //                    self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
-    //                    self?.btnLikeCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
-    ////                    MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self?.shoutIDNew?.toInt, rss_id: 0, type: 1, likeStatus: (self?.btnLike.isSelected)! ? 1 : 0, viewController: self)
-    //
-    //                }
-    //            }
-    //        }
-    
-    //    }
+
     func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){
         APIRequest.shared().likeUnlikeProductCount(productId: self.shoutIDNew?.toInt ?? 0 ){ [weak self](response, error) in
             guard let _ = self else { return }
@@ -826,7 +658,6 @@ extension ShoutsDetailViewController{
     }
     
     @IBAction func btnShareReportCLK(_ sender : UIButton){
-        //self.presentActivityViewController(mediaData: shoutInformation.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
         let sharePost = SharePostHelper(controller: self, dataSet: shoutInformation)
         sharePost.shareURL = shoutInformation.valueForString(key: CShare_url)
         sharePost.presentShareActivity()
@@ -838,65 +669,9 @@ extension ShoutsDetailViewController{
             guard let _ = self else {return}
             DispatchQueue.main.async {
                 self?.deleteComment(index)
-//                self?.deleteComment(index)
             }
         }
-        
-        
-        
-//        self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
-//
-//            guard let self = self else {return}
-//            let commentInfo = self.arrCommentList[index]
-//            var commentText = commentInfo.valueForString(key: "comment")
-//            DispatchQueue.main.async {
-//                self.viewUserSuggestion.resetData()
-//                //                self.editCommentId = commentInfo.valueForInt(key: CId)
-//                //                self.editCommentId = commentInfo.valueForString(key: )
-//                if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
-//                    for userInfo in arrIncludedUsers {
-//                        let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-//                        commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
-//                        self.viewUserSuggestion.addSelectedUser(user: userInfo)
-//                    }
-//                }
-//                self.txtViewComment.text = commentText
-//                self.viewUserSuggestion.setAttributeStringInTextView(self.txtViewComment)
-//                self.txtViewComment.updatePlaceholderFrame(true)
-//                let constraintRect = CGSize(width: self.txtViewComment.frame.size.width, height: .greatestFiniteMagnitude)
-//                let boundingBox = self.txtViewComment.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.txtViewComment.font!], context: nil)
-//                self.genericTextViewDidChange(self.txtViewComment, height: ceil(boundingBox.height))
-//            }
-//
-//        }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](_) in
-//            guard let _ = self else {return}
-//            DispatchQueue.main.async {
-//                self?.deleteComment(index)
-//            }
-//        }
-        
-        
-        
-        
     }
-    
-    //    func deleteComment(_ index:Int){
-    //        let commentInfo = self.arrCommentList[index]
-    //        let commentId = commentInfo.valueForInt(key: CId) ?? 0
-    //        APIRequest.shared().deleteComment(commentId: commentId) { [weak self] (response, error) in
-    //            guard let self = self else { return }
-    //            if response != nil && error == nil {
-    //                DispatchQueue.main.async {
-    //                    self.commentCount -= 1
-    //                    self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
-    //                    self.arrCommentList.remove(at: index)
-    //                    self.tblCommentList.reloadData()
-    //                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.shoutID, self, .deleteComment)
-    //                }
-    //            }
-    //        }
-    //    }
-    
     
     func deleteComment(_ index:Int){
         
@@ -914,12 +689,6 @@ extension ShoutsDetailViewController{
             if response != nil && error == nil {
                 DispatchQueue.main.async {
                     self.arrCommentList.remove(at: index)
-                    //                    var productCount = self.product?.totalComments.toInt ?? 0
-                    //                    productCount -= 1
-                    //                    self.product?.totalComments = productCount.toString
-                    //                    //                    self.product?.totalComment -= 1
-                    //                    self.tblProduct.reloadData()
-                    //                    ProductHelper<UIViewController>.updateProductData(product: self.product!, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
                     self.commentCount -= 1
                     if self.commentCount >= 0{
                         self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)

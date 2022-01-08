@@ -39,6 +39,7 @@ class AddEditProductVC: ParentViewController {
     @IBOutlet weak var txtProductDesc : GenericTextView!{
         didSet{
             txtProductDesc.txtDelegate = self
+            self.txtProductDesc.type = "1"
         }
     }
     @IBOutlet weak var txtProductPrice : MIGenericTextFiled!{
@@ -473,11 +474,11 @@ extension AddEditProductVC {
         self.txtProductPrice.text = _product.productPrice.description
         self.txtCurrencyList.text = _product.currencyName
         self.selectedCurrencyName = _product.currencyName
-        let date = Date.init(timeIntervalSince1970: Double(_product.lastDateSelling) ?? 0.0)
+        let date = Date.init(timeIntervalSince1970: Double(_product.lastDateSelling) )
         self.setDate(date: date)
         self.availableStatus = _product.productState
         self.prouductID = _product.productID ?? ""
-        let productimage = _product.galleyimagesArray as? String
+        let productimage = _product.galleyimagesArray
         self.productImgEdit = productimage
         self.collVMedia.arrMedia = _product.galleryImages
         self.collVMedia.reloadData()
@@ -641,7 +642,7 @@ extension AddEditProductVC {
                 
             } catch { print(error) }
             
-            let changeStr = repl.appending(ImgName)
+            _ = repl.appending(ImgName)
             let replacs = ImgName.replacingOccurrences(of: "][", with: ",")
             let txtproductDesc = self.txtProductDesc.text.replace(string: "\n", replacement: "\\n")
             apiTag = CEditProductNew
@@ -672,7 +673,7 @@ extension AddEditProductVC {
             if let _product = self.product{
                 // When user editing the article....
                 apiURL = apiTag + "/" + _product.id.description
-                let deletedIDS = self.collVMedia.arrDeletedApiImages.map({$0}).joined(separator: ",")
+                _ = self.collVMedia.arrDeletedApiImages.map({$0}).joined(separator: ",")
                 _arrMedia = self.collVMedia.arrMedia.filter({$0.uploadMediaStatus != .Succeed})
             }
             
@@ -751,7 +752,7 @@ extension AddEditProductVC {
             if let _product = self.product{
                 // When user editing the article....
                 apiURL = apiTag + "/" + _product.id.description
-                let deletedIDS = self.collVMedia.arrDeletedApiImages.map({$0}).joined(separator: ",")
+                _ = self.collVMedia.arrDeletedApiImages.map({$0}).joined(separator: ",")
                 //                body["delete_ids"] = deletedIDS
                 _arrMedia = self.collVMedia.arrMedia.filter({$0.uploadMediaStatus != .Succeed})
             }
@@ -877,3 +878,4 @@ extension AddEditProductVC{
   
 }
 }
+

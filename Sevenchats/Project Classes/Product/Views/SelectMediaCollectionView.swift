@@ -311,14 +311,14 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
                         print("*****************\(self.arrImagesVideo)")
                         if localPath.count == self.arrImagesVideo.count{
                             print("Success")
-                            //                                DispatchQueue.main.async {
-                            //                                    MILoader.shared.hideLoader()
-                            //                                }
+                            DispatchQueue.main.async {
+                                MILoader.shared.hideLoader()
+                            }
                         }else{
                             print("Failed")
-                            //                                DispatchQueue.main.async {
-                            //                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                            //                                }
+                            DispatchQueue.main.async {
+                                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                            }
                         }
                     }
                 }
@@ -512,9 +512,9 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                 videoMedia.isFromGallery = false
                 videoMedia.fileName = asset.originalFileName
                 videoMedia.assetType = .Video
-                //                DispatchQueue.main.async {
-                //                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                //                }
+                DispatchQueue.main.async {
+                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                }
                 asset.tempCopyMediaFile { [weak self] (url, min) in
                     guard let _ = self else {return}
                     self?.arrImages.append(url.absoluteString)
@@ -557,11 +557,11 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                         }
                         self?.arrImagesVideo.append(self!.imageString)
                         print("*****************\(self!.arrImagesVideo)")
-                        if self?.arrImages.count == self?.arrImagesVideo.count{
+                        if self?.arrImages.count == self?.arrImagesVideo.count || self?.arrMedia.count == self?.arrImagesVideo.count {
                             print("Success")
-                            //                            DispatchQueue.main.async {
-                            //                                MILoader.shared.hideLoader()
-                            //                            }
+                            DispatchQueue.main.async {
+                                MILoader.shared.hideLoader()
+                            }
                         }else{
                             print("Failed")
                         }
@@ -592,9 +592,9 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                 imageMedia.isFromGallery = false
                 imageMedia.fileName = asset.originalFileName
                 imageMedia.assetType = .Image
-                //                DispatchQueue.main.async {
-                //                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                //                }
+                DispatchQueue.main.async {
+                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                }
                 asset.tempCopyMediaFile { [weak self] (url, min) in
                     guard let _ = self else {return}
                     self?.arrImages.append(url.absoluteString)
@@ -625,16 +625,16 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                             }
                             self?.arrImagesVideo.append(self!.imageString)
                             print("*****************\(self!.arrImagesVideo)")
-                            if self?.arrImages.count == self?.arrImagesVideo.count{
+                            if self?.arrImages.count == self?.arrImagesVideo.count || self?.arrMedia.count == self?.arrImagesVideo.count{
                                 print("Success")
-                                //                                DispatchQueue.main.async {
-                                //                                    MILoader.shared.hideLoader()
-                                //                                }
+                                DispatchQueue.main.async {
+                                    MILoader.shared.hideLoader()
+                                }
                             }else{
                                 print("Failed")
-                                //                                DispatchQueue.main.async {
-                                //                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                                //                                }
+                                DispatchQueue.main.async {
+                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                                }
                             }
                         }
                     }
@@ -662,9 +662,9 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                 imageMedia.fileName = asset.originalFileName
                 imageMedia.isFromGallery = false
                 imageMedia.assetType = .Image
-                //                DispatchQueue.main.async {
-                //                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                //                }
+                DispatchQueue.main.async {
+                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                }
                 asset.tempCopyMediaFile { [weak self] (url, min) in
                     guard let _ = self else {return}
                     self?.arrImages.append(url.absoluteString)
@@ -707,19 +707,17 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                                 print(error.localizedDescription)
                             }
                             self?.arrImagesVideo.append(self!.imageString)
-                            
-                            
                             print("*****************\(self!.arrImagesVideo)")
-                            if self?.arrImages.count == self?.arrImagesVideo.count{
+                            if self?.arrImages.count == self?.arrImagesVideo.count || self?.arrMedia.count == self?.arrImagesVideo.count{
                                 print("Success")
-                                //                                DispatchQueue.main.async {
-                                //                                    MILoader.shared.hideLoader()
-                                //                                }
+                                DispatchQueue.main.async {
+                                    MILoader.shared.hideLoader()
+                                }
                             }else{
                                 print("Failed")
-                                //                                DispatchQueue.main.async {
-                                //                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                                //                                }
+                                DispatchQueue.main.async {
+                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                                }
                             }
                         }
                     }

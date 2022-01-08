@@ -14,7 +14,12 @@ class ProductReportVC: ParentViewController {
     //MARK: - IBOutlet/Object/Variable Declaration
     //@IBOutlet weak var txt: UITextField!
     
-    @IBOutlet weak var txtProblem: GenericTextView!
+    @IBOutlet weak var txtProblem: GenericTextView!{
+        didSet{
+            self.txtProblem.txtDelegate = self
+            self.txtProblem.type = "1"
+        }
+    }
     @IBOutlet weak var lblTextCount: MIGenericLabel!
     
     @IBOutlet weak var lblWhyAreYouReporting: MIGenericLabel!

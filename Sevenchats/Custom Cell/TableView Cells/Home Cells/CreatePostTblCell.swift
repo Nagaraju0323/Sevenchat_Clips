@@ -30,7 +30,13 @@ class CreatePostTblCell: UITableViewCell{
     @IBOutlet weak var emjButton: UIButton!
     @IBOutlet weak var placeHolderLabel: UILabel!
     @IBOutlet weak var PostButton: UIButton!
-    @IBOutlet weak var textViewMessage: GenericTextView!
+    @IBOutlet weak var textViewMessage: GenericTextView!{
+        didSet{
+        self.textViewMessage.txtDelegate = self
+        self.textViewMessage.textLimit = "150"
+        self.textViewMessage.type = "1"
+        }
+    }
     @IBOutlet weak var viewMainContainer : UIView!
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var lblTextCount : UILabel!

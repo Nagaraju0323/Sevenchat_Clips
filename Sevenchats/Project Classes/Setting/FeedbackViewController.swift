@@ -13,7 +13,12 @@ class FeedbackViewController: ParentViewController {
     @IBOutlet var viewAddImageContainer : UIView!
     @IBOutlet var viewUploadedImageContainer : UIView!
     @IBOutlet var imgFeedback : UIImageView!
-    @IBOutlet var txtViewFeedbackContent : GenericTextView!
+    @IBOutlet var txtViewFeedbackContent : GenericTextView!{
+        didSet{
+            self.txtViewFeedbackContent.txtDelegate = self
+            self.txtViewFeedbackContent.type = "1"
+        }
+    }
     @IBOutlet var txtCategory : MIGenericTextFiled!
     @IBOutlet var lblUploadImg : UILabel!
 
@@ -216,4 +221,31 @@ extension FeedbackViewController{
         }
     }
     
+}
+
+
+extension FeedbackViewController: GenericTextFieldDelegate {
+   
+    @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    if textField == txtCategory{
+        if txtCategory.text?.count ?? 0 > 1500{
+            return false
+        }
+        let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
+        let filtered = string.components(separatedBy: cs).joined(separator: "")
+        return (string == filtered)
+    }
+    return true
+    }
+}
+// MARK:-  --------- Generic UITextView Delegate
+extension FeedbackViewController: GenericTextViewDelegate{
+    
+    func FeedbackViewController(_ textView: UITextView, height: CGFloat){
+        
+        if textView == txtViewFeedbackContent{
+            //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
+        }
+    }
+
 }

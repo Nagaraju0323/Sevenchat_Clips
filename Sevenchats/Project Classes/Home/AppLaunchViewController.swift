@@ -99,10 +99,7 @@ extension AppLaunchViewController {
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageLogout, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                 guard let _ = self else { return }
                 MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: 1)
-//                TVITokenService.shared.deleteUserBindingAPI()
-//                AudioTokenService.shared.unregisterTwilioVoice()
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-            //appDelegate.logOut()
         }
         
         self.navigationItem.rightBarButtonItems = [itemLogout, itemLanguage]
@@ -117,7 +114,6 @@ extension AppLaunchViewController {
         imgProfile.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         vwProfile.addSubview(imgProfile)
         imgProfile.image =  img
-        //imgProfile.loadImageFromUrl((appDelegate.loginUser?.profile_img ?? ""), true)
         vwProfile.roundView()
         vwProfile.clipsToBounds = true
         

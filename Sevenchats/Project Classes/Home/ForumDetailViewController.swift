@@ -50,10 +50,10 @@ class ForumDetailViewController: ParentViewController {
             viewUserSuggestion.initialization()
         }
     }
-
+    
     @IBOutlet weak var btnProfileImg : UIButton!
     @IBOutlet weak var btnUserName : UIButton!
-
+    
     var refreshControl = UIRefreshControl()
     var forumID : Int?
     var forumIDNew : String?
@@ -72,7 +72,7 @@ class ForumDetailViewController: ParentViewController {
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,58 +149,39 @@ extension ForumDetailViewController{
     }
     
     fileprivate func getForumDetailsFromServer() {
-            self.parentView.isHidden = true
-            if let forID = self.forumID {
-                
-                APIRequest.shared().viewPostDetailNew(postID: forID, apiKeyCall: CAPITagforumsDetials){ [weak self] (response, error) in
-              //  APIRequest.shared().viewPostDetail(postID: shouID) { [weak self] (response, error) in
-                    guard let self = self else { return }
-                    if response != nil {
-                        self.parentView.isHidden = false
-                        if let Info = response!["data"] as? [[String:Any]]{
+        self.parentView.isHidden = true
+        if let forID = self.forumID {
+            
+            APIRequest.shared().viewPostDetailNew(postID: forID, apiKeyCall: CAPITagforumsDetials){ [weak self] (response, error) in
+                //  APIRequest.shared().viewPostDetail(postID: shouID) { [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    self.parentView.isHidden = false
+                    if let Info = response!["data"] as? [[String:Any]]{
                         
                         print(Info as Any)
-                            for _ in Info {
-
-//                            self.setForumDetailData(arraydata)
+                        for _ in Info {
+                            
+                            //                            self.setForumDetailData(arraydata)
                             self.openUserProfileScreen()
                         }
-                        }
                     }
-                    self.getCommentListFromServer()
                 }
+                self.getCommentListFromServer()
             }
         }
+    }
     
-    
-//    fileprivate func getForumDetailsFromServer() {
-//        self.parentView.isHidden = true
-//        if let forID = self.forumID {
-//            APIRequest.shared().viewPostDetail(postID: forID) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                if response != nil {
-//                    self.parentView.isHidden = false
-//                    if let forInfo = response![CJsonData] as? [String : Any]{
-//                        self.setForumDetailData(forInfo)
-//                        self.openUserProfileScreen()
-//                    }
-//                }
-//                self.getCommentListFromServer()
-//            }
-//        }
-//    }
     fileprivate func openUserProfileScreen(){
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-//            appDelegate.moveOnProfileScreen(self.forumInformation.valueForString(key: CUserId), self)
             appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CUserId), self.forumInformation.valueForString(key: CUsermailID), self)
             
         }
         
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-//            appDelegate.moveOnProfileScreen(self.forumInformation.valueForString(key: CUserId), self)
             appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CUserId), self.forumInformation.valueForString(key: CUsermailID), self)
         }
     }
@@ -210,29 +191,18 @@ extension ForumDetailViewController{
             self.forumIDNew = forumInformation.valueForString(key:CPostId)
             posted_ID = forumInformation.valueForString(key: "user_id")
             self.lblUserName.text = forInfo.valueForString(key: CFirstname) + " " + forInfo.valueForString(key: CLastname)
-//            self.lblForumPostDate.text = DateFormatter.dateStringFrom(timestamp: forInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
             
             let created_At = forumInformation.valueForString(key: CCreated_at)
             let cnvStr = created_At.stringBefore("G")
-//            let removeFrst = cnvStr.chopPrefix(3)
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             lblForumPostDate.text = startCreated
-            
             self.lblForumDescription.text = forInfo.valueForString(key: CContent)
             self.imgUser.loadImageFromUrl(forInfo.valueForString(key: CUserProfileImage), true)
             self.lblForumTitle.text = forInfo.valueForString(key: CTitle)
             self.lblForumCategory.text = forInfo.valueForString(key: CCategory).uppercased()
-           
             
-//            likeCount = forInfo.valueForInt(key: CTotal_like) ?? 0
-//            self.commentCount = forInfo.valueForInt(key: CTotalComment) ?? 0
-//            btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-//            
-//            self.btnLike.isSelected = forInfo.valueForInt(key: CIs_Like) == 1
-//            self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-//            self.tblCommentList.updateHeaderViewHeight()
             let is_Liked = forumInformation.valueForString(key: CIsLiked)
-           
+            
             if is_Liked == "Yes"{
                 btnLike.isSelected = true
             }else {
@@ -240,7 +210,7 @@ extension ForumDetailViewController{
             }
             
             likeCount = forumInformation.valueForString(key: CLikes).toInt ?? 0
-   
+            
             self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
             commentCount = forumInformation.valueForString(key: "comments").toInt ?? 0
             self.totalComment = commentCount
@@ -248,60 +218,39 @@ extension ForumDetailViewController{
             self.tblCommentList.updateHeaderViewHeight(extxtraSpace: 0)
         }
     }
-
+    
     fileprivate func deleteForumPost(_ fourmInfo : [String : Any]?){
+        
+        if let forID = self.forumID{
             
-            if let forID = self.forumID{
+            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                guard let self = self else { return }
                 
-                self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
-                    guard let self = self else { return }
-                    
                 let postTypeDelete = "post_forum"
-              let dict =
-              
+                let dict =
+                    
                     [
                         "post_id": fourmInfo?.valueForString(key: "post_id"),
-                            "image": "",
-                            "post_title":  fourmInfo?.valueForString(key: "post_title"),
-                            "post_category":  fourmInfo?.valueForString(key: "post_category"),
-                            "post_content":  fourmInfo?.valueForString(key: "post_content"),
-                            "age_limit":  fourmInfo?.valueForString(key: "age_limit"),
+                        "image": "",
+                        "post_title":  fourmInfo?.valueForString(key: "post_title"),
+                        "post_category":  fourmInfo?.valueForString(key: "post_category"),
+                        "post_content":  fourmInfo?.valueForString(key: "post_content"),
+                        "age_limit":  fourmInfo?.valueForString(key: "age_limit"),
                         "targeted_audience": fourmInfo?.valueForString(key: "targeted_audience"),
                         "selected_persons": fourmInfo?.valueForString(key: "selected_persons"),
                         "status_id": "3"
                     ]
-                    APIRequest.shared().deletePostNew(postDetials: dict, apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
-
-                    //APIRequest.shared().deletePost(postID: forID, completion: { [weak self] (response, error) in
-                        
-                        guard let self = self else { return }
-                        if response != nil && error == nil{
-                            self.navigationController?.popViewController(animated: true)
-                            MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, forID, self, .deletePost)
-                        }
-                    })
-                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-            }
+                APIRequest.shared().deletePostNew(postDetials: dict, apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
+                    
+                    guard let self = self else { return }
+                    if response != nil && error == nil{
+                        self.navigationController?.popViewController(animated: true)
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, forID, self, .deletePost)
+                    }
+                })
+            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
         }
-        
-    
-    
-//    fileprivate func deleteForumPost(){
-//
-//        if let forID = self.forumID{
-//
-//            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
-//                guard let self = self else { return }
-//                APIRequest.shared().deletePost(postID: forID, completion: { [weak self] (response, error) in
-//                    guard let self = self else { return }
-//                    if response != nil && error == nil{
-//                        self.navigationController?.popViewController(animated: true)
-//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, forID, self, .deletePost)
-//                    }
-//                })
-//                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-//        }
-//    }
+    }
     
     fileprivate func getCommentListFromServer(){
         if let forID = self.forumIDNew{
@@ -310,11 +259,9 @@ extension ForumDetailViewController{
                 self.refreshControl.endRefreshing()
                 return
             }
-            
             // Add load more indicator here...
             self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
             self.arrCommentList.removeAll()
-//            apiTask  = APIRequest.shared().getCommentList(page: pageNumber, showLoader: false, post_id: forID, rss_id: nil) { [weak self] (response, error) in
             apiTask = APIRequest.shared().getProductCommentLists(page: pageNumber, showLoader: false, productId:forID) { [weak self] (response, error) in
                 guard let self = self else { return }
                 self.tblCommentList.tableFooterView = UIView()
@@ -345,18 +292,6 @@ extension ForumDetailViewController{
     }
     
     func updateForumCommentSection(_ arrComm : [[String : Any]], _ totalComment : Int){
-        //self.btnComment.setTitle("\(totalComment)", for: .normal)
-        /*self.arrCommentList.removeAll()
-         
-         if totalComment > 2{
-         // Add last two comment here...
-         self.arrCommentList.append(arrComm.first!)
-         self.arrCommentList.append(arrComm[1])
-         
-         }else{
-         self.arrCommentList = arrComm
-         }
-         self.tblCommentList.reloadData()*/
     }
 }
 
@@ -370,8 +305,6 @@ extension ForumDetailViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let header = EventCommentTblHeader.viewFromXib as? EventCommentTblHeader{
             header.backgroundColor =  CRGB(r: 249, g: 250, b: 250)
-            //header.lblTitle.text = "\(arrCommentList.count) " + CNavComments
-            
             header.lblTitle.text = appDelegate.getCommentCountString(comment: commentCount)
             return header
         }
@@ -391,10 +324,8 @@ extension ForumDetailViewController: UITableViewDelegate, UITableViewDataSource{
         if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTblCell", for: indexPath) as? CommentTblCell {
             weak var weakCell = cell
             let commentInfo = arrCommentList[indexPath.row]
-//            cell.lblCommentPostDate.text = DateFormatter.shared().durationString(duration: commentInfo.valueForString(key: CCreated_at))
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
-            
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
             
@@ -423,7 +354,6 @@ extension ForumDetailViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if arrSelectedUser.count > 0 {
                             let userSelectedInfo = arrSelectedUser[0]
-//                            appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CUserId), self.forumInformation.valueForString(key: CUsermailID), self)
                         }
                     })
@@ -447,20 +377,18 @@ extension ForumDetailViewController: UITableViewDelegate, UITableViewDataSource{
             
             cell.btnUserName.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CUserId), self.forumInformation.valueForString(key: CUsermailID), self)
             }
             
             cell.btnUserImage.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CUserId), self.forumInformation.valueForString(key: CUsermailID), self)
             }
             
             // Load more data....
-//            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
-//                self.getCommentListFromServer()
-//            }
+            //            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
+            //                self.getCommentListFromServer()
+            //            }
             
             return cell
         }
@@ -538,57 +466,6 @@ extension ForumDetailViewController{
     @IBAction func btnSendCommentCLK(_ sender : UIButton){
         self.resignKeyboard()
         
-//        if (txtViewComment.text?.isBlank)!{
-//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageCommentBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//        }else{
-//            if let forId = self.forumID{
-//
-//                // Get Final text for comment..
-//                let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
-//
-//                // Get Mention user's Ids..
-//                let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-//
-//                APIRequest.shared().sendComment(post_id: forId, commentId: self.editCommentId, rss_id: nil, type: 1, comment: strComment, include_user_id: includedUser) { [weak self] (response, error) in
-//                    guard let self = self else { return }
-//                    if response != nil && error == nil {
-//
-//                        self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
-//                        self.txtViewComment.text = ""
-//                        self.btnSend.isUserInteractionEnabled = false
-//                        self.btnSend.alpha = 0.5
-//                        self.txtViewComment.updatePlaceholderFrame(false)
-//
-//                        if let comment = response![CJsonData] as? [String : Any] {
-//                            if (self.editCommentId ?? 0) == 0{
-//                                self.arrCommentList.insert(comment, at: 0)
-//                                self.commentCount += 1
-//
-//                                self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-//
-//                                self.tblCommentList.reloadData()
-//                                if let responsInfo = response as? [String : Any]{
-//                                    // To udpate previous screen data....
-//                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(responsInfo, forId, self, .commentPost)
-//                                }
-//                            }else{
-//                                // Edit comment in array
-//                                if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
-//                                    self.arrCommentList.remove(at: index)
-//                                    self.arrCommentList.insert(comment, at: 0)
-//                                    self.tblCommentList.reloadData()
-//                                }
-//                            }
-//                            self.genericTextViewDidChange(self.txtViewComment, height: 10)
-//                        }
-//                        self.editCommentId =  nil
-//                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-//                        //self.lblNoData.isHidden = self.arrCommentList.count != 0
-//                    }
-//                }
-//            }
-//        }
-        
         if (txtViewComment.text?.isBlank)!{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageCommentBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
@@ -627,7 +504,7 @@ extension ForumDetailViewController{
                                     }
                                 }
                             }
-
+                            
                             let data = response![CJsonMeta] as? [String:Any] ?? [:]
                             guard let firstName = appDelegate.loginUser?.first_name else {return}
                             guard let lastName = appDelegate.loginUser?.last_name else {return}
@@ -638,7 +515,7 @@ extension ForumDetailViewController{
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }
                         self.editCommentId =  nil
-//                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                        //                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                         //self.lblNoData.isHidden = self.arrCommentList.count != 0
                     }
                 }
@@ -649,37 +526,13 @@ extension ForumDetailViewController{
     
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
         
-       // if Int64(forumInformation.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
         if forumInformation.valueForString(key: "user_email") == appDelegate.loginUser?.email{
-//            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self] (alert) in
-//                guard let self = self else { return }
-//                if let forID = self.forumID{
-//                    if let addShoutsVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddForumViewController") as? AddForumViewController{
-//                        addShoutsVC.setBlock(block: { (forumInfo, message) in
-//                            if let forInfo = forumInfo as? [String : Any]{
-//                                self.setForumDetailData(forInfo)
-//                            }
-//                        })
-//                        addShoutsVC.forumType = .editForum
-//                        addShoutsVC.forumID = forID
-//                        self.navigationController?.pushViewController(addShoutsVC, animated: true)
-//                    }
-//                    
-//                }
-//                
-//            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
-//                guard let self = self else { return }
-//                self.deleteForumPost(self.forumInformation)
-//            }
             self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
                 guard let _ = self else {return}
                 DispatchQueue.main.async {
                     self?.deleteForumPost(self?.forumInformation)
-    
                 }
             }
-            
-            
         }else{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportForum
@@ -692,22 +545,6 @@ extension ForumDetailViewController{
     }
     
     @IBAction func btnLikeCLK(_ sender : UIButton){
-        
-//        if sender.tag == 0{
-//            // LIKE CLK
-//            btnLike.isSelected = !btnLike.isSelected
-//            
-//            likeCount = btnLike.isSelected ? likeCount + 1 : likeCount - 1
-//            btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-//            
-//            MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.forumID, rss_id: nil, type: 1, likeStatus: btnLike.isSelected ? 1 : 0, viewController: self)
-//        }else{
-//            // LIKE COUNT CLK
-//            if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
-//                likeVC.postID = self.forumID
-//                self.navigationController?.pushViewController(likeVC, animated: true)
-//            }
-//        }
         
         self.btnLike.isSelected = !self.btnLike.isSelected
         
@@ -726,15 +563,15 @@ extension ForumDetailViewController{
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async {
-                   
+                    
                     let infodatass = response![CJsonData] as? [[String:Any]] ?? [[:]]
                     for infora in infodatass{
-                    self?.info = infora
+                        self?.info = infora
                     }
                     let data = response![CJsonMeta] as? [String:Any] ?? [:]
                     let stausLike = data["status"] as? String ?? "0"
                     if stausLike == "0"{
-                    self?.likeCountfromSever(productId: self?.forumIDNew?.toInt ?? 0,likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
+                        self?.likeCountfromSever(productId: self?.forumIDNew?.toInt ?? 0,likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
                     }
                 }
             }
@@ -746,7 +583,7 @@ extension ForumDetailViewController{
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
-//                    info = response!["liked_users"] as? [String:Any] ?? [:]
+                    //                    info = response!["liked_users"] as? [String:Any] ?? [:]
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
                     self?.btnLikeCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
@@ -763,107 +600,40 @@ extension ForumDetailViewController{
         }
     }
     
-    
-    
     @IBAction func btnShareReportCLK(_ sender : UIButton){
-        //self.presentActivityViewController(mediaData: forumInformation.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
         let sharePost = SharePostHelper(controller: self, dataSet: forumInformation)
         sharePost.shareURL = forumInformation.valueForString(key: CShare_url)
         sharePost.presentShareActivity()
     }
-    
     func btnMoreOptionOfComment(index:Int){
-        
-        
         self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
             guard let _ = self else {return}
             DispatchQueue.main.async {
                 self?.deleteComment(index)
             }
-        
         }
-        
-        
-//        self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
-//
-//            guard let self = self else {return}
-//            let commentInfo = self.arrCommentList[index]
-//            var commentText = commentInfo.valueForString(key: "comment")
-//            DispatchQueue.main.async {
-//                self.viewUserSuggestion.resetData()
-//                self.editCommentId = commentInfo.valueForInt(key: CId)
-//                if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
-//                    for userInfo in arrIncludedUsers {
-//                        let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-//                        commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
-//                        self.viewUserSuggestion.addSelectedUser(user: userInfo)
-//                    }
-//                }
-//                self.txtViewComment.text = commentText
-//                self.viewUserSuggestion.setAttributeStringInTextView(self.txtViewComment)
-//                self.txtViewComment.updatePlaceholderFrame(true)
-//                let constraintRect = CGSize(width: self.txtViewComment.frame.size.width, height: .greatestFiniteMagnitude)
-//                let boundingBox = self.txtViewComment.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.txtViewComment.font!], context: nil)
-//                self.genericTextViewDidChange(self.txtViewComment, height: ceil(boundingBox.height))
-//            }
-//
-//        }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](_) in
-//            guard let _ = self else {return}
-//            DispatchQueue.main.async {
-//                self?.deleteComment(index)
-//            }
-//        }
     }
-    
-//    func deleteComment(_ index:Int){
-//        let commentInfo = self.arrCommentList[index]
-//        let commentId = commentInfo.valueForInt(key: CId) ?? 0
-//        APIRequest.shared().deleteComment(commentId: commentId) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil && error == nil {
-//                DispatchQueue.main.async {
-//                    self.commentCount -= 1
-//                    self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
-//                    self.arrCommentList.remove(at: index)
-//                    self.tblCommentList.reloadData()
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.forumID, self, .deleteComment)
-//                }
-//            }
-//        }
-//    }
     
     
     func deleteComment(_ index:Int){
-        
         let commentInfo = self.arrCommentList[index]
         let commentId = commentInfo.valueForString(key: "updated_at")
         let strComment = commentInfo.valueForString(key: "comment")
-  
         guard let userID = appDelegate.loginUser?.user_id else{return}
         let userId = userID.description
-        
         APIRequest.shared().deleteProductCommentNew(productId:forumIDNew ?? "", commentId : commentId, comment: strComment, include_user_id: userId)  { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil && error == nil {
                 DispatchQueue.main.async {
                     self.arrCommentList.remove(at: index)
-//                    var productCount = self.product?.totalComments.toInt ?? 0
-//                    productCount -= 1
-//                    self.product?.totalComments = productCount.toString
-//                    //                    self.product?.totalComment -= 1
-//                    self.tblProduct.reloadData()
-//                    ProductHelper<UIViewController>.updateProductData(product: self.product!, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
                     self.commentCount -= 1
                     if self.commentCount >= 0{
                         self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
                     }else {
                         return
                     }
-//                    self.arrCommentList.remove(at: index)
                     self.tblCommentList.reloadData()
                     MIGeneralsAPI.shared().refreshPostRelatedScreens(nil,self.forumIDNew?.toInt ?? 0 , self, .deleteComment)
-                    
-                    
                 }
             }
         }

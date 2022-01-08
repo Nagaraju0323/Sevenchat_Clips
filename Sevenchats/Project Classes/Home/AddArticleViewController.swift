@@ -33,6 +33,7 @@ class AddArticleViewController: ParentViewController {
             self.txtViewArticleContent.txtDelegate = self
             self.txtViewArticleContent.isScrollEnabled = true
             self.txtViewArticleContent.textLimit = "150"
+            self.txtViewArticleContent.type = "1"
         }
     }
     @IBOutlet weak var viewSelectGroup : UIView!
@@ -79,7 +80,7 @@ class AddArticleViewController: ParentViewController {
     // MARK:- --------- Initialization
     func Initialization(){
         
-//        txtViewArticleContent.GenericTextViewDelegate = self
+        txtArticleTitle.txtDelegate = self
         
         if articleType == .editArticle {
             self.loadArticleDetailFromServer()
@@ -486,5 +487,20 @@ extension AddArticleViewController: GenericTextViewDelegate{
 //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
         }
     }
+    
 }
 
+extension AddArticleViewController: GenericTextFieldDelegate {
+   
+    @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    if textField == txtArticleTitle{
+        if txtArticleTitle.text?.count ?? 0 > 20{
+            return false
+        }
+        let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
+        let filtered = string.components(separatedBy: cs).joined(separator: "")
+        return (string == filtered)
+    }
+    return true
+    }
+}

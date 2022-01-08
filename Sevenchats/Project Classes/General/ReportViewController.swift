@@ -35,7 +35,12 @@ class ReportViewController: ParentViewController {
     @IBOutlet var viewAddImageContainer : UIView!
     @IBOutlet var viewUploadedImageContainer : UIView!
     @IBOutlet var imgArticle : UIImageView!
-    @IBOutlet var textViewReportMessage : GenericTextView!
+    @IBOutlet var textViewReportMessage : GenericTextView!{
+        didSet{
+            self.textViewReportMessage.txtDelegate = self
+            self.textViewReportMessage.type = "1"
+        }
+    }
     @IBOutlet var lblUploadImg : UILabel!
     
     
@@ -409,4 +414,15 @@ extension ReportViewController{
         viewAddImageContainer.isHidden = false
         imgArticle.image = nil
     }
+}
+
+extension ReportViewController: GenericTextViewDelegate{
+    
+    func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
+        
+        if textView == textViewReportMessage{
+            //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
+        }
+    }
+
 }

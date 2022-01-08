@@ -135,14 +135,12 @@ extension ChirpyDetailsViewController{
             self.parentView.isHidden = true
             if let chirID = self.chirpyID {
                 APIRequest.shared().viewPostDetailNew(postID: chirID, apiKeyCall: CAPITagchirpiesDetials){ [weak self] (response, error) in
-              //  APIRequest.shared().viewPostDetail(postID: shouID) { [weak self] (response, error) in
                     guard let self = self else { return }
                     if response != nil {
                         self.parentView.isHidden = false
                         if let Info = response!["data"] as? [[String:Any]]{
                         print(Info as Any)
                             for chirpInfo in Info {
-//                            self.setChirpyDetailData(chirpInfo)
                             self.openUserProfileScreen()
                         }
                         }
@@ -152,39 +150,14 @@ extension ChirpyDetailsViewController{
             }
         }
         
-    
-    
-    
-//    fileprivate func getChirpyDetailsFromServer() {
-//
-//        self.parentView.isHidden = true
-//        if let chirID = self.chirpyID {
-//            APIRequest.shared().viewPostDetail(postID: chirID) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                self.refreshControl.endRefreshing()
-//                if response != nil {
-//                    self.parentView.isHidden = false
-//                    if let chirpInfo = response![CJsonData] as? [String : Any]{
-//                        self.setChirpyDetailData(chirpInfo)
-//                        self.openUserProfileScreen()
-//                    }
-//                }
-//                self.getCommentListFromServer()
-//            }
-//        }
-//    }
-//
     fileprivate func openUserProfileScreen(){
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-//            appDelegate.moveOnProfileScreen(self.chirpyInformation.valueForString(key: CUserId), self)
             appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
         }
-        
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-//            appDelegate.moveOnProfileScreen(self.chirpyInformation.valueForString(key: CUserId), self)
             appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
         }
     }
@@ -212,19 +185,6 @@ extension ChirpyDetailsViewController{
     }
     
     fileprivate func deleteChirpyPost(){
-        
-//        if let chirID = self.chirpyID{
-//            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
-//                guard let self = self else { return }
-//                APIRequest.shared().deletePost(postID: chirID, completion: { [weak self] (response, error) in
-//                    guard let self = self else { return }
-//                    if response != nil && error == nil{
-//                        self.navigationController?.popViewController(animated: true)
-//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, chirID, self, .deletePost)
-//                    }
-//                })
-//            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-//        }
     }
     @objc func pullToRefresh() {
         if apiTask?.state == URLSessionTask.State.running {
@@ -242,44 +202,13 @@ extension ChirpyDetailsViewController{
             if apiTask?.state == URLSessionTask.State.running {
                 return
             }
-            
             // Add load more indicator here...
             self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
             
-//            apiTask  = APIRequest.shared().getCommentList(page: pageNumber, showLoader: false, post_id: chirID, rss_id: nil) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//
-//                self.tblCommentList.tableFooterView = UIView()
-//                self.apiTask?.cancel()
-//
-//                if response != nil {
-//
-//                    if let arrList = response![CJsonData] as? [[String:Any]] {
-//
-//                        // Remove all data here when page number == 1
-//                        if self.pageNumber == 1 {
-//                            self.arrCommentList.removeAll()
-//                            self.tblCommentList.reloadData()
-//                        }
-//
-//                        // Add Data here...
-//                        if arrList.count > 0{
-//                            self.arrCommentList = self.arrCommentList + arrList
-//                            self.tblCommentList.reloadData()
-//                            self.pageNumber += 1
-//                        }
-//                    }
-//
-//                    print("arrCommentListCount : \(self.arrCommentList.count)")
-//                }
-//            }
         }
     }
     
     func updateChirpyCommentSection(_ arrComm : [[String : Any]], _ totalComment : Int){
-    
-        //self.arrCommentList = arrComm
-        //self.tblCommentList.reloadData()
     }
 }
 // MARK:- --------- UITableView Datasources/Delegate
@@ -292,7 +221,6 @@ extension ChirpyDetailsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let header = EventCommentTblHeader.viewFromXib as? EventCommentTblHeader{
             header.backgroundColor =  CRGB(r: 249, g: 250, b: 250)
-            //header.lblTitle.text = "\(arrCommentList.count) " + CNavComments
             header.lblTitle.text = appDelegate.getCommentCountString(comment: commentCount)
             return header
         }
@@ -343,7 +271,6 @@ extension ChirpyDetailsViewController: UITableViewDelegate, UITableViewDataSourc
                         
                         if arrSelectedUser.count > 0 {
                             let userSelectedInfo = arrSelectedUser[0]
-//                            appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
                         }
                     })
@@ -366,13 +293,11 @@ extension ChirpyDetailsViewController: UITableViewDelegate, UITableViewDataSourc
             
             cell.btnUserName.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
             }
             
             cell.btnUserImage.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
             }
             
@@ -394,8 +319,7 @@ extension ChirpyDetailsViewController: UITableViewDelegate, UITableViewDataSourc
 // MARK:-  --------- Generic UITextView Delegate
 extension ChirpyDetailsViewController: GenericTextViewDelegate{
     
-    func genericTextViewDidChange(_ textView: UITextView, height: CGFloat)
-    {
+    func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
         // Set TextView height...
         self.cnTextViewHeight.constant = height > 35 ? height : 35
         
@@ -464,84 +388,23 @@ extension ChirpyDetailsViewController{
             if let chirId = self.chirpyID{
                 // Get Final text for comment..
                 let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
-                
                 // Get Mention user's Ids..
                 let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
                 
-//                APIRequest.shared().sendComment(post_id: chirId, commentId: self.editCommentId, rss_id: nil, type: 1, comment: strComment, include_user_id: includedUser) { [weak self] (response, error) in
-//                    guard let self = self else { return }
-//                    if response != nil && error == nil {
-//                        
-//                        self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
-//                        self.txtViewComment.text = ""
-//                        self.btnSend.isUserInteractionEnabled = false
-//                        self.btnSend.alpha = 0.5
-//                        self.txtViewComment.updatePlaceholderFrame(false)
-//                        
-//                        if let comment = response![CJsonData] as? [String : Any] {
-//                            if (self.editCommentId ?? 0) == 0{
-//                                self.arrCommentList.insert(comment, at: 0)
-//                                self.commentCount += 1
-//                                
-//                                self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-//                                
-//                                self.tblCommentList.reloadData()
-//                                if let responsInfo = response as? [String : Any]{
-//                                    // To udpate previous screen data....
-//                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(responsInfo, chirId, self, .commentPost)
-//                                }
-//                            }else{
-//                                // Edit comment in array
-//                                if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
-//                                    self.arrCommentList.remove(at: index)
-//                                    self.arrCommentList.insert(comment, at: 0)
-//                                    self.tblCommentList.reloadData()
-//                                }
-//                            }
-//                            self.genericTextViewDidChange(self.txtViewComment, height: 10)
-//                        }
-//                        self.editCommentId =  nil
-//                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-//                        //self.lblNoData.isHidden = self.arrCommentList.count != 0
-//                    }
-//                }
+
             }
         }
     }
     
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
         
-//        if Int64(self.chirpyInformation.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-            
         if chirpyInformation.valueForString(key: "user_email") == appDelegate.loginUser?.email {
-//            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self] (alert) in
-//                guard let self = self else { return }
-//                if let chirpId = self.chirpyID{
-//                    if let addChirpyVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddChirpyViewController") as? AddChirpyViewController{
-//                        addChirpyVC.setBlock(block: {  [weak self] (chirpInfo, message) in
-//                            guard let self = self else { return }
-//                            if let chiInfo = chirpInfo as? [String : Any]{
-//                                self.setChirpyDetailData(chiInfo)
-//                            }
-//                        })
-//                        addChirpyVC.chirpyType = .editChirpy
-//                        addChirpyVC.chirpyID = chirpId
-//                        self.navigationController?.pushViewController(addChirpyVC, animated: true)
-//                    }
-//                }
-//            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
-//                guard let self = self else { return }
-//                self.deleteChirpyPost()
-            
             self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
                 guard let _ = self else {return}
                 DispatchQueue.main.async {
                     self?.deleteChirpyPost()
-    
                 }
             }
-            
-            
         }else {
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportChirpy
@@ -556,14 +419,11 @@ extension ChirpyDetailsViewController{
     
     @IBAction func btnLikeCLK(_ sender : UIButton){
         if sender.tag == 0{
-            // LIKE CLK
             btnLike.isSelected = !btnLike.isSelected
-            
             likeCount = btnLike.isSelected ? likeCount + 1 : likeCount - 1
             btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
             MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.chirpyID, rss_id: nil, type: 1, likeStatus: btnLike.isSelected ? 1 : 0, viewController: self)
         }else{
-            // LIKE COUNT CLK
             if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
                 likeVC.postID = self.chirpyID
                 self.navigationController?.pushViewController(likeVC, animated: true)
@@ -572,45 +432,12 @@ extension ChirpyDetailsViewController{
     }
     
     @IBAction func btnShareReportCLK(_ sender : UIButton){
-        //self.presentActivityViewController(mediaData: chirpyInformation.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
         let sharePost = SharePostHelper(controller: self, dataSet: chirpyInformation)
         sharePost.shareURL = chirpyInformation.valueForString(key: CShare_url)
         sharePost.presentShareActivity()
     }
     
     func btnMoreOptionOfComment(index:Int){
-//        self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
-//
-//            guard let self = self else {return}
-//            let commentInfo = self.arrCommentList[index]
-//            var commentText = commentInfo.valueForString(key: "comment")
-//            DispatchQueue.main.async {
-//                self.viewUserSuggestion.resetData()
-//                self.editCommentId = commentInfo.valueForInt(key: CId)
-//                if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
-//                    for userInfo in arrIncludedUsers {
-//                        let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-//                        commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
-//                        self.viewUserSuggestion.addSelectedUser(user: userInfo)
-//                    }
-//                }
-//                self.txtViewComment.text = commentText
-//                self.viewUserSuggestion.setAttributeStringInTextView(self.txtViewComment)
-//                self.txtViewComment.updatePlaceholderFrame(true)
-//                let constraintRect = CGSize(width: self.txtViewComment.frame.size.width, height: .greatestFiniteMagnitude)
-//                let boundingBox = self.txtViewComment.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.txtViewComment.font!], context: nil)
-//                self.genericTextViewDidChange(self.txtViewComment, height: ceil(boundingBox.height))
-//            }
-//
-//        }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](_) in
-//            guard let _ = self else {return}
-//            DispatchQueue.main.async {
-//                self?.deleteComment(index)
-//            }
-//        }
-        
-        
-    
              self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
                  guard let _ = self else {return}
                  DispatchQueue.main.async {
@@ -621,19 +448,6 @@ extension ChirpyDetailsViewController{
     }
     
     func deleteComment(_ index:Int){
-//        let commentInfo = self.arrCommentList[index]
-//        let commentId = commentInfo.valueForInt(key: CId) ?? 0
-//        APIRequest.shared().deleteComment(commentId: commentId) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil && error == nil {
-//                DispatchQueue.main.async {
-//                    self.commentCount -= 1
-//                    self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
-//                    self.arrCommentList.remove(at: index)
-//                    self.tblCommentList.reloadData()
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.chirpyID, self, .deleteComment)
-//                }
-//            }
-//        }
+
     }
 }

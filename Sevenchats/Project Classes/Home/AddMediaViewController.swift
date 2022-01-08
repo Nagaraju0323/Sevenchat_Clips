@@ -47,13 +47,10 @@ class AddMediaViewController: ParentViewController {
             self.didChangeInviteType()
         }
     }
-    
     var arrMedia : [MDLAddMedia] = []
     var arrMediaString = [String]()
     let maxVideoFileSizeInMB : Int = 50
     let totalMediaUploadLimit = 5
-    //var selectedAssets = [TLPHAsset]()
-    
     var categoryID : Int?
     var arrSelectedGroupFriends = [[String : Any]]()
     var imagePostType : ImagePostType!
@@ -249,7 +246,7 @@ extension AddMediaViewController {
             
             _arrMedia = self.arrMedia.filter({$0.uploadMediaStatus != .Succeed})
         }
-         do {
+        do {
             let data = try JSONEncoder().encode(arrImagesVideo)
             let string = String(data: data, encoding: .utf8)!
             let replaced2 = string.replacingOccurrences(of: "\"{", with: "{")
@@ -311,7 +308,7 @@ extension AddMediaViewController {
             }
         }
     }
-
+    
 }
 
 

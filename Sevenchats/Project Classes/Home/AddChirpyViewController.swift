@@ -26,6 +26,7 @@ class AddChirpyViewController: ParentViewController {
             self.txtViewChirpyContent.txtDelegate = self
             self.txtViewChirpyContent.isScrollEnabled = true
             self.txtViewChirpyContent.textLimit = "150"
+            self.txtViewChirpyContent.type = "1"
         }
     }
 
@@ -317,21 +318,7 @@ extension AddChirpyViewController{
     }
     
     fileprivate func removeChirpyImage() {
-//        if let chirpID = self.chirpyID{
-//            APIRequest.shared().removePostImage(postID: chirpID) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                if response != nil {
-//                    self.isApiChirpyImage = false
-//                    self.viewUploadedImageContainer.isHidden = true
-//                    self.viewAddImageContainer.isHidden = false
-//                    self.imgChirpy.image = nil
-//                    
-//                    if let chirpyInfo = response![CJsonData] as? [String : Any]{
-//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(chirpyInfo, self.chirpyID, self, .editPost)
-//                    }
-//                }
-//            }
-//        }
+
     }
     
     fileprivate func loadChirpyDetailFromServer(){
@@ -417,31 +404,6 @@ extension AddChirpyViewController{
         }
     }
 
-//    func loadInterestList(interestType : String, showLoader : Bool) {
-//
-//        if apiTask?.state == URLSessionTask.State.running {
-//            return
-//        }
-//        guard let langName = appDelegate.loginUser?.lang_name else {return}
-//
-//        apiTask = APIRequest.shared().getInterestSubListNew(langName : langName,interestType:interestType, page: currentPage, showLoader : showLoader) { (response, error) in
-//            self.arrsubCategorys.removeAll()
-//            if response != nil && error == nil {
-//                if let arrData = response![CJsonData] as? [[String : Any]]
-//                {
-//                    for obj in arrData{
-//                        self.arrsubCategorys.append(MDLIntrestSubCategory(fromDictionary: obj))
-//                    }
-//
-//                    self.subcategoryDropDownView.arrDataSource = self.arrsubCategorys.map({ (obj) -> String in
-//                        return (obj.interestLevel2 ?? "")
-//                    })
-//
-//                }
-//            }
-//        }
-//    }
-    
 }
 
 
@@ -523,11 +485,6 @@ extension AddChirpyViewController{
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
                 
-//                guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
-//                    return
-//                }
-//                self.imgName = imageURL.absoluteString ?? ""
-//                MInioimageupload.shared().uploadMinioimage(ImgnameStr:image!)
                 guard let mobileNum = appDelegate.loginUser?.mobile else {
                     return
                 }
@@ -536,38 +493,7 @@ extension AddChirpyViewController{
                 print("UploadImage::::::::::::::\(message)")
                 self.uploadImgUrl = message
                 }
-//
-//                MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!)
-//
-//                                                MInioimageupload.shared().callback = { [self] imgUrls in
-//                                                print("UploadImage::::::::::::::\(imgUrls)")
-//                                                    self.imgName = imgUrls
-//                                                    let content:[String:Any]  = [
-//                                                           "mime": "image",
-//                                                           "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
-//                                                           "image_path":imgUrls
-//                                                       ]
-//
-//                                                    do {
-//                                                    let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
-//                                                    let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
-//                                                    let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
-//                                                    let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-//                        //                                        print("replace1\(replaced1)")
-//                                                        self.imageString = replaced1!
-//                                                            } catch {
-//                                                                print(error.localizedDescription)
-//                                                            }
-//                                                    self.arrImagesVideo.append(self.imageString)
-//
-//
-//                                                    print("*****************\(self.arrImagesVideo)")
-//
-//                                                }
-                
-                
-                
-                
+
             }
         }
     }

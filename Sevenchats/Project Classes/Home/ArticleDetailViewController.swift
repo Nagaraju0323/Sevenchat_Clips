@@ -219,25 +219,6 @@ extension ArticleDetailViewController{
                 }
             }
         }
-    
-    
-//    func getArticleDetailsFromServer() {
-//        self.parentView.isHidden = true
-//        if let artID = self.articleID {
-//            APIRequest.shared().viewPostDetail(postID: artID) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                if response != nil {
-//                    self.parentView.isHidden = false
-//                    if let articleInfo = response![CJsonData] as? [String : Any]{
-//                      self.setArticleDetails(articleInfo)
-//                      self.openUserProfileScreen()
-//                    }
-//                }
-//                self.getCommentListFromServer(showLoader: true)
-//            }
-//        }
-//    }
-    
     func setArticleDetails(_ articleInfo : [String : Any]?){
         if let artInfo = articleInfo{
             articleInformation = artInfo
@@ -245,33 +226,18 @@ extension ArticleDetailViewController{
             posted_ID = artInfo.valueForString(key: "user_id")
             
             self.lblUserName.text = artInfo.valueForString(key: CFirstname) + " " + artInfo.valueForString(key: CLastname)
-//            self.lblArticlePostDate.text = DateFormatter.dateStringFrom(timestamp: artInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
             self.lblArticleTitle.text = artInfo.valueForString(key: CTitle)
             self.lblArticleDescription.text = artInfo.valueForString(key: CContent)
-            
-            //self.imgArticle.loadImageFromUrl(artInfo.valueForString(key: CImage), false)
-//            self.blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
-            
-            
             let image = artInfo.valueForString(key: "image")
             if image.isEmpty {
-                //                    blurImgView.isHidden = true
                 blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             }else{
                 blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
             }
-            
-            
             self.articleImgURL = artInfo.valueForString(key: Cimages)
             self.imgUser.loadImageFromUrl(artInfo.valueForString(key: CUserProfileImage), true)
             
             self.lblArticleCategory.text = artInfo.valueForString(key: CCategory).uppercased()
-
-//            self.btnLike.isSelected = artInfo.valueForInt(key: CIs_Like) == 1
-//            likeCount = artInfo.valueForInt(key: CTotal_like) ?? 0
-//            self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-
-            
             let is_Liked = artInfo.valueForString(key: CIsLiked)
             if is_Liked == "Yes"{
                 btnLike.isSelected = true
@@ -280,23 +246,15 @@ extension ArticleDetailViewController{
             }
             
             likeCount = artInfo.valueForString(key: CLikes).toInt ?? 0
-   //        likeCount = product.likes!.toInt!
             self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-            
-//            self.commentCount = artInfo.valueForInt(key: CTotalComment) ?? 0
-//            self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-//            self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
             commentCount = artInfo.valueForString(key: "comments").toInt ?? 0
             self.totalComment = commentCount
             btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-            
             self.tblCommentList.updateHeaderViewHeight(extxtraSpace: 0)
             let created_At = artInfo.valueForString(key: CCreated_at)
             let cnvStr = created_At.stringBefore("G")
-//            let removeFrst = cnvStr.chopPrefix(3)
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             lblArticlePostDate.text = startCreated
-            
             self.sizeToFitHeader()
         }
     }
@@ -319,7 +277,6 @@ extension ArticleDetailViewController{
                     "selected_persons": articleInfo?.valueForString(key: "selected_persons"),
                     "status_id": "3"
                     ]
-                  //  APIRequest.shared().deletePost(postID: artID, completion: { [weak self] (response, error) in
                     APIRequest.shared().deletePostNew(postDetials: dict, apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
                         guard let self = self else { return }
                         if response != nil && error == nil{
@@ -330,58 +287,19 @@ extension ArticleDetailViewController{
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
         }
-//    fileprivate func deleteArticlePost(){
-//
-//        if let artID = self.articleID{
-//
-//            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
-//                APIRequest.shared().deletePost(postID: artID, completion: { [weak self] (response, error) in
-//                    guard let self = self else { return }
-//                    if response != nil && error == nil{
-//                        self.navigationController?.popViewController(animated: true)
-//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, artID, self, .deletePost)
-//                    }
-//                })
-//            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-//        }
-//    }
 }
 
 // MARK:- --------- Action Event
 extension ArticleDetailViewController{
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
         weak var weakSelf = self
-//        if articleInformation.valueForString(key: CUserId) == appDelegate.loginUser?.user_id.description{
-            
             if articleInformation.valueForString(key: "user_email") == appDelegate.loginUser?.email {
-            
-//            weakSelf?.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { (alert) in
-//                if let artId = weakSelf?.articleID{
-//
-//                    if let editArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddArticleViewController") as? AddArticleViewController{
-//                        editArticleVC.setBlock(block: { (articleInfo, message) in
-//                            if let artInfo = articleInfo as? [String : Any]{
-//                                weakSelf?.setArticleDetails(artInfo)
-//                            }
-//                        })
-//                        editArticleVC.articleType = .editArticle
-//                        editArticleVC.articleID = artId
-//                        weakSelf?.navigationController?.pushViewController(editArticleVC, animated: true)
-//                    }
-//                }
-//            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { (alert) in
-//                weakSelf?.deleteArticlePost(self.articleInformation)
-//            }
                 self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
                     guard let _ = self else {return}
                     DispatchQueue.main.async {
                         self?.deleteArticlePost(self?.articleInformation)
-        //                self?.deleteComment(index)
                     }
                 }
-                
-                
-            
         }else{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportArticle
@@ -394,20 +312,7 @@ extension ArticleDetailViewController{
     }
 
     @IBAction func btnLikeCLK(_ sender : UIButton){
-//        if sender.tag == 0{
-//            // LIKE CLK
-//            btnLike.isSelected = !btnLike.isSelected
-//            likeCount = btnLike.isSelected ? likeCount + 1 : likeCount - 1
-//            btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-//
-//            MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.articleID, rss_id: nil, type: 1, likeStatus: btnLike.isSelected ? 1 : 0, viewController: self)
-//        }else{
-//            // LIKE COUNT CLK
-//            if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
-//                likeVC.postID = self.articleID
-//                self.navigationController?.pushViewController(likeVC, animated: true)
-//            }
-//        }
+
         self.btnLike.isSelected = !self.btnLike.isSelected
         
         if self.btnLike.isSelected == true{
@@ -447,7 +352,6 @@ extension ArticleDetailViewController{
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
-//                    info = response!["liked_users"] as? [String:Any] ?? [:]
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
                     self?.btnLikeCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     
@@ -465,10 +369,6 @@ extension ArticleDetailViewController{
     }
     
     @IBAction func btnCommentCLK(_ sender : UIButton){
-        /*if let commentVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController {
-            commentVC.postId = self.articleID
-            self.navigationController?.pushViewController(commentVC, animated: true)
-        }*/
     }
     
 }
@@ -715,54 +615,7 @@ extension ArticleDetailViewController{
             }
         }
         
-//        self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
-//
-//            guard let self = self else {return}
-//            let commentInfo = self.arrCommentList[index]
-//            var commentText = commentInfo.valueForString(key: "comment")
-//            DispatchQueue.main.async {
-//                self.viewUserSuggestion.resetData()
-//                self.editCommentId = commentInfo.valueForInt(key: CId)
-//                if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
-//                    for userInfo in arrIncludedUsers {
-//                        let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-//                        commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
-//                        self.viewUserSuggestion.addSelectedUser(user: userInfo)
-//                    }
-//                }
-//                self.txtViewComment.text = commentText
-//                self.viewUserSuggestion.setAttributeStringInTextView(self.txtViewComment)
-//                self.txtViewComment.updatePlaceholderFrame(true)
-//                let constraintRect = CGSize(width: self.txtViewComment.frame.size.width, height: .greatestFiniteMagnitude)
-//                let boundingBox = self.txtViewComment.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.txtViewComment.font!], context: nil)
-//                self.genericTextViewDidChange(self.txtViewComment, height: ceil(boundingBox.height))
-//            }
-//
-//        }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](_) in
-//            guard let _ = self else {return}
-//            DispatchQueue.main.async {
-//                self?.deleteComment(index)
-//            }
-//        }
     }
-    
-//    func deleteComment(_ index:Int){
-//        let commentInfo = self.arrCommentList[index]
-//        let commentId = commentInfo.valueForInt(key: CId) ?? 0
-//        APIRequest.shared().deleteComment(commentId: commentId) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil && error == nil {
-//                DispatchQueue.main.async {
-//                    self.commentCount -= 1
-//                    self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
-//                    self.arrCommentList.remove(at: index)
-//                    self.tblCommentList.reloadData()
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.articleID, self, .deleteComment)
-//                }
-//            }
-//        }
-//    }
-    
     
     func deleteComment(_ index:Int){
         
@@ -798,60 +651,6 @@ extension ArticleDetailViewController{
     
     @IBAction func btnSendCommentCLK(_ sender : UIButton){
         self.resignKeyboard()
-        
-//        if (txtViewComment.text?.isBlank)! {
-//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageCommentBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//        } else {
-//            
-//            // Get Final text for comment..
-//            let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
-//            
-//            // Get Mention user's Ids..
-//            let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-//            
-//            APIRequest.shared().sendComment(post_id: articleID, commentId: self.editCommentId, rss_id: rssId, type: rssId != nil ? 2 : 1, comment: strComment, include_user_id: includedUser) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                if response != nil && error == nil {
-//                    
-//                    self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
-//                    self.txtViewComment.text = ""
-//                    self.btnSend.isUserInteractionEnabled = false
-//                    self.btnSend.alpha = 0.5
-//                    self.txtViewComment.updatePlaceholderFrame(false)
-//                    
-//                    if let comment = response![CJsonData] as? [String : Any] {
-//                        if (self.editCommentId ?? 0) == 0{
-//                            self.arrCommentList.insert(comment, at: 0)
-//                            self.commentCount += 1
-//                            
-//                            self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-//                            self.tblCommentList.reloadData()
-//                            if let responsInfo = response as? [String : Any]{
-//                                // To udpate previous screen data....
-//                                if (self.rssId != nil){
-//                                    MIGeneralsAPI.shared().refreshWebSiteScreens(responsInfo, self.rssId, self, .commentPost)
-//                                }else{
-//                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(responsInfo, self.articleID, self, .commentPost)
-//                                }
-//                            }
-//                        }else{
-//                            // Edit comment in array
-//                            if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
-//                                self.arrCommentList.remove(at: index)
-//                                self.arrCommentList.insert(comment, at: 0)
-//                                self.tblCommentList.reloadData()
-//                            }
-//                        }
-//                        self.genericTextViewDidChange(self.txtViewComment, height: 10)
-//                    }
-//                    self.editCommentId =  nil
-//                    self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-//                    //self.lblNoData.isHidden = self.arrCommentList.count != 0
-//                }
-//            }
-//        }
-        
-        
         if (txtViewComment.text?.isBlank)!{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageCommentBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
@@ -868,7 +667,6 @@ extension ArticleDetailViewController{
                 let userId = userID.description
                 APIRequest.shared().sendProductCommentnew(productId:shoId.description, commentId : self.editCommentId, comment: strComment, include_user_id: userId)  { [weak self] (response, error) in
                 
-//                APIRequest.shared().sendComment(post_id: shoId, commentId: self.editCommentId, rss_id: nil, type: 1, comment: strComment, include_user_id: includedUser) { [weak self] (response, error) in
                     guard let self = self else { return }
                     if response != nil && error == nil  {
                         
@@ -877,30 +675,15 @@ extension ArticleDetailViewController{
                         self.btnSend.isUserInteractionEnabled = false
                         self.btnSend.alpha = 0.5
                         self.txtViewComment.updatePlaceholderFrame(false)
-
-//                        print(response![CJsonData] as? [[String : Any]])
-//                        if let comment = response![CJsonData] as? [String : Any] {
                         if let comment = response![CJsonData] as? [[String : Any]] {
-                            
                             for comments in comment {
-                                
                                 self.commentinfo = comments
                                 if (self.editCommentId ?? 0) == 0{
-//                                    self.arrCommentList.insert(comments, at: 0)
-                                    
                                     self.getCommentListFromServer(showLoader: true)
                                     let comment_data = comments["comments"] as? String
                                     self.commentCount = comment_data?.toInt ?? 0
-//                                    self.commentCount += 1
-                                   
                                     self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-//                                    if let responsInfo = response as? [String : Any]{
-//                                        // To udpate previous screen data....
                                     MIGeneralsAPI.shared().refreshPostRelatedScreens(self.commentinfo, shoId, self, .commentPost)
-                                    
-                                   
-                                    
-//                                    }
                                 }else{
                                     // Edit comment in array
                                     if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
@@ -922,7 +705,6 @@ extension ArticleDetailViewController{
                         }
                         self.editCommentId =  nil
 //                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-                      
                         //self.lblNoData.isHidden = self.arrCommentList.count != 0
                     }
                 }

@@ -53,6 +53,12 @@ extension AddPollQuestionCell : UITextFieldDelegate{
         if (textField.text?.count ?? 0) > 100{
             return false
         }
+        
+        if textField == textField{
+        let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
+        let filtered = string.components(separatedBy: cs).joined(separator: "")
+        return (string == filtered)
+        }
         return true
     }
 }
