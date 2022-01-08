@@ -47,18 +47,14 @@ class AddEventViewController: ParentViewController {
     @IBOutlet weak var txtLocation : MIGenericTextFiled!
     @IBOutlet weak var lblUploadImage : UILabel!
     
-//    @IBOutlet weak var subcategoryDropDownView: CustomDropDownView!
-    
     @IBOutlet weak var txtInviteType : MIGenericTextFiled!
     var selectedInviteType: Int = 3 {
         didSet{
             self.didChangeInviteType()
         }
     }
-
     var latitude: Double = 0.0
     var longitude: Double = 0.0
-    
     var arrSelectedGroupFriends = [[String : Any]]()
     var eventID: Int?
     var categoryID: Int?
@@ -82,50 +78,35 @@ class AddEventViewController: ParentViewController {
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        
     }
     
     // MARK:- --------- Initialization
-    
     func Initialization(){
-        
         txtEventTitle.txtDelegate = self
-        
         if eventType == .editEvent{
             self.loadEventDetailFromServer()
         }
         viewUploadedImageContainer.isHidden = true
-        
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddEventClicked(_:)))]
-        
         let arrCategory = MIGeneralsAPI.shared().fetchCategoryFromLocalEvent()
-        
-        /// Set Dropdown on txtCategory
         categoryDropDownView.arrDataSource = arrCategory.map({ (obj) -> String in
             return (obj[CCategoryName] as? String ?? "")
         })
-        
-        /// On select text from the auto-complition
         categoryDropDownView.onSelectText = { [weak self] (item) in
-            
             guard let `self` = self else { return }
-            
             let objArry = arrCategory.filter({ (obj) -> Bool in
                 return ((obj[CCategoryName] as? String) == item)
             })
             if (objArry.count > 0) {
                 self.categoryName = (objArry.first?[CCategoryName] as? String) ?? ""
             }
-            
         }
         
         txtEventStartDate.setDatePickerMode(mode: .dateAndTime)
         txtEventStartDate.setMinimumDate(minDate: Date())
         txtEventStartDate.setDatePickerWithDateFormate(dateFormate: CDateFormat, defaultDate: Date(), isPrefilledDate: true) { [weak self] (date) in
             guard let self = self else { return }
-            
             self.txtEventEndDate.setMinimumDate(minDate: date)
-            
             let endEventDate = date.addingTimeInterval((2.0 * 60) * 60.0)
             let formatter = DateFormatter()
             formatter.locale = DateFormatter.shared().locale
@@ -141,7 +122,6 @@ class AddEventViewController: ParentViewController {
         txtEventEndDate.setDatePickerWithDateFormate(dateFormate: CDateFormat, defaultDate: Date(), isPrefilledDate: true) { [weak self] (date) in
             guard let _ = self else { return }
         }
-     
         let arrInviteType = [CPostPostsInviteGroups, CPostPostsInviteContacts,  CPostPostsInvitePublic, CPostPostsInviteAllFriends]
         // By default `All type` selected
         self.selectedInviteType = 4
@@ -153,13 +133,11 @@ class AddEventViewController: ParentViewController {
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
         }else{
         }
-        
         if eventType == .editEvent{
             self.title = CNavEditEvent
         }else{
             self.title = CNavAddEvent
         }
-        
         lblUploadImage.text = CUploadImage
         txtEventTitle.placeHolder = CEventPlaceholderTitle
         categoryDropDownView.txtCategory.placeholder = CEventPlaceholderSelecetCategory
@@ -238,6 +216,11 @@ extension AddEventViewController{
         let startEvntTime =  DateFormatter.shared().reversDateFormat(dateString:txtEventStartDate.text ?? "" )
         let endEvntTime = DateFormatter.shared().reversDateFormat(dateString:txtEventEndDate.text ?? "" )
         
+        let startEvntTimes = DateFormatter.shared().convertDatereveruserDetails(strDate: txtEventStartDate.text ?? "" )
+        let startchg = "\(startEvntTime.description) \(" GMT+0530 (IST)")"
+        let endchg = "\(endEvntTime.description) \(" GMT+0530 (IST)")"
+        
+        
         guard let userID = appDelegate.loginUser?.user_id else { return }
         
         let txtAdv = txtViewContent.text.replace(string: "\n", replacement: "\\n")
@@ -251,8 +234,8 @@ extension AddEventViewController{
            "age_limit":"16",
            "latitude":self.latitude,
             "longitude":self.longitude,
-           "start_date":startEvntTime,
-           "end_date":endEvntTime,
+           "start_date":startchg,
+           "end_date":endchg,
             "address_line1": txtLocation.text ?? ""
           ]
         

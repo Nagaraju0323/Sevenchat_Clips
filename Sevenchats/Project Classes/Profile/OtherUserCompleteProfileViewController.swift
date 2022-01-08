@@ -88,19 +88,6 @@ extension OtherUserCompleteProfileViewController{
             
             self.title = CNavCompleteProfile
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_edit_profile"), style: .plain, target: self, action: #selector(btnEditProfileClicked(_:)))
-            
-            //...Education
-            //Oldcode by Mi
-            /*
-             let arrEducation = TblEducation.fetch(predicate: NSPredicate(format: "%K == %d", CEducation_id, appDelegate.loginUser?.education_id ?? 0), orderBy: CName, ascending: true)
-            if (arrEducation?.count)! > 0 {
-                let dict = arrEducation![0] as? TblEducation
-                lblEducation.text = dict?.name
-            }else{
-                lblEducation.text = nil
-            }
-            */
-            
             let arrEducation = TblEducation.fetch(predicate: NSPredicate(format: "%K == %d", CEducation_id, appDelegate.loginUser?.education_id ?? 0), orderBy: CName, ascending: true)
             if (arrEducation?.count)! > 0 {
                 let dict = arrEducation![0] as? TblEducation
@@ -350,6 +337,7 @@ extension OtherUserCompleteProfileViewController: UICollectionViewDelegate, UICo
 extension OtherUserCompleteProfileViewController{
     @objc fileprivate func btnEditProfileClicked(_ sender : UIBarButtonItem) {
         if let completeProfileVC = CStoryboardProfile.instantiateViewController(withIdentifier: "CompleteProfileViewController") as? CompleteProfileViewController{
+            completeProfileVC.dob_edit = appDelegate.loginUser?.dob
             self.navigationController?.pushViewController(completeProfileVC, animated: true)
         }
     }
