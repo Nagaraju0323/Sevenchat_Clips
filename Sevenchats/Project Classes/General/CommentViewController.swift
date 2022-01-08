@@ -82,7 +82,7 @@ class CommentViewController: ParentViewController {
         
         lblNoData.text = CMessageNoCommentFound
         txtViewComment.placeHolder = CMessageTypeYourMessage
-        
+        txtViewComment.type = "1"
         viewCommentContainer.layer.masksToBounds = false
         viewCommentContainer.layer.shadowColor = ColorAppTheme.cgColor
         viewCommentContainer.layer.shadowOpacity = 10

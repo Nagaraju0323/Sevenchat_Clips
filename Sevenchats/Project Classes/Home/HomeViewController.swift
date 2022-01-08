@@ -2133,14 +2133,14 @@ extension HomeViewController {
            //            }
             MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
             
-            
-            arrPostList.remove(at: (indexpath?.row)!)
-            arrPostList.insert(postInfo, at: (indexpath?.row)!)
-            UIView.performWithoutAnimation {
-                if (self.tblEvents.indexPathsForVisibleRows?.contains(indexpath!))!{
-                    self.tblEvents.reloadRows(at: [indexpath!], with: .none)
-                }
-            }
+//            
+//            arrPostList.remove(at: (indexpath?.row)!)
+//            arrPostList.insert(postInfo, at: (indexpath?.row)!)
+//            UIView.performWithoutAnimation {
+//                if (self.tblEvents.indexPathsForVisibleRows?.contains(indexpath!))!{
+//                    self.tblEvents.reloadRows(at: [indexpath!], with: .none)
+//                }
+//            }
         }
         
     }

@@ -551,7 +551,7 @@ class GenericTextView: UITextView, UITextViewDelegate {
             if type == "1"{
             if txtDelegate != nil {
                 _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
-                let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
+                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
                 let filtered = text.components(separatedBy: cs).joined(separator: "")
                 return (text == filtered)
             }

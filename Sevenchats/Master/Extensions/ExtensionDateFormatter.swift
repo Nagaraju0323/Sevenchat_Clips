@@ -90,6 +90,23 @@ extension DateFormatter{
         return dateFormatter.string(from: convertedDate)
     }
     
+    func convertDatereversLatestsell(strDate: String?) -> String?{
+        
+        let dateFormatter = DateFormatter()
+      
+        dateFormatter.dateStyle = DateFormatter.Style.long
+        dateFormatter.dateFormat = "E MM d yyyy HH:mm:ss"
+        dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT") as TimeZone?
+        guard let convertedDate = dateFormatter.date(from: strDate ?? "") else {
+            return nil
+        }
+       
+        dateFormatter.dateFormat = "dd MMM yyyy"
+        dateFormatter.timeZone = TimeZone.current
+        return dateFormatter.string(from: convertedDate)
+    }
+    
+    
     func convertDaterevers(strDate: String?) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = DateFormatter.Style.long

@@ -63,6 +63,7 @@ class EventDetailViewController: ParentViewController {
             txtViewComment.genericDelegate = self
             txtViewComment.PlaceHolderColor = ColorPlaceholder
             txtViewComment.placeHolder = CMessageTypeYourMessage
+            txtViewComment.type = "1"
         }
     }
     @IBOutlet fileprivate weak var viewUserSuggestion : UserSuggestionView! {

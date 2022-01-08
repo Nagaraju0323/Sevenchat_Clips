@@ -144,6 +144,7 @@ class ChirpyImageDetailsViewController: ParentViewController {
             //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
         }
         txtViewComment.placeHolder = CMessageTypeYourMessage
+        txtViewComment.type = "1"
     }
 }
 

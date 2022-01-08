@@ -40,6 +40,7 @@ class ForumDetailViewController: ParentViewController {
         didSet{
             txtViewComment.genericDelegate = self
             txtViewComment.PlaceHolderColor = ColorPlaceholder
+            txtViewComment.type = "1"
         }
     }
     

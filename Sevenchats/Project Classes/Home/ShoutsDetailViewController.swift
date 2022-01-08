@@ -38,6 +38,7 @@ class ShoutsDetailViewController: ParentViewController {
         didSet{
             txtViewComment.genericDelegate = self
             txtViewComment.PlaceHolderColor = ColorPlaceholder
+            txtViewComment.type = "1"
         }
     }
     @IBOutlet weak var cnTextViewHeight : NSLayoutConstraint!

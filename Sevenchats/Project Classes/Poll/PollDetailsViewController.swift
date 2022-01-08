@@ -50,6 +50,7 @@ class PollDetailsViewController: ParentViewController {
         didSet{
             txtViewComment.genericDelegate = self
             txtViewComment.PlaceHolderColor = ColorPlaceholder
+            txtViewComment.type = "1"
         }
     }
     @IBOutlet fileprivate weak var viewUserSuggestion : UserSuggestionView! {

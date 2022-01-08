@@ -144,42 +144,22 @@ extension HomeEventImageTblCell{
         posted_ID = postInfo.valueForString(key: "user_id")
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-//        self.lblEventPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-        
         lblEventTitle.text = postInfo.valueForString(key: CTitle)
         lblEventDescription.text = postInfo.valueForString(key: CContent)
-//        lblStartDate.text = "\(CStartDate)"
-//        lblEndDate.text = "\(CEndDate)"
-//
-//        lblEventStartDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
-//        lblEventEndDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
-
-        
         let created_At1 = postInfo.valueForString(key: "start_date")
         let cnvStr1 = created_At1.stringBefore("G")
         guard let startCreated1 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr1)  else { return}
-//        self.lblEndDate.text = CStartDate + startCreated1
         let created_At2 = postInfo.valueForString(key: "end_date")
         let cnvStr2 = created_At2.stringBefore("G")
         guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
-//        self.lblStartDate.text = CEndDate + startCreated2
-        
-//        self.lblEndDate.text = CEndDate + startCreated2
-//        self.lblStartDate.text = CStartDate + startCreated1
-        
         self.lblEndDate.text = CEndDate + startCreated2
         self.lblStartDate.text = CStartDate + startCreated1
-        
-//        blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
         let image = postInfo.valueForString(key: Cimages)
-                if image.isEmpty {
-//                    blurImgView.isHidden = true
-                    blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
-                }else{
-                    blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
-                }
-        //imgEvent.loadImageFromUrl(postInfo.valueForString(key: CImage), false)
-        
+        if image.isEmpty {
+            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+        }else{
+            blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+        }
         imgURL = postInfo.valueForString(key: CImage)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         

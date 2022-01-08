@@ -107,6 +107,7 @@ class FavWebSiteDetailViewController: ParentViewController {
         }
         
         txtViewComment.placeHolder = CMessageTypeYourMessage
+        txtViewComment.type = "1"
     }
 }
 // MARK:- --------- Api Functions

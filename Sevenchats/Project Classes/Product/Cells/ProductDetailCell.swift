@@ -53,6 +53,7 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         btnSold.layer.cornerRadius = 4
         btnSold.setTitle(CSold, for: .normal)
         btnSold.backgroundColor = UIColor(hex: "FF0C00")
+        collVImages.isProductDetails = true
         
         //lblPaymentPrefPlaceH.text = CPaymentPreference
         lblLastDOSPlaceH.text = CLastDateOfProductSelling
@@ -139,7 +140,7 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
 //        let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: removeFrst)
 //        self.lblLastDOS.text = startCreated
         let lastDate =  self.modelData.lastdateSelling.stringBefore("G")
-        let  lastMod = DateFormatter.shared().convertDatereversLatest(strDate: lastDate)
+        let  lastMod = DateFormatter.shared().convertDatereversLatestsell(strDate: lastDate)
             
         
         self.lblLastDOS.text = lastMod
@@ -165,17 +166,6 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         self.likeCounts = self.modelData.likes
         likeCount = self.likeCounts.toInt ?? 0
         self.btnLikesCount.setTitle(appDelegate.getLikeString(like: self.likeCount), for: .normal)
-
-//        self.btnLikesCount.setTitle((self.likeCounts), for: .normal)
-        
-        
-//        if self.modelData.isSold == 1{
-//            self.btnSold.setTitle(CAvailable, for: .normal)
-//            self.btnSold.backgroundColor = UIColor(hex: "3a9120")
-//        }else{
-//            self.btnSold.setTitle(CSold, for: .normal)
-//            self.btnSold.backgroundColor = UIColor(hex: "FF0C00")
-//        }
         
         if self.modelData.productState == "1"{
             self.btnSold.setTitle(CAvailable, for: .normal)
@@ -200,9 +190,6 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
    
         self.btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
         self.btnShare.setTitle(CBtnShare, for: .normal)
-      
-        print("aboutmetting\(self.modelData.lastdateSelling)")
-        
         self.lblLastDOS.text = self.modelData.lastdateSelling
     }
     

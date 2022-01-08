@@ -166,7 +166,7 @@ let CPrivate = "Private"
 let CComponentJoinedString          = ", "
 let CWebSiteLink    = "https://beta.sevenchats.com/"
 let PASSWORDALLOWCHAR = "!@#$%ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_"
-
+let SPECIALCHAR = "!@#$%^&,.<>?/[];:ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_/n  "
 
 //MARK:- Google Client ID and Place Picker Key
 

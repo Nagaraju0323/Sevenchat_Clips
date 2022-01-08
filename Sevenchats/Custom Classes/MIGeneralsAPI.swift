@@ -395,20 +395,14 @@ extension MIGeneralsAPI {
 //    }
 //
     func interestNotInterestMayBe(_ post_id : Int?, _ type : Int, viewController : UIViewController?){
-           APIRequest.shared().interestMayBeNotInterest(post_id: post_id, type: type) { (response, error) in
-               if response != nil && error == nil {
-                
-               
-                
-//                if showAlert && errorMessage != nil{
-//                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                }
-//                print("API Error =" + "\(strApiTag )" + "\(String(describing: error?.localizedDescription))" )
-                
-                   if let interInfo = response![CJsonData] as? [String : Any] {
-                           MIGeneralsAPI.shared().refreshPostRelatedScreens(interInfo, post_id, viewController!, .interestPost)
-                   }
-               }else {
+        APIRequest.shared().interestMayBeNotInterest(post_id: post_id, type: type) { (response, error) in
+            if response != nil && error == nil {
+                let interInfo = response![CJsonData] as? [[String : Any]]
+                if let interInfo = response![CJsonData] as? [[String : Any]] {
+                    let userChoice = interInfo.first ?? [:]
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(userChoice, post_id, viewController!, .interestPost)
+                }
+            }else {
                 
                 guard  let errorUserinfo = error?.userInfo["error"] as? String else {
                     return
@@ -419,11 +413,11 @@ extension MIGeneralsAPI {
                     CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: { [weak self] (alert) in
                         guard let self = self else { return }
                         
-                       })
-                      }
-                    }
-                  }
-               }
+                    })
+                }
+            }
+        }
+    }
     
     func addRemoveNotificationToken(isLogout : Int?) {
         appDelegate.logOut()
@@ -641,12 +635,32 @@ extension MIGeneralsAPI {
                         case .interestPost?:
                             if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = homeVC.arrPostList[index]
+                                let choice =  postInfo?.valueForString(key: "choice")
                                 
-                                postLikeInfo[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
-                                postLikeInfo["yes_count"] = postInfo?.valueForString(key: "yes_count")
-                                postLikeInfo["no_count"] = postInfo?.valueForString(key: "no_count")
-                                postLikeInfo["maybe_count"] = postInfo?.valueForString(key: "maybe_count")
                                 
+                                if choice == "yes"{
+                                    let yesCount = postLikeInfo.valueForString(key:"yes_count").toInt ?? 0
+                                    let totalCnt = (yesCount + 1).toString
+                                    postLikeInfo["yes_count"] = totalCnt
+                                    postLikeInfo[CIsInterested] = "1"
+                                    postLikeInfo["selected_choice"] = "1"
+                                }
+                                if choice == "maybe"{
+                                    let mayCount = postLikeInfo.valueForString(key:"maybe_count").toInt ?? 0
+                                    let totalCnt = (mayCount + 1).toString
+                                    postLikeInfo["maybe_count"] = totalCnt
+                                    postLikeInfo[CIsInterested] = "3"
+                                    postLikeInfo["selected_choice"] = "3"
+                                }
+                                if choice == "no"{
+                                    let noCount = postLikeInfo.valueForString(key:"no_count").toInt ?? 0
+                                    let totalCnt = (noCount + 1).toString
+                                    postLikeInfo["no_count"] = totalCnt
+                                    postLikeInfo[CIsInterested] = "2"
+                                    postLikeInfo["selected_choice"] = "2"
+                                }
+                                
+//                                postLikeInfo[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
                                 homeVC.arrPostList.remove(at: index)
                                 homeVC.arrPostList.insert(postLikeInfo, at: index)
                                 UIView.performWithoutAnimation {
@@ -655,6 +669,7 @@ extension MIGeneralsAPI {
                                         homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
                                     }
                                 }
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                             }
                             let arrPosts = homeVC.arrPostList
                             for (index,obj) in arrPosts.enumerated(){
@@ -1638,47 +1653,56 @@ extension MIGeneralsAPI {
                 guard let homeVC = viewController as? HomeViewController else{
                     continue
                 }
-//                if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
-//                    var postPollInfo = homeVC.arrPostList[index]
-////                    postPollInfo[CPollData] = optionData
-////                    postPollInfo[CUserVotedPoll] = pollAnsewrID
-////                    postPollInfo[CIsUserVoted] = 1
-//                    postPollInfo["is_selected"] = "Yes"
-////                    homeVC.arrPostList.remove(at: index)
-//                    homeVC.arrPostList.insert(postPollInfo, at: index)
-//                    UIView.performWithoutAnimation {
-//                        DispatchQueue.main.async {
-//                            let indexPath = IndexPath(item: index, section: 1)
-//                            if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
-//                                homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
-//                            }
-//                        }
-//                    }
-//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
-//                }
-                let arrPosts = homeVC.arrPostList
-                for (index,obj) in arrPosts.enumerated(){
-                    if obj["post_id"] as? String == postId?.toString{
-                        var postPollInfo = obj
+                if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
+                    var postPollInfo = homeVC.arrPostList[index]
+//                    postPollInfo[CPollData] = optionData
+//                    postPollInfo[CUserVotedPoll] = pollAnsewrID
+//                    postPollInfo[CIsUserVoted] = 1
+//                    postPollInfo["is_selected"] =
+                    
+                    
+                    let resultKey = optionData?["results"] as? [String:String]
+                    print("this key\(resultKey)")
+//                    resultKey.allKeys(forValue: resultKey?.values)
+                    
+                
 
-//                        print("this is calling first tile")
-//                        postPollInfo[CPollData] = optionData
-//                        postPollInfo[CUserVotedPoll] = pollAnsewrID
-//                      postPollInfo["is_selected"] = "Yes"
-//                        postPollInfo[CIsUserVoted] = 1
-                        homeVC.arrPostList.remove(at: index)
-                        homeVC.arrPostList.insert(postPollInfo, at: index)
-                        UIView.performWithoutAnimation {
-                            DispatchQueue.main.async {
-                                let indexPath = IndexPath(item: index, section: 1)
-                               
-                                if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
-                                    homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
-                                }
+                    postPollInfo["is_selected"] =
+                    homeVC.arrPostList.remove(at: index)
+                    homeVC.arrPostList.insert(postPollInfo, at: index)
+                    UIView.performWithoutAnimation {
+                        DispatchQueue.main.async {
+                            let indexPath = IndexPath(item: index, section: 1)
+                            if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
+                                homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
                             }
                         }
                     }
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
                 }
+//                let arrPosts = homeVC.arrPostList
+//                for (index,obj) in arrPosts.enumerated(){
+//                    if obj["post_id"] as? String == postId?.toString{
+//                        var postPollInfo = obj
+//
+////                        print("this is calling first tile")
+////                        postPollInfo[CPollData] = optionData
+////                        postPollInfo[CUserVotedPoll] = pollAnsewrID
+//                        postPollInfo["is_selected"] = "Yes"
+////                        postPollInfo[CIsUserVoted] = 1
+//                        homeVC.arrPostList.remove(at: index)
+//                        homeVC.arrPostList.insert(postPollInfo, at: index)
+//                        UIView.performWithoutAnimation {
+//                            DispatchQueue.main.async {
+//                                let indexPath = IndexPath(item: index, section: 1)
+//
+//                                if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
+//                                    homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
             }
             
             if viewController.isKind(of: MyProfileViewController.classForCoder()){
@@ -2042,30 +2066,6 @@ extension MIGeneralsAPI {
     }
 }
 
-//MARK:- ------ Notifications
-//extension MIGeneralsAPI {
-//    func ReomotesendNotification() -> [[String : Any]] {
-//        var arrCategory = [[String : Any]]()
-//        if arrCategory.count < 1 {
-//            let arrCategoryTemp = TblSubIntrest.fetchAllObjects()
-//            for interest in arrCategoryTemp!{
-//                var dicData = [String : Any]()
-//                let interestInfo = interest as? TblSubIntrest
-//                dicData[CinterestLevel2] = interestInfo?.interest_level2
-//                arrCategory.append(dicData)
-//            }
-//        }
-//        if !arrCategory.isEmpty{
-//            let sortedResults =  arrCategory.sorted { (obj1, obj2) -> Bool in
-//                (obj1[CinterestLevel2] as! String).localizedCaseInsensitiveCompare(obj2[CinterestLevel2] as! String) == .orderedAscending
-//            }
-//            return sortedResults
-//        }
-//        return arrCategory
-//    }
-//}
-
-
 //MARK:- ------ Chat Related Core Data Funcstions
 extension MIGeneralsAPI {
     
@@ -2218,3 +2218,16 @@ extension MIGeneralsAPI {
     }
 }
     
+
+//extension Dictionary where Value: Equatable {
+//    func someKey(forValue val: Value) -> Key? {
+//        return first(where: { $1 == val })?.key
+//    }
+//}
+
+
+extension Dictionary where Value: Equatable {
+    func allKeys(forValue val: Value) -> [Key] {
+        return self.filter { $1 == val }.map { $0.0 }
+    }
+}

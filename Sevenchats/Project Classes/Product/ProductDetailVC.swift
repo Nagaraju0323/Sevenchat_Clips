@@ -40,6 +40,7 @@ class ProductDetailVC: ParentViewController {
             txtViewComment.genericDelegate = self
             txtViewComment.PlaceHolderColor = ColorPlaceholder
             txtViewComment.placeHolder = CMessageTypeYourMessage
+            txtViewComment.type = "1"
         }
     }
     

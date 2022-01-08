@@ -340,7 +340,8 @@ extension HomeGalleryCell: UICollectionViewDelegate, UICollectionViewDataSource,
         let visiblePoint = CGPoint(x: CGFloat(visibleRect.midX), y: CGFloat(visibleRect.midY))
         if let indexPath: IndexPath = self.clGallery.indexPathForItem(at: visiblePoint){
             let index = indexPath.row + 1
-            self.lblCountImage.text =  "\(index)" + " / " + "\(self.arrGalleryImage.count)"
+//            self.lblCountImage.text =  "\(index)" + " / " + "\(self.arrGalleryImage.count)"
+            self.lblCountImage.text =  ""
         }
     }
 }

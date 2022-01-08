@@ -268,18 +268,18 @@ extension UserSuggestionView {
     
     // Create Final string with Mentions user for comment...
     func stringToBeSendInComment(_ textView : GenericTextView) -> String? {
-        var toBeSend = textView.text
-        
+      //  var toBeSend = textView.text
+        var toBeSend = textView.text.replace(string: "\n", replacement: "\\n")
         for userInfo in self.arrSelectedUser {
             let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-            let range = toBeSend?.nsRange(of: userName)
-            if (range!.length > 0){
-                toBeSend = (toBeSend as NSString?)?.replacingCharacters(in: range!, with: NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId)) as String)
+            let range = toBeSend.nsRange(of: userName)
+            if (range.length > 0){
+                toBeSend = (toBeSend as NSString?)?.replacingCharacters(in: range, with: NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId)) as String) ?? ""
             }
             
     
         let name = userInfo.valueForString(key: "first_name") + userInfo.valueForString(key: "last_name")
-                toBeSend = (toBeSend as NSString?)?.replacingCharacters(in: range!, with: NSString(format: kMentionFriendStringFormate as NSString, name) as String)
+            toBeSend = (toBeSend as NSString?)?.replacingCharacters(in: range, with: NSString(format: kMentionFriendStringFormate as NSString, name) as String) ?? ""
         }
         
         return toBeSend

@@ -14,6 +14,9 @@ class ProductMediaCollectionView: UICollectionView {
    
     //MARK: - IBOutlet/Object/Variable Declaration
     //@IBOutlet weak var vw: UIView!
+    
+    var isProductDetails:Bool?
+    
     var arrMedia : [MDLAddMedia] = []{
         didSet{
             DispatchQueue.main.async {
@@ -51,50 +54,25 @@ class ProductMediaCollectionView: UICollectionView {
 extension ProductMediaCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        /****************OLD CODE*********************/
-        /*if arrMedia.count > 1{
-            var width = self.bounds.width
-            width = width - ((width * 30) / 100)
-            return CGSize(width:width, height: self.bounds.height)
-        }
-        return CGSize(width:self.bounds.width, height: self.bounds.height)*/
-        
-        /*****************NEW CODE**********************/
-        /*if arrMedia.count > 1{
-            if arrMedia.count == 5{
-                return CGSize(width: frame.size.width/2 - 10, height: (frame.size.height-20)/2)
-            }
-            else if arrMedia.count == 4{
-                return CGSize(width: frame.size.width/2 - 10, height: (frame.size.height-20)/2)
-            } else if arrMedia.count == 3{
-                if indexPath.item == 0{
-                    return CGSize(width: frame.size.width - 22 , height: (frame.size.height-10)/2)
-                 }else {
-                    return CGSize(width: frame.size.width/2 - 10, height: (frame.size.height-20)/2)
-                }
-               } else if arrMedia.count == 2 {
-                return CGSize(width: frame.size.width/2 - 10, height: (frame.size.height))
-            }else {
-                return CGSize(width:bounds.width, height: bounds.height)
-            }
-          }else {
-            return CGSize(width:bounds.width, height: bounds.height)
-        }*/
-        
-        
         if arrMedia.count > 1{
             if arrMedia.count == 5{
                 let width = collectionView.bounds.size.width
                 return CGSize(width: (width / 2) - 1 , height: collectionView.bounds.height / 2 - 2)
             }else if arrMedia.count == 4 {
-                return CGSize(width: 166, height: 78)
+                let width = collectionView.bounds.size.width
+//                return CGSize(width: 166, height: 78)
+                return CGSize(width: (width / 2) - 1 , height: collectionView.bounds.height / 2 - 2)
             } else if arrMedia.count == 3{
                 if indexPath.item == 0{
                     return CGSize(width: (collectionView.bounds.size.width / 2) - 1.5 , height: collectionView.bounds.height - 2)
                 }
                 else {
-                    return CGSize(width: 164, height: 78)
+                    if isProductDetails == true{
+                        return CGSize(width: (collectionView.bounds.size.width / 2) - 1.5 , height: collectionView.bounds.height - 2)
+                    }else {
+                        let width = collectionView.bounds.size.width
+                        return CGSize(width: (width / 2) - 1 , height: collectionView.bounds.height / 2 - 2)
+                    }
                 }
             } else if arrMedia.count == 2 {
                 return CGSize(width: (collectionView.bounds.size.width / 2) - 1.5 , height: collectionView.bounds.height - 2)
@@ -199,21 +177,6 @@ extension ProductMediaCollectionView: UICollectionViewDelegate, UICollectionView
 
 //MARK:- UICollectionViewDelegateFlowLayout
 extension ProductMediaCollectionView: UICollectionViewDelegateFlowLayout {
-   
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 6
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//
-//        return 0
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView,layout collectionViewLayout: UICollectionViewLayout,insetForSectionAt section: Int) -> UIEdgeInsets {
-//
-//        return UIEdgeInsets.zero
-//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2

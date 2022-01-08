@@ -184,7 +184,7 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                 MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
                 let optiontext = option.pollText
                 self?.apiForVoteForPoll(optiontext ?? "")
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.40) {
                     
                     MILoader.shared.hideLoader()
                     // self?.updateVoteCountReload?(self?.refereshData ?? [:])

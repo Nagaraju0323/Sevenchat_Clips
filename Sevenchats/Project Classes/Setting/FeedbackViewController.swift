@@ -231,7 +231,7 @@ extension FeedbackViewController: GenericTextFieldDelegate {
         if txtCategory.text?.count ?? 0 > 1500{
             return false
         }
-        let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
+        let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
         let filtered = string.components(separatedBy: cs).joined(separator: "")
         return (string == filtered)
     }
