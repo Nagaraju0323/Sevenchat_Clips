@@ -10,7 +10,7 @@
 
 /*********************************************************
  * Author : Chandrika.R                                 *
- * Model   : RegisterUserName action shette             *
+ * Model   : RegisterUserName action sheet             *
  * Changes   :                                          *
  ********************************************************/
 
@@ -595,6 +595,8 @@ extension RegisterViewController{
         }
         let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + txtEmail.text! + "\n" + txtMobileNumber.text!
         self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
+            
+            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
             self.signup()
             self.redirectToVerificationScreen()
             
@@ -645,7 +647,6 @@ extension RegisterViewController{
         APIRequest.shared().verifyEmail(api: api,email : txtEmail.text ?? "", verifyCode: txtEmail.text!) { (response, error) in
             if response != nil && error == nil{
                 
-//                if let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject] {
                     if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
                         objVerify.userEmail = self.txtEmail.text ?? ""
                         objVerify.passwordStr = self.txtPWD.text ?? ""

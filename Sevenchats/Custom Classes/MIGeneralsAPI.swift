@@ -1655,21 +1655,10 @@ extension MIGeneralsAPI {
                 }
                 if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
                     var postPollInfo = homeVC.arrPostList[index]
-//                    postPollInfo[CPollData] = optionData
-//                    postPollInfo[CUserVotedPoll] = pollAnsewrID
-//                    postPollInfo[CIsUserVoted] = 1
-//                    postPollInfo["is_selected"] =
-                    
-                    
-                    let resultKey = optionData?["results"] as? [String:String]
-                    print("this key\(resultKey)")
-//                    resultKey.allKeys(forValue: resultKey?.values)
-                    
-                
-
-                    postPollInfo["is_selected"] =
-                    homeVC.arrPostList.remove(at: index)
-                    homeVC.arrPostList.insert(postPollInfo, at: index)
+//                    let resultKey = optionData?["results"] as? [String:String]
+                    postPollInfo["is_selected"] = "yes"
+//                    homeVC.arrPostList.remove(at: index)
+//                    homeVC.arrPostList.insert(postPollInfo, at: index)
                     UIView.performWithoutAnimation {
                         DispatchQueue.main.async {
                             let indexPath = IndexPath(item: index, section: 1)
@@ -1678,7 +1667,7 @@ extension MIGeneralsAPI {
                             }
                         }
                     }
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
+//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
                 }
 //                let arrPosts = homeVC.arrPostList
 //                for (index,obj) in arrPosts.enumerated(){
