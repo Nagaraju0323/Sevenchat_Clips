@@ -154,7 +154,7 @@ extension PSLSideViewController {
                     }
                 }
                 self.tblNews.reloadData()
-                self.lblNoData.isHidden = self.arrNewsSGovt.count > 0
+//                self.lblNoData.isHidden = self.arrNewsSGovt.count > 0
             }
         })
     }

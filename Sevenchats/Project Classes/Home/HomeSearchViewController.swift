@@ -83,16 +83,6 @@ class HomeSearchViewController: ParentViewController {
         
         var arrSearchType = [[String : Any]]()
         arrSearchType = [
-//            [CCategoryType:CTypeAll,CCategoryId:CStaticSearchAllType],
-//            [CCategoryType:CTypeArticle,CCategoryId:CStaticArticleId],
-//            [CCategoryType:CTypeChirpy,CCategoryId:CStaticChirpyId],
-//            [CCategoryType:CTypeEvent,CCategoryId:CStaticEventId],
-//            [CCategoryType:CTypeForum,CCategoryId:CStaticForumId],
-//            //[CCategoryType:CTypeGallery,CCategoryId:CStaticGalleryId],
-//            [CCategoryType:CTypePoll,CCategoryId:CStaticPollId],
-//            [CCategoryType:CTypeShout,CCategoryId:CStaticShoutId],
-//            [CCategoryType:CTypeUser,CCategoryId:CStaticSearchUserTypeId]
-//
             [CCategoryType:CTypeUser,CCategoryId:CStaticSearchUserTypeId]
             
         ]
@@ -111,7 +101,6 @@ class HomeSearchViewController: ParentViewController {
             
             self.timeStamp = nil
             self.isPost = nil
-//            self.getSearchDataFromServer(self.txtSearch.text, "new")
             }, defaultPlaceholder: "")
         txtSearchDropdown.text = CTypeUser
        
@@ -148,63 +137,7 @@ extension HomeSearchViewController  {
         timeStamp = nil
         isPost = nil
         refreshControl.beginRefreshing()
-//        self.getSearchDataFromServer(txtSearch.text,"new")
-    }
-    
-//    func getSearchDataFromServer(_ searchText : String?, _ typeLook : String?){
-//        if apiTask?.state == URLSessionTask.State.running {
-//            return
-//        }
-//
-//        // Add load more indicator here...
-//        if self.timeStamp != nil {
-//            self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-//        }else{
-//            self.tblEvents.tableFooterView = nil
-//        }
-////        timestamp: timeStamp, is_post: isPost, type: typeLook, search_type: searchType, search: searchText
-//        param[CName] = searchText
-//        param[CPage] = pageNumber.description
-//        param[CLimitS] = CLimitTW
-//
-//
-//         APIRequest.shared().userSearchDetail(Param: param){ [weak self] (response, error) in
-////        apiTask = APIRequest.shared().userSearchDetail(Param:param) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil{
-//                self.refreshControl.endRefreshing()
-//                self.tblEvents.restore()
-//                self.tblEvents.tableFooterView = nil
-//
-//                if response != nil{
-//                    if let arrList = response![CJsonData] as? [[String:Any]]{
-//                        // Remove all data here when page number == 1
-//                        if self.timeStamp == nil{
-//                            self.arrHomeSearch.removeAll()
-//                            self.tblEvents.reloadData()
-//                        }
-//
-//                        // Add Data here...
-//                        if arrList.count > 0 {
-//                            self.arrHomeSearch = self.arrHomeSearch + arrList
-//                            self.tblEvents.reloadData()
-//
-//                            if let metaInfo = response![CJsonMeta] as? [String:Any]{
-////                                self.timeStamp = metaInfo.valueForDouble(key: "timestamp")!
-////                                self.isPost = metaInfo.valueForInt(key: "is_post")!
-//                            }
-//                        } else {
-//                            
-//                            self.arrHomeSearch.count != 0 ? self.tblEvents.restore() : self.tblEvents.setEmptyMessage(CMessageNoDataFound)
-//                        }
-//                    }
-//                }else {
-//                    print("this is calling")
-//                }
-//            }
-//        }
-//    }
-    
+   }
     func getSearchDataFromServer(_ searchText : String?, _ typeLook : String?){
     
                 if apiTask?.state == URLSessionTask.State.running {
@@ -219,8 +152,6 @@ extension HomeSearchViewController  {
                 }
             
         let serchTextStr = searchText?.firstCharacterUpperCase()
-          
-//            serchTextStr = "Sh"
             param[CName] = serchTextStr
             param[CPage] = "1"
             param[CLimitS] = CLimitTW
@@ -396,26 +327,6 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.lblUserName.text = searchInfo.valueForString(key: CFirstname) + " " + searchInfo.valueForString(key: CLastname)
                 cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
             }
-            
-            //TODO
-//            if searchInfo.valueForInt(key: CFriend_status) == 2 {
-//                cell.btnAddFrd.isHidden = true
-//                cell.viewAcceptReject.isHidden = false
-//            }else{
-//                cell.btnAddFrd.isHidden = false
-//                cell.viewAcceptReject.isHidden = true
-//
-//                switch searchInfo.valueForInt(key: CFriend_status) {
-//                case 0:
-//                    cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
-//                case 1:
-//                    cell.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
-//                case 5:
-//                    cell.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
-//                default:
-//                    break
-//                }
-//            }
             
             
             if searchInfo.valueForInt(key: CFriend_status) == 1 {
