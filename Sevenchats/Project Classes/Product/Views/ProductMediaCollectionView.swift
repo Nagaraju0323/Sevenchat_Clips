@@ -123,12 +123,12 @@ extension ProductMediaCollectionView: UICollectionViewDelegate, UICollectionView
             
             self.setCurrentImageCount()
             cell.invalidateIntrinsicContentSize()
-            cell.showLabelCount.isHidden = false
-            cell.showImageBlur.isHidden = false
-            cell.showImageBlur.backgroundColor =  UIColor.red.withAlphaComponent(0.5)
-            cell.showLabelCount.font = cell.showLabelCount.font.withSize(20)
-            cell.showLabelCount.textColor = .white
-            cell.showLabelCount.text = "+4"
+//            cell.showLabelCount.isHidden = false
+//            cell.showImageBlur.isHidden = false
+//            cell.showImageBlur.backgroundColor =  UIColor.red.withAlphaComponent(0.5)
+//            cell.showLabelCount.font = cell.showLabelCount.font.withSize(20)
+//            cell.showLabelCount.textColor = .white
+//            cell.showLabelCount.text = "+4"
             
             
         }else{

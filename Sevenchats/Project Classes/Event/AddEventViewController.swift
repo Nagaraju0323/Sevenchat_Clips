@@ -211,20 +211,12 @@ extension AddEventViewController{
             apiPara[CId] = eventID
         }
         print(apiPara)
-        
-        
         let startEvntTime =  DateFormatter.shared().reversDateFormat(dateString:txtEventStartDate.text ?? "" )
         let endEvntTime = DateFormatter.shared().reversDateFormat(dateString:txtEventEndDate.text ?? "" )
-        
-        let startEvntTimes = DateFormatter.shared().convertDatereveruserDetails(strDate: txtEventStartDate.text ?? "" )
         let startchg = "\(startEvntTime.description) \(" GMT+0530 (IST)")"
         let endchg = "\(endEvntTime.description) \(" GMT+0530 (IST)")"
-        
-        
         guard let userID = appDelegate.loginUser?.user_id else { return }
-        
         let txtAdv = txtViewContent.text.replace(string: "\n", replacement: "\\n")
-        
         var dict:[String:Any] = [
            "user_id":userID,
            "image":profileImgUrl,
@@ -289,17 +281,6 @@ extension AddEventViewController{
         }
     }
 
-//    func loadEventDetailFromServer(){
-//        APIRequest.shared().viewPostDetail(postID: self.eventID) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil {
-//                if let eventInfo = response![CJsonData] as? [String : Any]{
-//                    self.setEventDetail(eventInfo)
-//                }
-//            }
-//        }
-//    }
-    
     func loadEventDetailFromServer(){
             
             APIRequest.shared().viewPostDetailNew(postID: self.eventID!, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in

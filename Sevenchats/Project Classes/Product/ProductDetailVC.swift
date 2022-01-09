@@ -792,8 +792,3 @@ extension ProductDetailVC {
     }
 }
 
-
-extension ProductDetailVC{
-    
-    
-}
