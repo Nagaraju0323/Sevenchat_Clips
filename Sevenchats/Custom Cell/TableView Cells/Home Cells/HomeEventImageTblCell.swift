@@ -208,6 +208,9 @@ extension HomeEventImageTblCell{
         btnNotInterested.setTitle("\(postInfo.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
         btnInterested.setTitle("\(postInfo.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)
         
+        
+        
+        
         let currentDateTime = Date().timeIntervalSince1970
         
         if let endDateTime = postInfo.valueForDouble(key: CEvent_End_Date) {
@@ -223,7 +226,8 @@ extension HomeEventImageTblCell{
         
 
         
-        switch postInfo.valueForInt(key: CIsInterested) {
+//        switch postInfo.valueForInt(key: CIsInterested) {
+        switch postInfo.valueForString(key: "selected_choice").toInt ?? 0 {
                 case 3:
                     btnMaybe.isSelected = true
                 case 1:

@@ -196,7 +196,7 @@ extension HomeEventsCell{
 //            break
 //        }
 //
-        switch postInfo.valueForInt(key: CIsInterested) {
+        switch postInfo.valueForInt(key: "selected_choice") {
                 case 1:
                     btnMaybe.isSelected = true
                 case 2:

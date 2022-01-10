@@ -302,14 +302,6 @@ extension EventDetailViewController {
         
         self.lblStartDate.text = "\(CStartDate)"
         self.lblEndDate.text = "\(CEndDate)"
-        
-//        self.lblEventStartDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
-//        self.lblEventEndDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
-       
-        
-        
-        
-        
         self.lblEventAddress.text = dict.valueForString(key: CEvent_Location)
         self.btnInterested.setTitle("\(dict.valueForString(key: CTotalInterestedUsers))\n" + CConfirmed, for: .normal)
         self.btnMaybe.setTitle("\(dict.valueForString(key: CTotalMaybeInterestedUsers))\n" + CMaybe, for: .normal)
