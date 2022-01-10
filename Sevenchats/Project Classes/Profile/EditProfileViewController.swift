@@ -238,57 +238,223 @@ class EditProfileViewController: ParentViewController {
 }
 
 //MARK:- Manage Country, State and City
+//extension EditProfileViewController {
+//
+//    func loadCountryCodeList(){
+//
+//        let arrCountry = TblCountry.fetch(predicate: nil, orderBy: CCountryName, ascending: true)
+//        let arrCountryCode = arrCountry?.value(forKeyPath: "country_name") as? [Any]
+//        if (arrCountryCode?.count)! > 0 {
+//            txtCountryCode.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { (select, index, component) in
+//                let dict = arrCountry![index] as AnyObject
+//                self.txtCountryCode.text = dict.value(forKey: CCountrycode) as? String
+//                //Oldcode by Mi
+//              //self.countryCodeId = dict.value(forKey: CCountry_id) as? Int ?? 0
+//                self.countryCodeId = dict.value(forKey: CCountryName) as! String
+//            }, defaultPlaceholder: "+91")
+//        }
+//    }
+//
+//
+//
+//    fileprivate func loadCountryList(){
+//
+//        self.txtCountrys.isEnabled = true
+//        self.txtStates.isEnabled = true
+//        self.txtCitys.isEnabled = true
+////        self.txtCountrys.isUserInteractionEnabled = true
+////        self.txtStates.isUserInteractionEnabled = true
+////        self.txtCitys.isUserInteractionEnabled = true
+//
+//        self.showHideCountryStateCityFileds()
+//
+//        let arrCountryList = TblCountry.fetch(predicate: NSPredicate(format:"country_code = %@", "+91"))
+//
+//        if (arrCountryList?.count ?? 0) > 0{
+//            self.txtCountryCode.text = ((arrCountryList![0] as! TblCountry).country_code)
+//            self.countryID = Int(((arrCountryList![0] as! TblCountry).country_id))
+//            self.countryName = (arrCountryList![0] as! TblCountry).country_name
+//
+//        }
+//
+//
+//        let arrCountry = TblCountry.fetch(predicate: nil, orderBy: CCountryName, ascending: true)
+//        let arrCountryCode = arrCountry?.value(forKeyPath: "country_name") as? [Any]
+//
+//        if (arrCountryCode?.count)! > 0 {
+//
+//            txtCountrys.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (select, index, component) in
+//                guard let self = self else { return }
+//                let dict = arrCountry![index] as AnyObject
+//                let countryName = dict.value(forKey: CCountryName) as? String
+//                if countryName != self.countryName {
+//                    self.countryName = dict.value(forKey: CCountryName) as? String
+//                    self.txtStates.text = ""
+//                    self.txtCitys.text = ""
+//                    self.stateID = nil
+//                    self.cityID = nil
+//                    self.txtStates.isEnabled = false
+//                    self.txtCitys.isEnabled = false
+//                    self.showHideCountryStateCityFileds()
+//                    self.loadStateList()
+//                }
+//            }, defaultPlaceholder: "")
+//        }
+//    }
+//
+//    fileprivate func loadStateList(isCancelTask:Bool = true, completion:(()->Void)? = nil) {
+//
+//        func setStateList(arrState:[MDLState]){
+//            let states = arrState.compactMap({$0.stateName})
+//            self.txtStates.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
+//                guard let self = self else {return}
+//                if arrState[row].stateName != self.stateName{
+//                    self.stateName = arrState[row].stateName
+//                    self.txtCitys.isEnabled = false
+//                    self.txtCitys.text = ""
+//                    self.showHideCountryStateCityFileds()
+//                    self.loadCityList()
+//                }
+//
+//            }, defaultPlaceholder: "")
+//        }
+//        if apiTask?.state == URLSessionTask.State.running && isCancelTask {
+//            apiTask?.cancel()
+//        }
+//        //...Load country list from server
+//        let timestamp : TimeInterval = 0
+//
+//        /*Oldcode by Mi
+//           apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryID ?? 0) { [weak self] (response, error) in
+//         */
+//        apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryName ?? "") { [weak self] (response, error) in
+//            guard let self = self else {return}
+//            if response != nil && error == nil {
+//                DispatchQueue.main.async {
+//                    let arrData = response![CData] as? [[String : Any]] ?? []
+//                    var arrState : [MDLState] = []
+//                    for obj in arrData{
+//                        arrState.append(MDLState(fromDictionary: obj))
+//                    }
+//                    if arrState.isEmpty{
+//                        arrState.append(MDLState(fromDictionary: ["state_name":" "]))
+//                        self.stateID = 0
+//                        self.cityID = 0
+//                        self.txtStates.isEnabled = false
+//                        self.txtCitys.isEnabled = false
+//                        self.txtStates.text = ""
+//                        self.txtCitys.text = ""
+//                    }else{
+//                        self.txtStates.isEnabled = true
+//                    }
+//                    self.showHideCountryStateCityFileds()
+//                    setStateList(arrState: arrState)
+//                }
+//            }
+//        }
+//    }
+//
+//    fileprivate func loadCityList(isCancelTask:Bool = true, completion:(()->Void)? = nil) {
+//
+//        func setCityList(arrCity:[MDLCity]){
+//            let states = arrCity.compactMap({$0.cityName})
+//            self.txtCitys.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
+//                guard let self = self else {return}
+//                /*Oldcode by Mi
+//                self.cityID = arrCity[row].cityId
+//                */
+//                self.cityName = arrCity[row].cityName
+//                //self.showHideCountryStateCityFileds()
+//            }, defaultPlaceholder: "")
+//        }
+//        if apiTask?.state == URLSessionTask.State.running && isCancelTask {
+//            apiTask?.cancel()
+//        }
+//        //...Load country list from server
+//        let timestamp : TimeInterval = 0
+//        apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateName ?? "") { [weak self] (response, error) in
+//            guard let self = self else {return}
+//            if response != nil && error == nil {
+//                DispatchQueue.main.async {
+//                    let arrData = response![CData] as? [[String : Any]] ?? []
+//                    var arrCity : [MDLCity] = []
+//                    for obj in arrData{
+//                        arrCity.append(MDLCity(fromDictionary: obj))
+//                    }
+//                    if arrCity.isEmpty{
+//                        arrCity.append(MDLCity(fromDictionary: ["city_name":" "]))
+//                        self.cityID = 0
+//                        self.txtCitys.isEnabled = false
+//                        self.txtCitys.text = ""
+//                    }else{
+//                        self.txtCitys.isEnabled = true
+//                    }
+//                    self.showHideCountryStateCityFileds()
+//                    setCityList(arrCity: arrCity)
+//                }
+//            }
+//        }
+//    }
+//
+//    fileprivate func showHideCountryStateCityFileds(){
+//        DispatchQueue.main.async {
+//            UIView.animate(withDuration: 0.3, animations: {
+//                if !self.txtStates.isEnabled{
+//                    self.txtStates.superview?.alpha = 0
+//                }else{
+//                    self.txtStates.superview?.alpha = 1
+//                }
+//                if !self.txtCitys.isEnabled{
+//                    self.txtCitys.superview?.alpha = 0
+//                }else{
+//                    self.txtCitys.superview?.alpha = 1
+//                }
+//            }, completion: { (_) in
+//                self.txtStates.superview?.isHidden = !self.txtStates.isEnabled
+//                self.txtCitys.superview?.isHidden = !self.txtCitys.isEnabled
+//            })
+//        }
+//    }
+//}
+//MARK:- Manage Country, State and City
 extension EditProfileViewController {
     
     func loadCountryCodeList(){
         
         let arrCountry = TblCountry.fetch(predicate: nil, orderBy: CCountryName, ascending: true)
-        let arrCountryCode = arrCountry?.value(forKeyPath: "country_name") as? [Any]
+        let arrCountryCode = arrCountry?.value(forKeyPath: "countryname_code") as? [Any]
+        
         if (arrCountryCode?.count)! > 0 {
-            txtCountryCode.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { (select, index, component) in
+            
+            txtCountryCode.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (select, index, component) in
+                guard let self = self else { return }
                 let dict = arrCountry![index] as AnyObject
                 self.txtCountryCode.text = dict.value(forKey: CCountrycode) as? String
-                //Oldcode by Mi
-              //self.countryCodeId = dict.value(forKey: CCountry_id) as? Int ?? 0
-                self.countryCodeId = dict.value(forKey: CCountryName) as! String
+              //  self.countryCodeId = dict.value(forKey: CCountry_id) as? Int ?? 0
+                self.txtCountryCode.text = dict.value(forKey: CCountrycode) as? String
             }, defaultPlaceholder: "+91")
         }
     }
     
-   
-    
     fileprivate func loadCountryList(){
         
         self.txtCountrys.isEnabled = true
-        self.txtStates.isEnabled = true
-        self.txtCitys.isEnabled = true
-        self.txtCountrys.isUserInteractionEnabled = true
-        self.txtStates.isUserInteractionEnabled = true
-        self.txtCitys.isUserInteractionEnabled = true
+        self.txtStates.isEnabled = false
+        self.txtCitys.isEnabled = false
         
         self.showHideCountryStateCityFileds()
         
-        let arrCountryList = TblCountry.fetch(predicate: NSPredicate(format:"country_code = %@", "+91"))
-        
-        if (arrCountryList?.count ?? 0) > 0{
-            self.txtCountryCode.text = ((arrCountryList![0] as! TblCountry).country_code)
-            self.countryID = Int(((arrCountryList![0] as! TblCountry).country_id))
-            self.countryName = (arrCountryList![0] as! TblCountry).country_name
-            
-        }
-        
-        
         let arrCountry = TblCountry.fetch(predicate: nil, orderBy: CCountryName, ascending: true)
-        let arrCountryCode = arrCountry?.value(forKeyPath: "country_name") as? [Any]
+        let arrCountryName = arrCountry?.value(forKeyPath: "country_name") as? [Any]
         
-        if (arrCountryCode?.count)! > 0 {
+        if (arrCountryName?.count)! > 0 {
             
-            txtCountrys.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (select, index, component) in
+            txtCountrys.setPickerData(arrPickerData: arrCountryName!, selectedPickerDataHandler: { [weak self] (select, index, component) in
                 guard let self = self else { return }
                 let dict = arrCountry![index] as AnyObject
-                let countryName = dict.value(forKey: CCountryName) as? String
-                if countryName != self.countryName {
-                    self.countryName = dict.value(forKey: CCountryName) as? String
+                let countryID = dict.value(forKey: CCountry_id) as? Int
+                if countryID != self.countryID{
+                    self.countryID = dict.value(forKey: CCountry_id) as? Int
                     self.txtStates.text = ""
                     self.txtCitys.text = ""
                     self.stateID = nil
@@ -298,7 +464,7 @@ extension EditProfileViewController {
                     self.showHideCountryStateCityFileds()
                     self.loadStateList()
                 }
-            }, defaultPlaceholder: "")
+                }, defaultPlaceholder: "")
         }
     }
     
@@ -308,27 +474,26 @@ extension EditProfileViewController {
             let states = arrState.compactMap({$0.stateName})
             self.txtStates.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
                 guard let self = self else {return}
-                if arrState[row].stateName != self.stateName{
-                    self.stateName = arrState[row].stateName
+                if arrState[row].stateId != self.stateID{
+                    self.stateID = arrState[row].stateId
                     self.txtCitys.isEnabled = false
                     self.txtCitys.text = ""
                     self.showHideCountryStateCityFileds()
                     self.loadCityList()
                 }
                 
-            }, defaultPlaceholder: "")
+                }, defaultPlaceholder: "")
         }
         if apiTask?.state == URLSessionTask.State.running && isCancelTask {
             apiTask?.cancel()
         }
         //...Load country list from server
         let timestamp : TimeInterval = 0
-        
-        /*Oldcode by Mi
-           apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryID ?? 0) { [weak self] (response, error) in
-         */
+       // apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryID ?? 0) { [weak self] (response, error) in
         apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryName ?? "") { [weak self] (response, error) in
-            guard let self = self else {return}
+            guard let self = self else {
+                return
+            }
             if response != nil && error == nil {
                 DispatchQueue.main.async {
                     let arrData = response![CData] as? [[String : Any]] ?? []
@@ -344,12 +509,17 @@ extension EditProfileViewController {
                         self.txtCitys.isEnabled = false
                         self.txtStates.text = ""
                         self.txtCitys.text = ""
+                        self.btnUpdate.isEnabled = true
                     }else{
                         self.txtStates.isEnabled = true
                     }
                     self.showHideCountryStateCityFileds()
                     setStateList(arrState: arrState)
+                    
+                    completion?()
                 }
+            }else {
+                print(error?.localizedDescription ?? "N/A")
             }
         }
     }
@@ -360,22 +530,21 @@ extension EditProfileViewController {
             let states = arrCity.compactMap({$0.cityName})
             self.txtCitys.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
                 guard let self = self else {return}
-                /*Oldcode by Mi
                 self.cityID = arrCity[row].cityId
-                */
-                self.cityName = arrCity[row].cityName
                 //self.showHideCountryStateCityFileds()
-            }, defaultPlaceholder: "")
+                }, defaultPlaceholder: "")
         }
         if apiTask?.state == URLSessionTask.State.running && isCancelTask {
             apiTask?.cancel()
         }
         //...Load country list from server
         let timestamp : TimeInterval = 0
+       // apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateID ?? 0) { [weak self] (response, error) in
         apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateName ?? "") { [weak self] (response, error) in
             guard let self = self else {return}
             if response != nil && error == nil {
                 DispatchQueue.main.async {
+                    //self.btnUpdate.isEnabled = true
                     let arrData = response![CData] as? [[String : Any]] ?? []
                     var arrCity : [MDLCity] = []
                     for obj in arrData{
@@ -391,7 +560,10 @@ extension EditProfileViewController {
                     }
                     self.showHideCountryStateCityFileds()
                     setCityList(arrCity: arrCity)
+                    completion?()
                 }
+            }else{
+                completion?()
             }
         }
     }
@@ -416,7 +588,6 @@ extension EditProfileViewController {
         }
     }
 }
-
 //MARK:- ---------- API
 extension EditProfileViewController {
     

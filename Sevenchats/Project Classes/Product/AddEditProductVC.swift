@@ -131,6 +131,7 @@ class AddEditProductVC: ParentViewController {
 extension AddEditProductVC {
     
     func intilization() {
+        txtProductTitle.txtDelegate = self
     let arrCategory = MIGeneralsAPI.shared().fetchproductCategoryFromLocalArticle()
     
     /// Set Dropdown on txtCategory
@@ -284,8 +285,13 @@ extension AddEditProductVC {
             }
         }
     }
+
     
-    func setCurrenyList(){
+    
+    
+    
+    
+  func setCurrenyList(){
         let currencys = self.arrCurrency.compactMap({$0.currencyName})
         self.txtCurrencyList.setPickerData(arrPickerData: currencys as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
             guard let self = self else {return}
@@ -296,8 +302,158 @@ extension AddEditProductVC {
             self.selectedCurrencyName = self.arrCurrency[row].currencyName
         }, defaultPlaceholder: "")
     }
+ 
     
+    
+    //MARK:-
     fileprivate func loadCountryList(){
+        
+        self.txtCountrys.isEnabled = true
+        self.txtStates.isEnabled = false
+        self.txtCitys.isEnabled = false
+        
+        self.showHideCountryStateCityFileds()
+        
+        let arrCountry = TblCountry.fetch(predicate: nil, orderBy: CCountryName, ascending: true)
+        let arrCountryCode = arrCountry?.value(forKeyPath: "country_name") as? [Any]
+        
+        if (arrCountryCode?.count)! > 0 {
+            
+            txtCountrys.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (select, index, component) in
+                guard let self = self else { return }
+                let dict = arrCountry![index] as AnyObject
+                let countryID = dict.value(forKey: CCountry_id) as? Int
+                if countryID != self.countryID{
+                    self.countryID = dict.value(forKey: CCountry_id) as? Int
+                    self.txtStates.text = ""
+                    self.txtCitys.text = ""
+                    self.stateID = nil
+                    self.cityID = nil
+                    self.txtStates.isEnabled = false
+                    self.txtCitys.isEnabled = false
+                    self.showHideCountryStateCityFileds()
+                    self.loadStateList()
+                }
+                }, defaultPlaceholder: "")
+        }
+    }
+    
+    fileprivate func loadStateList(isCancelTask:Bool = true) {
+        
+        func setStateList(arrState:[MDLState]){
+            let states = arrState.compactMap({$0.stateName})
+            self.txtStates.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
+                guard let self = self else {return}
+                if arrState[row].stateId != self.stateID{
+                    self.stateID = arrState[row].stateId
+                    self.txtCitys.isEnabled = false
+                    self.txtCitys.text = ""
+                    self.showHideCountryStateCityFileds()
+                    self.loadCityList()
+                }
+                
+                }, defaultPlaceholder: "")
+        }
+        if apiTask?.state == URLSessionTask.State.running && isCancelTask {
+            apiTask?.cancel()
+        }
+        //...Load country list from server
+        let timestamp : TimeInterval = 0
+        //apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryID ?? 0) { [weak self] (response, error) in
+        apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryName ?? "") { [weak self] (response, error) in
+            guard let self = self else {return}
+            if response != nil && error == nil {
+                DispatchQueue.main.async {
+                    let arrData = response![CData] as? [[String : Any]] ?? []
+                    var arrState : [MDLState] = []
+                    for obj in arrData{
+                        arrState.append(MDLState(fromDictionary: obj))
+                    }
+                    if arrState.isEmpty{
+                        arrState.append(MDLState(fromDictionary: ["state_name":" "]))
+                        self.stateID = 0
+                        self.cityID = 0
+                        self.txtStates.isEnabled = false
+                        self.txtCitys.isEnabled = false
+                        self.txtStates.text = ""
+                        self.txtCitys.text = ""
+                    }else{
+                        self.txtStates.isEnabled = true
+                    }
+                    self.showHideCountryStateCityFileds()
+                    setStateList(arrState: arrState)
+                }
+            }
+        }
+    }
+    
+    fileprivate func loadCityList(isCancelTask:Bool = true) {
+        
+        func setCityList(arrCity:[MDLCity]){
+            MILoader.shared.hideLoader()
+            let states = arrCity.compactMap({$0.cityName})
+            self.txtCitys.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
+                guard let self = self else {return}
+                self.cityID = arrCity[row].cityId
+                //self.showHideCountryStateCityFileds()
+                }, defaultPlaceholder: "")
+        }
+        if apiTask?.state == URLSessionTask.State.running && isCancelTask {
+            apiTask?.cancel()
+        }
+        //...Load country list from server
+        let timestamp : TimeInterval = 0
+      //  apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateID ?? 0) { [weak self] (response, error) in
+        apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateName ?? "") { [weak self] (response, error) in
+            guard let self = self else {return}
+            if response != nil && error == nil {
+                DispatchQueue.main.async {
+                    let arrData = response![CData] as? [[String : Any]] ?? []
+                    var arrCity : [MDLCity] = []
+                    for obj in arrData{
+                        arrCity.append(MDLCity(fromDictionary: obj))
+                    }
+                    if arrCity.isEmpty{
+                        arrCity.append(MDLCity(fromDictionary: ["city_name":" "]))
+                        self.cityID = 0
+                        self.txtCitys.isEnabled = false
+                        self.txtCitys.text = ""
+                    }else{
+                        self.txtCitys.isEnabled = true
+                    }
+                    self.showHideCountryStateCityFileds()
+                    setCityList(arrCity: arrCity)
+                }
+            }else {
+                MILoader.shared.hideLoader()
+            }
+        }
+    }
+    
+    /// This method is called on change country, state and city.
+    /// It will hide the textfiled If no data found of country, state and city.
+    fileprivate func showHideCountryStateCityFileds(){
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.3, animations: {
+                if !self.txtStates.isEnabled{
+                    self.txtStates.superview?.alpha = 0
+                }else{
+                    self.txtStates.superview?.alpha = 1
+                }
+                if !self.txtCitys.isEnabled{
+                    self.txtCitys.superview?.alpha = 0
+                }else{
+                    self.txtCitys.superview?.alpha = 1
+                }
+            }, completion: { (_) in
+                self.txtStates.superview?.isHidden = !self.txtStates.isEnabled
+                self.txtCitys.superview?.isHidden = !self.txtCitys.isEnabled
+            })
+        }
+    }
+    
+    
+  /*  fileprivate func loadCountryList(){
         
         self.txtCountrys.isEnabled = true
         self.txtStates.isEnabled = false
@@ -436,7 +592,7 @@ extension AddEditProductVC {
                 self.txtCitys.superview?.isHidden = !self.txtCitys.isEnabled
             })
         }
-    }
+    }*/
     
     /// Set the old data while editing product details.
     fileprivate func setProductInfo(){
@@ -457,10 +613,10 @@ extension AddEditProductVC {
         self.txtStates.isEnabled = !_product.stateName.isEmpty
         self.txtCitys.isEnabled = !_product.cityName.isEmpty
         
-        if (self.stateID ?? 0) != 0{
+        if (self.stateName ?? "") != ""{
             self.loadStateList(isCancelTask: false)
         }
-        if (self.cityID ?? 0) != 0{
+        if (self.cityName ?? "") != ""{
             self.loadCityList(isCancelTask: false)
         }
         self.txtLocation.text = _product.address
@@ -582,6 +738,15 @@ extension AddEditProductVC : GenericTextFieldDelegate{
             }
             let updatedText = text.replacingCharacters(in: textRange,with: string)
             guard let _ = Int(updatedText) else {return false}
+            
+        }
+        if textField == txtProductTitle{
+            if txtProductTitle.text?.count ?? 0 > 20{
+                return false
+            }
+            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
         }
         return true
     }
@@ -878,4 +1043,3 @@ extension AddEditProductVC{
   
 }
 }
-

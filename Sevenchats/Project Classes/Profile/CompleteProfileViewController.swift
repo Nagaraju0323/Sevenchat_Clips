@@ -8,9 +8,14 @@
 
 import UIKit
 
-class CompleteProfileViewController: ParentViewController {
+class CompleteProfileViewController: ParentViewController, GenericTextViewDelegate {
     
-    @IBOutlet var txtViewBiography : GenericTextView!
+    @IBOutlet var txtViewBiography : GenericTextView!{
+        didSet{
+            txtViewBiography.txtDelegate = self
+            txtViewBiography.type = "1"
+        }
+    }
     @IBOutlet var txtStatus : MIGenericTextFiled!
     @IBOutlet var txtEducation : MIGenericTextFiled!
     @IBOutlet var txtReligion : MIGenericTextFiled!
@@ -80,6 +85,8 @@ class CompleteProfileViewController: ParentViewController {
     
     func Initialization(){
         self.title = CNavCompleteProfile
+        txtReligion.txtDelegate = self
+        txtProfession.txtDelegate = self
         
         viewAddInterest.layer.cornerRadius = 3
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_save_profile"), style: .plain, target: self, action: #selector(btnCompleteClicked(_:)))
@@ -655,5 +662,22 @@ extension Optional where Wrapped == String {
         }
         // Trim and check empty string
         return (this.trimmingCharacters(in: .whitespaces) == "")
+    }
+}
+//MARK: - GenericTextFieldDelegate
+extension CompleteProfileViewController : GenericTextFieldDelegate{
+    
+    func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
+        
+
+        if textField == txtReligion || txtProfession == txtProfession{
+            if txtReligion.text?.count ?? 0 > 20{
+                return false
+            }
+            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
+        }
+        return true
     }
 }
