@@ -36,6 +36,7 @@ class AddPollViewController: ParentViewController {
     @IBOutlet var txtQuestion : GenericTextView!{
         didSet{
             self.txtQuestion.txtDelegate = self
+            self.txtQuestion.type = "1"
             self.txtQuestion.isScrollEnabled = true
             self.txtQuestion.textLimit = "150"
         }

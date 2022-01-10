@@ -131,6 +131,7 @@ class AddEditProductVC: ParentViewController {
 extension AddEditProductVC {
     
     func intilization() {
+        txtProductTitle.txtDelegate = self
     let arrCategory = MIGeneralsAPI.shared().fetchproductCategoryFromLocalArticle()
     
     /// Set Dropdown on txtCategory
@@ -615,7 +616,7 @@ extension AddEditProductVC {
         if (self.stateName ?? "") != ""{
             self.loadStateList(isCancelTask: false)
         }
-        if (self.cityName ?? "0") != "0"{
+        if (self.cityName ?? "") != ""{
             self.loadCityList(isCancelTask: false)
         }
         self.txtLocation.text = _product.address
@@ -737,6 +738,15 @@ extension AddEditProductVC : GenericTextFieldDelegate{
             }
             let updatedText = text.replacingCharacters(in: textRange,with: string)
             guard let _ = Int(updatedText) else {return false}
+            
+        }
+        if textField == txtProductTitle{
+            if txtProductTitle.text?.count ?? 0 > 20{
+                return false
+            }
+            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
         }
         return true
     }
@@ -1033,4 +1043,3 @@ extension AddEditProductVC{
   
 }
 }
-
