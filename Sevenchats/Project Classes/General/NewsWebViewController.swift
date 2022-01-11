@@ -53,7 +53,7 @@ class NewsWebViewController: ParentViewController {
             
             if isFavWebSite {
                 self.title = newInfo.valueForString(key: "title")
-                self.load(newInfo.valueForString(key: "favourite_website_url"),isFrom:true)
+                self.load(newInfo.valueForString(key: "favourite_website_url"),isFrom:false)
             }else {
                 self.title = newInfo.valueForString(key: "title")
                 self.load(newInfo.valueForString(key: "url"),isFrom:false)

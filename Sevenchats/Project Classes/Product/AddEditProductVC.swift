@@ -619,6 +619,7 @@ extension AddEditProductVC {
         if (self.cityName ?? "") != ""{
             self.loadCityList(isCancelTask: false)
         }
+        
         self.txtLocation.text = _product.address
         
         categoryDropDownView.txtCategory.text = _product.category

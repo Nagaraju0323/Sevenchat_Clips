@@ -602,9 +602,9 @@
 		62E1A7D2240E2EC5001BD7A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A5D1240E2EC4001BD7A8 /* GoogleService-Info.plist */; };
 		62E1A7D3240E2EC5001BD7A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5D2240E2EC4001BD7A8 /* AppDelegate.swift */; };
 		62E1A7D5240E2EC5001BD7A8 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5D5240E2EC4001BD7A8 /* SwiftyJSON.swift */; };
-		7C403150278345A20078AB35 /* PSLSideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40314F278345A20078AB35 /* PSLSideViewController.swift */; };
-		7C40315927834E1F0078AB35 /* PSLSitesTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C40315727834E1F0078AB35 /* PSLSitesTblCell.swift */; };
-		7C40315A27834E1F0078AB35 /* PSLSitesTblCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C40315827834E1F0078AB35 /* PSLSitesTblCell.xib */; };
+		7CF3E7E7278D335B0054E394 /* PSLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7E6278D335B0054E394 /* PSLViewController.swift */; };
+		7CF3E7E9278D337C0054E394 /* PSLCategoryCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7E8278D337C0054E394 /* PSLCategoryCollCell.swift */; };
+		7CF3E7EB278D339B0054E394 /* PSLTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */; };
 		A09326B63F9C017116863AC6 /* Pods_Sevenchats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27804AECFF1A40FF9011865E /* Pods_Sevenchats.framework */; };
 /* End PBXBuildFile section */
 
@@ -1227,9 +1227,9 @@
 		62E1A5D3240E2EC4001BD7A8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62E1A5D5240E2EC4001BD7A8 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		73E644783A520D4D99BA5145 /* Pods-Sevenchats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.debug.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.debug.xcconfig"; sourceTree = "<group>"; };
-		7C40314F278345A20078AB35 /* PSLSideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLSideViewController.swift; sourceTree = "<group>"; };
-		7C40315727834E1F0078AB35 /* PSLSitesTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLSitesTblCell.swift; sourceTree = "<group>"; };
-		7C40315827834E1F0078AB35 /* PSLSitesTblCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PSLSitesTblCell.xib; sourceTree = "<group>"; };
+		7CF3E7E6278D335B0054E394 /* PSLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLViewController.swift; sourceTree = "<group>"; };
+		7CF3E7E8278D337C0054E394 /* PSLCategoryCollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLCategoryCollCell.swift; sourceTree = "<group>"; };
+		7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLTblCell.swift; sourceTree = "<group>"; };
 		F7BFE4C7823818FE87CD8731 /* Pods-Sevenchats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.release.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1765,9 +1765,9 @@
 				62E1A435240E2EC4001BD7A8 /* FavWebSideViewController.swift */,
 				62E1A436240E2EC4001BD7A8 /* SideMenuViewController.swift */,
 				62E1A437240E2EC4001BD7A8 /* NewsViewController.swift */,
+				7CF3E7E6278D335B0054E394 /* PSLViewController.swift */,
 				62E1A438240E2EC4001BD7A8 /* QuotesViewController.swift */,
 				62E1A439240E2EC4001BD7A8 /* FavWebSiteDetailViewController.swift */,
-				7C40314F278345A20078AB35 /* PSLSideViewController.swift */,
 			);
 			path = SideMenu;
 			sourceTree = "<group>";
@@ -1922,6 +1922,7 @@
 				62E1A48A240E2EC4001BD7A8 /* AddMediaCollCell.swift */,
 				62E1A48B240E2EC4001BD7A8 /* GalleryPreviewCollCell.swift */,
 				62E1A48C240E2EC4001BD7A8 /* NewsCategoryCollCell.swift */,
+				7CF3E7E8278D337C0054E394 /* PSLCategoryCollCell.swift */,
 				62E1A48D240E2EC4001BD7A8 /* HomeAddPostCollCell.xib */,
 				62E1A48E240E2EC4001BD7A8 /* MyFriendListTabBarCollCell.swift */,
 				62E1A48F240E2EC4001BD7A8 /* AdvertiseCollCell.swift */,
@@ -1968,8 +1969,6 @@
 				62E1A4B2240E2EC4001BD7A8 /* MyFriendTblCell.swift */,
 				62E1A4B3240E2EC4001BD7A8 /* ProfileFilterTblCell.swift */,
 				62E1A4B4240E2EC4001BD7A8 /* FavWebSitesTblCell.swift */,
-				7C40315727834E1F0078AB35 /* PSLSitesTblCell.swift */,
-				7C40315827834E1F0078AB35 /* PSLSitesTblCell.xib */,
 				62E1A4B5240E2EC4001BD7A8 /* Chat cells */,
 				62E1A4D0240E2EC4001BD7A8 /* VideoCall */,
 				62E1A4D3240E2EC4001BD7A8 /* NoPostFoundCell.swift */,
@@ -1979,6 +1978,7 @@
 				62E1A4D7240E2EC4001BD7A8 /* EmptyInviteFriendCell.swift */,
 				62E1A4D8240E2EC4001BD7A8 /* UserSuggestionTblCell.swift */,
 				62E1A4D9240E2EC4001BD7A8 /* NewsTblCell.swift */,
+				7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */,
 				62E1A4DA240E2EC4001BD7A8 /* SideMenuCell.swift */,
 				62E1A4DB240E2EC4001BD7A8 /* NoPostFoundCell.xib */,
 				62E1A4DC240E2EC4001BD7A8 /* NotificationRequestTblCell.swift */,
@@ -2660,7 +2660,6 @@
 				62E1A652240E2EC5001BD7A8 /* EarnedPointsCell.xib in Resources */,
 				62E1A6B8240E2EC5001BD7A8 /* HomeShoutsTblCell.xib in Resources */,
 				62E1A6DD240E2EC5001BD7A8 /* AudioReceiverTblCell.xib in Resources */,
-				7C40315A27834E1F0078AB35 /* PSLSitesTblCell.xib in Resources */,
 				184E030225F234DF00F80C78 /* CreateFileColls.xib in Resources */,
 				185712A6262FFFD100AFEE52 /* MessageSenderSwpTblCell.xib in Resources */,
 				62E1A694240E2EC5001BD7A8 /* Group.storyboard in Resources */,
@@ -2841,6 +2840,7 @@
 				62E1A5E0240E2EC5001BD7A8 /* AddForumViewController.swift in Sources */,
 				62E1A731240E2EC5001BD7A8 /* GenericTextView.swift in Sources */,
 				62E1A795240E2EC5001BD7A8 /* MDLProduct.swift in Sources */,
+				7CF3E7E9278D337C0054E394 /* PSLCategoryCollCell.swift in Sources */,
 				62E1A758240E2EC5001BD7A8 /* PostFilterHeaderView.swift in Sources */,
 				62E1A6BA240E2EC5001BD7A8 /* HomeArticleCell.swift in Sources */,
 				62E1A7B9240E2EC5001BD7A8 /* MIPhoneContacts.swift in Sources */,
@@ -2856,7 +2856,6 @@
 				62E1A69E240E2EC5001BD7A8 /* HomeEventGalleryCell.swift in Sources */,
 				62E1A666240E2EC5001BD7A8 /* QuotesViewController.swift in Sources */,
 				624EE3F6241BA02D00941C85 /* AppUpdateManager.swift in Sources */,
-				7C40315927834E1F0078AB35 /* PSLSitesTblCell.swift in Sources */,
 				62E1A625240E2EC5001BD7A8 /* MessageDetailViewController.swift in Sources */,
 				62E1A656240E2EC5001BD7A8 /* TotalEarnedPointsCell.swift in Sources */,
 				62E1A781240E2EC5001BD7A8 /* ExtensionInt.swift in Sources */,
@@ -3193,13 +3192,13 @@
 				62E1A6D1240E2EC5001BD7A8 /* AddParticipantsTblCell.swift in Sources */,
 				62E1A67C240E2EC5001BD7A8 /* EventDetailViewController.swift in Sources */,
 				62E1A637240E2EC5001BD7A8 /* MakeAsSoldProduceCell.swift in Sources */,
+				7CF3E7EB278D339B0054E394 /* PSLTblCell.swift in Sources */,
 				62E1A6A7240E2EC5001BD7A8 /* GalleryListCollCell.swift in Sources */,
 				1863D0DA2600C30600B5BDE8 /* SwiftyRecordButton.swift in Sources */,
 				1863D10B2600D3CD00B5BDE8 /* UIView+Image.swift in Sources */,
 				62E1A7AB240E2EC5001BD7A8 /* AudioCallHelper.swift in Sources */,
 				62E1A7B6240E2EC5001BD7A8 /* Utility.swift in Sources */,
 				62E1A614240E2EC5001BD7A8 /* GooglePlacesAutocompleteContainer.swift in Sources */,
-				7C403150278345A20078AB35 /* PSLSideViewController.swift in Sources */,
 				62E1A65C240E2EC5001BD7A8 /* CompleteProfileViewController.swift in Sources */,
 				1864F6A925F61B95001C69A5 /* HomeStoriesTblCell.swift in Sources */,
 				62E1A617240E2EC5001BD7A8 /* NewsWebViewController.swift in Sources */,
@@ -3239,6 +3238,7 @@
 				62E1A7B2240E2EC5001BD7A8 /* MimeType.swift in Sources */,
 				62E1A665240E2EC5001BD7A8 /* NewsViewController.swift in Sources */,
 				62E1A7A2240E2EC5001BD7A8 /* AppParticipant.swift in Sources */,
+				7CF3E7E7278D335B0054E394 /* PSLViewController.swift in Sources */,
 				62E1A5EB240E2EC5001BD7A8 /* ChangePWDViewController.swift in Sources */,
 				62E1A61C240E2EC5001BD7A8 /* LikeViewController.swift in Sources */,
 				62E1A6BB240E2EC5001BD7A8 /* PrivateAccountTblCell.swift in Sources */,

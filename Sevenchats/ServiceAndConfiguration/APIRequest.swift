@@ -220,7 +220,7 @@ let CAPITagSaveProfileImg = "users/saveprofile"
 let CAPITagFeedback = "feedbacks/add"
 let CAPITagFavWebsites = "websites/all"
 let CAPITagFavWebsitesNew = "websites/user/"
-let CAPITagPSLWebsites = "websites/type/"
+let CAPITagPSLWebsites = "websites/type/category"
 let CAPITagReportUserNew = "reports/add"
 let CAPITagarticles = "articles/add"
 let CAPITagchirpies = "chirpies/add"
@@ -2477,7 +2477,7 @@ extension APIRequest {
         })
     }
     
-    
+//MARK:-
     func getPslCategory(completion: @escaping ClosureCompletion) {
         
         _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagPSLCategoryNew, param: nil, successBlock: { (task, response) in
@@ -2496,6 +2496,27 @@ extension APIRequest {
             }
         })
     }
+    
+    func getPSLList(para : [String:Any], completion: @escaping ClosureCompletion) -> URLSessionTask {
+        
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagPSLWebsites, param: para as AnyObject as? [String : AnyObject], successBlock: { (task, response) in
+            
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagPSLWebsites) {
+                completion(response, nil)
+            }else{
+                completion(nil, nil)
+            }
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagPSLWebsites, error: error)
+            }
+        })!
+    }
+    
     func getNewsList(para : [String:Any], completion: @escaping ClosureCompletion) -> URLSessionTask {
         
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagNews, param: para as AnyObject as? [String : AnyObject], successBlock: { (task, response) in
@@ -2516,28 +2537,28 @@ extension APIRequest {
         })!
     }
     
-    func getPSLList(page : Int?,type : String?, showLoader : Bool,userId:String, completion: @escaping ClosureCompletion) -> URLSessionTask {
-        
-        if showLoader {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        }
-        let apiTag = CAPITagPSLWebsites + type!
-        return Networking.sharedInstance.GETNEW(apiTag: apiTag, param: nil, successBlock: { (task, response) in
-            
-            MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWebsitesNew) {
-                completion(response, nil)
-            }
-        }, failureBlock: { (task, message, error) in
-            completion(nil, error)
-            if error?.code == CStatus405{
-                appDelegate.logOut()
-            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
-            } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagFavWebsitesNew, error: error)
-            }
-        })!
-    }
+//    func getPSLList(page : Int?,type : String?, showLoader : Bool,userId:String, completion: @escaping ClosureCompletion) -> URLSessionTask {
+//
+//        if showLoader {
+//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//        }
+//        let apiTag = CAPITagPSLWebsites + type!
+//        return Networking.sharedInstance.GETNEW(apiTag: apiTag, param: nil, successBlock: { (task, response) in
+//
+//            MILoader.shared.hideLoader()
+//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWebsitesNew) {
+//                completion(response, nil)
+//            }
+//        }, failureBlock: { (task, message, error) in
+//            completion(nil, error)
+//            if error?.code == CStatus405{
+//                appDelegate.logOut()
+//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+//            } else {
+//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagFavWebsitesNew, error: error)
+//            }
+//        })!
+//    }
     
     //TODO:
     //TODO: --------------FAV WEBSITE --------------
