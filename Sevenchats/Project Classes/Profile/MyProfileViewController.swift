@@ -94,6 +94,8 @@ class MyProfileViewController: ParentViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.TableviewReload), name: NSNotification.Name(rawValue: "newDataNotificationForItemEdit"),object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.TableviewReloads), name: NSNotification.Name(rawValue: "newDataNotificationForItemupdate"),object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadMyprofile), name: NSNotification.Name(rawValue: "loadMyprofile"), object: nil)
     }
     
     @objc func TableviewReload(){

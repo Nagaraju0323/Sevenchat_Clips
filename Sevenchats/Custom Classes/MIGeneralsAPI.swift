@@ -633,11 +633,10 @@ extension MIGeneralsAPI {
                                 }
                             break
                         case .interestPost?:
+                            
                             if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = homeVC.arrPostList[index]
                                 let choice =  postInfo?.valueForString(key: "choice")
-                                
-                                
                                 if choice == "yes"{
                                     let yesCount = postLikeInfo.valueForString(key:"yes_count").toInt ?? 0
                                     let totalCnt = (yesCount + 1).toString
@@ -709,16 +708,6 @@ extension MIGeneralsAPI {
                                     }
                                 
                                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-//                                if let postMetaInfo = postInfo![CJsonMeta] as? [String : Any]{
-//                                    postLikeInfo[CTotalComment] = postMetaInfo.valueForInt(key: CTotal)
-//                                    homeVC.arrPostList.remove(at: index)
-//                                    homeVC.arrPostList.insert(postLikeInfo, at: index)
-//                                    UIView.performWithoutAnimation {
-//                                        let indexPath = IndexPath(item: index, section: 1)
-//                                        if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
-//                                            homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
-//                                        }
-//                                    }
                                 }
                             }
                             break
@@ -1048,6 +1037,36 @@ extension MIGeneralsAPI {
                             detailPost.setEventDetail(dict: detailPost.eventInfo)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                             break
+                            
+//                        case .interestPost?:
+//
+//
+////                            var postLikeInfo = homeVC.arrPostList[index]
+//                            let choice =  postInfo?.valueForString(key: "choice")
+//                            if choice == "yes"{
+//                                let yesCount = postInfo?.valueForString(key:"yes_count").toInt ?? 0
+//                                let totalCnt = (yesCount + 1).toString
+//                                detailPost.eventInfo["yes_count"] = totalCnt
+//                                detailPost.eventInfo[CIsInterested] = "1"
+//                                detailPost.eventInfo["selected_choice"] = "1"
+//                            }
+//                            if choice == "maybe"{
+//                                let mayCount = postInfo?.valueForString(key:"maybe_count").toInt ?? 0
+//                                let totalCnt = (mayCount + 1).toString
+//                                detailPost.eventInfo["maybe_count"] = totalCnt
+//                                detailPost.eventInfo[CIsInterested] = "3"
+//                                detailPost.eventInfo["selected_choice"] = "3"
+//                            }
+//                            if choice == "no"{
+//                                let noCount = postInfo?.valueForString(key:"no_count").toInt ?? 0
+//                                let totalCnt = (noCount + 1).toString
+//                                detailPost.eventInfo["no_count"] = totalCnt
+//                                detailPost.eventInfo[CIsInterested] = "2"
+//                                detailPost.eventInfo["selected_choice"] = "2"
+//                            }
+//
+//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+//                            break
                         default: break
                         }
                     }
@@ -1381,13 +1400,40 @@ extension MIGeneralsAPI {
                             }
                             break
                         case .interestPost?:
-                            if let index = myProfileVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postId}) {
+                            
+                            if let index = myProfileVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = myProfileVC.arrPostList[index]
-                                
-                                postLikeInfo[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
-                                postLikeInfo[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
-                                postLikeInfo[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
-                                postLikeInfo[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
+                                let choice =  postInfo?.valueForString(key: "choice")
+                                if choice == "yes"{
+                                    let yesCount = postLikeInfo.valueForString(key:"yes_count").toInt ?? 0
+                                    let totalCnt = (yesCount + 1).toString
+                                    postLikeInfo["yes_count"] = totalCnt
+                                    postLikeInfo[CIsInterested] = "1"
+                                    postLikeInfo["selected_choice"] = "1"
+                                }
+                                if choice == "maybe"{
+                                    let mayCount = postLikeInfo.valueForString(key:"maybe_count").toInt ?? 0
+                                    let totalCnt = (mayCount + 1).toString
+                                    postLikeInfo["maybe_count"] = totalCnt
+                                    postLikeInfo[CIsInterested] = "3"
+                                    postLikeInfo["selected_choice"] = "3"
+                                }
+                                if choice == "no"{
+                                    let noCount = postLikeInfo.valueForString(key:"no_count").toInt ?? 0
+                                    let totalCnt = (noCount + 1).toString
+                                    postLikeInfo["no_count"] = totalCnt
+                                    postLikeInfo[CIsInterested] = "2"
+                                    postLikeInfo["selected_choice"] = "2"
+                                }
+                            
+                            
+//                            if let index = myProfileVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postId}) {
+//                                var postLikeInfo = myProfileVC.arrPostList[index]
+//
+//                                postLikeInfo[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
+//                                postLikeInfo[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
+//                                postLikeInfo[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
+//                                postLikeInfo[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
                                 
                                 myProfileVC.arrPostList.remove(at: index)
                                 myProfileVC.arrPostList.insert(postLikeInfo, at: index)
@@ -1397,6 +1443,7 @@ extension MIGeneralsAPI {
                                         myProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
                                     }
                                 }
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMyprofile"), object: nil)
                             }
                             let arrPosts = myProfileVC.arrPostList
                             for (index,obj) in arrPosts.enumerated(){
@@ -1522,14 +1569,38 @@ extension MIGeneralsAPI {
                             }
                             break
                         case .interestPost?:
-                            if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?.valueForInt(key: CId) == postId}) {
+//                            if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?.valueForInt(key: CId) == postId}) {
+//                                var postLikeInfo = otherProfileVC.arrPostList[index]
+//
+//                                postLikeInfo?[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
+//                                postLikeInfo?[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
+//                                postLikeInfo?[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
+//                                postLikeInfo?[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
+                            
+                            if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = otherProfileVC.arrPostList[index]
-                                
-                                postLikeInfo?[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
-                                postLikeInfo?[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
-                                postLikeInfo?[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
-                                postLikeInfo?[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
-                                
+                                let choice =  postInfo?.valueForString(key: "choice")
+                                if choice == "yes"{
+                                    let yesCount = postLikeInfo?.valueForString(key:"yes_count").toInt ?? 0
+                                    let totalCnt = (yesCount + 1).toString
+                                    postLikeInfo?["yes_count"] = totalCnt
+                                    postLikeInfo?[CIsInterested] = "1"
+                                    postLikeInfo?["selected_choice"] = "1"
+                                }
+                                if choice == "maybe"{
+                                    let mayCount = postLikeInfo?.valueForString(key:"maybe_count").toInt ?? 0
+                                    let totalCnt = (mayCount + 1).toString
+                                    postLikeInfo?["maybe_count"] = totalCnt
+                                    postLikeInfo?[CIsInterested] = "3"
+                                    postLikeInfo?["selected_choice"] = "3"
+                                }
+                                if choice == "no"{
+                                    let noCount = postLikeInfo?.valueForString(key:"no_count").toInt ?? 0
+                                    let totalCnt = (noCount + 1).toString
+                                    postLikeInfo?["no_count"] = totalCnt
+                                    postLikeInfo?[CIsInterested] = "2"
+                                    postLikeInfo?["selected_choice"] = "2"
+                                }
                                 otherProfileVC.arrPostList.remove(at: index)
                                 otherProfileVC.arrPostList.insert(postLikeInfo, at: index)
                                 UIView.performWithoutAnimation {
@@ -1538,27 +1609,29 @@ extension MIGeneralsAPI {
                                         otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
                                     }
                                 }
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherIntrest"), object: nil)
+                                
                             }
-                            let arrPosts = otherProfileVC.arrPostList
-                            for (index,obj) in arrPosts.enumerated(){
-                                if obj?[COriginalPostId] as? Int == postId{
-                                    var postPollInfo = obj
-                                    postPollInfo?[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
-                                    postPollInfo?[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
-                                    postPollInfo?[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
-                                    postPollInfo?[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
-                                    otherProfileVC.arrPostList.remove(at: index)
-                                    otherProfileVC.arrPostList.insert(postPollInfo, at: index)
-                                    UIView.performWithoutAnimation {
-                                        DispatchQueue.main.async {
-                                            let indexPath = IndexPath(item: index, section: 1)
-                                            if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
-                                                otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+//                            let arrPosts = otherProfileVC.arrPostList
+//                            for (index,obj) in arrPosts.enumerated(){
+//                                if obj?[COriginalPostId] as? Int == postId{
+//                                    var postPollInfo = obj
+//                                    postPollInfo?[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
+//                                    postPollInfo?[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
+//                                    postPollInfo?[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
+//                                    postPollInfo?[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
+//                                    otherProfileVC.arrPostList.remove(at: index)
+//                                    otherProfileVC.arrPostList.insert(postPollInfo, at: index)
+//                                    UIView.performWithoutAnimation {
+//                                        DispatchQueue.main.async {
+//                                            let indexPath = IndexPath(item: index, section: 1)
+//                                            if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
+//                                                otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
                             break
                         case .commentPost?:
                             if let index = otherProfileVC.arrPostList.firstIndex(where:{ $0?["post_id"] as? String == postId?.toString}) {

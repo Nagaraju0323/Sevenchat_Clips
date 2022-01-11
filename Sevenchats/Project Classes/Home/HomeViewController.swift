@@ -2052,46 +2052,6 @@ extension HomeViewController {
     fileprivate func btnInterestedNotInterestedMayBeCLK(_ type : Int?, _ indexpath : IndexPath?){
         var postInfo = arrPostList[indexpath!.row]
         if type != postInfo.valueForInt(key: CIsInterested) {
-            
-            // Update existing count here...
-           /* let totalIntersted = postInfo.valueForInt(key: CTotalInterestedUsers)
-            let totalNotIntersted = postInfo.valueForInt(key: CTotalNotInterestedUsers)
-            let totalMaybe = postInfo.valueForInt(key: CTotalMaybeInterestedUsers)
-            switch postInfo.valueForInt(key: CIsInterested) {
-            case CTypeInterested:
-                postInfo[CTotalInterestedUsers] = totalIntersted! - 1
-                break
-            case CTypeNotInterested:
-                postInfo[CTotalNotInterestedUsers] = totalNotIntersted! - 1
-                break
-            case CTypeMayBeInterested:
-                postInfo[CTotalMaybeInterestedUsers] = totalMaybe! - 1
-                break
-            default:
-                break
-            }
-            postInfo[CIsInterested] = type
-            
-            switch type {
-            case CTypeInterested:
-                postInfo[CTotalInterestedUsers] = totalIntersted! + 1
-                break
-            case CTypeNotInterested:
-                postInfo[CTotalNotInterestedUsers] = totalNotIntersted! + 1
-                break
-            case CTypeMayBeInterested:
-                postInfo[CTotalMaybeInterestedUsers] = totalMaybe! + 1
-                break
-            default:
-                break
-            }
-            var postId = postInfo.valueForInt(key: CId)
-            let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
-            if isSharedPost == 1{
-                postId = postInfo[COriginalPostId] as? Int ?? 0
-            }
-            MIGeneralsAPI.shared().interestNotInterestMayBe(postId, type!, viewController: self)*/
-            //MARK:- NEW
                        let totalIntersted = postInfo.valueForString(key: "yes_count")
                        let totalNotIntersted = postInfo.valueForString(key:"no_count")
                        let totalMaybe = postInfo.valueForString(key: "maybe_count")

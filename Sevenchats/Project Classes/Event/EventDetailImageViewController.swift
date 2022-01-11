@@ -22,9 +22,6 @@ class EventDetailImageViewController: ParentViewController {
     @IBOutlet weak var lblEventAddress : UILabel!
     @IBOutlet weak var lblEventDescription : UILabel!
     @IBOutlet weak var lblEventCategory : UILabel!
-    //@IBOutlet weak var lblInvitedUserCount : UILabel!
-    //@IBOutlet weak var lblAboutEvent : UILabel!
-    
     @IBOutlet weak var btnLikeCount : UIButton!
     @IBOutlet weak var btnLike : UIButton!
     @IBOutlet weak var btnComment : UIButton!
@@ -32,10 +29,6 @@ class EventDetailImageViewController: ParentViewController {
     @IBOutlet weak var btnMaybe : UIButton!
     @IBOutlet weak var btnNotInterested : UIButton!
     @IBOutlet weak var btnInterested : UIButton!
-    
-    //@IBOutlet weak var imgVEvent : UIImageView!
-    
-    //@IBOutlet weak var vwInvitedCount : UIView!
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var lbluserName : UILabel!
     @IBOutlet weak var tblUserList : UITableView!
@@ -80,7 +73,6 @@ class EventDetailImageViewController: ParentViewController {
     @IBOutlet weak var btnUserName : UIButton!
     
     var eventImgURL = ""
-    
     var postID : Int?
     var postIDNew : String?
     var rssId : Int?
@@ -108,13 +100,9 @@ class EventDetailImageViewController: ParentViewController {
     var commentinfo = [String:Any]()
     var likeTotalCount = 0
     var eventActCount = ""
-    
-    
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
-    
-
     let currentDateTime = Date().timeIntervalSince1970
     
     override func viewDidLoad() {
@@ -136,13 +124,10 @@ class EventDetailImageViewController: ParentViewController {
         self.title = CNavEventsDetails
         imgUser.layer.cornerRadius = imgUser.frame.size.width / 2
         lblEventType.layer.cornerRadius = 3
-        
         self.view.backgroundColor = CRGB(r: 249, g: 250, b: 250)
         self.parentView.backgroundColor = .clear
         self.tblCommentList.backgroundColor = .clear
-        
         self.btnShare.setTitle(CBtnShare, for: .normal)
-        
         func setupInterestButton(sender:UIButton){
             sender.layer.cornerRadius = 4
             sender.clipsToBounds = true
@@ -150,14 +135,11 @@ class EventDetailImageViewController: ParentViewController {
         setupInterestButton(sender: btnInterested)
         setupInterestButton(sender: btnNotInterested)
         setupInterestButton(sender: btnMaybe)
-        
         self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
         self.refreshControl.tintColor = ColorAppTheme
         self.tblCommentList.pullToRefreshControl = self.refreshControl
         self.pageNumber = 1
-        
         self.loadEventDetailFromServer()
-        
         self.btnEventImg.touchUpInside(genericTouchUpInsideHandler: { [weak self](_) in
             let lightBoxHelper = LightBoxControllerHelper()
             lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self)
@@ -190,11 +172,7 @@ class EventDetailImageViewController: ParentViewController {
             btnLike.contentHorizontalAlignment = .right
             btnLikeCount.contentHorizontalAlignment = .left
             btnComment.contentHorizontalAlignment = .left
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
             btnShare.contentHorizontalAlignment = .left
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
-            
-            // Normal Flow...
             btnInterested.contentHorizontalAlignment = .left
             btnInterested.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             
@@ -263,21 +241,6 @@ extension EventDetailImageViewController {
         refreshControl.beginRefreshing()
         self.loadEventDetailFromServer()
     }
-//
-//    func loadEventDetailFromServer() {
-//        self.parentView.isHidden = true
-//        APIRequest.shared().viewPostDetail(postID: self.postID) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil {
-//                self.parentView.isHidden = false
-//                self.setEventDetail(dict: response?.value(forKey: CJsonData) as! [String : AnyObject])
-//                self.openUserProfileScreen()
-//            }
-//            self.getCommentListFromServer(showLoader: false)
-//        }
-//    }
-    
-    
     func loadEventDetailFromServer() {
         self.parentView.isHidden = true
         
@@ -304,14 +267,10 @@ extension EventDetailImageViewController {
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-//            appDelegate.moveOnProfileScreen(self.eventInfo.valueForString(key: CUserId), self)
-            
             appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CUserId), self.eventInfo.valueForString(key: CUsermailID), self)
         }
-        
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-//            appDelegate.moveOnProfileScreen(self.eventInfo.valueForString(key: CUserId), self)
             appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CUserId), self.eventInfo.valueForString(key: CUsermailID), self)
         }
     }
@@ -324,20 +283,14 @@ extension EventDetailImageViewController {
         posted_ID = dict.valueForString(key: "user_id")
         self.parentView.isHidden = false
         self.lbluserName.text = "\(dict.valueForString(key: CFirstname)) \(dict.valueForString(key: CLastname))"
-//        self.lblEventPostDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
         let created_At = eventInfo.valueForString(key: CCreated_at)
         let cnvStr = created_At.stringBefore("G")
-//        let removeFrst = cnvStr.chopPrefix(3)
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblEventPostDate.text = startCreated
-        
         self.lblEventCategory.text = dict.valueForString(key: CCategory).uppercased()
         self.lblEventType.text = CTypeEvent
         self.lblEventTitle.text = dict.valueForString(key: CTitle)
         self.lblEventDescription.text = dict.valueForString(key: CContent)
-//        self.lblStartDate.text = "\(CStartDate)"
-//        self.lblEndDate.text = "\(CEndDate)"
-      
         let created_At1 = eventInfo.valueForString(key: "start_date")
         let cnvStr1 = created_At1.stringBefore("G")
         guard let startCreated1 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr1)  else { return}
@@ -346,42 +299,17 @@ extension EventDetailImageViewController {
         let cnvStr2 = created_At2.stringBefore("G")
         guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
         self.lblStartDate.text = CEndDate + startCreated2
-        
-        
-//        self.lblEventStartDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
-//        self.lblEventEndDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
-        
         self.lblEventAddress.text = dict.valueForString(key: CEvent_Location)
-//        self.btnInterested.setTitle("\(dict.valueForString(key: CTotalInterestedUsers))\n" + CConfirmed, for: .normal)
-//        self.btnMaybe.setTitle("\(dict.valueForString(key: CTotalMaybeInterestedUsers))\n" + CMaybe, for: .normal)
-//        self.btnNotInterested.setTitle("\(dict.valueForString(key: CTotalNotInterestedUsers))\n" + CDeclined, for: .normal)
-        
         btnMaybe.setTitle("\(dict.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(dict.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
         btnInterested.setTitle("\(dict.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)
-        
-       // self.blurImgView.loadImageFromUrl(dict.valueForString(key: "image"), false)
-        //self.imgVEvent.loadImageFromUrl(dict.valueForString(key: CImage), false)
-        
-     
-        
         let image = dict.valueForString(key: "image")
                 if image.isEmpty {
-//                    blurImgView.isHidden = true
                     blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
                 }else{
                     blurImgView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
                 }
         self.eventImgURL = dict.valueForString(key: "image")
-//        self.btnLike.isSelected = dict.valueForBool(key: CIs_Like)
-//        likeCount = dict.valueForInt(key: CTotal_like) ?? 0
-//
-//        self.commentCount = dict.valueForInt(key: CTotalComment) ?? 0
-//        btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-//
-//        self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-//
-        
         let is_Liked = dict.valueForString(key: CIsLiked)
        
         if is_Liked == "Yes"{
@@ -391,13 +319,7 @@ extension EventDetailImageViewController {
         }
         
         likeCount = dict.valueForString(key: CLikes).toInt ?? 0
-//        likeCount = product.likes!.toInt!
         self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-        
-        //CommentSection
-//            self.commentCount = shoInfo.valueForInt(key: CTotalComment) ?? 0
-//            btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-   
         commentCount = dict.valueForString(key: "comments").toInt ?? 0
         self.totalComment = commentCount
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
@@ -409,17 +331,6 @@ extension EventDetailImageViewController {
             btnNotInterested.isEnabled = Double(currentDateTime) <= endDateTime
             btnInterested.isEnabled = Double(currentDateTime) <= endDateTime
         }
-        
-//        switch dict.valueForInt(key: CIsInterested) {
-//        case 1:
-//            btnMaybe.isSelected = true
-//        case 2:
-//            btnInterested.isSelected = true
-//        case 3:
-//            btnNotInterested.isSelected = true
-//        default:
-//            break
-//        }
         //Confirm the Selcted Option
         
         if dict.valueForString(key:"maybe_count") == "0"{
@@ -456,19 +367,12 @@ extension EventDetailImageViewController {
         setSelectedButtonStyle()
         
         imgUser.loadImageFromUrl(dict.valueForString(key: CUserProfileImage), true)
-//        if Int64(dict.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
         if dict.valueForString(key: "user_email") == appDelegate.loginUser?.email{
             if self.isHideNavCalenderButton {
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(btnMenuClicked(_:)))
             }else {
-//                self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(btnMenuClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_event_calender"), style: .plain, target: self, action: #selector(btnCalenderClicked(_:)))]
             }
         }else{
-//            if !self.isHideNavCalenderButton {
-//                self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_event_calender"), style: .plain, target: self, action: #selector(btnCalenderClicked(_:)))
-//            }
-            
-            
         }
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(btnMenuClicked(_:)))
@@ -487,18 +391,6 @@ extension EventDetailImageViewController {
         }
     }
     func setSelectedButtonStyle(){
-//        btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
-//        btnInterested.layer.borderWidth = 2
-//        btnInterested.backgroundColor =  .clear
-//
-//        btnMaybe.layer.borderColor = CRGB(r: 255, g: 237, b: 216).cgColor
-//        btnMaybe.layer.borderWidth = 2
-//        btnMaybe.backgroundColor =  .clear
-//        
-//        btnNotInterested.layer.borderColor = CRGB(r: 255, g: 214, b: 214).cgColor
-//        btnNotInterested.layer.borderWidth = 2
-//        btnNotInterested.backgroundColor =  .clear
-        
         let arrButton = [btnInterested,btnMaybe,btnNotInterested]
         if let sender = arrButton.filter({$0?.isSelected ?? false}).first{
             if sender == btnInterested{
@@ -514,54 +406,10 @@ extension EventDetailImageViewController {
     fileprivate func btnInterestedNotInterestedMayBeCLK(_ type : Int?){
         
         if type != eventInfo.valueForInt(key: CIsInterested){
-            
-            // Update existing count here...
-            
-           /* let totalIntersted = eventInfo.valueForInt(key: CTotalInterestedUsers)
-            let totalNotIntersted = eventInfo.valueForInt(key: CTotalNotInterestedUsers)
-            let totalMaybe = eventInfo.valueForInt(key: CTotalMaybeInterestedUsers)
-            switch eventInfo.valueForInt(key: CIsInterested) {
-            case CTypeInterested:
-                eventInfo[CTotalInterestedUsers] = totalIntersted! - 1
-                break
-            case CTypeNotInterested:
-                eventInfo[CTotalNotInterestedUsers] = totalNotIntersted! - 1
-                break
-            case CTypeMayBeInterested:
-                eventInfo[CTotalMaybeInterestedUsers] = totalMaybe! - 1
-                break
-            default:
-                break
-            }
-            eventInfo[CIsInterested] = type
-            
-            switch type {
-            case CTypeInterested:
-                eventInfo[CTotalInterestedUsers] = totalIntersted! + 1
-                break
-            case CTypeNotInterested:
-                eventInfo[CTotalNotInterestedUsers] = totalNotIntersted! + 1
-                break
-            case CTypeMayBeInterested:
-                eventInfo[CTotalMaybeInterestedUsers] = totalMaybe! + 1
-                break
-            default:
-                break
-            }
-            var postId = eventInfo.valueForInt(key: CId)
-            let isSharedPost = eventInfo.valueForInt(key: CIsSharedPost)
-            if isSharedPost == 1{
-                postId = eventInfo[COriginalPostId] as? Int ?? 0
-            }
-            MIGeneralsAPI.shared().interestNotInterestMayBe(postId, type!, viewController: self)
-            self.setEventDetail(dict: eventInfo)*/
-            
             //MARK:- NEW
                        let totalIntersted = eventInfo.valueForString(key: "yes_count")
                        let totalNotIntersted = eventInfo.valueForString(key:"no_count")
                        let totalMaybe = eventInfo.valueForString(key: "maybe_count")
-                       
-                       
                        switch eventInfo.valueForInt(key: CIsInterested) {
                        case CTypeInterested:
                         eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
@@ -579,13 +427,21 @@ extension EventDetailImageViewController {
                        
                        switch type {
                        case CTypeInterested:
-                        eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+                        
+                        let yesCount = totalIntersted.toInt ?? 0
+                        let totalCnt = (yesCount + 1).toString
+                        eventInfo["yes_count"] = totalCnt.toInt ?? 0 - 1
                            break
                        case CTypeNotInterested:
-                        eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+                        let yesCount = totalNotIntersted.toInt ?? 0
+                        let totalCnt = (yesCount + 1).toString
+                        eventInfo["no_count"] = totalCnt.toInt ?? 0 - 1
                            break
                        case CTypeMayBeInterested:
-                        eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+                        
+                        let yesCount = totalMaybe.toInt ?? 0
+                        let totalCnt = (yesCount + 1).toString
+                        eventInfo["maybe_count"] = totalCnt.toInt ?? 0 - 1
                            break
                        default:
                            break
@@ -596,29 +452,12 @@ extension EventDetailImageViewController {
            //            if isSharedPost == 1{
            //                postId = postInfo[COriginalPostId] as? Int ?? 0
            //            }
+            self.setEventDetail(dict: eventInfo)
             MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
             
         }
         
     }
-    
-//    func deletePost() {
-//        APIRequest.shared().removePost(postID: self.postID) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil {
-//
-//                for vwController in (self.navigationController?.viewControllers)! {
-//                    if vwController.isKind(of: EventListViewController .classForCoder()) {
-//                        let eventVC = vwController as? EventListViewController
-//                        eventVC?.currentPage = 1
-//                        eventVC?.loadEventList(showLoader: false)
-//                        break
-//                    }
-//                }
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//        }
-//    }
     func deletePost(_ eventInfo : [String : Any]?) {
             
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
@@ -760,7 +599,6 @@ extension EventDetailImageViewController: UITableViewDelegate, UITableViewDataSo
         {
             weak var weakCell = cell
             let commentInfo = arrCommentList[indexPath.row]
-//            cell.lblCommentPostDate.text = DateFormatter.shared().durationString(duration: commentInfo.valueForString(key: CCreated_at))
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
             
@@ -817,13 +655,10 @@ extension EventDetailImageViewController: UITableViewDelegate, UITableViewDataSo
             
             cell.btnUserName.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
-            
             cell.btnUserImage.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             
@@ -867,26 +702,7 @@ extension EventDetailImageViewController{
     }
     
     @IBAction func btnLikeCLK(_ sender : UIButton){
-//        if sender.tag == 0{
-//            // LIKE CLK
-//
-//            btnLike.isSelected = !btnLike.isSelected
-//
-//            likeCount = btnLike.isSelected ? likeCount + 1 : likeCount - 1
-//
-//            btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-//            MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.postID, rss_id: nil, type: 1, likeStatus: btnLike.isSelected ? 1 : 0, viewController: self)
-//        }else{
-//            // LIKE COUNT CLK
-//            if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController {
-//                likeVC.postID = self.postID
-//                self.navigationController?.pushViewController(likeVC, animated: true)
-//            }
-//        }
-        
-        
         self.btnLike.isSelected = !self.btnLike.isSelected
-        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
@@ -902,7 +718,6 @@ extension EventDetailImageViewController{
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async {
-                   
                     let infodatass = response![CJsonData] as? [[String:Any]] ?? [[:]]
                     for infora in infodatass{
                     self?.info = infora
@@ -939,13 +754,10 @@ extension EventDetailImageViewController{
     }
     
     @IBAction func btnShareReportCLK(_ sender : UIButton){
-        
-        //self.presentActivityViewController(mediaData: eventInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
         let sharePost = SharePostHelper(controller: self, dataSet: eventInfo)
         sharePost.shareURL = eventInfo.valueForString(key: CShare_url)
         sharePost.presentShareActivity()
     }
-    
     @IBAction func btnCommentCLK(_ sender : UIButton){
         if let commentVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController {
             commentVC.postId = self.postID
@@ -955,8 +767,6 @@ extension EventDetailImageViewController{
     
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
          if eventInfo.valueForString(key: "user_email") == appDelegate.loginUser?.email {
-//        if Int64(eventInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-            
             if let endDateTime = eventInfo.valueForDouble(key: CEvent_End_Date), (Double(currentDateTime) > endDateTime) {
                 
                 self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
@@ -976,25 +786,6 @@ extension EventDetailImageViewController{
                     guard let `self` = self else { return }
                     self.deletePost(self.eventInfo)
                 }
-                
-                
-//
-//                self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self] (alert) in
-//                    guard let self = self else { return }
-//                    //...Edit Post
-//                    let addEventVC:AddEventViewController = CStoryboardEvent.instantiateViewController(withIdentifier: "AddEventViewController") as! AddEventViewController
-//                    addEventVC.eventID = self.postID
-//                    addEventVC.eventType = .editEvent
-//                    self.navigationController?.pushViewController(addEventVC, animated: true)
-//                }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
-//                    guard let self = self else { return }
-//
-//                    //...Delete Post
-//                    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnOk, btnOneTapped: { [weak self] (action) in
-//                        guard let self = self else { return }
-//                        self.deletePost(self.eventInfo)
-//                        }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
-//                }
             }
         }else {
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
@@ -1017,14 +808,12 @@ extension EventDetailImageViewController{
 
 // MARK:- --------- Api functions
 extension EventDetailImageViewController{
-    
     fileprivate func getCommentListFromServer(showLoader: Bool){
         if let evntID = self.postIDNew{
         if apiTask?.state == URLSessionTask.State.running {
             self.refreshControl.endRefreshing()
             return
         }
-        
         // Add load more indicator here...
         self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
         self.arrCommentList.removeAll()
@@ -1033,17 +822,13 @@ extension EventDetailImageViewController{
             self.tblCommentList.tableFooterView = UIView()
             self.refreshControl.endRefreshing()
             self.apiTask?.cancel()
-            
             if response != nil {
-                
                 if let arrList = response!["comments"] as? [[String:Any]] {
-                    
                     // Remove all data here when page number == 1
                     if self.pageNumber == 1 {
                         self.arrCommentList.removeAll()
                         self.tblCommentList.reloadData()
                     }
-                    
                     // Add Data here...
                     if arrList.count > 0{
                         self.arrCommentList = self.arrCommentList + arrList
@@ -1051,7 +836,6 @@ extension EventDetailImageViewController{
                         self.pageNumber += 1
                     }
                 }
-                
                 print("arrCommentListCount : \(self.arrCommentList.count)")
                 //self.lblNoData.isHidden = self.arrCommentList.count != 0
             }
@@ -1127,64 +911,12 @@ extension EventDetailImageViewController: UserSuggestionDelegate{
 extension EventDetailImageViewController{
     @IBAction func btnSendCommentCLK(_ sender : UIButton){
         self.resignKeyboard()
-//        
-//        if (txtViewComment.text?.isBlank)! {
-//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageCommentBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//        } else {
-//            
-//            // Get Final text for comment..
-//            let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
-//            
-//            // Get Mention user's Ids..
-//            let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-//            
-//            APIRequest.shared().sendComment(post_id: self.postID, commentId: self.editCommentId, rss_id: rssId, type: rssId != nil ? 2 : 1, comment: strComment, include_user_id: includedUser) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                if response != nil && error == nil {
-//                    
-//                    self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
-//                    self.txtViewComment.text = ""
-//                    self.btnSend.isUserInteractionEnabled = false
-//                    self.btnSend.alpha = 0.5
-//                    self.txtViewComment.updatePlaceholderFrame(false)
-//                    
-//                    if let comment = response![CJsonData] as? [String : Any] {
-//                        if (self.editCommentId ?? 0) == 0{
-//                            self.arrCommentList.insert(comment, at: 0)
-//                            self.commentCount += 1
-//                            
-//                            self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-//                            
-//                            self.tblCommentList.reloadData()
-//                            if let responsInfo = response as? [String : Any]{
-//                                // To udpate previous screen data....
-//                                MIGeneralsAPI.shared().refreshPostRelatedScreens(responsInfo, self.postID, self, .commentPost)
-//                            }
-//                        }else{
-//                            // Edit comment in array
-//                            if let index = self.arrCommentList.firstIndex(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
-//                                self.arrCommentList.remove(at: index)
-//                                self.arrCommentList.insert(comment, at: 0)
-//                                self.tblCommentList.reloadData()
-//                            }
-//                        }
-//                        self.genericTextViewDidChange(self.txtViewComment, height: 10)
-//                    }
-//                    self.editCommentId =  nil
-//                    self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-//                    //self.lblNoData.isHidden = self.arrCommentList.count != 0
-//                }
-//            }
-//            
-//        }
-        
         if (txtViewComment.text?.isBlank)!{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageCommentBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
             if let evntId = self.postID{
                 // Get Final text for comment..
                 let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
-                
                 // Get Mention user's Ids..
                 let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
                 
@@ -1193,40 +925,23 @@ extension EventDetailImageViewController{
                 }
                 let userId = userID.description
                 APIRequest.shared().sendProductCommentnew(productId:evntId.description, commentId : self.editCommentId, comment: strComment, include_user_id: userId)  { [weak self] (response, error) in
-                
-//                APIRequest.shared().sendComment(post_id: shoId, commentId: self.editCommentId, rss_id: nil, type: 1, comment: strComment, include_user_id: includedUser) { [weak self] (response, error) in
                     guard let self = self else { return }
                     if response != nil && error == nil  {
-                        
                         self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
                         self.txtViewComment.text = ""
                         self.btnSend.isUserInteractionEnabled = false
                         self.btnSend.alpha = 0.5
                         self.txtViewComment.updatePlaceholderFrame(false)
-
-//                        print(response![CJsonData] as? [[String : Any]])
-//                        if let comment = response![CJsonData] as? [String : Any] {
                         if let comment = response![CJsonData] as? [[String : Any]] {
-                            
                             for comments in comment {
-                                
                                 self.commentinfo = comments
                                 if (self.editCommentId ?? 0) == 0{
-//                                    self.arrCommentList.insert(comments, at: 0)
-                                    
                                     self.getCommentListFromServer(showLoader: true)
                                     let comment_data = comments["comments"] as? String
                                     self.commentCount = comment_data?.toInt ?? 0
-//                                    self.commentCount += 1
-                                   
                                     self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-//                                    if let responsInfo = response as? [String : Any]{
-//                                        // To udpate previous screen data....
                                     MIGeneralsAPI.shared().refreshPostRelatedScreens(self.commentinfo, evntId, self, .commentPost)
-                                    
-//                                    }
                                 }else{
-                                    // Edit comment in array
                                     if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
                                         self.arrCommentList.remove(at: index)
                                         self.arrCommentList.insert(comments, at: 0)
@@ -1242,12 +957,10 @@ extension EventDetailImageViewController{
                             if stausLike == "0" {
                                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Comment to Post Event", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post Event", senderName: firstName + lastName)
                             }
-                           
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }
                         self.editCommentId =  nil
 //                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-                      
                         //self.lblNoData.isHidden = self.arrCommentList.count != 0
                     }
                 }
@@ -1257,68 +970,13 @@ extension EventDetailImageViewController{
     }
     
     func btnMoreOptionOfComment(index:Int){
-        
-        
-        
         self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
             guard let _ = self else {return}
             DispatchQueue.main.async {
                 self?.deleteComment(index)
-//                self?.deleteComment(index)
             }
         }
-        
-        
-        
-        
-//        self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
-//
-//            guard let self = self else {return}
-//            let commentInfo = self.arrCommentList[index]
-//            var commentText = commentInfo.valueForString(key: "comment")
-//            DispatchQueue.main.async {
-//                self.viewUserSuggestion.resetData()
-//                self.editCommentId = commentInfo.valueForInt(key: CId)
-//                if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
-//                    for userInfo in arrIncludedUsers {
-//                        let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-//                        commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
-//                        self.viewUserSuggestion.addSelectedUser(user: userInfo)
-//                    }
-//                }
-//                self.txtViewComment.text = commentText
-//                self.viewUserSuggestion.setAttributeStringInTextView(self.txtViewComment)
-//                self.txtViewComment.updatePlaceholderFrame(true)
-//                let constraintRect = CGSize(width: self.txtViewComment.frame.size.width, height: .greatestFiniteMagnitude)
-//                let boundingBox = self.txtViewComment.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.txtViewComment.font!], context: nil)
-//                self.genericTextViewDidChange(self.txtViewComment, height: ceil(boundingBox.height))
-//            }
-//
-//        }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](_) in
-//            guard let _ = self else {return}
-//            DispatchQueue.main.async {
-//                self?.deleteComment(index)
-//            }
-//        }
     }
-    
-//    func deleteComment(_ index:Int){
-//        let commentInfo = self.arrCommentList[index]
-//        let commentId = commentInfo.valueForInt(key: CId) ?? 0
-//        APIRequest.shared().deleteComment(commentId: commentId) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil && error == nil {
-//                DispatchQueue.main.async {
-//                    self.commentCount -= 1
-//                    self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
-//                    self.arrCommentList.remove(at: index)
-//                    self.tblCommentList.reloadData()
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.postID, self, .deleteComment)
-//                }
-//            }
-//        }
-//    }
-    
     func deleteComment(_ index:Int){
         
         let commentInfo = self.arrCommentList[index]
@@ -1335,19 +993,12 @@ extension EventDetailImageViewController{
             if response != nil && error == nil {
                 DispatchQueue.main.async {
                     self.arrCommentList.remove(at: index)
-//                    var productCount = self.product?.totalComments.toInt ?? 0
-//                    productCount -= 1
-//                    self.product?.totalComments = productCount.toString
-//                    //                    self.product?.totalComment -= 1
-//                    self.tblProduct.reloadData()
-//                    ProductHelper<UIViewController>.updateProductData(product: self.product!, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
                     self.commentCount -= 1
                     if self.commentCount >= 0{
                         self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
                     }else {
                         return
                     }
-//                    self.arrCommentList.remove(at: index)
                     self.tblCommentList.reloadData()
                     MIGeneralsAPI.shared().refreshPostRelatedScreens(nil,self.postIDNew?.toInt ?? 0 , self, .deleteComment)
                     
