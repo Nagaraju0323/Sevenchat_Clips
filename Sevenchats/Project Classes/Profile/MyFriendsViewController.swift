@@ -229,7 +229,7 @@ extension MyFriendsViewController{
     
 
     //MARK:- FRIEND STATUS
-       
+
     func getListFriends(_ search : String?, showLoader : Bool) {
         
         guard let user_Id = appDelegate.loginUser?.user_id else {return}

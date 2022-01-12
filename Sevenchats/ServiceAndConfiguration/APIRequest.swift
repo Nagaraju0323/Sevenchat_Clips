@@ -83,6 +83,7 @@ let CAPITagUsersMobileDetails       = "user/details/mobile"
 let CAPITagUserNew                   = "users/"
 let CAPITagUserBlockUnblock         = "user-block-unblock"
 let CAPITagFriendStatus             = "friends/handleRequest"
+let CAPITagGetFriendStatus             = "friendstatus"
 let CAPITagConnectInviteStatus      = "connect-invite-status"
 let CAPITagConnectAll               = "connect-all"
 let CAPITagAddInterest              = "add-interest"
@@ -105,6 +106,7 @@ let CAPITagDeviceToken = "device-token"
 let CAPITagHomeSearch = "search-by-type1"
 let CAPITagHomeSearchUsers = "users"
 let CAPITagSearchUsers = "user/details/name"
+let CAPITagSearchGroups = "search/group"
 let CAPITagHomePosts = "postlisting/home"
 let CAPITagHomePostsNew = "postlisting/"
 let CAPITagUserPost = "user-post"
@@ -1644,6 +1646,19 @@ extension APIRequest {
         })
     }
     
+//MARK:- FRIENDS STATUS
+    func getFriendStatus(dict : Any, completion : @escaping ClosureCompletion) {
+
+        print(dict)
+        _ = Networking.sharedInstance.POSTPARA(apiTag: CAPITagGetFriendStatus, param: dict as? [String : AnyObject], successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            completion(response, nil)
+            
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+        })
+    }
+    
     func getFriendList(page : Int?,request_type : Int?, search : String?,group_id : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
         var  ApiTag = CAPITagFriendsofFrd
@@ -2262,6 +2277,25 @@ extension APIRequest {
     //TODO:
     //TODO: --------------CHAT GROUPS APIS --------------
     //TODO:
+    
+ //MARK:- SEARCH GROUP
+    func groupSearchDetail(Param:[String:Any], completion : @escaping ClosureCompletion) {
+        _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagSearchGroups, param: Param as [String : AnyObject], successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            completion(response, nil)
+        },failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagSearchGroups, error: error)
+            }
+        })
+    }
+    
+    
     
     func getGroupChatList(timestamp : Double?, search : String, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         

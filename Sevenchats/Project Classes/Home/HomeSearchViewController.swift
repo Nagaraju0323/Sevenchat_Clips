@@ -21,9 +21,12 @@ class HomeSearchViewController: ParentViewController {
     
     var isRefreshingUserData = false
     var arrHomeSearch = [[String:Any]]()
+    var arrBlockList = [[String : Any]?]()
+    var arrFriendsList = [String : Any]()
     var timeStamp : Double?
     var isPost : Int?
     var searchType = 0
+    var Friend_status = 0
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
     var param = [String:Any]()
@@ -54,6 +57,7 @@ class HomeSearchViewController: ParentViewController {
             self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
             self.refreshControl.tintColor = ColorAppTheme
             self.tblEvents.pullToRefreshControl = self.refreshControl
+            
         }
         
         tblEvents.estimatedRowHeight = 350
@@ -138,6 +142,29 @@ extension HomeSearchViewController  {
         isPost = nil
         refreshControl.beginRefreshing()
    }
+
+    //MARK:- GET BLOCK LIST
+    func getFriendStatus(_ userInfo : [String : Any], userid : String?) {
+        // if let userid = self.userID{
+        let friendID = userInfo.valueForString(key: "user_id")
+        print(userid)
+        let dict :[String:Any]  =  [
+            "user_id":  appDelegate.loginUser?.user_id ?? "",
+            "friend_user_id": friendID
+            
+        ]
+            APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
+                    self?.refreshControl.endRefreshing()
+            if response != nil && error == nil{
+                if let arrList = response!["data"] as? [[String:Any]]{
+                    self?.arrBlockList = arrList
+                }
+            }
+            
+        })
+    }
+    
+    
     func getSearchDataFromServer(_ searchText : String?, _ typeLook : String?){
     
                 if apiTask?.state == URLSessionTask.State.running {
@@ -164,6 +191,13 @@ extension HomeSearchViewController  {
             self.arrHomeSearch.removeAll()
                     if response != nil && error == nil {
                         if let arrList = response!["users"] as? [[String : Any]] {
+            
+                            for data in arrList{
+                                self.arrFriendsList = data
+                                GCDMainThread.async {
+                                    self.getFriendStatus(data, userid: data.valueForString(key: "user_id"))
+                                }
+                            }
                             // Remove all data here when page number == 1
                             if self.pageNumber == 1 {
                                 self.arrHomeSearch.removeAll()
@@ -259,6 +293,7 @@ extension HomeSearchViewController : UITextFieldDelegate {
         timeStamp = nil
         isPost = nil
         self.getSearchDataFromServer(txtSearch.text, "new")
+        
     }
     
 }
@@ -328,8 +363,60 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
             }
             
+            do{
+//MARK:-FRIEND
+                for data in arrBlockList{
+                    if data?.valueForString(key: "request_status") == "5"{
+                        self.Friend_status = 5
+                    }
+                }
+                
+//MARK:- REQUEST
+                for friend in self.arrBlockList{
+                    let user_id = appDelegate.loginUser?.user_id
+                    if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") == user_id?.description {
+                        self.Friend_status = 1
+                    }
+                    
+                }
+//MARK:- PENDING
+//                            for data in arrPendingList{
+//                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+//                                    self.Friend_status = 0
+//                                }
+                for friend in self.arrBlockList{
+                    let user_id = appDelegate.loginUser?.user_id
+                    if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") != user_id?.description {
+                        self.Friend_status = 0
+                    }
+                    
+                }
+            }
+           // switch self.Friend_status {
             
-            if searchInfo.valueForInt(key: CFriend_status) == 1 {
+            if self.Friend_status == 1 {
+                cell.btnAddFrd.isHidden = false
+                cell.viewAcceptReject.isHidden = true
+                switch self.Friend_status {
+                case 0:
+                    cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
+                case 1:
+                    cell.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+                case 5:
+                    cell.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+                default:
+                    break
+                }
+                
+            }else{
+                cell.btnAddFrd.isHidden = true
+                cell.viewAcceptReject.isHidden = false
+                
+             
+            }
+            
+            
+            /*if searchInfo.valueForInt(key: CFriend_status) == 1 {
                 cell.btnAddFrd.isHidden = false
                 cell.viewAcceptReject.isHidden = true
                 switch searchInfo.valueForInt(key: CFriend_status) {
@@ -348,7 +435,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.viewAcceptReject.isHidden = false
                 
              
-            }
+            }*/
             
             
             cell.btnAddFrd.touchUpInside {[weak self] (sender) in
