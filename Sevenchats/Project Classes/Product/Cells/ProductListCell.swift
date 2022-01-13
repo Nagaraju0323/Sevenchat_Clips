@@ -130,7 +130,7 @@ extension ProductListCell {
     
     @IBAction func onUserPressed(_ sender : UIButton){
 //        appDelegate.moveOnProfileScreen(product.userId.description, self.viewController)
-        appDelegate.moveOnProfileScreenNew(product.userId.description, product.email.description, self.viewController)
+        appDelegate.moveOnProfileScreenNew(product.productUserID.description, product.email.description, self.viewController)
         
     }
     

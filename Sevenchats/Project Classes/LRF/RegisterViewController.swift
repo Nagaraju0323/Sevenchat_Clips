@@ -446,16 +446,16 @@ extension RegisterViewController {
         CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
         CUserDefaults.synchronize()
         
-        let alert = UIAlertController(title: "", message: "Sinup Verfication Code", preferredStyle: .alert)
+        let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Singup With EmailID", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: CSIGNUPEMAILID, style: .default, handler: { (_) in
             self.verifyEmail()
         }))
         
-        alert.addAction(UIAlertAction(title: "Singup With MobileNumber", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: CSIGNUPMOBILENO, style: .default, handler: { (_) in
             self.verifyMobile()
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (_) in
+        alert.addAction(UIAlertAction(title: CBtnCancel, style: .destructive, handler: { (_) in
             print("You've pressed the destructive")
         }))
         self.present(alert, animated: true, completion: nil)
@@ -653,6 +653,7 @@ extension RegisterViewController{
                         objVerify.isEmail_Mobile = true
                         objVerify.dictSingupdatas = self.dictSinup ?? [:]
                         objVerify.userMobile = self.txtMobileNumber.text ?? ""
+                        objVerify.isEmailVerify = true
                         self.navigationController?.pushViewController(objVerify, animated: true)
                     }
 //                }
@@ -675,6 +676,7 @@ extension RegisterViewController{
                     objVerify.dictSingupdatas = self.dictSinup ?? [:]
                     objVerify.userMobile = self.txtMobileNumber.text ?? ""
                     objVerify.passwordStr = self.txtPWD.text ?? ""
+                    objVerify.isEmailVerify = false
                     self.navigationController?.pushViewController(objVerify, animated: true)
                 }
                 

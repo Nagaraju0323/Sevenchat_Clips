@@ -570,7 +570,7 @@ extension PostDeleteDetailViewController{
                 reportVC.isSharedPost = true
                 reportVC.userID = sharePostData.valueForInt(key: CUserId)
                 reportVC.reportID = sharePostData.valueForInt(key: CId)
-                reportVC.reportIDNEW = sharePostData.valueForString(key: "email")
+                reportVC.reportIDNEW = sharePostData.valueForString(key: "user_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

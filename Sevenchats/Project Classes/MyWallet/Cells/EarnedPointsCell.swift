@@ -25,29 +25,47 @@ class EarnedPointsCell: UITableViewCell {
             if rewardDetail.points < 0 || rewardDetail.pointsConfigId == 20 {
                 self.lblPointCount.textColor = UIColor(hexString: "f73d3d") // Red
             } else {
-                self.lblPointCount.textColor = UIColor(hexString: "0bab40") // Green
+                self.lblPointCount.textColor = UIColor(hexString: "06c0a6") // Green
             }
             lblDescription.attributedText = htmlToAttributedString("Credited for " + rewardDetail.title, lblDescription.font)
 //            lblDate.text = rewardDetail.creditedDate
             imgUserProfile.loadImageFromUrl(rewardDetail.friendImage, true)
             
+//            switch rewardDetail.title {
+//            case "Article Add": // Article
+//                self.imgUserProfile.image = UIImage(named: "ic_1_article_post")
+//            case "Gallery Add": // Gallery
+//                self.imgUserProfile.image = UIImage(named: "ic_2_gallery_post")
+//            case "Chirpy Add": // Chirpy
+//                self.imgUserProfile.image = UIImage(named: "ic_3_chipy_post")
+//            case "Shout Add": // Shout
+//                self.imgUserProfile.image = UIImage(named: "ic_4_shout_post")
+//            case "Forum Add": // Forum
+//                self.imgUserProfile.image = UIImage(named: "ic_5_forum_post")
+//            case "Event Add": // Event
+//                self.imgUserProfile.image = UIImage(named: "ic_6_event_post")
+//            case "Poll Add": // Poll
+//                self.imgUserProfile.image = UIImage(named: "ic_10_poll_post")
+//            default :break
+//            }
             switch rewardDetail.title {
             case "Article Add": // Article
-                self.imgUserProfile.image = UIImage(named: "ic_1_article_post")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_copywriting")
             case "Gallery Add": // Gallery
-                self.imgUserProfile.image = UIImage(named: "ic_2_gallery_post")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_gallery")
             case "Chirpy Add": // Chirpy
-                self.imgUserProfile.image = UIImage(named: "ic_3_chipy_post")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_bird")
             case "Shout Add": // Shout
-                self.imgUserProfile.image = UIImage(named: "ic_4_shout_post")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout")
             case "Forum Add": // Forum
-                self.imgUserProfile.image = UIImage(named: "ic_5_forum_post")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_discussion")
             case "Event Add": // Event
-                self.imgUserProfile.image = UIImage(named: "ic_6_event_post")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_events")
             case "Poll Add": // Poll
-                self.imgUserProfile.image = UIImage(named: "ic_10_poll_post")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_poll")
             default :break
             }
+            
         }
     }
     

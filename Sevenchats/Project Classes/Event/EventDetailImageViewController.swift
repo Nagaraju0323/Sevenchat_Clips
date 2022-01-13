@@ -792,7 +792,7 @@ extension EventDetailImageViewController{
                 reportVC.reportType = .reportEvent
                 reportVC.userID = eventInfo.valueForInt(key: CUserId)
                 reportVC.reportID = self.postID
-                reportVC.reportIDNEW = eventInfo.valueForString(key: "email")
+                reportVC.reportIDNEW = eventInfo.valueForString(key: "user_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

@@ -55,7 +55,7 @@
             "register_enter_valid_mobile_no": "ದಯವಿಟ್ಟು ಮಾನ್ಯ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ",
             "register_password_min_val": "ಪಾಸ್ವರ್ಡ್ ಕನಿಷ್ಠ 8 ಅಕ್ಷರ ಆಲ್ಫಾನ್ಯೂಮರಿಕ್ ಆಗಿರಬೇಕು ಮತ್ತು ಕನಿಷ್ಠ ಒಂದು ವಿಶೇಷ ಅಕ್ಷರವನ್ನು ಹೊಂದಿರಬೇಕು",
             "register_new_password_and_confirm_password_mismatch": "ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ ಮತ್ತು ದೃ password ೀಕರಿಸುವ ಪಾಸ್‌ವರ್ಡ್ ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ",
-            "register_confirm_entered_email_and_mobile": "ದಯವಿಟ್ಟು ನಮೂದಿಸಿದ ಇಮೇಲ್ ವಿಳಾಸವನ್ನು ದೃ irm ೀಕರಿಸಿ ಮತ್ತು ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಸರಿಯಾಗಿದೆ:",
+            "register_confirm_entered_email_and_mobile": "ನಮೂದಿಸಿದ ಇಮೇಲ್ ವಿಳಾಸ ಮತ್ತು ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಸರಿಯಾಗಿದೆಯೇ ಎಂಬುದನ್ನು ದಯವಿಟ್ಟು ಖಚಿತಪಡಿಸಿ:",
             "register_social_id_cant_blank": "ಸಾಮಾಜಿಕ ID ಖಾಲಿಯಾಗಿರಲು ಸಾಧ್ಯವಿಲ್ಲ",
             "register_social_exists": "ಸಾಮಾಜಿಕ ID ಅನ್ನು ಈಗಾಗಲೇ ನಮ್ಮೊಂದಿಗೆ ನೋಂದಾಯಿಸಲಾಗಿದೆ",
             "regster_address_cant_blank": "ದಯವಿಟ್ಟು ವಿಳಾಸವನ್ನು ನಮೂದಿಸಿ",
@@ -1335,6 +1335,20 @@
             "your_request_is_on_the_way_We_will_investigate_and_take_an_action_soon":"ನಿಮ್ಮ ವಿನಂತಿಯು ದಾರಿಯಲ್ಲಿದೆ. ನಾವು ಮಾಡುತ್ತೇವೆ ತನಿಖೆ ನಡೆಸಿ ಶೀಘ್ರ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ",
             "successfully_signup":"ಯಶಸ್ವಿಯಾಗಿ ಸೈನ್ ಅಪ್",
             "sidemenu_PSL":"ಸಾರ್ವಜನಿಕ ಸೇವೆ",
+            "ad_free_subscription":"ಜಾಹೀರಾತು ಉಚಿತ ಚಂದಾದಾರಿಕೆ",
+            "admin_correction":"ನಿರ್ವಾಹಕ ತಿದ್ದುಪಡಿ",
+            "sell_posts":"ಪೋಸ್ಟ್‌ಗಳನ್ನು ಮಾರಾಟ ಮಾಡಿ",
+            "usage_time":"ಬಳಕೆಯ ಸಮಯ",
+            "feedback":"ಪ್ರತಿಕ್ರಿಯೆ",
+            "profile":"ಪ್ರೊಫೈಲ್",
+            "select_your_choice":"ನಿಮ್ಮ ಆಯ್ಕೆಯನ್ನು ಆರಿಸಿ",
+            "signup_with_mobile_number":"ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯೊಂದಿಗೆ ಸೈನ್ ಅಪ್ ಮಾಡಿ",
+            "signup_with_email_id":"ಇಮೇಲ್ ಐಡಿಯೊಂದಿಗೆ ಸೈನ್ ಅಪ್ ಮಾಡಿ",
+            "entered_wrong_otp":"ತಪ್ಪಾದ ಒಟಿಪಿಯನ್ನು ನಮೂದಿಸಲಾಗಿದೆ",
+            "the_provided_Mobile_Number_already_registered":"ಒದಗಿಸಿದ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಲಾಗಿದೆ",
+            "the_provided_email_id_already_registered":"ಒದಗಿಸಿದ ಇಮೇಲ್ ಐಡಿ ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಲಾಗಿದೆ"
+            
+            
         }
     },
     "meta": {

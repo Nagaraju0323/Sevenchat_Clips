@@ -158,8 +158,15 @@ var CVerifyEmailVerificationInfoText: String{ return appDelegate.langugaeText?.r
 var CVerifyMobileVerificationInfoText: String{ return appDelegate.langugaeText?.register_mobile_verification_text ?? "We have sent you verification code to verify your mobile number" }
 var CRegisterPlaceholderVerificationCode: String{ return appDelegate.langugaeText?.register_enter_verification_code ?? "Enter verification code" }
 var CForgotBtnResendCode: String{ return appDelegate.langugaeText?.register_resend_code ?? "Resend code" }
-var CForgotAlertVerficationCodeBlank: String{ return appDelegate.langugaeText?.reset_verification_code_cant_blank ?? "Please enter verification code" }
+var CSELECTCHOICE: String{ return appDelegate.langugaeText?.select_your_choice ?? "select your choice " }
+var CWRONGOTP: String{ return appDelegate.langugaeText?.entered_wrong_otp ?? "Entered wrong OTP" }
+var CEXISTMOBILENO: String{ return appDelegate.langugaeText?.the_provided_Mobile_Number_already_registered ?? "The provided Mobile Number already registered" }
+var CEXISTEMAILID: String{ return appDelegate.langugaeText?.the_provided_email_id_already_registered ?? "The provided email id already registered" }
+var CSIGNUPEMAILID: String{ return appDelegate.langugaeText?.signup_with_email_id ?? "signup with email id" }
+var CSIGNUPMOBILENO: String{ return appDelegate.langugaeText?.signup_with_mobile_number ?? "signup with mobile number" }
 var CForgotAlertVerficationCodeIncorrect: String{ return appDelegate.langugaeText?.reset_verification_code_invalid ?? "Please enter valid verification code" }
+
+
 
 //MARK:- Invite&Connect and Interest Screen
 var CSelectInterestTitle: String{ return appDelegate.langugaeText?.add_your_interests_passions ?? "Add your Interests/Passions" }
@@ -185,6 +192,16 @@ var CForgotAlertValidMobileNumber: String{ return appDelegate.langugaeText?.forg
 var CForgotResetText1: String{ return appDelegate.langugaeText?.forgot_password_reset_text1 ?? "Enter your registered" }
 var CForgotResetMobileEmail: String{ return appDelegate.langugaeText?.login_email_or_mobile ?? "Email address/mobile number" }
 var CForgotResetText2: String{ return appDelegate.langugaeText?.forgot_password_reset_text2 ?? "To reset password. Verification code will be sent to your email address/ mobile number" }
+//MARK:- REWARDS
+var CSUBSCRIPTION: String{ return appDelegate.langugaeText?.ad_free_subscription ?? "To reset password. Verification code will be sent to your email address/ mobile number" }
+var CADVERTISEMENTS: String{ return appDelegate.langugaeText?.advertisements ?? "To reset password. Verification code will be sent to your email address/ mobile number" }
+var CADMINCORRECTION: String{ return appDelegate.langugaeText?.admin_correction ?? "To reset password. Verification code will be sent to your email address/ mobile number" }
+var CSELLPOSTS: String{ return appDelegate.langugaeText?.sell_posts ?? "To reset password. Verification code will be sent to your email address/ mobile number" }
+var CUSAGEPOSTS: String{ return appDelegate.langugaeText?.usage_time ?? "To reset password. Verification code will be sent to your email address/ mobile number" }
+var CCONNECTIONS: String{ return appDelegate.langugaeText?.connections ?? "To reset password. Verification code will be sent to your email address/ mobile number" }
+var CPOSTS: String{ return appDelegate.langugaeText?.postsrwds ?? "To reset password. Verification code will be sent to your email address/ mobile number" }
+var CFEEDBACK: String{ return appDelegate.langugaeText?.feedback ?? "To reset password. Verification code will be sent to your email address/ mobile number" }
+
 
 //MARK:- Reset PWD Screen
 var CResetTitle: String{ return appDelegate.langugaeText?.reset_password ?? "Reset password" }

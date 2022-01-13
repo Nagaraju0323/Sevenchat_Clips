@@ -487,6 +487,7 @@ extension OtherUserProfileViewController{
                     self.arrUserDetail.removeAll()
                     self.arrUserDetail.append(frndInfo)
                     MIGeneralsAPI.shared().refreshPostRelatedScreens(frndInfo, frndInfo.valueForInt(key: CUserId), self, .friendRequest)
+                    
                     UIView.performWithoutAnimation {
                         self.tblUser.reloadSections(IndexSet(integer: 0), with: .none)
                     }
@@ -498,6 +499,7 @@ extension OtherUserProfileViewController{
                     DispatchQueue.main.async {
                         if let profoleVC = self.getViewControllerFromNavigation(MyFriendsViewController.self){
                             profoleVC.pullToRefresh()
+                            self.navigationController?.popViewController(animated: true)
                         }
                     }
                 }
@@ -939,7 +941,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                                 self?.navigationController?.popViewController(animated: true)
                             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                         }else{
-                            self?.friendStatusApi(userInfo, frndStatus)
+                            self?.friendStatusApi(userInfo, 1)
                         }
                     }
                     
@@ -1054,7 +1056,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                                 reportVC.reportType = .reportUser
                                 reportVC.reportID = userInfo.valueForInt(key: CUserId)
                                 reportVC.userID = userInfo.valueForInt(key: CUserId)
-                                reportVC.reportIDNEW = userInfo.valueForString(key: "email")
+                                reportVC.reportIDNEW = userInfo.valueForString(key: "user_id")
                                 self?.navigationController?.pushViewController(reportVC, animated: true)
                             }
                         })

@@ -172,7 +172,7 @@ class MIGenericTextFiled: UITextField {
     func clearTextButtonSetup(){
         btnClearText.frame = CGRect(x: 0.0, y: 0, width: 30, height: self.frame.size.height)
         btnClearText.isHidden = true
-        btnClearText.setImage(#imageLiteral(resourceName: "ic_cross"), for: .normal)
+        btnClearText.setImage(#imageLiteral(resourceName: "ic_cancle"), for: .normal)
         btnClearText.setTitleColor(CRGB(r: 131, g: 147, b: 98), for: .normal)
         self.rightViewMode = .always
         self.rightView = btnClearText
@@ -207,7 +207,7 @@ class MIGenericTextFiled: UITextField {
         
         btnClearText.frame = CGRect(x: 0.0, y: 0, width: 30, height: self.frame.size.height)
         btnClearText.isHidden = true
-        btnClearText.setImage(#imageLiteral(resourceName: "ic_cross"), for: .normal)
+        btnClearText.setImage(#imageLiteral(resourceName: "ic_cancle"), for: .normal)
         btnClearText.setTitleColor(CRGB(r: 131, g: 147, b: 98), for: .normal)
         
         let button = UIButton(type: .custom)

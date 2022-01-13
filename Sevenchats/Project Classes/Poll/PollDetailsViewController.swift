@@ -450,7 +450,7 @@ extension PollDetailsViewController{
                 reportVC.reportType = .reportPoll
                 reportVC.userID = pollInformation.valueForInt(key: CUserId)
                 reportVC.reportID = self.pollID
-                reportVC.reportIDNEW = pollInformation.valueForString(key: "email")
+                reportVC.reportIDNEW = pollInformation.valueForString(key: "user_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

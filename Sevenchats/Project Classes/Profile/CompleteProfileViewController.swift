@@ -501,7 +501,7 @@ extension CompleteProfileViewController{
         "user_id":userID.description,
         "country_name":appDelegate.loginUser?.country ?? "",
         "state_name":appDelegate.loginUser?.state ?? "",
-        "education":txtEducation.text ?? "",
+        "education_name":txtEducation.text ?? "",
         "employment_status":emplymenntStatus.description,
         "annual_income" : inCome,
             

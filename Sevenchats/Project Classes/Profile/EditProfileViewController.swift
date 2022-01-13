@@ -111,6 +111,7 @@ class EditProfileViewController: ParentViewController {
         txtFirstName.placeHolder = CRegisterPlaceholderFirstName
         txtLastName.placeHolder = CRegisterPlaceholderLastName
         txtEmail.placeHolder = CRegisterPlaceholderEmail
+        txtEmail.btnClearText.isHidden = true
         txtMobileNumber.placeHolder = CRegisterPlaceholderMobileNumber
         txtDOB.placeHolder = CRegisterPlaceholderDob
         //txtLocation.placeHolder = CRegisterPlaceholderSelectLocation
@@ -139,14 +140,14 @@ class EditProfileViewController: ParentViewController {
     
     func preFilledUserDetail (){
         
-        txtEmail.isEnabled = true
-        txtEmail.isUserInteractionEnabled = true
+        txtEmail.isEnabled = false
+        txtEmail.isUserInteractionEnabled = false
         
         txtMobileNumber.isEnabled = true
         txtMobileNumber.isUserInteractionEnabled = true
         
-        txtCountryCode.isEnabled = true
-        txtCountryCode.isUserInteractionEnabled = true
+        txtCountryCode.isEnabled = false
+        txtCountryCode.isUserInteractionEnabled = false
         
         self.loadCountryCodeList()
         self.loadCountryList()
@@ -606,23 +607,23 @@ extension EditProfileViewController {
             "first_name":txtFirstName.text ?? "",
             "last_name":txtLastName.text ?? "",
             "gender":String(appDelegate.loginUser!.gender),
-            "religion":"",
+            "religion":appDelegate.loginUser?.religion ?? "",
             "city_name":txtCitys.text ?? "",
             "profile_image":appDelegate.loginUser?.profile_img ?? "",
             "cover_image":appDelegate.loginUser?.cover_image ?? "",
             "mobile":txtMobileNumber.text ?? "",
             "email":txtEmail.text ?? "",
             "dob":dobconvert ?? "",
-            "short_biography":"",
-            "relationship":"",
-            "profession":"",
-            "address_line1":"Payyanur",
+            "short_biography":appDelegate.loginUser?.short_biography ?? "",
+            "relationship":appDelegate.loginUser?.relationship ?? "",
+            "profession":appDelegate.loginUser?.profession ?? "",
+            "address_line1":appDelegate.loginUser?.address ?? "",
             "latitude":0,
             "longitude":0,
-            "income": "",
-            "education":"",
+            "income": appDelegate.loginUser?.annual_income ?? "",
+            "education":appDelegate.loginUser?.education_name ?? "",
             "user_type": "1",
-            "employment_status": "",
+            "employment_status": appDelegate.loginUser?.employment_status ?? 0,
             "lang_name": langName,
             "status_id":"1"
             ]
@@ -633,7 +634,6 @@ extension EditProfileViewController {
             "first_name":txtFirstName.text ?? "",
             "last_name":txtLastName.text ?? "",
             "gender":String(appDelegate.loginUser!.gender),
-            "religion":"",
             "city_name":txtCitys.text ?? "",
             "country_name":txtCountrys.text ?? "",
             "state_name":txtStates.text ?? "",
@@ -642,18 +642,21 @@ extension EditProfileViewController {
             "mobile":txtMobileNumber.text ?? "",
             "email":txtEmail.text ?? "",
             "dob":chgtimeFormat,
-            "short_biography":"",
-            "relationship":"",
-            "profession":"",
-            "address_line1":"Payyanur",
+            "short_biography":appDelegate.loginUser?.short_biography ?? "",
+            "relationship":appDelegate.loginUser?.relationship ?? "",
+            "profession":appDelegate.loginUser?.profession ?? "",
+            "address_line1":appDelegate.loginUser?.address ?? "",
             "latitude":0,
             "longitude":0,
             "user_type": "1",
-            "anual_income": "",
-            "education":"",
+            "annual_income": appDelegate.loginUser?.annual_income ?? "",
+            "education_name":appDelegate.loginUser?.education_name ?? "",
+            "employment_status": appDelegate.loginUser?.employment_status ?? 0,
             "lang_name": langName,
             "status_id":"1",
-            "user_id":userID.description
+            "user_id":userID.description,
+            "religion" : appDelegate.loginUser?.religion ?? ""
+           
     ]
         
         

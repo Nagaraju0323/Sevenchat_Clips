@@ -48,6 +48,7 @@ class ReportViewController: ParentViewController {
     
     var selectedIndexPath : IndexPath!
     var reportID : Int?
+    var post_id : String?
     var reportIDNEW : String?
     var userID : Int?
     var groupID : Int?
@@ -210,15 +211,22 @@ extension ReportViewController{
 
         let reportedurl = reportedURL ?? ""
         let reportTxt = textViewReportMessage.text.replace(string: "\n", replacement: " ")
-        let dict :[String:Any]  =  [
+        var dict :[String:Any]  =  [
+           // "element_id":post_id ?? "",
                "image":uploadImgUrl,
                "reason":reportTxt,
                "reported_user":reportIDNEW ?? "",
-               "reporter_user":userEmailID,
+               "reporter_user":userID,
                "category":reportInfo.valueForString(key: kReportType),
                "url":reportedurl as Any,
                "status_id":status_id
         ]
+        
+        if post_id == nil{
+           dict["element_id"] = reportIDNEW ?? ""
+        }else{
+            dict["element_id"] = post_id ?? ""
+        }
        /***********Newcode by  *********
             APIRequest.shared().reportPostUserRSS(para: para, image: imgArticle.image) { (response, error) in
             if response != nil {
@@ -364,8 +372,8 @@ extension ReportViewController{
 //        if (textViewReportMessage.text?.isBlank)! && selectedIndexPath.row == 3 {
             if (textViewReportMessage.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageReportContent, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else if(imgArticle.image == nil) {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CNavAddImage, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//        }else if(imgArticle.image == nil) {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CNavAddImage, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
 
             
