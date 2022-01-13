@@ -6,6 +6,12 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/********************************************************
+* Author :  Chandrika.R                                *
+* Model  : GroupChat Messages                          *
+* options: Group Create                                *
+********************************************************/
+
 import UIKit
 import IQKeyboardManagerSwift
 
@@ -21,7 +27,6 @@ class CreateChatGroupViewController: ParentViewController {
     @IBOutlet var lblUploadImg : UILabel!
     @IBOutlet var lblCreateGroupLink : UILabel!
     @IBOutlet var lblAddParticipant : UILabel!
-
     @IBOutlet var activityLoader : UIActivityIndicatorView!
     @IBOutlet var tblGroupSuggestion : UITableView!
     @IBOutlet var tblParticipants : UITableView!
@@ -35,8 +40,6 @@ class CreateChatGroupViewController: ParentViewController {
     var arrGroupSuggestion = [[String : Any]]()
     var arrSelectedParticipants = [[String : Any]]()
     var arrMembers = [[String : Any]]()
-    
-    
     var groupID : Int?
     var groupID_New : String?
     var currentPage = 1
@@ -218,50 +221,13 @@ extension CreateChatGroupViewController {
         }else{
             self.tblGroupSuggestion.tableFooterView = nil
         }
-        
-//        apiTask = APIRequest.shared().searchGroupForJoin(search: txtGroupTitle.text, page: currentPage, completion: { (response, error) in
-//
-//            self.activityLoader.stopAnimating()
-//            self.refreshControl.endRefreshing()
-//            self.tblGroupSuggestion.tableFooterView = nil
-//
-//            if response != nil {
-//
-//                //...Remove all data here
-//                if self.currentPage == 1{
-//                    self.arrGroupSuggestion.removeAll()
-//                    self.tblGroupSuggestion.reloadData()
-//                }
-//                if let arrData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
-//                    //...Add data
-//                    if arrData.count > 0 {
-//                        self.arrGroupSuggestion = self.arrGroupSuggestion + arrData
-//                        self.tblGroupSuggestion.reloadData()
-//                        self.currentPage += 1
-//                    }
-//                }
-//
-//                GCDMainThread.async(execute: {
-//                    //...set tableview height as per contentView height
-//                    self.cnViewGroupSuggestionHeight.constant = self.tblGroupSuggestion.contentSize.height > 128 ? 128 : self.tblGroupSuggestion.contentSize.height
-//                })
-//            }
-//        })
     }
 }
 
 // MARK:- --------- Api Functions
 extension CreateChatGroupViewController{
-    /********************************************************
-     * Author : Chandrika R                                *
-     * Model  : Group Create Notification                  *
-     * option                                              *
-     ********************************************************/
-    
+
     fileprivate func addEditGroup(_ moveBack : Bool){
-        /*if imgGroupIcon.image == nil{
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageChatGroupImage, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else */
         var apiParaFriends = [String]()
         
         if (txtGroupTitle.text?.isBlank)!{
@@ -269,40 +235,6 @@ extension CreateChatGroupViewController{
         } else if !btnPublic.isSelected && !btnPrivate.isSelected{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageChatGroupType, btnOneTitle: CBtnOk, btnOneTapped: nil)
         } else if editGroup == true{
-          
-//            guard let mobileNo = appDelegate.loginUser?.mobile else {
-//                return
-//            }
-//
-//            guard let groupIconImg = groupImage else {
-//                return
-//            }
-//            MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNo, ImageSTt:groupIconImg)
-//            MInioimageupload.shared().callback = { message in
-//                print("message::::::::::::::\(message)")
-//                self.imgUrl = message
-//            }
-            
-            // call api here....
-//            var apiPara = [String : Any]()
-//            let userIDS = arrSelectedParticipants.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-//            apiPara[CGroupUsersId] = userIDS
-//            apiPara[CGroupTitle] = txtGroupTitle.text
-//            if imgGroupIcon.image != nil {
-//                apiPara[CGroupImage] = imgGroupIcon.image
-//            }
-//            apiPara[CGroupLink] = btnSwitch.isOn ? 1 : 0
-//            apiPara[CGroupType] = btnPublic.isSelected ? 1 : 2
-//
-//            // While editing the group.....
-//            if groupID != nil {
-//                apiPara[CGroupId] = groupID
-//                if let groupInfo = self.iObject as? [String : Any]{
-//                    apiPara[CLink] = groupInfo.valueForString(key: CGroupLink)
-//                }
-//            }
-            
-            
             var apiPara = [String : Any]()
             apiPara[CGroupTitle] = txtGroupTitle.text
             if imgGroupIcon.image != nil {
@@ -372,12 +304,9 @@ extension CreateChatGroupViewController{
             
              var apiPara = [String : Any]()
              var dict = [String:Any]()
- //            let userIDS = arrSelectedParticipants.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
              let userIDS = arrSelectedParticipants.map({$0.valueForString(key: "friend_user_id") }).joined(separator: ",")
              self.userIdNot = userIDS
               apiParaFriends = userIDS.components(separatedBy: ",")
- //            apiParaFriends = userIDS.joined(separator: ", ")
-             
              apiPara[CGroupUsersId] = userIDS
              apiPara[CGroupTitle] = txtGroupTitle.text
              if imgGroupIcon.image != nil {
@@ -393,9 +322,6 @@ extension CreateChatGroupViewController{
                      apiPara[CLink] = groupInfo.valueForString(key: CGroupLink)
                  }
              }
-            
-            
-             
              dict[CGroupTitle] = txtGroupTitle.text
              if imgGroupIcon.image != nil {
                  dict[CGroupImage] = imgName
@@ -526,21 +452,7 @@ extension CreateChatGroupViewController : UITableViewDelegate, UITableViewDataSo
                 cell.btnJoin.touchUpInside { [weak self] (sender) in
                     guard let self = self else { return }
                     self.txtGroupTitle.resignFirstResponder()
-                    
-//                    APIRequest.shared().joinGroup(group_id: groupInfo.valueForInt(key: CGroupId), completion: { (response, error) in
-//                        if response != nil && error == nil {
-//                            if let metaInfo = response![CJsonMeta] as? [String : Any]{
-//                                if let blockHandler = self.block {
-//                                    blockHandler(nil, "refresh screen")
-//                                }
-//                                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaInfo.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: { (alert) in
-//                                    self.navigationController?.popToRootViewController(animated: true)
-//                                })
-//                            }
-//                        }
-//                    })
                 }
-                
                 if indexPath == tblGroupSuggestion.lastIndexPath() {
                     self.loadSearchGroup(showLoader: false)
                 }
@@ -664,9 +576,6 @@ extension CreateChatGroupViewController{
             }
         })
     }
-    
-    
-    
     
     @IBAction func btnGroupTypeCLK(_ sender : UIButton){
 

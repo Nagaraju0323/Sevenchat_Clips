@@ -173,16 +173,6 @@ extension ChatFriendViewController : UITableViewDelegate, UITableViewDataSource{
                     if status == "0"{
                         
                         self.apicallTotopicCreate(userInfo: userInfo)
-                        
-                        //                        if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
-                        //                            userDetailVC.isCreateNewChat = false
-                        //                            userDetailVC.iObject = userInfo
-                        //                            userDetailVC.userID = userInfo.valueForString(key: CUserId).toInt
-                        //                            userDetailVC.friendUserId = userInfo.valueForString(key: "friend_user_id")
-                        //                            userDetailVC.userIDuser = userInfo.valueForString(key:CUserId)
-                        //                            self.navigationController?.pushViewController(userDetailVC, animated: true)
-                        //                        }
-                        
                     }
                     
                 }

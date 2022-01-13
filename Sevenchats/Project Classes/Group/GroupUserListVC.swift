@@ -6,6 +6,12 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+ /********************************************************
+ * Author :  Chandrika.R                                *
+ * Model  : GroupChat Messages                          *
+ * options: Group Messages & Notifications              *
+ ********************************************************/
+
 import Foundation
 import UIKit
 

@@ -6,6 +6,11 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/********************************************************
+* Author :  Chandrika.R                                *
+* Model  : GroupChat Messages                          *
+* options: Add Prticipates                             *
+********************************************************/
 import UIKit
 
 class AddParticipantsViewController: ParentViewController {

@@ -6,6 +6,12 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/********************************************************
+* Author :  Chandrika.R                                *
+* Model  : GroupChat Messages                          *
+* options: Group Info                                  *
+********************************************************/
+
 import UIKit
 
 class GroupInfoViewController: ParentViewController {
@@ -159,27 +165,6 @@ extension GroupInfoViewController : UITableViewDelegate, UITableViewDataSource{
             
             cell.btnAdmin.isHidden = userInfo.valueForInt(key: CUserId) == iObject?.valueForInt(key: "group_admin") ? false : true
             cell.btnDeleteMember.isHidden = Int64(iObject!.valueForString(key: "group_admin")) == appDelegate.loginUser?.user_id ? Int64(userInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id : true
-            
-            
-//            cell.btnDeleteMember.touchUpInside { [weak self] (sender) in
-//                guard let self = self else { return }
-//                self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertGroupRemoveParticipant, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-//                    APIRequest.shared().removeMemberFromGroup(group_id: userInfo.valueForInt(key: CGroupId), group_users_id: userInfo.valueForString(key: CUserId), completion: { (response, error) in
-//                        if response != nil && error == nil{
-//
-//                            // Pulbish to removed user.
-//                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: [userInfo.valueForString(key: CUserId)], status: 2, groupId: userInfo.valueForString(key: CGroupId), isSend: 1)
-//
-//                            self.arrMembers.remove(at: indexPath.row)
-//                            self.tblUser.reloadData()
-//                            self.showHideTableAddParticipants()
-//                            self.lblMemberCount.text = self.arrMembers.count == 1 ? "\(self.arrMembers.count) \(CGroupMember)" : "\(self.arrMembers.count) \(CGroupMembers)"
-//                        }
-//                    })
-//                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-//            }
-            
-            
             cell.btnDeleteMember.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertGroupRemoveParticipant, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
@@ -229,14 +214,12 @@ extension GroupInfoViewController{
             if let index = arrMemberTemp.index(where: {$0[CUserId] as? Int64 == appDelegate.loginUser?.user_id}){
                 arrMemberTemp.remove(at: index)
             }
-            
             if let createGroupVC = CStoryboardGroup.instantiateViewController(withIdentifier: "CreateChatGroupViewController") as? CreateChatGroupViewController {
                 createGroupVC.setBlock { (groupInfo, message) in
                     self.iObject = groupInfo
                     self.setGroupInformation()
                     self.getGroupInformationFromServer(false)
                 }
-                
                 createGroupVC.iObject = groupInfo
                 createGroupVC.arrSelectedParticipants = arrMemberTemp
                 createGroupVC.groupID = groupInfo.valueForString(key: CGroupId).toInt

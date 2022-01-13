@@ -6,6 +6,12 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/********************************************************
+ * Author :  Chandrika.R                                *
+ * Model  : UserchatDetails                             *
+ * options: Chat Friends List                           *
+ ********************************************************/
+
 import UIKit
 
 class ChatListViewController: ParentViewController {
@@ -60,8 +66,6 @@ class ChatListViewController: ParentViewController {
     // MARK:- --------- Initialization
     func Initialization(){
         self.title = CNavChats
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_chat_white"), style: .plain, target: self, action: #selector(btnAddClicked(_:)))
-      //NEW CODE
         btnfrdsList = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_chat_white"), style: .plain, target: self, action: #selector(btnAddClicked(_:)))
         
         
@@ -77,28 +81,7 @@ class ChatListViewController: ParentViewController {
             self?.navigationItem.rightBarButtonItems = []
             self?.navigationItem.rightBarButtonItem = self?.cancelBarItem
         }
-        ///... For Sorting
-//        self.sortBarItem = BlockBarButtonItem(image: UIImage(named: "ic_sort"), style: .plain) { [weak self] (_) in
-//            guard let _ = self else {return}
-//            DispatchQueue.main.async {
-//                if let sortProduct : SortProductVC = CStoryboardProduct.instantiateViewController(withIdentifier: "SortProductVC") as? SortProductVC{
-////                    sortProduct.selectedSortType = self?.filterObj.sort ?? .NewToOld
-//                    sortProduct.onFolderSort = { [weak self] (selectedSort) in
-//                        guard let _ = self else {return}
-//                        let sortMethodStr = String(describing: selectedSort)
-////                        self?.fileVC?.closureShowMessages?(OldToNew)
-//                        self?.fileVC?.txtSearchsort = sortMethodStr
-//                    }
-//                    self?.navigationController?.pushViewController(sortProduct, animated: true)
-//                }
-//            }
-//        }
-//        sortBarItem
         self.navigationItem.rightBarButtonItems = [searchBarItem,btnfrdsList]
-        
-        
-//        self.navigationItem.rightBarButtonItems = [searchBarItem]
-        
         ///... For Cancel Search
         self.cancelBarItem = BlockBarButtonItem(title: CBtnCancel, style: .plain, actionHandler: { [weak self] (item) in
             guard let _ = self else {return}
@@ -181,21 +164,6 @@ extension ChatListViewController {
                 }
             }
         })
-        
-        
-//        apiTask = APIRequest.shared().getUserChatList(timestamp: apiTimeStamp, userID: <#String#>, showLoader: false, completion: { (response, error) in
-//            self.refreshControl.endRefreshing()
-//
-//            if response != nil {
-//                if let arrList = response![CJsonData] as? [[String : Any]] {
-//                    if arrList.count > 0 {
-//                        self.fetchUserListFromLocal()
-//                    }
-//                }
-//            }
-//        })
-//
-        
     }
     
     func fetchUserListFromLocal() {
@@ -285,16 +253,6 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
                     return arrUserList.count
                     
                 }
-        
-        
-        //NEW CODE
-        
-//        if self.arrUserList.isEmpty{
-//            self.tblUserChat.setEmptyMessage(CThereIsNoOnGoingChat)
-//        }else{
-//            self.tblUserChat.restore()
-//        }
-//        return arrUserList.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -304,15 +262,9 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUserListTblCell", for: indexPath) as? ChatUserListTblCell {
-            
-//            let chatUserInfo = arrUserList[indexPath.row]
-//            cell.userChatCellConfiguration(chatUserInfo)
-         
+
             let chatUserInfo = arrUserList[indexPath.row]
-            
             if (isSearch) {
-//                cell.textLabel?.text = filteredTableData[indexPath.row]
-//                return cell
                 let chatUserInfo = arrUsersearchList[indexPath.row]
                 cell.userChatCellConfiguration(chatUserInfo)
                 
@@ -320,11 +272,8 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
             else {
                 let chatUserInfo = arrUserList[indexPath.row]
                 cell.userChatCellConfiguration(chatUserInfo)
-//                return cell
             }
             
-            
-            /**********************************userinfo NEW CODE **************/
             /*
              Redirect to th userprofile
              */
@@ -333,8 +282,6 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
                 if let userDetailVC = CStoryboardProfile.instantiateViewController(withIdentifier: "OtherUserProfileViewController") as? OtherUserProfileViewController {
                     let chatInfo = chatUserInfo.dictionaryWithValues(forKeys: Array((chatUserInfo.entity.attributesByName.keys)))
                     userDetailVC.iObject = chatInfo
-//                        userDetailVC.isCreateNewChat = false
-                   // userDetailVC.userID = Int(chatUserInfo.friend_id)
                     userDetailVC.userIDNew = chatInfo.valueForString(key: "user_id")
                     self?.navigationController?.pushViewController(userDetailVC, animated: true)
                 }
@@ -360,7 +307,6 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
             userDetailVC.iObject = chatInfo
             userDetailVC.ChatListPage = true
             userDetailVC.userID = chatInfo.valueForString(key:"user_id").toInt
-//            userDetailVC.userID = Int(chatUserInfo.friend_id)
             userDetailVC.userIDuser = chatInfo.valueForString(key:CUserId)
             userDetailVC.userEmail = chatInfo.valueForString(key: "email")
             self.navigationController?.pushViewController(userDetailVC, animated: true)
@@ -408,43 +354,38 @@ extension ChatListViewController: UISearchBarDelegate{
            isSearch = false
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        if searchText.count == 0 {
-//            isSearch = false
-//            self.tblUserChat.reloadData()
-//        } else {
-//            arrUsersearchList = arrUserList.filter({ (text) -> Bool in
-//                let tmp: NSString = (text.first_name ?? "") as NSString
-//                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-//                return range.location != NSNotFound
-//            })
-//            if(arrUsersearchList.count == 0){
-//                isSearch = false
-//            } else {
-//                isSearch = true
-//            }
-//            self.tblUserChat.reloadData()
-//        }
-        
-        if searchBar.text == nil || searchBar.text == "" {
+        if searchText.count == 0 {
             isSearch = false
-            view.endEditing(true)
-            tblUserChat.reloadData()
-        }else{
-            isSearch = true
-            arrUsersearchList = arrUserList.filter() {
-                let strGameName = $0.first_name
-                let stringToCompare = searchBar.text!
-                if let range = strGameName?.range(of: stringToCompare) {
-                    isSearch = false
-                    return true
-                } else {
-                    isSearch = true
-                    return false
+            self.tblUserChat.reloadData()
+        } else {
+            arrUsersearchList = arrUserList.filter({ (text) -> Bool in
+                let tmp: NSString = (text.first_name ?? "") as NSString
+                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                return range.location != NSNotFound
+            })
+            if(arrUsersearchList.count == 0) || self.searchBar.text == ""{
+                isSearch = true
+                arrUsersearchList = arrUserList.filter() {
+                    let strGameName = $0.first_name
+                    let stringToCompare = searchBar.text!
+                    if let range = strGameName?.range(of: stringToCompare) {
+                        isSearch = false
+                        return true
+                    } else {
+                        isSearch = true
+                        return false
+                    }
                 }
+                tblUserChat.reloadData()
+            } else {
+                isSearch = true
             }
-            tblUserChat.reloadData()
+            self.tblUserChat.reloadData()
         }
         
+        
+        
+
     }
 
 }

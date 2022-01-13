@@ -5,6 +5,11 @@
 //  Created by mac-0005 on 26/11/18.
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
+/********************************************************
+ * Author :  Chandrika.R                                *
+ * Model  : GroupChat Messages                          *
+ * options: Group Messages & Notifications              *
+ ********************************************************/
 
 import UIKit
 

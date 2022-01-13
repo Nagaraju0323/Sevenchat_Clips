@@ -105,7 +105,7 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
     @IBOutlet weak var txtViewMessage : GenericTextView!{
         didSet{
             self.txtViewMessage.txtDelegate = self
-            self.txtViewMessage.type = "2f"
+            self.txtViewMessage.type = "2"
             
         }
     }

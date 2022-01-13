@@ -6,6 +6,12 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/********************************************************
+ * Author :  Chandrika.R                                *
+ * Model  : GroupChat Messages                          *
+ * options: Group Members Info                          *
+ ********************************************************/
+
 import UIKit
 
 class GroupsViewController: ParentViewController {
@@ -52,11 +58,7 @@ class GroupsViewController: ParentViewController {
         self.title = CSideGroups
         lblNoData.text = CMessageNoGroupList
         
-        //        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_event"), style: .plain, target: self, action: #selector(btnAddClicked(_:)))
-        
-        //NEW CODE
         btnfrdsList = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_event"), style: .plain, target: self, action: #selector(btnAddClicked(_:)))
-        
         
         self.searchBarItem = BlockBarButtonItem(image: UIImage(named: "ic_btn_search"), style: .plain) { [weak self] (_) in
             guard let _ = self else {return}
@@ -181,13 +183,13 @@ extension GroupsViewController {
         self.tblGroups.tableFooterView = nil
         var apiTimeStamp : Double = 0
         
-//        if !isNew {
-//            // When need old data...
-//            if let chatInfo = MIGeneralsAPI.shared().fetchChatGroupObjectFromLocal(isNew: !isNew) {
-//                apiTimeStamp = chatInfo.datetime
-//                self.tblGroups.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-//            }
-//        }
+        //        if !isNew {
+        //            // When need old data...
+        //            if let chatInfo = MIGeneralsAPI.shared().fetchChatGroupObjectFromLocal(isNew: !isNew) {
+        //                apiTimeStamp = chatInfo.datetime
+        //                self.tblGroups.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+        //            }
+        //        }
         apiTask = APIRequest.shared().getGroupChatList(timestamp: apiTimeStamp,search:userid.description , showLoader: true) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil {
@@ -290,9 +292,9 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
                 }
             }
             // LOAD MORE DATA..........
-//            if indexPath == tblGroups.lastIndexPath(){
-//            self.getGroupListFromServer(isNew: false)
-//            }
+            //            if indexPath == tblGroups.lastIndexPath(){
+            //            self.getGroupListFromServer(isNew: false)
+            //            }
             return cell
         }
         
@@ -364,45 +366,34 @@ extension GroupsViewController: UISearchBarDelegate{
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        if searchBar.text == nil || searchBar.text == "" {
+        if searchText.count == 0 {
             isSearch = false
-            view.endEditing(true)
-            tblGroups.reloadData()
-        }else{
-            isSearch = true
-            arrGroupSearchList = arrGroupList.filter() {
-                let strGameName = $0.group_title
-                let stringToCompare = searchBar.text!
-                if let range = strGameName?.range(of: stringToCompare) {
-                    isSearch = false
-                    return true
-                } else {
-                    isSearch = true
-                    return false
+            self.tblGroups.reloadData()
+        } else {
+            arrGroupSearchList = arrGroupList.filter({ (text) -> Bool in
+                let tmp: NSString = (text.group_title ?? "") as NSString
+                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
+                return range.location != NSNotFound
+            })
+            if(arrGroupSearchList.count == 0) || self.searchBar.text == ""{
+                isSearch = true
+                arrGroupSearchList = arrGroupList.filter() {
+                    let strGameName = $0.group_title
+                    let stringToCompare = searchBar.text!
+                    if let range = strGameName?.range(of: stringToCompare) {
+                        isSearch = false
+                        return true
+                    } else {
+                        isSearch = true
+                        return false
+                    }
                 }
+                tblGroups.reloadData()
+            } else {
+                isSearch = true
             }
-            tblGroups.reloadData()
+            self.tblGroups.reloadData()
         }
-//                if searchText.count == 0 {
-//                    isSearch = false
-//                    self.tblGroups.reloadData()
-//                } else {
-//                    arrGroupSearchList = arrGroupList.filter({ (text) -> Bool in
-//                        let tmp: NSString = (text.group_title ?? "") as NSString
-//                        let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-//                        return range.location != NSNotFound
-//                    })
-//                    if(arrGroupSearchList.count == 0) || self.searchBar.text == ""{
-//        //                print("this is calling count and empty")
-//        //                MIToastAlert.shared.showToastAlert(position: .bottom, message: CMessageNoDataFound)
-//        //
-//                        isSearch = false
-//                    } else {
-//
-//                        isSearch = true
-//                    }
-//                    self.tblGroups.reloadData()
-//                }
     }
     
 }
