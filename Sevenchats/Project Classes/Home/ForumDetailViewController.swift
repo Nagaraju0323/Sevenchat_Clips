@@ -539,7 +539,7 @@ extension ForumDetailViewController{
                 reportVC.reportType = .reportForum
                 reportVC.userID = forumInformation.valueForInt(key: CUserId)
                 reportVC.reportID = self.forumID
-                reportVC.reportIDNEW = forumInformation.valueForString(key: "email")
+                reportVC.reportIDNEW = forumInformation.valueForString(key: "user_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

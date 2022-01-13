@@ -223,7 +223,7 @@ extension LikeViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let userInfo = arrLikes[indexPath.row]
        // appDelegate.moveOnProfileScreen(userInfo.valueForString(key: CUserId), self)
-        appDelegate.moveOnProfileScreenNew(userInfo.valueForString(key: CUserId), userInfo.valueForString(key: CUsermailID), self)
+        appDelegate.moveOnProfileScreenNew(userInfo.valueForString(key: "user_id"), userInfo.valueForString(key: CUsermailID), self)
     }
 }
 

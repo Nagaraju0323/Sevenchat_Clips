@@ -799,7 +799,7 @@ extension ImageDetailViewController{
                 reportVC.reportType = .reportGallery
                 reportVC.userID = galleryInfo.valueForInt(key: CUserId)
                 reportVC.reportID = self.imgPostId
-                reportVC.reportIDNEW = galleryInfo.valueForString(key: "email")
+                reportVC.reportIDNEW = galleryInfo.valueForString(key: "user_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

@@ -24,7 +24,7 @@ class RewardCategoryCell: UITableViewCell {
             if rewardSummary.points.toInt ?? 0 < 0 {
                 self.lblPoints.textColor = UIColor(hexString: "f73d3d")
             } else {
-                self.lblPoints.textColor = UIColor(hexString: "0bab40")
+                self.lblPoints.textColor = UIColor(hexString: "06C0A6")
             }
         }
     }

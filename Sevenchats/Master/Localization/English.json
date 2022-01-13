@@ -9,6 +9,15 @@
     "your_request_is_on_the_way_We_will_investigate_and_take_an_action_soon":"Your request is on the way. We will investigate and take an action, soon",
     "successfully_signup":"Successfully Sign Up",
     "sidemenu_PSL":"Public Service",
+    "feedback":"Feedback",
+    "profile":"Profile",
+    "select_your_choice":"Select your choice",
+    "signup_with_mobile_number":"Signup with Mobile Number",
+    "signup_with_email_id":"Signup with Email Id",
+    "entered_wrong_otp":"Entered wrong OTP",
+    "the_provided_Mobile_Number_already_registered":"The provided Mobile Number already registered",
+    "the_provided_email_id_already_registered":"The provided email id already registered"
+    
    
     
 }},"meta":{"status":0,"message":"Success"}}

@@ -3461,7 +3461,7 @@ extension APIRequest {
                 tblUser.profession = dict.valueForString(key: CProfession)
                 tblUser.relationship_id = Int64(dict.valueForString(key: "relationship") ) ?? 0
                 tblUser.relationship = dict.valueForString(key: "relationship")
-                tblUser.religion = dict.valueForString(key: CReligion)
+                tblUser.religion = dict.valueForString(key: "religion")
                 tblUser.short_biography = dict.valueForString(key: CShort_biography)
                 tblUser.total_like = Int64(dict.valueForString(key: "likes")) ?? 0
                 tblUser.user_type = true
@@ -3863,6 +3863,16 @@ extension APIRequest {
             
             let dict = data.valueForJSON(key: "language_text") as? [String : AnyObject]
             let tblLanguageText = TblLanguageText.findOrCreate(dictionary: [CLang_code : (data.valueForString(key: "lang_code"))]) as! TblLanguageText
+            //REGISTER
+            
+            tblLanguageText.select_your_choice = dict?.valueForString(key: "select_your_choice")
+            tblLanguageText.signup_with_email_id = dict?.valueForString(key: "signup_with_email_id")
+            tblLanguageText.signup_with_mobile_number = dict?.valueForString(key: "signup_with_mobile_number")
+            tblLanguageText.the_provided_email_id_already_registered = dict?.valueForString(key: "the_provided_email_id_already_registered")
+            tblLanguageText.the_provided_Mobile_Number_already_registered = dict?.valueForString(key: "the_provided_Mobile_Number_already_registered")
+            tblLanguageText.entered_wrong_otp = dict?.valueForString(key: "entered_wrong_otp")
+            
+            
             //LRF screen Messages...
             tblLanguageText.live_in = dict?.valueForString(key: "live_in")
             tblLanguageText.relationship_status = dict?.valueForString(key: "relationship_status")
@@ -3887,6 +3897,21 @@ extension APIRequest {
             tblLanguageText.login_password_cant_blank = dict?.valueForString(key: "login_password_cant_blank")
             tblLanguageText.login_signin = dict?.valueForString(key: "login_signin")
             tblLanguageText.login_with_social = dict?.valueForString(key: "login_with_social")
+            
+            
+            //REWADS
+            tblLanguageText.ad_free_subscription = dict?.valueForString(key: "ad_free_subscription")
+            tblLanguageText.advertisements = dict?.valueForString(key: "advertisements")
+            tblLanguageText.admin_correction = dict?.valueForString(key: "admin_correction")
+            tblLanguageText.sell_posts = dict?.valueForString(key: "sell_posts")
+            tblLanguageText.usage_time = dict?.valueForString(key: "usage_time")
+            tblLanguageText.connections = dict?.valueForString(key: "connections")
+            tblLanguageText.postsrwds = dict?.valueForString(key: "posts")
+            tblLanguageText.feedback = dict?.valueForString(key: "feedback")
+            
+            
+            
+            
             
             //Forgot Screen Messages...
             tblLanguageText.forgot_email_not_registered_with_us = dict?.valueForString(key: "forgot_email_not_registered_with_us")

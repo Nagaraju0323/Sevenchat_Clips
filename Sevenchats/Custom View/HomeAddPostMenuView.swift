@@ -24,18 +24,18 @@ class HomeAddPostMenuView: UIView {
     @IBOutlet var cntHeightTBl : NSLayoutConstraint!
     @IBOutlet var viewPopUp : UIView!
     
-    let heightOfRow : CGFloat = 45.0;
+    let heightOfRow : CGFloat = 50.0;
     let boardHeight : CGFloat = 5
     var headerFooterHeight : CGFloat = 0;
     
     var arrPostMenu = [
-        [CMenuTitle:CTypeArticle, CMenuImage : #imageLiteral(resourceName: "ic_home_post_articles")],
-        [CMenuTitle:CTypeChirpy, CMenuImage : #imageLiteral(resourceName: "ic_home_post_chirpy")],
-        [CMenuTitle:CTypeEvent, CMenuImage : #imageLiteral(resourceName: "ic_home_post_events")],
-        [CMenuTitle:CTypeForum, CMenuImage : #imageLiteral(resourceName: "ic_home_post_forum")],
-        [CMenuTitle:CGallery, CMenuImage : #imageLiteral(resourceName: "ic_home_post_image")],
-        [CMenuTitle:CTypePoll, CMenuImage : UIImage(named: "ic_home_post_poll")!],
-        [CMenuTitle:CTypeShout, CMenuImage : #imageLiteral(resourceName: "ic_home_post_shouts")]
+        [CMenuTitle:CTypeArticle, CMenuImage : #imageLiteral(resourceName: "ic_shout_copywriting")],
+        [CMenuTitle:CTypeChirpy, CMenuImage : #imageLiteral(resourceName: "ic_shout_bird")],
+        [CMenuTitle:CTypeEvent, CMenuImage : #imageLiteral(resourceName: "ic_shout_events")],
+        [CMenuTitle:CTypeForum, CMenuImage : #imageLiteral(resourceName: "ic_shout_discussion")],
+        [CMenuTitle:CGallery, CMenuImage : #imageLiteral(resourceName: "ic_shout_gallery")],
+        [CMenuTitle:CTypePoll, CMenuImage : #imageLiteral(resourceName: "ic_shout_poll")],
+        [CMenuTitle:CTypeShout, CMenuImage : #imageLiteral(resourceName: "ic_shout")]
     ]
     
     

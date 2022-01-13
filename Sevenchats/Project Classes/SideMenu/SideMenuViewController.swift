@@ -98,6 +98,8 @@ class SideMenuViewController: ParentViewController {
             self.imgUser.layer.cornerRadius = self.imgUser.bounds.height / 2
             self.imgUser.layer.masksToBounds = true
             self.imgUser.clipsToBounds = true
+            self.imgUser.layer.borderWidth = 3
+            self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         }
     }
     

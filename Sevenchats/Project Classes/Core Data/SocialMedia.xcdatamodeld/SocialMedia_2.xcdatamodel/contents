@@ -119,6 +119,7 @@
         <attribute name="accept" optional="YES" attributeType="String"/>
         <attribute name="accept_all_tems_and_conditions" optional="YES" attributeType="String"/>
         <attribute name="account_privacy_msg" optional="YES" attributeType="String"/>
+        <attribute name="ad_free_subscription" optional="YES" attributeType="String"/>
         <attribute name="add_article" optional="YES" attributeType="String"/>
         <attribute name="add_chirpy" optional="YES" attributeType="String"/>
         <attribute name="add_event" optional="YES" attributeType="String"/>
@@ -137,8 +138,10 @@
         <attribute name="add_your_interests_passions" optional="YES" attributeType="String"/>
         <attribute name="add_your_review" optional="YES" attributeType="String"/>
         <attribute name="admin" optional="YES" attributeType="String"/>
+        <attribute name="admin_correction" optional="YES" attributeType="String"/>
         <attribute name="admin_deleted_this_message" optional="YES" attributeType="String"/>
         <attribute name="ads_posted" optional="YES" attributeType="String"/>
+        <attribute name="advertisements" optional="YES" attributeType="String"/>
         <attribute name="ago" optional="YES" attributeType="String"/>
         <attribute name="alert_delete_message" optional="YES" attributeType="String"/>
         <attribute name="alert_delete_message_image" optional="YES" attributeType="String"/>
@@ -219,6 +222,7 @@
         <attribute name="connected_with" optional="YES" attributeType="String"/>
         <attribute name="connecting" optional="YES" attributeType="String"/>
         <attribute name="connecting_to" optional="YES" attributeType="String"/>
+        <attribute name="connections" optional="YES" attributeType="String"/>
         <attribute name="contact_permission_is_required" optional="YES" attributeType="String"/>
         <attribute name="contact_seller" optional="YES" attributeType="String"/>
         <attribute name="contacts" optional="YES" attributeType="String"/>
@@ -272,6 +276,7 @@
         <attribute name="enter_shout_content" optional="YES" attributeType="String"/>
         <attribute name="enter_your_profession" optional="YES" attributeType="String"/>
         <attribute name="entered_verification_code_is_incorrect" optional="YES" attributeType="String"/>
+        <attribute name="entered_wrong_otp" optional="YES" attributeType="String"/>
         <attribute name="event" optional="YES" attributeType="String"/>
         <attribute name="event_age_limit" optional="YES" attributeType="String"/>
         <attribute name="event_calendar" optional="YES" attributeType="String"/>
@@ -290,6 +295,7 @@
         <attribute name="exit_group" optional="YES" attributeType="String"/>
         <attribute name="exporting_file" optional="YES" attributeType="String"/>
         <attribute name="external_share" optional="YES" attributeType="String"/>
+        <attribute name="feedback" optional="YES" attributeType="String"/>
         <attribute name="feedback_category_required" optional="YES" attributeType="String"/>
         <attribute name="feedback_txt" optional="YES" attributeType="String"/>
         <attribute name="file_already_exist_in_folder" optional="YES" attributeType="String"/>
@@ -532,6 +538,7 @@
         <attribute name="posts_invite_group" optional="YES" attributeType="String"/>
         <attribute name="posts_minimum_age" optional="YES" attributeType="String"/>
         <attribute name="posts_select_friends" optional="YES" attributeType="String"/>
+        <attribute name="postsrwds" optional="YES" attributeType="String"/>
         <attribute name="preparing_to_export" optional="YES" attributeType="String"/>
         <attribute name="privacy_policy" optional="YES" attributeType="String"/>
         <attribute name="product_already_reported" optional="YES" attributeType="String"/>
@@ -656,6 +663,8 @@
         <attribute name="select_image" optional="YES" attributeType="String"/>
         <attribute name="select_language" optional="YES" attributeType="String"/>
         <attribute name="select_sub_category" optional="YES" attributeType="String"/>
+        <attribute name="select_your_choice" optional="YES" attributeType="String"/>
+        <attribute name="sell_posts" optional="YES" attributeType="String"/>
         <attribute name="sell_your_stuff_and_shop_anything" optional="YES" attributeType="String"/>
         <attribute name="seller_information" optional="YES" attributeType="String"/>
         <attribute name="settings" optional="YES" attributeType="String"/>
@@ -703,6 +712,8 @@
         <attribute name="sidemenu_PSL" optional="YES" attributeType="String"/>
         <attribute name="sidemenu_quotes" optional="YES" attributeType="String"/>
         <attribute name="sidemenu_settings" optional="YES" attributeType="String"/>
+        <attribute name="signup_with_email_id" optional="YES" attributeType="String"/>
+        <attribute name="signup_with_mobile_number" optional="YES" attributeType="String"/>
         <attribute name="skip" optional="YES" attributeType="String"/>
         <attribute name="sold" optional="YES" attributeType="String"/>
         <attribute name="sorry_your_device_is_not_support_mail" optional="YES" attributeType="String"/>
@@ -723,6 +734,8 @@
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="targeted_content_cant_blank" optional="YES" attributeType="String"/>
         <attribute name="terms_and_conditions" optional="YES" attributeType="String"/>
+        <attribute name="the_provided_email_id_already_registered" optional="YES" attributeType="String"/>
+        <attribute name="the_provided_Mobile_Number_already_registered" optional="YES" attributeType="String"/>
         <attribute name="there_is_no_friend_to_connect" optional="YES" attributeType="String"/>
         <attribute name="there_is_no_ongoing_chat" optional="YES" attributeType="String"/>
         <attribute name="there_is_some_issue_in_uploading_file" optional="YES" attributeType="String"/>
@@ -751,6 +764,7 @@
         <attribute name="upload_media" optional="YES" attributeType="String"/>
         <attribute name="uploading" optional="YES" attributeType="String"/>
         <attribute name="url_not_found" optional="YES" attributeType="String"/>
+        <attribute name="usage_time" optional="YES" attributeType="String"/>
         <attribute name="user" optional="YES" attributeType="String"/>
         <attribute name="user_deleted_this_message" optional="YES" attributeType="String"/>
         <attribute name="user_removed_from_group_successfully" optional="YES" attributeType="String"/>
@@ -974,13 +988,14 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10274"/>
+        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10484"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>
         <element name="TblPoll" positionX="36" positionY="198" width="128" height="74"/>
         <element name="TblProductCategory" positionX="-9" positionY="144" width="128" height="59"/>
         <element name="TblProductSubCategory" positionX="0" positionY="153" width="128" height="59"/>
+        <element name="TblPslCategory" positionX="-9" positionY="144" width="128" height="59"/>
         <element name="TblRelation" positionX="-63" positionY="135" width="128" height="75"/>
         <element name="TblRewardCategory" positionX="-9" positionY="144" width="128" height="89"/>
         <element name="TblRewardPoint" positionX="-9" positionY="144" width="128" height="59"/>
@@ -988,6 +1003,5 @@
         <element name="TblSubIntrest" positionX="-45" positionY="144" width="128" height="74"/>
         <element name="TblTotalFriends" positionX="-27" positionY="162" width="128" height="104"/>
         <element name="TblUser" positionX="-63" positionY="18" width="128" height="1004"/>
-        <element name="TblPslCategory" positionX="-9" positionY="144" width="128" height="59"/>
     </elements>
 </model>
