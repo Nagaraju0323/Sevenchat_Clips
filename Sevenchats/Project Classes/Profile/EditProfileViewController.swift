@@ -622,6 +622,7 @@ extension EditProfileViewController {
             "income": "",
             "education":"",
             "user_type": "1",
+            "employment_status": "",
             "lang_name": langName,
             "status_id":"1"
             ]

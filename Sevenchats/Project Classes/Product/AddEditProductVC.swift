@@ -306,7 +306,7 @@ extension AddEditProductVC {
     
     
     //MARK:-
-    fileprivate func loadCountryList(){
+    /*fileprivate func loadCountryList(){
         
         self.txtCountrys.isEnabled = true
         self.txtStates.isEnabled = false
@@ -322,8 +322,8 @@ extension AddEditProductVC {
             txtCountrys.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (select, index, component) in
                 guard let self = self else { return }
                 let dict = arrCountry![index] as AnyObject
-                let countryID = dict.value(forKey: CCountry_id) as? Int
-                if countryID != self.countryID{
+                let countryName = dict.value(forKey: CCountryName) as? String
+                if countryName != self.countryName {
                     self.countryID = dict.value(forKey: CCountry_id) as? Int
                     self.txtStates.text = ""
                     self.txtCitys.text = ""
@@ -450,10 +450,10 @@ extension AddEditProductVC {
                 self.txtCitys.superview?.isHidden = !self.txtCitys.isEnabled
             })
         }
-    }
+    }*/
     
     
-  /*  fileprivate func loadCountryList(){
+  fileprivate func loadCountryList(){
         
         self.txtCountrys.isEnabled = true
         self.txtStates.isEnabled = false
@@ -592,7 +592,7 @@ extension AddEditProductVC {
                 self.txtCitys.superview?.isHidden = !self.txtCitys.isEnabled
             })
         }
-    }*/
+    }
     
     /// Set the old data while editing product details.
     fileprivate func setProductInfo(){
@@ -619,6 +619,7 @@ extension AddEditProductVC {
         if (self.cityName ?? "") != ""{
             self.loadCityList(isCancelTask: false)
         }
+        
         self.txtLocation.text = _product.address
         
         categoryDropDownView.txtCategory.text = _product.category

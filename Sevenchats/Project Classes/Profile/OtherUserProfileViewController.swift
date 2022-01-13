@@ -65,9 +65,6 @@ class OtherUserProfileViewController: ParentViewController {
     var userIDNew : String?
     var useremail : String?
     var arrUserDetail = [[String : Any]]()
-    var arrFriendList = [[String : Any]?]()
-    var arrRequestList = [[String : Any]?]()
-    var arrPendingList = [[String : Any]?]()
     var arrBlockList = [[String : Any]?]()
     var refreshControl = UIRefreshControl()
     var arrPostList = [[String : Any]?]()
@@ -140,6 +137,7 @@ class OtherUserProfileViewController: ParentViewController {
         
         btnUnblock.setTitle("  \(CBtnUnblockUser)  ", for: .normal)
         // To Get User detail from server.......
+        self.getFriendStatus()
         self.otherUserDetails(isLoader:true)
         
     }
@@ -147,8 +145,9 @@ class OtherUserProfileViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         DispatchQueue.main.async {
-            self.getBlockUserListFromServer(true, search: "")
+           // self.getBlockUserListFromServer(true, search: "")
             self.otherUserDetails(isLoader:true)
+            //self.getFriendStatus()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(loadOtherProfile), name: NSNotification.Name(rawValue: "loadOtherIntrest"), object: nil)
     }
@@ -268,10 +267,7 @@ extension OtherUserProfileViewController{
     //       }
     
     func otherUserDetails(isLoader:Bool) {
-        
-        self.getFriendList("", showLoader: true)
-        self.getRequestList("", showLoader: true)
-        self.getPendingList("", showLoader: true)
+
         
         
         if let email = useremail {
@@ -285,26 +281,11 @@ extension OtherUserProfileViewController{
                 // self.userid = useremail ?? ""
                 postype = "users/id/"
             }
-            //        } else{
-            ////           let userid = userID
-            //            self.userid = userID?.toString ?? "0"
-            //            postype = "users/id/"
+            
         }else{
             self.userid = userIDNew ?? ""
             postype = "users/id/"
         }
-        //        if let emailid == useremail || let _userID == userID {
-        //
-        //            if _userID.description.isValidEmail || emailid.isValidEmail{
-        //                print("is emaild ")
-        //                emailID = emailid
-        //
-        //            }else {
-        //                userID = _userID
-        //            }
-        //        } else {
-        //            return
-        //        }
         
         
         
@@ -322,13 +303,15 @@ extension OtherUserProfileViewController{
                     
                     print(Info as Any)
                     for data in Info {
-                        
+//                        DispatchQueue.main.async {
+//                        self.getFriendStatus(data)
+//                        }
                         let usrID  = (data.valueForString(key: "user_id"))
                         print("userID\(usrID)")
                         self.usersotherID = usrID
-                        self.usersotherID = usrID
+                        
                         for block in self.arrBlockList {
-                            if block?.valueForString(key: "friend_user_id") == data.valueForString(key: "user_id"){
+                            if block?.valueForString(key: "friend_status") == "5"{
                                 print("IS BLOCK")
                                 self.isBlock = true
                             }else{
@@ -336,12 +319,10 @@ extension OtherUserProfileViewController{
                                 self.isBlock = false
                             }
                         }
-                        //                    }
-                        //                }
-                        //                self.lblDeleteUser.isHidden = true
-                        //                if let data = response![CJsonData] as? [String : Any] {
+
                         // let isblock = 0
                         //if data.valueForInt(key: CBlock_unblock_status) == 1 {
+                        
                         if self.isBlock == true {
                             self.tblUser.isHidden = true
                             self.viewBlockContainer.isHidden = false
@@ -373,8 +354,8 @@ extension OtherUserProfileViewController{
                                 self.tblUser.reloadData()
                             }
                             // If user not friend and his profile prefrenece is basic..
-                            for friend in self.arrFriendList{
-                                if data.valueForString(key: "user_id") == friend?.valueForString(key: "friend_user_id"){
+                            for friend in self.arrBlockList{
+                                if friend?.valueForString(key: "request_status") == "5"{
                                     self.Friend_status = 5
                                 }
                                 
@@ -553,87 +534,75 @@ extension OtherUserProfileViewController{
     }
     
     //MARK:- GET BLOCK LIST
-    fileprivate func getBlockUserListFromServer(_ shouldShowLoader : Bool, search : String?){
-        
-        if apiTask?.state == URLSessionTask.State.running {return}
-        apiTask = APIRequest.shared().getBlockUserList(page: pageNumber, search: search, showLoader: shouldShowLoader) { (response, error) in
-            self.refreshControl.endRefreshing()
+    func getFriendStatus() {
+        // if let userid = self.userID{
+//        let friendID = userInfo.valueForString(key: "user_id")
+//        print(userInfo)
+        let dict :[String:Any]  =  [
+            "user_id":  appDelegate.loginUser?.user_id ?? "",
+            "friend_user_id": userIDNew ?? ""
+            
+        ]
+            APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
+                    self?.refreshControl.endRefreshing()
             if response != nil && error == nil{
-                let total = response!["total_block_users"] as? Int
-                if let arrList = response!["block_users"] as? [[String:Any]]{
-                    self.arrBlockList = arrList
-                    // Remove all data here when page number == 1
-                    if self.pageNumber == 1{
-                        //                            self.arrBlockUserList.removeAll()
-                        //                            self.tblBlockList.reloadData()
-                    }
-                    
-                    // Add Data here...
-                    if arrList.count > 0{
-                        //                            self.arrBlockUserList = self.arrBlockUserList + arrList
-                        //                            self.tblBlockList.reloadData()
-                        //                            self.pageNumber += 1
-                    }
+                if let arrList = response!["data"] as? [[String:Any]]{
+                    self?.arrBlockList = arrList
                 }
-                
-                if let metaInfo = response!["total_block_users"] as? Int {
-                }
-                
-                
             }
             
-        }
+        })
     }
     //MARK:- FRIEND STATUS
     
-    func getFriendList(_ search : String?, showLoader : Bool) {
-        
-        guard let user_Id = appDelegate.loginUser?.user_id else {return}
-        
-        apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 0, search: search, group_id : Int(user_Id), showLoader: showLoader, completion: { [weak self] (response, error) in
-            guard let self = self else { return }
-            self.refreshControl.endRefreshing()
-            //  self.tblFriendList.tableFooterView = nil
-            if response != nil{
-                if let arrList = response!["my_friends"] as? [[String:Any]]{
-                    self.arrFriendList = arrList
-                }
-                
-            }
-        })
-        
-    }
-    func getRequestList(_ search : String?, showLoader : Bool) {
-        
-        guard let user_Id = appDelegate.loginUser?.user_id else {return}
-        apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 1, search: search, group_id : Int(user_Id), showLoader: showLoader, completion: { [weak self] (response, error) in
-            guard let self = self else { return }
-            self.refreshControl.endRefreshing()
-            //  self.tblFriendList.tableFooterView = nil
-            if response != nil{
-                if let arrList = response!["frndReq"] as? [[String:Any]]{
-                    self.arrRequestList = arrList
-                }
-                
-            }
-        })
-        
-    }
-    func getPendingList(_ search : String?, showLoader : Bool) {
-        guard let user_Id = appDelegate.loginUser?.user_id else {return}
-        apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 2, search: search, group_id : Int(user_Id), showLoader: showLoader, completion: { [weak self] (response, error) in
-            guard let self = self else { return }
-            self.refreshControl.endRefreshing()
-            //  self.tblFriendList.tableFooterView = nil
-            if response != nil{
-                if let arrList = response!["pendingReq"] as? [[String:Any]]{
-                    self.arrPendingList = arrList
-                }
-                
-            }
-        })
-    }
-    
+//    func getFriendList(_ search : String?, showLoader : Bool) {
+//        
+//        guard let user_Id = appDelegate.loginUser?.user_id else {return}
+//        
+//        apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 0, search: search, group_id : Int(user_Id), showLoader: showLoader, completion: { [weak self] (response, error) in
+//            guard let self = self else { return }
+//            self.refreshControl.endRefreshing()
+//            //  self.tblFriendList.tableFooterView = nil
+//            if response != nil{
+//                if let arrList = response!["my_friends"] as? [[String:Any]]{
+//                    self.arrFriendList = arrList
+//                }
+//                
+//            }
+//        })
+//        
+//    }
+//    func getRequestList(_ search : String?, showLoader : Bool) {
+//        
+//        guard let user_Id = appDelegate.loginUser?.user_id else {return}
+//        apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 1, search: search, group_id : Int(user_Id), showLoader: showLoader, completion: { [weak self] (response, error) in
+//            guard let self = self else { return }
+//            self.refreshControl.endRefreshing()
+//            //  self.tblFriendList.tableFooterView = nil
+//            if response != nil{
+//                if let arrList = response!["frndReq"] as? [[String:Any]]{
+//                    self.arrRequestList = arrList
+//                }
+//                
+//            }
+//        })
+//        
+//    }
+//    func getPendingList(_ search : String?, showLoader : Bool) {
+//        guard let user_Id = appDelegate.loginUser?.user_id else {return}
+//        apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 2, search: search, group_id : Int(user_Id), showLoader: showLoader, completion: { [weak self] (response, error) in
+//            guard let self = self else { return }
+//            self.refreshControl.endRefreshing()
+//            //  self.tblFriendList.tableFooterView = nil
+//            if response != nil{
+//                if let arrList = response!["pendingReq"] as? [[String:Any]]{
+//                    self.arrPendingList = arrList
+//                }
+//                
+//            }
+//        })
+//    }
+//    
     
     //    func getPostListFromServer() {
     //
@@ -817,13 +786,14 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "OtherUserProfileHeaderTblCell", for: indexPath) as? OtherUserProfileHeaderTblCell {
                     //self.title = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
                     
-                    cell.frdList = self.arrFriendList
+                    cell.frdList = self.arrBlockList
                     cell.cellConfigureForUserDetail(userInfo)
                     
                     cell.btnTotalFriend.touchUpInside { [weak self](sender) in
                         if let friendListVC = CStoryboardProfile.instantiateViewController(withIdentifier: "OtherUserFriendListViewController") as? OtherUserFriendListViewController {
                             friendListVC.userID = self?.userID
                             friendListVC.userIDNew = self?.userIDNew
+                           
                             
                             self?.navigationController?.pushViewController(friendListVC, animated: true)
                         }
@@ -837,10 +807,17 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         }
                     }
                     cell.btnMessage.isHidden = true
-                    for data in arrPendingList{
-                        if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+//                    for data in arrPendingList{
+//                        if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+//                            self.Friend_status = 2
+//                        }
+//                    }
+                    for friend in self.arrBlockList{
+                        let user_id = appDelegate.loginUser?.user_id
+                        if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") != user_id?.description {
                             self.Friend_status = 2
                         }
+                        
                     }
                     if self.Friend_status == 2{
                         cell.btnAddFriend.isHidden = true
@@ -850,20 +827,32 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.viewAcceptReject.isHidden = true
                         
                         do{
-                            for data in arrFriendList{
-                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+ //MARK:-FRIEND
+                            for data in arrBlockList{
+                                if data?.valueForString(key: "request_status") == "5"{
                                     self.Friend_status = 5
                                 }
                             }
-                            for data in arrRequestList{
-                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+                            
+   //MARK:- REQUEST
+                            for friend in self.arrBlockList{
+                                let user_id = appDelegate.loginUser?.user_id
+                                if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") == user_id?.description {
                                     self.Friend_status = 1
                                 }
+                                
                             }
-                            for data in arrPendingList{
-                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+ //MARK:- PENDING
+//                            for data in arrPendingList{
+//                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+//                                    self.Friend_status = 0
+//                                }
+                            for friend in self.arrBlockList{
+                                let user_id = appDelegate.loginUser?.user_id
+                                if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") != user_id?.description {
                                     self.Friend_status = 0
                                 }
+                                
                             }
                         }
                         switch self.Friend_status {
@@ -885,20 +874,44 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         var isShowAlert = false
                         var alertMessage = ""
                         
+//                        do{
+//                            for data in self?.arrFriendList ?? [] {
+//                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+//                                    self?.Friend_status = 5
+//                                }
+//                            }
+//                            for data in self?.arrRequestList ?? [] {
+//                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+//                                    self?.Friend_status = 1
+//                                }
+//                            }
+//                            for data in self?.arrPendingList ?? []{
+//                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+//                                    self?.Friend_status = 2
+//                                }
+//                            }
+//                        }
                         do{
-                            for data in self?.arrFriendList ?? [] {
-                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+//MARK:-FRIEND
+                            for data in self?.arrBlockList ?? []{
+                                if data?.valueForString(key: "request_status") == "5"{
                                     self?.Friend_status = 5
                                 }
                             }
-                            for data in self?.arrRequestList ?? [] {
-                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
+//MARK:- REQUEST
+                            for data in self?.arrBlockList ?? []{
+                                let user_id = appDelegate.loginUser?.user_id
+                                if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
                                     self?.Friend_status = 1
                                 }
                             }
-                            for data in self?.arrPendingList ?? []{
-                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
-                                    self?.Friend_status = 2
+
+//MARK:- PENDING
+
+                            for friend in self?.arrBlockList ?? []{
+                                let user_id = appDelegate.loginUser?.user_id
+                                if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") != user_id?.description {
+                                    self?.Friend_status = 0
                                 }
                             }
                         }

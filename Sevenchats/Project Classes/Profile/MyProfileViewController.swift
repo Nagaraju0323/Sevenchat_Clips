@@ -631,6 +631,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
 
                 cell.onTotalFriendAction = { [weak self] in
                     if let frndVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyFriendsViewController") as? MyFriendsViewController {
+                        
                         self?.navigationController?.pushViewController(frndVC, animated: true)
                     }
                 }

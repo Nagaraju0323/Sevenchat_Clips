@@ -587,8 +587,8 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
 //           if userInfo.valueForInt(key: CVisible_to_friend) == 1 {
         print(frdList)
        for data in frdList{
-        if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
-        self.Friend_status = 5
+        if data?.valueForString(key: "request_status") == "5"{
+            self.Friend_status = 5
         }
         }
           // let CFriend_status = 5
