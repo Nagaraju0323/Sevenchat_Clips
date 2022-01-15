@@ -151,7 +151,6 @@ extension HomeSearchViewController  {
         let dict :[String:Any]  =  [
             "user_id":  appDelegate.loginUser?.user_id ?? "",
             "friend_user_id": friendID
-            
         ]
             APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
                     self?.refreshControl.endRefreshing()
@@ -189,13 +188,26 @@ extension HomeSearchViewController  {
                     self.tblEvents.tableFooterView = nil
                     self.refreshControl.endRefreshing()
             self.arrHomeSearch.removeAll()
+         //   GCDMainThread.async {
                     if response != nil && error == nil {
                         if let arrList = response!["users"] as? [[String : Any]] {
-            
                             for data in arrList{
                                 self.arrFriendsList = data
                                 GCDMainThread.async {
-                                    self.getFriendStatus(data, userid: data.valueForString(key: "user_id"))
+                       self.getFriendStatus(data, userid: data.valueForString(key: "user_id"))
+//                                    let dict :[String:Any]  =  [
+//                                        "user_id":  appDelegate.loginUser?.user_id ?? "",
+//                                        "friend_user_id": data.valueForString(key: "user_id")
+//                                        ]
+//                                    APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
+//                                            self?.refreshControl.endRefreshing()
+//                                    if response != nil && error == nil{
+//                                        if let arrList = response!["data"] as? [[String:Any]]{
+//                                            self?.arrBlockList = arrList
+//                                        }
+//                                    }
+//
+//                                })
                                 }
                             }
                             // Remove all data here when page number == 1
@@ -211,6 +223,7 @@ extension HomeSearchViewController  {
                             }
                         }
                     }
+            //}
                 }
         }
     
@@ -387,17 +400,27 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 for friend in self.arrBlockList{
                     let user_id = appDelegate.loginUser?.user_id
                     if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") != user_id?.description {
-                        self.Friend_status = 0
+                        self.Friend_status = 2
                     }
                     
                 }
             }
-           // switch self.Friend_status {
+//MARK:- NOT FRIEND
             
-            if self.Friend_status == 1 {
+            for data in arrBlockList{
+                if data?.valueForString(key: "request_status") == "0" &&  data?.valueForString(key: "friend_status") == "0"{
+                    self.Friend_status = 0
+                }
+            }
+  //MARK:-
+            if self.Friend_status == 2 {
+                cell.btnAddFrd.isHidden = true
+                cell.viewAcceptReject.isHidden = false
+            }else{
                 cell.btnAddFrd.isHidden = false
                 cell.viewAcceptReject.isHidden = true
-                switch self.Friend_status {
+                
+                switch self.Friend_status{
                 case 0:
                     cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
                 case 1:
@@ -407,12 +430,6 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 default:
                     break
                 }
-                
-            }else{
-                cell.btnAddFrd.isHidden = true
-                cell.viewAcceptReject.isHidden = false
-                
-             
             }
             
             
@@ -444,7 +461,8 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
 //                var isShowAlert = false
                 var isShowAlert = true
                 var alertMessage = ""
-                switch searchInfo.valueForInt(key: CFriend_status) {
+              //  switch searchInfo.valueForInt(key: CFriend_status) {
+                switch self.Friend_status {
                 case 0:
                     frndStatus = CFriendRequestSent
                 case 1:
