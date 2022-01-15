@@ -62,6 +62,7 @@
 		1864F6A425F607D2001C69A5 /* MyStoriesCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864F6A225F607D2001C69A5 /* MyStoriesCollCell.swift */; };
 		1864F6A525F607D2001C69A5 /* MyStoriesCollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1864F6A325F607D2001C69A5 /* MyStoriesCollCell.xib */; };
 		1864F6A925F61B95001C69A5 /* HomeStoriesTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864F6A825F61B95001C69A5 /* HomeStoriesTblCell.swift */; };
+		1876AD9B2792F3CA00A24352 /* MDLSearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1876AD9A2792F3CA00A24352 /* MDLSearchList.swift */; };
 		1878AE5C261190B1004CE9A6 /* SwipeReplayMsgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1878AE5B261190B1004CE9A6 /* SwipeReplayMsgView.swift */; };
 		1878AE5F261190C4004CE9A6 /* SwipeReplayMsgView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1878AE5E261190C4004CE9A6 /* SwipeReplayMsgView.xib */; };
 		1893E99F2785B7B8000CC072 /* MDLPslCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893E99E2785B7B8000CC072 /* MDLPslCategory.swift */; };
@@ -680,6 +681,7 @@
 		1864F6A225F607D2001C69A5 /* MyStoriesCollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStoriesCollCell.swift; sourceTree = "<group>"; };
 		1864F6A325F607D2001C69A5 /* MyStoriesCollCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyStoriesCollCell.xib; sourceTree = "<group>"; };
 		1864F6A825F61B95001C69A5 /* HomeStoriesTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeStoriesTblCell.swift; sourceTree = "<group>"; };
+		1876AD9A2792F3CA00A24352 /* MDLSearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLSearchList.swift; sourceTree = "<group>"; };
 		1878AE5B261190B1004CE9A6 /* SwipeReplayMsgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeReplayMsgView.swift; sourceTree = "<group>"; };
 		1878AE5E261190C4004CE9A6 /* SwipeReplayMsgView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwipeReplayMsgView.xib; sourceTree = "<group>"; };
 		1893E99E2785B7B8000CC072 /* MDLPslCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MDLPslCategory.swift; sourceTree = "<group>"; };
@@ -2353,6 +2355,7 @@
 			isa = PBXGroup;
 			children = (
 				62E1A582240E2EC4001BD7A8 /* MDLProductDetail.swift */,
+				1876AD9A2792F3CA00A24352 /* MDLSearchList.swift */,
 				1893E99E2785B7B8000CC072 /* MDLPslCategory.swift */,
 				18A7A6A6272BBFF700C43A1F /* StoredLstMsg.swift */,
 				62E1A583240E2EC4001BD7A8 /* FailureModel.swift */,
@@ -2889,6 +2892,7 @@
 				62E1A6FE240E2EC5001BD7A8 /* HomeSharedGalleryCell.swift in Sources */,
 				62E1A61F240E2EC5001BD7A8 /* NotificationViewController.swift in Sources */,
 				62E1A60B240E2EC5001BD7A8 /* CreateFileTableCell.swift in Sources */,
+				1876AD9B2792F3CA00A24352 /* MDLSearchList.swift in Sources */,
 				62E1A7AF240E2EC5001BD7A8 /* UserSuggestionView.swift in Sources */,
 				62E1A5E6240E2EC5001BD7A8 /* ForgotPWDViewController.swift in Sources */,
 				62E1A663240E2EC5001BD7A8 /* FavWebSideViewController.swift in Sources */,

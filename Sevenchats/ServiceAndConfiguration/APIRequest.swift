@@ -267,6 +267,8 @@ let CAPITrewardAdd = "rewards/add"
 let CAPITagRewards = "rewards"
 let CAPITagRewardUser = "rewards/users/"
 let CAPITagPSLCategoryNew          = "categories/type/PSL"
+let CProductMySearch = "search/product"
+let CProductListSearch = "search/productpost"
 
 let CJsonResponse           = "response"
 let CJsonMessage            = "message"
@@ -3075,6 +3077,47 @@ extension APIRequest {
             }
         })
     }
+    
+    
+    
+    func getmyProductListSearch(param : [String : Any], showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
+        return Networking.sharedInstance.GETNEWPR(apiTag: CProductMySearch , param: param as [String : AnyObject], successBlock: { (task, reponse) in
+            MILoader.shared.hideLoader()
+            completion(reponse, nil)
+            
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
+            }
+        })
+    }
+    
+    
+    func getProductListSearch(param : [String : Any],showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
+        
+//        if showLoader{
+//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//        }
+        return Networking.sharedInstance.GETNEWPR(apiTag: CProductListSearch, param: param as [String : AnyObject], successBlock: { (task, reponse) in
+            MILoader.shared.hideLoader()
+            completion(reponse, nil)
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagDeleteFolder, error: error)
+            }
+        })
+    }
+    
     
     func deleteProduct(productID : Int, showLoader : Bool, completion: @escaping ClosureCompletion ){
         

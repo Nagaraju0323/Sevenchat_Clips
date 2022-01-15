@@ -23,6 +23,9 @@ class HomeSearchViewController: ParentViewController {
     var arrHomeSearch = [[String:Any]]()
     var arrBlockList = [[String : Any]?]()
     var arrFriendsList = [String : Any]()
+    var arrFriendsTemp = [[String : Any]]()
+    var arrSearchList : [MDLSearchList] = []
+    var arrSearchLists : [MDLSearchList] = []
     var timeStamp : Double?
     var isPost : Int?
     var searchType = 0
@@ -30,6 +33,7 @@ class HomeSearchViewController: ParentViewController {
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
     var param = [String:Any]()
+    
     var pageNumber = 1
     
     override func viewDidLoad() {
@@ -144,28 +148,49 @@ extension HomeSearchViewController  {
    }
 
     //MARK:- GET BLOCK LIST
-    func getFriendStatus(_ userInfo : [String : Any], userid : String?) {
+    func getFriendStatus(_ userInfo : [[String : Any]]){
         // if let userid = self.userID{
-        let friendID = userInfo.valueForString(key: "user_id")
-        print(userid)
+        var completedCalls = 0
+        self.arrSearchList.removeAll()
+        let myGroups = DispatchGroup()
+        for userinfo in userInfo{
+        let friendID = userinfo.valueForString(key: "user_id")
         let dict :[String:Any]  =  [
             "user_id":  appDelegate.loginUser?.user_id ?? "",
             "friend_user_id": friendID
-        ]
+            ]
+            myGroups.enter()
             APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
-                    self?.refreshControl.endRefreshing()
+            self?.refreshControl.endRefreshing()
             if response != nil && error == nil{
+                GCDMainThread.async {
                 if let arrList = response!["data"] as? [[String:Any]]{
-                    self?.arrBlockList = arrList
+                    for arrLst in arrList{
+                    completedCalls += 1
+                    self?.arrSearchList.append(MDLSearchList(fromDictionary: arrLst))
+                    }
+                    
+                    if completedCalls == userInfo.count {
+//                        DispatchQueue.main.async {
+                                            self?.tblEvents.reloadData()
+//                                        }
+                    }
+//                    self?.tblEvents.reloadData()
+                  }
+                   
                 }
+
             }
-            
-        })
+                myGroups.leave()
+          })
+        }
     }
     
     
     func getSearchDataFromServer(_ searchText : String?, _ typeLook : String?){
     
+              let myGroup = DispatchGroup()
+        
                 if apiTask?.state == URLSessionTask.State.running {
                     return
                 }
@@ -189,41 +214,31 @@ extension HomeSearchViewController  {
                     self.refreshControl.endRefreshing()
             self.arrHomeSearch.removeAll()
          //   GCDMainThread.async {
+  
                     if response != nil && error == nil {
                         if let arrList = response!["users"] as? [[String : Any]] {
-                            for data in arrList{
-                                self.arrFriendsList = data
+                            myGroup.enter()
+                            self.arrFriendsTemp = arrList
                                 GCDMainThread.async {
-                       self.getFriendStatus(data, userid: data.valueForString(key: "user_id"))
-//                                    let dict :[String:Any]  =  [
-//                                        "user_id":  appDelegate.loginUser?.user_id ?? "",
-//                                        "friend_user_id": data.valueForString(key: "user_id")
-//                                        ]
-//                                    APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
-//                                            self?.refreshControl.endRefreshing()
-//                                    if response != nil && error == nil{
-//                                        if let arrList = response!["data"] as? [[String:Any]]{
-//                                            self?.arrBlockList = arrList
-//                                        }
-//                                    }
-//
-//                                })
+                                 self.getFriendStatus(arrList)
+                                    myGroup.leave()
+                                    
+                              }
+                            myGroup.notify(queue: DispatchQueue.main, execute: {
+                                if self.pageNumber == 1 {
+                                    self.arrHomeSearch.removeAll()
+                                    self.tblEvents.reloadData()
                                 }
-                            }
-                            // Remove all data here when page number == 1
-                            if self.pageNumber == 1 {
-                                self.arrHomeSearch.removeAll()
-                                self.tblEvents.reloadData()
-                            }
-                            // Add Data here...
-                            if arrList.count > 0 {
-                                self.arrHomeSearch = self.arrHomeSearch + arrList
-                                self.tblEvents.reloadData()
-                                self.pageNumber += 1
-                            }
+                                // Add Data here...
+                                if arrList.count > 0 {
+                                    self.arrHomeSearch = self.arrHomeSearch + arrList
+                                    self.tblEvents.reloadData()
+                                    self.pageNumber += 1
+                                }
+                               })
+
                         }
                     }
-            //}
                 }
         }
     
@@ -377,41 +392,86 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
             do{
-//MARK:-FRIEND
-                for data in arrBlockList{
-                    if data?.valueForString(key: "request_status") == "5"{
+////MARK:-FRIEND
+//
+
+                for data in arrSearchList{
+                    if data.request_status == "5"{
                         self.Friend_status = 5
                     }
                 }
-                
+
 //MARK:- REQUEST
-                for friend in self.arrBlockList{
+                for friend in self.arrSearchList{
+                    print("friend.request_status\(friend.request_status)")
                     let user_id = appDelegate.loginUser?.user_id
-                    if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") == user_id?.description {
+                    if friend.request_status == "1" && friend.senders_id == user_id?.description {
                         self.Friend_status = 1
                     }
-                    
+
                 }
 //MARK:- PENDING
 //                            for data in arrPendingList{
 //                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
 //                                    self.Friend_status = 0
 //                                }
-                for friend in self.arrBlockList{
+                for friend in self.arrSearchList{
                     let user_id = appDelegate.loginUser?.user_id
-                    if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") != user_id?.description {
+                    if friend.request_status == "1" && friend.senders_id != user_id?.description {
                         self.Friend_status = 2
                     }
-                    
+
                 }
             }
-//MARK:- NOT FRIEND
+
             
-            for data in arrBlockList{
-                if data?.valueForString(key: "request_status") == "0" &&  data?.valueForString(key: "friend_status") == "0"{
+            for data in arrSearchList{
+                if data.request_status == "0" &&  data.friend_status == "0"{
                     self.Friend_status = 0
                 }
             }
+            
+            let user_id = appDelegate.loginUser?.user_id
+//            for data in arrSearchList{
+//                print("arrFriendsModel\(String(describing: data.request_status))")
+//
+//                if data.request_status == "5"{
+//                    self.Friend_status = 5
+//                }else if data.request_status == "1" && data.senders_id == user_id?.description {
+//                    self.Friend_status = 1
+//                }else if data.request_status == "1" && data.senders_id != user_id?.description {
+//                    self.Friend_status = 2
+//                }else if data.request_status == "0" &&  data.friend_status == "0"{
+//                    self.Friend_status = 0
+//                }
+////                if self.Friend_status == 2 {
+////                    cell.btnAddFrd.isHidden = true
+////                    cell.viewAcceptReject.isHidden = false
+////                }else{
+////                    cell.btnAddFrd.isHidden = false
+////                    cell.viewAcceptReject.isHidden = true
+////
+////                    switch self.Friend_status{
+////                    case 0:
+////                        cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
+////                    case 1:
+////                        cell.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+////                    case 5:
+////                        cell.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+////                    default:
+////                        break
+////                    }
+////                }
+//            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
   //MARK:-
             if self.Friend_status == 2 {
                 cell.btnAddFrd.isHidden = true
@@ -419,7 +479,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             }else{
                 cell.btnAddFrd.isHidden = false
                 cell.viewAcceptReject.isHidden = true
-                
+
                 switch self.Friend_status{
                 case 0:
                     cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
@@ -1984,3 +2044,6 @@ extension HomeSearchViewController {
     }
     
 }
+
+
+

@@ -205,6 +205,68 @@ extension AllProductListVC {
         })
     }
     
+    func allProductListSearch(isLoader:Bool = true,SearchStr:String) {
+        
+        if apiTask?.state == URLSessionTask.State.running {
+            return
+        }
+        
+        if isFromSearch && filterObj.search.count <= 2 {
+            self.noProductsFound = ""
+            self.refreshControl.endRefreshing()
+            self.pageNumber = 1
+            self.isLoadMoreCompleted = false
+            self.allProduct.removeAll()
+            self.tblProductList.reloadData()
+            return
+        }
+        var para = [String : Any]()
+        guard let userid = appDelegate.loginUser?.user_id else {return}
+        para["title"] = SearchStr
+        para["user_id"] = userid.description
+        
+        apiTask = APIRequest.shared().getProductListSearch(param:para,showLoader: isLoader, completion:{ [weak self](response, error) in
+            guard let _ = self else { return }
+            self?.refreshControl.endRefreshing()
+            if response != nil {
+                GCDMainThread.async {
+//                    let arrData = response![CData] as? [[String : Any]] ?? []
+                    let arrDatass = response!["products"] as? [String : Any] ?? [:]
+                    let arrData = arrDatass["products"] as? [[String : Any]] ?? []
+                    
+                    self?.isLoadMoreCompleted = (arrData.count == 0)
+                    if self?.pageNumber == 1{
+                        self?.allProduct.removeAll()
+                    }
+                    if arrData.count == 0{
+                        self?.noProductsFound = CNoProductFound
+                        self?.isLoadMoreCompleted = true
+                    }else{
+                        self?.pageNumber += 1
+                    }
+                    print(arrData)
+                    for obj in arrData{
+                        self?.allProduct.append(MDLProduct(fromDictionary: obj))
+                    }
+                    if self?.tblProductList != nil{
+                        self?.tblProductList.reloadData()
+                        if self?.pageNumber == 2 && !(self?.isLoadMoreCompleted ?? false){
+                            let indexPath = IndexPath(row: 0,section: 0)
+                            self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                        }
+                    }
+                }
+            }else{
+                self?.noProductsFound = CNoProductFound
+                MILoader.shared.hideLoader()
+                self?.tblProductList.reloadData()
+            }
+        })
+    }
+    
+    
+    
+    
     func allProductListFilter(isLoader:Bool = true,category:String) {
         
         if apiTask?.state == URLSessionTask.State.running {

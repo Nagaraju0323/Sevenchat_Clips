@@ -135,14 +135,14 @@ extension ProductSearchVC {
         sementView.addSubItems(arrViews: [allProduct,myProduct])
         sementView.selectedSegmentIndex = 0
         
-        let arrOption = [CTypeAll,CAvailable,CSold] //(0=>all,1=>available,2=>sold)
-        txtSearchDropdown.setPickerData(arrPickerData: arrOption, selectedPickerDataHandler: { [weak self](string, row, index) in
-            guard let _ = self else {return}
-            if self?.searchStatus != row{
-                self?.searchStatus = row
-            }
-            }, defaultPlaceholder: "")
-        
+//        let arrOption = [CTypeAll,CAvailable,CSold] //(0=>all,1=>available,2=>sold)
+//        txtSearchDropdown.setPickerData(arrPickerData: arrOption, selectedPickerDataHandler: { [weak self](string, row, index) in
+//            guard let _ = self else {return}
+//            if self?.searchStatus != row{
+//                self?.searchStatus = row
+//            }
+//            }, defaultPlaceholder: "")
+//
         txtSearchDropdown.text = CTypeAll
     }
 }
@@ -213,7 +213,7 @@ extension ProductSearchVC : PageViewControllerDelegate {
                 self.allProductVC?.isLoadMoreCompleted = false
                 self.allProductVC?.pageNumber = 1
                 self.allProductVC?.apiTask?.cancel()
-                self.allProductVC?.allProductList(isLoader: true)
+                self.allProductVC?.allProductListSearch(isLoader:true,SearchStr: self.filterObj.search)
             }
             
         }else {
@@ -230,7 +230,7 @@ extension ProductSearchVC : PageViewControllerDelegate {
                 self.myProductVC?.isLoadMoreCompleted = false
                 self.myProductVC?.pageNumber = 1
                 self.myProductVC?.apiTask?.cancel()
-                self.myProductVC?.myProductList(isLoader: true)
+                self.myProductVC?.myProductListSearch(isLoader:true,SearchStr: self.filterObj.search)
             }
         }
     }

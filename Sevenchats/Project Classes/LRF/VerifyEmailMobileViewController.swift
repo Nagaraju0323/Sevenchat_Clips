@@ -223,7 +223,7 @@ extension VerifyEmailMobileViewController{
         self.resignKeyboard()
         
         if (txtVerificationCode.text?.isBlank)!{
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CForgotAlertVerficationCodeBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
+            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CForgotAlertVerficationCodeIncorrect, btnOneTitle: CBtnOk, btnOneTapped: nil)
         } else if (txtVerificationCode.text?.count)! < 6{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CForgotAlertVerficationCodeIncorrect, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else {
