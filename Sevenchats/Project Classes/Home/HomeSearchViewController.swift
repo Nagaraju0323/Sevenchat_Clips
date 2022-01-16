@@ -109,9 +109,9 @@ class HomeSearchViewController: ParentViewController {
             
             self.timeStamp = nil
             self.isPost = nil
-            }, defaultPlaceholder: "")
+        }, defaultPlaceholder: "")
         txtSearchDropdown.text = CTypeUser
-       
+        
     }
     
     func updateUIAccordingToLanguage() {
@@ -145,115 +145,63 @@ extension HomeSearchViewController  {
         timeStamp = nil
         isPost = nil
         refreshControl.beginRefreshing()
-   }
-
-    //MARK:- GET BLOCK LIST
-    func getFriendStatus(_ userInfo : [[String : Any]]){
-        // if let userid = self.userID{
-        var completedCalls = 0
-        self.arrSearchList.removeAll()
-        let myGroups = DispatchGroup()
-        for userinfo in userInfo{
-        let friendID = userinfo.valueForString(key: "user_id")
-        let dict :[String:Any]  =  [
-            "user_id":  appDelegate.loginUser?.user_id ?? "",
-            "friend_user_id": friendID
-            ]
-            myGroups.enter()
-            APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
-            self?.refreshControl.endRefreshing()
-            if response != nil && error == nil{
-                GCDMainThread.async {
-                if let arrList = response!["data"] as? [[String:Any]]{
-                    for arrLst in arrList{
-                    completedCalls += 1
-                    self?.arrSearchList.append(MDLSearchList(fromDictionary: arrLst))
-                    }
-                    
-                    if completedCalls == userInfo.count {
-//                        DispatchQueue.main.async {
-                                            self?.tblEvents.reloadData()
-//                                        }
-                    }
-//                    self?.tblEvents.reloadData()
-                  }
-                   
-                }
-
-            }
-                myGroups.leave()
-          })
-        }
     }
     
-    
     func getSearchDataFromServer(_ searchText : String?, _ typeLook : String?){
-    
-              let myGroup = DispatchGroup()
         
-                if apiTask?.state == URLSessionTask.State.running {
-                    return
-                }
-    
-                // Add load more indicator here...
-                if self.pageNumber > 2 {
-                    self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-                }else{
-                    self.tblEvents.tableFooterView = nil
-                }
-            
+        let myGroup = DispatchGroup()
+        
+        if apiTask?.state == URLSessionTask.State.running {
+            return
+        }
+        
+        // Add load more indicator here...
+        if self.pageNumber > 2 {
+            self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+        }else{
+            self.tblEvents.tableFooterView = nil
+        }
+        
         let serchTextStr = searchText?.firstCharacterUpperCase()
-            param[CName] = serchTextStr
-            param[CPage] = "1"
-            param[CLimitS] = CLimitTW
-            
-    
+        param[CName] = serchTextStr
+        param[CPage] = "1"
+        param[CLimitS] = CLimitTW
         APIRequest.shared().userSearchDetail(Param: param){ [weak self] (response, error) in
-                    guard let self = self else { return }
-                    self.tblEvents.tableFooterView = nil
-                    self.refreshControl.endRefreshing()
+            guard let self = self else { return }
+            self.tblEvents.tableFooterView = nil
+            self.refreshControl.endRefreshing()
             self.arrHomeSearch.removeAll()
-         //   GCDMainThread.async {
-  
-                    if response != nil && error == nil {
-                        if let arrList = response!["users"] as? [[String : Any]] {
-                            myGroup.enter()
-                            self.arrFriendsTemp = arrList
-                                GCDMainThread.async {
-                                 self.getFriendStatus(arrList)
-                                    myGroup.leave()
-                                    
-                              }
-                            myGroup.notify(queue: DispatchQueue.main, execute: {
-                                if self.pageNumber == 1 {
-                                    self.arrHomeSearch.removeAll()
-                                    self.tblEvents.reloadData()
-                                }
-                                // Add Data here...
-                                if arrList.count > 0 {
-                                    self.arrHomeSearch = self.arrHomeSearch + arrList
-                                    self.tblEvents.reloadData()
-                                    self.pageNumber += 1
-                                }
-                               })
-
+            GCDMainThread.async {
+                if response != nil && error == nil {
+                    if let arrList = response!["users"] as? [[String : Any]] {
+                        if self.pageNumber == 1 {
+                            self.arrHomeSearch.removeAll()
+                            self.tblEvents.reloadData()
+                        }
+                        // Add Data here...
+                        if arrList.count > 0 {
+                            self.arrHomeSearch = self.arrHomeSearch + arrList
+                            self.tblEvents.reloadData()
+                            self.pageNumber += 1
                         }
                     }
                 }
+            }
         }
+    }
     
     func deletePost(_ postId : Int, _ index : Int){
         weak var weakSelf = self
-//        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-//            APIRequest.shared().deletePost(postID: postId, completion: { (response, error) in
-//                if response != nil && error == nil{
-//                    weakSelf?.arrHomeSearch.remove(at: index)
-//                    UIView.performWithoutAnimation {
-//                        weakSelf?.tblEvents.reloadData()
-//                    }
-//                }
-//            })
-//        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+        //        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
+        //            APIRequest.shared().deletePost(postID: postId, completion: { (response, error) in
+        //                if response != nil && error == nil{
+        //                    weakSelf?.arrHomeSearch.remove(at: index)
+        //                    UIView.performWithoutAnimation {
+        //                        weakSelf?.tblEvents.reloadData()
+        //                    }
+        //                }
+        //            })
+        //        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
     }
     
     // Update Friend status Friend/Unfriend/Cancel Request
@@ -277,7 +225,7 @@ extension HomeSearchViewController  {
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
                         MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "Request sent successfully", MsgType: "FRIEND_REQUEST", MsgSent:"Request sent successfully", showDisplayContent: "User sendt Request successfully", senderName: firstName + lastName)
-                        }
+                    }
                 }
                 
                 var frndInfo = userInfo
@@ -290,7 +238,6 @@ extension HomeSearchViewController  {
                             self.arrHomeSearch.insert(frndInfo, at: index)
                             self.isRefreshingUserData = true
                             self.tblEvents.reloadData()
-                            //self.tblEvents.reloadRows(at: [IndexPath(item: index, section: 0)], with: .none)
                             self.isRefreshingUserData = false
                         }
                     }
@@ -387,162 +334,61 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.btnAddFrd.isHidden = true
             }else{
                 cell.btnAddFrd.isHidden = false
+                cell.setupCell(loan: searchInfo)
                 cell.lblUserName.text = searchInfo.valueForString(key: CFirstname) + " " + searchInfo.valueForString(key: CLastname)
                 cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
             }
             
-            do{
-////MARK:-FRIEND
-//
-
-                for data in arrSearchList{
-                    if data.request_status == "5"{
-                        self.Friend_status = 5
-                    }
-                }
-
-//MARK:- REQUEST
-                for friend in self.arrSearchList{
-                    print("friend.request_status\(friend.request_status)")
-                    let user_id = appDelegate.loginUser?.user_id
-                    if friend.request_status == "1" && friend.senders_id == user_id?.description {
-                        self.Friend_status = 1
-                    }
-
-                }
-//MARK:- PENDING
-//                            for data in arrPendingList{
-//                                if userInfo.valueForString(key: "user_id") == data?.valueForString(key: "friend_user_id"){
-//                                    self.Friend_status = 0
-//                                }
-                for friend in self.arrSearchList{
-                    let user_id = appDelegate.loginUser?.user_id
-                    if friend.request_status == "1" && friend.senders_id != user_id?.description {
-                        self.Friend_status = 2
-                    }
-
-                }
-            }
-
-            
-            for data in arrSearchList{
-                if data.request_status == "0" &&  data.friend_status == "0"{
-                    self.Friend_status = 0
-                }
-            }
-            
-            let user_id = appDelegate.loginUser?.user_id
-//            for data in arrSearchList{
-//                print("arrFriendsModel\(String(describing: data.request_status))")
-//
-//                if data.request_status == "5"{
-//                    self.Friend_status = 5
-//                }else if data.request_status == "1" && data.senders_id == user_id?.description {
-//                    self.Friend_status = 1
-//                }else if data.request_status == "1" && data.senders_id != user_id?.description {
-//                    self.Friend_status = 2
-//                }else if data.request_status == "0" &&  data.friend_status == "0"{
-//                    self.Friend_status = 0
-//                }
-////                if self.Friend_status == 2 {
-////                    cell.btnAddFrd.isHidden = true
-////                    cell.viewAcceptReject.isHidden = false
-////                }else{
-////                    cell.btnAddFrd.isHidden = false
-////                    cell.viewAcceptReject.isHidden = true
-////
-////                    switch self.Friend_status{
-////                    case 0:
-////                        cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
-////                    case 1:
-////                        cell.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
-////                    case 5:
-////                        cell.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
-////                    default:
-////                        break
-////                    }
-////                }
-//            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-  //MARK:-
-            if self.Friend_status == 2 {
-                cell.btnAddFrd.isHidden = true
-                cell.viewAcceptReject.isHidden = false
-            }else{
-                cell.btnAddFrd.isHidden = false
-                cell.viewAcceptReject.isHidden = true
-
-                switch self.Friend_status{
-                case 0:
-                    cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
-                case 1:
-                    cell.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
-                case 5:
-                    cell.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
-                default:
-                    break
-                }
-            }
-            
-            
-            /*if searchInfo.valueForInt(key: CFriend_status) == 1 {
-                cell.btnAddFrd.isHidden = false
-                cell.viewAcceptReject.isHidden = true
-                switch searchInfo.valueForInt(key: CFriend_status) {
-                case 1:
-                    cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
-                case 1:
-                    cell.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
-                case 5:
-                    cell.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
-                default:
-                    break
-                }
-                
-            }else{
-                cell.btnAddFrd.isHidden = true
-                cell.viewAcceptReject.isHidden = false
-                
-             
-            }*/
-            
-            
             cell.btnAddFrd.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
-                var frndStatus = 1
-//                var isShowAlert = false
-                var isShowAlert = true
-                var alertMessage = ""
-              //  switch searchInfo.valueForInt(key: CFriend_status) {
-                switch self.Friend_status {
-                case 0:
-                    frndStatus = CFriendRequestSent
-                case 1:
-                    frndStatus = CFriendRequestCancel
-                    isShowAlert = true
-                    alertMessage = CMessageCancelRequest
-                case 5:
-                    frndStatus = CFriendRequestUnfriend
-                    isShowAlert = true
-                    alertMessage = CMessageUnfriend
-                default:
-                    break
-                }
-                if isShowAlert{
-                    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CTabRequestSend, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
-                        guard let self = self else { return }
-                        self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
-                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-                }else{
-                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
+                
+                let buttonPostion = sender.convert(sender.bounds.origin, to: tableView)
+                if let indexPath = tableView.indexPathForRow(at: buttonPostion) {
+                    let rowIndex =  indexPath.row
+                    let searchInfos = self.arrHomeSearch[rowIndex]
+                    let friendID = searchInfos.valueForString(key: "user_id")
+                    let dict :[String:Any]  =  [
+                        "user_id":  appDelegate.loginUser?.user_id.description ?? "",
+                        "friend_user_id": friendID
+                    ]
+                    APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
+                        if response != nil && error == nil{
+                            GCDMainThread.async {
+                                if let arrList = response!["data"] as? [[String:Any]]{
+                                    for arrLst in arrList{
+                                        self?.Friend_status =  arrLst.valueForString(key: "request_status").toInt ?? 0
+                                        var frndStatus = 1
+                                        var isShowAlert = true
+                                        var alertMessage = ""
+                                        switch self?.Friend_status {
+                                        case 0:
+                                            frndStatus = CFriendRequestSent
+                                        case 1:
+                                            frndStatus = CFriendRequestCancel
+                                            isShowAlert = true
+                                            alertMessage = CMessageCancelRequest
+                                        case 5:
+                                            frndStatus = CFriendRequestUnfriend
+                                            isShowAlert = true
+                                            alertMessage = CMessageUnfriend
+                                        default:
+                                            break
+                                        }
+                                        if isShowAlert{
+                                            self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CTabRequestSend, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                                                guard let self = self else { return }
+                                                self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
+                                            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+                                        }else{
+                                            self?.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
+                                        }
+                                    }
+                                    
+                                }
+                                
+                            }
+                        }
+                    })
                 }
             }
             
@@ -556,11 +402,11 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                     guard let self = self else { return }
                     self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 3)
-                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
             // Load more data...
-//            self.loadMore(indexPath)
+            //            self.loadMore(indexPath)
             
             return cell
         }
@@ -569,1034 +415,1034 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
         
         
         
-//        switch searchInfo.valueForInt(key: CSearchType) {
-//        case CStaticArticleId:
-//            //            1-article
-//            if isSharedPost == 1{
-//                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedArticleCell", for: indexPath) as? HomeSharedArticleCell {
-//                    cell.homeArticleDataSetup(searchInfo)
-//
-//                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                    }
-//
-//                    cell.btnMore.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
-//                        if userID == appDelegate.loginUser?.user_id{
-//                            self.btnSharedMoreCLK(indexPath.row, searchInfo)
-//                        }else{
-//                            self.btnSharedReportCLK(postInfo: searchInfo)
-//                        }
-//                    }
-//
-//                    cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-//                        guard let _ = self else { return }
-//                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
-//                        }
-//                    }
-//
-//                    cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
-//                        guard let _ = self else { return }
-//                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
-//                        }
-//                    }
-//
-//                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnShare.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                        sharePost.presentShareActivity()
-//                    }
-//
-//                    // Load more data...
-//                    self.loadMore(indexPath)
-//
-//                    return cell
-//                }
-//            }
-//
-//            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeArticleCell", for: indexPath) as? HomeArticleCell {
-//                cell.homeArticleDataSetup(searchInfo)
-//
-//                cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                }
-//
-//                cell.btnMore.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-//                        self.btnMoreCLK(indexPath.row, searchInfo)
-//                    }else{
-//                        self.btnReportCLK(searchInfo)
-//                    }
-//                }
-//
-//                cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                }
-//
-//                cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                }
-//
-//                cell.btnShare.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                    let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                    sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                    sharePost.presentShareActivity()
-//                }
-//
-//                // Load more data...
-//                self.loadMore(indexPath)
-//
-//                return cell
-//            }
-//            break
-//        case CStaticGalleryId:
-//            //            2-gallery
-//            let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
-//            if isSharedPost == 1{
-//                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedGalleryCell", for: indexPath) as? HomeSharedGalleryCell {
-//                    cell.homeGalleryDataSetup(searchInfo)
-//
-//                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                    }
-//
-//                    cell.btnMore.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
-//                        if userID == appDelegate.loginUser?.user_id{
-//                            self.btnSharedMoreCLK(indexPath.row, searchInfo)
-//                        }else{
-//                            self.btnSharedReportCLK(postInfo: searchInfo)
-//                        }
-//                    }
-//
-//                    cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-//                        guard let _ = self else { return }
-//                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
-//                        }
-//                    }
-//
-//                    cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
-//                        guard let _ = self else { return }
-//                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
-//                        }
-//                    }
-//
-//                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnShare.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                        sharePost.presentShareActivity()
-//                    }
-//
-//                    // Load more data...
-//                    self.loadMore(indexPath)
-//
-//                    return cell
-//                }
-//            }
-//            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeGalleryCell", for: indexPath) as? HomeGalleryCell {
-//                cell.homeGalleryDataSetup(searchInfo)
-//
-//                cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                }
-//
-//                cell.btnMore.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-//                        self.btnMoreCLK(indexPath.row, searchInfo)
-//                    }else{
-//                        self.btnReportCLK(searchInfo)
-//                    }
-//                }
-//
-//                cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                }
-//
-//                cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                }
-//
-//                cell.btnShare.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                    let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                    sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                    sharePost.presentShareActivity()
-//                }
-//
-//                // Load more data...
-//                self.loadMore(indexPath)
-//
-//                return cell
-//            }
-//            break
-//        case CStaticChirpyId:
-//            //            3-chripy
-//
-//            if searchInfo.valueForString(key: CImage).isBlank {
-//
-//                let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
-//                if isSharedPost == 1{
-//                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyTblCell", for: indexPath) as? HomeSharedChirpyTblCell {
-//                        cell.homeChirpyDataSetup(searchInfo)
-//
-//                        cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                        }
-//
-//                        cell.btnMore.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
-//                            if userID == appDelegate.loginUser?.user_id{
-//                                self.btnSharedMoreCLK(indexPath.row, searchInfo)
-//                            }else{
-//                                self.btnSharedReportCLK(postInfo: searchInfo)
-//                            }
-//                        }
-//
-//                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-//                            guard let _ = self else { return }
-//                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
-//                            }
-//                        }
-//
-//                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
-//                            guard let _ = self else { return }
-//                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
-//                            }
-//                        }
-//
-//                        cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                        }
-//
-//                        cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                        }
-//
-//                        cell.btnShare.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                            let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                            sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                            sharePost.presentShareActivity()
-//                        }
-//
-//                        // Load more data...
-//                        self.loadMore(indexPath)
-//
-//
-//                        return cell
-//                    }
-//                }
-//
-//                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyTblCell", for: indexPath) as? HomeChirpyTblCell {
-//                    cell.homeChirpyDataSetup(searchInfo)
-//
-//                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                    }
-//
-//                    cell.btnMore.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-//                            self.btnMoreCLK(indexPath.row, searchInfo)
-//                        }else{
-//                            self.btnReportCLK(searchInfo)
-//                        }
-//                    }
-//
-//                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnShare.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                        sharePost.presentShareActivity()
-//                    }
-//
-//                    // Load more data...
-//                    self.loadMore(indexPath)
-//
-//
-//                    return cell
-//                }
-//            } else {
-//                let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
-//                if isSharedPost == 1{
-//                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
-//                        cell.homeChirpyImageDataSetup(searchInfo)
-//
-//                        cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                        }
-//
-//                        cell.btnMore.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
-//                            if userID == appDelegate.loginUser?.user_id{
-//                                self.btnSharedMoreCLK(indexPath.row, searchInfo)
-//                            }else{
-//                                self.btnSharedReportCLK(postInfo: searchInfo)
-//                            }
-//                        }
-//
-//                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-//                            guard let _ = self else { return }
-//                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
-//                            }
-//                        }
-//
-//                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
-//                            guard let _ = self else { return }
-//                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
-//                            }
-//                        }
-//
-//                        cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                        }
-//
-//                        cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                        }
-//
-//                        cell.btnShare.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                            let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                            sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                            sharePost.presentShareActivity()
-//                        }
-//
-//                        // Load more data...
-//                        self.loadMore(indexPath)
-//                        return cell
-//                    }
-//                }
-//                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
-//                    cell.homeChirpyImageDataSetup(searchInfo)
-//
-//                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                    }
-//
-//                    cell.btnMore.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-//                            self.btnMoreCLK(indexPath.row, searchInfo)
-//                        }else{
-//                            self.btnReportCLK(searchInfo)
-//                        }
-//                    }
-//
-//                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnShare.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                        sharePost.presentShareActivity()
-//                    }
-//
-//                    // Load more data...
-//                    self.loadMore(indexPath)
-//
-//
-//                    return cell
-//                }
-//            }
-//            break
-//        case CStaticShoutId:
-//            //            4-shout
-//            let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
-//            if isSharedPost == 1{
-//                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedShoutsTblCell", for: indexPath) as? HomeSharedShoutsTblCell {
-//                    cell.homeShoutsDataSetup(searchInfo)
-//
-//                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                    }
-//
-//                    cell.btnShare.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                        sharePost.presentShareActivity()
-//                    }
-//
-//                    cell.btnMore.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
-//                        if userID == appDelegate.loginUser?.user_id{
-//                            self.btnSharedMoreCLK(indexPath.row, searchInfo)
-//                        }else{
-//                            self.btnSharedReportCLK(postInfo: searchInfo)
-//                        }
-//                    }
-//
-//                    cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-//                        guard let _ = self else { return }
-//                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
-//                        }
-//                    }
-//
-//                    cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
-//                        guard let _ = self else { return }
-//                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
-//                        }
-//                    }
-//
-//                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//                    // Load more data...
-//                    self.loadMore(indexPath)
-//
-//                    return cell
-//                }
-//            }
-//
-//            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeShoutsTblCell", for: indexPath) as? HomeShoutsTblCell {
-//                cell.homeShoutsDataSetup(searchInfo)
-//
-//                cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                }
-//
-//                cell.btnShare.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                    let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                    sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                    sharePost.presentShareActivity()
-//                }
-//
-//                cell.btnMore.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-//                        self.btnMoreCLK(indexPath.row, searchInfo)
-//                    }else{
-//                        self.btnReportCLK(searchInfo)
-//                    }
-//                }
-//
-//                cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                }
-//
-//                cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                }
-//                // Load more data...
-//                self.loadMore(indexPath)
-//
-//                return cell
-//            }
-//            break
-//        case CStaticForumId:
-//            //            5-forum
-//            let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
-//            if isSharedPost == 1{
-//                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedFourmTblCell", for: indexPath) as? HomeSharedFourmTblCell {
-//                    cell.homeFourmDataSetup(searchInfo)
-//
-//                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                    }
-//
-//                    cell.btnMore.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
-//                        if userID == appDelegate.loginUser?.user_id{
-//                            self.btnSharedMoreCLK(indexPath.row, searchInfo)
-//                        }else{
-//                            self.btnSharedReportCLK(postInfo: searchInfo)
-//                        }
-//                    }
-//
-//                    cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-//                        guard let _ = self else { return }
-//                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
-//                        }
-//                    }
-//
-//                    cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
-//                        guard let _ = self else { return }
-//                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
-//                        }
-//                    }
-//
-//
-//                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnShare.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                        sharePost.presentShareActivity()
-//                    }
-//
-//                    // Load more data...
-//                    self.loadMore(indexPath)
-//
-//                    return cell
-//                }
-//            }
-//
-//            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeFourmTblCell", for: indexPath) as? HomeFourmTblCell {
-//                cell.homeFourmDataSetup(searchInfo)
-//
-//                cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                }
-//
-//                cell.btnMore.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-//                        self.btnMoreCLK(indexPath.row, searchInfo)
-//                    }else{
-//                        self.btnReportCLK(searchInfo)
-//                    }
-//                }
-//
-//                cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                }
-//
-//                cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                }
-//
-//                cell.btnShare.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                    let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                    sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                    sharePost.presentShareActivity()
-//                }
-//
-//                // Load more data...
-//                self.loadMore(indexPath)
-//
-//                return cell
-//            }
-//            break
-//        case CStaticEventId:
-//            //            6-event
-//            if searchInfo.valueForString(key: CImage).isBlank{
-//                let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
-//                if isSharedPost == 1{
-//                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventsCell", for: indexPath) as? HomeSharedEventsCell {
-//                        cell.homeEventDataSetup(searchInfo)
-//
-//                        cell.onChangeEventStatus = { [weak self] (action) in
-//                            self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
-//                        }
-//
-//                        cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                        }
-//
-//                        cell.btnMore.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
-//                            if userID == appDelegate.loginUser?.user_id{
-//                                self.btnSharedMoreCLK(indexPath.row, searchInfo)
-//                            }else{
-//                                self.btnSharedReportCLK(postInfo: searchInfo)
-//                            }
-//                        }
-//
-//                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-//                            guard let _ = self else { return }
-//                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
-//                            }
-//                        }
-//
-//                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
-//                            guard let _ = self else { return }
-//                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
-//                            }
-//                        }
-//
-//                        cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                        }
-//
-//                        cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                        }
-//
-//                        cell.btnShare.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                            let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                            sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                            sharePost.presentShareActivity()
-//                        }
-//
-//                        // Load more data...
-//                        self.loadMore(indexPath)
-//
-//                        return cell
-//                    }
-//                }
-//                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventsCell", for: indexPath) as? HomeEventsCell {
-//                    cell.homeEventDataSetup(searchInfo)
-//
-//                    cell.onChangeEventStatus = { [weak self] (action) in
-//                        self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
-//                    }
-//
-//                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                    }
-//
-//                    cell.btnMore.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-//                            self.btnMoreCLK(indexPath.row, searchInfo)
-//                        }else{
-//                            self.btnReportCLK(searchInfo)
-//                        }
-//                    }
-//
-//                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnShare.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                        sharePost.presentShareActivity()
-//                    }
-//
-//                    // Load more data...
-//                    self.loadMore(indexPath)
-//
-//                    return cell
-//                }
-//            }else{
-//
-//                let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
-//                if isSharedPost == 1{
-//                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell", for: indexPath) as? HomeSharedEventImageTblCell {
-//                        cell.homeEventDataSetup(searchInfo)
-//
-//                        cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                        }
-//                        cell.onChangeEventStatus = { [weak self] (action) in
-//                            self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
-//                        }
-//
-//                        cell.btnMore.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
-//                            if userID == appDelegate.loginUser?.user_id{
-//                                self.btnSharedMoreCLK(indexPath.row, searchInfo)
-//                            }else{
-//                                self.btnSharedReportCLK(postInfo: searchInfo)
-//                            }
-//                        }
-//
-//                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-//                            guard let _ = self else { return }
-//                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
-//                            }
-//                        }
-//
-//                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
-//                            guard let _ = self else { return }
-//                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
-//                            }
-//                        }
-//
-//                        cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                        }
-//
-//                        cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                        }
-//
-//                        cell.btnShare.touchUpInside {[weak self] (sender) in
-//                            guard let self = self else { return }
-//                            //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                            let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                            sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                            sharePost.presentShareActivity()
-//                        }
-//
-//                        // Load more data...
-//                        self.loadMore(indexPath)
-//
-//                        return cell
-//                    }
-//                }
-//
-//                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
-//                    cell.homeEventDataSetup(searchInfo)
-//
-//                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                    }
-//                    cell.onChangeEventStatus = { [weak self] (action) in
-//                        self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
-//                    }
-//
-//                    cell.btnMore.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-//                            self.btnMoreCLK(indexPath.row, searchInfo)
-//                        }else{
-//                            self.btnReportCLK(searchInfo)
-//                        }
-//                    }
-//
-//                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnShare.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                        sharePost.presentShareActivity()
-//                    }
-//
-//                    // Load more data...
-//                    self.loadMore(indexPath)
-//
-//                    return cell
-//                }
-//
-//            }
-//            break
-//
-//        case CStaticSearchUserTypeId:
-//            // Users
-//            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeAddFrdTblCell", for: indexPath) as? HomeAddFrdTblCell {
-//
-//                cell.lblUserName.text = searchInfo.valueForString(key: CFirstname) + " " + searchInfo.valueForString(key: CLastname)
-//                cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
-//
-//                if appDelegate.loginUser?.user_id == Int64(searchInfo.valueForString(key: CUserId)){
-//                    cell.btnAddFrd.isHidden = true
-//                }else{
-//                    cell.btnAddFrd.isHidden = false
-//                }
-//
-//                if searchInfo.valueForInt(key: CFriend_status) == 2 {
-//                    cell.btnAddFrd.isHidden = true
-//                    cell.viewAcceptReject.isHidden = false
-//                }else{
-//                    cell.btnAddFrd.isHidden = false
-//                    cell.viewAcceptReject.isHidden = true
-//
-//                    switch searchInfo.valueForInt(key: CFriend_status) {
-//                    case 0:
-//                        cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
-//                    case 1:
-//                        cell.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
-//                    case 5:
-//                        cell.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
-//                    default:
-//                        break
-//                    }
-//                }
-//
-//                cell.btnAddFrd.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    var frndStatus = 0
-//                    var isShowAlert = false
-//                    var alertMessage = ""
-//                    switch searchInfo.valueForInt(key: CFriend_status) {
-//                    case 0:
-//                        frndStatus = CFriendRequestSent
-//                    case 1:
-//                        frndStatus = CFriendRequestCancel
-//                        isShowAlert = true
-//                        alertMessage = CMessageCancelRequest
-//                    case 5:
-//                        frndStatus = CFriendRequestUnfriend
-//                        isShowAlert = true
-//                        alertMessage = CMessageUnfriend
-//                    default:
-//                        break
-//                    }
-//                    if isShowAlert{
-//                        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
-//                            guard let self = self else { return }
-//                            self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
-//                            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-//                    }else{
-//                        self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
-//                    }
-//                }
-//
-//                cell.btnAccept.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 2)
-//                }
-//
-//                cell.btnReject.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
-//                        guard let self = self else { return }
-//                        self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 3)
-//                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-//                }
-//
-//                // Load more data...
-//                self.loadMore(indexPath)
-//
-//                return cell
-//            }
-//            break
-//        case CStaticPollId: // Poll Cell....
-//            let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
-//            if isSharedPost == 1{
-//                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedPollTblCell", for: indexPath) as? HomeSharedPollTblCell {
-//
-//                    cell.homePollDataSetup(searchInfo)
-//
-//                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                    }
-//                    cell.btnMore.tag = indexPath.row
-//                    cell.onMorePressed = { [weak self] (index) in
-//                        guard let _ = self else { return }
-//                        let sharePostData = searchInfo[CSharedPost] as? [String:Any] ?? [:]
-//                        let userID = sharePostData[CUserId] as? Int64 ?? 0
-//                        if userID == appDelegate.loginUser?.user_id{
-//                            self?.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (alert) in
-//                                guard let _ = self else { return }
-//                                let postID = sharePostData[CId] as? Int ?? 0
-//                                self?.deletePost(postID, index)
-//                            }
-//                        }else{
-//                            self?.btnSharedReportCLK(postInfo: searchInfo)
-//                        }
-//                    }
-//
-//                    cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-//                        guard let _ = self else { return }
-//                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
-//                        }
-//                    }
-//
-//                    cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
-//                        guard let _ = self else { return }
-//                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
-//                        }
-//                    }
-//
-//                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                    }
-//
-//                    cell.btnShare.touchUpInside {[weak self] (sender) in
-//                        guard let self = self else { return }
-//                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                        sharePost.presentShareActivity()
-//                    }
-//
-//                    // Load more data...
-//                    self.loadMore(indexPath)
-//
-//                    return cell
-//                }
-//            }
-//            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomePollTblCell", for: indexPath) as? HomePollTblCell {
-//
-//                cell.homePollDataSetup(searchInfo, isSelected: false)
-//
-//                cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
-//                }
-//                cell.btnMore.tag = indexPath.row
-//                cell.onMorePressed = { [weak self] (index) in
-//                    guard let _ = self else { return }
-//                    let postData = self?.arrHomeSearch[index] ?? [:]
-//                    if Int64(postData.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-//                        self?.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (alert) in
-//                            guard let _ = self else { return }
-//                            let postId = postData.valueForInt(key: CId) ?? 0
-//                            self?.deletePost(postId, index)
-//                        }
-//                    }else{
-//                        self?.btnReportCLK(postData)
-//                    }
-//                }
-//
-//                cell.btnProfileImg.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                }
-//
-//                cell.btnUserName.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
-//                }
-//
-//                cell.btnShare.touchUpInside {[weak self] (sender) in
-//                    guard let self = self else { return }
-//                    //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
-//                    let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
-//                    sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
-//                    sharePost.presentShareActivity()
-//                }
-//
-//                // Load more data...
-//                self.loadMore(indexPath)
-//
-//                return cell
-//            }
-//            break
-//        default:
-//            break
-//        }
+        //        switch searchInfo.valueForInt(key: CSearchType) {
+        //        case CStaticArticleId:
+        //            //            1-article
+        //            if isSharedPost == 1{
+        //                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedArticleCell", for: indexPath) as? HomeSharedArticleCell {
+        //                    cell.homeArticleDataSetup(searchInfo)
+        //
+        //                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                    }
+        //
+        //                    cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+        //                        if userID == appDelegate.loginUser?.user_id{
+        //                            self.btnSharedMoreCLK(indexPath.row, searchInfo)
+        //                        }else{
+        //                            self.btnSharedReportCLK(postInfo: searchInfo)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+        //                        guard let _ = self else { return }
+        //                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                            appDelegate.moveOnProfileScreen(userID.description, self)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+        //                        guard let _ = self else { return }
+        //                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                            appDelegate.moveOnProfileScreen(userID.description, self)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                        sharePost.presentShareActivity()
+        //                    }
+        //
+        //                    // Load more data...
+        //                    self.loadMore(indexPath)
+        //
+        //                    return cell
+        //                }
+        //            }
+        //
+        //            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeArticleCell", for: indexPath) as? HomeArticleCell {
+        //                cell.homeArticleDataSetup(searchInfo)
+        //
+        //                cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                }
+        //
+        //                cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
+        //                        self.btnMoreCLK(indexPath.row, searchInfo)
+        //                    }else{
+        //                        self.btnReportCLK(searchInfo)
+        //                    }
+        //                }
+        //
+        //                cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                }
+        //
+        //                cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                }
+        //
+        //                cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                    let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                    sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                    sharePost.presentShareActivity()
+        //                }
+        //
+        //                // Load more data...
+        //                self.loadMore(indexPath)
+        //
+        //                return cell
+        //            }
+        //            break
+        //        case CStaticGalleryId:
+        //            //            2-gallery
+        //            let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
+        //            if isSharedPost == 1{
+        //                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedGalleryCell", for: indexPath) as? HomeSharedGalleryCell {
+        //                    cell.homeGalleryDataSetup(searchInfo)
+        //
+        //                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                    }
+        //
+        //                    cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+        //                        if userID == appDelegate.loginUser?.user_id{
+        //                            self.btnSharedMoreCLK(indexPath.row, searchInfo)
+        //                        }else{
+        //                            self.btnSharedReportCLK(postInfo: searchInfo)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+        //                        guard let _ = self else { return }
+        //                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                            appDelegate.moveOnProfileScreen(userID.description, self)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+        //                        guard let _ = self else { return }
+        //                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                            appDelegate.moveOnProfileScreen(userID.description, self)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                        sharePost.presentShareActivity()
+        //                    }
+        //
+        //                    // Load more data...
+        //                    self.loadMore(indexPath)
+        //
+        //                    return cell
+        //                }
+        //            }
+        //            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeGalleryCell", for: indexPath) as? HomeGalleryCell {
+        //                cell.homeGalleryDataSetup(searchInfo)
+        //
+        //                cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                }
+        //
+        //                cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
+        //                        self.btnMoreCLK(indexPath.row, searchInfo)
+        //                    }else{
+        //                        self.btnReportCLK(searchInfo)
+        //                    }
+        //                }
+        //
+        //                cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                }
+        //
+        //                cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                }
+        //
+        //                cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                    let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                    sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                    sharePost.presentShareActivity()
+        //                }
+        //
+        //                // Load more data...
+        //                self.loadMore(indexPath)
+        //
+        //                return cell
+        //            }
+        //            break
+        //        case CStaticChirpyId:
+        //            //            3-chripy
+        //
+        //            if searchInfo.valueForString(key: CImage).isBlank {
+        //
+        //                let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
+        //                if isSharedPost == 1{
+        //                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyTblCell", for: indexPath) as? HomeSharedChirpyTblCell {
+        //                        cell.homeChirpyDataSetup(searchInfo)
+        //
+        //                        cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                        }
+        //
+        //                        cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+        //                            if userID == appDelegate.loginUser?.user_id{
+        //                                self.btnSharedMoreCLK(indexPath.row, searchInfo)
+        //                            }else{
+        //                                self.btnSharedReportCLK(postInfo: searchInfo)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+        //                            guard let _ = self else { return }
+        //                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                                appDelegate.moveOnProfileScreen(userID.description, self)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+        //                            guard let _ = self else { return }
+        //                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                                appDelegate.moveOnProfileScreen(userID.description, self)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                        }
+        //
+        //                        cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                        }
+        //
+        //                        cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                            let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                            sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                            sharePost.presentShareActivity()
+        //                        }
+        //
+        //                        // Load more data...
+        //                        self.loadMore(indexPath)
+        //
+        //
+        //                        return cell
+        //                    }
+        //                }
+        //
+        //                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyTblCell", for: indexPath) as? HomeChirpyTblCell {
+        //                    cell.homeChirpyDataSetup(searchInfo)
+        //
+        //                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                    }
+        //
+        //                    cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
+        //                            self.btnMoreCLK(indexPath.row, searchInfo)
+        //                        }else{
+        //                            self.btnReportCLK(searchInfo)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                        sharePost.presentShareActivity()
+        //                    }
+        //
+        //                    // Load more data...
+        //                    self.loadMore(indexPath)
+        //
+        //
+        //                    return cell
+        //                }
+        //            } else {
+        //                let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
+        //                if isSharedPost == 1{
+        //                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
+        //                        cell.homeChirpyImageDataSetup(searchInfo)
+        //
+        //                        cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                        }
+        //
+        //                        cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+        //                            if userID == appDelegate.loginUser?.user_id{
+        //                                self.btnSharedMoreCLK(indexPath.row, searchInfo)
+        //                            }else{
+        //                                self.btnSharedReportCLK(postInfo: searchInfo)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+        //                            guard let _ = self else { return }
+        //                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                                appDelegate.moveOnProfileScreen(userID.description, self)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+        //                            guard let _ = self else { return }
+        //                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                                appDelegate.moveOnProfileScreen(userID.description, self)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                        }
+        //
+        //                        cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                        }
+        //
+        //                        cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                            let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                            sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                            sharePost.presentShareActivity()
+        //                        }
+        //
+        //                        // Load more data...
+        //                        self.loadMore(indexPath)
+        //                        return cell
+        //                    }
+        //                }
+        //                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
+        //                    cell.homeChirpyImageDataSetup(searchInfo)
+        //
+        //                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                    }
+        //
+        //                    cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
+        //                            self.btnMoreCLK(indexPath.row, searchInfo)
+        //                        }else{
+        //                            self.btnReportCLK(searchInfo)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                        sharePost.presentShareActivity()
+        //                    }
+        //
+        //                    // Load more data...
+        //                    self.loadMore(indexPath)
+        //
+        //
+        //                    return cell
+        //                }
+        //            }
+        //            break
+        //        case CStaticShoutId:
+        //            //            4-shout
+        //            let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
+        //            if isSharedPost == 1{
+        //                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedShoutsTblCell", for: indexPath) as? HomeSharedShoutsTblCell {
+        //                    cell.homeShoutsDataSetup(searchInfo)
+        //
+        //                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                    }
+        //
+        //                    cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                        sharePost.presentShareActivity()
+        //                    }
+        //
+        //                    cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+        //                        if userID == appDelegate.loginUser?.user_id{
+        //                            self.btnSharedMoreCLK(indexPath.row, searchInfo)
+        //                        }else{
+        //                            self.btnSharedReportCLK(postInfo: searchInfo)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+        //                        guard let _ = self else { return }
+        //                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                            appDelegate.moveOnProfileScreen(userID.description, self)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+        //                        guard let _ = self else { return }
+        //                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                            appDelegate.moveOnProfileScreen(userID.description, self)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //                    // Load more data...
+        //                    self.loadMore(indexPath)
+        //
+        //                    return cell
+        //                }
+        //            }
+        //
+        //            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeShoutsTblCell", for: indexPath) as? HomeShoutsTblCell {
+        //                cell.homeShoutsDataSetup(searchInfo)
+        //
+        //                cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                }
+        //
+        //                cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                    let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                    sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                    sharePost.presentShareActivity()
+        //                }
+        //
+        //                cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
+        //                        self.btnMoreCLK(indexPath.row, searchInfo)
+        //                    }else{
+        //                        self.btnReportCLK(searchInfo)
+        //                    }
+        //                }
+        //
+        //                cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                }
+        //
+        //                cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                }
+        //                // Load more data...
+        //                self.loadMore(indexPath)
+        //
+        //                return cell
+        //            }
+        //            break
+        //        case CStaticForumId:
+        //            //            5-forum
+        //            let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
+        //            if isSharedPost == 1{
+        //                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedFourmTblCell", for: indexPath) as? HomeSharedFourmTblCell {
+        //                    cell.homeFourmDataSetup(searchInfo)
+        //
+        //                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                    }
+        //
+        //                    cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+        //                        if userID == appDelegate.loginUser?.user_id{
+        //                            self.btnSharedMoreCLK(indexPath.row, searchInfo)
+        //                        }else{
+        //                            self.btnSharedReportCLK(postInfo: searchInfo)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+        //                        guard let _ = self else { return }
+        //                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                            appDelegate.moveOnProfileScreen(userID.description, self)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+        //                        guard let _ = self else { return }
+        //                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                            appDelegate.moveOnProfileScreen(userID.description, self)
+        //                        }
+        //                    }
+        //
+        //
+        //                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                        sharePost.presentShareActivity()
+        //                    }
+        //
+        //                    // Load more data...
+        //                    self.loadMore(indexPath)
+        //
+        //                    return cell
+        //                }
+        //            }
+        //
+        //            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeFourmTblCell", for: indexPath) as? HomeFourmTblCell {
+        //                cell.homeFourmDataSetup(searchInfo)
+        //
+        //                cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                }
+        //
+        //                cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
+        //                        self.btnMoreCLK(indexPath.row, searchInfo)
+        //                    }else{
+        //                        self.btnReportCLK(searchInfo)
+        //                    }
+        //                }
+        //
+        //                cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                }
+        //
+        //                cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                }
+        //
+        //                cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                    let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                    sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                    sharePost.presentShareActivity()
+        //                }
+        //
+        //                // Load more data...
+        //                self.loadMore(indexPath)
+        //
+        //                return cell
+        //            }
+        //            break
+        //        case CStaticEventId:
+        //            //            6-event
+        //            if searchInfo.valueForString(key: CImage).isBlank{
+        //                let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
+        //                if isSharedPost == 1{
+        //                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventsCell", for: indexPath) as? HomeSharedEventsCell {
+        //                        cell.homeEventDataSetup(searchInfo)
+        //
+        //                        cell.onChangeEventStatus = { [weak self] (action) in
+        //                            self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
+        //                        }
+        //
+        //                        cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                        }
+        //
+        //                        cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+        //                            if userID == appDelegate.loginUser?.user_id{
+        //                                self.btnSharedMoreCLK(indexPath.row, searchInfo)
+        //                            }else{
+        //                                self.btnSharedReportCLK(postInfo: searchInfo)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+        //                            guard let _ = self else { return }
+        //                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                                appDelegate.moveOnProfileScreen(userID.description, self)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+        //                            guard let _ = self else { return }
+        //                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                                appDelegate.moveOnProfileScreen(userID.description, self)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                        }
+        //
+        //                        cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                        }
+        //
+        //                        cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                            let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                            sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                            sharePost.presentShareActivity()
+        //                        }
+        //
+        //                        // Load more data...
+        //                        self.loadMore(indexPath)
+        //
+        //                        return cell
+        //                    }
+        //                }
+        //                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventsCell", for: indexPath) as? HomeEventsCell {
+        //                    cell.homeEventDataSetup(searchInfo)
+        //
+        //                    cell.onChangeEventStatus = { [weak self] (action) in
+        //                        self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
+        //                    }
+        //
+        //                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                    }
+        //
+        //                    cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
+        //                            self.btnMoreCLK(indexPath.row, searchInfo)
+        //                        }else{
+        //                            self.btnReportCLK(searchInfo)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                        sharePost.presentShareActivity()
+        //                    }
+        //
+        //                    // Load more data...
+        //                    self.loadMore(indexPath)
+        //
+        //                    return cell
+        //                }
+        //            }else{
+        //
+        //                let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
+        //                if isSharedPost == 1{
+        //                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell", for: indexPath) as? HomeSharedEventImageTblCell {
+        //                        cell.homeEventDataSetup(searchInfo)
+        //
+        //                        cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                        }
+        //                        cell.onChangeEventStatus = { [weak self] (action) in
+        //                            self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
+        //                        }
+        //
+        //                        cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+        //                            if userID == appDelegate.loginUser?.user_id{
+        //                                self.btnSharedMoreCLK(indexPath.row, searchInfo)
+        //                            }else{
+        //                                self.btnSharedReportCLK(postInfo: searchInfo)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+        //                            guard let _ = self else { return }
+        //                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                                appDelegate.moveOnProfileScreen(userID.description, self)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+        //                            guard let _ = self else { return }
+        //                            if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                                appDelegate.moveOnProfileScreen(userID.description, self)
+        //                            }
+        //                        }
+        //
+        //                        cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                        }
+        //
+        //                        cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                        }
+        //
+        //                        cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                            guard let self = self else { return }
+        //                            //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                            let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                            sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                            sharePost.presentShareActivity()
+        //                        }
+        //
+        //                        // Load more data...
+        //                        self.loadMore(indexPath)
+        //
+        //                        return cell
+        //                    }
+        //                }
+        //
+        //                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
+        //                    cell.homeEventDataSetup(searchInfo)
+        //
+        //                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                    }
+        //                    cell.onChangeEventStatus = { [weak self] (action) in
+        //                        self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
+        //                    }
+        //
+        //                    cell.btnMore.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        if Int64(searchInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
+        //                            self.btnMoreCLK(indexPath.row, searchInfo)
+        //                        }else{
+        //                            self.btnReportCLK(searchInfo)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                        sharePost.presentShareActivity()
+        //                    }
+        //
+        //                    // Load more data...
+        //                    self.loadMore(indexPath)
+        //
+        //                    return cell
+        //                }
+        //
+        //            }
+        //            break
+        //
+        //        case CStaticSearchUserTypeId:
+        //            // Users
+        //            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeAddFrdTblCell", for: indexPath) as? HomeAddFrdTblCell {
+        //
+        //                cell.lblUserName.text = searchInfo.valueForString(key: CFirstname) + " " + searchInfo.valueForString(key: CLastname)
+        //                cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
+        //
+        //                if appDelegate.loginUser?.user_id == Int64(searchInfo.valueForString(key: CUserId)){
+        //                    cell.btnAddFrd.isHidden = true
+        //                }else{
+        //                    cell.btnAddFrd.isHidden = false
+        //                }
+        //
+        //                if searchInfo.valueForInt(key: CFriend_status) == 2 {
+        //                    cell.btnAddFrd.isHidden = true
+        //                    cell.viewAcceptReject.isHidden = false
+        //                }else{
+        //                    cell.btnAddFrd.isHidden = false
+        //                    cell.viewAcceptReject.isHidden = true
+        //
+        //                    switch searchInfo.valueForInt(key: CFriend_status) {
+        //                    case 0:
+        //                        cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
+        //                    case 1:
+        //                        cell.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+        //                    case 5:
+        //                        cell.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+        //                    default:
+        //                        break
+        //                    }
+        //                }
+        //
+        //                cell.btnAddFrd.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    var frndStatus = 0
+        //                    var isShowAlert = false
+        //                    var alertMessage = ""
+        //                    switch searchInfo.valueForInt(key: CFriend_status) {
+        //                    case 0:
+        //                        frndStatus = CFriendRequestSent
+        //                    case 1:
+        //                        frndStatus = CFriendRequestCancel
+        //                        isShowAlert = true
+        //                        alertMessage = CMessageCancelRequest
+        //                    case 5:
+        //                        frndStatus = CFriendRequestUnfriend
+        //                        isShowAlert = true
+        //                        alertMessage = CMessageUnfriend
+        //                    default:
+        //                        break
+        //                    }
+        //                    if isShowAlert{
+        //                        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+        //                            guard let self = self else { return }
+        //                            self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
+        //                            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+        //                    }else{
+        //                        self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
+        //                    }
+        //                }
+        //
+        //                cell.btnAccept.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 2)
+        //                }
+        //
+        //                cell.btnReject.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+        //                        guard let self = self else { return }
+        //                        self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 3)
+        //                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+        //                }
+        //
+        //                // Load more data...
+        //                self.loadMore(indexPath)
+        //
+        //                return cell
+        //            }
+        //            break
+        //        case CStaticPollId: // Poll Cell....
+        //            let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
+        //            if isSharedPost == 1{
+        //                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedPollTblCell", for: indexPath) as? HomeSharedPollTblCell {
+        //
+        //                    cell.homePollDataSetup(searchInfo)
+        //
+        //                    cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                    }
+        //                    cell.btnMore.tag = indexPath.row
+        //                    cell.onMorePressed = { [weak self] (index) in
+        //                        guard let _ = self else { return }
+        //                        let sharePostData = searchInfo[CSharedPost] as? [String:Any] ?? [:]
+        //                        let userID = sharePostData[CUserId] as? Int64 ?? 0
+        //                        if userID == appDelegate.loginUser?.user_id{
+        //                            self?.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (alert) in
+        //                                guard let _ = self else { return }
+        //                                let postID = sharePostData[CId] as? Int ?? 0
+        //                                self?.deletePost(postID, index)
+        //                            }
+        //                        }else{
+        //                            self?.btnSharedReportCLK(postInfo: searchInfo)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+        //                        guard let _ = self else { return }
+        //                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                            appDelegate.moveOnProfileScreen(userID.description, self)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+        //                        guard let _ = self else { return }
+        //                        if let userID = (searchInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
+        //                            appDelegate.moveOnProfileScreen(userID.description, self)
+        //                        }
+        //                    }
+        //
+        //                    cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                    }
+        //
+        //                    cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                        guard let self = self else { return }
+        //                        //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                        let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                        sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                        sharePost.presentShareActivity()
+        //                    }
+        //
+        //                    // Load more data...
+        //                    self.loadMore(indexPath)
+        //
+        //                    return cell
+        //                }
+        //            }
+        //            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomePollTblCell", for: indexPath) as? HomePollTblCell {
+        //
+        //                cell.homePollDataSetup(searchInfo, isSelected: false)
+        //
+        //                cell.btnLikesCount.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    self.btnLikesCountCLK(searchInfo.valueForInt(key: CId))
+        //                }
+        //                cell.btnMore.tag = indexPath.row
+        //                cell.onMorePressed = { [weak self] (index) in
+        //                    guard let _ = self else { return }
+        //                    let postData = self?.arrHomeSearch[index] ?? [:]
+        //                    if Int64(postData.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
+        //                        self?.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (alert) in
+        //                            guard let _ = self else { return }
+        //                            let postId = postData.valueForInt(key: CId) ?? 0
+        //                            self?.deletePost(postId, index)
+        //                        }
+        //                    }else{
+        //                        self?.btnReportCLK(postData)
+        //                    }
+        //                }
+        //
+        //                cell.btnProfileImg.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                }
+        //
+        //                cell.btnUserName.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    appDelegate.moveOnProfileScreen(searchInfo.valueForString(key: CUserId), self)
+        //                }
+        //
+        //                cell.btnShare.touchUpInside {[weak self] (sender) in
+        //                    guard let self = self else { return }
+        //                    //self.presentActivityViewController(mediaData: searchInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        //                    let sharePost = SharePostHelper(controller: self, dataSet: searchInfo)
+        //                    sharePost.shareURL = searchInfo.valueForString(key: CShare_url)
+        //                    sharePost.presentShareActivity()
+        //                }
+        //
+        //                // Load more data...
+        //                self.loadMore(indexPath)
+        //
+        //                return cell
+        //            }
+        //            break
+        //        default:
+        //            break
+        //        }
         
         
         return tableView.tableViewDummyCell()
@@ -1979,10 +1825,10 @@ extension HomeSearchViewController{
                     }
                 case 2:
                     /*if let galleyVC = CStoryboardImage.instantiateViewController(withIdentifier: "GalleryPreviewViewController") as? GalleryPreviewViewController {
-                        galleyVC.imagePostType = .editImagePost
-                        galleyVC.imgPostId = postId
-                        self.navigationController?.pushViewController(galleyVC, animated: true)
-                    }*/
+                     galleyVC.imagePostType = .editImagePost
+                     galleyVC.imgPostId = postId
+                     self.navigationController?.pushViewController(galleyVC, animated: true)
+                     }*/
                     if let galleryListVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddMediaViewController") as? AddMediaViewController{
                         galleryListVC.imagePostType = .editImagePost
                         galleryListVC.imgPostId = postId
@@ -2033,7 +1879,7 @@ extension HomeSearchViewController {
         txtSearch.text = nil
         timeStamp = nil
         isPost = nil
-       
+        
         tblEvents.restore()
         arrHomeSearch.removeAll()
         tblEvents.reloadData()

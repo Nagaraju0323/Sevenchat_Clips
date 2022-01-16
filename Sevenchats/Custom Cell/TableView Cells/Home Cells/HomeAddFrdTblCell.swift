@@ -9,7 +9,7 @@
 import UIKit
 
 class HomeAddFrdTblCell: UITableViewCell {
-
+    
     @IBOutlet var viewMainContainer : UIView!
     @IBOutlet var viewSubContainer : UIView!
     @IBOutlet var imgUser : UIImageView!
@@ -32,9 +32,67 @@ class HomeAddFrdTblCell: UITableViewCell {
             self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
         }
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
+    
+    
+    
+    
+    
+    
+    
+    func setupCell(loan:[String:Any]) {
+        var Friend_status:Int?
+        let user_id = appDelegate.loginUser?.user_id
+        let friendID = loan.valueForString(key: "user_id")
+        let dict :[String:Any]  =  [
+            "user_id":  appDelegate.loginUser?.user_id ?? "",
+            "friend_user_id": friendID
+        ]
+        APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
+            if response != nil && error == nil{
+                GCDMainThread.async {
+                    if let arrList = response!["data"] as? [[String:Any]]{
+                        for arrLst in arrList{
+                            if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0"{
+                                Friend_status = 0
+                                
+                            }else if arrLst.valueForString(key: "request_status")  == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description {
+                                Friend_status = 2
+                            }else if arrLst.valueForString(key: "request_status")  == "5"{
+                                Friend_status = 5
+                            }else  if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id")  == user_id?.description {
+                                Friend_status = 1
+                            }
+                            
+                            if Friend_status == 2 {
+                                self?.btnAddFrd.isHidden = true
+                                self?.viewAcceptReject.isHidden = false
+                            }else{
+                                self?.btnAddFrd.isHidden = false
+                                self?.viewAcceptReject.isHidden = true
+                                
+                                switch Friend_status{
+                                case 0:
+                                    self?.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
+                                case 1:
+                                    self?.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+                                case 5:
+                                    self?.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+                                default:
+                                    break
+                                }
+                            }
+                        }
+                        
+                    }
+                    
+                }
+            }
+        })
+        
+    }
+    
 }
