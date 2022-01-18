@@ -19,6 +19,10 @@ class HomeAddFrdTblCell: UITableViewCell {
     @IBOutlet var btnReject : UIButton!
     @IBOutlet var viewAcceptReject : UIView!
     
+    var homesearch = HomeSearchViewController()
+    
+    var callbacks : ((String) -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -36,12 +40,6 @@ class HomeAddFrdTblCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    
-    
-    
-    
-    
     
     func setupCell(loan:[String:Any]) {
         var Friend_status:Int?
@@ -95,4 +93,30 @@ class HomeAddFrdTblCell: UITableViewCell {
         
     }
     
+    
+    
+    func setupImgTapGestures(loan:[String:Any]) {
+        let friendID = loan.valueForString(key: "user_id")
+        let tapGesture = CustomTapGestureRecognizer(target: self,action: #selector(tapSelector(sender:)))
+        imgUser.addGestureRecognizer(tapGesture)
+        imgUser.isUserInteractionEnabled = true
+        tapGesture.friendID = friendID
+        
+    }
+    func setupLblTapGestures(loan:[String:Any]) {
+        let friendID = loan.valueForString(key: "user_id")
+        let tapGesture = CustomTapGestureRecognizer(target: self,action: #selector(tapSelector(sender:)))
+        imgUser.addGestureRecognizer(tapGesture)
+        imgUser.isUserInteractionEnabled = true
+        tapGesture.friendID = friendID
+        
+    }
+    @objc func tapSelector(sender: CustomTapGestureRecognizer) {
+//            print(sender.friendID)
+        appDelegate.moveOnProfileScreen(sender.friendID?.description, self.homesearch)
+    }
+    
+}
+class CustomTapGestureRecognizer: UITapGestureRecognizer {
+    var friendID: String?
 }

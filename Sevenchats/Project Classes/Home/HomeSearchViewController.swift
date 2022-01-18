@@ -339,6 +339,19 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
             }
             
+            cell.setupImgTapGestures(loan: searchInfo)
+            cell.setupLblTapGestures(loan: searchInfo)
+            
+            
+            
+            
+//            cell.imgUser.isUserInteractionEnabled = true
+//            cell.imgUser.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:))))
+            
+            
+            
+            
+            
             cell.btnAddFrd.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
                 
@@ -1447,6 +1460,20 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
         
         return tableView.tableViewDummyCell()
     }
+    
+    
+//    @objc func imageTapped(_ sender: UITapGestureRecognizer) {
+//        print("image tapped")
+//        
+//        
+//        
+//        let senderTag = arrHomeSearch[]
+//        
+//        
+//        
+//    }
+//    
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
