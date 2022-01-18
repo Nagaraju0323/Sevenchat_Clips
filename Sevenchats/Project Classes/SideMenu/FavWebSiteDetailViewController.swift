@@ -327,6 +327,8 @@ extension FavWebSiteDetailViewController{
             // LIKE COUNT CLK
             if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController {
                 likeVC.rssID = websiteInfo.valueForInt(key: CId)
+                
+                likeVC.postIDNew = websiteInfo.valueForString(key: "favourite_website_id")
                 self.navigationController?.pushViewController(likeVC, animated: true)
             }
         }

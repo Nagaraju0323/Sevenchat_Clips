@@ -77,7 +77,7 @@ class NewsWebViewController: ParentViewController {
     
     func load(_ urlString: String,isFrom:Bool) {
         if isFrom == true {
-            if let url = URL(string: "https://\(urlString)") {
+            if let url = URL(string: (urlString)) {
                 let request = URLRequest(url: url)
                 self.webView.load(request)
             }

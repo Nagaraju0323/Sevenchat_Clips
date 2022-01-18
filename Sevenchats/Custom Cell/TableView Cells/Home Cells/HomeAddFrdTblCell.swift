@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol customProtocol2{
+    func protocol2 (myInt: Int)
+}
+
+
 class HomeAddFrdTblCell: UITableViewCell {
     
     @IBOutlet var viewMainContainer : UIView!
@@ -106,14 +111,13 @@ class HomeAddFrdTblCell: UITableViewCell {
     func setupLblTapGestures(loan:[String:Any]) {
         let friendID = loan.valueForString(key: "user_id")
         let tapGesture = CustomTapGestureRecognizer(target: self,action: #selector(tapSelector(sender:)))
-        imgUser.addGestureRecognizer(tapGesture)
-        imgUser.isUserInteractionEnabled = true
+        lblUserName.addGestureRecognizer(tapGesture)
+        lblUserName.isUserInteractionEnabled = true
         tapGesture.friendID = friendID
         
     }
     @objc func tapSelector(sender: CustomTapGestureRecognizer) {
-//            print(sender.friendID)
-        appDelegate.moveOnProfileScreen(sender.friendID?.description, self.homesearch)
+        self.callbacks?(sender.friendID?.description ?? "")
     }
     
 }

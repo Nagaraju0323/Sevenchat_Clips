@@ -341,17 +341,9 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             
             cell.setupImgTapGestures(loan: searchInfo)
             cell.setupLblTapGestures(loan: searchInfo)
-            
-            
-            
-            
-//            cell.imgUser.isUserInteractionEnabled = true
-//            cell.imgUser.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageTapped(_:))))
-            
-            
-            
-            
-            
+            cell.callbacks = { message in
+                appDelegate.moveOnProfileScreen(message, self)
+            }
             cell.btnAddFrd.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
                 

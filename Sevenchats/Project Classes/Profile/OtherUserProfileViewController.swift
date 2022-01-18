@@ -267,9 +267,6 @@ extension OtherUserProfileViewController{
     //       }
     
     func otherUserDetails(isLoader:Bool) {
-
-        
-        
         if let email = useremail {
             if email.isValidEmail{
                 userid = email
@@ -286,8 +283,6 @@ extension OtherUserProfileViewController{
             self.userid = userIDNew ?? ""
             postype = "users/id/"
         }
-        
-        
         
         if isLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")

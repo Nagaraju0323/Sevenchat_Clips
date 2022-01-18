@@ -216,7 +216,8 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
             cell.btnLikeCount.touchUpInside { [weak self] (sender) in
                 guard let _ = self else { return }
                 if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
-                    likeVC.rssID = dicFavWeSite.valueForInt(key: CId)
+//                    likeVC.rssID = dicFavWeSite.valueForString(key: "favourite_website_id").toInt
+                    likeVC.postIDNew = dicFavWeSite.valueForString(key: "favourite_website_id")
                     self?.navigationController?.pushViewController(likeVC, animated: true)
                 }
             }

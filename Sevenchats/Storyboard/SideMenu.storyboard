@@ -84,13 +84,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XRZ-Gj-rqA">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="597.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="614"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbP-za-TFW">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="222.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="239"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PARTY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P2q-Q5-utg" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="15" width="37.5" height="14"/>
+                                                                <rect key="frame" x="20" y="15" width="38.5" height="17"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" id="x5s-BG-30b"/>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="ziV-so-9ub"/>
@@ -99,7 +99,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="66n-U1-LIO">
-                                                                <rect key="frame" x="20" y="37" width="65" height="2"/>
+                                                                <rect key="frame" x="20" y="40" width="65" height="2"/>
                                                                 <color key="backgroundColor" red="0.97647058819999999" green="0.89411764709999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="170-ip-jV6"/>
@@ -107,7 +107,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Praesent malesuada purus ut arcu porttit euismod etiam rhoncus" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4oi-Qn-y0p" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="54" width="335" height="37.5"/>
+                                                                <rect key="frame" x="20" y="57" width="335" height="45"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="UlY-Wn-vY6"/>
                                                                 </constraints>
@@ -116,27 +116,27 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_post_event" translatesAutoresizingMaskIntoConstraints="NO" id="ahw-b3-Sfz">
-                                                                <rect key="frame" x="20" y="99.5" width="12" height="12"/>
+                                                                <rect key="frame" x="20" y="110" width="12" height="12"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="12" id="dgE-K1-yfF"/>
                                                                     <constraint firstAttribute="width" constant="12" id="j2w-Sp-nl8"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posted on: 08 May 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSY-gt-pWw" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="37" y="98.5" width="318" height="14"/>
+                                                                <rect key="frame" x="37" y="107.5" width="318" height="17"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                                                                 <color key="textColor" red="0.52156862749999999" green="0.50980392159999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JxO-M1-767">
-                                                                <rect key="frame" x="20" y="120.5" width="335" height="1"/>
+                                                                <rect key="frame" x="20" y="132.5" width="335" height="1"/>
                                                                 <color key="backgroundColor" red="0.87058823529999996" green="0.86666666670000003" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="GBo-PP-eP9"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hailey Baldwin and Kendall jenner attended an event in Nerw York together last night and what …" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFv-uU-kRm" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="132.5" width="335" height="23.5"/>
+                                                                <rect key="frame" x="20" y="144.5" width="335" height="28"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Z7O-FE-IZR"/>
                                                                 </constraints>
@@ -145,7 +145,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rhz-3k-8Pf">
-                                                                <rect key="frame" x="14" y="173" width="30" height="30"/>
+                                                                <rect key="frame" x="14" y="189.5" width="30" height="30"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="Qcr-uv-lrp"/>
@@ -158,7 +158,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0PD-vG-DHJ" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="49" y="173" width="30" height="30"/>
+                                                                <rect key="frame" x="49" y="189.5" width="30" height="30"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="30" id="zg4-Z2-bYK"/>
@@ -172,7 +172,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="35i-K2-YbS" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="84" y="173" width="65" height="30"/>
+                                                                <rect key="frame" x="84" y="189.5" width="65" height="30"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="65" id="t21-DD-isz"/>
@@ -187,7 +187,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WLI-kd-dj1">
-                                                                <rect key="frame" x="295" y="173" width="30" height="30"/>
+                                                                <rect key="frame" x="295" y="189.5" width="30" height="30"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="30" id="71n-4b-lMn"/>
@@ -198,7 +198,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n40-MI-xs2">
-                                                                <rect key="frame" x="331" y="173" width="30" height="30"/>
+                                                                <rect key="frame" x="331" y="189.5" width="30" height="30"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="Pdr-dg-3Y2"/>
@@ -248,7 +248,7 @@
                                                         </constraints>
                                                     </view>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="gpH-dh-J0w">
-                                                        <rect key="frame" x="0.0" y="222.5" width="375" height="318"/>
+                                                        <rect key="frame" x="0.0" y="239" width="375" height="318"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="318" id="Gnr-QD-x9s"/>
@@ -350,7 +350,7 @@
                                                         </connections>
                                                     </tableView>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRO-hT-FMT" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="309" y="548.5" width="46" height="30"/>
+                                                        <rect key="frame" x="305" y="565" width="50" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" id="COF-WF-MJi"/>
                                                             <constraint firstAttribute="height" constant="30" id="Os1-z8-Wn4"/>
@@ -935,13 +935,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="617"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zCL-iC-QwD">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="597.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="614"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ykZ-oU-fRY">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="222.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="239"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PARTY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRp-yk-DfS" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="15" width="37.5" height="14"/>
+                                                                <rect key="frame" x="20" y="15" width="38.5" height="17"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" id="0f4-MF-WLe"/>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="RoS-gb-rsR"/>
@@ -950,7 +950,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NYN-oS-wyP">
-                                                                <rect key="frame" x="20" y="37" width="65" height="2"/>
+                                                                <rect key="frame" x="20" y="40" width="65" height="2"/>
                                                                 <color key="backgroundColor" red="0.97647058819999999" green="0.89411764709999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="65" id="L2y-u9-2zn"/>
@@ -958,7 +958,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Praesent malesuada purus ut arcu porttit euismod etiam rhoncus" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kav-9m-2VS" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="54" width="335" height="37.5"/>
+                                                                <rect key="frame" x="20" y="57" width="335" height="45"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="C8b-HB-5rd"/>
                                                                 </constraints>
@@ -967,27 +967,27 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_post_event" translatesAutoresizingMaskIntoConstraints="NO" id="his-as-z2d">
-                                                                <rect key="frame" x="20" y="99.5" width="12" height="12"/>
+                                                                <rect key="frame" x="20" y="110" width="12" height="12"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="12" id="RPF-W4-DmE"/>
                                                                     <constraint firstAttribute="height" constant="12" id="XTn-zz-Y3Z"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Posted on: 08 May 2018" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuR-6z-FSv" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="37" y="98.5" width="318" height="14"/>
+                                                                <rect key="frame" x="37" y="107.5" width="318" height="17"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                                                                 <color key="textColor" red="0.52156862749999999" green="0.50980392159999999" blue="0.51372549020000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bPA-TW-CQA">
-                                                                <rect key="frame" x="20" y="120.5" width="335" height="1"/>
+                                                                <rect key="frame" x="20" y="132.5" width="335" height="1"/>
                                                                 <color key="backgroundColor" red="0.87058823529999996" green="0.86666666670000003" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="Mfj-fv-qne"/>
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hailey Baldwin and Kendall jenner attended an event in Nerw York together last night and what …" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AMq-3f-aGA" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="20" y="132.5" width="335" height="23.5"/>
+                                                                <rect key="frame" x="20" y="144.5" width="335" height="28"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="vhC-F0-bD6"/>
                                                                 </constraints>
@@ -996,7 +996,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QfB-uO-9oF">
-                                                                <rect key="frame" x="14" y="173" width="30" height="30"/>
+                                                                <rect key="frame" x="14" y="189.5" width="30" height="30"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="30" id="5bT-uz-SB5"/>
@@ -1009,7 +1009,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j27-8U-hwd" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="49" y="173" width="30" height="30"/>
+                                                                <rect key="frame" x="49" y="189.5" width="30" height="30"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="30" id="VBF-tp-veO"/>
@@ -1023,7 +1023,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="INV-ls-U9G" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="84" y="173" width="65" height="30"/>
+                                                                <rect key="frame" x="84" y="189.5" width="65" height="30"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="65" id="P9f-ZZ-Ztw"/>
@@ -1038,7 +1038,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="57q-dx-Jby">
-                                                                <rect key="frame" x="295" y="173" width="30" height="30"/>
+                                                                <rect key="frame" x="295" y="189.5" width="30" height="30"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="30" id="n8J-Tj-xjx"/>
@@ -1049,7 +1049,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7L-kh-bSO">
-                                                                <rect key="frame" x="331" y="173" width="30" height="30"/>
+                                                                <rect key="frame" x="331" y="189.5" width="30" height="30"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="71S-kp-NBy"/>
@@ -1099,7 +1099,7 @@
                                                         </constraints>
                                                     </view>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="jMM-1E-NXl">
-                                                        <rect key="frame" x="0.0" y="222.5" width="375" height="318"/>
+                                                        <rect key="frame" x="0.0" y="239" width="375" height="318"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="318" id="gua-Ii-lEl"/>
@@ -1201,7 +1201,7 @@
                                                         </connections>
                                                     </tableView>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ykv-mC-POZ" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="309" y="548.5" width="46" height="30"/>
+                                                        <rect key="frame" x="305" y="565" width="50" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="Qx0-AB-DEX"/>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" id="fuh-5B-PmF"/>
@@ -1587,15 +1587,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="baV-y6-K1e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1669.5999999999999" y="-823.53823088455783"/>
+            <point key="canvasLocation" x="1716" y="-861"/>
         </scene>
     </scenes>
     <designables>
         <designable name="En5-P9-vCM">
-            <size key="intrinsicContentSize" width="233" height="14"/>
+            <size key="intrinsicContentSize" width="258" height="17"/>
         </designable>
         <designable name="gUt-bM-6UA">
-            <size key="intrinsicContentSize" width="233" height="14"/>
+            <size key="intrinsicContentSize" width="258" height="17"/>
         </designable>
     </designables>
     <resources>
