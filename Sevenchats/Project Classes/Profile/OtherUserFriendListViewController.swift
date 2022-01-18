@@ -204,7 +204,7 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendTblCell", for: indexPath) as? MyFriendTblCell {
             let userInfo = arrFriendList[indexPath.row]
-          
+            cell.setupCell(loan: userInfo)
             cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
             cell.btnUnfriendCancelRequest.isHidden = appDelegate.loginUser?.user_id == Int64(userInfo.valueForString(key: CUserId))
