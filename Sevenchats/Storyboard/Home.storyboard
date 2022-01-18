@@ -2032,10 +2032,6 @@
                                                                     <constraint firstAttribute="width" constant="25" id="f1j-Vf-SKW"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gq9-ZV-fik">
-                                                                <rect key="frame" x="-105" y="-12" width="351" height="200"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
@@ -2403,9 +2399,18 @@
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IVz-1h-T4b" customClass="BlurImageView" customModule="Sevenchats" customModuleProvider="target">
                                                                             <rect key="frame" x="0.0" y="157" width="351" height="200"/>
+                                                                            <subviews>
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gq9-ZV-fik">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="351" height="200"/>
+                                                                                </button>
+                                                                            </subviews>
                                                                             <color key="backgroundColor" red="0.87058823529411766" green="0.8666666666666667" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="200" id="3f8-HY-LHQ"/>
+                                                                                <constraint firstItem="Gq9-ZV-fik" firstAttribute="leading" secondItem="IVz-1h-T4b" secondAttribute="leading" id="RGb-xM-epq"/>
+                                                                                <constraint firstItem="Gq9-ZV-fik" firstAttribute="top" secondItem="IVz-1h-T4b" secondAttribute="top" id="b9b-C9-mFG"/>
+                                                                                <constraint firstAttribute="bottom" secondItem="Gq9-ZV-fik" secondAttribute="bottom" id="jep-oH-Ilj"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="Gq9-ZV-fik" secondAttribute="trailing" id="la3-nv-2XB"/>
                                                                             </constraints>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpg-qL-Mth">
