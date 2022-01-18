@@ -212,7 +212,7 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
         if let cell = tableView.cellForRow(at: indexPath) as? PollProgressTblCell {
             optionText =  cell.lblName.text ?? ""
         }
-        if "\(self.userEmailID)" == "\(String(describing: appDelegate.loginUser?.email ?? ""))"{return}
+//        if "\(self.userEmailID)" == "\(String(describing: appDelegate.loginUser?.email ?? ""))"{return}
         
         self.postDetailsList(optionTexts: self.optionText,arg: true, completion:{(success) -> Void in
             if success {

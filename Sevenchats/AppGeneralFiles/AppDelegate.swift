@@ -592,7 +592,7 @@ extension AppDelegate {
             }else {
                 if let otherProfileVC = CStoryboardProfile.instantiateViewController(withIdentifier: "OtherUserProfileViewController") as? OtherUserProfileViewController {
                     otherProfileVC.useremail = userID
-                    otherProfileVC.userIDNew = userID
+//                    otherProfileVC.userIDNew = userID
                     viewController?.navigationController?.pushViewController(otherProfileVC, animated: true)
                 }
             }

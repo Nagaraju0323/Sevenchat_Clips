@@ -1837,6 +1837,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         }
         
         guard arrPostList[indexPath.row].count != 0 else { return}
+//        guard arrPostList[indexPath.row].count != 0 else { return}
         let postInfo = arrPostList[indexPath.row]
        // let postId = postInfo.valueForInt(key: CId)
         let postId = postInfo.valueForString(key: "post_id")

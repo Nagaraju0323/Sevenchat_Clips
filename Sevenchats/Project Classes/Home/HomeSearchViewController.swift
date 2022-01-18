@@ -342,7 +342,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             cell.setupImgTapGestures(loan: searchInfo)
             cell.setupLblTapGestures(loan: searchInfo)
             cell.callbacks = { message in
-                appDelegate.moveOnProfileScreen(message, self)
+                appDelegate.moveOnProfileScreenNew(message, message, self)
             }
             cell.btnAddFrd.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }

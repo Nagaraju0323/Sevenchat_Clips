@@ -98,8 +98,6 @@ class HomeAddFrdTblCell: UITableViewCell {
         
     }
     
-    
-    
     func setupImgTapGestures(loan:[String:Any]) {
         let friendID = loan.valueForString(key: "user_id")
         let tapGesture = CustomTapGestureRecognizer(target: self,action: #selector(tapSelector(sender:)))
