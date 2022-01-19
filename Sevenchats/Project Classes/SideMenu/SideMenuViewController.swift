@@ -37,7 +37,7 @@ class SideMenuViewController: ParentViewController {
         //New OLD
 
         arrMenu = [
-            [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_home"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_home"), kNotificationCount:0],
+            [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "home-button"), CImageSelected:#imageLiteral(resourceName: "home-button"), kNotificationCount:0],
             [CTitle:CNavFriends as Any, CImage:UIImage(named: "ic_friends")!, CImageSelected:UIImage(named: "ic_friends")!, kNotificationCount:0],
             [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_groups"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_groups"), kNotificationCount:0],
 //            [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), kNotificationCount:0],
@@ -141,7 +141,7 @@ extension SideMenuViewController {
         }
         
         self.arrMenu = [
-            [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_home"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_home"), kNotificationCount:0],
+            [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "home-button"), CImageSelected:#imageLiteral(resourceName: "home-button"), kNotificationCount:0],
             [CTitle:CNavFriends as Any, CImage:UIImage(named:"ic_friends")!, CImageSelected:UIImage(named:"ic_friends")!, kNotificationCount:0],
             [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_groups"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_groups"), kNotificationCount: groupCount],
 //            [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), kNotificationCount:0],

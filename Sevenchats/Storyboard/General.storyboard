@@ -626,7 +626,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HVu-mi-wQM">
                                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_upload_image" translatesAutoresizingMaskIntoConstraints="NO" id="hU4-ez-45x">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_image_upload" translatesAutoresizingMaskIntoConstraints="NO" id="hU4-ez-45x">
                                                                         <rect key="frame" x="150" y="20.5" width="75" height="75"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
@@ -1487,7 +1487,7 @@ Declined</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z9v-sC-LvF">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_upload_image" translatesAutoresizingMaskIntoConstraints="NO" id="eqJ-d9-IKV">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_image_upload" translatesAutoresizingMaskIntoConstraints="NO" id="eqJ-d9-IKV">
                                                         <rect key="frame" x="150" y="20.5" width="75" height="75"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
@@ -2190,6 +2190,7 @@ Declined</string>
         <image name="ic_comment_send" width="37.5" height="38"/>
         <image name="ic_delete_image" width="41" height="41"/>
         <image name="ic_dropdwon" width="13" height="12"/>
+        <image name="ic_image_upload" width="512" height="512"/>
         <image name="ic_navigation_bg" width="621" height="137.5"/>
         <image name="ic_payment" width="22" height="22"/>
         <image name="ic_request_accept" width="22.5" height="22.5"/>
@@ -2203,7 +2204,6 @@ Declined</string>
         <image name="ic_thumps_maybe" width="23" height="18"/>
         <image name="ic_thumps_maybe_selected" width="23" height="18"/>
         <image name="ic_thumps_up_selected" width="18.5" height="15"/>
-        <image name="ic_upload_image" width="121" height="120.5"/>
         <image name="tom.jpg" width="300" height="250"/>
         <namedColor name="AppDefault">
             <color red="0.0" green="0.75294119119644165" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

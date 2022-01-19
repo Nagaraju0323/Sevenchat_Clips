@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -38,12 +38,13 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" image="ic_1_onboarding" translatesAutoresizingMaskIntoConstraints="NO" id="Vdt-9f-vDS">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" image="ic_1_onboarding_new" translatesAutoresizingMaskIntoConstraints="NO" id="Vdt-9f-vDS">
                         <rect key="frame" x="26" y="122" width="323" height="559.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </imageView>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="swI-d5-RhP" secondAttribute="bottom" id="1y6-eY-Dnk"/>
@@ -57,7 +58,6 @@
                 <constraint firstItem="cjO-e5-lZF" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.861333" id="sUa-hL-Aad"/>
                 <constraint firstItem="Vdt-9f-vDS" firstAttribute="top" secondItem="cjO-e5-lZF" secondAttribute="bottom" constant="8" id="wl1-Rf-Goc"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
                 <outlet property="imgOnboarding" destination="Vdt-9f-vDS" id="3gh-gn-dWz"/>
                 <outlet property="lblDescription" destination="swI-d5-RhP" id="I6t-Md-XtF"/>
@@ -67,6 +67,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="ic_1_onboarding" width="309" height="350"/>
+        <image name="ic_1_onboarding_new" width="285" height="323"/>
     </resources>
 </document>

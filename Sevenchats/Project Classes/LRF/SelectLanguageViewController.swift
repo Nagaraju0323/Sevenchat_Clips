@@ -50,7 +50,7 @@ class SelectLanguageViewController: ParentViewController,UITableViewDataSource, 
         refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
         refreshControl.tintColor = ColorAppTheme
         tblLanguage.pullToRefreshControl = refreshControl
-        
+        btnSearch.isHidden = true
         if isBackButton{
             btnBack.hide(byWidth: false)
         }else{
