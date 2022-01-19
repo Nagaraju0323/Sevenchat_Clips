@@ -332,6 +332,11 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             
             if appDelegate.loginUser?.user_id == Int64(searchInfo.valueForString(key: CUserId)){
                 cell.btnAddFrd.isHidden = true
+                cell.btnAccept.isHidden = true
+                cell.btnReject.isHidden = true
+                cell.lblUserName.text = searchInfo.valueForString(key: CFirstname) + " " + searchInfo.valueForString(key: CLastname)
+                cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
+                
             }else{
                 cell.btnAddFrd.isHidden = false
                 cell.setupCell(loan: searchInfo)

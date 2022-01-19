@@ -6,6 +6,12 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/********************************************************
+ * Author :  Chandrika.R                                *
+ * Model  : Add New Categories                          *
+ * Description:                                         *
+ ********************************************************/
+
 import UIKit
 
 enum ChirpyType : Int {
@@ -90,32 +96,13 @@ class AddChirpyViewController: ParentViewController {
         
         viewUploadedImageContainer.isHidden = true
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddChirpyClicked(_:)))]
-        
 
-//        let arrCategory = MIGeneralsAPI.shared().fetchCategoryFromLocal()
         let arrCategory = MIGeneralsAPI.shared().fetchCategoryFromLocalChiripy()
         
         /// Set Dropdown on txtCategory
         categoryDropDownView.arrDataSource = arrCategory.map({ (obj) -> String in
             return (obj[CCategoryName] as? String ?? "")
         })
-        
-        
-        
-        /// On select text from the auto-complition
-//        categoryDropDownView.onSelectText = { [weak self] (item) in
-//
-//            guard let `self` = self else { return }
-//
-//            let objArry = arrCategory.filter({ (obj) -> Bool in
-//                return ((obj[CName] as? String) == item)
-//            })
-//
-//            if (objArry.count > 0) {
-//                self.categoryID = (objArry.first?[CId] as? Int) ?? 0
-//            }
-//            self.loadInterestList(interestType : self.categoryName ?? "" , showLoader : true)
-//        }
         
         /// On select text from the auto-complition
         categoryDropDownView.onSelectText = { [weak self] (item) in
@@ -130,38 +117,7 @@ class AddChirpyViewController: ParentViewController {
                 self.categoryName = (objArry.first?[CCategoryName] as? String) ?? ""
             }
             
-//            self.loadInterestList(interestType : self.categoryName ?? "" , showLoader : true)
-            
         }
-        
-        /// On select text from the auto-complition
-//        subcategoryDropDownView.onSelectText = { [weak self] (item) in
-//
-//            guard let `self` = self else { return }
-//
-//            let objArry = self.arrSubCategory.filter({ (obj) -> Bool in
-//                return ((obj[CinterestLevel2] as? String) == item)
-//            })
-//
-//            if (objArry.count > 0) {
-//                self.categorysubName = (objArry.first?[CinterestLevel2] as? String) ?? ""
-//            }
-//        }
-        
-        /// On select text from the auto-complition
-//        subcategoryDropDownView.onSelectText = { [weak self] (item) in
-//
-//            guard let `self` = self else { return }
-//
-//            let objArry = self.arrsubCategorys.filter({ (obj) -> Bool in
-//                return ((obj.interestLevel2) == item)
-//            })
-//
-//            if (objArry.count > 0) {
-//                self.categorysubName = (objArry.first?.interestLevel2) ?? ""
-//            }
-//        }
-        
         
         let arrInviteType = [CPostPostsInviteGroups, CPostPostsInviteContacts,  CPostPostsInvitePublic, CPostPostsInviteAllFriends]
         
@@ -198,11 +154,7 @@ class AddChirpyViewController: ParentViewController {
         txtViewChirpyContent.placeHolder = CChirpyPlaceholderContent
         lblUploadImage.text = CUploadImage
         categoryDropDownView.txtCategory.placeholder = CChirpyPlaceholderSelecetCategory
-//        subcategoryDropDownView.txtCategory.placeholder = CChirpyPlaceholderSelecetCategory
-//        txtViewChirpyContent.placeHolder = "text"
-//        txtViewChirpyContent.placeHolder = CChirpyPlaceholderContent
         txtViewChirpyContent.placeHolder = CVisiblity
-        
         btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
     }
 }
@@ -246,7 +198,6 @@ extension AddChirpyViewController{
             "age_limit":"20",
         ]
         
-        
         if self.selectedInviteType == 1{
             let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
             apiParaGroups = groupIDS.components(separatedBy: ",")
@@ -267,8 +218,6 @@ extension AddChirpyViewController{
         }else {
             dict[CSelectedPerson] = "none"
         }
-        
-        
         
         APIRequest.shared().addEditPost(para: dict, image: imgChirpy.image, apiKeyCall: CAPITagchirpies) { [weak self] (response, error) in
             guard let self = self else { return }
@@ -338,27 +287,14 @@ extension AddChirpyViewController{
                 }
             }
         }
-    
-    
-//    fileprivate func loadChirpyDetailFromServer(){
-//        if let chirpyID = self.chirpyID{
-//            APIRequest.shared().viewPostDetail(postID: chirpyID) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                if response != nil {
-//                    if let chirpyInfo = response![CJsonData] as? [String : Any]{
-//                        self.setChirpyDetail(chirpyInfo)
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
+
     fileprivate func setChirpyDetail (_ chirpyInfo : [String : Any]) {
         
         self.categoryID = chirpyInfo.valueForInt(key: CCategory_Id)
         categoryDropDownView.txtCategory.text = chirpyInfo.valueForString(key: CCategory)
         txtViewChirpyContent.text = chirpyInfo.valueForString(key: CContent)
-        lblTextCount.text = "\(txtViewChirpyContent.text.count)/150"
+//        lblTextCount.text = "\(txtViewChirpyContent.text.count)/150"
+        lblTextCount.isHidden = true
         
         //...Set Chirpy image
         if chirpyInfo.valueForString(key: CImage) != "" {

@@ -68,7 +68,8 @@ extension GroupInfoViewController{
     func setGroupInformation() {
         if let groupInfo = self.iObject as? [String : Any]{
             self.title = groupInfo.valueForString(key: CGroupTitle)
-            lblGroupType.text = groupInfo.valueForInt(key: CGroupType) == 1 ? CGroupPublic : CGroupPrivate
+//            lblGroupType.text = groupInfo.valueForInt(key: CGroupType) == 1 ? CGroupPublic : CGroupPrivate
+            lblGroupType.isHidden = true
             
             if groupInfo.valueForString(key: CGroupLink).isBlank{
                 viewGroupLinkContainer.hide(byHeight: true)
