@@ -91,7 +91,7 @@
                                                         <subviews>
                                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Npu-f1-cYA" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
-                                                                <color key="textColor" name="AppDefault"/>
+                                                                <color key="textColor" red="0.56862745100000001" green="0.56862745100000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <connections>
@@ -127,7 +127,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="Fwi-GV-Ytx"/>
                                                         </constraints>
-                                                        <color key="textColor" name="AppDefault"/>
+                                                        <color key="textColor" red="0.56862745100000001" green="0.56862745100000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         <userDefinedRuntimeAttributes>
@@ -160,7 +160,7 @@
                                                         <subviews>
                                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZB6-5d-dHS" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
-                                                                <color key="textColor" name="AppDefault"/>
+                                                                <color key="textColor" red="0.56862745100000001" green="0.56862745100000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>

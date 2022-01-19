@@ -38,12 +38,12 @@ extension OnboardingCollectionView {
     private func configureOnboradingData() {
         
         arrOnboarding = [
-            OnboardingModel(title: C_1_Onboarding_title, description: C_1_Onboarding_Description, image: "ic_1_onboarding"),
-            OnboardingModel(title: C_2_Onboarding_title, description: C_2_Onboarding_Description, image: "ic_2_onboarding"),
+            OnboardingModel(title: C_1_Onboarding_title, description: C_1_Onboarding_Description, image: "ic_1_onboarding_new"),
+            OnboardingModel(title: C_2_Onboarding_title, description: C_2_Onboarding_Description, image: "ic_2_onboarding_new"),
 //            OnboardingModel(title: C_3_Onboarding_title, description: C_3_Onboarding_Description, image: "ic_3_onboarding"),
-            OnboardingModel(title: C_4_Onboarding_title, description: C_4_Onboarding_Description, image: "ic_4_onboarding"),
-            OnboardingModel(title: C_5_Onboarding_title, description: C_5_Onboarding_Description, image: "ic_5_onboarding"),
-            OnboardingModel(title: C_6_Onboarding_title, description: C_6_Onboarding_Description, image: "ic_6_onboarding")
+            OnboardingModel(title: C_4_Onboarding_title, description: C_4_Onboarding_Description, image: "ic_4_onboarding_new"),
+            OnboardingModel(title: C_5_Onboarding_title, description: C_5_Onboarding_Description, image: "ic_5_onboarding_new"),
+            OnboardingModel(title: C_6_Onboarding_title, description: C_6_Onboarding_Description, image: "ic_6_onboarding_new")
         ]
         
         self.reloadData()

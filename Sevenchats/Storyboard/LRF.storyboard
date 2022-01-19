@@ -293,7 +293,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KtD-b5-OKj">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_login_logo" translatesAutoresizingMaskIntoConstraints="NO" id="CxU-Ca-e4l">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_login" translatesAutoresizingMaskIntoConstraints="NO" id="CxU-Ca-e4l">
                                                         <rect key="frame" x="137.5" y="89.5" width="100" height="100"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="100" id="1I3-bf-vVp"/>
@@ -306,7 +306,7 @@
                                                             <constraint firstAttribute="height" constant="34" id="dtg-uz-LpH"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="Gobold" family="Gobold" pointSize="30"/>
-                                                        <color key="textColor" red="0.2666666667" green="0.29411764709999999" blue="0.054901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" name="AppDefault"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gJs-Yu-Q8E" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
@@ -324,7 +324,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNJ-Sp-afB" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="268.5" width="335" height="50"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <color key="textColor" name="AppDefault"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                         <userDefinedRuntimeAttributes>
@@ -339,7 +339,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="wSy-60-Mby" secondAttribute="height" multiplier="67:10" id="b0P-Bn-d4F"/>
                                                         </constraints>
-                                                        <color key="textColor" name="AppDefault"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                         <userDefinedRuntimeAttributes>
@@ -348,7 +348,7 @@
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAp-aI-5kD" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="427" width="335" height="45"/>
-                                                        <color key="backgroundColor" red="0.51764705879999995" green="0.60392156860000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" name="AppDefault"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="OAp-aI-5kD" secondAttribute="height" multiplier="67:9" id="aLH-F1-Vgb"/>
                                                         </constraints>
@@ -443,7 +443,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="wSy-60-Mby" secondAttribute="trailing" constant="20" id="2hx-iL-IN5"/>
                                                     <constraint firstItem="gNJ-Sp-afB" firstAttribute="height" secondItem="wSy-60-Mby" secondAttribute="height" id="5Tj-fm-q2t"/>
@@ -489,7 +489,7 @@
                                         </constraints>
                                     </scrollView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95686274510000002" green="1" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Fsq-nc-eRZ" firstAttribute="top" secondItem="GMS-U7-2mA" secondAttribute="top" id="BF3-3Q-Hdh"/>
                                     <constraint firstAttribute="bottom" secondItem="Fsq-nc-eRZ" secondAttribute="bottom" id="Dhf-aV-cIZ"/>
@@ -499,7 +499,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5Wl-gR-55m"/>
-                        <color key="backgroundColor" red="0.95686274510000002" green="1" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="GMS-U7-2mA" firstAttribute="leading" secondItem="5Wl-gR-55m" secondAttribute="leading" id="Ccw-r9-oPn"/>
                             <constraint firstItem="GMS-U7-2mA" firstAttribute="bottom" secondItem="5Wl-gR-55m" secondAttribute="bottom" id="FqO-aO-tWl"/>
@@ -648,7 +648,7 @@
                                             <constraint firstAttribute="height" constant="32" id="z0b-NV-KUG"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="19"/>
-                                        <color key="textColor" red="0.55686274509803924" green="0.69019607843137254" blue="0.42352941176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" name="AppDefault"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -695,14 +695,14 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_right" translatesAutoresizingMaskIntoConstraints="NO" id="A4Q-0P-bIC">
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_tick" translatesAutoresizingMaskIntoConstraints="NO" id="A4Q-0P-bIC">
                                                             <rect key="frame" x="339" y="0.0" width="45" height="45"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="45" id="8TK-yL-7Nw"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.94117647058823528" green="0.96078431372549022" blue="0.90980392156862744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.90196078431372551" green="0.97254901960784312" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="a4S-zz-97Y" secondAttribute="bottom" id="CIA-qE-8Zj"/>
                                                         <constraint firstAttribute="trailing" secondItem="A4Q-0P-bIC" secondAttribute="trailing" id="H6m-1x-EPg"/>
@@ -722,7 +722,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="SNW-cs-5S7" secondAttribute="trailing" id="wjx-Ur-Jwp"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="imgSelected" destination="A4Q-0P-bIC" id="j5H-iS-bnx"/>
                                             <outlet property="lblLanguage" destination="a4S-zz-97Y" id="Rov-xT-OyH"/>
@@ -737,7 +737,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="i49-vb-BYi"/>
-                        <color key="backgroundColor" red="0.95686274509803915" green="1" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fZy-RF-9h7" firstAttribute="height" secondItem="BZ7-n2-mbq" secondAttribute="height" id="0RI-Yk-rGI"/>
                             <constraint firstItem="Yu4-lV-9cj" firstAttribute="top" secondItem="QcK-iU-hPR" secondAttribute="bottom" constant="5" id="1en-bR-mdt"/>
@@ -1084,7 +1084,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="1122"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBy-M3-zM3">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="973"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="981"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Px4-Ng-72m">
                                                 <rect key="frame" x="137.5" y="15" width="100" height="100"/>
@@ -1092,7 +1092,7 @@
                                                     <constraint firstAttribute="width" constant="100" id="5CJ-Ev-vmz"/>
                                                     <constraint firstAttribute="height" constant="100" id="EHy-cD-QPy"/>
                                                 </constraints>
-                                                <state key="normal" image="ic_add_image"/>
+                                                <state key="normal" image="ic_add_user"/>
                                                 <connections>
                                                     <action selector="btnUploadImageCLK:" destination="xU8-ho-WGd" eventType="touchUpInside" id="Nfq-mF-f3h"/>
                                                 </connections>
@@ -1112,7 +1112,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="sDm-3o-ONw" secondAttribute="height" multiplier="67:10" id="Z81-yE-BMn"/>
                                                 </constraints>
-                                                <color key="textColor" name="AppDefault"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1124,7 +1124,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="BXd-kV-PSB" secondAttribute="height" multiplier="67:10" id="Dy9-I5-nwd"/>
                                                 </constraints>
-                                                <color key="textColor" name="AppDefault"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1136,7 +1136,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="CcN-Qf-lMh" secondAttribute="height" multiplier="67:10" id="cqd-ZX-VKs"/>
                                                 </constraints>
-                                                <color key="textColor" name="AppDefault"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1148,7 +1148,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Csv-DQ-1Fm" secondAttribute="height" multiplier="67:10" id="0D3-iF-m1E"/>
                                                 </constraints>
-                                                <color key="textColor" name="AppDefault"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1160,7 +1160,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="RGB-B2-cAz" secondAttribute="height" multiplier="67:10" id="h94-cB-8H9"/>
                                                 </constraints>
-                                                <color key="textColor" name="AppDefault"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1181,7 +1181,7 @@
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="+91" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DoZ-dv-50H">
                                                         <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
-                                                        <color key="textColor" name="AppDefault"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -1222,7 +1222,7 @@
                                             </view>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YGs-zy-sKh" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="105" y="455" width="250" height="50"/>
-                                                <color key="textColor" name="AppDefault"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="phonePad"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1234,7 +1234,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="n5H-tk-45g" secondAttribute="height" multiplier="67:10" id="ud0-lW-yXn"/>
                                                 </constraints>
-                                                <color key="textColor" name="AppDefault"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1252,7 +1252,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="HZJ-B4-Cl0" secondAttribute="height" multiplier="67:10" id="W3r-EL-YbL"/>
                                                 </constraints>
-                                                <color key="textColor" name="AppDefault"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <userDefinedRuntimeAttributes>
@@ -1273,7 +1273,7 @@
                                                         <subviews>
                                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r7Z-Mp-UZ9" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
-                                                                <color key="textColor" name="AppDefault"/>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -1306,7 +1306,7 @@
                                                         <subviews>
                                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lax-Ff-xWV" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
-                                                                <color key="textColor" name="AppDefault"/>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -1339,7 +1339,7 @@
                                                         <subviews>
                                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oxt-t7-Puv" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
-                                                                <color key="textColor" name="AppDefault"/>
+                                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -1370,10 +1370,10 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zJB-Iy-K7d">
-                                                <rect key="frame" x="20" y="850" width="335" height="34"/>
+                                                <rect key="frame" x="20" y="850" width="335" height="42"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="I accept all the terns and conditions including all the privacy policies" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S3X-nm-tel" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="34"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="42"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1389,7 +1389,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KcO-Ay-HT0" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="899" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="907" width="335" height="45"/>
                                                 <color key="backgroundColor" red="0.51764705879999995" green="0.60392156860000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="KcO-Ay-HT0" secondAttribute="height" multiplier="67:9" id="jFB-cr-xYi"/>
@@ -1470,7 +1470,7 @@
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1Tj-UI-23r"/>
-                        <color key="backgroundColor" red="0.95686274509803915" green="1" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1Tj-UI-23r" firstAttribute="trailing" secondItem="USj-6p-gnb" secondAttribute="trailing" id="0Og-Fk-RjP"/>
                             <constraint firstItem="USj-6p-gnb" firstAttribute="top" secondItem="1Tj-UI-23r" secondAttribute="top" id="VPF-aK-OkT"/>
@@ -2314,12 +2314,12 @@
     </scenes>
     <designables>
         <designable name="S3X-nm-tel">
-            <size key="intrinsicContentSize" width="426" height="17"/>
+            <size key="intrinsicContentSize" width="474" height="21"/>
         </designable>
     </designables>
     <resources>
         <image name="ic_Headerss" width="1242" height="345"/>
-        <image name="ic_add_image" width="100" height="88.5"/>
+        <image name="ic_add_user" width="512" height="512"/>
         <image name="ic_back" width="22.5" height="14"/>
         <image name="ic_btn_bg" width="555.5" height="71.5"/>
         <image name="ic_btn_cancel_grey" width="18.5" height="18.5"/>
@@ -2331,6 +2331,7 @@
         <image name="ic_dropdwon" width="13" height="12"/>
         <image name="ic_edit_profile_green" width="23" height="23"/>
         <image name="ic_forgot" width="150.5" height="150.5"/>
+        <image name="ic_login" width="4914" height="4729"/>
         <image name="ic_login_btn_facebook" width="49" height="49"/>
         <image name="ic_login_btn_google" width="49" height="49"/>
         <image name="ic_login_btn_twitter" width="49" height="49"/>
@@ -2339,6 +2340,7 @@
         <image name="ic_right" width="16.5" height="12"/>
         <image name="ic_sidemenu" width="22" height="16.5"/>
         <image name="ic_sidemenu_reverse" width="22" height="16.5"/>
+        <image name="ic_tick" width="16" height="16"/>
         <image name="ic_title_header" width="592.5" height="110.5"/>
         <image name="icons8-apple-logo-50" width="50" height="50"/>
         <namedColor name="AppDefault">

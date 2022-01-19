@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "icon-1.png",
+      "filename" : "ic_2_onboarding_new.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icon.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "icon-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -269,7 +269,7 @@
                                                                             <action selector="btnUplaodImageCLK:" destination="E2V-BA-etZ" eventType="touchUpInside" id="tqu-gh-XbN"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_upload_image" translatesAutoresizingMaskIntoConstraints="NO" id="rxm-nY-dek">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_image_upload" translatesAutoresizingMaskIntoConstraints="NO" id="rxm-nY-dek">
                                                                         <rect key="frame" x="150" y="19.5" width="75" height="75"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
@@ -277,7 +277,7 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFh-VT-7rv" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                        <rect key="frame" x="20" y="109.5" width="276.5" height="16.5"/>
+                                                                        <rect key="frame" x="20" y="109.5" width="335" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="FFh-VT-7rv" secondAttribute="height" multiplier="67:4" id="cnL-Fw-bxk"/>
                                                                         </constraints>
@@ -318,7 +318,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="FzZ-H4-LPR" secondAttribute="height" multiplier="67:10" id="T0M-xc-J7p"/>
                                                         </constraints>
-                                                        <color key="textColor" name="AppDefault"/>
+                                                        <color key="textColor" red="0.56862745100000001" green="0.56862745100000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         <userDefinedRuntimeAttributes>
@@ -333,7 +333,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="Qus-Dt-Ph2" secondAttribute="height" multiplier="67:10" id="BxF-eZ-y7E"/>
                                                                 </constraints>
-                                                                <color key="textColor" name="AppDefault"/>
+                                                                <color key="textColor" red="0.56862745100000001" green="0.56862745100000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <connections>
@@ -368,7 +368,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="93G-RI-1ha" secondAttribute="height" multiplier="67:23" id="EX5-Ya-2R5"/>
                                                         </constraints>
-                                                        <color key="textColor" name="AppDefault"/>
+                                                        <color key="textColor" red="0.56862745100000001" green="0.56862745100000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         <userDefinedRuntimeAttributes>
@@ -387,7 +387,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="fg0-PG-88b" secondAttribute="height" multiplier="67:10" id="WgX-pa-yxs"/>
                                                         </constraints>
-                                                        <color key="textColor" name="AppDefault"/>
+                                                        <color key="textColor" red="0.56862745100000001" green="0.56862745100000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -405,7 +405,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="S4r-K8-P70" secondAttribute="height" multiplier="67:10" id="c7n-KV-MHk"/>
                                                         </constraints>
-                                                        <color key="textColor" name="AppDefault"/>
+                                                        <color key="textColor" red="0.56862745100000001" green="0.56862745100000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -421,7 +421,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wBo-GR-tZs" customClass="MIGenericView" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="560" width="335" height="45"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_location" translatesAutoresizingMaskIntoConstraints="NO" id="aUe-HR-Bal">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_add_location" translatesAutoresizingMaskIntoConstraints="NO" id="aUe-HR-Bal">
                                                                 <rect key="frame" x="307" y="5" width="20" height="35"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="20" id="EAB-HG-QBU"/>
@@ -429,12 +429,12 @@
                                                             </imageView>
                                                             <textField opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DDj-hr-pkH" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="10" y="0.0" width="287" height="45"/>
-                                                                <color key="textColor" red="0.55294117649999996" green="0.71372549019999998" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <color key="textColor" red="0.56862745100000001" green="0.56862745100000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
-                                                                        <color key="value" red="0.55294117649999996" green="0.71372549019999998" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="value" red="0.56862745100000001" green="0.56862745100000001" blue="0.56862745100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
@@ -545,7 +545,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ctI-K5-bxj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="220" y="40"/>
+            <point key="canvasLocation" x="418" y="41"/>
         </scene>
         <!--Event Detail View Controller-->
         <scene sceneID="CPJ-zN-l9G">
@@ -2007,7 +2007,7 @@ Declined</string>
                                                                             <action selector="btnUplaodImageCLK:" destination="BPM-LA-xtK" eventType="touchUpInside" id="jtO-oB-bH3"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_upload_image" translatesAutoresizingMaskIntoConstraints="NO" id="m7c-O0-FYP">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_image_upload" translatesAutoresizingMaskIntoConstraints="NO" id="m7c-O0-FYP">
                                                                         <rect key="frame" x="150" y="19.5" width="75" height="75"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
@@ -2443,6 +2443,7 @@ Declined</string>
     </scenes>
     <resources>
         <image name="avtar.png" width="126" height="126"/>
+        <image name="ic_add_location" width="512" height="512"/>
         <image name="ic_calender" width="32" height="29.5"/>
         <image name="ic_close_add" width="18" height="18"/>
         <image name="ic_comment_count" width="15" height="15"/>
@@ -2453,6 +2454,7 @@ Declined</string>
         <image name="ic_grey_sharing" width="19" height="19"/>
         <image name="ic_home_event_time" width="26.5" height="26.5"/>
         <image name="ic_home_location" width="13" height="19"/>
+        <image name="ic_image_upload" width="512" height="512"/>
         <image name="ic_like_selected" width="17.5" height="17.5"/>
         <image name="ic_location" width="25.5" height="32.5"/>
         <image name="ic_navigation_bg" width="621" height="137.5"/>
@@ -2464,7 +2466,6 @@ Declined</string>
         <image name="ic_thumps_maybe" width="23" height="18"/>
         <image name="ic_thumps_maybe_selected" width="23" height="18"/>
         <image name="ic_thumps_up_selected" width="18.5" height="15"/>
-        <image name="ic_upload_image" width="121" height="120.5"/>
         <namedColor name="AppDefault">
             <color red="0.0" green="0.75294119119644165" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

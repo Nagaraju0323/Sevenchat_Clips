@@ -169,7 +169,8 @@ class RegisterViewController: ParentViewController {
         
         let customType1 = ActiveType.custom(pattern: "(\\s\(CSettingTermsAndConditions)\\b)|(\\s\(CSettingPrivacyPolicy)\\b)")
         lblTermsAndCondition.enabledTypes = [customType1]
-        lblTermsAndCondition.customColor[customType1] = UIColor(hex: "a1b975") //.blue
+        //lblTermsAndCondition.customColor[customType1] = UIColor(hex: "a1b975") //.blue
+        lblTermsAndCondition.customColor[customType1] = UIColor(hex: "06C0A6")
         
         lblTermsAndCondition.text = CTermsAndConditionsText
         

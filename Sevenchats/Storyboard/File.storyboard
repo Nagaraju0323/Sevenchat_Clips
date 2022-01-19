@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n8w-7k-rNM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n8w-7k-rNM">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -142,7 +142,7 @@
                                         <inset key="separatorInset" minX="80" minY="0.0" maxX="25" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblSharedListCell" rowHeight="70" id="7qH-wo-Sbh" customClass="TblSharedListCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="375" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7qH-wo-Sbh" id="tPa-0d-ck0">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
@@ -466,7 +466,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblFilesCell" rowHeight="50" id="1Rr-MY-OO2" customClass="TblFilesCell" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="345" height="50"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="345" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Rr-MY-OO2" id="dt3-HM-cWy">
                                             <rect key="frame" x="0.0" y="0.0" width="345" height="50"/>
@@ -616,7 +616,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblSharedFileDetailsCell" rowHeight="60" id="yYI-oT-dhx" customClass="TblSharedFileDetailsCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="375" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yYI-oT-dhx" id="Cmd-Qr-R5y">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
@@ -709,7 +709,7 @@
                                             <constraint firstAttribute="width" constant="85" id="9GZ-wv-3u3"/>
                                             <constraint firstAttribute="height" constant="85" id="a1T-aV-j0e"/>
                                         </constraints>
-                                        <state key="normal" image="ic_home_add"/>
+                                        <state key="normal" image="ic_btn_add"/>
                                         <connections>
                                             <action selector="btnAddFolderAction:" destination="sCb-Y2-7gP" eventType="touchUpInside" id="LpC-rm-m8T"/>
                                         </connections>
@@ -920,7 +920,7 @@
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblFilesCell" rowHeight="50" id="IMh-9g-6iW" customClass="TblFilesCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="119" width="345" height="50"/>
+                                                <rect key="frame" x="0.0" y="115.5" width="345" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IMh-9g-6iW" id="cyq-nb-tuG">
                                                     <rect key="frame" x="0.0" y="0.0" width="345" height="50"/>
@@ -1020,7 +1020,7 @@
                                     <constraint firstAttribute="height" constant="85" id="Ewh-r6-qlj"/>
                                     <constraint firstAttribute="width" constant="85" id="QLS-8h-1uO"/>
                                 </constraints>
-                                <state key="normal" image="ic_home_add"/>
+                                <state key="normal" image="ic_btn_add"/>
                                 <connections>
                                     <action selector="btnAddFolderAction:" destination="nKl-4b-yRK" eventType="touchUpInside" id="Ybw-Sy-9IE"/>
                                 </connections>
@@ -1132,7 +1132,7 @@
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblFilesCell" rowHeight="50" id="Q3B-aG-I6h" customClass="TblFilesCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="148" width="345" height="50"/>
+                                                <rect key="frame" x="0.0" y="144.5" width="345" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q3B-aG-I6h" id="nwQ-Ls-2Nt">
                                                     <rect key="frame" x="0.0" y="0.0" width="345" height="50"/>
@@ -1232,7 +1232,7 @@
                                     <constraint firstAttribute="width" constant="85" id="cb6-u6-jed"/>
                                     <constraint firstAttribute="height" constant="85" id="dq4-aM-eNT"/>
                                 </constraints>
-                                <state key="normal" image="ic_home_add"/>
+                                <state key="normal" image="ic_btn_add"/>
                                 <connections>
                                     <action selector="btnAddFolderAction:" destination="eB0-kg-Pwg" eventType="touchUpInside" id="0wg-jv-jSb"/>
                                 </connections>
@@ -1379,7 +1379,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblUpgradeStorageCell" rowHeight="60" id="GgS-6s-NJv" customClass="TblUpgradeStorageCell" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="283" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="279.5" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GgS-6s-NJv" id="06u-Q0-Abb">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
@@ -1492,7 +1492,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblSharedFileDetailsCell" rowHeight="60" id="8yU-dv-U9e" customClass="TblSharedFileDetailsCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="375" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8yU-dv-U9e" id="w9X-zS-hZX">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
@@ -1574,7 +1574,7 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblSharedFileDetailsCollCell" rowHeight="126" id="cLG-LG-O2D" customClass="TblSharedFileDetailsCollCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="88" width="375" height="126"/>
+                                                <rect key="frame" x="0.0" y="84.5" width="375" height="126"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cLG-LG-O2D" id="HYN-8d-bfr">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="126"/>
@@ -1629,7 +1629,7 @@
                                             <constraint firstAttribute="width" constant="85" id="ff8-cY-cyd"/>
                                             <constraint firstAttribute="height" constant="85" id="tlc-tN-XQ9"/>
                                         </constraints>
-                                        <state key="normal" image="ic_home_add"/>
+                                        <state key="normal" image="ic_btn_add"/>
                                         <connections>
                                             <action selector="btnAddFolderAction:" destination="Xbv-IJ-HcA" eventType="touchUpInside" id="MAI-9p-ZV5"/>
                                         </connections>
@@ -1820,7 +1820,7 @@
                                             <constraint firstAttribute="height" constant="85" id="HQr-ch-GrS"/>
                                             <constraint firstAttribute="width" constant="85" id="sHs-9Q-INk"/>
                                         </constraints>
-                                        <state key="normal" image="ic_home_add"/>
+                                        <state key="normal" image="ic_btn_add"/>
                                         <connections>
                                             <action selector="btnAddFolderAction:" destination="7SB-pl-K3J" eventType="touchUpInside" id="RK9-3N-Dsf"/>
                                         </connections>
@@ -1864,11 +1864,11 @@
     </scenes>
     <resources>
         <image name="avtar.png" width="126" height="126"/>
+        <image name="ic_btn_add" width="512" height="512"/>
         <image name="ic_btn_bg" width="555.5" height="71.5"/>
         <image name="ic_cancle" width="10.5" height="10.5"/>
         <image name="ic_folder" width="21" height="18"/>
         <image name="ic_grid" width="16" height="16"/>
-        <image name="ic_home_add" width="130.5" height="127"/>
         <image name="ic_home_dot_grey" width="20" height="20"/>
         <image name="ic_info_tint" width="25" height="25"/>
         <image name="ic_menu_file" width="20" height="16.5"/>
