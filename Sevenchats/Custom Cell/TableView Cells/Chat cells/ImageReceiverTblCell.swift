@@ -111,11 +111,11 @@ extension ImageReceiverTblCell {
                 
                 let videoPath = CTopMostViewController.applicationDocumentsDirectory()! + "/" + (messageInfo?.localMediaUrl)!
                 if FileManager.default.fileExists(atPath: videoPath) {
-                    MIMQTT.shared().getVideoThumbNail(URL(fileURLWithPath: videoPath)) { (image) in
-                        GCDMainThread.async {
-                            self.imgMessage.image = image
-                        }
-                    }
+//                    MIMQTT.shared().getVideoThumbNail(URL(fileURLWithPath: videoPath)) { (image) in
+//                        GCDMainThread.async {
+//                            self.imgMessage.image = image
+//                        }
+//                    }
                 }
             }else {
                 if messageInfo?.thumb_url != nil {

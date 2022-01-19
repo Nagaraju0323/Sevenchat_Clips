@@ -122,7 +122,7 @@ extension LocationReceiverTblCell {
                 self.redirectToForward(self.messageInformation)
             }))
             alertController.addAction(UIAlertAction(title: CBtnDelete, style: .default, handler: { (alert) in
-                MIMQTT.shared().deleteDeliveredMessage(self.messageInformation, isSender: false)
+//                MIMQTT.shared().deleteDeliveredMessage(self.messageInformation, isSender: false)
             }))
             
             alertController.addAction(UIAlertAction(title: CBtnCancel, style: .cancel, handler: nil))

@@ -276,7 +276,7 @@ extension CreateChatGroupViewController{
                     if self.groupID == nil {
                         let arrUserIDS = self.arrSelectedParticipants.map({$0.valueForString(key: CUserId) })
                         if arrUserIDS.count > 0 {
-                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrUserIDS, status: 0, groupId: _groupID, isSend:0)
+//                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrUserIDS, status: 0, groupId: _groupID, isSend:0)
                         }
                     }
                     

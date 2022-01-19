@@ -784,7 +784,7 @@ extension UserChatDetailViewController {
     fileprivate func storeMediaToLocal(_ mediaType: MessageType, latitude:Double = 0.0, longitude:Double = 0.0, address: String = "") {
         
         if let userid = self.userID {
-            let channelId = CMQTTUSERTOPIC + "\(userid)"
+//            let channelId = CMQTTUSERTOPIC + "\(userid)"
             
             for media in self.arrSelectedMediaForChat {
                 if mediaType == .image {
@@ -911,7 +911,7 @@ extension UserChatDetailViewController {
     fileprivate func uploadMediaFileToServer() {
         if let userid = self.userID {
             let channelId = CMQTTUSERTOPIC + "\(appDelegate.loginUser?.user_id ?? 0)/\(userid)"
-            MIMQTT.shared().syncUnsentMediaToServer(channelId)
+//            MIMQTT.shared().syncUnsentMediaToServer(channelId)
             if self.fetchHome.numberOfSections(in: tblChat) > 1 {
                 self.tblChat.scrollToBottom()
             }
@@ -1871,7 +1871,7 @@ extension UserChatDetailViewController{
     func claerchatController() {
         if let arrMessages = TblMessages.fetchAllObjects() as? [TblMessages] {
             for messageInfo in arrMessages {
-                MIMQTT.shared().deleteAllMessageFromLocal(messageInfo, isSender: false)
+//                MIMQTT.shared().deleteAllMessageFromLocal(messageInfo, isSender: false)
             }
         }
     }
@@ -1881,7 +1881,7 @@ extension UserChatDetailViewController{
                 if let arrMessages = TblMessages.fetchAllObjects() as? [TblMessages] {
                     for arrMsg in arrMessages{
                         if arrMsg.message_id == msArrayid{
-                            MIMQTT.shared().deleteSelectMessage(arrMsg, isSender: false)
+//                            MIMQTT.shared().deleteSelectMessage(arrMsg, isSender: false)
                         }
                     }
                 }

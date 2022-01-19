@@ -200,7 +200,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func applicationWillTerminate(_ application: UIApplication) {
       
-        MIMQTT.shared().objMQTTClient?.disconnect()
+//        MIMQTT.shared().objMQTTClient?.disconnect()
         SocketIOManager.shared().disConnectSocket()
         
 //        ChatSocketIo.shared().stompClientDidDisconnect(client:)
@@ -210,24 +210,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Refresh profile data....
         //
-        MIMQTT.shared().updateClientId()
+//        MIMQTT.shared().updateClientId()
         if appDelegate.loginUser?.user_id != nil {
             
             MIGeneralsAPI.shared().laodLoginUserDetail()
             MIGeneralsAPI.shared().getAdvertisementList()
             ChatSocketIo.shared().SocketInitilized()
-            if MIMQTT.shared().objMQTTClient != nil {
-                if !(MIMQTT.shared().objMQTTClient?.connect())! {
-                    let _ = MIMQTT.shared().objMQTTClient?.connect()
-                }
-            }
+//            if MIMQTT.shared().objMQTTClient != nil {
+//                if !(MIMQTT.shared().objMQTTClient?.connect())! {
+//                    let _ = MIMQTT.shared().objMQTTClient?.connect()
+//                }
+//            }
         }
         
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         
-        MIMQTT.shared().deviceActualTime()
+//        MIMQTT.shared().deviceActualTime()
 //        if (VoIPNotificationHandler.shared().timer?.isValid ?? false), let notification = appDelegate.notificationPayload as? [String : Any]{
 //            VoIPNotificationHandler.shared().actionOnPushNotification(notification: notification)
 //        }
@@ -470,8 +470,10 @@ extension AppDelegate {
 
           langugaeText = TblLanguageText.findOrCreate(dictionary: [CLang_code : CUserDefaults.object(forKey: UserDefaultSelectedLangCode) as Any]) as? TblLanguageText
 
+//
+//            /MIMQTT.shared().MQTTInitialSetup()
             
-            MIMQTT.shared().MQTTInitialSetup()
+            ChatSocketIo.shared().SocketInitilized()
             MIGeneralsAPI.shared().getAdvertisementList()
           
             let remoteNotif = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? [String: Any]
@@ -681,10 +683,12 @@ extension AppDelegate {
             if (net?.isReachable)! {
                 print("NETWORK REACHABLE")
                 noInternetView?.removeFromSuperview()
+             
+                ChatSocketIo.shared().SocketInitilized()
                 
-                if MIMQTT.shared().objMQTTClient != nil {
-                    _ = MIMQTT.shared().objMQTTClient?.connect()
-                }
+//                if MIMQTT.shared().objMQTTClient != nil {
+//                    _ = MIMQTT.shared().objMQTTClient?.connect()
+//                }
             }else {
                 print("NETWORK UNREACHABLE")
                 noInternetView?.removeFromSuperview()

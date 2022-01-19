@@ -597,7 +597,7 @@ extension GroupChatDetailsViewController {
     fileprivate func uploadMediaFileToServer() {
         if let groupInfo = self.iObject as? [String : Any] {
             let channelId = CMQTTUSERTOPIC + groupInfo.valueForString(key: CGroupId)
-            MIMQTT.shared().syncUnsentMediaToServer(channelId)
+//            MIMQTT.shared().syncUnsentMediaToServer(channelId)
             self.tblChat.scrollToBottom()
         }
     }
@@ -1381,7 +1381,7 @@ extension GroupChatDetailsViewController {
     func claerchatControllers() {
         if let arrMessages = TblMessages.fetchAllObjects() as? [TblMessages] {
             for messageInfo in arrMessages {
-                MIMQTT.shared().deleteAllMessageFromLocal(messageInfo, isSender: false)
+//                MIMQTT.shared().deleteAllMessageFromLocal(messageInfo, isSender: false)
             }
         }
     }
@@ -1422,9 +1422,9 @@ extension GroupChatDetailsViewController{
     self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
         if !self.txtViewMessage.text.trim.isBlank {
             if let userid = self.userID{
-                let channelId = CMQTTUSERTOPIC + "\(userid)"
+//                let channelId = CMQTTUSERTOPIC + "\(userid)"
                 // Send message to both Login and front user...
-                MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: self.txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 1)
+//                MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: self.txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 1)
                 self.txtViewMessage.text = nil
                 self.txtViewMessage.updatePlaceholderFrame(false)
                 self.cnTextViewHeightHeight.constant = 34
@@ -1550,7 +1550,7 @@ extension GroupChatDetailsViewController{
                     for arrMsg in arrMessages{
                         if arrMsg.message_id == msArrayid{
                             print(arrMsg)
-                            MIMQTT.shared().deleteSelectMessage(arrMsg, isSender: false)
+//                            MIMQTT.shared().deleteSelectMessage(arrMsg, isSender: false)
                         }
                     }
 
@@ -1608,7 +1608,7 @@ extension GroupChatDetailsViewController{
     func claerchatController() {
         if let arrMessages = TblMessages.fetchAllObjects() as? [TblMessages] {
             for messageInfo in arrMessages {
-                MIMQTT.shared().deleteAllMessageFromLocal(messageInfo, isSender: false)
+//                MIMQTT.shared().deleteAllMessageFromLocal(messageInfo, isSender: false)
             }
         }
     }

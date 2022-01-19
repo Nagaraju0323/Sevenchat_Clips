@@ -24,12 +24,14 @@ import StompClientLib
 }
 
 
+
+
 var msgJsonData : ((String) -> Void)?
 
 class ChatSocketIo: NSObject {
 
     weak var socketDelegate: SocketDelegate?
-    weak var mqttDelegate: MQTTDelegate?
+//    weak var mqttDelegate: MQTTDelegate?
     var timeClient: TrueTimeClient?
     weak var stompClientLibDelegte:StompClientLibDelegate?
 

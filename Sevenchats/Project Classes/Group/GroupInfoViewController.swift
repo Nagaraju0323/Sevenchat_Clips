@@ -177,7 +177,7 @@ extension GroupInfoViewController : UITableViewDelegate, UITableViewDataSource{
                             MIGeneralsAPI.shared().sendNotification(userInfo.valueForString(key: CUserId), userID: user_ID.description, subject: "Group Member Deleted By Group Admin", MsgType: "GROUP_REMOVE", MsgSent:"Group Members is Removed From GroupAdmin", showDisplayContent: "send a GROUP message to you", senderName: self.strGroupName)
                             
                             
-                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: [userInfo.valueForString(key: CUserId)], status: 2, groupId: userInfo.valueForString(key: CGroupId), isSend: 1)
+//                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: [userInfo.valueForString(key: CUserId)], status: 2, groupId: userInfo.valueForString(key: CGroupId), isSend: 1)
                             
                             self.arrMembers.remove(at: indexPath.row)
                             self.tblUser.reloadData()
@@ -279,7 +279,7 @@ extension GroupInfoViewController{
                             let arrUserIDS = self.arrMembers.map({$0.valueForString(key: CUserId) })
                             if arrUserIDS.count > 0 {
                                 if let groupInfo = self.iObject as? [String : Any] {
-                                    MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrUserIDS, status: 1, groupId: groupInfo.valueForString(key: CGroupId), isSend: 0)
+//                                    MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrUserIDS, status: 1, groupId: groupInfo.valueForString(key: CGroupId), isSend: 0)
                                 }
                             }
                         }

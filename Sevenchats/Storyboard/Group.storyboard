@@ -36,7 +36,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="527"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FZr-kv-UBe">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="524"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="527"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WDS-vo-1Ve">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>

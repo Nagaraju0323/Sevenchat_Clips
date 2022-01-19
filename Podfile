@@ -21,7 +21,7 @@ target 'Sevenchats' do
   #pod 'TwitterKit'
   pod 'ActiveLabel'
   pod 'GoogleSignIn'
-  pod 'CocoaMQTT'
+ # pod 'CocoaMQTT'
   pod 'GSImageViewerController'
   pod 'TrueTime'
   pod 'Firebase/Core'

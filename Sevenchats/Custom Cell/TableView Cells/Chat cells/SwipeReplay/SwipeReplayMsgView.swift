@@ -663,9 +663,9 @@ extension SwipeReplayMsgView{
         if !txtViewMessage.text.trim.isBlank {
             if isChatType == 1 {
                 if let userid = self.UserID{
-                    let channelId = CMQTTUSERTOPIC + "\(userid)"
+//                    let channelId = CMQTTUSERTOPIC + "\(userid)"
                     // Send message to both Login and front user...
-                    MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 0)
+//                    MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 0)
                     txtViewMessage.text = nil
                     txtViewMessage.updatePlaceholderFrame(false)
                     cnTextViewHeightHeight.constant = 34
@@ -690,8 +690,8 @@ extension SwipeReplayMsgView{
                         }
                         groupIdcopied = String(groupIds)
                     }
-                    let channelId = CMQTTUSERTOPIC + groupIdcopied
-                    MIMQTT.shared().messagePaylaod(arrUser: arrUserIDS, channelId: channelId, message: txtViewMessage.text, messageType: .text, chatType: .group, groupID: groupIdcopied, is_auto_delete: 0)
+//                    let channelId = CMQTTUSERTOPIC + groupIdcopied
+//                    MIMQTT.shared().messagePaylaod(arrUser: arrUserIDS, channelId: channelId, message: txtViewMessage.text, messageType: .text, chatType: .group, groupID: groupIdcopied, is_auto_delete: 0)
                     txtViewMessage.text = nil
                     txtViewMessage.updatePlaceholderFrame(false)
                     cnTextViewHeightHeight.constant = 34
@@ -714,9 +714,9 @@ extension SwipeReplayMsgView{
         weak var weakSelf = self
         if !self.txtViewMessage.text.trim.isBlank {
             if let userid = self.UserID{
-                let channelId = CMQTTUSERTOPIC + "\(userid)"
+//                let channelId = CMQTTUSERTOPIC + "\(userid)"
                 // Send message to both Login and front user...
-                MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: self.txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 1)
+//                MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: self.txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 1)
                 self.txtViewMessage.text = nil
                 self.txtViewMessage.updatePlaceholderFrame(false)
                 self.cnTextViewHeightHeight.constant = 34

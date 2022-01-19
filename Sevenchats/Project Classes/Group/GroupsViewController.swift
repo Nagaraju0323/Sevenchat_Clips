@@ -46,7 +46,7 @@ class GroupsViewController: ParentViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        MIMQTT.shared().mqttDelegate = self
+//        MIMQTT.shared().mqttDelegate = self
         self.fetchGroupListFromLocal()
         self.getGroupListFromServer(isNew: true)
     }
@@ -113,57 +113,57 @@ class GroupsViewController: ParentViewController {
 }
 
 // MARK:- --------- MQTTDelegate
-extension GroupsViewController: MQTTDelegate {
-    func didReceiveMessage(_ message: [String : Any]?) {
-        // Update chat list table from local..
-        if appDelegate.getTopMostViewController().isKind(of: GroupsViewController.classForCoder()) {
-            GCDMainThread.asyncAfter(deadline: .now() + 2) {
-                
-                if message?.valueForInt(key: CPublishType) == CPUBLISHMESSAGETYPE {
-                    let groupID = message?.valueForInt(key: CGroupId)
-                    
-                    if let arrGroups = TblChatGroupList.fetch(predicate: NSPredicate(format: "\(CGroupId) == \(groupID ?? 0)")) as? [TblChatGroupList] {
-                        
-                        if arrGroups.count > 0 {
-                            let groupInfo = arrGroups.first
-                            groupInfo?.last_message = message?.valueForString(key: CMessage)
-                            groupInfo?.msg_type = Int16(message?.valueForInt(key: CMsg_type) ?? 0)
-                            
-                            // If sender is not login user then only increase count..
-                            if Int64(message?.valueForString(key: CSender_Id) ?? "0") != appDelegate.loginUser?.user_id {
-                                groupInfo?.unread_count += 1
-                            }
-                            
-                            groupInfo?.datetime = message?.valueForDouble(key: CCreated_at) ?? 0.0
-                            groupInfo?.chat_time = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestamp(timestamp: groupInfo?.datetime ?? 0.0/1000) ?? 0.0
-                            CoreData.saveContext()
-                            self.fetchGroupListFromLocal()
-                        }
-                    }
-                }else {
-                    self.getGroupListFromServer(isNew: true)
-                }
-            }
-        }
-    }
-    
-    func didDeletedGroup(_ message: [String : Any]?) {
-        // New Group/ Add member
-        if message?.valueForInt(key: CJsonStatus) == 0 || message?.valueForInt(key: CJsonStatus) == 3 {
-            // New Group
-            self.pullToRefresh()
-        }else {
-            // Delete Group
-            if let groupID = message?.valueForInt(key: CGroupId) {
-                // Delete object from core data..
-                TblChatGroupList.deleteObjects(predicate: NSPredicate(format: "\(CGroupId) == \(groupID)"))
-                CoreData.saveContext()
-                self.fetchGroupListFromLocal()
-            }
-        }
-        
-    }
-}
+//extension GroupsViewController: MQTTDelegate {
+//    func didReceiveMessage(_ message: [String : Any]?) {
+//        // Update chat list table from local..
+//        if appDelegate.getTopMostViewController().isKind(of: GroupsViewController.classForCoder()) {
+//            GCDMainThread.asyncAfter(deadline: .now() + 2) {
+//                
+//                if message?.valueForInt(key: CPublishType) == CPUBLISHMESSAGETYPE {
+//                    let groupID = message?.valueForInt(key: CGroupId)
+//                    
+//                    if let arrGroups = TblChatGroupList.fetch(predicate: NSPredicate(format: "\(CGroupId) == \(groupID ?? 0)")) as? [TblChatGroupList] {
+//                        
+//                        if arrGroups.count > 0 {
+//                            let groupInfo = arrGroups.first
+//                            groupInfo?.last_message = message?.valueForString(key: CMessage)
+//                            groupInfo?.msg_type = Int16(message?.valueForInt(key: CMsg_type) ?? 0)
+//                            
+//                            // If sender is not login user then only increase count..
+//                            if Int64(message?.valueForString(key: CSender_Id) ?? "0") != appDelegate.loginUser?.user_id {
+//                                groupInfo?.unread_count += 1
+//                            }
+//                            
+//                            groupInfo?.datetime = message?.valueForDouble(key: CCreated_at) ?? 0.0
+//                            groupInfo?.chat_time = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestamp(timestamp: groupInfo?.datetime ?? 0.0/1000) ?? 0.0
+//                            CoreData.saveContext()
+//                            self.fetchGroupListFromLocal()
+//                        }
+//                    }
+//                }else {
+//                    self.getGroupListFromServer(isNew: true)
+//                }
+//            }
+//        }
+//    }
+//    
+//    func didDeletedGroup(_ message: [String : Any]?) {
+//        // New Group/ Add member
+//        if message?.valueForInt(key: CJsonStatus) == 0 || message?.valueForInt(key: CJsonStatus) == 3 {
+//            // New Group
+//            self.pullToRefresh()
+//        }else {
+//            // Delete Group
+//            if let groupID = message?.valueForInt(key: CGroupId) {
+//                // Delete object from core data..
+//                TblChatGroupList.deleteObjects(predicate: NSPredicate(format: "\(CGroupId) == \(groupID)"))
+//                CoreData.saveContext()
+//                self.fetchGroupListFromLocal()
+//            }
+//        }
+//        
+//    }
+//}
 
 
 // MARK:- --------- Api Functions

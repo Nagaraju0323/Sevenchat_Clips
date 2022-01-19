@@ -314,10 +314,10 @@ extension SelectInterestsViewController{
         
         switch sender.tag {
         case 0: // Skip CLK
-            MIMQTT.shared().MQTTInitialSetup()
-            MIGeneralsAPI.shared().getAdvertisementList()
+//            MIMQTT.shared().MQTTInitialSetup()
+//            MIGeneralsAPI.shared().getAdvertisementList()
             appDelegate.initHomeViewController()
-            MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: nil)
+//            MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: nil)
             break
             
         case 1: // Done CLK

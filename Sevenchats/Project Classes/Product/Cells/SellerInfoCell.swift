@@ -42,7 +42,17 @@ class SellerInfoCell: UITableViewCell, ProductDetailBaseCell  {
     }
     
     @IBAction func onContactSellerPressed(_ sender:UIButton){
+        
+        
         if let contactInfo : ContactSellerVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ContactSellerVC") as? ContactSellerVC{
+            
+            guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
+            guard let firstName = appDelegate.loginUser?.first_name else {return}
+            guard let lastName = appDelegate.loginUser?.last_name else {return}
+            MIGeneralsAPI.shared().sendNotification(self.modelData.userId ?? "", userID: user_ID.description, subject: "User Intrested Your Product", MsgType: "", MsgSent:"User Intrested Your Product", showDisplayContent: "User Intrested Your Product", senderName: firstName + lastName)
+            
+            
+            
             contactInfo.productIDs = self.modelData.productID
 //            contactInfo.sellerID = self.modelData.userId
             contactInfo.productEmailid = self.modelData.pemail

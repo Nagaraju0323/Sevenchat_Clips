@@ -167,11 +167,11 @@ extension ImageSenderTblCell {
                 
                 let videoPath = CTopMostViewController.applicationDocumentsDirectory()! + "/" + (messageInfo?.localMediaUrl)!
                 if FileManager.default.fileExists(atPath: videoPath) {
-                    MIMQTT.shared().getVideoThumbNail(URL(fileURLWithPath: videoPath)) { (image) in
-                        GCDMainThread.async {
-                            self.imgMessage.image = image
-                        }
-                    }
+//                    MIMQTT.shared().getVideoThumbNail(URL(fileURLWithPath: videoPath)) { (image) in
+//                        GCDMainThread.async {
+//                            self.imgMessage.image = image
+//                        }
+//                    }
                 }
             }else {
                 if messageInfo?.thumb_url != nil {
@@ -215,12 +215,12 @@ extension ImageSenderTblCell {
             guard let self = self else { return }
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             alertController.addAction(UIAlertAction(title: CBtnSendAgain, style: .default, handler: { (alert) in
-                MIMQTT.shared().uploadMediaOnServer(messageInfo)
+//                MIMQTT.shared().uploadMediaOnServer(messageInfo)
             }))
             
             alertController.addAction(UIAlertAction(title: CBtnDelete, style: .default, handler: { (alert) in
                 self.viewController?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDelete, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                    MIMQTT.shared().deleteMessageFromLocal(messageInfo)
+//                    MIMQTT.shared().deleteMessageFromLocal(messageInfo)
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }))
             

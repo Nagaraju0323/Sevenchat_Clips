@@ -171,12 +171,12 @@ extension SwipeReplayIMGView{
                     if messageInfo?.localMediaUrl != nil && messageInfo?.thumb_url == nil {
                         let videoPath = CTopMostViewController.applicationDocumentsDirectory()! + "/" + (messageInfo?.localMediaUrl)!
                         if FileManager.default.fileExists(atPath: videoPath) {
-                            MIMQTT.shared().getVideoThumbNail(URL(fileURLWithPath: videoPath)) { (image) in
-                                GCDMainThread.async {
-                                    self.replayIMGview.image = image
-                                    self.lblUserMessage.text = "Video"
-                                }
-                            }
+//                            MIMQTT.shared().getVideoThumbNail(URL(fileURLWithPath: videoPath)) { (image) in
+//                                GCDMainThread.async {
+//                                    self.replayIMGview.image = image
+//                                    self.lblUserMessage.text = "Video"
+//                                }
+//                            }
                         }
                     }else {
                         self.replayIMGview.loadImageFromUrl(messageInfo?.thumb_url, false)
@@ -202,9 +202,9 @@ extension SwipeReplayIMGView{
     @IBAction func btnSendCLK(_ sender : UIButton){
         if !txtViewMessage.text.trim.isBlank {
             if let userid = self.UserID{
-                let channelId = CMQTTUSERTOPIC + "\(userid)"
+//                let channelId = CMQTTUSERTOPIC + "\(userid)"
                 // Send message to both Login and front user...
-                MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 0)
+//                MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 0)
                 txtViewMessage.text = nil
                 txtViewMessage.updatePlaceholderFrame(false)
                 cnTextViewHeightHeight.constant = 34
@@ -224,9 +224,9 @@ extension SwipeReplayIMGView{
         weak var weakSelf = self
         if !self.txtViewMessage.text.trim.isBlank {
             if let userid = self.UserID{
-                let channelId = CMQTTUSERTOPIC + "\(userid)"
+//                let channelId = CMQTTUSERTOPIC + "\(userid)"
                 // Send message to both Login and front user...
-                MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: self.txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 1)
+//                MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: self.txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 1)
                 self.txtViewMessage.text = nil
                 self.txtViewMessage.updatePlaceholderFrame(false)
                 self.cnTextViewHeightHeight.constant = 34

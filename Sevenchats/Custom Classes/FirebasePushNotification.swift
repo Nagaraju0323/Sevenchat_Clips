@@ -159,7 +159,7 @@ extension FirebasePushNotification {
         }
         guard !notificationJsonString.isEmpty else { return [] }
         
-        guard let notificationInfo = MIMQTT.shared().convertToDictionary(text: notificationJsonString) else {
+        guard let notificationInfo = convertToDictionary(text: notificationJsonString) else {
             return []
         }
         print("notificationHandleFromActiveMode ====== \(notificationInfo)")
@@ -247,7 +247,7 @@ extension FirebasePushNotification {
         }
         guard !notificationJsonString.isEmpty else { return  }
         
-        guard let notificationInfo = MIMQTT.shared().convertToDictionary(text: notificationJsonString) else {
+        guard let notificationInfo = convertToDictionary(text: notificationJsonString) else {
             return
         }
         
@@ -621,3 +621,19 @@ extension FirebasePushNotification {
     }
 }
 
+
+
+extension FirebasePushNotification{
+    
+    func convertToDictionary(text: String) -> [String: Any]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
+    
+}

@@ -47,7 +47,7 @@ class ChatListViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        MIMQTT.shared().mqttDelegate = self
+//        MIMQTT.shared().mqttDelegate = self
         self.fetchUserListFromLocal()
         self.getUserChatListFromServer(isNew: true)
     }
@@ -176,56 +176,56 @@ extension ChatListViewController {
 }
 
 // MARK:- --------- MQTTDelegate
-extension ChatListViewController: MQTTDelegate{
-    func didReceiveMessage(_ message: [String : Any]?) {
-        // Update chat list table from local..
-        if appDelegate.getTopMostViewController().isKind(of: ChatListViewController.classForCoder()) {
-            GCDMainThread.asyncAfter(deadline: .now() + 2) {
-                
-                if message?.valueForInt(key: CPublishType) == CPUBLISHMESSAGETYPE {
-                    var userListID = 0
-                    if Int64(message?.valueForString(key: CSender_Id) ?? "0") == appDelegate.loginUser?.user_id {
-                        // If sending message by login user
-                        userListID = message?.valueForInt(key: CRecv_id) ?? 0
-                    }else {
-                        // If sending message by other user
-                        userListID = message?.valueForInt(key: CSender_Id) ?? 0
-                    }
-                    
-                    if let arrUsers = TblChatUserList.fetch(predicate: NSPredicate(format: "\(CFriendId) == \(userListID)")) as? [TblChatUserList] {
-                        if arrUsers.count > 0 {
-                            let chatuserInfo = arrUsers.first
-                            chatuserInfo?.message = message?.valueForString(key: CMessage)
-                            chatuserInfo?.msg_type = Int16(message?.valueForInt(key: CMsg_type) ?? 0)
-                            
-                            // If sender is not login user then only increase count..
-                            if Int64(message?.valueForString(key: CSender_Id) ?? "0") != appDelegate.loginUser?.user_id {
-                                chatuserInfo?.unread_cnt += 1
-                            }
-                            
-                            chatuserInfo?.created_at = message?.valueForDouble(key: CCreated_at) ?? 0.0
-                            chatuserInfo?.chat_time = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestamp(timestamp: chatuserInfo?.created_at ?? 0.0/1000) ?? 0.0
-                            CoreData.saveContext()
-                            self.fetchUserListFromLocal()
-                        }
-                    }
-                }else {
-                    self.getUserChatListFromServer(isNew: true)
-                }
-            }
-        }
-    }
-    
-    func didChangedOnlineOfflineStatus(_ message: [String : Any]?) {
-        print("didChangedOnlineOfflineStatus ====== ")
-        isChangingOnlineOffline = true
-        self.fetchUserListFromLocal()
-        
-        GCDMainThread.asyncAfter(deadline: .now() + 1) {
-            self.isChangingOnlineOffline = false
-        }
-    }
-}
+//extension ChatListViewController: MQTTDelegate{
+//    func didReceiveMessage(_ message: [String : Any]?) {
+//        // Update chat list table from local..
+//        if appDelegate.getTopMostViewController().isKind(of: ChatListViewController.classForCoder()) {
+//            GCDMainThread.asyncAfter(deadline: .now() + 2) {
+//                
+//                if message?.valueForInt(key: CPublishType) == CPUBLISHMESSAGETYPE {
+//                    var userListID = 0
+//                    if Int64(message?.valueForString(key: CSender_Id) ?? "0") == appDelegate.loginUser?.user_id {
+//                        // If sending message by login user
+//                        userListID = message?.valueForInt(key: CRecv_id) ?? 0
+//                    }else {
+//                        // If sending message by other user
+//                        userListID = message?.valueForInt(key: CSender_Id) ?? 0
+//                    }
+//                    
+//                    if let arrUsers = TblChatUserList.fetch(predicate: NSPredicate(format: "\(CFriendId) == \(userListID)")) as? [TblChatUserList] {
+//                        if arrUsers.count > 0 {
+//                            let chatuserInfo = arrUsers.first
+//                            chatuserInfo?.message = message?.valueForString(key: CMessage)
+//                            chatuserInfo?.msg_type = Int16(message?.valueForInt(key: CMsg_type) ?? 0)
+//                            
+//                            // If sender is not login user then only increase count..
+//                            if Int64(message?.valueForString(key: CSender_Id) ?? "0") != appDelegate.loginUser?.user_id {
+//                                chatuserInfo?.unread_cnt += 1
+//                            }
+//                            
+//                            chatuserInfo?.created_at = message?.valueForDouble(key: CCreated_at) ?? 0.0
+//                            chatuserInfo?.chat_time = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestamp(timestamp: chatuserInfo?.created_at ?? 0.0/1000) ?? 0.0
+//                            CoreData.saveContext()
+//                            self.fetchUserListFromLocal()
+//                        }
+//                    }
+//                }else {
+//                    self.getUserChatListFromServer(isNew: true)
+//                }
+//            }
+//        }
+//    }
+//    
+//    func didChangedOnlineOfflineStatus(_ message: [String : Any]?) {
+//        print("didChangedOnlineOfflineStatus ====== ")
+//        isChangingOnlineOffline = true
+//        self.fetchUserListFromLocal()
+//        
+//        GCDMainThread.asyncAfter(deadline: .now() + 1) {
+//            self.isChangingOnlineOffline = false
+//        }
+//    }
+//}
 
 
 // MARK:- --------- UITableView Datasources/Delegate

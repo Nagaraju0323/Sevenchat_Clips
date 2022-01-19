@@ -233,13 +233,13 @@ extension AddParticipantsViewController{
                         self.userIdNotification = userIDS
                         
                         if arrUserIDS.count > 0 {
-                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrUserIDS, status: 3, groupId: "\(self.groupID ?? 0)", isSend:0)
+//                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrUserIDS, status: 3, groupId: "\(self.groupID ?? 0)", isSend:0)
                         }
                         
                         // Publish to other user to notify for newley added user..
                         let arrOldIDS = self.arrAllreadySelectedParticipants.map({$0.valueForString(key: CUserId) })
                         if arrOldIDS.count > 0 {
-                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrOldIDS, status: 3, groupId: "\(self.groupID ?? 0)", isSend: 1)
+//                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrOldIDS, status: 3, groupId: "\(self.groupID ?? 0)", isSend: 1)
                         }
                         
                         let data = response![CJsonMeta] as? [String:Any] ?? [:]

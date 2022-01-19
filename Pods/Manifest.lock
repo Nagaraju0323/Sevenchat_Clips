@@ -10,9 +10,6 @@ PODS:
   - AWSS3 (2.6.35):
     - AWSCore (= 2.6.35)
   - Cache (5.2.0)
-  - CocoaAsyncSocket (7.6.4)
-  - CocoaMQTT (1.2.5):
-    - CocoaAsyncSocket (~> 7.6.3)
   - Cosmos (21.0.0)
   - DropDown (2.3.13)
   - FBSDKCoreKit (6.3.0):
@@ -177,7 +174,6 @@ DEPENDENCIES:
   - ActiveLabel
   - Alamofire (= 4.9.1)
   - AWSS3 (~> 2.6.27)
-  - CocoaMQTT
   - Cosmos
   - DropDown
   - FBSDKLoginKit
@@ -212,8 +208,6 @@ SPEC REPOS:
     - AWSCore
     - AWSS3
     - Cache
-    - CocoaAsyncSocket
-    - CocoaMQTT
     - Cosmos
     - DropDown
     - FBSDKCoreKit
@@ -266,8 +260,6 @@ SPEC CHECKSUMS:
   AWSCore: 2dab62ef2e5ca5d8c72c6cbdb3a6ea1532c27c2b
   AWSS3: 282a590bb47e9cd88de24979fb28954399c41c52
   Cache: 807c5d86d01a177f06ede9865add3aea269bbfd4
-  CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
-  CocoaMQTT: a61490ed3b328011c5d75169a77781983e2bb221
   Cosmos: 3dfb6e4ba48bd48b8c9aa2a77048ae11ed114f96
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FBSDKCoreKit: 5d55c8f3007c9c49b793617b9102e46355fc7e17
@@ -313,6 +305,6 @@ SPEC CHECKSUMS:
   TLPhotoPicker: a5c339732b8326bb16cbb4e00ed01a86f2bfbbb3
   TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
 
-PODFILE CHECKSUM: 350adebaabeb5e92380173d973e5b2f0595c10cf
+PODFILE CHECKSUM: 857425cb8b4fa4ccb9948219b4c84ccd294023ad
 
 COCOAPODS: 1.10.1

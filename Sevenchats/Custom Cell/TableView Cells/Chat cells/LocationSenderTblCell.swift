@@ -119,12 +119,12 @@ extension LocationSenderTblCell {
             guard let self = self else { return }
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             alertController.addAction(UIAlertAction(title: CBtnSendAgain, style: .default, handler: { (alert) in
-                MIMQTT.shared().uploadMediaOnServer(messageInfo)
+//                MIMQTT.shared().uploadMediaOnServer(messageInfo)
             }))
             
             alertController.addAction(UIAlertAction(title: CBtnDelete, style: .default, handler: { (alert) in
                 self.viewController?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDelete, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                    MIMQTT.shared().deleteMessageFromLocal(messageInfo)
+//                    MIMQTT.shared().deleteMessageFromLocal(messageInfo)
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }))
             
@@ -174,7 +174,7 @@ extension LocationSenderTblCell {
             }))
             
             alertController.addAction(UIAlertAction(title: CBtnDelete, style: .default, handler: { (alert) in
-                MIMQTT.shared().deleteDeliveredMessage(self.messageInformation, isSender: true)
+//                MIMQTT.shared().deleteDeliveredMessage(self.messageInformation, isSender: true)
             }))
             
             alertController.addAction(UIAlertAction(title: CBtnCancel, style: .cancel, handler: nil))
