@@ -41,7 +41,7 @@ class GradientButton: UIButton {
            gradientLayer?.removeFromSuperlayer()
         }
         gradientLayer = CAGradientLayer()
-        gradientLayer?.colors = [UIColor(hex: "97b363").cgColor, UIColor(hex: "8ab68f").cgColor]
+        gradientLayer?.colors = [UIColor(hex: "00c0a6").cgColor, UIColor(hex: "00c0a6").cgColor]
         gradientLayer?.startPoint = CGPoint(x: 0.5, y: 1.0)
         gradientLayer?.endPoint = CGPoint(x: 0.5, y: 0.0)
         gradientLayer?.locations = [0, 1]

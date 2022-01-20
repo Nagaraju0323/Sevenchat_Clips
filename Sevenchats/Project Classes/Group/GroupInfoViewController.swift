@@ -107,14 +107,6 @@ extension GroupInfoViewController{
                             self.showHideTableAddParticipants()
                         }
                         }
-                          
-////                        if let uesrInfo = groupInfo[CGroupUsers] as? [[String : Any]]{
-//                            if let uesrInfo = groupInfo["friends_list"] as? [[String : Any]]{
-//                            self.arrMembers = uesrInfo
-//                            self.lblMemberCount.text = self.arrMembers.count == 1 ? "\(self.arrMembers.count) \(CGroupMember)" : "\(self.arrMembers.count) \(CGroupMembers)"
-//                            self.tblUser.reloadData()
-//                            self.showHideTableAddParticipants()
-//                        }
                     }
                 }
             }
@@ -160,10 +152,6 @@ extension GroupInfoViewController : UITableViewDelegate, UITableViewDataSource{
             cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
             
             let iObject = self.iObject as? [String : Any]
-//            cell.btnAdmin.isHidden = userInfo.valueForInt(key: CUserId) == iObject?.valueForInt(key: CCreated_By) ? false : true
-//            cell.btnDeleteMember.isHidden = Int64(iObject!.valueForString(key: CCreated_By)) == appDelegate.loginUser?.user_id ? Int64(userInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id : true
-//
-            
             cell.btnAdmin.isHidden = userInfo.valueForInt(key: CUserId) == iObject?.valueForInt(key: "group_admin") ? false : true
             cell.btnDeleteMember.isHidden = Int64(iObject!.valueForString(key: "group_admin")) == appDelegate.loginUser?.user_id ? Int64(userInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id : true
             cell.btnDeleteMember.touchUpInside { [weak self] (sender) in
@@ -175,10 +163,6 @@ extension GroupInfoViewController : UITableViewDelegate, UITableViewDataSource{
                             // Pulbish to removed user.
                             let user_ID =  appDelegate.loginUser?.user_id.description ?? ""
                             MIGeneralsAPI.shared().sendNotification(userInfo.valueForString(key: CUserId), userID: user_ID.description, subject: "Group Member Deleted By Group Admin", MsgType: "GROUP_REMOVE", MsgSent:"Group Members is Removed From GroupAdmin", showDisplayContent: "send a GROUP message to you", senderName: self.strGroupName)
-                            
-                            
-//                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: [userInfo.valueForString(key: CUserId)], status: 2, groupId: userInfo.valueForString(key: CGroupId), isSend: 1)
-                            
                             self.arrMembers.remove(at: indexPath.row)
                             self.tblUser.reloadData()
                             self.showHideTableAddParticipants()

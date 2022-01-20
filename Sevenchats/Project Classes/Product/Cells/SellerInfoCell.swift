@@ -29,6 +29,7 @@ class SellerInfoCell: UITableViewCell, ProductDetailBaseCell  {
 //        lblSellerInfo.text = "cellerinformation"
         btnContactSeller.setTitle(CContactSeller, for: .normal)
         btnBuyNow.setTitle(CBuyNow, for: .normal)
+        
     }
     
     func configure(withModel: ProductBaseModel) {
