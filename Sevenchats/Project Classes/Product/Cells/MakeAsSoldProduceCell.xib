@@ -24,7 +24,7 @@
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0G-eD-7dI" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
                         <rect key="frame" x="20" y="10" width="308" height="40"/>
-                        <color key="backgroundColor" red="1" green="0.28627450980392155" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.12941177189350128" green="0.74901962280273438" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="uAf-NY-N6z"/>
                         </constraints>

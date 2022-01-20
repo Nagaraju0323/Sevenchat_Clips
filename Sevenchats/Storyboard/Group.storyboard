@@ -49,7 +49,7 @@
                                                                     </imageView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LpT-vZ-gqA">
                                                                         <rect key="frame" x="8" y="8" width="359" height="184"/>
-                                                                        <state key="normal" image="ic_edit_profile_green"/>
+                                                                        <state key="normal" image="ic_editprofile_image"/>
                                                                         <connections>
                                                                             <action selector="btnEditImageCLK:" destination="5ae-l7-F0s" eventType="touchUpInside" id="fFi-hx-p3s"/>
                                                                         </connections>
@@ -70,7 +70,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFK-6x-KBm">
                                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_upload_group_image" translatesAutoresizingMaskIntoConstraints="NO" id="XAG-sw-5kE">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_add_group_image" translatesAutoresizingMaskIntoConstraints="NO" id="XAG-sw-5kE">
                                                                         <rect key="frame" x="137.5" y="39" width="100" height="100"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
@@ -108,7 +108,7 @@
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.85098039215686272" green="0.94117647058823528" blue="0.77254901960784317" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="5Rj-7u-E6Q" firstAttribute="leading" secondItem="WDS-vo-1Ve" secondAttribute="leading" id="2Of-uc-t7c"/>
                                                             <constraint firstAttribute="bottom" secondItem="5Rj-7u-E6Q" secondAttribute="bottom" id="39m-Pf-ixZ"/>
@@ -126,7 +126,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="G1S-hS-UDh" secondAttribute="height" multiplier="67:12" id="kPr-nA-Ybr"/>
                                                         </constraints>
-                                                        <color key="textColor" name="AppDefault"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                         <userDefinedRuntimeAttributes>
@@ -160,7 +160,7 @@
                                                         <state key="normal" title="  Public" image="ic_small_checkmark_unselected">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
-                                                        <state key="selected" image="ic_small_checkmark_selected"/>
+                                                        <state key="selected" image="ic_circle_select"/>
                                                         <connections>
                                                             <action selector="btnGroupTypeCLK:" destination="5ae-l7-F0s" eventType="touchUpInside" id="Qi9-yt-u2U"/>
                                                         </connections>
@@ -176,7 +176,7 @@
                                                         <state key="normal" title="  Private" image="ic_small_checkmark_unselected">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
-                                                        <state key="selected" image="ic_small_checkmark_selected"/>
+                                                        <state key="selected" image="ic_circle_select"/>
                                                         <connections>
                                                             <action selector="btnGroupTypeCLK:" destination="5ae-l7-F0s" eventType="touchUpInside" id="hhT-eg-b2M"/>
                                                         </connections>
@@ -482,7 +482,7 @@
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                                     </textField>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.83921568629999999" green="0.95294117649999999" blue="0.82745098039999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.90196078431372551" green="0.97254901960784312" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="16O-o7-wqV" secondAttribute="bottom" id="YPt-zw-000"/>
                                                     <constraint firstItem="16O-o7-wqV" firstAttribute="top" secondItem="n54-rn-Avb" secondAttribute="top" id="i3P-Kh-XTo"/>
@@ -524,8 +524,8 @@
                                                                 <constraint firstAttribute="height" constant="50" id="gRa-Mb-GS7"/>
                                                                 <constraint firstAttribute="width" constant="50" id="pG4-PE-E3F"/>
                                                             </constraints>
-                                                            <state key="normal" image="ic_small_checkmark_unselected"/>
-                                                            <state key="selected" image="ic_small_checkmark_selected"/>
+                                                            <state key="normal" image="ic_circle_unselect"/>
+                                                            <state key="selected" image="ic_circle_select"/>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaW-ux-sAH" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                             <rect key="frame" x="73.5" y="0.0" width="238.5" height="65"/>
@@ -675,7 +675,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="qUY-Dd-VUh" secondAttribute="height" multiplier="67:9" id="WPg-3G-CCI"/>
                                                         </constraints>
-                                                        <color key="textColor" red="0.51764705879999995" green="0.60392156860000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                         <userDefinedRuntimeAttributes>
@@ -1469,7 +1469,7 @@
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWW-NF-tgO" customClass="MIGenericButton">
                                                                             <rect key="frame" x="321" y="20" width="34" height="25"/>
-                                                                            <color key="backgroundColor" red="0.55686274509803924" green="0.69019607843137254" blue="0.42352941176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="25" id="BfG-Uq-ySZ"/>
                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" id="FoM-EU-PZW"/>
@@ -2423,6 +2423,7 @@
         <image name="autodeletebtn" width="34" height="34"/>
         <image name="avtar.png" width="126" height="126"/>
         <image name="ic_add_Participants" width="222.5" height="151.5"/>
+        <image name="ic_add_group_image" width="512" height="512"/>
         <image name="ic_attachment" width="22.5" height="20.5"/>
         <image name="ic_audio_call" width="40" height="30"/>
         <image name="ic_back" width="22.5" height="14"/>
@@ -2432,16 +2433,16 @@
         <image name="ic_btn_search_grey" width="15" height="16.5"/>
         <image name="ic_circle_checkmark_selected" width="15" height="15"/>
         <image name="ic_circle_checkmark_unselected" width="15" height="15"/>
+        <image name="ic_circle_select" width="512" height="512"/>
+        <image name="ic_circle_unselect" width="512" height="512"/>
         <image name="ic_comment_send" width="37.5" height="38"/>
-        <image name="ic_edit_profile_green" width="23" height="23"/>
+        <image name="ic_editprofile_image" width="30" height="30"/>
         <image name="ic_group_info" width="15" height="15"/>
         <image name="ic_link" width="22.5" height="22.5"/>
         <image name="ic_navigation_bg" width="621" height="137.5"/>
         <image name="ic_request_accept" width="22.5" height="22.5"/>
         <image name="ic_request_decline" width="22.5" height="22.5"/>
-        <image name="ic_small_checkmark_selected" width="24.5" height="24.5"/>
         <image name="ic_small_checkmark_unselected" width="24.5" height="24.5"/>
-        <image name="ic_upload_group_image" width="92.5" height="92"/>
         <image name="ic_video_call" width="40" height="30"/>
         <image name="microphone-4" width="512" height="512"/>
         <image name="tom.jpg" width="300" height="250"/>

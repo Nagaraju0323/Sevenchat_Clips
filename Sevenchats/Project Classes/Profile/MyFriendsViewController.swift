@@ -339,7 +339,7 @@ extension MyFriendsViewController: UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyFriendListTabBarCollCell", for: indexPath) as! MyFriendListTabBarCollCell
         
         if indexPath == selectedIndexPath{
-            cell.lblType.textColor = CRGB(r: 143, g: 174, b: 93)
+            cell.lblType.textColor = CRGB(r: 3, g: 191, b: 166)
             cell.viewBottomLine.isHidden = false
         }else{
             cell.lblType.textColor = CRGB(r: 115, g: 124, b: 124)
