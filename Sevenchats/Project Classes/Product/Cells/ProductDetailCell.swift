@@ -61,7 +61,7 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         
         btnLikesCount.setTitle(CLike, for: .normal)
         btnComment.setTitle(CComment, for: .normal)
-        btnShare.setTitle(CBtnShare, for: .normal)
+//        btnShare.setTitle(CBtnShare, for: .normal)
         
         self.collVImages.scrollToIndex = { [weak self] (index) in
             
@@ -130,7 +130,7 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         let commentCount = self.modelData.totalComments.toInt ?? 0
    
         self.btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-        self.btnShare.setTitle(CBtnShare, for: .normal)
+//        self.btnShare.setTitle(CBtnShare, for: .normal)
         
 //        self.lblLastDOS.text = self.modelData.lastdateSelling
        
@@ -189,7 +189,7 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         let commentCount = self.modelData.totalComments.toInt ?? 0
    
         self.btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-        self.btnShare.setTitle(CBtnShare, for: .normal)
+//        self.btnShare.setTitle(CBtnShare, for: .normal)
         self.lblLastDOS.text = self.modelData.lastdateSelling
     }
     

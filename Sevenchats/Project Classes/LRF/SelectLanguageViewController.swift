@@ -195,7 +195,7 @@ extension SelectLanguageViewController{
                 }
             }
          })
-        
+
         APIRequest.shared().getLanguageList(showLoader: showLoader,completion: { (response, error) in
             self.refreshControl.endRefreshing()
             if response != nil && error == nil{
@@ -218,8 +218,6 @@ extension SelectLanguageViewController{
                 }
             }
          })
-        
-        
     }
     
     func loadLanguageText() {
