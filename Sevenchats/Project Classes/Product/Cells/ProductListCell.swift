@@ -78,7 +78,7 @@ class ProductListCell: UITableViewCell {
             }
             let commentCount = product.totalComments.toInt ?? 0
             btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-            btnShare.setTitle(CBtnShare, for: .normal)
+//            btnShare.setTitle(CBtnShare, for: .normal)
             
             //btnMore.isHidden = !(product.userId.description == appDelegate.loginUser?.user_id.description)
             self.vwCountImage.isHidden = (product.galleryImages.count <= 1)
@@ -94,7 +94,7 @@ class ProductListCell: UITableViewCell {
         
         self.btnLikesCount.setTitle(CLike, for: .normal)
         self.btnComment.setTitle(CComment, for: .normal)
-        self.btnShare.setTitle(CBtnShare, for: .normal)
+//        self.btnShare.setTitle(CBtnShare, for: .normal)
         
         self.viewSubContainer.layer.cornerRadius = 8
         self.viewMainContainer.layer.cornerRadius = 8

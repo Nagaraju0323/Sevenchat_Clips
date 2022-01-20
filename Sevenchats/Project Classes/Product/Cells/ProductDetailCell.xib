@@ -120,22 +120,22 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ui-mK-p18">
-                                <rect key="frame" x="111" y="0.0" width="110" height="40"/>
+                                <rect key="frame" x="133.5" y="0.0" width="65" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FGC-6W-iL6" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="15" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="12"/>
-                                        <state key="normal" image="ic_comment_count">
+                                        <state key="normal">
                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <state key="selected" image="ic_comment_count"/>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gMY-2I-cIX" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="0.0" width="90" height="40"/>
+                                        <rect key="frame" x="35" y="0.0" width="30" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
-                                        <state key="normal" title="100 Comments">
+                                        <state key="normal">
                                             <color key="titleColor" red="0.52156862749999999" green="0.50980392159999999" blue="0.51372549020000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <state key="selected" image="ic_comment_count"/>
@@ -153,13 +153,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcF-yz-kCa">
-                                <rect key="frame" x="273" y="0.0" width="59" height="40"/>
+                                <rect key="frame" x="214" y="0.0" width="118" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1WS-3D-ufQ" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="19" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="15" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="12"/>
-                                        <state key="normal" image="ic_grey_sharing">
+                                        <state key="normal" image="ic_comment_count">
                                             <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
@@ -167,22 +167,19 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YCA-sQ-otb" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="0.0" width="35" height="40"/>
+                                        <rect key="frame" x="20" y="0.0" width="90" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
-                                        <state key="normal" title="Share">
+                                        <state key="normal" title="100 Comments">
                                             <color key="titleColor" red="0.52156862749999999" green="0.50980392159999999" blue="0.51372549020000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
-                                        <connections>
-                                            <action selector="onShareProductPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="O8o-Ku-iPo"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="1WS-3D-ufQ" firstAttribute="leading" secondItem="bcF-yz-kCa" secondAttribute="leading" id="anr-Ur-fcc"/>
                                     <constraint firstItem="YCA-sQ-otb" firstAttribute="top" secondItem="bcF-yz-kCa" secondAttribute="top" id="gLM-h6-J2J"/>
-                                    <constraint firstAttribute="trailing" secondItem="YCA-sQ-otb" secondAttribute="trailing" id="lCj-lg-ICn"/>
+                                    <constraint firstAttribute="trailing" secondItem="YCA-sQ-otb" secondAttribute="trailing" constant="8" id="lCj-lg-ICn"/>
                                     <constraint firstAttribute="bottom" secondItem="1WS-3D-ufQ" secondAttribute="bottom" id="rrh-d2-ZXf"/>
                                     <constraint firstAttribute="bottom" secondItem="YCA-sQ-otb" secondAttribute="bottom" id="wNd-gS-lc9"/>
                                     <constraint firstItem="1WS-3D-ufQ" firstAttribute="top" secondItem="bcF-yz-kCa" secondAttribute="top" id="yJW-aY-oJc"/>
@@ -420,10 +417,9 @@ adsadssds
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="btnComment" destination="gMY-2I-cIX" id="vNC-c5-K9d"/>
+                <outlet property="btnComment" destination="YCA-sQ-otb" id="7Ae-rc-b4T"/>
                 <outlet property="btnLike" destination="ixl-Va-3sj" id="njP-7b-2cK"/>
                 <outlet property="btnLikesCount" destination="asj-So-6Yg" id="1K1-e7-Hrh"/>
-                <outlet property="btnShare" destination="YCA-sQ-otb" id="cyi-al-qtw"/>
                 <outlet property="btnSold" destination="wmz-C5-b9V" id="jgM-Xc-9lK"/>
                 <outlet property="collVImages" destination="4LE-6b-5FC" id="u6z-bo-b0U"/>
                 <outlet property="lblAddrees" destination="oLO-AG-AVb" id="WIc-KE-YbL"/>
@@ -443,7 +439,6 @@ adsadssds
         <image name="ic_comment_count" width="15" height="15"/>
         <image name="ic_date" width="21" height="22.5"/>
         <image name="ic_grey_like" width="16" height="15"/>
-        <image name="ic_grey_sharing" width="19" height="19"/>
         <image name="ic_like_selected" width="17.5" height="17.5"/>
     </resources>
 </document>

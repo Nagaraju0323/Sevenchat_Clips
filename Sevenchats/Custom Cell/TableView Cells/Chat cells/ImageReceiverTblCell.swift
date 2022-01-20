@@ -146,16 +146,34 @@ extension ImageReceiverTblCell {
                 guard let self = self else { return }
                 if messageInfo?.localMediaUrl != nil {
                     let videoPath = CTopMostViewController.applicationDocumentsDirectory()! + "/" + (messageInfo?.localMediaUrl)!
-//                    if FileManager.default.fileExists(atPath: videoPath) {
+                    if FileManager.default.fileExists(atPath: videoPath) {
                         self.avPlayerSetup(CTopMostViewController, URL(fileURLWithPath: videoPath))
-//                    }else {
+                    }else {
+                        self.avPlayerSetup(CTopMostViewController, URL(string: (messageInfo?.message)!))
 //                        MIToastAlert.shared.showToastAlert(position: .bottom, message: CMessageMediaNotExist)
-//                    }
+                    }
                 }
                 else {
                     self.avPlayerSetup(CTopMostViewController, URL(string: (messageInfo?.message)!))
                 }
             }
+            
+            
+//            self.btnVideoPlay.touchUpInside { [weak self] (sender) in
+//                guard let self = self else { return }
+//                if messageInfo?.localMediaUrl != nil {
+//                    let videoPath = CTopMostViewController.applicationDocumentsDirectory()! + "/" + (messageInfo?.localMediaUrl)!
+//                    if FileManager.default.fileExists(atPath: videoPath) {
+//                        self.avPlayerSetup(CTopMostViewController, URL(fileURLWithPath: videoPath))
+//                    }else {
+//                        MIToastAlert.shared.showToastAlert(position: .bottom, message: CMessageMediaNotExist)
+//                    }
+//                }
+//                else {
+//                    self.avPlayerSetup(CTopMostViewController, URL(string: (messageInfo?.message)!))
+//                }
+//            }
+            
             
             self.btnVideoDownload.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
