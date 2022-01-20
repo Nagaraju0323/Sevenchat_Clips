@@ -22,8 +22,8 @@ class ProductFilterCell: UITableViewCell {
     @IBOutlet weak var lblName: MIGenericLabel!
     @IBOutlet weak var btnRadio: UIButton!{
         didSet{
-            btnRadio.setImage(UIImage(named:"ic_small_checkmark_unselected"), for: .normal)
-            btnRadio.setImage(UIImage(named:"ic_small_checkmark_selected"), for: .selected)
+            btnRadio.setImage(UIImage(named:"ic_unselect"), for: .normal)
+            btnRadio.setImage(UIImage(named:"ic_select"), for: .selected)
         }
     }
     

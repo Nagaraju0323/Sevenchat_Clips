@@ -52,7 +52,7 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         
         btnSold.layer.cornerRadius = 4
         btnSold.setTitle(CSold, for: .normal)
-        btnSold.backgroundColor = UIColor(hex: "FF0C00")
+        btnSold.backgroundColor = UIColor(hex: "21bfa6")
         collVImages.isProductDetails = true
         
         //lblPaymentPrefPlaceH.text = CPaymentPreference
@@ -104,7 +104,7 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         
         if self.modelData.productState == "1"{
             self.btnSold.setTitle(CAvailable, for: .normal)
-            self.btnSold.backgroundColor = UIColor(hex: "3a9120")
+            self.btnSold.backgroundColor = UIColor(hex: "21bfa6")
         }else{
             self.btnSold.setTitle(CSold, for: .normal)
             self.btnSold.backgroundColor = UIColor(hex: "FF0C00")

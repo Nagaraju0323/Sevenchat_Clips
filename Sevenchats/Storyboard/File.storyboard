@@ -709,7 +709,7 @@
                                             <constraint firstAttribute="width" constant="85" id="9GZ-wv-3u3"/>
                                             <constraint firstAttribute="height" constant="85" id="a1T-aV-j0e"/>
                                         </constraints>
-                                        <state key="normal" image="ic_btn_add"/>
+                                        <state key="normal" image="ic_add_btn"/>
                                         <connections>
                                             <action selector="btnAddFolderAction:" destination="sCb-Y2-7gP" eventType="touchUpInside" id="LpC-rm-m8T"/>
                                         </connections>
@@ -1020,7 +1020,7 @@
                                     <constraint firstAttribute="height" constant="85" id="Ewh-r6-qlj"/>
                                     <constraint firstAttribute="width" constant="85" id="QLS-8h-1uO"/>
                                 </constraints>
-                                <state key="normal" image="ic_btn_add"/>
+                                <state key="normal" image="ic_add_btn"/>
                                 <connections>
                                     <action selector="btnAddFolderAction:" destination="nKl-4b-yRK" eventType="touchUpInside" id="Ybw-Sy-9IE"/>
                                 </connections>
@@ -1232,7 +1232,7 @@
                                     <constraint firstAttribute="width" constant="85" id="cb6-u6-jed"/>
                                     <constraint firstAttribute="height" constant="85" id="dq4-aM-eNT"/>
                                 </constraints>
-                                <state key="normal" image="ic_btn_add"/>
+                                <state key="normal" image="ic_add_btn"/>
                                 <connections>
                                     <action selector="btnAddFolderAction:" destination="eB0-kg-Pwg" eventType="touchUpInside" id="0wg-jv-jSb"/>
                                 </connections>
@@ -1629,7 +1629,7 @@
                                             <constraint firstAttribute="width" constant="85" id="ff8-cY-cyd"/>
                                             <constraint firstAttribute="height" constant="85" id="tlc-tN-XQ9"/>
                                         </constraints>
-                                        <state key="normal" image="ic_btn_add"/>
+                                        <state key="normal" image="ic_add_btn"/>
                                         <connections>
                                             <action selector="btnAddFolderAction:" destination="Xbv-IJ-HcA" eventType="touchUpInside" id="MAI-9p-ZV5"/>
                                         </connections>
@@ -1820,7 +1820,7 @@
                                             <constraint firstAttribute="height" constant="85" id="HQr-ch-GrS"/>
                                             <constraint firstAttribute="width" constant="85" id="sHs-9Q-INk"/>
                                         </constraints>
-                                        <state key="normal" image="ic_btn_add"/>
+                                        <state key="normal" image="ic_add_btn"/>
                                         <connections>
                                             <action selector="btnAddFolderAction:" destination="7SB-pl-K3J" eventType="touchUpInside" id="RK9-3N-Dsf"/>
                                         </connections>
@@ -1864,7 +1864,7 @@
     </scenes>
     <resources>
         <image name="avtar.png" width="126" height="126"/>
-        <image name="ic_btn_add" width="512" height="512"/>
+        <image name="ic_add_btn" width="455" height="455"/>
         <image name="ic_btn_bg" width="555.5" height="71.5"/>
         <image name="ic_cancle" width="10.5" height="10.5"/>
         <image name="ic_folder" width="21" height="18"/>

@@ -231,12 +231,12 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" id="g8p-FW-ZDT"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="17"/>
-                                        <color key="textColor" red="0.5607843137254902" green="0.67450980392156867" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.12941177189350128" green="0.74901962280273438" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wmz-C5-b9V" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
                                         <rect key="frame" x="255" y="12.5" width="77" height="28"/>
-                                        <color key="backgroundColor" red="0.56078431370000004" green="0.67450980390000004" blue="0.3411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.12941177189350128" green="0.74901962280273438" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                         <inset key="contentEdgeInsets" minX="20" minY="2" maxX="20" maxY="2"/>
                                         <state key="normal" title="Sold">

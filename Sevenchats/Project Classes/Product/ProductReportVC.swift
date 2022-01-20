@@ -77,8 +77,8 @@ extension ProductReportVC {
         func setRadioButtonImage(_ sender:UIButton){
 //            sender.setImage(UIImage(named: "ic_btn_radio_selected"), for: .selected)
 //            sender.setImage(UIImage(named: "ic_btn_radio_unselected"), for: .normal)
-            sender.setImage(UIImage(named: "ic_small_checkmark_selected"), for: .selected)
-            sender.setImage(UIImage(named: "ic_small_checkmark_unselected"), for: .normal)
+            sender.setImage(UIImage(named: "ic_select"), for: .selected)
+            sender.setImage(UIImage(named: "ic_unselect"), for: .normal)
         }
         
         let arrButtons = [btnIThinkItsScam,btnItsDuplicateList,btnItsWrongCat,btnItsWrongCat,btnOther]
