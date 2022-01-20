@@ -70,12 +70,14 @@ class AddChirpyViewController: ParentViewController {
     var arrImagesVideo = [String]()
     var imageString = ""
     var ImguploadStr = ""
+    var quoteDesc = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
         topContainer.isHidden = true
         viewSelectGroup.isHidden = true
+//        lblTextCount.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,7 +95,9 @@ class AddChirpyViewController: ParentViewController {
             self.loadChirpyDetailFromServer()
         }
         
+        txtViewChirpyContent.genericDelegate  = self
         
+        setQuoteText()
         viewUploadedImageContainer.isHidden = true
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddChirpyClicked(_:)))]
 
@@ -129,6 +133,19 @@ class AddChirpyViewController: ParentViewController {
         // By default `All type` selected
         self.selectedInviteType = 4
 
+    }
+    
+    fileprivate func setQuoteText(){
+        var strQuote = self.quoteDesc
+        if strQuote.count > 5000{
+            strQuote = strQuote[0..<5000]
+        }
+        self.txtViewChirpyContent.text = strQuote
+        self.lblTextCount.text = "\(strQuote.count)/5000"
+        
+        GCDMainThread.async {
+            self.txtViewChirpyContent.updatePlaceholderFrame(true)
+        }
     }
     
     func updateUIAccordingToLanguage(){
@@ -293,8 +310,8 @@ extension AddChirpyViewController{
         self.categoryID = chirpyInfo.valueForInt(key: CCategory_Id)
         categoryDropDownView.txtCategory.text = chirpyInfo.valueForString(key: CCategory)
         txtViewChirpyContent.text = chirpyInfo.valueForString(key: CContent)
-//        lblTextCount.text = "\(txtViewChirpyContent.text.count)/150"
-        lblTextCount.isHidden = true
+        lblTextCount.text = "\(txtViewChirpyContent.text.count)/5000"
+//        lblTextCount.isHidden = true
         
         //...Set Chirpy image
         if chirpyInfo.valueForString(key: CImage) != "" {
@@ -405,7 +422,9 @@ extension AddChirpyViewController: GenericTextViewDelegate{
     func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
         
         if textView == txtViewChirpyContent{
-            lblTextCount.text = "\(textView.text.count)/\(txtViewChirpyContent.textLimit ?? "0")"
+//            lblTextCount.isHidden = true
+            lblTextCount.text = "\(textView.text.count)/5000"
+//            lblTextCount.text = "\(textView.text.count)/\(txtViewChirpyContent.textLimit ?? "0")"
         }
     }
 }

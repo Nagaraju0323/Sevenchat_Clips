@@ -30,11 +30,13 @@ var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
 var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
 //////MARK:- SockeIO key
 let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
-//////MARK:- MINIO
-let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 //////MARK:- NotificationSocket
 let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
 let BASEURL_Rew: String = "Dev"
+
+
+//////MARK:- MINIO
+let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 
 
 //MARK: - QA

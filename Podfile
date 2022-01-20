@@ -36,7 +36,7 @@ target 'Sevenchats' do
   pod 'Lightbox'
   pod 'Cosmos'
   pod 'ObjectMapper'
-  pod 'SwiftySound'
+  #pod 'SwiftySound'
   pod 'PhoneNumberKit'
   pod 'DropDown'
   pod 'AWSS3' , '~> 2.6.27' 

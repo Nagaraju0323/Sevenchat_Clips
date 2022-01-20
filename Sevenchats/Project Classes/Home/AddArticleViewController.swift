@@ -25,6 +25,7 @@ class AddArticleViewController: ParentViewController {
     @IBOutlet weak var btnAddMoreFriends : UIButton!
     @IBOutlet weak var btnSelectGroupFriend : UIButton!
     @IBOutlet weak var lblUploadImage : UILabel!
+    @IBOutlet weak var lblTextCount : UILabel!
     
     @IBOutlet weak var txtArticleTitle : MIGenericTextFiled!
     @IBOutlet weak var txtArticleAgeLimit : MIGenericTextFiled!
@@ -32,7 +33,7 @@ class AddArticleViewController: ParentViewController {
         didSet{
             self.txtViewArticleContent.txtDelegate = self
             self.txtViewArticleContent.isScrollEnabled = true
-            self.txtViewArticleContent.textLimit = "150"
+            self.txtViewArticleContent.textLimit = "5000"
             self.txtViewArticleContent.type = "1"
         }
     }
@@ -58,13 +59,14 @@ class AddArticleViewController: ParentViewController {
     var categorysubName : String?
     var imgName = ""
     var profileImgUrl = ""
+    var quoteDesc = ""
     var arrSubCategory =  [[String : Any]]()
     var arrsubCategorys : [MDLProductSubCategory] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
-        
+        setQuoteText()
         topContainer.isHidden = true
         viewSelectGroup.isHidden = true 
     }
@@ -72,6 +74,7 @@ class AddArticleViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
+        txtViewArticleContent.genericDelegate = self
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -81,7 +84,6 @@ class AddArticleViewController: ParentViewController {
     func Initialization(){
         
         txtArticleTitle.txtDelegate = self
-        
         if articleType == .editArticle {
             self.loadArticleDetailFromServer()
         }
@@ -123,6 +125,20 @@ class AddArticleViewController: ParentViewController {
         // By default `All type` selected
         self.selectedInviteType = 4
     }
+    
+    fileprivate func setQuoteText(){
+        var strQuote = self.quoteDesc
+        if strQuote.count > 5000{
+            strQuote = strQuote[0..<5000]
+        }
+        self.txtViewArticleContent.text = strQuote
+        self.lblTextCount.text = "\(strQuote.count)/5000"
+        
+        GCDMainThread.async {
+            self.txtViewArticleContent.updatePlaceholderFrame(true)
+        }
+    }
+    
     
     func updateUIAccordingToLanguage(){
         
@@ -485,6 +501,7 @@ extension AddArticleViewController: GenericTextViewDelegate{
         
         if textView == txtViewArticleContent{
 //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
+            lblTextCount.text = "\(textView.text.count)/5000"
         }
     }
     

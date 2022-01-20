@@ -36,6 +36,7 @@ class OtherUserCompleteProfileViewController: ParentViewController,MICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialization()
+        clPersonalInterest.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,6 +78,7 @@ class OtherUserCompleteProfileViewController: ParentViewController,MICollectionV
         lblTitleProfession.text = CProfilePlaceholderProfession
         lblTitleIncomeLevel.text = CProfilePlaceholderReligiousIncomeLevel
         lblTitlePersonalInterest.text = CProfilePlaceholderReligiousPersonalInterest
+        lblTitlePersonalInterest.isHidden = true 
         
     }
 }
@@ -140,6 +142,9 @@ extension OtherUserCompleteProfileViewController{
             
             lblBiography.text = appDelegate.loginUser?.short_biography
             lblReligion.text = appDelegate.loginUser?.religion
+            lblEducation.text  = appDelegate.loginUser?.education_name
+            lblStatus.text = appDelegate.loginUser?.relationship
+            lblIncomeLevel.text = appDelegate.loginUser?.annual_income
             
 ////            arrPersonalInterest = appDelegate.loginUser?.interests as! [[String : AnyObject]]
 //            clPersonalInterest.reloadData()
@@ -173,6 +178,10 @@ extension OtherUserCompleteProfileViewController{
                             self?.lblBiography.text = userInfo.valueForString(key: CShort_biography)
                                 self?.lblProfession.text = userInfo.valueForString(key: CProfession)
                                 self?.lblReligion.text = userInfo.valueForString(key: CReligion)
+                                self?.lblEducation.text = userInfo.valueForString(key: "education")
+                                self?.lblStatus.text = userInfo.valueForString(key: "relationship")
+                                self?.lblIncomeLevel.text = userInfo.valueForString(key: "income")
+
 
                             switch userInfo.valueForInt(key: CGender) {
                             case CMale :

@@ -166,7 +166,6 @@ PODS:
   - Starscream (3.1.1)
   - StompClientLib (1.4.1):
     - SocketRocket
-  - SwiftySound (1.2.0)
   - TLPhotoPicker (2.0.11)
   - TrueTime (5.0.3)
 
@@ -196,7 +195,6 @@ DEPENDENCIES:
   - SDWebImage/GIF
   - Socket.IO-Client-Swift
   - StompClientLib
-  - SwiftySound
   - TLPhotoPicker
   - TrueTime
 
@@ -249,7 +247,6 @@ SPEC REPOS:
     - SocketRocket
     - Starscream
     - StompClientLib
-    - SwiftySound
     - TLPhotoPicker
     - TrueTime
 
@@ -301,10 +298,9 @@ SPEC CHECKSUMS:
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   StompClientLib: ac40390e9660c574675f1c933bec81c8e2811a4f
-  SwiftySound: 9eb28bb14edb601b40027e44319e0ef8383f88bf
   TLPhotoPicker: a5c339732b8326bb16cbb4e00ed01a86f2bfbbb3
   TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
 
-PODFILE CHECKSUM: 857425cb8b4fa4ccb9948219b4c84ccd294023ad
+PODFILE CHECKSUM: 429346487285b883ec9d10b1dee230fafbdf6024
 
 COCOAPODS: 1.10.1

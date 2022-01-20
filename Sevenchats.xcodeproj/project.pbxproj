@@ -17,6 +17,7 @@
 		18222BD0277A2BAE0018A8A2 /* MIPopUpOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222BCC277A2BA60018A8A2 /* MIPopUpOverlay.swift */; };
 		18222BD1277A2BAE0018A8A2 /* MILoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18222BCD277A2BAB0018A8A2 /* MILoader.swift */; };
 		18222BD2277A2BAE0018A8A2 /* MIPopUpOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18222BCE277A2BAE0018A8A2 /* MIPopUpOverlay.xib */; };
+		182A8D492799952400543C65 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62254026240E43D400624F33 /* AVFoundation.framework */; };
 		1836482A26E1E33C000440FA /* ChatSocketIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836482926E1E33C000440FA /* ChatSocketIO.swift */; };
 		1838BA6D275F302D00A9372C /* SocketIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838BA6C275F302D00A9372C /* SocketIO.swift */; };
 		1838BA71275F350D00A9372C /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1838BA70275F350D00A9372C /* SocketIO.framework */; };
@@ -100,7 +101,6 @@
 		62254021240E438C00624F33 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6225401F240E438C00624F33 /* UserNotifications.framework */; };
 		62254023240E43C700624F33 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62254022240E43C700624F33 /* AudioToolbox.framework */; };
 		62254025240E43CD00624F33 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62254024240E43CD00624F33 /* VideoToolbox.framework */; };
-		62254027240E43D400624F33 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62254026240E43D400624F33 /* AVFoundation.framework */; };
 		62254029240E43D900624F33 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62254028240E43D900624F33 /* CoreTelephony.framework */; };
 		6225402B240E43DD00624F33 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6225402A240E43DD00624F33 /* GLKit.framework */; };
 		6225402D240E43E500624F33 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6225402C240E43E500624F33 /* SystemConfiguration.framework */; };
@@ -608,19 +608,6 @@
 		7CF3E7EB278D339B0054E394 /* PSLTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */; };
 		A09326B63F9C017116863AC6 /* Pods_Sevenchats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27804AECFF1A40FF9011865E /* Pods_Sevenchats.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		181F07D826D3A88D00A7BA49 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1801383E2756C42B001A21BA /* UserDefault+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Helper.swift"; sourceTree = "<group>"; };
@@ -1242,12 +1229,12 @@
 			files = (
 				1838BA71275F350D00A9372C /* SocketIO.framework in Frameworks */,
 				18DA1C6226CE55060086CED3 /* AWSCore.framework in Frameworks */,
+				182A8D492799952400543C65 /* AVFoundation.framework in Frameworks */,
 				18DA1C6426CE55060086CED3 /* AWSS3.framework in Frameworks */,
 				6225402F240E43EB00624F33 /* libc++.tbd in Frameworks */,
 				6225402D240E43E500624F33 /* SystemConfiguration.framework in Frameworks */,
 				6225402B240E43DD00624F33 /* GLKit.framework in Frameworks */,
 				62254029240E43D900624F33 /* CoreTelephony.framework in Frameworks */,
-				62254027240E43D400624F33 /* AVFoundation.framework in Frameworks */,
 				62254025240E43CD00624F33 /* VideoToolbox.framework in Frameworks */,
 				62254023240E43C700624F33 /* AudioToolbox.framework in Frameworks */,
 				62254020240E438C00624F33 /* NotificationCenter.framework in Frameworks */,
@@ -2509,7 +2496,6 @@
 				39BD7534A36FA1958F58751C /* [CP] Copy Pods Resources */,
 				62EB5B342424F2ED00409382 /* ShellScript */,
 				4503ABC3244875D500151D38 /* DSYM Script */,
-				181F07D826D3A88D00A7BA49 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3382,7 +3368,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sevenchats/Sevenchats.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.49;
+				CURRENT_PROJECT_VERSION = 1.0.51;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3XC632973S;
 				INFOPLIST_FILE = "$(SRCROOT)/Sevenchats/AppGeneralFiles/Info.plist";
@@ -3407,7 +3393,7 @@
 				CODE_SIGN_ENTITLEMENTS = Sevenchats/Sevenchats.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.49;
+				CURRENT_PROJECT_VERSION = 1.0.51;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3XC632973S;
 				INFOPLIST_FILE = "$(SRCROOT)/Sevenchats/AppGeneralFiles/Info.plist";

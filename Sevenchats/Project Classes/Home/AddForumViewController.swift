@@ -35,6 +35,7 @@ class AddForumViewController: ParentViewController {
     }
     @IBOutlet weak var viewSelectGroup : UIView!
     @IBOutlet weak var scrollViewContainer : UIView!
+    @IBOutlet weak var lblTextCount : UILabel!
     @IBOutlet private weak var categoryDropDownView: CustomDropDownView!
     //    @IBOutlet private weak var subcategoryDropDownView: CustomDropDownView!
     @IBOutlet weak var txtInviteType : MIGenericTextFiled!
@@ -54,6 +55,7 @@ class AddForumViewController: ParentViewController {
     var currentPage : Int = 1
     var categoryName : String?
     var arrsubCategorys : [MDLIntrestSubCategory] = []
+    var quoteDesc = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +79,7 @@ class AddForumViewController: ParentViewController {
         if forumType == .editForum{
             self.loadForumDetailFromServer()
         }
+        setQuoteText()
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddForumClicked(_:)))]
         
@@ -110,6 +113,24 @@ class AddForumViewController: ParentViewController {
         // By default `All type` selected
         self.selectedInviteType = 4
     }
+  
+    
+    fileprivate func setQuoteText(){
+        var strQuote = self.quoteDesc
+        if strQuote.count > 5000{
+            strQuote = strQuote[0..<5000]
+        }
+        self.txtViewForumMessage.text = strQuote
+        self.lblTextCount.text = "\(strQuote.count)/5000"
+
+        GCDMainThread.async {
+            self.txtViewForumMessage.updatePlaceholderFrame(true)
+        }
+    }
+    
+    
+    
+    
     
     func updateUIAccordingToLanguage(){
         
@@ -439,6 +460,7 @@ extension AddForumViewController: GenericTextViewDelegate{
     func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
         
         if textView == txtViewForumMessage{
+            lblTextCount.text = "\(textView.text.count)/5000"
             //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
         }
     }
