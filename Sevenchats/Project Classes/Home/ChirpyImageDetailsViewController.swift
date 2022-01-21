@@ -556,7 +556,7 @@ extension ChirpyImageDetailsViewController{
                             if stausLike == "0" {
                                 guard let firstName = appDelegate.loginUser?.first_name else {return}
                                 guard let lastName = appDelegate.loginUser?.last_name else {return}
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Comment to Post Chirpy", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post Chirpy", senderName: firstName + lastName)
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName)
                             }
                             
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
@@ -636,7 +636,7 @@ extension ChirpyImageDetailsViewController{
                     if self?.notifcationIsSlected == true{
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post Chirpy", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Chirpy", senderName: firstName + lastName)
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
                         self?.notifcationIsSlected = false
                     }
                     MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.chirpyIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)

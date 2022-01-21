@@ -420,7 +420,7 @@ extension HomeGalleryCell {
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post Gallery", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Gallery", senderName: firstName + lastName)
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
                        
                         
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {

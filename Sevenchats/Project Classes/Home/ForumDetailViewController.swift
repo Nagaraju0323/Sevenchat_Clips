@@ -511,7 +511,7 @@ extension ForumDetailViewController{
                             guard let lastName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "liked your Post Forum Comment", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Forum Comment ", senderName: firstName + lastName)
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post ", senderName: firstName + lastName)
                             }
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }
@@ -591,7 +591,7 @@ extension ForumDetailViewController{
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post Fourm", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Fourm ", senderName: firstName + lastName)
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
                         self?.notifcationIsSlected = false
                     }
                     

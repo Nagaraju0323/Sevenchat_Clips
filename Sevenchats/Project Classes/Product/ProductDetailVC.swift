@@ -732,7 +732,7 @@ extension ProductDetailVC {
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     let stausLike = data["status"] as? String ?? "0"
                     if stausLike == "0" {
-                        MIGeneralsAPI.shared().sendNotification(self.productUserID, userID: userID.description, subject: "Comment to Post Gallery", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post Gallery", senderName: firstName + lastName)
+                        MIGeneralsAPI.shared().sendNotification(self.productUserID, userID: userID.description, subject: "Commented on your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Product", senderName: firstName + lastName)
                     }
                     
                     self.editCommentId =  nil

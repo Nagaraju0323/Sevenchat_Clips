@@ -553,6 +553,9 @@ class GenericTextView: UITextView, UITextViewDelegate {
                 _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
                 let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
                 let filtered = text.components(separatedBy: cs).joined(separator: "")
+                if textLimit?.toInt != 0 && !(textLimit?.isBlank)! {
+                    return textView.text.count + (text.count - range.length) <= (textLimit?.toInt)!
+                }
                 return (text == filtered)
             }
             

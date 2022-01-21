@@ -372,7 +372,7 @@ extension CreateChatGroupViewController{
                             guard let groupID = appDelegate.loginUser?.user_id else { return }
                             if friends_ID == groupID.description{
                             }else {
-                                MIGeneralsAPI.shared().sendNotification(friends_ID, userID: groupID.description, subject: "Group is added successfully", MsgType: "GROUP_ADD", MsgSent: "", showDisplayContent: "Group is added successfully", senderName: self.txtGroupTitle.text ?? "" )
+                                MIGeneralsAPI.shared().sendNotification(friends_ID, userID: groupID.description, subject: "you were added in group \(self.txtGroupTitle.text ?? "" ) by", MsgType: "GROUP_ADD", MsgSent: "", showDisplayContent: "you were added in group \(self.txtGroupTitle.text ?? "" ) by", senderName: self.txtGroupTitle.text ?? "" )
                             }
                         }
                       

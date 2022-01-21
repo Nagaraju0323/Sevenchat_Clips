@@ -321,7 +321,8 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         if let cell = tblVNotification.dequeueReusableCell(withIdentifier: "NotificationGeneralTblCell") as? NotificationGeneralTblCell{
             cell.lblDate.text = startCreated
-            cell.imgUser.loadImageFromUrl(notificationInfo.valueForString(key: CImage), true)
+//            cell.imgUser.loadImageFromUrl(notificationInfo.valueForString(key: CImage), true)
+            cell.imgUser.loadImageFromUrl(notificationInfo.valueForString(key: "icon"), true)
             cell.lblNotificationDetails.font = CFontPoppins(size: 14, type: .light).setUpAppropriateFont()
             cell.lblNotificationDetails.attributedText = self.htmlToAttributedString(notifcationContent, cell.lblNotificationDetails.font)
             return cell

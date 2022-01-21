@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/********************************************************
+ * Author : Chandrika R                                 *
+ * Model  : Notfication Send                            *
+ * Description:                                         *
+ ********************************************************/
+
+
 import UIKit
 
 enum PostAction : Int {
@@ -95,19 +102,8 @@ extension MIGeneralsAPI {
             }
         }
         
-//        APIRequest.shared().getFeedbackCategoryList { (response, error) in
-//            if response != nil && error == nil {
-//            }
-//        }
     }
     
-//    func loadFeedbackCategory() {
-//        APIRequest.shared().getFeedbackCategoryList { (response, error) in
-//            if response != nil && error == nil {
-//            }
-//        }
-//    }
-        
     func loadCountryList() {
         
         //...Load country list from server
@@ -2189,11 +2185,6 @@ extension MIGeneralsAPI {
  
 }
 
-/********************************************************
- * Author : Chandrika R                                 *
- * Model  : Notfication Send                            *
- * Description:                                         *
- ********************************************************/
 
 extension MIGeneralsAPI {
   
@@ -2203,6 +2194,7 @@ extension MIGeneralsAPI {
         guard let lastName = appDelegate.loginUser?.last_name else {return}
         guard let profileImg = appDelegate.loginUser?.profile_img else {return}
         
+        let userName = "\(firstName)\(lastName)"
         var contentStr = ""
         let content:[String:Any]  = [
             "subject":subject as Any,
@@ -2226,15 +2218,15 @@ extension MIGeneralsAPI {
         
 //        let image = "https:\\/\\/qa.sevenchats.com:3443\\/sevenchats\\/7736772922\\/1636189071050.jpg"
 
-        let profileImgRlc = profileImg.replacingOccurrences(of: "/", with: "\\/")
+//        let profileImgRlc = profileImg.replacingOccurrences(of: "/", with: "\\/")
         
         let dict:[String:Any] = [
             "receiver":receiverID ?? "",
             "sender":userID ?? "",
             "type":1,
-            "subject":subject ?? "",
+            "subject":"\(userName) \(subject ?? "") \(MsgSent ?? "")",
             "content":contentStr,
-            "icon":profileImgRlc
+            "icon":profileImg
         ]
          APIRequest.shared().sendNotification(notifications: dict) { (response, error) in
         if response != nil && error == nil {
