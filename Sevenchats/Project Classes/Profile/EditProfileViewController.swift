@@ -86,7 +86,8 @@ class EditProfileViewController: ParentViewController {
         btnUpdate.layer.cornerRadius = 5
         btnUpdateComplete.layer.cornerRadius = 5
         btnUpdateComplete.layer.borderWidth = 1
-        btnUpdateComplete.layer.borderColor = CRGB(r: 119, g: 171, b: 110).cgColor
+      //  btnUpdateComplete.layer.borderColor = CRGB(r: 119, g: 171, b: 110).cgColor
+        btnUpdateComplete.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         
         GCDMainThread.async {
             self.imgUser.layer.cornerRadius = self.imgUser.frame.height/2
