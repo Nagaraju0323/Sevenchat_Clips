@@ -510,11 +510,22 @@ extension OtherUserProfileViewController{
             //guard let self = self else { return }
             if response != nil{
                 
-                if status == 1 {
+                
+                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+                    if metaData.valueForString(key: "message") == "User Blocked successfully" {
+                        guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
+                        guard let firstName = appDelegate.loginUser?.first_name else {return}
+                        guard let lastName = appDelegate.loginUser?.last_name else {return}
+                        MIGeneralsAPI.shared().sendNotification(self.userIDNew?.description, userID: user_ID.description, subject: "Blocked you", MsgType: "FRIEND_BLOCKED", MsgSent:"", showDisplayContent: "Blocked you", senderName: firstName + lastName)
+                      
+                    }
+                   }
+                
+                
+                if status == 1 && status == 0 {
                     // Blocked user
                     self.tblUser.isHidden = true
                     self.viewBlockContainer.isHidden = false
-                    
                     self.arrPostList.removeAll()
                     self.arrUserDetail.removeAll()
                     self.tblUser.reloadData()

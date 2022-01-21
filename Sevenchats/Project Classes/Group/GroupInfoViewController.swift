@@ -161,8 +161,8 @@ extension GroupInfoViewController : UITableViewDelegate, UITableViewDataSource{
                         if response != nil && error == nil{
                             
                             // Pulbish to removed user.
-                            let user_ID =  appDelegate.loginUser?.user_id.description ?? ""
-                            MIGeneralsAPI.shared().sendNotification(userInfo.valueForString(key: CUserId), userID: user_ID.description, subject: "Group Member Deleted By Group Admin", MsgType: "GROUP_REMOVE", MsgSent:"Group Members is Removed From GroupAdmin", showDisplayContent: "send a GROUP message to you", senderName: self.strGroupName)
+//                            let user_ID =  appDelegate.loginUser?.user_id.description ?? ""
+//                            MIGeneralsAPI.shared().sendNotification(userInfo.valueForString(key: CUserId), userID: user_ID.description, subject: "has left from the group\(self.strGroupName)", MsgType: "GROUP_REMOVE", MsgSent:"", showDisplayContent: "has left from the group\(self.strGroupName)", senderName: self.strGroupName)
                             self.arrMembers.remove(at: indexPath.row)
                             self.tblUser.reloadData()
                             self.showHideTableAddParticipants()
@@ -245,16 +245,29 @@ extension GroupInfoViewController{
                     if response != nil {
                         if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
                             if  metaData.valueForString(key: CJsonStatus).toInt == 0 {
-                                if userSelectType == 1 {
+                                if userSelectType == 2 {
                                     let strArr = self.arrMembers.map({$0.valueForString(key: CUserId) })
                                     guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
                                     strArr.forEach { friends_ID in
                                         if friends_ID == user_ID.description{
                                             
                                         }else{
-                                            MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "Group is Deleted By Group Admin", MsgType: "GROUP_REMOVE", MsgSent:"Group is Removed From GroupAdmin", showDisplayContent: "send a GROUP message to you", senderName: self.strGroupName)
+                                            MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "has left from the group\(self.strGroupName)", MsgType: "GROUP_REMOVE", MsgSent:"", showDisplayContent: "has left from the group\(self.strGroupName)", senderName: self.strGroupName)
                                     }
                                     }
+                                }
+                                if userSelectType == 1{
+                                    
+                                    let strArr = self.arrMembers.map({$0.valueForString(key: CUserId) })
+                                    guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
+                                    strArr.forEach { friends_ID in
+                                        if friends_ID == user_ID.description{
+                                            
+                                        }else{
+                                            MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "has deleted the group \(self.strGroupName)", MsgType: "GROUP_REMOVE", MsgSent:"", showDisplayContent: "has deleted the group\(self.strGroupName)", senderName: self.strGroupName)
+                                    }
+                                    }
+                                    
                                 }
                             }
                         }

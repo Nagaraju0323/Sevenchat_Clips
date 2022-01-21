@@ -208,15 +208,6 @@ extension MIGeneralsAPI {
         }
     }
 
-    
-    
-    /********************************************************
-     * Author : & Chandrika R                               *
-     * Model  : PostCategory Notification                   *
-     * option                                               *
-     ********************************************************/
-    
-    
     func loadInterestListArticle() {
         guard let langName = appDelegate.loginUser?.lang_name else {
             return

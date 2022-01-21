@@ -150,38 +150,17 @@ extension ShoutsDetailViewController{
         self.getCommentListFromServer()
     }
     
-    //    fileprivate func getShoutsDetailsFromServer() {
-    //
-    //        self.parentView.isHidden = true
-    //        if let shouID = self.shoutID {
-    //            APIRequest.shared().viewPostDetail(postID: shouID) { [weak self] (response, error) in
-    //                guard let self = self else { return }
-    //                if response != nil {
-    //                    self.parentView.isHidden = false
-    //                    if let shoInfo = response![CJsonData] as? [String : Any]{
-    //                        self.setShoutsDetailData(shoInfo)
-    //                        self.openUserProfileScreen()
-    //                    }
-    //                }
-    //                self.getCommentListFromServer()
-    //            }
-    //        }
-    //    }
-    
     fileprivate func getShoutsDetailsFromServer() {
         
         self.parentView.isHidden = true
         if let shouID = self.shoutID {
             
             APIRequest.shared().viewPostDetailNew(postID: shouID, apiKeyCall: CAPITagshoutsDetials){ [weak self] (response, error) in
-                //  APIRequest.shared().viewPostDetail(postID: shouID) { [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false
                     if let shoInfo = response!["data"] as? [[String:Any]]{
                         for arraydata in shoInfo {
-                            //if let shoInfo = response!["data"] as? [String : Any]{
-                            //                            self.setShoutsDetailData(arraydata)
                             self.openUserProfileScreen()
                         }
                     }
@@ -196,13 +175,13 @@ extension ShoutsDetailViewController{
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-           // appDelegate.moveOnProfileScreen(self.shoutInformation.valueForString(key: CUserId), self)
+            // appDelegate.moveOnProfileScreen(self.shoutInformation.valueForString(key: CUserId), self)
             appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
         }
         
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-           // appDelegate.moveOnProfileScreen(self.shoutInformation.valueForString(key: CUserId), self)
+            // appDelegate.moveOnProfileScreen(self.shoutInformation.valueForString(key: CUserId), self)
             appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
         }
     }
@@ -214,16 +193,8 @@ extension ShoutsDetailViewController{
             posted_ID = shoInfo.valueForString(key: "user_id")
             
             self.lblUserName.text = shoInfo.valueForString(key: CFirstname) + " " + shoInfo.valueForString(key: CLastname)
-            //            self.lblShoutsPostDate.text = DateFormatter.dateStringFrom(timestamp: shoInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
             self.lblShoutsDescription.text = shoInfo.valueForString(key: CContent)
             self.imgUser.loadImageFromUrl(shoInfo.valueForString(key: CUserProfileImage), true)
-            //  self.lblShoutCategory.text = shoInfo.valueForString(key: CCategory)
-            
-            //LikeButton
-            //            self.btnLike.isSelected = shoInfo.valueForInt(key: CIs_Like) == 1
-            //            likeCount = shoInfo.valueForInt(key: CTotal_like) ?? 0
-            //            self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-            
             let is_Liked = shoInfo.valueForString(key: CIsLiked)
             
             if is_Liked == "Yes"{
@@ -233,13 +204,7 @@ extension ShoutsDetailViewController{
             }
             
             likeCount = shoInfo.valueForString(key: CLikes).toInt ?? 0
-            //        likeCount = product.likes!.toInt!
             self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-            
-            //CommentSection
-            //            self.commentCount = shoInfo.valueForInt(key: CTotalComment) ?? 0
-            //            btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-            
             commentCount = shoInfo.valueForString(key: "comments").toInt ?? 0
             self.totalComment = commentCount
             btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
@@ -298,10 +263,6 @@ extension ShoutsDetailViewController{
                 self.refreshControl.endRefreshing()
                 if response != nil {
                     if let arrList = response!["comments"] as? [[String:Any]] {
-                        
-                        //                        for arrComments in arrList{
-                        ////                            self.commentinfo = arrComments
-                        //                        }
                         // Remove all data here when page number == 1
                         if self.pageNumber == 1 {
                             self.arrCommentList.removeAll()
@@ -321,7 +282,6 @@ extension ShoutsDetailViewController{
         }
     }
     
-
 }
 
 // MARK:- --------- UITableView Datasources/Delegate
@@ -354,9 +314,6 @@ extension ShoutsDetailViewController: UITableViewDelegate, UITableViewDataSource
             
             weak var weakCell = cell
             let commentInfo = arrCommentList[indexPath.row]
-            //            cell.lblCommentPostDate.text = DateFormatter.shared().durationString(duration: commentInfo.valueForString(key: CCreated_at))
-            //            print(DateFormatter.shared().durationString(duration: commentInfo.valueForString(key: "updated_at")))
-            
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
             
@@ -390,7 +347,7 @@ extension ShoutsDetailViewController: UITableViewDelegate, UITableViewDataSource
                         
                         if arrSelectedUser.count > 0 {
                             let userSelectedInfo = arrSelectedUser[0]
-                          //  appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
+                            //  appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
                         }
                     })
@@ -414,13 +371,13 @@ extension ShoutsDetailViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.btnUserName.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
+                //                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
             }
             
             cell.btnUserImage.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
+                //                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
             }
             // Load more data....
@@ -518,8 +475,6 @@ extension ShoutsDetailViewController{
                 }
                 let userId = userID.description
                 APIRequest.shared().sendProductCommentnew(productId:shoId.description, commentId : self.editCommentId, comment: strComment, include_user_id: userId)  { [weak self] (response, error) in
-                    
-                    //                APIRequest.shared().sendComment(post_id: shoId, commentId: self.editCommentId, rss_id: nil, type: 1, comment: strComment, include_user_id: includedUser) { [weak self] (response, error) in
                     guard let self = self else { return }
                     if response != nil && error == nil  {
                         
@@ -528,28 +483,15 @@ extension ShoutsDetailViewController{
                         self.btnSend.isUserInteractionEnabled = false
                         self.btnSend.alpha = 0.5
                         self.txtViewComment.updatePlaceholderFrame(false)
-                        
-                        //                        print(response![CJsonData] as? [[String : Any]])
-                        //                        if let comment = response![CJsonData] as? [String : Any] {
                         if let comment = response![CJsonData] as? [[String : Any]] {
-                            
                             for comments in comment {
-                                
                                 self.commentinfo = comments
                                 if (self.editCommentId ?? 0) == 0{
-                                    //                                    self.arrCommentList.insert(comments, at: 0)
-                                    
                                     self.getCommentListFromServer()
                                     let comment_data = comments["comments"] as? String
                                     self.commentCount = comment_data?.toInt ?? 0
-                                    //                                    self.commentCount += 1
-                                    
                                     self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-                                    //                                    if let responsInfo = response as? [String : Any]{
-                                    //                                        // To udpate previous screen data....
                                     MIGeneralsAPI.shared().refreshPostRelatedScreens(self.commentinfo, shoId, self, .commentPost)
-                                    
-                                    //                                    }
                                 }else{
                                     // Edit comment in array
                                     if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
@@ -634,7 +576,7 @@ extension ShoutsDetailViewController{
             }
         }
     }
-
+    
     func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){
         APIRequest.shared().likeUnlikeProductCount(productId: self.shoutIDNew?.toInt ?? 0 ){ [weak self](response, error) in
             guard let _ = self else { return }
@@ -652,9 +594,7 @@ extension ShoutsDetailViewController{
                     }
                     MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.shoutIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
                 }
-                
             }
-            
         }
     }
     
@@ -696,16 +636,12 @@ extension ShoutsDetailViewController{
                     }else {
                         return
                     }
-                    //                    self.arrCommentList.remove(at: index)
                     self.tblCommentList.reloadData()
                     MIGeneralsAPI.shared().refreshPostRelatedScreens(nil,self.shoutIDNew?.toInt ?? 0 , self, .deleteComment)
-                    
-                    
                 }
             }
         }
     }
-    
     
 }
 
