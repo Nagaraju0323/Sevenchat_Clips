@@ -73,7 +73,7 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
         btnAddInterest.isHidden = true
-        lblProfession.isHidden = true
+        //lblProfession.isHidden = true
         viewAddInterest.isHidden = true
         lblPersonalInterest.isHidden = true
         

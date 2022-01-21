@@ -47,7 +47,7 @@
                             <constraint firstAttribute="width" secondItem="YQa-Pl-ixY" secondAttribute="height" multiplier="1:1" id="zRa-0H-6Yd"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                        <state key="normal" image="ic_small_checkmark_unselected"/>
+                        <state key="normal" image="ic_circle_unselect"/>
                     </button>
                 </subviews>
                 <constraints>
@@ -82,6 +82,6 @@
     </objects>
     <resources>
         <image name="avtar.png" width="126" height="126"/>
-        <image name="ic_small_checkmark_unselected" width="24.5" height="24.5"/>
+        <image name="ic_circle_unselect" width="512" height="512"/>
     </resources>
 </document>

@@ -71,7 +71,7 @@ class ProductListCell: UITableViewCell {
             
             if product.productState == "1"{
                 btnSold.setTitle(CAvailable, for: .normal)
-                btnSold.backgroundColor = UIColor(hex: "3a9120")
+                btnSold.backgroundColor = UIColor(hex: "21bfa6")
             }else{
                 btnSold.setTitle(CSold, for: .normal)
                 btnSold.backgroundColor = UIColor(hex: "FF0C00")
