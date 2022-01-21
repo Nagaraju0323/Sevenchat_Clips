@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -29,7 +29,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsTblCell" rowHeight="50" id="me4-Et-Kgq" customClass="SettingsTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="50"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="375" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="me4-Et-Kgq" id="CmY-Sh-yub">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -144,10 +144,10 @@
                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="13"/>
                                 <color key="tintColor" red="0.85098039219999999" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="titleEdgeInsets" minX="9" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Basic" image="ic_small_checkmark_unselected">
+                                <state key="normal" title="Basic" image="dry-clean">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <state key="selected" image="ic_small_checkmark_selected"/>
+                                <state key="selected" image="checked-4"/>
                                 <connections>
                                     <action selector="btnFriendVisibilityCLK:" destination="c3c-Lf-poe" eventType="touchUpInside" id="vSL-OD-Nex"/>
                                 </connections>
@@ -161,10 +161,10 @@
                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="13"/>
                                 <color key="tintColor" red="0.85098039215686272" green="0.82745098039215681" blue="0.82745098039215681" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="titleEdgeInsets" minX="9" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Complete" image="ic_small_checkmark_unselected">
+                                <state key="normal" title="Complete" image="dry-clean">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <state key="selected" image="ic_small_checkmark_selected"/>
+                                <state key="selected" image="checked-4"/>
                                 <connections>
                                     <action selector="btnFriendVisibilityCLK:" destination="c3c-Lf-poe" eventType="touchUpInside" id="v0X-cd-ozb"/>
                                 </connections>
@@ -194,10 +194,10 @@
                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="13"/>
                                 <color key="tintColor" red="0.85098039219999999" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="titleEdgeInsets" minX="9" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Basic" image="ic_small_checkmark_unselected">
+                                <state key="normal" title="Basic" image="dry-clean">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <state key="selected" image="ic_small_checkmark_selected"/>
+                                <state key="selected" image="checked-4"/>
                                 <connections>
                                     <action selector="btnUnknowsVisibilityCLK:" destination="c3c-Lf-poe" eventType="touchUpInside" id="No3-Wa-AmR"/>
                                 </connections>
@@ -211,10 +211,10 @@
                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="13"/>
                                 <color key="tintColor" red="0.85098039219999999" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="titleEdgeInsets" minX="9" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="Complete" image="ic_small_checkmark_unselected">
+                                <state key="normal" title="Complete" image="dry-clean">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <state key="selected" image="ic_small_checkmark_selected"/>
+                                <state key="selected" image="checked-4"/>
                                 <connections>
                                     <action selector="btnUnknowsVisibilityCLK:" destination="c3c-Lf-poe" eventType="touchUpInside" id="xb0-OT-T9o"/>
                                 </connections>
@@ -326,8 +326,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checked-4" width="30" height="30"/>
+        <image name="dry-clean" width="30" height="30"/>
         <image name="ic_next_arrow" width="10" height="17"/>
-        <image name="ic_small_checkmark_selected" width="24.5" height="24.5"/>
-        <image name="ic_small_checkmark_unselected" width="24.5" height="24.5"/>
     </resources>
 </document>
