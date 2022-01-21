@@ -30,6 +30,8 @@ class NotificationViewController: ParentViewController {
     var refreshControl = UIRefreshControl()
     var apiTimeStamp = 0.0
     var pageNumber = 1
+    var subjectCat = ""
+    var userID = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -303,12 +305,6 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         
         return UITableViewCell()*/
         
-        /********************************************************
-         * Author :  Chandrika R                                *
-         * Model  : Notifcation actions                        *
-         * option                                               *
-         ********************************************************/
-        
         let notificationInfo = arrNotiificationList[indexPath.row]
 //        let notificatoinIsread = notificationInfo.valueForInt(key: "is_read")
         let dict = notificationInfo.valueForString(key: "content")
@@ -452,13 +448,6 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         
     }
     
-    /********************************************************
-     * Author :  Chandrika R                                *
-     * model   : Notifcation actions                        *
-     * option                                               *
-     ********************************************************/
-    
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         var notifKey = ""
@@ -585,9 +574,14 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
 //        }
         
         let notfiContent = notificationInfo.valueForString(key: "content")
+        userID = notificationInfo.valueForString(key: "sender")
+        
     do {
         let dict = try convertToDictionary(from: notfiContent ?? "")
-        guard let userMsg = dict["type"] as? String else { return }
+        guard let userMsg = dict["type"] else { return }
+        guard let subject = dict["subject"] else { return }
+        subjectCat = subject
+        
         notifKey = userMsg
 //        DispatchQueue.main.async {
 //            self.redirectToVerificationScreen(signUpResponse: response,message: userMsg)
@@ -598,8 +592,12 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         
         switch notifKey {
         case kNotTypeChatUser:
-            if let groupChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController") as? ChatListViewController {
-                self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+            if subjectCat == "Product viewed"{
+                appDelegate.moveOnProfileScreenNew(userID.description, userID.description, self)
+            }else {
+                if let groupChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController") as? ChatListViewController {
+                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+                }
             }
             break
         case kNotTypeGroup,kNotTypeGroupADD,kNotTypeGroupRemove:
@@ -616,6 +614,12 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                 self.navigationController?.pushViewController(HomeVC, animated: true)
             }
             break
+        case kNotTypeCommnet:
+            if let HomeVC = CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
+                self.navigationController?.pushViewController(HomeVC, animated: true)
+            }
+            break
+            
 
             default:
                 break

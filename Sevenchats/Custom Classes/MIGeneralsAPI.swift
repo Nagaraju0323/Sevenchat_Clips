@@ -8,8 +8,8 @@
 
 /********************************************************
  * Author : Chandrika R                                 *
- * Model  : Notfication Send                            *
- * Description:                                         *
+ * Model  : MiGeneral APi Calls                         *
+ * Description: Notification & Rewards                  *
  ********************************************************/
 
 
@@ -54,7 +54,7 @@ extension MIGeneralsAPI {
         self.loadEducationList()
         self.loadInterestList()
         self.loadSubInterestList()
-      //  self.loadFeedbackCategory()
+        //  self.loadFeedbackCategory()
         self.loadNewsCategory()
         self.loadInterestListArticle()
         self.loadInterestListChiripy()
@@ -67,11 +67,7 @@ extension MIGeneralsAPI {
         self.loadProductCategory()
         self.loadUserRewardPoings()
         self.loadPslCategory()
-    
-        
-        
     }
-    
     
     func loadUserRewardPoings() {
         
@@ -207,7 +203,7 @@ extension MIGeneralsAPI {
             }
         }
     }
-
+    
     func loadInterestListArticle() {
         guard let langName = appDelegate.loginUser?.lang_name else {
             return
@@ -263,10 +259,7 @@ extension MIGeneralsAPI {
             }
         }
     }
-    
-    
-    
-    
+  
     func loadSubInterestList() {
         
         guard let langName = appDelegate.loginUser?.lang_name else {
@@ -297,31 +290,22 @@ extension MIGeneralsAPI {
         })
     }
     
-  
     
-     func likeUnlikePostWebsite(post_id : Int?, rss_id : Int?, type : Int?, likeStatus : Int, viewController : UIViewController?){
-       
-//        if type == 1{
-//            MIGeneralsAPI.shared().refreshPostRelatedScreens(likeInfo, post_id, viewController!, .likePost)
-//        }else{
-//            MIGeneralsAPI.shared().refreshWebSiteScreens(likeInfo, rss_id, viewController!, .likePost)
-//        }
-        
-        
-        
-//        APIRequest.shared().likeUnlikePostWebsite(post_id: post_id, rss_id: rss_id, type: type, like_unlike_status: likeStatus) { (response, error) in
+    
+    func likeUnlikePostWebsite(post_id : Int?, rss_id : Int?, type : Int?, likeStatus : Int, viewController : UIViewController?){
+
         APIRequest.shared().likeUnlikeProductCount(productId:post_id ?? 0){ [weak self](response, error) in
             if response != nil && error == nil{
                 print(response!["liked_users"] as? [String:Any] ?? [:])
                 GCDMainThread.async { [self] in
-                   
+                    
                     if let likeInfo = response!["liked_users"] as? [String : Any]{
                         if type == 1{
                             MIGeneralsAPI.shared().refreshPostRelatedScreens(likeInfo, post_id, viewController!, .likePost)
                         }else{
                             MIGeneralsAPI.shared().refreshWebSiteScreens(likeInfo, rss_id, viewController!, .likePost)
                         }
-                   }
+                    }
                 }
             }
         }
@@ -329,58 +313,14 @@ extension MIGeneralsAPI {
     
     
     func likeUnlikePostWebsites(post_id : Int?, rss_id : Int?, type : Int?, likeStatus : Int,info:[String:Any], viewController : UIViewController?){
-      
-//        if type == 1{
-//            MIGeneralsAPI.shared().refreshPostRelatedScreens(likeInfo, post_id, viewController!, .likePost)
-//        }else{
-//            MIGeneralsAPI.shared().refreshWebSiteScreens(likeInfo, rss_id, viewController!, .likePost)
-//        }
-       
+        
         MIGeneralsAPI.shared().refreshPostRelatedScreens(info, post_id, viewController!, .likePost)
-       
-//        APIRequest.shared().likeUnlikePostWebsite(post_id: post_id, rss_id: rss_id, type: type, like_unlike_status: likeStatus) { (response, error) in
-//       APIRequest.shared().likeUnlikeProductCount(productId:post_id ?? 0){ [weak self](response, error) in
-//           if response != nil && error == nil{
-//               print(response!["liked_users"] as? [String:Any] ?? [:])
-//               GCDMainThread.async { [self] in
-//
-//                   if let likeInfo = response!["liked_users"] as? [String : Any]{
-//                       if type == 1{
-//                           MIGeneralsAPI.shared().refreshPostRelatedScreens(likeInfo, post_id, viewController!, .likePost)
-//                       }else{
-//                           MIGeneralsAPI.shared().refreshWebSiteScreens(likeInfo, rss_id, viewController!, .likePost)
-//                       }
-//                  }
-//               }
-//           }
-//       }
-   }
+    }
     
     
     func likeUnlikePostWebsites(post_id : Int?, rss_id : Int?, type : Int?, likeStatus : Int, viewController : UIViewController?){
-//       APIRequest.shared().likeUnlikePostWebsite(post_id: post_id, rss_id: rss_id, type: type, like_unlike_status: likeStatus) { (response, error) in
-//           if response != nil && error == nil{
-//               if let likeInfo = response![CJsonData] as? [String : Any]{
-//                   if type == 1{
-//                       MIGeneralsAPI.shared().refreshPostRelatedScreens(likeInfo, post_id, viewController!, .likePost)
-//                   }else{
-//                       MIGeneralsAPI.shared().refreshWebSiteScreens(likeInfo, rss_id, viewController!, .likePost)
-//                   }
-//               }
-//           }
-//       }
-   }
+    }
     
-//    func interestNotInterestMayBe(_ post_id : Int?, _ type : Int, viewController : UIViewController?){
-//        APIRequest.shared().interestMayBeNotInterest(post_id: post_id, type: type) { (response, error) in
-//            if response != nil && error == nil {
-//                if let interInfo = response![CJsonData] as? [String : Any] {
-//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(interInfo, post_id, viewController!, .interestPost)
-//                }
-//            }
-//        }
-//    }
-//
     func interestNotInterestMayBe(_ post_id : Int?, _ type : Int, viewController : UIViewController?){
         APIRequest.shared().interestMayBeNotInterest(post_id: post_id, type: type) { (response, error) in
             if response != nil && error == nil {
@@ -410,28 +350,26 @@ extension MIGeneralsAPI {
         appDelegate.logOut()
         UserDefaultHelper.deleteuserChatLastMsg()
         
-//        if let token = CUserDefaults.value(forKey: UserDefaultNotificationToken) as? String {
-//            _ = APIRequest.shared().addAndRemoveDeviceToken(device_token: token, is_logout: isLogout) { (response, error) in
-//                if response != nil && error == nil {
-//                    if isLogout != nil {
-//                        // LOGOUT
-//                        appDelegate.logOut()
-//                    }
-//                }
-//            }
-//        }else {
-//            print("Notification token not found...")
-//            if isLogout != nil {
-//                // LOGOUT
-//                appDelegate.logOut()
-//            }
-//        }
+        //        if let token = CUserDefaults.value(forKey: UserDefaultNotificationToken) as? String {
+        //            _ = APIRequest.shared().addAndRemoveDeviceToken(device_token: token, is_logout: isLogout) { (response, error) in
+        //                if response != nil && error == nil {
+        //                    if isLogout != nil {
+        //                        // LOGOUT
+        //                        appDelegate.logOut()
+        //                    }
+        //                }
+        //            }
+        //        }else {
+        //            print("Notification token not found...")
+        //            if isLogout != nil {
+        //                // LOGOUT
+        //                appDelegate.logOut()
+        //            }
+        //        }
     }
-
+    
     func getAdvertisementList() {
-//        APIRequest.shared().advertisementList(page: 0) { (response, error) in
-//        }
-//
+        
     }
     
     func readNotification(_ notId: String?) {
@@ -442,16 +380,8 @@ extension MIGeneralsAPI {
         }
     }
     
-    
     func removeAdvertisement(transactionID: String?, completion:((Bool)-> Void)? = nil) {
-//        APIRequest.shared().removeAdvertisement(transactionId: transactionID) { (response, error) in
-//            if response != nil && error == nil {
-//                completion?(true)
-//                appDelegate.getTopMostViewController().dismiss(animated: true, completion: nil)
-//            } else {
-//                completion?(false)
-//            }
-//        }
+   
     }
 }
 
@@ -483,11 +413,11 @@ extension MIGeneralsAPI {
                         case .deletePost?, .reportPost?:
                             webSiteVC.pullToRefresh()
                             /*if let index = webSiteVC.arrFavWebSite.firstIndex(where: { $0[CId] as? Int == rssId}) {
-                                webSiteVC.arrFavWebSite.remove(at: index)
-                                UIView.performWithoutAnimation {
-                                    webSiteVC.tblFavWebSite.reloadData()
-                                }
-                            }*/
+                             webSiteVC.arrFavWebSite.remove(at: index)
+                             UIView.performWithoutAnimation {
+                             webSiteVC.tblFavWebSite.reloadData()
+                             }
+                             }*/
                             break
                         case .commentPost?:
                             if let index = webSiteVC.arrFavWebSite.firstIndex(where: { $0[CId] as? Int == rssId}) {
@@ -530,7 +460,7 @@ extension MIGeneralsAPI {
         }
         
     }
-        
+    
     func refreshPostRelatedScreens(_ postInfo : [String : Any]?,_ postId : Int?, _ view : UIViewController, _ postAction : PostAction?) {
         
         // To refresh detail screens.....
@@ -565,7 +495,7 @@ extension MIGeneralsAPI {
                                 }
                             }
                             break
-                            case .reportPost?:
+                        case .reportPost?:
                             if let index = homeVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postId}) {
                                 homeVC.arrPostList.remove(at: index)
                                 UIView.performWithoutAnimation {
@@ -574,50 +504,50 @@ extension MIGeneralsAPI {
                                 }
                             }
                             break
-                            case .deletePost?:
-                                if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
-                                    homeVC.arrPostList.remove(at:index)
-                                    UIView.performWithoutAnimation {
-                                        homeVC.tblEvents.reloadData()
-                                        homeVC.lblNoData.isHidden = homeVC.arrPostList.count > 0
-                                    }
+                        case .deletePost?:
+                            if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
+                                homeVC.arrPostList.remove(at:index)
+                                UIView.performWithoutAnimation {
+                                    homeVC.tblEvents.reloadData()
+                                    homeVC.lblNoData.isHidden = homeVC.arrPostList.count > 0
                                 }
-                                let arrPosts = homeVC.arrPostList
-                                for (index,obj) in arrPosts.enumerated(){
-                                    if obj[COriginalPostId] as? Int == postId{
-                                        var postPollInfo = obj
-                                        postPollInfo[CIsPostDeleted] = 1
-                                        homeVC.arrPostList.remove(at: index)
-                                        homeVC.arrPostList.insert(postPollInfo, at: index)
-                                        UIView.performWithoutAnimation {
-                                            DispatchQueue.main.async {
-                                                let indexPath = IndexPath(item: index, section: 1)
-                                                if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
-                                                    homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
-                                                }
+                            }
+                            let arrPosts = homeVC.arrPostList
+                            for (index,obj) in arrPosts.enumerated(){
+                                if obj[COriginalPostId] as? Int == postId{
+                                    var postPollInfo = obj
+                                    postPollInfo[CIsPostDeleted] = 1
+                                    homeVC.arrPostList.remove(at: index)
+                                    homeVC.arrPostList.insert(postPollInfo, at: index)
+                                    UIView.performWithoutAnimation {
+                                        DispatchQueue.main.async {
+                                            let indexPath = IndexPath(item: index, section: 1)
+                                            if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
+                                                homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
                                             }
                                         }
                                     }
                                 }
+                            }
                             break
-                            case .likePost?:
-                                if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
-                                    var postLikeInfo = homeVC.arrPostList[index]
-//                                    postLikeInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: "likes")
-//                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
-                                    postLikeInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
-//                                    postLikeInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-                                    homeVC.arrPostList.remove(at: index)
-                                    homeVC.arrPostList.insert(postLikeInfo, at: index)
-                                    UIView.performWithoutAnimation {
-                                        let indexPath = IndexPath(item: index, section: 1)
-                                        if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
-                                            homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
-                                        }
+                        case .likePost?:
+                            if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
+                                var postLikeInfo = homeVC.arrPostList[index]
+                                //                                    postLikeInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                                postLikeInfo[CLikes] = postInfo?.valueForString(key: "likes")
+                                //                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
+                                postLikeInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                                //                                    postLikeInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                                homeVC.arrPostList.remove(at: index)
+                                homeVC.arrPostList.insert(postLikeInfo, at: index)
+                                UIView.performWithoutAnimation {
+                                    let indexPath = IndexPath(item: index, section: 1)
+                                    if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
+                                        homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
                                     }
-                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                                 }
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            }
                             break
                         case .interestPost?:
                             
@@ -646,7 +576,7 @@ extension MIGeneralsAPI {
                                     postLikeInfo["selected_choice"] = "2"
                                 }
                                 
-//                                postLikeInfo[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
+                                //                                postLikeInfo[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
                                 homeVC.arrPostList.remove(at: index)
                                 homeVC.arrPostList.insert(postLikeInfo, at: index)
                                 UIView.performWithoutAnimation {
@@ -682,9 +612,9 @@ extension MIGeneralsAPI {
                             if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = homeVC.arrPostList[index]
                                 postLikeInfo["comments"] = postInfo?.valueForString(key: "comments")
-//                                postLikeInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
-//                                homeVC.arrPostList.remove(at: index)
-//                                homeVC.arrPostList.insert(postLikeInfo, at: index)
+                                //                                postLikeInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                                //                                homeVC.arrPostList.remove(at: index)
+                                //                                homeVC.arrPostList.insert(postLikeInfo, at: index)
                                 homeVC.arrPostList.remove(at: index)
                                 homeVC.arrPostList.insert(postLikeInfo, at: index)
                                 
@@ -693,30 +623,30 @@ extension MIGeneralsAPI {
                                     if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
                                         homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
                                     }
-                                
+                                    
                                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                                 }
                             }
                             break
-                            case .deleteComment?:
-                                if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
+                        case .deleteComment?:
+                            if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = homeVC.arrPostList[index]
-                                    
+                                
                                 let commentDel = (postLikeInfo.valueForString(key: "comments") )
                                 let commentAfDele = (commentDel.toInt) ?? 0
                                 let commet = commentAfDele - 1
                                 postLikeInfo["comments"] = commet.toString
-//                                homeVC.arrPostList.remove(at: index)
-//                                homeVC.arrPostList.insert(postLikeInfo, at: index)
-                                    homeVC.arrPostList.remove(at: index)
-                                    homeVC.arrPostList.insert(postLikeInfo, at: index)
+                                //                                homeVC.arrPostList.remove(at: index)
+                                //                                homeVC.arrPostList.insert(postLikeInfo, at: index)
+                                homeVC.arrPostList.remove(at: index)
+                                homeVC.arrPostList.insert(postLikeInfo, at: index)
                                 UIView.performWithoutAnimation {
                                     let indexPath = IndexPath(item: index, section: 1)
                                     if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
                                         homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
                                     }
                                 }
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                             }
                             break
                         default:
@@ -890,16 +820,16 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? ArticleDetailViewController{
                         switch postAction {
                         case .likePost?:
-//                            detailPost.articleInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-//                            detailPost.articleInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-//                            detailPost.setArticleDetails(detailPost.articleInformation)
+                            //                            detailPost.articleInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                            //                            detailPost.articleInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            //                            detailPost.setArticleDetails(detailPost.articleInformation)
                             
                             detailPost.articleInformation[CLikes] = postInfo?.valueForString(key: "likes")
                             detailPost.articleInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setArticleDetails(detailPost.articleInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                             
-                        break
+                            break
                         default: break
                         }
                     }
@@ -909,9 +839,9 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? ImageDetailViewController{
                         switch postAction {
                         case .likePost?:
-//                            detailPost.galleryInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-//                            detailPost.galleryInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-//                            detailPost.setGalleryDetailData(detailPost.galleryInfo)
+                            //                            detailPost.galleryInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                            //                            detailPost.galleryInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            //                            detailPost.setGalleryDetailData(detailPost.galleryInfo)
                             
                             detailPost.galleryInfo[CLikes] = postInfo?.valueForString(key: "likes")
                             detailPost.galleryInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
@@ -942,11 +872,11 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? ChirpyImageDetailsViewController{
                         switch postAction {
                         case .likePost?:
-//                            detailPost.chirpyInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-//                            detailPost.chirpyInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-//                            detailPost.setChirpyDetailData(detailPost.chirpyInformation)
+                            //                            detailPost.chirpyInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                            //                            detailPost.chirpyInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            //                            detailPost.setChirpyDetailData(detailPost.chirpyInformation)
                             detailPost.chirpyInformation[CLikes] = postInfo?.valueForString(key: "likes")
-//                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
+                            //                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
                             detailPost.chirpyInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setChirpyDetailData(detailPost.chirpyInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
@@ -961,10 +891,10 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? ShoutsDetailViewController{
                         switch postAction {
                         case .likePost?:
-//                            detailPost.shoutInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-//                            detailPost.shoutInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            //                            detailPost.shoutInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                            //                            detailPost.shoutInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
                             detailPost.shoutInformation[CLikes] = postInfo?.valueForString(key: "likes")
-//                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
+                            //                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
                             detailPost.shoutInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setShoutsDetailData(detailPost.shoutInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
@@ -978,12 +908,12 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? ForumDetailViewController{
                         switch postAction {
                         case .likePost?:
-//                            detailPost.forumInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-//                            detailPost.forumInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-//                            detailPost.setForumDetailData(detailPost.forumInformation)
+                            //                            detailPost.forumInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                            //                            detailPost.forumInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            //                            detailPost.setForumDetailData(detailPost.forumInformation)
                             
                             detailPost.forumInformation[CLikes] = postInfo?.valueForString(key: "likes")
-//                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
+                            //                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
                             detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setForumDetailData(detailPost.forumInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
@@ -997,9 +927,9 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? EventDetailViewController{
                         switch postAction {
                         case .likePost?:
-//                            detailPost.eventInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-//                            detailPost.eventInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-//                            detailPost.setEventDetail(dict: detailPost.eventInfo)
+                            //                            detailPost.eventInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                            //                            detailPost.eventInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            //                            detailPost.setEventDetail(dict: detailPost.eventInfo)
                             
                             detailPost.eventInfo[CLikes] = postInfo?.valueForString(key: "likes")
                             detailPost.eventInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
@@ -1011,49 +941,49 @@ extension MIGeneralsAPI {
                         }
                     }
                 }
-               
+                
                 if viewController.isKind(of: EventDetailImageViewController.classForCoder()){
                     if let detailPost = viewController as? EventDetailImageViewController{
                         switch postAction {
                         case .likePost?:
-//                            detailPost.eventInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-//                            detailPost.eventInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-//                            detailPost.setEventDetail(dict: detailPost.eventInfo)
+                            //                            detailPost.eventInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                            //                            detailPost.eventInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            //                            detailPost.setEventDetail(dict: detailPost.eventInfo)
                             detailPost.eventInfo[CLikes] = postInfo?.valueForString(key: "likes")
                             detailPost.eventInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setEventDetail(dict: detailPost.eventInfo)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                             break
                             
-//                        case .interestPost?:
-//
-//
-////                            var postLikeInfo = homeVC.arrPostList[index]
-//                            let choice =  postInfo?.valueForString(key: "choice")
-//                            if choice == "yes"{
-//                                let yesCount = postInfo?.valueForString(key:"yes_count").toInt ?? 0
-//                                let totalCnt = (yesCount + 1).toString
-//                                detailPost.eventInfo["yes_count"] = totalCnt
-//                                detailPost.eventInfo[CIsInterested] = "1"
-//                                detailPost.eventInfo["selected_choice"] = "1"
-//                            }
-//                            if choice == "maybe"{
-//                                let mayCount = postInfo?.valueForString(key:"maybe_count").toInt ?? 0
-//                                let totalCnt = (mayCount + 1).toString
-//                                detailPost.eventInfo["maybe_count"] = totalCnt
-//                                detailPost.eventInfo[CIsInterested] = "3"
-//                                detailPost.eventInfo["selected_choice"] = "3"
-//                            }
-//                            if choice == "no"{
-//                                let noCount = postInfo?.valueForString(key:"no_count").toInt ?? 0
-//                                let totalCnt = (noCount + 1).toString
-//                                detailPost.eventInfo["no_count"] = totalCnt
-//                                detailPost.eventInfo[CIsInterested] = "2"
-//                                detailPost.eventInfo["selected_choice"] = "2"
-//                            }
-//
-//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-//                            break
+                        //                        case .interestPost?:
+                        //
+                        //
+                        ////                            var postLikeInfo = homeVC.arrPostList[index]
+                        //                            let choice =  postInfo?.valueForString(key: "choice")
+                        //                            if choice == "yes"{
+                        //                                let yesCount = postInfo?.valueForString(key:"yes_count").toInt ?? 0
+                        //                                let totalCnt = (yesCount + 1).toString
+                        //                                detailPost.eventInfo["yes_count"] = totalCnt
+                        //                                detailPost.eventInfo[CIsInterested] = "1"
+                        //                                detailPost.eventInfo["selected_choice"] = "1"
+                        //                            }
+                        //                            if choice == "maybe"{
+                        //                                let mayCount = postInfo?.valueForString(key:"maybe_count").toInt ?? 0
+                        //                                let totalCnt = (mayCount + 1).toString
+                        //                                detailPost.eventInfo["maybe_count"] = totalCnt
+                        //                                detailPost.eventInfo[CIsInterested] = "3"
+                        //                                detailPost.eventInfo["selected_choice"] = "3"
+                        //                            }
+                        //                            if choice == "no"{
+                        //                                let noCount = postInfo?.valueForString(key:"no_count").toInt ?? 0
+                        //                                let totalCnt = (noCount + 1).toString
+                        //                                detailPost.eventInfo["no_count"] = totalCnt
+                        //                                detailPost.eventInfo[CIsInterested] = "2"
+                        //                                detailPost.eventInfo["selected_choice"] = "2"
+                        //                            }
+                        //
+                        //                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                        //                            break
                         default: break
                         }
                     }
@@ -1063,9 +993,9 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? PollDetailsViewController{
                         switch postAction {
                         case .likePost?:
-//                            detailPost.pollInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-//                            detailPost.pollInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-//                            detailPost.setPollDetails(detailPost.pollInformation)
+                            //                            detailPost.pollInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                            //                            detailPost.pollInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            //                            detailPost.setPollDetails(detailPost.pollInformation)
                             
                             detailPost.pollInformation[CLikes] = postInfo?.valueForString(key: "likes")
                             detailPost.pollInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
@@ -1248,7 +1178,7 @@ extension MIGeneralsAPI {
                         }
                     }
                 }
-                    
+                
                 // UPDATE POST DETAILS SCREEN FOR COMMENT..
                 if postAction == .commentPost{
                     let cmtCount = postInfo?["comments"] as? String
@@ -1286,8 +1216,8 @@ extension MIGeneralsAPI {
                             //shout details screen
                             if viewController.isKind(of: ShoutsDetailViewController.classForCoder()){
                                 if let shoutVC = viewController as? ShoutsDetailViewController{
-//                                    shoutVC.updateShoutCommentSection(arrComm, metaInfo.valueForInt(key: CTotal)!)
-//                                    shoutVC.updateShoutCommentSection(arrComm)
+                                    //                                    shoutVC.updateShoutCommentSection(arrComm, metaInfo.valueForInt(key: CTotal)!)
+                                    //                                    shoutVC.updateShoutCommentSection(arrComm)
                                 }
                             }
                             
@@ -1357,19 +1287,19 @@ extension MIGeneralsAPI {
                             break
                         case .likePost?:
                             
-//                            if let index = myProfileVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
-//                                var postLikeInfo = myProfileVC.arrPostList[index]
-//                                postLikeInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-//                                postLikeInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-//                                myProfileVC.arrPostList.remove(at: index)
-//                                myProfileVC.arrPostList.insert(postLikeInfo, at: index)
-//                                UIView.performWithoutAnimation {
-//                                    let indexPath = IndexPath(item: index, section: 1)
-//                                    if (myProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
-//                                        myProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
-//                                    }
-//                                }
-//                            }
+                            //                            if let index = myProfileVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
+                            //                                var postLikeInfo = myProfileVC.arrPostList[index]
+                            //                                postLikeInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                            //                                postLikeInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            //                                myProfileVC.arrPostList.remove(at: index)
+                            //                                myProfileVC.arrPostList.insert(postLikeInfo, at: index)
+                            //                                UIView.performWithoutAnimation {
+                            //                                    let indexPath = IndexPath(item: index, section: 1)
+                            //                                    if (myProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
+                            //                                        myProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
+                            //                                    }
+                            //                                }
+                            //                            }
                             
                             if let index = myProfileVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = myProfileVC.arrPostList[index]
@@ -1412,15 +1342,15 @@ extension MIGeneralsAPI {
                                     postLikeInfo[CIsInterested] = "2"
                                     postLikeInfo["selected_choice"] = "2"
                                 }
-                            
-                            
-//                            if let index = myProfileVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postId}) {
-//                                var postLikeInfo = myProfileVC.arrPostList[index]
-//
-//                                postLikeInfo[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
-//                                postLikeInfo[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
-//                                postLikeInfo[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
-//                                postLikeInfo[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
+                                
+                                
+                                //                            if let index = myProfileVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postId}) {
+                                //                                var postLikeInfo = myProfileVC.arrPostList[index]
+                                //
+                                //                                postLikeInfo[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
+                                //                                postLikeInfo[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
+                                //                                postLikeInfo[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
+                                //                                postLikeInfo[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
                                 
                                 myProfileVC.arrPostList.remove(at: index)
                                 myProfileVC.arrPostList.insert(postLikeInfo, at: index)
@@ -1457,15 +1387,15 @@ extension MIGeneralsAPI {
                             if let index = myProfileVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = myProfileVC.arrPostList[index]
                                 postLikeInfo["comments"] = postInfo?.valueForString(key: "comments")
-//                                if let postMetaInfo = postInfo![CJsonMeta] as? [String : Any]{
-//                                    postLikeInfo[CTotalComment] = postMetaInfo.valueForInt(key: CTotal)
-                                    myProfileVC.arrPostList.remove(at: index)
-                                    myProfileVC.arrPostList.insert(postLikeInfo, at: index)
-                                    UIView.performWithoutAnimation {
-                                        let indexPath = IndexPath(item: index, section: 1)
-                                        if (myProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
-                                            myProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
-//                                        }
+                                //                                if let postMetaInfo = postInfo![CJsonMeta] as? [String : Any]{
+                                //                                    postLikeInfo[CTotalComment] = postMetaInfo.valueForInt(key: CTotal)
+                                myProfileVC.arrPostList.remove(at: index)
+                                myProfileVC.arrPostList.insert(postLikeInfo, at: index)
+                                UIView.performWithoutAnimation {
+                                    let indexPath = IndexPath(item: index, section: 1)
+                                    if (myProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
+                                        myProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
+                                        //                                        }
                                     }
                                 }
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadMyprofile"), object: nil)
@@ -1482,7 +1412,7 @@ extension MIGeneralsAPI {
                                 postLikeInfo["comments"] = commet.toString
                                 
                                 
-//                                postLikeInfo[CTotalComment] = (postLikeInfo.valueForInt(key: CTotalComment) ?? 0) - 1
+                                //                                postLikeInfo[CTotalComment] = (postLikeInfo.valueForInt(key: CTotalComment) ?? 0) - 1
                                 myProfileVC.arrPostList.remove(at: index)
                                 myProfileVC.arrPostList.insert(postLikeInfo, at: index)
                                 
@@ -1537,13 +1467,13 @@ extension MIGeneralsAPI {
                             break
                         case .likePost?:
                             if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?["post_id"] as? String == postId?.toString}) {
-//                            if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?.valueForInt(key: CId) == postId}) {
+                                //                            if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?.valueForInt(key: CId) == postId}) {
                                 var postLikeInfo = otherProfileVC.arrPostList[index]
                                 postLikeInfo?[CLikes] = postInfo?.valueForString(key: "likes")
                                 postLikeInfo?[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                                 
-//                                postLikeInfo?[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-//                                postLikeInfo?[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                                //                                postLikeInfo?[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                                //                                postLikeInfo?[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
                                 otherProfileVC.arrPostList.remove(at: index)
                                 otherProfileVC.arrPostList.insert(postLikeInfo, at: index)
                                 UIView.performWithoutAnimation {
@@ -1556,13 +1486,13 @@ extension MIGeneralsAPI {
                             }
                             break
                         case .interestPost?:
-//                            if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?.valueForInt(key: CId) == postId}) {
-//                                var postLikeInfo = otherProfileVC.arrPostList[index]
-//
-//                                postLikeInfo?[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
-//                                postLikeInfo?[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
-//                                postLikeInfo?[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
-//                                postLikeInfo?[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
+                            //                            if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?.valueForInt(key: CId) == postId}) {
+                            //                                var postLikeInfo = otherProfileVC.arrPostList[index]
+                            //
+                            //                                postLikeInfo?[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
+                            //                                postLikeInfo?[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
+                            //                                postLikeInfo?[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
+                            //                                postLikeInfo?[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
                             
                             if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = otherProfileVC.arrPostList[index]
@@ -1599,50 +1529,50 @@ extension MIGeneralsAPI {
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherIntrest"), object: nil)
                                 
                             }
-//                            let arrPosts = otherProfileVC.arrPostList
-//                            for (index,obj) in arrPosts.enumerated(){
-//                                if obj?[COriginalPostId] as? Int == postId{
-//                                    var postPollInfo = obj
-//                                    postPollInfo?[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
-//                                    postPollInfo?[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
-//                                    postPollInfo?[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
-//                                    postPollInfo?[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
-//                                    otherProfileVC.arrPostList.remove(at: index)
-//                                    otherProfileVC.arrPostList.insert(postPollInfo, at: index)
-//                                    UIView.performWithoutAnimation {
-//                                        DispatchQueue.main.async {
-//                                            let indexPath = IndexPath(item: index, section: 1)
-//                                            if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
-//                                                otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            }
+                            //                            let arrPosts = otherProfileVC.arrPostList
+                            //                            for (index,obj) in arrPosts.enumerated(){
+                            //                                if obj?[COriginalPostId] as? Int == postId{
+                            //                                    var postPollInfo = obj
+                            //                                    postPollInfo?[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
+                            //                                    postPollInfo?[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
+                            //                                    postPollInfo?[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
+                            //                                    postPollInfo?[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
+                            //                                    otherProfileVC.arrPostList.remove(at: index)
+                            //                                    otherProfileVC.arrPostList.insert(postPollInfo, at: index)
+                            //                                    UIView.performWithoutAnimation {
+                            //                                        DispatchQueue.main.async {
+                            //                                            let indexPath = IndexPath(item: index, section: 1)
+                            //                                            if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
+                            //                                                otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
+                            //                                            }
+                            //                                        }
+                            //                                    }
+                            //                                }
+                            //                            }
                             break
                         case .commentPost?:
                             if let index = otherProfileVC.arrPostList.firstIndex(where:{ $0?["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = otherProfileVC.arrPostList[index]
-//                                if let postMetaInfo = postInfo![CJsonMeta] as? [String : Any]{
-//                                    postLikeInfo?[CTotalComment] = postMetaInfo.valueForInt(key: CTotal)
-                                    postLikeInfo?["comments"] = postInfo?.valueForString(key: "comments")
-                                    otherProfileVC.arrPostList.remove(at: index)
-                                    otherProfileVC.arrPostList.insert(postLikeInfo, at: index)
-                                    UIView.performWithoutAnimation {
-                                        let indexPath = IndexPath(item: index, section: 1)
-                                        if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
-                                            otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
-                                        }
+                                //                                if let postMetaInfo = postInfo![CJsonMeta] as? [String : Any]{
+                                //                                    postLikeInfo?[CTotalComment] = postMetaInfo.valueForInt(key: CTotal)
+                                postLikeInfo?["comments"] = postInfo?.valueForString(key: "comments")
+                                otherProfileVC.arrPostList.remove(at: index)
+                                otherProfileVC.arrPostList.insert(postLikeInfo, at: index)
+                                UIView.performWithoutAnimation {
+                                    let indexPath = IndexPath(item: index, section: 1)
+                                    if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
+                                        otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
                                     }
-//                                }
+                                }
+                                //                                }
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
                             }
                             break
                         case .deleteComment?:
                             if let index = otherProfileVC.arrPostList.firstIndex(where:{ $0?["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = otherProfileVC.arrPostList[index]
-//                                let totalComment = (postLikeInfo?.valueForInt(key: CTotalComment) ?? 0) - 1
-//                                postLikeInfo?[CTotalComment] = totalComment
+                                //                                let totalComment = (postLikeInfo?.valueForInt(key: CTotalComment) ?? 0) - 1
+                                //                                postLikeInfo?[CTotalComment] = totalComment
                                 
                                 
                                 let commentDel = (postLikeInfo?.valueForString(key: "comments") )
@@ -1654,8 +1584,8 @@ extension MIGeneralsAPI {
                                 otherProfileVC.arrPostList.insert(postLikeInfo!, at: index)
                                 
                                 UIView.performWithoutAnimation {
-                                let indexPath = IndexPath(item: index, section: 1)
-                                if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
+                                    let indexPath = IndexPath(item: index, section: 1)
+                                    if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
                                         otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
                                     }
                                 }
@@ -1707,7 +1637,7 @@ extension MIGeneralsAPI {
         }
         
         for viewController in arrViewControllers{
-           
+            
             if viewController.isKind(of: HomeViewController.classForCoder()){
                 
                 guard let homeVC = viewController as? HomeViewController else{
@@ -1727,31 +1657,31 @@ extension MIGeneralsAPI {
                             }
                         }
                     }
-//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
+                    //                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
                 }
-//                let arrPosts = homeVC.arrPostList
-//                for (index,obj) in arrPosts.enumerated(){
-//                    if obj["post_id"] as? String == postId?.toString{
-//                        var postPollInfo = obj
-//
-////                        print("this is calling first tile")
-////                        postPollInfo[CPollData] = optionData
-////                        postPollInfo[CUserVotedPoll] = pollAnsewrID
-//                        postPollInfo["is_selected"] = "Yes"
-////                        postPollInfo[CIsUserVoted] = 1
-//                        homeVC.arrPostList.remove(at: index)
-//                        homeVC.arrPostList.insert(postPollInfo, at: index)
-//                        UIView.performWithoutAnimation {
-//                            DispatchQueue.main.async {
-//                                let indexPath = IndexPath(item: index, section: 1)
-//
-//                                if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
-//                                    homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
+                //                let arrPosts = homeVC.arrPostList
+                //                for (index,obj) in arrPosts.enumerated(){
+                //                    if obj["post_id"] as? String == postId?.toString{
+                //                        var postPollInfo = obj
+                //
+                ////                        print("this is calling first tile")
+                ////                        postPollInfo[CPollData] = optionData
+                ////                        postPollInfo[CUserVotedPoll] = pollAnsewrID
+                //                        postPollInfo["is_selected"] = "Yes"
+                ////                        postPollInfo[CIsUserVoted] = 1
+                //                        homeVC.arrPostList.remove(at: index)
+                //                        homeVC.arrPostList.insert(postPollInfo, at: index)
+                //                        UIView.performWithoutAnimation {
+                //                            DispatchQueue.main.async {
+                //                                let indexPath = IndexPath(item: index, section: 1)
+                //
+                //                                if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
+                //                                    homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
+                //                                }
+                //                            }
+                //                        }
+                //                    }
+                //                }
             }
             
             if viewController.isKind(of: MyProfileViewController.classForCoder()){
@@ -1885,15 +1815,15 @@ extension MIGeneralsAPI {
     func fetchCategoryFromLocal() -> [[String : Any]] {
         var arrCategory = [[String : Any]]()
         
-         
+        
         if arrCategory.count < 1 {
             // If not intereste selected by user then show all interest.....
             let arrCategoryTemp = TblInterest.fetchAllObjects()
             for interest in arrCategoryTemp!{
                 var dicData = [String : Any]()
                 let interestInfo = interest as? TblInterest
-//                dicData[CId] = interestInfo?.id
-//                dicData[CType] = interestInfo?.type
+                //                dicData[CId] = interestInfo?.id
+                //                dicData[CType] = interestInfo?.type
                 dicData[CName] = interestInfo?.name
                 arrCategory.append(dicData)
             }
@@ -1916,11 +1846,11 @@ extension MIGeneralsAPI {
             for interest in arrCategoryTemp!{
                 var dicData = [String : Any]()
                 let interestInfo = interest as? TblArticle
-//                dicData[CId] = interestInfo?.id
-//                dicData[CType] = interestInfo?.type
-//                dicData["category_id"] = interestInfo?.category_id
+                //                dicData[CId] = interestInfo?.id
+                //                dicData[CType] = interestInfo?.type
+                //                dicData["category_id"] = interestInfo?.category_id
                 dicData[CCategoryName] = interestInfo?.category_name
-//                dicData["lang_name"] = interestInfo?.lang_name
+                //                dicData["lang_name"] = interestInfo?.lang_name
                 arrCategory.append(dicData)
             }
         }
@@ -1955,10 +1885,6 @@ extension MIGeneralsAPI {
         return arrCategory
     }
     
-    
-    
-    
-    
     func fetchCategoryFromLocalChiripy() -> [[String : Any]] {
         var arrCategory = [[String : Any]]()
         if arrCategory.count < 1 {
@@ -1967,11 +1893,7 @@ extension MIGeneralsAPI {
             for interest in arrCategoryTemp!{
                 var dicData = [String : Any]()
                 let interestInfo = interest as? TblChirpy
-//                dicData[CId] = interestInfo?.id
-//                dicData[CType] = interestInfo?.type
-//                dicData["category_id"] = interestInfo?.category_id
                 dicData[CCategoryName] = interestInfo?.category_name
-//                dicData["lang_name"] = interestInfo?.lang_name
                 arrCategory.append(dicData)
             }
         }
@@ -1992,11 +1914,7 @@ extension MIGeneralsAPI {
             for interest in arrCategoryTemp!{
                 var dicData = [String : Any]()
                 let interestInfo = interest as? TblEvent
-//                dicData[CId] = interestInfo?.id
-//                dicData[CType] = interestInfo?.type
-//                dicData["category_id"] = interestInfo?.category_id
                 dicData[CCategoryName] = interestInfo?.category_name
-//                dicData["lang_name"] = interestInfo?.lang_name
                 arrCategory.append(dicData)
             }
         }
@@ -2017,11 +1935,7 @@ extension MIGeneralsAPI {
             for interest in arrCategoryTemp!{
                 var dicData = [String : Any]()
                 let interestInfo = interest as? TblForum
-//                dicData[CId] = interestInfo?.id
-//                dicData[CType] = interestInfo?.type
-//                dicData["category_id"] = interestInfo?.category_id
                 dicData[CCategoryName] = interestInfo?.category_name
-//                dicData["lang_name"] = interestInfo?.lang_name
                 arrCategory.append(dicData)
             }
         }
@@ -2042,11 +1956,7 @@ extension MIGeneralsAPI {
             for interest in arrCategoryTemp!{
                 var dicData = [String : Any]()
                 let interestInfo = interest as? TblGallery
-//                dicData[CId] = interestInfo?.id
-//                dicData[CType] = interestInfo?.type
-//                dicData["category_id"] = interestInfo?.category_id
                 dicData[CCategoryName] = interestInfo?.category_name
-//                dicData["lang_name"] = interestInfo?.lang_name
                 arrCategory.append(dicData)
             }
         }
@@ -2068,11 +1978,7 @@ extension MIGeneralsAPI {
             for interest in arrCategoryTemp!{
                 var dicData = [String : Any]()
                 let interestInfo = interest as? TblPoll
-//                dicData[CId] = interestInfo?.id
-//                dicData[CType] = interestInfo?.type
-//                dicData["category_id"] = interestInfo?.category_id
                 dicData[CCategoryName] = interestInfo?.category_name
-//                dicData["lang_name"] = interestInfo?.lang_name
                 arrCategory.append(dicData)
             }
         }
@@ -2092,15 +1998,15 @@ extension MIGeneralsAPI {
     func fetchsubCategoryFromLocal() -> [[String : Any]] {
         var arrCategory = [[String : Any]]()
         
-         
+        
         if arrCategory.count < 1 {
             // If not intereste selected by user then show all interest.....
             let arrCategoryTemp = TblSubIntrest.fetchAllObjects()
             for interest in arrCategoryTemp!{
                 var dicData = [String : Any]()
                 let interestInfo = interest as? TblSubIntrest
-//                dicData[CId] = interestInfo?.id
-//                dicData[CType] = interestInfo?.type
+                //                dicData[CId] = interestInfo?.id
+                //                dicData[CType] = interestInfo?.type
                 dicData[CinterestLevel2] = interestInfo?.interest_level2
                 arrCategory.append(dicData)
             }
@@ -2119,17 +2025,17 @@ extension MIGeneralsAPI {
 extension MIGeneralsAPI {
     
     func asString(jsonDictionary: [String:Any]) -> String {
-      do {
-        let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
-        return String(data: data, encoding: String.Encoding.utf8) ?? ""
-      } catch {
-        return ""
-      }
+        do {
+            let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
+            return String(data: data, encoding: String.Encoding.utf8) ?? ""
+        } catch {
+            return ""
+        }
     }
     
     
     func fetchChatGroupObjectFromLocal(isNew:Bool) -> TblChatGroupList? {
-       
+        
         if var arrUserList : [TblChatGroupList] = TblChatGroupList.fetchAllObjects() as? [TblChatGroupList] {
             
             arrUserList.sort(by: {$0.datetime < $1.datetime})
@@ -2161,24 +2067,22 @@ extension MIGeneralsAPI {
     
     func fetchLatestMessageFromLocal(_ strChannelId : String, isNew:Bool) -> TblMessages? {
         
-            if var arrMessageList : [TblMessages] = TblMessages .fetch(predicate: NSPredicate(format: "\(CChannel_id) == %@", strChannelId), orderBy: CCreated_at, ascending: true) as? [TblMessages] {
-                arrMessageList.sort(by: {$0.created_at < $1.created_at})
-           
+        if var arrMessageList : [TblMessages] = TblMessages .fetch(predicate: NSPredicate(format: "\(CChannel_id) == %@", strChannelId), orderBy: CCreated_at, ascending: true) as? [TblMessages] {
+            arrMessageList.sort(by: {$0.created_at < $1.created_at})
+            
             if arrMessageList.count > 0 {
                 return isNew ? arrMessageList.last : arrMessageList.first
             } else{
                 return nil
             }
         }
-        
         return nil
     }
- 
 }
 
 
 extension MIGeneralsAPI {
-  
+    
     func sendNotification(_ receiverID: String?,userID:String?,subject:String?,MsgType:String?,MsgSent:String?,showDisplayContent:String?,senderName:String) {
         
         guard let firstName = appDelegate.loginUser?.first_name else {return}
@@ -2190,9 +2094,9 @@ extension MIGeneralsAPI {
         let content:[String:Any]  = [
             "subject":subject as Any,
             "senderName": senderName,
-//            "content":"<b>\(firstName) \(lastName)</b> &nbsp\(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
+            //            "content":"<b>\(firstName) \(lastName)</b> &nbsp\(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
             "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
-          
+            
             "link":"http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
             "type":MsgType as Any,
         ]
@@ -2206,10 +2110,8 @@ extension MIGeneralsAPI {
         } catch {
             print(error.localizedDescription)
         }
-        
-//        let image = "https:\\/\\/qa.sevenchats.com:3443\\/sevenchats\\/7736772922\\/1636189071050.jpg"
-
-//        let profileImgRlc = profileImg.replacingOccurrences(of: "/", with: "\\/")
+        //        let image = "https:\\/\\/qa.sevenchats.com:3443\\/sevenchats\\/7736772922\\/1636189071050.jpg"
+        //        let profileImgRlc = profileImg.replacingOccurrences(of: "/", with: "\\/")
         
         let dict:[String:Any] = [
             "receiver":receiverID ?? "",
@@ -2218,11 +2120,12 @@ extension MIGeneralsAPI {
             "subject":"\(userName) \(subject ?? "") \(MsgSent ?? "")",
             "content":contentStr,
             "icon":profileImg
+            
         ]
-         APIRequest.shared().sendNotification(notifications: dict) { (response, error) in
-        if response != nil && error == nil {
+        APIRequest.shared().sendNotification(notifications: dict) { (response, error) in
+            if response != nil && error == nil {
+            }
         }
-      }
     }
     
     func addRewardsPoints(_ points_config_idName: String,message:String,type:String,title:String,name:String,icon:String) {
@@ -2233,13 +2136,13 @@ extension MIGeneralsAPI {
         guard let userID = appDelegate.loginUser?.user_id else {return}
         
         if let arrMessageList : [TblPointsConfig] = TblPointsConfig .fetch(predicate: NSPredicate(format: "\("points_config_name") == %@",points_config_idName ), orderBy: CCreated_at, ascending: true) as? [TblPointsConfig] {
-        if arrMessageList.count > 0 {
-            points_config_id = arrMessageList[0].points_config_id
-            max_points = arrMessageList[0].max_points
-            
-        } else{
-            return
-        }
+            if arrMessageList.count > 0 {
+                points_config_id = arrMessageList[0].points_config_id
+                max_points = arrMessageList[0].max_points
+                
+            } else{
+                return
+            }
         }
         let dict:[String:Any] = [
             "user_id":userID,
@@ -2253,23 +2156,15 @@ extension MIGeneralsAPI {
             "name":name,
             "icon":icon
         ]
-
+        
         print("dict\(dict)")
         APIRequest.shared().rewardsAdding(param: dict) { (response, error) in
-        if response != nil && error == nil {
-       
+            if response != nil && error == nil {
+                
+            }
         }
-      }
     }
 }
-    
-
-//extension Dictionary where Value: Equatable {
-//    func someKey(forValue val: Value) -> Key? {
-//        return first(where: { $1 == val })?.key
-//    }
-//}
-
 
 extension Dictionary where Value: Equatable {
     func allKeys(forValue val: Value) -> [Key] {

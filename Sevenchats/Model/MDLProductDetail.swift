@@ -41,6 +41,8 @@ struct MDLSellerInfo: ProductBaseModel {
     var productID : String!
     var pemail :String!
     var pmobileNum:String!
+    var productDescription:String!
+    
     var paymentType : ProductPaymentMode{
         return ProductPaymentMode(rawValue: strPaymentType.toInt ?? 1) ?? .Offline
     }
@@ -49,6 +51,7 @@ struct MDLSellerInfo: ProductBaseModel {
     init(fromDictionary dictionary: [String:Any]){
 
         firstName = dictionary["first_name"] as? String ?? ""
+        productDescription = dictionary["product_title"] as? String ?? ""
         productID = dictionary["product_id"] as? String ?? ""
         id = dictionary["id"] as? Int ?? 0
         lastName = dictionary["last_name"] as? String ?? ""
