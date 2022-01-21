@@ -48,6 +48,7 @@ class SegmentText: UIView {
         lblText.isUserInteractionEnabled = true
         lblText.addGestureRecognizer(tap)
         
+        
         //self.lblLeftLine.backgroundColor = UIColor.appLightGray
         //self.lblRightLine.backgroundColor = UIColor.appLightGray
     }

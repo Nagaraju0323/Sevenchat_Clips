@@ -24,8 +24,8 @@ class TblFriendsCell: UITableViewCell {
         //self.imgVFriend.clipsToBounds = true
 
 //        self.btnSelectFriend.setImage(UIImage(named: "ic_small_checkmark_selected"), for: .selected)
-        self.btnSelectFriend.setImage(UIImage(named: "ic_circle_checkmark_selected"), for: .selected)
-        self.btnSelectFriend.setImage(UIImage(named: "ic_small_checkmark_unselected"), for: .normal)
+        self.btnSelectFriend.setImage(UIImage(named: "ic_circle_select"), for: .selected)
+        self.btnSelectFriend.setImage(UIImage(named: "ic_circle_unselect"), for: .normal)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -454,7 +454,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I accept all the terns and conditions including all the privacy policies" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZ9-st-hjh" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                        <rect key="frame" x="20" y="883.5" width="335" height="39.5"/>
+                                                        <rect key="frame" x="20" y="883.5" width="335" height="42"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2489,6 +2489,9 @@
         </scene>
     </scenes>
     <designables>
+        <designable name="95b-jq-mn1">
+            <size key="intrinsicContentSize" width="148" height="28"/>
+        </designable>
         <designable name="A2B-NX-uX8">
             <size key="intrinsicContentSize" width="10" height="37"/>
         </designable>
@@ -2496,7 +2499,7 @@
             <size key="intrinsicContentSize" width="10" height="37"/>
         </designable>
         <designable name="gZ9-st-hjh">
-            <size key="intrinsicContentSize" width="474" height="20"/>
+            <size key="intrinsicContentSize" width="474" height="21"/>
         </designable>
         <designable name="sU0-Bz-wol">
             <size key="intrinsicContentSize" width="10" height="37"/>
@@ -2505,7 +2508,7 @@
             <size key="intrinsicContentSize" width="10" height="37"/>
         </designable>
         <designable name="t9u-TZ-lev">
-            <size key="intrinsicContentSize" width="474" height="20"/>
+            <size key="intrinsicContentSize" width="474" height="21"/>
         </designable>
     </designables>
     <resources>
