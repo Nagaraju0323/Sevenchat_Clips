@@ -344,11 +344,6 @@ extension EventDetailImageViewController {
                     break
                 }
         setSelectedButtonStyle(dict)
-    
-        
-        
-        
-        
         
 //        if dict.valueForString(key:"maybe_count") == "0" {
 //
@@ -434,10 +429,6 @@ extension EventDetailImageViewController {
                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
            }
        }
-    
-    
-    
-    
     
     func setSelectedButtonStyle(){
         let arrButton = [btnInterested,btnMaybe,btnNotInterested]
@@ -718,26 +709,20 @@ extension EventDetailImageViewController: UITableViewDelegate, UITableViewDataSo
             
             return cell
         }
-        
         return tableView.tableViewDummyCell()
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
 }
-
-
 
 // MARK:- -------- Action Event
 extension EventDetailImageViewController{
     
     @IBAction func btnInterestMayBe(_ sender : UIButton){
-        
         btnInterested.isSelected = false
         btnMaybe.isSelected = false
         btnNotInterested.isSelected = false
         sender.isSelected = true
-        
         var type = 0
         switch sender.tag {
         case 1:
@@ -892,7 +877,6 @@ extension EventDetailImageViewController{
     }
   }
 }
-
 
 // MARK:-  --------- Generic UITextView Delegate
 extension EventDetailImageViewController: GenericTextViewDelegate{
