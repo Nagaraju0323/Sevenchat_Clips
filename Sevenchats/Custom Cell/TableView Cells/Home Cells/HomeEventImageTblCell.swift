@@ -262,41 +262,7 @@ extension HomeEventImageTblCell{
                btnInterested.isSelected = true
                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
            }
-   //        let arrButton = [btnInterested,btnMaybe,btnNotInterested]
-   //        if let sender = arrButton.filter({$0?.isSelected ?? false}).first{
-   //            if sender == btnInterested{
-   //                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
-   //            }else if sender == btnMaybe{
-   //                btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
-   //            }else if sender == btnNotInterested{
-   //                btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
-   //            }
-   //        }
        }
-//    func setSelectedButtonStyle(){
-////        btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
-////        btnInterested.layer.borderWidth = 2
-////        btnInterested.backgroundColor =  .clear
-////
-////        btnMaybe.layer.borderColor = CRGB(r: 255, g: 237, b: 216).cgColor
-////        btnMaybe.layer.borderWidth = 2
-////        btnMaybe.backgroundColor =  .clear
-////
-////        btnNotInterested.layer.borderColor = CRGB(r: 255, g: 214, b: 214).cgColor
-////        btnNotInterested.layer.borderWidth = 2
-////        btnNotInterested.backgroundColor =  .clear
-//
-//        let arrButton = [btnInterested,btnMaybe,btnNotInterested]
-//        if let sender = arrButton.filter({$0?.isSelected ?? false}).first{
-//            if sender == btnInterested{
-//                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
-//            }else if sender == btnMaybe{
-//                btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
-//            }else if sender == btnNotInterested{
-//                btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
-//            }
-//        }
-//    }
 }
 
 //MARK: - IBAction's

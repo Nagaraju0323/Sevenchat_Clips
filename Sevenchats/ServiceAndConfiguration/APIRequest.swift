@@ -1941,7 +1941,7 @@ extension APIRequest {
         
         let dict : [String:Any]  =  [
             "user_id":user_id?.description as Any,
-            "post_type" : search_type
+            "post_type" : search_type as Any
             
             
         ]

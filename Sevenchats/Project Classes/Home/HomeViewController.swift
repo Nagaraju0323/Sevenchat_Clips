@@ -30,8 +30,6 @@ class HomeViewController: ParentViewController {
     var issearchSelected = false
     var usersotherID = ""
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
@@ -48,11 +46,8 @@ class HomeViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //lblNoData.text = CMessageNoPost
-        
         NotificationCenter.default.addObserver(self, selector: #selector(loading), name: NSNotification.Name(rawValue: "loading"), object: nil)
         lblNoData.text = CToEnhanceFeed
-  
-
 //        self.getPostListFromServer(showLoader: false)
     }
     deinit {
@@ -60,26 +55,21 @@ class HomeViewController: ParentViewController {
     }
     
     @objc func loadList(){
-            //load data here
             self.tblEvents.reloadData()
         }
     @objc func loadListval(){
-            //load data here
             self.tblEvents.reloadData()
         }
     @objc func pollloadder(){
             self.tblEvents.reloadData()
         }
-    
     @objc func loading(){
             self.tblEvents.reloadData()
         }
     
     //MARK:- ----------- Initialization
     func Initialization(){
-        
-       
-        
+
         self.title = CSideHome
         
         let lblTitleName = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
@@ -87,15 +77,12 @@ class HomeViewController: ParentViewController {
         lblTitleName.textColor = UIColor.white
         lblTitleName.font = UIFont(name:"Poppins-Bold",size: 16.0)
         navigationItem.titleView = lblTitleName
-        
-        
+
         //Search Bar button
         searchbtnNav.setImage(UIImage(named: "ic_btn_search"), for: .normal)
         searchbtnNav.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         searchbtnNav.addTarget(self, action: #selector(btnSearchClicked(_:)), for: .touchUpInside)
         let navSearchbtn = UIBarButtonItem(customView: searchbtnNav)
-        
-
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_filter"), style: .plain, target: self, action: #selector(btnFilterClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
         tblEvents.estimatedRowHeight = 250;
@@ -103,7 +90,6 @@ class HomeViewController: ParentViewController {
         tblEvents.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 85, right: 0)
         
         //        tblEvents.register(UINib(nibName: "CreatePostTblCell", bundle: nil), forCellReuseIdentifier: "CreatePostTblCell")
-        
         tblEvents.register(UINib(nibName: "HomeArticleCell", bundle: nil), forCellReuseIdentifier: "HomeArticleCell")
         tblEvents.register(UINib(nibName: "HomeGalleryCell", bundle: nil), forCellReuseIdentifier: "HomeGalleryCell")
         tblEvents.register(UINib(nibName: "HomeEventImageTblCell", bundle: nil), forCellReuseIdentifier: "HomeEventImageTblCell")
@@ -158,16 +144,13 @@ extension HomeViewController {
      This funcation for get post list from server
      - Parameter showLoader:- showLoader is for show loader.
      */
-    
     //MARK:- New Filter API
         func getPostListFromServerNew() {
             
             if let userID = appDelegate.loginUser?.user_id {
-                
                 if apiTask?.state == URLSessionTask.State.running {
                     return
                 }
-                
                 // Add load more indicator here...
                 if self.pageNumber > 2 {
                     self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
@@ -189,13 +172,11 @@ extension HomeViewController {
                         let arrList = response?["Shout"] as? [[String : Any]]
                         
                         if let arrArticleList = response?["Article"] as? [[String : Any]] {
-                            //if let arrList = response![CJsonData] as? [[String : Any]] {
                             // Remove all data here when page number == 1
                             if self.pageNumber == 1 {
                                 self.arrPostList.removeAll()
                                 self.tblEvents.reloadData()
                             }
-                            
                             // Add Data here...
                             if arrArticleList.count > 0 {
                                 self.arrPostList = self.arrPostList + arrArticleList
@@ -204,13 +185,11 @@ extension HomeViewController {
                             }
                         }
                         if let arrChirpyList = response?["Chirpy"] as? [[String : Any]] {
-                            //if let arrList = response![CJsonData] as? [[String : Any]] {
                             // Remove all data here when page number == 1
                             if self.pageNumber == 1 {
                                 self.arrPostList.removeAll()
                                 self.tblEvents.reloadData()
                             }
-                            
                             // Add Data here...
                             if arrChirpyList.count > 0 {
                                 self.arrPostList = self.arrPostList + arrChirpyList
@@ -219,13 +198,11 @@ extension HomeViewController {
                             }
                         }
                         if let arrEventList = response?["Event"] as? [[String : Any]] {
-                            //if let arrList = response![CJsonData] as? [[String : Any]] {
                             // Remove all data here when page number == 1
                             if self.pageNumber == 1 {
                                 self.arrPostList.removeAll()
                                 self.tblEvents.reloadData()
                             }
-                            
                             // Add Data here...
                             if arrEventList.count > 0 {
                                 self.arrPostList = self.arrPostList + arrEventList
@@ -1573,6 +1550,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
                     cell.homeEventDataSetup(postInfo)
                     
+                    
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
 //                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
@@ -2390,9 +2368,9 @@ extension HomeViewController: PostTypeSelectionDelegate{
 // MARK:- -------- Action Event
 extension HomeViewController{
     @objc fileprivate func btnFilterClicked(_ sender : UIBarButtonItem) {
-       // if let postFilterVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "PostFiltersViewController") as? PostFiltersViewController {
+       
         if let postFilterVC = CStoryboardProfile.instantiateViewController(withIdentifier: "ProfileFilterViewController") as? ProfileFilterViewController {
-           // postFilterVC.arrSelectedCategory = arrSelectedFilterOption
+
             postFilterVC.arrSelectedFilter = arrSelectedFilterOption
             postFilterVC.setBlock { [weak self](object, message) in
                 guard let _ = self else { return }
@@ -2402,7 +2380,6 @@ extension HomeViewController{
                     }
                     self?.arrSelectedFilterOption = arrFitInfo
                     self?.pageNumber = 1
-                   // self?.getPostListFromServer(showLoader: false)
                     self?.getPostListFromServerNew()
                 }
             }

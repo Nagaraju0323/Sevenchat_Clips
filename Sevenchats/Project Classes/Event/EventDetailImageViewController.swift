@@ -113,6 +113,7 @@ class EventDetailImageViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
+        self.setEventDetail(dict: self.eventInfo)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -250,10 +251,8 @@ extension EventDetailImageViewController {
             if response != nil {
                 self.parentView.isHidden = false
                 if let shoInfo = response!["data"] as? [[String:Any]]{
-                
-                print(shoInfo as Any)
                     for arraydata in shoInfo {
-                        self.setEventDetail(dict: self.eventInfo)
+//                        self.setEventDetail(dict: self.eventInfo)
                         self.openUserProfileScreen()
                     }
                     
@@ -333,37 +332,57 @@ extension EventDetailImageViewController {
         }
         //Confirm the Selcted Option
         
-        if dict.valueForString(key:"maybe_count") == "0"{
-            btnMaybe.layer.borderColor = CRGB(r: 255, g: 237, b: 216).cgColor
-            btnMaybe.layer.borderWidth = 2
-            btnMaybe.backgroundColor =  .clear
-            self.eventActCount = "0"
-        }else{
-            btnMaybe.isSelected = true
-            btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
-            self.eventActCount = "1"
-        }
-        if dict.valueForString(key:"yes_count") == "0"{
-            self.eventActCount = "0"
-            btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
-            btnInterested.layer.borderWidth = 2
-            btnInterested.backgroundColor =  .clear
-        }else{
-            self.eventActCount = "1"
-            btnInterested.isSelected = true
-            btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
-            
-        }
-        if dict.valueForString(key:"no_count") == "0"{
-            self.eventActCount = "0"
-            btnNotInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
-            btnNotInterested.layer.borderWidth = 2
-            btnNotInterested.backgroundColor =  .clear
-        }else{
-            self.eventActCount = "1"
-            btnNotInterested.isSelected = true
-            btnNotInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
-        }
+        
+        switch dict.valueForString(key: "selected_choice").toInt ?? 0 {
+                case 3:
+                    btnMaybe.isSelected = true
+                case 1:
+                    btnInterested.isSelected = true
+                case 2:
+                    btnNotInterested.isSelected = true
+                default:
+                    break
+                }
+        setSelectedButtonStyle(dict)
+    
+        
+        
+        
+        
+        
+//        if dict.valueForString(key:"maybe_count") == "0" {
+//
+//                btnMaybe.layer.borderColor = CRGB(r: 255, g: 237, b: 216).cgColor
+//                btnMaybe.layer.borderWidth = 2
+//                btnMaybe.backgroundColor =  .clear
+//                self.eventActCount = dict.valueForString(key:"maybe_count")
+//
+//        }else{
+//            btnMaybe.isSelected = true
+//            btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+//            self.eventActCount = dict.valueForString(key:"maybe_count")
+//        }
+//        if dict.valueForString(key:"yes_count") == "0"{
+//            btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
+//            btnInterested.layer.borderWidth = 2
+//            btnInterested.backgroundColor =  .clear
+//            self.eventActCount = dict.valueForString(key:"yes_count")
+//        }else{
+//            btnInterested.isSelected = true
+//            btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+//            self.eventActCount = dict.valueForString(key:"yes_count")
+//
+//        }
+//        if dict.valueForString(key:"no_count") == "0"{
+//            btnNotInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
+//            btnNotInterested.layer.borderWidth = 2
+//            btnNotInterested.backgroundColor =  .clear
+//            self.eventActCount = dict.valueForString(key:"no_count")
+//        }else{
+//            btnNotInterested.isSelected = true
+//            btnNotInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+//            self.eventActCount = dict.valueForString(key:"no_count")
+//        }
         setSelectedButtonStyle()
         
         imgUser.loadImageFromUrl(dict.valueForString(key: CUserProfileImage), true)
@@ -390,6 +409,36 @@ extension EventDetailImageViewController {
             self.tblCommentList.updateHeaderViewHeight(extxtraSpace: 0)
         }
     }
+    
+    func setSelectedButtonStyle(_ dict : [String : Any]?){
+           btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
+           btnInterested.layer.borderWidth = 2
+           btnInterested.backgroundColor =  .clear
+
+           btnMaybe.layer.borderColor = CRGB(r: 255, g: 237, b: 216).cgColor
+           btnMaybe.layer.borderWidth = 2
+           btnMaybe.backgroundColor =  .clear
+
+           btnNotInterested.layer.borderColor = CRGB(r: 255, g: 214, b: 214).cgColor
+           btnNotInterested.layer.borderWidth = 2
+           btnNotInterested.backgroundColor =  .clear
+           
+           if dict?.valueForString(key:"selected_choice") == "3"{
+               btnMaybe.isSelected = true
+               btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+           }else if dict?.valueForString(key:"selected_choice") == "2"{
+               btnNotInterested.isSelected = true
+               btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+           }else if dict?.valueForString(key:"selected_choice") == "1"{
+               btnInterested.isSelected = true
+               btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+           }
+       }
+    
+    
+    
+    
+    
     func setSelectedButtonStyle(){
         let arrButton = [btnInterested,btnMaybe,btnNotInterested]
         if let sender = arrButton.filter({$0?.isSelected ?? false}).first{

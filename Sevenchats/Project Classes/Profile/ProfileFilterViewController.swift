@@ -129,7 +129,7 @@ extension ProfileFilterViewController{
         if let blockHandler = self.block {
             blockHandler(arrSelectedFilter, "refresh screen")
         }
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
         
     }
     
