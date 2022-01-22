@@ -3920,6 +3920,7 @@ extension APIRequest {
             
             //LRF screen Messages...
             tblLanguageText.live_in = dict?.valueForString(key: "live_in")
+            tblLanguageText.gender = dict?.valueForString(key: "gender")
             tblLanguageText.relationship_status = dict?.valueForString(key: "relationship_status")
             tblLanguageText.user_removed_from_group_successfully = dict?.valueForString(key: "user_removed_from_group_successfully")
             tblLanguageText.group_deleted_successfully = dict?.valueForString(key: "group_deleted_successfully")
@@ -4091,7 +4092,8 @@ extension APIRequest {
             tblLanguageText.likes = dict?.valueForString(key: "likes")
             tblLanguageText.like = dict?.valueForString(key: "like")
             tblLanguageText.profile_contact_us = dict?.valueForString(key: "profile_contact_us")
-            
+            tblLanguageText.success = dict?.valueForString(key: "Success")
+           
             //Setting Screen Messages...
             tblLanguageText.settings = dict?.valueForString(key: "settings")
             
@@ -4697,6 +4699,20 @@ extension APIRequest {
             tblLanguageText.forward = dict?.valueForString(key: "forward")
             tblLanguageText.invites_decline_for_event = dict?.valueForString(key: "invites_decline_for_event")
             tblLanguageText.invites_maybe_for_event = dict?.valueForString(key: "invites_maybe_for_event")
+            //Feed back
+            tblLanguageText.not_user_friendly = dict?.valueForString(key: "not_user_friendly")
+            tblLanguageText.prompts_not_clear = dict?.valueForString(key: "prompts_not_clear")
+            tblLanguageText.improper_language = dict?.valueForString(key: "improper_language")
+            tblLanguageText.incorrect_language_translation = dict?.valueForString(key: "incorrect_language_translation")
+            tblLanguageText.need_help_screens = dict?.valueForString(key: "need_help_screens")
+            tblLanguageText.missing_functionality = dict?.valueForString(key: "missing_functionality")
+            tblLanguageText.nice_to_have_functionality = dict?.valueForString(key: "nice_to_have_functionality")
+            tblLanguageText.need_help_with = dict?.valueForString(key: "need_help_with")
+           
+            
+            
+            
+            
             appDelegate.langugaeText = tblLanguageText
             CoreData.saveContext()
         }

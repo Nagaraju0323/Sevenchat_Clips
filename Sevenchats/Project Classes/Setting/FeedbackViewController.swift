@@ -6,10 +6,19 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : RegisterViewController                      *
+ * Changes :                                             *
+ * User give the Feedbacks for Diffrent Categroires      *
+ * and user Get reward Point for every Feed Back         *
+ ********************************************************/
+
 import UIKit
 
 class FeedbackViewController: ParentViewController {
-
+    
     @IBOutlet var viewAddImageContainer : UIView!
     @IBOutlet var viewUploadedImageContainer : UIView!
     @IBOutlet var imgFeedback : UIImageView!
@@ -21,26 +30,28 @@ class FeedbackViewController: ParentViewController {
     }
     @IBOutlet var txtCategory : MIGenericTextFiled!
     @IBOutlet var lblUploadImg : UILabel!
-
+    
     fileprivate var categoryId : Int?
     var imgName = ""
     var feedbackImgUrl = ""
+    var selectCategory = ""
+    var success = ""
     
-    var CategoryName = [ "Not User Friendly",
-                         "Prompts not clear",
-                         "Improper language",
-                         "Incorrect language translation",
-                         "Need help screens",
-                         "Missing functionality",
-                         "Nice to have functionality",
-                         "Need help with"]
+    var CategoryName = [ CNotuserFriendlye,
+                         CPromptsnotclear,
+                         CImproperLanguage,
+                         CIncorrectLanguageTranslation,
+                         CNeedHelpScreens,
+                         CMissingFunctionality,
+                         CNicetoHaveFunctionality,
+                         CNeedHelpWith]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialization()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setLanguageText()
@@ -59,30 +70,13 @@ class FeedbackViewController: ParentViewController {
     }
     
     fileprivate func loadCategoryList() {
-        
-       /*Oldcode by Mi
-         let arrCountry = TblFeedbackList.fetch(predicate: nil, orderBy: CId, ascending: true)
-        let arrCountryCode = arrCountry?.value(forKeyPath: CName) as? [Any]
-        txtCategory.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (text, row, component) in
-            guard let self = self else { return }
-            
-            if let catInfo = arrCountry![row] as? TblFeedbackList {
-                self.txtCategory.text = catInfo.name
-                self.categoryId = Int(catInfo.id)
-            }
-        }, defaultPlaceholder: nil)
-       */
         txtCategory.setPickerData(arrPickerData:CategoryName, selectedPickerDataHandler: { [weak self] (text, row, component) in
             guard let self = self else { return }
             
             if let catInfo = self.CategoryName[row] as? String{
                 self.txtCategory.text = catInfo as? String ?? ""
-
             }
         }, defaultPlaceholder: nil)
-        
-        
-        
     }
     
     func setLanguageText() {
@@ -104,25 +98,11 @@ extension FeedbackViewController{
                 self.imgFeedback.image = image
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
-                
-//                guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
-//                    return
-//                }
-//                self.imgName = imageURL.absoluteString ?? ""
-//                MInioimageupload.shared().uploadMinioimage(ImgnameStr:image!)
-
-                guard let mobileNum = appDelegate.loginUser?.mobile else {
-                return
-                }
-                
+                guard let mobileNum = appDelegate.loginUser?.mobile else {return}
                 MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                
                 MInioimageupload.shared().callback = { message in
-                print("message::::::::::::::\(message)")
-                self.feedbackImgUrl = message
+                    self.feedbackImgUrl = message
                 }
-                
-                
             }
         }
     }
@@ -132,30 +112,6 @@ extension FeedbackViewController{
         viewAddImageContainer.isHidden = false
         imgFeedback.image = nil
     }
-    
-   /* @objc fileprivate func btnAddFeedbackClicked(_ sender : UIBarButtonItem) {
-        self.resignKeyboard()
-        if (txtCategory.text?.isBlank)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankFeedbackCategory, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        } else if (txtViewFeedbackContent.text?.isBlank)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CFeedbackMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }else {
-            
-            //Call feedback api here...
-            APIRequest.shared().feedbackApplication(message: txtViewFeedbackContent.text, feedback_id: self.categoryId, image: imgFeedback.image) { [weak self] (response, error) in
-                guard let self = self else { return }
-                if response != nil {
-                    
-                    if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                        self.navigationController?.popViewController(animated: true)
-                        GCDMainThread.async {
-                            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaInfo.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: nil)
-                        }
-                    }
-                }
-            }
-        }
-    }*/
     
     @objc fileprivate func btnAddFeedbackClicked(_ sender : UIBarButtonItem) {
         self.resignKeyboard()
@@ -170,11 +126,37 @@ extension FeedbackViewController{
             guard let statusId = appDelegate.loginUser?.status_id else {return}
             guard let userId = appDelegate.loginUser?.user_id else {return}
             
+            if txtCategory.text == "Not User Friendly" || txtCategory.text == "ಬಳಕೆದಾರ ಸ್ನೇಹಿ ಅಲ್ಲ"{
+                self.selectCategory = "Not User Friendly"
+            }
+            if txtCategory.text == "Prompts not clear" || txtCategory.text == "ಪ್ರಾಂಪ್ಟ್‌ಗಳು ಸ್ಪಷ್ಟವಾಗಿಲ್ಲ"{
+                self.selectCategory = "Prompts not clear"
+            }
+            if txtCategory.text == "Improper language" || txtCategory.text == "ಅಸಮರ್ಪಕ ಭಾಷೆ"{
+                self.selectCategory = "Improper language"
+            }
+            if txtCategory.text == "Incorrect language translation " || txtCategory.text == "ಸರಿಯಾದ ಭಾಷಾ ಅನುವಾದ"{
+                self.selectCategory = "Incorrect language"
+            }
+            if txtCategory.text == "Need help screens" || txtCategory.text == "ಸಹಾಯ ಪರದೆಯ ಅಗತ್ಯವಿದೆ"{
+                self.selectCategory = "Need help screens"
+            }
+            if txtCategory.text == "Missing functionality" || txtCategory.text == "ಕ್ರಿಯಾತ್ಮಕತೆ ಕಾಣೆಯಾಗಿದೆ"{
+                self.selectCategory = "Missing functionality"
+            }
+            if txtCategory.text == "Nice to have functionality" || txtCategory.text == "ಕ್ರಿಯಾತ್ಮಕತೆಯನ್ನು ಹೊಂದಲು ಸಂತೋಷವಾಗಿದೆ"{
+                self.selectCategory = "Nice to have functionality"
+            }
+            if txtCategory.text == "Need help with" || txtCategory.text == "ಸಹಾಯದ ಅಗತ್ಯವಿದೆ"{
+                self.selectCategory = "Need help with"
+            }
+            
+            
             let txtFeedBack = txtViewFeedbackContent.text.replace(string: "\n", replacement: " ")
             let feedback : [String :Any] = [
                 "image":feedbackImgUrl,
                 "user_id" : userId.description,
-                "category":txtCategory.text ?? "",
+                "category":self.selectCategory,
                 "message":txtFeedBack,
                 "platform":"IOS",
                 "status_id":statusId
@@ -187,33 +169,37 @@ extension FeedbackViewController{
                     if let metaInfo = response![CJsonMeta] as? [String : Any] {
                         let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                         guard let image = appDelegate.loginUser?.profile_img else { return }
-                        
-                        
+
                         let stausLike = metaInfo["status"] as? String ?? "0"
                         if stausLike == "0" {
-                            if self.txtCategory.text == "Not User Friendly"{
-                    MIGeneralsAPI.shared().addRewardsPoints(CNotuserfriendlyfeedback,message:"Feedback",type:CNotuserfriendlyfeedback,title:"Feedback",name:name,icon:image)
+                            if self.txtCategory.text == "Not User Friendly" || self.txtCategory.text == "ಬಳಕೆದಾರ ಸ್ನೇಹಿ ಅಲ್ಲ"{
+                                MIGeneralsAPI.shared().addRewardsPoints(CNotuserfriendlyfeedback,message:"Feedback",type:CNotuserfriendlyfeedback,title:"Feedback",name:name,icon:image)
                                 
-                            }else if self.txtCategory.text == "Prompts not clear"{
+                            }else if self.txtCategory.text == "Prompts not clear" || self.txtCategory.text == "ಪ್ರಾಂಪ್ಟ್‌ಗಳು ಸ್ಪಷ್ಟವಾಗಿಲ್ಲ"{
                                 MIGeneralsAPI.shared().addRewardsPoints(CPromptsnotclearfeedback,message:"Feedback",type:CPromptsnotclearfeedback,title:"Feedback",name:name,icon:image)
-                            }else if self.txtCategory.text == "Improper language"{
+                            }else if self.txtCategory.text == "Improper language" || self.txtCategory.text == "ಅಸಮರ್ಪಕ ಭಾಷೆ"{
                                 MIGeneralsAPI.shared().addRewardsPoints(CImproperlanguagefeedback,message:"Feedback",type:CImproperlanguagefeedback,title:"Feedback",name:name,icon:image)
-                            }else if self.txtCategory.text == "Incorrect language translation"{
+                            }else if self.txtCategory.text == "Incorrect language translation" || self.txtCategory.text == "ಸರಿಯಾದ ಭಾಷಾ ಅನುವಾದ"{
                                 MIGeneralsAPI.shared().addRewardsPoints(CIncorrectlanguage,message:"Feedback",type:CIncorrectlanguage,title:"Feedback",name:name,icon:image)
-                            }else if self.txtCategory.text == "Need help screens"{
+                            }else if self.txtCategory.text == "Need help screens" || self.txtCategory.text == "ಸಹಾಯ ಪರದೆಯ ಅಗತ್ಯವಿದೆ"{
                                 MIGeneralsAPI.shared().addRewardsPoints(CNeedhelpscreensfeedback,message:"Feedback",type:CNeedhelpscreensfeedback,title:"Feedback",name:name,icon:image)
-                            }else if self.txtCategory.text == "Missing functionality"{
+                            }else if self.txtCategory.text == "Missing functionality" || self.txtCategory.text == "ಕ್ರಿಯಾತ್ಮಕತೆ ಕಾಣೆಯಾಗಿದೆ"{
                                 MIGeneralsAPI.shared().addRewardsPoints(CMissingfunctionalityfeedback,message:"Feedback",type:CMissingfunctionalityfeedback,title:"Feedback",name:name,icon:image)
-                            }else if self.txtCategory.text == "Nice to have functionality"{
+                            }else if self.txtCategory.text == "Nice to have functionality" || self.txtCategory.text == "ಕ್ರಿಯಾತ್ಮಕತೆಯನ್ನು ಹೊಂದಲು ಸಂತೋಷವಾಗಿದೆ"{
                                 MIGeneralsAPI.shared().addRewardsPoints(Nicetohavefunctionalityfeedback,message:"Feedback",type:Nicetohavefunctionalityfeedback,title:"Feedback",name:name,icon:image)
-                            }else if self.txtCategory.text == "Need help with"{
+                            }else if self.txtCategory.text == "Need help with" || self.txtCategory.text == "ಸಹಾಯದ ಅಗತ್ಯವಿದೆ"{
                                 MIGeneralsAPI.shared().addRewardsPoints(CNeedhelpwithfeedback,message:"Feedback",type:CNeedhelpwithfeedback,title:"Feedback",name:name,icon:image)
                             }
                         }
                         
                         self.navigationController?.popViewController(animated: true)
                         GCDMainThread.async {
-                            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaInfo.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: nil)
+                            if metaInfo.valueForString(key: CJsonMessage) == "Success"{
+                                self.success = CSuccess
+                            }else {
+                                self.success =  metaInfo.valueForString(key: CJsonMessage)
+                            }
+                            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.success, btnOneTitle: CBtnOk, btnOneTapped: nil)
                         }
                     }
                 }
@@ -225,17 +211,17 @@ extension FeedbackViewController{
 
 
 extension FeedbackViewController: GenericTextFieldDelegate {
-   
+    
     @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    if textField == txtCategory{
-        if txtCategory.text?.count ?? 0 > 1500{
-            return false
+        if textField == txtCategory{
+            if txtCategory.text?.count ?? 0 > 1500{
+                return false
+            }
+            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
         }
-        let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-        let filtered = string.components(separatedBy: cs).joined(separator: "")
-        return (string == filtered)
-    }
-    return true
+        return true
     }
 }
 // MARK:-  --------- Generic UITextView Delegate
@@ -244,8 +230,8 @@ extension FeedbackViewController: GenericTextViewDelegate{
     func FeedbackViewController(_ textView: UITextView, height: CGFloat){
         
         if textView == txtViewFeedbackContent{
-            //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
+       // lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
         }
     }
-
+    
 }

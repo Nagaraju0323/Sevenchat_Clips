@@ -46,12 +46,9 @@ class GroupsViewController: ParentViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        MIMQTT.shared().mqttDelegate = self
         self.fetchGroupListFromLocal()
         self.getGroupListFromServer(isNew: true)
     }
-    
-    
     // MARK:- --------- Initialization
     
     func Initialization(){

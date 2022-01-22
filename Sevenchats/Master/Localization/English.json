@@ -16,6 +16,14 @@
     "signup_with_email_id":"Signup with Email Id",
     "entered_wrong_otp":"Entered wrong OTP",
     "the_provided_Mobile_Number_already_registered":"The provided Mobile Number already registered",
+    "not_user_friendly":"Not User Friendly",
+    "prompts_not_clear":"Prompts not clear",
+    "improper_language":"Improper language",
+    "incorrect_language_translation":"Incorrect language translation",
+    "need_help_screens":"Need help screens",
+    "missing_functionality":"Missing functionality",
+    "nice_to_have_functionality":"Nice to have functionality",
+    "need_help_with":"Need help with",
     "the_provided_email_id_already_registered":"The provided email id already registered"
     
    

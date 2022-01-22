@@ -75,6 +75,7 @@ var CBtnInterested: String{ return appDelegate.langugaeText?.interested ?? "Inte
 var CBtnNotInterested: String{ return appDelegate.langugaeText?.not_interested ?? "Not interested" }
 var CBtnMayBe: String{ return appDelegate.langugaeText?.may_be ?? "May be" }
 
+var CSuccess: String{ return appDelegate.langugaeText?.success ?? "success" }
 var CBtnDelete: String{ return appDelegate.langugaeText?.delete ?? "Delete" }
 var CBtnEdit: String{ return appDelegate.langugaeText?.edit ?? "Edit" }
 var CBtnSave: String{ return appDelegate.langugaeText?.save ?? "Save" }
@@ -127,6 +128,8 @@ var CRegisterPlaceholderMobileNumber: String{ return appDelegate.langugaeText?.r
 var CRegisterPlaceholderGender: String{ return appDelegate.langugaeText?.register_gender ?? "Select Gender" }
 var CRegisterPlaceholderDob: String{ return appDelegate.langugaeText?.register_dob ?? "Date of Birth" }
 var CRegisterPlaceholderSelectLocation: String{ return appDelegate.langugaeText?.register_select_location ?? "Select Location" }
+
+var gender: String{ return appDelegate.langugaeText?.gender ?? "Gender" }
 var CRegisterPlaceholderCode: String{ return appDelegate.langugaeText?.register_code ?? "Code" }
 var CRegisterGenderMale: String{ return appDelegate.langugaeText?.register_male ?? "Male" }
 var CRegisterGenderFemale: String{ return appDelegate.langugaeText?.register_female ?? "Female" }
@@ -165,6 +168,17 @@ var CEXISTEMAILID: String{ return appDelegate.langugaeText?.the_provided_email_i
 var CSIGNUPEMAILID: String{ return appDelegate.langugaeText?.signup_with_email_id ?? "signup with email id" }
 var CSIGNUPMOBILENO: String{ return appDelegate.langugaeText?.signup_with_mobile_number ?? "signup with mobile number" }
 var CForgotAlertVerficationCodeIncorrect: String{ return appDelegate.langugaeText?.reset_verification_code_invalid ?? "Please enter valid verification code" }
+
+//Feed Back
+
+var CNotuserFriendlye: String{ return appDelegate.langugaeText?.not_user_friendly ?? "Not User Friendly" }
+var CPromptsnotclear: String{ return appDelegate.langugaeText?.prompts_not_clear ?? "Prompts not clear " }
+var CImproperLanguage: String{ return appDelegate.langugaeText?.improper_language ?? "Improper language" }
+var CIncorrectLanguageTranslation: String{ return appDelegate.langugaeText?.incorrect_language_translation ?? "Incorrect language translation" }
+var CNeedHelpScreens: String{ return appDelegate.langugaeText?.need_help_screens ?? "Need help screens" }
+var CMissingFunctionality: String{ return appDelegate.langugaeText?.missing_functionality ?? "Missing functionality" }
+var CNicetoHaveFunctionality: String{ return appDelegate.langugaeText?.nice_to_have_functionality ?? "Nice to have functionality" }
+var CNeedHelpWith: String{ return appDelegate.langugaeText?.need_help_with ?? "Need help with" }
 
 
 

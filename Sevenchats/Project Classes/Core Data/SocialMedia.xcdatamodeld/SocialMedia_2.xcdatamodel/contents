@@ -332,6 +332,7 @@
         <attribute name="gallery_category_cant_blank" optional="YES" attributeType="String"/>
         <attribute name="gallery_created_successfully" optional="YES" attributeType="String"/>
         <attribute name="gallery_edited_successfully" optional="YES" attributeType="String"/>
+        <attribute name="gender" optional="YES" attributeType="String"/>
         <attribute name="go_to_website" optional="YES" attributeType="String"/>
         <attribute name="group_call_from" optional="YES" attributeType="String"/>
         <attribute name="group_deleted_successfully" optional="YES" attributeType="String"/>
@@ -356,8 +357,10 @@
         <attribute name="hour_ago" optional="YES" attributeType="String"/>
         <attribute name="hours_ago" optional="YES" attributeType="String"/>
         <attribute name="image" optional="YES" attributeType="String"/>
+        <attribute name="improper_language" optional="YES" attributeType="String"/>
         <attribute name="inappropriate_behavior" optional="YES" attributeType="String"/>
         <attribute name="income_level" optional="YES" attributeType="String"/>
+        <attribute name="incorrect_language_translation" optional="YES" attributeType="String"/>
         <attribute name="info" optional="YES" attributeType="String"/>
         <attribute name="interest_name_cant_blank" optional="YES" attributeType="String"/>
         <attribute name="interested" optional="YES" attributeType="String"/>
@@ -422,6 +425,7 @@
         <attribute name="min_ago" optional="YES" attributeType="String"/>
         <attribute name="minimum_polls_options" optional="YES" attributeType="String"/>
         <attribute name="mins_ago" optional="YES" attributeType="String"/>
+        <attribute name="missing_functionality" optional="YES" attributeType="String"/>
         <attribute name="month" optional="YES" attributeType="String"/>
         <attribute name="more" optional="YES" attributeType="String"/>
         <attribute name="my_events" optional="YES" attributeType="String"/>
@@ -429,9 +433,12 @@
         <attribute name="my_products" optional="YES" attributeType="String"/>
         <attribute name="my_profile" optional="YES" attributeType="String"/>
         <attribute name="my_rewards" optional="YES" attributeType="String"/>
+        <attribute name="need_help_screens" optional="YES" attributeType="String"/>
+        <attribute name="need_help_with" optional="YES" attributeType="String"/>
         <attribute name="new_group" optional="YES" attributeType="String"/>
         <attribute name="next" optional="YES" attributeType="String"/>
         <attribute name="next_arrow" optional="YES" attributeType="String"/>
+        <attribute name="nice_to_have_functionality" optional="YES" attributeType="String"/>
         <attribute name="no" optional="YES" attributeType="String"/>
         <attribute name="no_blocked_users_yet" optional="YES" attributeType="String"/>
         <attribute name="no_category_found" optional="YES" attributeType="String"/>
@@ -463,6 +470,7 @@
         <attribute name="no_request_send_data" optional="YES" attributeType="String"/>
         <attribute name="not_delivered" optional="YES" attributeType="String"/>
         <attribute name="not_interested" optional="YES" attributeType="String"/>
+        <attribute name="not_user_friendly" optional="YES" attributeType="String"/>
         <attribute name="of" optional="YES" attributeType="String"/>
         <attribute name="offline_payment" optional="YES" attributeType="String"/>
         <attribute name="offline_payment_mode" optional="YES" attributeType="String"/>
@@ -566,6 +574,7 @@
         <attribute name="profile_update_complete" optional="YES" attributeType="String"/>
         <attribute name="profile_visible_for_friends" optional="YES" attributeType="String"/>
         <attribute name="profile_visible_for_others" optional="YES" attributeType="String"/>
+        <attribute name="prompts_not_clear" optional="YES" attributeType="String"/>
         <attribute name="provided_by" optional="YES" attributeType="String"/>
         <attribute name="public_visibility" optional="YES" attributeType="String"/>
         <attribute name="purchased_success" optional="YES" attributeType="String"/>
@@ -988,7 +997,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10484"/>
+        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10619"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>

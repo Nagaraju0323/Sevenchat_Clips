@@ -1,12 +1,19 @@
 {
   "images" : [
     {
-      "idiom" : "iphone",
-      "filename" : "audio.pdf"
+      "filename" : "audio.pdf",
+      "idiom" : "iphone"
+    },
+    {
+      "idiom" : "ipad"
+    },
+    {
+      "idiom" : "ipad",
+      "subtype" : "mac-catalyst"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

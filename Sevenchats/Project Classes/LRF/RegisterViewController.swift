@@ -9,10 +9,14 @@
 
 
 /*********************************************************
- * Author : Chandrika.R                                 *
- * Model   : RegisterUserName action sheet             *
- * Changes   :                                          *
+ * Author  : Chandrika.R                                 *
+ * Model   : RegisterViewController                      *
+ * Changes :                                             *
+ * Added Mobile Number and Email Validation with Auth    *
+ * server, Validation will work Valid Email              *
+ * and valid Mobile Number                               *
  ********************************************************/
+
 
 import UIKit
 import CoreLocation
@@ -54,11 +58,11 @@ class RegisterViewController: ParentViewController {
     var dictSinup : [String : Any]? = [:]
     var isSocialSignup : Bool = false
     var imgName = ""
-    var profileImgUrl = ""
     var defaultprofileImgUrl = ""
     var profileImgUrlupdate = ""
-    var profileImage:UIImage?
+    var profileImage = UIImage()
     var apiTask : URLSessionTask?
+    var isSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,12 +113,6 @@ class RegisterViewController: ParentViewController {
         configTermsAndConditionLabel()
         self.loadCountryCodeList()
         self.loadCountryList()
-        guard let mobileNum = appDelegate.loginUser?.mobile else {return}
-        MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: #imageLiteral(resourceName: "ic_sidemenu_normal_profile"),isFrom:"",uploadFrom:"")
-        MInioimageupload.shared().callback = { message in
-            print("UploadImage::::::::::::::\(message)")
-            self.defaultprofileImgUrl = message
-        }
     }
     
     func setLanguageText() {
@@ -325,6 +323,21 @@ extension RegisterViewController {
 extension RegisterViewController {
     
     func signup(){
+        
+        if imgUser.image == nil{
+            MInioimageupload.shared().uploadMinioimages(mobileNo: txtMobileNumber.text ?? "", ImageSTt: #imageLiteral(resourceName: "ic_sidemenu_normal_profile"),isFrom:"",uploadFrom:"")
+            MInioimageupload.shared().callback = { message in
+                print("UploadImage::::::::::::::\(message)")
+                self.profileImgUrlupdate = message
+            }
+        }else {
+            MInioimageupload.shared().uploadMinioimages(mobileNo: txtMobileNumber.text ?? "", ImageSTt: self.profileImage,isFrom:"",uploadFrom:"")
+            MInioimageupload.shared().callback = { message in
+                print("UploadImage::::::::::::::\(message)")
+                self.profileImgUrlupdate = message
+            }
+        }
+    
         var gender = 1
         if txtGender.text == "Male" {
             gender = CMale
@@ -333,23 +346,18 @@ extension RegisterViewController {
         } else {
             gender = COther
         }
-        
-        if imgUser.image == nil{
-            profileImgUrlupdate = defaultprofileImgUrl
-        }else {
-            profileImgUrlupdate = profileImgUrl
-        }
-        let dobconvert = DateFormatter.shared().convertDatereversSinup(strDate: txtDob.text)
-        let FirstName = txtFirstName.text ?? ""
-        let LastName = txtLastName.text ?? ""
-        let Emailtext = txtEmail.text ?? ""
-        let Password = txtPWD.text ?? ""
-        let CityName = txtCitys.text ?? ""
-        let MobileNumber = txtMobileNumber.text ?? ""
+      
+        let dobconvert = DateFormatter.shared().convertDatereversSinup(strDate: self.txtDob.text)
+        let FirstName = self.txtFirstName.text ?? ""
+        let LastName = self.txtLastName.text ?? ""
+        let Emailtext = self.txtEmail.text ?? ""
+        let Password = self.txtPWD.text ?? ""
+        let CityName = self.txtCitys.text ?? ""
+        let MobileNumber = self.txtMobileNumber.text ?? ""
         let Gender = String(gender)
         let dobirth = dobconvert ?? ""
-        let verificationmail = txtEmail.text ?? ""
-        let CountryName = txtCountrys.text ?? ""
+        let verificationmail = self.txtEmail.text ?? ""
+        let CountryName = self.txtCountrys.text ?? ""
         
         let dict : [String : Any] = [
             "user_acc_type":0,
@@ -358,7 +366,7 @@ extension RegisterViewController {
             "email":Emailtext,
             "password":Password,
             "city_name":CityName,
-            "profile_image":profileImgUrlupdate,
+            "profile_image":self.profileImgUrlupdate,
             "mobile":MobileNumber,
             "gender":Gender,
             "dob":dobirth,
@@ -376,7 +384,9 @@ extension RegisterViewController {
             "religion":""
         ] as [String : Any]
         
-        dictSinup = dict
+        self.dictSinup = dict
+        self.redirectToVerificationScreen()
+
     }
 
     func uploadUserProfile(userID : Int, signUpResponse : AnyObject?,imageEmpty:Bool) {
@@ -398,6 +408,7 @@ extension RegisterViewController {
     
     func redirectToVerificationScreen() {
         MILoader.shared.hideLoader()
+       
         CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
         CUserDefaults.synchronize()
         let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .alert)
@@ -412,6 +423,7 @@ extension RegisterViewController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
+   
 }
 
 // MARK:- --------- Action Event
@@ -431,18 +443,14 @@ extension RegisterViewController{
     }
     
     @IBAction func btnUploadImageCLK(_ sender : UIButton) {
-        guard let mobileNo = self.txtMobileNumber.text else {return}
+//        guard let mobileNo = self.txtMobileNumber.text else {return}
         if self.imgUser.image != nil {
             self.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { (action) in
                 self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { (image, info) in
                     if image != nil{
                         self.imgEditIcon.isHidden = false
                         self.imgUser.image = image
-                        MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNo, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                        MInioimageupload.shared().callback = { message in
-                            print("message::::::::::::::\(message)")
-                            self.profileImgUrl = message
-                        }
+                        self.profileImage = image ?? #imageLiteral(resourceName: "ic_sidemenu_normal_profile")
                     }
                 })
                 
@@ -451,11 +459,7 @@ extension RegisterViewController{
                     if image != nil{
                         self.imgEditIcon.isHidden = false
                         self.imgUser.image = image
-                        MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNo, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                        MInioimageupload.shared().callback = { message in
-                            print("message::::::::::::::\(message)")
-                            self.profileImgUrl = message
-                        }
+                        self.profileImage = image ?? #imageLiteral(resourceName: "ic_sidemenu_normal_profile")
                     }
                 })
             }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { (action) in
@@ -469,11 +473,7 @@ extension RegisterViewController{
                 if image != nil{
                     self.imgEditIcon.isHidden = false
                     self.imgUser.image = image
-                    MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNo, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                    MInioimageupload.shared().callback = { message in
-                        print("message::::::::::::::\(message)")
-                        self.profileImgUrl = message
-                    }
+                    self.profileImage = image ?? #imageLiteral(resourceName: "ic_sidemenu_normal_profile")
                 }
             }
         }
@@ -541,7 +541,7 @@ extension RegisterViewController{
             
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
             self.signup()
-            self.redirectToVerificationScreen()
+//            self.redirectToVerificationScreen()
         }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
     }
     

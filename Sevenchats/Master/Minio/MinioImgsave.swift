@@ -162,7 +162,6 @@ class MInioimageupload: NSObject{
                 return nil
             })
         }
- 
     
     //MARK:- -------- upload Vidoes
     //MARK :- TODO

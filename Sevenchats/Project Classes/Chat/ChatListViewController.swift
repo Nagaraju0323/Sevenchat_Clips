@@ -47,14 +47,13 @@ class ChatListViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        MIMQTT.shared().mqttDelegate = self
         self.fetchUserListFromLocal()
         self.getUserChatListFromServer(isNew: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-     
+        
         // Stoped runnig api..
         if apiTask != nil {
             if apiTask!.state == .running {
@@ -74,7 +73,7 @@ class ChatListViewController: ParentViewController {
             self?.navigationItem.titleView = self?.searchBar
             UIView.animate(withDuration: 0.1, animations: {
                 self?.searchBar.alpha = 1
-//                self?.searchBar.searchTextField.clearButtonMode = .never
+                //                self?.searchBar.searchTextField.clearButtonMode = .never
             }, completion: { finished in
                 self?.searchBar.becomeFirstResponder()
             })
@@ -99,7 +98,7 @@ class ChatListViewController: ParentViewController {
         searchBar.tintColor = .black
         searchBar.change(textFont: CFontPoppins(size: (14 * CScreenWidth)/375, type: .regular))
         searchBar.delegate = self
-     
+        
         
         GCDMainThread.async {
             self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
@@ -140,7 +139,7 @@ extension ChatListViewController {
         }
         
         var apiTimeStamp : Double = 0
-
+        
         if !isNew {
             // When need old data...
             if let chatInfo = MIGeneralsAPI.shared().fetchChatUserObjectFromLocal(isNew: !isNew) {
@@ -175,59 +174,6 @@ extension ChatListViewController {
     }
 }
 
-// MARK:- --------- MQTTDelegate
-//extension ChatListViewController: MQTTDelegate{
-//    func didReceiveMessage(_ message: [String : Any]?) {
-//        // Update chat list table from local..
-//        if appDelegate.getTopMostViewController().isKind(of: ChatListViewController.classForCoder()) {
-//            GCDMainThread.asyncAfter(deadline: .now() + 2) {
-//                
-//                if message?.valueForInt(key: CPublishType) == CPUBLISHMESSAGETYPE {
-//                    var userListID = 0
-//                    if Int64(message?.valueForString(key: CSender_Id) ?? "0") == appDelegate.loginUser?.user_id {
-//                        // If sending message by login user
-//                        userListID = message?.valueForInt(key: CRecv_id) ?? 0
-//                    }else {
-//                        // If sending message by other user
-//                        userListID = message?.valueForInt(key: CSender_Id) ?? 0
-//                    }
-//                    
-//                    if let arrUsers = TblChatUserList.fetch(predicate: NSPredicate(format: "\(CFriendId) == \(userListID)")) as? [TblChatUserList] {
-//                        if arrUsers.count > 0 {
-//                            let chatuserInfo = arrUsers.first
-//                            chatuserInfo?.message = message?.valueForString(key: CMessage)
-//                            chatuserInfo?.msg_type = Int16(message?.valueForInt(key: CMsg_type) ?? 0)
-//                            
-//                            // If sender is not login user then only increase count..
-//                            if Int64(message?.valueForString(key: CSender_Id) ?? "0") != appDelegate.loginUser?.user_id {
-//                                chatuserInfo?.unread_cnt += 1
-//                            }
-//                            
-//                            chatuserInfo?.created_at = message?.valueForDouble(key: CCreated_at) ?? 0.0
-//                            chatuserInfo?.chat_time = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestamp(timestamp: chatuserInfo?.created_at ?? 0.0/1000) ?? 0.0
-//                            CoreData.saveContext()
-//                            self.fetchUserListFromLocal()
-//                        }
-//                    }
-//                }else {
-//                    self.getUserChatListFromServer(isNew: true)
-//                }
-//            }
-//        }
-//    }
-//    
-//    func didChangedOnlineOfflineStatus(_ message: [String : Any]?) {
-//        print("didChangedOnlineOfflineStatus ====== ")
-//        isChangingOnlineOffline = true
-//        self.fetchUserListFromLocal()
-//        
-//        GCDMainThread.asyncAfter(deadline: .now() + 1) {
-//            self.isChangingOnlineOffline = false
-//        }
-//    }
-//}
-
-
 // MARK:- --------- UITableView Datasources/Delegate
 extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -236,23 +182,23 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-            if(isSearch) {
-                if self.arrUsersearchList.isEmpty{
-                    self.tblUserChat.setEmptyMessage(CThereIsNoOnGoingChat)
-                }else{
-                    self.tblUserChat.restore()
-                }
-                return arrUsersearchList.count
-                
-                 }else{
-                    if self.arrUserList.isEmpty{
-                        self.tblUserChat.setEmptyMessage(CThereIsNoOnGoingChat)
-                    }else{
-                        self.tblUserChat.restore()
-                    }
-                    return arrUserList.count
-                    
-                }
+        if(isSearch) {
+            if self.arrUsersearchList.isEmpty{
+                self.tblUserChat.setEmptyMessage(CThereIsNoOnGoingChat)
+            }else{
+                self.tblUserChat.restore()
+            }
+            return arrUsersearchList.count
+            
+        }else{
+            if self.arrUserList.isEmpty{
+                self.tblUserChat.setEmptyMessage(CThereIsNoOnGoingChat)
+            }else{
+                self.tblUserChat.restore()
+            }
+            return arrUserList.count
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -262,7 +208,7 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUserListTblCell", for: indexPath) as? ChatUserListTblCell {
-
+            
             let chatUserInfo = arrUserList[indexPath.row]
             if (isSearch) {
                 let chatUserInfo = arrUsersearchList[indexPath.row]
@@ -286,8 +232,6 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
                     self?.navigationController?.pushViewController(userDetailVC, animated: true)
                 }
             }
-            
-            
             /*
              LOAD MORE DATA...
              If not update online offline status.
@@ -299,7 +243,7 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
         }
         return tableView.tableViewDummyCell()
     }
-        
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let chatUserInfo = arrUserList[indexPath.row]
         if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
@@ -324,34 +268,31 @@ extension ChatListViewController{
         }
     }
 }
-
-
-
+// MARK:- ------------ Search Delegate
 extension ChatListViewController: UISearchBarDelegate{
     //MARK: UISearchbar delegate
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         isSearch = false
         arrUsersearchList.removeAll()
         self.tblUserChat.reloadData()
-      
     }
-       
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-           searchBar.resignFirstResponder()
-           isSearch = false
+        searchBar.resignFirstResponder()
+        isSearch = false
     }
-       
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-           searchBar.resignFirstResponder()
-            searchBar.text = ""
-           isSearch = false
-           arrUsersearchList.removeAll()
-           self.tblUserChat.reloadData()
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        isSearch = false
+        arrUsersearchList.removeAll()
+        self.tblUserChat.reloadData()
     }
-       
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-           searchBar.resignFirstResponder()
-           isSearch = false
+        searchBar.resignFirstResponder()
+        isSearch = false
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count == 0 {
@@ -382,10 +323,6 @@ extension ChatListViewController: UISearchBarDelegate{
             }
             self.tblUserChat.reloadData()
         }
-        
-        
-        
-
     }
-
+    
 }

@@ -6,15 +6,17 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
-/********************************************************
-* Author :  Chandrika.R                                *
-* Model  : GroupChat Messages                          *
-* options: Add Prticipates                             *
-********************************************************/
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : AddParticipantsViewController               *
+ * Changes :                                             *
+ *  Disply Friends List & Search Friends                 *
+ ********************************************************/
+
 import UIKit
 
 class AddParticipantsViewController: ParentViewController {
-
+    
     @IBOutlet var tblUser : UITableView!
     @IBOutlet var lblNoData : UILabel!
     
@@ -23,9 +25,7 @@ class AddParticipantsViewController: ParentViewController {
             vwTxtSearch.layer.cornerRadius = 8
         }
     }
-    
     @IBOutlet weak var vwSearch: UIView!
-    
     @IBOutlet weak var txtSearch: UITextField!{
         didSet{
             txtSearch.placeholder = CSearch
@@ -40,19 +40,18 @@ class AddParticipantsViewController: ParentViewController {
     var groupID : Int?
     var arrSelectedParticipant = [[String:Any]]()
     var arrAllreadySelectedParticipants = [[String : Any]]()
-    
     var arrUser = [[String:Any]]()
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
     var apiParaFriends = [String]()
     var userIdNotification = ""
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialization()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -98,9 +97,6 @@ extension AddParticipantsViewController{
         guard let userid = appDelegate.loginUser?.user_id else {
             return
         }
-     
-        
-        
         // Add load more indicator here...
         if self.pageNumber > 2 {
             self.tblUser.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
@@ -110,30 +106,20 @@ extension AddParticipantsViewController{
         apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 0, search: nil, group_id :Int(userid.description), showLoader: showLoader, completion: { (response, error) in
             self.refreshControl.endRefreshing()            
             self.tblUser.tableFooterView = UIView()
-
+            
             self.arrUser.removeAll()
             if response != nil{
                 // if let arrList = response![CJsonData] as? [[String:Any]]{
-                    if let arrList = response!["my_friends"] as? [[String:Any]]{
+                if let arrList = response!["my_friends"] as? [[String:Any]]{
                     
                     // Remove all data here when page number == 1
                     if self.pageNumber == 1{
                         self.arrUser.removeAll()
                         self.tblUser.reloadData()
                     }
-                    
                     // Add Data here...
                     if arrList.count > 0{
                         for object in arrList{
-                            
-//                            if self.arrSelectedParticipant.contains(where: {$0[CUserId] as? Int == object.valueForInt(key: CUserId)}){
-//                                if let index = self.arrSelectedParticipant.index(where: {$0[CUserId] as? Int == object.valueForInt(key: CUserId)}){
-//                                    self.arrUser.append(self.arrSelectedParticipant[index])
-//                                }
-//                            }else{
-//                                self.arrUser.append(object)
-//                            }
-                            
                             if self.arrSelectedParticipant.contains(where: {$0["friend_user_id"] as? Int == object.valueForInt(key: "friend_user_id")}){
                                 if let index = self.arrSelectedParticipant.index(where: {$0["friend_user_id"] as? Int == object.valueForInt(key: "friend_user_id")}){
                                     self.arrUser.append(self.arrSelectedParticipant[index])
@@ -142,11 +128,9 @@ extension AddParticipantsViewController{
                                 self.arrUser.append(object)
                             }
                         }
-                        //self.arrUser = self.arrUser + arrList
                         self.pageNumber += 1
                         self.tblUser.reloadData()
                     }
-                    
                     self.lblNoData.isHidden = self.arrUser.count > 0
                 }
             }
@@ -177,11 +161,11 @@ extension AddParticipantsViewController : UITableViewDelegate, UITableViewDataSo
             cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
             cell.btnSelect.isSelected = arrSelectedParticipant.contains(where: {$0[CFriendUserID] as? String == userInfo.valueForString(key: CFriendUserID) })
             cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
-
-            //..... LOAD MORE DATA.........
-//            if indexPath == tblUser.lastIndexPath(){
-//                self.getFriendList(strSearch: self.txtSearch.text ?? "", showLoader: false)
-//            }
+            
+//            ..... LOAD MORE DATA.........
+//                        if indexPath == tblUser.lastIndexPath(){
+//                            self.getFriendList(strSearch: self.txtSearch.text ?? "", showLoader: false)
+//                        }
             
             return cell
         }
@@ -192,14 +176,6 @@ extension AddParticipantsViewController : UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let userInfo = arrUser[indexPath.row]
         
-//        if arrSelectedParticipant.contains(where: {$0[CUserId] as? Int == userInfo.valueForInt(key: CUserId)}){
-//            if let index = arrSelectedParticipant.index(where: {$0[CUserId] as? Int == userInfo.valueForInt(key: CUserId)}){
-//                arrSelectedParticipant.remove(at: index)
-//            }
-//        }else{
-//            arrSelectedParticipant.append(userInfo)
-//        }
-//
         if arrSelectedParticipant.contains(where: {$0[CFriendUserID] as? String == userInfo.valueForString(key: CFriendUserID)}){
             if let index = arrSelectedParticipant.index(where: {$0[CFriendUserID] as? String == userInfo.valueForString(key: CFriendUserID)}){
                 arrSelectedParticipant.remove(at: index)
@@ -207,8 +183,6 @@ extension AddParticipantsViewController : UITableViewDelegate, UITableViewDataSo
         }else{
             arrSelectedParticipant.append(userInfo)
         }
-        
-        
         tblUser.reloadData()
     }
     
@@ -218,62 +192,48 @@ extension AddParticipantsViewController{
     
     @objc fileprivate func btnDoneCLK(_ sender : UIBarButtonItem) {
         
-        
-            if isAddMoreMember {
-                // Call Add more member api here...
-                let userIDS = arrSelectedParticipant.map({$0.valueForString(key: "friend_user_id") }).joined(separator: ",")
-                
-                apiParaFriends = userIDS.components(separatedBy: ",")
-                
-                APIRequest.shared().addMemberInGroup(group_id: groupID, group_users_id: userIDS,frdsList:apiParaFriends) { (response, error) in
-                    if response != nil && error == nil{
+        if isAddMoreMember {
+            // Call Add more member api here...
+            let userIDS = arrSelectedParticipant.map({$0.valueForString(key: "friend_user_id") }).joined(separator: ",")
+            
+            apiParaFriends = userIDS.components(separatedBy: ",")
+            
+            APIRequest.shared().addMemberInGroup(group_id: groupID, group_users_id: userIDS,frdsList:apiParaFriends) { (response, error) in
+                if response != nil && error == nil{
+                    
+                    // Publish for Add status in group..
+                    let arrUserIDS = self.arrSelectedParticipant.map({$0.valueForString(key: "friend_user_id") })
+                    self.userIdNotification = userIDS
+                    
+                    if arrUserIDS.count > 0 {
                         
-                        // Publish for Add status in group..
-                        let arrUserIDS = self.arrSelectedParticipant.map({$0.valueForString(key: "friend_user_id") })
-                        self.userIdNotification = userIDS
-                        
-                        if arrUserIDS.count > 0 {
-//                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrUserIDS, status: 3, groupId: "\(self.groupID ?? 0)", isSend:0)
-                        }
-                        
-                        // Publish to other user to notify for newley added user..
-                        let arrOldIDS = self.arrAllreadySelectedParticipants.map({$0.valueForString(key: CUserId) })
-                        if arrOldIDS.count > 0 {
-//                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrOldIDS, status: 3, groupId: "\(self.groupID ?? 0)", isSend: 1)
-                        }
-                        
-                        let data = response![CJsonMeta] as? [String:Any] ?? [:]
-                        let stausLike = data["status"] as? String ?? "0"
-                        if stausLike == "0" {
-                            let strArr = self.userIdNotification.map { String($0)}
-                            strArr.forEach { friends_ID in
-                            guard let groupID = appDelegate.loginUser?.user_id else { return }
-                                MIGeneralsAPI.shared().sendNotification(friends_ID, userID: groupID.description, subject: "Group is added successfully", MsgType: "GROUP_CHAT", MsgSent: "", showDisplayContent: "added Member successfully", senderName: "")
-                            }
-                        }
-                        
-                        
-                        if let blockHandler = self.block {
-                            blockHandler(self.arrSelectedParticipant, "refresh screen")
-                        }
-                        self.navigationController?.popViewController(animated: true)
                     }
-                }
-            }else{
-//                if arrSelectedParticipant.count < 2{
-//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageGroupMinParticipants, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                }else{
+                    // Publish to other user to notify for newley added user..
+                    let arrOldIDS = self.arrAllreadySelectedParticipants.map({$0.valueForString(key: CUserId) })
+                    if arrOldIDS.count > 0 {
+                    }
+                    
+                    let data = response![CJsonMeta] as? [String:Any] ?? [:]
+                    let stausLike = data["status"] as? String ?? "0"
+                    if stausLike == "0" {
+                        let strArr = self.userIdNotification.map { String($0)}
+                        strArr.forEach { friends_ID in
+                        }
+                    }
                     if let blockHandler = self.block {
-                        blockHandler(arrSelectedParticipant, "success")
+                        blockHandler(self.arrSelectedParticipant, "refresh screen")
                     }
                     self.navigationController?.popViewController(animated: true)
-                    
-//                }
+                }
             }
-            
+        }else{
+            if let blockHandler = self.block {
+                blockHandler(arrSelectedParticipant, "success")
+            }
+            self.navigationController?.popViewController(animated: true)
         }
-//    }
-    
+        
+    }
 }
 
 
@@ -288,8 +248,8 @@ extension AddParticipantsViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         guard let text = textField.text,
-            let textRange = Range(range, in: text) else{
-                return true
+              let textRange = Range(range, in: text) else{
+            return true
         }
         let updatedText = text.replacingCharacters(in: textRange,with: string)
         self.pageNumber = 1
