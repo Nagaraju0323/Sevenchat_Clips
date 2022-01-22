@@ -192,7 +192,7 @@ extension SideMenuViewController {
 //
 //                    self.arrMenu = [
 //                        [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "ic_home"), CImageSelected:#imageLiteral(resourceName: "ic_home"), kNotificationCount:0],
-//                        [CTitle:CNavFriends as Any, CImage:UIImage(named:"ic_friends")!, CImageSelected:UIImage(named:"ic_friends")!, kNotificationCount:0],
+//                        [CTitle:CNavFriends as Any, CImage:UIImage(named:"ic_friend")!, CImageSelected:UIImage(named:"ic_friend")!, kNotificationCount:0],
 //                        [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_groups"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_groups"), kNotificationCount:notificationInfo.valueForInt(key: "group_count") ?? 0],
 //                        [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), kNotificationCount:0],
 //                        [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_chat"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_chat"), kNotificationCount:notificationInfo.valueForInt(key: "user_count") ?? 0],
@@ -214,7 +214,7 @@ extension SideMenuViewController {
 //
 ////                    self.arrMenu = [
 ////                        [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "ic_home"), CImageSelected:#imageLiteral(resourceName: "ic_home"), kNotificationCount:0],
-////                        [CTitle:CNavFriends as Any, CImage:UIImage(named:"ic_friends")!, CImageSelected:UIImage(named:"ic_friends_selected")!, kNotificationCount:0],
+////                        [CTitle:CNavFriends as Any, CImage:UIImage(named:"ic_friend")!, CImageSelected:UIImage(named:"ic_friend")!, kNotificationCount:0],
 ////                        [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_groups"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_groups"), kNotificationCount:notificationInfo.valueForInt(key: "group_count") ?? 0],
 ////                        [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_connectInvite"), kNotificationCount:0],
 ////                        [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_chat"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_chat"), kNotificationCount:notificationInfo.valueForInt(key: "user_count") ?? 0],
@@ -235,7 +235,7 @@ extension SideMenuViewController {
 ////                    self.arrMenu = [
 //////                        [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "home ios"), CImageSelected:#imageLiteral(resourceName: "home ios"), kNotificationCount:0],
 ////                        [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "home ios"), CImageSelected:#imageLiteral(resourceName: "home ios"), kNotificationCount:0],
-//////                        [CTitle:CNavFriends as Any, CImage:UIImage(named:"ic_friends")!, CImageSelected:UIImage(named:"ic_friends_selected")!, kNotificationCount:0],
+//////                        [CTitle:CNavFriends as Any, CImage:UIImage(named:"ic_friend")!, CImageSelected:UIImage(named:"ic_friend")!, kNotificationCount:0],
 ////                        [CTitle:CNavFriends as Any, CImage:#imageLiteral(resourceName: "friends"), CImageSelected:#imageLiteral(resourceName: "friends"), kNotificationCount:0],
 ////                        [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "team"), CImageSelected:#imageLiteral(resourceName: "team"), kNotificationCount:notificationInfo.valueForInt(key: "group_count") ?? 0],
 ////                        [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "invitation"), CImageSelected:#imageLiteral(resourceName: "invitation"), kNotificationCount:0],

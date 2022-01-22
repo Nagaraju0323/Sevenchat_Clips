@@ -41,13 +41,13 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="1022"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max 5 media allowed  of 50 MB each dsamad lsksl askdas" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTE-ej-jfX" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="40" y="20" width="295" height="42"/>
+                                                        <rect key="frame" x="40" y="20" width="295" height="35"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J9Y-ZJ-dSt">
-                                                        <rect key="frame" x="0.0" y="70" width="375" height="100"/>
+                                                        <rect key="frame" x="0.0" y="63" width="375" height="100"/>
                                                         <subviews>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ngq-xI-RLq" customClass="SelectMediaCollectionView" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -73,13 +73,13 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Product" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rbo-gN-0RO" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="178" width="115.5" height="22.5"/>
+                                                        <rect key="frame" x="20" y="171" width="104.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                         <color key="textColor" name="AppDefault"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="mGw-OF-5fT">
-                                                        <rect key="frame" x="20" y="208.5" width="335" height="660"/>
+                                                        <rect key="frame" x="20" y="198" width="335" height="660"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYL-vc-dxV" customClass="CustomDropDownView" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
@@ -170,7 +170,7 @@
                                                                 <rect key="frame" x="0.0" y="180" width="335" height="120"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/1500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rO-gf-cRI" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                        <rect key="frame" x="288.5" y="99" width="38.5" height="17"/>
+                                                                        <rect key="frame" x="289.5" y="102" width="37.5" height="14"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="12"/>
                                                                         <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -186,7 +186,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="efN-Sk-mNx" customClass="GenericTextView" customModule="Sevenchats" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="94"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="97"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="textColor" name="AppDefault"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
@@ -306,7 +306,7 @@
                                                                             <constraint firstAttribute="width" constant="24" id="hxa-rw-uSp"/>
                                                                         </constraints>
                                                                         <state key="normal" image="ic_dropdown_grey"/>
-                                                                        <state key="selected" image="ic_cross"/>
+                                                                        <state key="selected" image="ic_cross_new"/>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -454,7 +454,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I accept all the terns and conditions including all the privacy policies" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZ9-st-hjh" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                        <rect key="frame" x="20" y="883.5" width="335" height="42"/>
+                                                        <rect key="frame" x="20" y="873" width="335" height="34"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -848,16 +848,16 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGQ-mD-An1">
-                                                        <rect key="frame" x="20" y="20" width="335" height="84.5"/>
+                                                        <rect key="frame" x="20" y="20" width="335" height="81.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFr-o1-jRV" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="73.5" height="18.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="67.5" height="15.5"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="13"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="95b-jq-mn1" customClass="CosmosView" customModule="Cosmos">
-                                                                <rect key="frame" x="0.0" y="33.5" width="180" height="36"/>
+                                                                <rect key="frame" x="0.0" y="30.5" width="180" height="36"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="180" id="gom-je-Clw"/>
@@ -884,7 +884,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raN-jO-d6n">
-                                                                <rect key="frame" x="0.0" y="83.5" width="335" height="1"/>
+                                                                <rect key="frame" x="0.0" y="80.5" width="335" height="1"/>
                                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="DHJ-Ta-zFI"/>
@@ -904,7 +904,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eEs-gt-qwE">
-                                                        <rect key="frame" x="20" y="114.5" width="335" height="228"/>
+                                                        <rect key="frame" x="20" y="111.5" width="335" height="225"/>
                                                         <subviews>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aM2-aX-40o" customClass="GenericTextView" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="200"/>
@@ -916,13 +916,13 @@
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                             </textView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/1500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oUf-GC-CSd" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="296.5" y="200" width="38.5" height="17"/>
+                                                                <rect key="frame" x="297.5" y="200" width="37.5" height="14"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="12"/>
                                                                 <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gPe-y5-ruW">
-                                                                <rect key="frame" x="0.0" y="227" width="335" height="1"/>
+                                                                <rect key="frame" x="0.0" y="224" width="335" height="1"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="wKc-zp-hEv"/>
@@ -943,7 +943,7 @@
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4O-Bi-X02" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="127.5" y="382.5" width="120" height="40"/>
+                                                        <rect key="frame" x="127.5" y="376.5" width="120" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="ZRd-Ng-VLB"/>
                                                             <constraint firstAttribute="width" constant="120" id="vtd-dZ-x88"/>
@@ -1358,16 +1358,16 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="706"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q3n-tn-DC6">
-                                                        <rect key="frame" x="20" y="20" width="335" height="198.5"/>
+                                                        <rect key="frame" x="20" y="20" width="335" height="195"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why are reporting this product?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8T-zM-sBa" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="250.5" height="22.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="226.5" height="19"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="xFZ-Uq-fG4">
-                                                                <rect key="frame" x="0.0" y="32.5" width="335" height="160"/>
+                                                                <rect key="frame" x="0.0" y="29" width="335" height="160"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KsV-YP-HwY">
                                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
@@ -1498,7 +1498,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ac-8v-79E">
-                                                                <rect key="frame" x="0.0" y="197.5" width="335" height="1"/>
+                                                                <rect key="frame" x="0.0" y="194" width="335" height="1"/>
                                                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="RQ0-uu-1Sy"/>
@@ -1519,7 +1519,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zA5-hB-RZt">
-                                                        <rect key="frame" x="20" y="228.5" width="335" height="178"/>
+                                                        <rect key="frame" x="20" y="225" width="335" height="175"/>
                                                         <subviews>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="A2B-NX-uX8" customClass="GenericTextView" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="150"/>
@@ -1536,13 +1536,13 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/1500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QIb-bf-CwA" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="296.5" y="150" width="38.5" height="17"/>
+                                                                <rect key="frame" x="297.5" y="150" width="37.5" height="14"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="12"/>
                                                                 <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="br9-xG-2yE">
-                                                                <rect key="frame" x="0.0" y="177" width="335" height="1"/>
+                                                                <rect key="frame" x="0.0" y="174" width="335" height="1"/>
                                                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="Tv4-d3-ipp"/>
@@ -1563,7 +1563,7 @@
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8uX-mQ-q68" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="127.5" y="446.5" width="120" height="40"/>
+                                                        <rect key="frame" x="127.5" y="440" width="120" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="f9z-Gl-E7x"/>
                                                             <constraint firstAttribute="width" constant="120" id="mBZ-8x-sVU"/>
@@ -1658,16 +1658,16 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="706"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5FS-g8-UGM">
-                                                        <rect key="frame" x="20" y="20" width="335" height="158.5"/>
+                                                        <rect key="frame" x="20" y="20" width="335" height="155"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Info" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QEl-Ru-zPy" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="69" height="22.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="63.5" height="19"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Nhf-vu-Fdg">
-                                                                <rect key="frame" x="0.0" y="32.5" width="335" height="120"/>
+                                                                <rect key="frame" x="0.0" y="29" width="335" height="120"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cpn-Mq-Jhy">
                                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
@@ -1753,7 +1753,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNV-8M-Mh8">
-                                                                <rect key="frame" x="0.0" y="157.5" width="335" height="1"/>
+                                                                <rect key="frame" x="0.0" y="154" width="335" height="1"/>
                                                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="Vsl-b0-Y0j"/>
@@ -1774,7 +1774,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8c0-0o-mvv">
-                                                        <rect key="frame" x="20" y="188.5" width="335" height="178"/>
+                                                        <rect key="frame" x="20" y="185" width="335" height="175"/>
                                                         <subviews>
                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="4" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ste-pT-bmm" customClass="GenericTextView" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="150"/>
@@ -1791,13 +1791,13 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/1500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BfI-9G-ctV" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="296.5" y="150" width="38.5" height="17"/>
+                                                                <rect key="frame" x="297.5" y="150" width="37.5" height="14"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="12"/>
                                                                 <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C4J-OY-F7n">
-                                                                <rect key="frame" x="0.0" y="177" width="335" height="1"/>
+                                                                <rect key="frame" x="0.0" y="174" width="335" height="1"/>
                                                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="1" id="ZxJ-jW-74E"/>
@@ -1818,7 +1818,7 @@
                                                         </constraints>
                                                     </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XK4-t1-OCT" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="127.5" y="406.5" width="120" height="40"/>
+                                                        <rect key="frame" x="127.5" y="400" width="120" height="40"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="8C1-cz-IK8"/>
                                                             <constraint firstAttribute="width" constant="120" id="Ja2-hN-6eB"/>
@@ -1906,16 +1906,16 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1022"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w6k-D1-SaJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="1037"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="1023"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max 5 media allowed  of 50 MB each dsamad lsksl askdas" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y39-ui-cKl" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="40" y="20" width="295" height="42"/>
+                                                        <rect key="frame" x="40" y="20" width="295" height="35"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCy-l0-Rdw">
-                                                        <rect key="frame" x="0.0" y="70" width="375" height="100"/>
+                                                        <rect key="frame" x="0.0" y="63" width="375" height="100"/>
                                                         <subviews>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ohx-sV-etr" customClass="SelectMediaCollectionView" customModule="Sevenchats" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -1941,13 +1941,13 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Product" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAq-Ew-rjt" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="178" width="115.5" height="22.5"/>
+                                                        <rect key="frame" x="20" y="171" width="104.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                         <color key="textColor" name="AppDefault"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jll-Mu-HSZ">
-                                                        <rect key="frame" x="20" y="208.5" width="335" height="600"/>
+                                                        <rect key="frame" x="20" y="198" width="335" height="600"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LvA-hc-CpC">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
@@ -1992,7 +1992,7 @@
                                                                 <rect key="frame" x="0.0" y="120" width="335" height="120"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/1500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPO-VY-DCZ" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                        <rect key="frame" x="288.5" y="99" width="38.5" height="17"/>
+                                                                        <rect key="frame" x="289.5" y="102" width="37.5" height="14"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="12"/>
                                                                         <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -2008,7 +2008,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4SO-CM-TfK" customClass="GenericTextView" customModule="Sevenchats" customModuleProvider="target">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="94"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="97"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="textColor" name="AppDefault"/>
                                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
@@ -2273,13 +2273,13 @@
                                                         </constraints>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Mode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pSN-eT-IBh" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="816.5" width="122" height="22.5"/>
+                                                        <rect key="frame" x="20" y="806" width="109" height="19"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                         <color key="textColor" red="0.58823529409999997" green="0.72156862749999995" blue="0.50588235290000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wZ1-6Z-Lyh">
-                                                        <rect key="frame" x="20" y="847" width="335" height="170"/>
+                                                        <rect key="frame" x="20" y="833" width="335" height="170"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eG4-S9-Dbp">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
@@ -2297,7 +2297,7 @@
                                                                                 </connections>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offline Payment" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wwE-gD-HXy" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                                <rect key="frame" x="32.5" y="0.0" width="110" height="50"/>
+                                                                                <rect key="frame" x="32.5" y="0.0" width="99.5" height="50"/>
                                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -2326,7 +2326,7 @@
                                                                                 </connections>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online Payment" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eWe-OX-Se5" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                                <rect key="frame" x="32.5" y="0.0" width="110" height="50"/>
+                                                                                <rect key="frame" x="32.5" y="0.0" width="99.5" height="50"/>
                                                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -2493,22 +2493,22 @@
             <size key="intrinsicContentSize" width="148" height="28"/>
         </designable>
         <designable name="A2B-NX-uX8">
-            <size key="intrinsicContentSize" width="10" height="37"/>
+            <size key="intrinsicContentSize" width="10" height="33"/>
         </designable>
         <designable name="aM2-aX-40o">
-            <size key="intrinsicContentSize" width="10" height="37"/>
+            <size key="intrinsicContentSize" width="10" height="33"/>
         </designable>
         <designable name="gZ9-st-hjh">
-            <size key="intrinsicContentSize" width="474" height="21"/>
+            <size key="intrinsicContentSize" width="426" height="17"/>
         </designable>
         <designable name="sU0-Bz-wol">
-            <size key="intrinsicContentSize" width="10" height="37"/>
+            <size key="intrinsicContentSize" width="10" height="33"/>
         </designable>
         <designable name="ste-pT-bmm">
-            <size key="intrinsicContentSize" width="10" height="37"/>
+            <size key="intrinsicContentSize" width="10" height="33"/>
         </designable>
         <designable name="t9u-TZ-lev">
-            <size key="intrinsicContentSize" width="474" height="21"/>
+            <size key="intrinsicContentSize" width="426" height="17"/>
         </designable>
     </designables>
     <resources>
@@ -2519,6 +2519,7 @@
         <image name="ic_calender" width="32" height="29.5"/>
         <image name="ic_call" width="18" height="17"/>
         <image name="ic_cross" width="10" height="10"/>
+        <image name="ic_cross_new" width="512" height="512"/>
         <image name="ic_dropdown" width="512" height="512"/>
         <image name="ic_dropdown_grey" width="12" height="7.5"/>
         <image name="ic_email" width="19" height="13"/>

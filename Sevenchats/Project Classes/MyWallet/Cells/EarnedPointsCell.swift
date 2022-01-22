@@ -50,19 +50,19 @@ class EarnedPointsCell: UITableViewCell {
 //            }
             switch rewardDetail.title {
             case "Article Add": // Article
-                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_copywriting")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_1_article")
             case "Gallery Add": // Gallery
-                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_gallery")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_4_gallery")
             case "Chirpy Add": // Chirpy
-                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_bird")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_2_chipy")
             case "Shout Add": // Shout
-                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_7_shout")
             case "Forum Add": // Forum
-                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_discussion")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_4_forum")
             case "Event Add": // Event
-                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_events")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_5_events")
             case "Poll Add": // Poll
-                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_shout_poll")
+                self.imgUserProfile.image = #imageLiteral(resourceName: "ic_6_poll")
             default :break
             }
             

@@ -166,7 +166,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_comment_send" width="37.5" height="38"/>
+        <image name="ic_comment_send" width="30" height="30"/>
         <namedColor name="AppDefault">
             <color red="0.0" green="0.75294119119644165" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

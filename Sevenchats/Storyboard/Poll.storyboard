@@ -817,7 +817,7 @@
         <image name="avtar.png" width="126" height="126"/>
         <image name="ic_close_add" width="18" height="18"/>
         <image name="ic_comment_count" width="15" height="15"/>
-        <image name="ic_comment_send" width="37.5" height="38"/>
+        <image name="ic_comment_send" width="30" height="30"/>
         <image name="ic_dropdown_grey" width="12" height="7.5"/>
         <image name="ic_grey_like" width="16" height="15"/>
         <image name="ic_grey_sharing" width="19" height="19"/>
