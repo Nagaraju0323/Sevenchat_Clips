@@ -14,8 +14,8 @@ class GroupMemberListCell: UITableViewCell {
     @IBOutlet weak var lblName: MIGenericLabel!
     @IBOutlet weak var btnRadio: UIButton!{
         didSet{
-            btnRadio.setImage(UIImage(named:"ic_circle_unselect"), for: .normal)
-            btnRadio.setImage(UIImage(named:"ic_circle_select"), for: .selected)
+            btnRadio.setImage(UIImage(named:"ic_unselect"), for: .normal)
+            btnRadio.setImage(UIImage(named:"ic_select"), for: .selected)
         }
     }
     

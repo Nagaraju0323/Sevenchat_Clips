@@ -44,7 +44,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqq-5e-kfh">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_login_logo" translatesAutoresizingMaskIntoConstraints="NO" id="M3t-j1-HWp">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_login" translatesAutoresizingMaskIntoConstraints="NO" id="M3t-j1-HWp">
                                                         <rect key="frame" x="137.5" y="89.5" width="100" height="100"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="100" id="Qu4-ms-PGo"/>
@@ -934,7 +934,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95686274509803915" green="1" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="M9v-hJ-xYd" firstAttribute="leading" secondItem="oey-zB-oey" secondAttribute="leading" constant="20" id="3g5-La-pTp"/>
                                     <constraint firstItem="7ck-sb-YMI" firstAttribute="top" secondItem="oey-zB-oey" secondAttribute="top" constant="15" id="5mT-Ic-8tY"/>
@@ -952,7 +952,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Luo-AU-Sid"/>
-                        <color key="backgroundColor" red="0.95686274509803915" green="1" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="oey-zB-oey" firstAttribute="trailing" secondItem="Luo-AU-Sid" secondAttribute="trailing" id="DZF-ug-pqO"/>
                             <constraint firstItem="oey-zB-oey" firstAttribute="leading" secondItem="Luo-AU-Sid" secondAttribute="leading" id="hCe-1J-qaf"/>
@@ -1032,7 +1032,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.95686274510000002" green="1" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="w9d-D0-NaL" firstAttribute="top" secondItem="mEG-Tr-vJF" secondAttribute="bottom" constant="15.5" id="1R7-MD-pFb"/>
                                     <constraint firstItem="mEG-Tr-vJF" firstAttribute="leading" secondItem="yi9-SW-PSO" secondAttribute="leading" constant="20" id="B2w-yd-r6W"/>
@@ -2334,7 +2334,6 @@
         <image name="ic_login_btn_facebook" width="49" height="49"/>
         <image name="ic_login_btn_google" width="49" height="49"/>
         <image name="ic_login_btn_twitter" width="49" height="49"/>
-        <image name="ic_login_logo" width="113" height="112.5"/>
         <image name="ic_navigation_bg" width="621" height="137.5"/>
         <image name="ic_right" width="16.5" height="12"/>
         <image name="ic_sidemenu" width="22" height="16.5"/>

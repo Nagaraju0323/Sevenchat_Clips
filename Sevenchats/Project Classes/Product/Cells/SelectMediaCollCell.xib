@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,11 +20,15 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DeX-1m-qSh">
                         <rect key="frame" x="10" y="10" width="148" height="90"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_add_product" translatesAutoresizingMaskIntoConstraints="NO" id="nfL-Wo-OKa">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square" translatesAutoresizingMaskIntoConstraints="NO" id="nfL-Wo-OKa">
                                 <rect key="frame" x="0.0" y="0.0" width="148" height="90"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_plus" translatesAutoresizingMaskIntoConstraints="NO" id="iQ7-He-BP2">
-                                <rect key="frame" x="63.5" y="34.5" width="21" height="21"/>
+                                <rect key="frame" x="61.5" y="30" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="FZb-Fv-nQP"/>
+                                    <constraint firstAttribute="width" constant="25" id="Zfp-vR-lRI"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -34,7 +38,7 @@
                             <constraint firstItem="iQ7-He-BP2" firstAttribute="centerX" secondItem="DeX-1m-qSh" secondAttribute="centerX" id="eX5-WA-egl"/>
                             <constraint firstAttribute="bottom" secondItem="nfL-Wo-OKa" secondAttribute="bottom" id="jZU-4n-l8N"/>
                             <constraint firstItem="nfL-Wo-OKa" firstAttribute="centerY" secondItem="DeX-1m-qSh" secondAttribute="centerY" id="m7v-lv-XLM"/>
-                            <constraint firstItem="iQ7-He-BP2" firstAttribute="centerY" secondItem="DeX-1m-qSh" secondAttribute="centerY" id="oJ0-TJ-TYk"/>
+                            <constraint firstItem="iQ7-He-BP2" firstAttribute="centerY" secondItem="DeX-1m-qSh" secondAttribute="centerY" constant="-2.5" id="oJ0-TJ-TYk"/>
                             <constraint firstItem="nfL-Wo-OKa" firstAttribute="centerX" secondItem="DeX-1m-qSh" secondAttribute="centerX" id="r6X-PM-3wA"/>
                             <constraint firstItem="nfL-Wo-OKa" firstAttribute="top" secondItem="DeX-1m-qSh" secondAttribute="top" id="rSs-hn-oYn"/>
                         </constraints>
@@ -53,7 +57,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="ic_add_product" width="107" height="99"/>
-        <image name="ic_plus" width="21" height="21"/>
+        <image name="ic_plus" width="512" height="512"/>
+        <image name="square" width="512" height="512"/>
     </resources>
 </document>
