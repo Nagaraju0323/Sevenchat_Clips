@@ -94,7 +94,7 @@ extension AppLaunchViewController {
             }
         }
         
-        let itemLogout = BlockBarButtonItem(image: UIImage(named: "ic_sidemenu_normal_logout"), style: UIBarButtonItem.Style.plain) { [weak self] (_) in
+        let itemLogout = BlockBarButtonItem(image: #imageLiteral(resourceName: "ic_logout"), style: UIBarButtonItem.Style.plain) { [weak self] (_) in
             guard let self = self else { return }
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageLogout, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                 guard let _ = self else { return }

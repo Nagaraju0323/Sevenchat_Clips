@@ -1592,7 +1592,7 @@
                                                                         </connections>
                                                                     </textView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" red="0.85098039219999999" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="trailing" secondItem="kgC-Mo-UE1" secondAttribute="trailing" id="4fb-wt-A6B"/>
                                                                     <constraint firstAttribute="bottom" secondItem="kgC-Mo-UE1" secondAttribute="bottom" id="HfX-PX-vyz"/>
@@ -1714,7 +1714,7 @@
         <image name="ic_chat_delete" width="24" height="24"/>
         <image name="ic_chat_forward" width="24" height="24"/>
         <image name="ic_chat_grey" width="22.5" height="19.5"/>
-        <image name="ic_comment_send" width="37.5" height="38"/>
+        <image name="ic_comment_send" width="30" height="30"/>
         <image name="ic_navigation_bg" width="621" height="137.5"/>
         <image name="ic_online" width="30" height="30"/>
         <image name="ic_video_call" width="40" height="30"/>

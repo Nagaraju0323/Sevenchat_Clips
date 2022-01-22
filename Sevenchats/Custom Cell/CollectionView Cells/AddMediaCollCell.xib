@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,13 +31,14 @@
                             <constraint firstAttribute="width" secondItem="9hl-Eo-DzE" secondAttribute="height" multiplier="1:1" id="Wpq-Xy-cdI"/>
                             <constraint firstAttribute="width" constant="30" id="cFB-WO-4BA"/>
                         </constraints>
-                        <state key="normal" image="ic_close_green"/>
+                        <state key="normal" image="cancel-3"/>
                     </button>
                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="sm6-LZ-Il9">
-                        <rect key="frame" x="67" y="49.5" width="37" height="37"/>
+                        <rect key="frame" x="67" y="66.5" width="37" height="37"/>
                     </activityIndicatorView>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="7BV-hK-K7V"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="uXF-04-7Qj" firstAttribute="centerX" secondItem="Du6-yv-09d" secondAttribute="centerX" id="0KO-Kq-afj"/>
@@ -53,7 +52,6 @@
                 <constraint firstItem="Du6-yv-09d" firstAttribute="leading" secondItem="yXw-jp-kfC" secondAttribute="leading" constant="10" id="t30-TS-pqb"/>
                 <constraint firstItem="Du6-yv-09d" firstAttribute="top" secondItem="yXw-jp-kfC" secondAttribute="top" constant="10" id="wyY-80-gLq"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="7BV-hK-K7V"/>
             <size key="customSize" width="171" height="126"/>
             <connections>
                 <outlet property="activityIndicator" destination="sm6-LZ-Il9" id="u3l-mw-cHi"/>
@@ -65,7 +63,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="ic_close_green" width="15" height="15"/>
+        <image name="cancel-3" width="512" height="512"/>
         <image name="ic_media_play" width="32" height="32"/>
     </resources>
 </document>

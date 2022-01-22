@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -45,7 +46,7 @@
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="Ulf-gF-Rci" firstAttribute="leading" secondItem="fEA-QA-oOo" secondAttribute="leading" id="7Fe-b2-DeO"/>
                                             <constraint firstAttribute="trailing" secondItem="Ulf-gF-Rci" secondAttribute="trailing" id="J91-yj-z6v"/>
@@ -58,7 +59,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="500 Points" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmR-y9-7ZM" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="182" height="18.5"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="13"/>
-                                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="textColor" red="0.12941177189350128" green="0.74901962280273438" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1RY-kW-13C" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
@@ -81,8 +82,10 @@ Lorem Ipsum is simply dummyLorem Ipsum is simply dummyLorem Ipsum is simply dumm
                                         <rect key="frame" x="247" y="0.0" width="35" height="185.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7r-Dp-Vgj">
-                                                <rect key="frame" x="0.0" y="0.0" width="35" height="22"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="S1E-zp-xMd"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="35" id="X0s-Mb-CnO"/>
                                                     <constraint firstAttribute="width" constant="35" id="lpJ-0Z-YRK"/>
                                                 </constraints>
                                                 <state key="normal" image="ic_info_wallet"/>
@@ -91,7 +94,7 @@ Lorem Ipsum is simply dummyLorem Ipsum is simply dummyLorem Ipsum is simply dumm
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="G7r-Dp-Vgj" firstAttribute="leading" secondItem="Nqm-9J-0Ol" secondAttribute="leading" id="4sE-LH-yPx"/>
                                             <constraint firstItem="G7r-Dp-Vgj" firstAttribute="top" secondItem="Nqm-9J-0Ol" secondAttribute="top" id="PHa-zB-71M"/>
@@ -101,7 +104,7 @@ Lorem Ipsum is simply dummyLorem Ipsum is simply dummyLorem Ipsum is simply dumm
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="HNW-dX-8bl" secondAttribute="bottom" constant="10" id="McG-sC-B01"/>
                             <constraint firstItem="HNW-dX-8bl" firstAttribute="top" secondItem="izZ-nX-dza" secondAttribute="top" constant="10" id="bQ3-t2-UI3"/>
@@ -118,8 +121,8 @@ Lorem Ipsum is simply dummyLorem Ipsum is simply dummyLorem Ipsum is simply dumm
                     <constraint firstItem="izZ-nX-dza" firstAttribute="leading" secondItem="F4F-C1-S6C" secondAttribute="leading" constant="30" id="isd-b1-AwH"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="Fvx-bE-a39"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="imgUserProfile" destination="Ulf-gF-Rci" id="tna-b9-hUx"/>
                 <outlet property="lblDate" destination="Eb3-QZ-xjg" id="Lqj-c9-4p4"/>
@@ -132,7 +135,10 @@ Lorem Ipsum is simply dummyLorem Ipsum is simply dummyLorem Ipsum is simply dumm
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_info_wallet" width="22" height="22"/>
+        <image name="ic_info_wallet" width="512" height="512"/>
         <image name="user_placeholder.png" width="300" height="300"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

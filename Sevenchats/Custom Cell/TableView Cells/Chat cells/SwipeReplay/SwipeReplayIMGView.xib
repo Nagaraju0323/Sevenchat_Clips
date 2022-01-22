@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -30,7 +30,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8hJ-kq-gMW">
-                            <rect key="frame" x="5" y="5" width="5" height="94"/>
+                            <rect key="frame" x="5" y="5" width="5" height="97"/>
                             <color key="backgroundColor" name="AppDefault"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="5" id="NsV-h9-tmz"/>
@@ -38,9 +38,9 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gqq-Hg-fda">
-                            <rect key="frame" x="10" y="5" width="360" height="94"/>
+                            <rect key="frame" x="10" y="5" width="360" height="97"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="John Cartler" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXc-pD-l1x">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Cartler" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXc-pD-l1x">
                                     <rect key="frame" x="10" y="10" width="244" height="20"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="vQt-yS-QKL"/>
@@ -49,7 +49,7 @@
                                     <color key="textColor" name="AppDefault"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="The methods in the UIConstraintBasedLayoutDebugging category on UIView" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvy-t2-AM5">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The methods in the UIConstraintBasedLayoutDebugging category on UIView" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvy-t2-AM5">
                                     <rect key="frame" x="10" y="33" width="244" height="59"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="9Ej-Qk-8Dq"/>
@@ -100,7 +100,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I1a-DE-4os">
-                            <rect key="frame" x="5" y="98" width="365" height="50"/>
+                            <rect key="frame" x="5" y="101" width="365" height="50"/>
                             <subviews>
                                 <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nw7-eb-fEu">
                                     <rect key="frame" x="267" y="0.0" width="50" height="50"/>
@@ -267,8 +267,8 @@
     <resources>
         <image name="autodeletebtn" width="34" height="34"/>
         <image name="ic_attachment" width="22.5" height="20.5"/>
-        <image name="ic_close_green" width="15" height="15"/>
-        <image name="ic_comment_send" width="37.5" height="38"/>
+        <image name="ic_close_green" width="512" height="512"/>
+        <image name="ic_comment_send" width="30" height="30"/>
         <image name="microphone-4" width="512" height="512"/>
         <namedColor name="AppDefault">
             <color red="0.0" green="0.75294119119644165" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
