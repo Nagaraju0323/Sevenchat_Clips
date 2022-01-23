@@ -6,11 +6,11 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
-/********************************************************
-* Author :  Chandrika.R                                *
-* Model  : GroupChat Messages                          *
-* options: Group Messages & Notifications              *
-********************************************************/
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ConfirmGroupViewController                  *
+ * Changes :                                             *
+ ********************************************************/
 import UIKit
 
 class ConfirmGroupViewController: ParentViewController {

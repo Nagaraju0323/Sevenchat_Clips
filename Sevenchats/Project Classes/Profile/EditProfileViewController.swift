@@ -26,25 +26,18 @@ class EditProfileViewController: ParentViewController {
     @IBOutlet weak var txtMobileNumber : MIGenericTextFiled!
     @IBOutlet weak var txtCountryCode : MIGenericTextFiled!
     @IBOutlet weak var txtDOB : MIGenericTextFiled!
-    //@IBOutlet weak var txtLocation : MIGenericTextFiled!
     @IBOutlet weak var lblCode : UILabel!
-    
     @IBOutlet weak var txtCountrys : MIGenericTextFiled!
     @IBOutlet weak var txtStates : MIGenericTextFiled!
     @IBOutlet weak var txtCitys : MIGenericTextFiled!
     
-  //  var countryCodeId = 101 //India
     var countryCodeId = "91" //India
     var countryID : Int?
     var stateID : Int?
     var cityID : Int?
-    
     var countryName : String?
     var stateName : String?
     var cityName : String?
-    
-    
-    
     var latitude : Double = 0.0
     var longitude : Double = 0.0
     var uploadedImg : Bool = false
@@ -62,15 +55,13 @@ class EditProfileViewController: ParentViewController {
     var Dob = ""
     var isSelectedprofile = false
     var isSelectedCover = false
-    
-    
     var prefs = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialization()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -86,16 +77,13 @@ class EditProfileViewController: ParentViewController {
         btnUpdate.layer.cornerRadius = 5
         btnUpdateComplete.layer.cornerRadius = 5
         btnUpdateComplete.layer.borderWidth = 1
-      //  btnUpdateComplete.layer.borderColor = CRGB(r: 119, g: 171, b: 110).cgColor
         btnUpdateComplete.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
-        
         GCDMainThread.async {
             self.imgUser.layer.cornerRadius = self.imgUser.frame.height/2
             self.btnUploadImage.layer.cornerRadius = self.btnUploadImage.frame.size.width/2
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.imgUser.layer.borderWidth = 3
         }
-        
         txtDOB.setDatePickerMode(mode: .date)
         txtDOB.setMaximumDate(maxDate: Date().dateByAdd(years: -13))
         txtDOB.setDatePickerWithDateFormate(dateFormate: "dd MMM yyyy", defaultDate: Date(), isPrefilledDate: false) { [weak self] (date) in
@@ -103,7 +91,6 @@ class EditProfileViewController: ParentViewController {
             self.dobDate = DateFormatter.shared().string(fromDate: date, dateFormat: "dd MMM yyyy")
         }
         setupCuntryStateCityList()
-        
         self.preFilledUserDetail()
     }
     
@@ -115,11 +102,9 @@ class EditProfileViewController: ParentViewController {
         txtEmail.btnClearText.isHidden = true
         txtMobileNumber.placeHolder = CRegisterPlaceholderMobileNumber
         txtDOB.placeHolder = CRegisterPlaceholderDob
-        //txtLocation.placeHolder = CRegisterPlaceholderSelectLocation
         lblCode.text = CRegisterPlaceholderCode
         btnUpdate.setTitle(CResetBtnUpdate, for: .normal)
         btnUpdateComplete.setTitle(CProfileBtnUpdateComplete, for: .normal)
-        
         txtCountrys.placeHolder = CCountryPlaceholder
         txtStates.placeHolder = CStatePlaceholder
         txtCitys.placeHolder = CCityPlaceholder
@@ -133,10 +118,9 @@ class EditProfileViewController: ParentViewController {
         txtCountrys.setPickerData(arrPickerData: arrCountrys, key: CName, selectedPickerDataHandler: {  [weak self](text, row, component) in
             guard let self = self else { return }
             let catInfo = arrCountrys[row]
-            //self.countryID = catInfo.valueForInt(key: CId)
             self.countryName = catInfo.valueForString(key: CCountryName)
             self.showHideCountryStateCityFileds()
-            }, defaultPlaceholder: "")
+        }, defaultPlaceholder: "")
     }
     
     func preFilledUserDetail (){
@@ -157,32 +141,20 @@ class EditProfileViewController: ParentViewController {
         txtFirstName.text = appDelegate.loginUser?.first_name
         txtLastName.text = appDelegate.loginUser?.last_name
         txtEmail.text = appDelegate.loginUser?.email
-//        txtCountryCode.text = appDelegate.loginUser?.country_code
         txtMobileNumber.text = appDelegate.loginUser?.mobile
-        //txtLocation.text = appDelegate.loginUser?.address
-//        countryCodeId = NSNumber(value: appDelegate.loginUser?.country_code_id ?? 0).intValue
-//        countryID = NSNumber(value: appDelegate.loginUser?.country_id ?? 0).intValue
-//        stateID = NSNumber(value: appDelegate.loginUser?.state_id ?? 0).intValue
-//        cityID = NSNumber(value: appDelegate.loginUser?.city_id ?? 0).intValue
-//        countryCodeId = NSNumber(value: appDelegate.loginUser?.country_code_id ?? 0).stringValue
         countryName = appDelegate.loginUser?.country ?? ""
         stateName =  appDelegate.loginUser?.state ?? ""
         cityName =  appDelegate.loginUser?.city ?? ""
         
-        
-      //  MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
         self.loadStateList(isCancelTask: true) { [weak self] in
             self?.loadCityList(isCancelTask: true, completion: { [weak self] in
                 guard let _ = self else {return}
                 MILoader.shared.hideLoader()
             })
         }
-        
-        
         txtCountrys.text = appDelegate.loginUser?.country
         txtStates.text = appDelegate.loginUser?.state
         txtCitys.text = appDelegate.loginUser?.city
-        
         self.txtCountrys.isEnabled = true
         self.txtStates.isEnabled = !(txtStates.text?.isEmpty ?? true)
         self.txtCitys.isEnabled = !(txtCitys.text?.isEmpty ?? true)
@@ -190,9 +162,9 @@ class EditProfileViewController: ParentViewController {
         if (arrCountryList?.count ?? 0) > 0{
             self.txtCountryCode.text = ((arrCountryList![0] as! TblCountry).country_code)
             countryCodeId = ((arrCountryList![0] as! TblCountry).country_code ?? "")
-
+            
         }
-   
+        
         self.imgUser.image = nil
         let dobtxtAppDlg = appDelegate.loginUser?.dob?.description ?? ""
         let addTimeformat = " GMT+0000 (Coordinated Universal Time)"
@@ -205,7 +177,7 @@ class EditProfileViewController: ParentViewController {
         
         txtDOB.text = DateFormatter.shared().dateConvertUTC(fromDate: Dob)
         if appDelegate.loginUser?.profile_url != "" {
-         imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
+            imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
             
             btnUploadImage.setImage(UIImage(), for: .normal)
             imgEditIcon.isHidden = false
@@ -214,7 +186,7 @@ class EditProfileViewController: ParentViewController {
             imgEditIcon.isHidden = true
         }
         if appDelegate.loginUser?.cover_image != "" {
-
+            
             imgCover.loadImageFromUrl((appDelegate.loginUser?.cover_image ?? ""), true)
             btnUploadImage.setImage(UIImage(), for: .normal)
             imgEditIcon.isHidden = false
@@ -238,186 +210,6 @@ class EditProfileViewController: ParentViewController {
         }
     }
 }
-
-//MARK:- Manage Country, State and City
-//extension EditProfileViewController {
-//
-//    func loadCountryCodeList(){
-//
-//        let arrCountry = TblCountry.fetch(predicate: nil, orderBy: CCountryName, ascending: true)
-//        let arrCountryCode = arrCountry?.value(forKeyPath: "country_name") as? [Any]
-//        if (arrCountryCode?.count)! > 0 {
-//            txtCountryCode.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { (select, index, component) in
-//                let dict = arrCountry![index] as AnyObject
-//                self.txtCountryCode.text = dict.value(forKey: CCountrycode) as? String
-//                //Oldcode by Mi
-//              //self.countryCodeId = dict.value(forKey: CCountry_id) as? Int ?? 0
-//                self.countryCodeId = dict.value(forKey: CCountryName) as! String
-//            }, defaultPlaceholder: "+91")
-//        }
-//    }
-//
-//
-//
-//    fileprivate func loadCountryList(){
-//
-//        self.txtCountrys.isEnabled = true
-//        self.txtStates.isEnabled = true
-//        self.txtCitys.isEnabled = true
-////        self.txtCountrys.isUserInteractionEnabled = true
-////        self.txtStates.isUserInteractionEnabled = true
-////        self.txtCitys.isUserInteractionEnabled = true
-//
-//        self.showHideCountryStateCityFileds()
-//
-//        let arrCountryList = TblCountry.fetch(predicate: NSPredicate(format:"country_code = %@", "+91"))
-//
-//        if (arrCountryList?.count ?? 0) > 0{
-//            self.txtCountryCode.text = ((arrCountryList![0] as! TblCountry).country_code)
-//            self.countryID = Int(((arrCountryList![0] as! TblCountry).country_id))
-//            self.countryName = (arrCountryList![0] as! TblCountry).country_name
-//
-//        }
-//
-//
-//        let arrCountry = TblCountry.fetch(predicate: nil, orderBy: CCountryName, ascending: true)
-//        let arrCountryCode = arrCountry?.value(forKeyPath: "country_name") as? [Any]
-//
-//        if (arrCountryCode?.count)! > 0 {
-//
-//            txtCountrys.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (select, index, component) in
-//                guard let self = self else { return }
-//                let dict = arrCountry![index] as AnyObject
-//                let countryName = dict.value(forKey: CCountryName) as? String
-//                if countryName != self.countryName {
-//                    self.countryName = dict.value(forKey: CCountryName) as? String
-//                    self.txtStates.text = ""
-//                    self.txtCitys.text = ""
-//                    self.stateID = nil
-//                    self.cityID = nil
-//                    self.txtStates.isEnabled = false
-//                    self.txtCitys.isEnabled = false
-//                    self.showHideCountryStateCityFileds()
-//                    self.loadStateList()
-//                }
-//            }, defaultPlaceholder: "")
-//        }
-//    }
-//
-//    fileprivate func loadStateList(isCancelTask:Bool = true, completion:(()->Void)? = nil) {
-//
-//        func setStateList(arrState:[MDLState]){
-//            let states = arrState.compactMap({$0.stateName})
-//            self.txtStates.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
-//                guard let self = self else {return}
-//                if arrState[row].stateName != self.stateName{
-//                    self.stateName = arrState[row].stateName
-//                    self.txtCitys.isEnabled = false
-//                    self.txtCitys.text = ""
-//                    self.showHideCountryStateCityFileds()
-//                    self.loadCityList()
-//                }
-//
-//            }, defaultPlaceholder: "")
-//        }
-//        if apiTask?.state == URLSessionTask.State.running && isCancelTask {
-//            apiTask?.cancel()
-//        }
-//        //...Load country list from server
-//        let timestamp : TimeInterval = 0
-//
-//        /*Oldcode by Mi
-//           apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryID ?? 0) { [weak self] (response, error) in
-//         */
-//        apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryName ?? "") { [weak self] (response, error) in
-//            guard let self = self else {return}
-//            if response != nil && error == nil {
-//                DispatchQueue.main.async {
-//                    let arrData = response![CData] as? [[String : Any]] ?? []
-//                    var arrState : [MDLState] = []
-//                    for obj in arrData{
-//                        arrState.append(MDLState(fromDictionary: obj))
-//                    }
-//                    if arrState.isEmpty{
-//                        arrState.append(MDLState(fromDictionary: ["state_name":" "]))
-//                        self.stateID = 0
-//                        self.cityID = 0
-//                        self.txtStates.isEnabled = false
-//                        self.txtCitys.isEnabled = false
-//                        self.txtStates.text = ""
-//                        self.txtCitys.text = ""
-//                    }else{
-//                        self.txtStates.isEnabled = true
-//                    }
-//                    self.showHideCountryStateCityFileds()
-//                    setStateList(arrState: arrState)
-//                }
-//            }
-//        }
-//    }
-//
-//    fileprivate func loadCityList(isCancelTask:Bool = true, completion:(()->Void)? = nil) {
-//
-//        func setCityList(arrCity:[MDLCity]){
-//            let states = arrCity.compactMap({$0.cityName})
-//            self.txtCitys.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
-//                guard let self = self else {return}
-//                /*Oldcode by Mi
-//                self.cityID = arrCity[row].cityId
-//                */
-//                self.cityName = arrCity[row].cityName
-//                //self.showHideCountryStateCityFileds()
-//            }, defaultPlaceholder: "")
-//        }
-//        if apiTask?.state == URLSessionTask.State.running && isCancelTask {
-//            apiTask?.cancel()
-//        }
-//        //...Load country list from server
-//        let timestamp : TimeInterval = 0
-//        apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateName ?? "") { [weak self] (response, error) in
-//            guard let self = self else {return}
-//            if response != nil && error == nil {
-//                DispatchQueue.main.async {
-//                    let arrData = response![CData] as? [[String : Any]] ?? []
-//                    var arrCity : [MDLCity] = []
-//                    for obj in arrData{
-//                        arrCity.append(MDLCity(fromDictionary: obj))
-//                    }
-//                    if arrCity.isEmpty{
-//                        arrCity.append(MDLCity(fromDictionary: ["city_name":" "]))
-//                        self.cityID = 0
-//                        self.txtCitys.isEnabled = false
-//                        self.txtCitys.text = ""
-//                    }else{
-//                        self.txtCitys.isEnabled = true
-//                    }
-//                    self.showHideCountryStateCityFileds()
-//                    setCityList(arrCity: arrCity)
-//                }
-//            }
-//        }
-//    }
-//
-//    fileprivate func showHideCountryStateCityFileds(){
-//        DispatchQueue.main.async {
-//            UIView.animate(withDuration: 0.3, animations: {
-//                if !self.txtStates.isEnabled{
-//                    self.txtStates.superview?.alpha = 0
-//                }else{
-//                    self.txtStates.superview?.alpha = 1
-//                }
-//                if !self.txtCitys.isEnabled{
-//                    self.txtCitys.superview?.alpha = 0
-//                }else{
-//                    self.txtCitys.superview?.alpha = 1
-//                }
-//            }, completion: { (_) in
-//                self.txtStates.superview?.isHidden = !self.txtStates.isEnabled
-//                self.txtCitys.superview?.isHidden = !self.txtCitys.isEnabled
-//            })
-//        }
-//    }
-//}
 //MARK:- Manage Country, State and City
 extension EditProfileViewController {
     
@@ -427,12 +219,10 @@ extension EditProfileViewController {
         let arrCountryCode = arrCountry?.value(forKeyPath: "countryname_code") as? [Any]
         
         if (arrCountryCode?.count)! > 0 {
-            
             txtCountryCode.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (select, index, component) in
                 guard let self = self else { return }
                 let dict = arrCountry![index] as AnyObject
                 self.txtCountryCode.text = dict.value(forKey: CCountrycode) as? String
-              //  self.countryCodeId = dict.value(forKey: CCountry_id) as? Int ?? 0
                 self.txtCountryCode.text = dict.value(forKey: CCountrycode) as? String
             }, defaultPlaceholder: "+91")
         }
@@ -443,9 +233,7 @@ extension EditProfileViewController {
         self.txtCountrys.isEnabled = true
         self.txtStates.isEnabled = false
         self.txtCitys.isEnabled = false
-        
         self.showHideCountryStateCityFileds()
-        
         let arrCountry = TblCountry.fetch(predicate: nil, orderBy: CCountryName, ascending: true)
         let arrCountryName = arrCountry?.value(forKeyPath: "country_name") as? [Any]
         
@@ -466,7 +254,7 @@ extension EditProfileViewController {
                     self.showHideCountryStateCityFileds()
                     self.loadStateList()
                 }
-                }, defaultPlaceholder: "")
+            }, defaultPlaceholder: "")
         }
     }
     
@@ -484,14 +272,13 @@ extension EditProfileViewController {
                     self.loadCityList()
                 }
                 
-                }, defaultPlaceholder: "")
+            }, defaultPlaceholder: "")
         }
         if apiTask?.state == URLSessionTask.State.running && isCancelTask {
             apiTask?.cancel()
         }
         //...Load country list from server
         let timestamp : TimeInterval = 0
-       // apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryID ?? 0) { [weak self] (response, error) in
         apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryName ?? "") { [weak self] (response, error) in
             guard let self = self else {
                 return
@@ -533,15 +320,13 @@ extension EditProfileViewController {
             self.txtCitys.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
                 guard let self = self else {return}
                 self.cityID = arrCity[row].cityId
-                //self.showHideCountryStateCityFileds()
-                }, defaultPlaceholder: "")
+            }, defaultPlaceholder: "")
         }
         if apiTask?.state == URLSessionTask.State.running && isCancelTask {
             apiTask?.cancel()
         }
         //...Load country list from server
         let timestamp : TimeInterval = 0
-       // apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateID ?? 0) { [weak self] (response, error) in
         apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateName ?? "") { [weak self] (response, error) in
             guard let self = self else {return}
             if response != nil && error == nil {
@@ -600,7 +385,6 @@ extension EditProfileViewController {
         guard let userID = appDelegate.loginUser?.user_id else {return}
         let dobconvert = DateFormatter.shared().convertDaterevers(strDate: txtDOB.text)
         let dobupdateUserDtls = DateFormatter.shared().convertDatereveruserDetails(strDate: txtDOB.text)
-//        let chgtimeFormat =  dobupdateUserDtls?.description ?? "" + " " + "GMT+0000 (Coordinated Universal Time)"
         let chgtimeFormat = "\(dobupdateUserDtls?.description ?? "" ) \(" GMT+0000 (Coordinated Universal Time)")"
         
         let dict :[String:Any]  =  [
@@ -627,7 +411,7 @@ extension EditProfileViewController {
             "employment_status": appDelegate.loginUser?.employment_status ?? 0,
             "lang_name": langName,
             "status_id":"1"
-            ]
+        ]
         
         let dictUserDetails :[String:Any]  =  [
             
@@ -657,18 +441,15 @@ extension EditProfileViewController {
             "status_id":"1",
             "user_id":userID.description,
             "religion" : appDelegate.loginUser?.religion ?? ""
-           
-    ]
-        
-        
-        
+            
+        ]
         APIRequest.shared().editProfile(dict: dict as [String : AnyObject],para:dictUserDetails as [String:AnyObject] ,userID:userID.description, dob: chgtimeFormat) { [weak self] (response, error) in
             guard let self = self else { return }
             
             if let _response = response as? [String : AnyObject], error == nil {
-//                guard let dict = _response.valueForJSON(key: CJsonData) as? [String : AnyObject] else{
-//                    return
-//                }
+                //                guard let dict = _response.valueForJSON(key: CJsonData) as? [String : AnyObject] else{
+                //                    return
+                //                }
                 
                 guard let dict = _response.valueForJSON(key: "meta") as? [String : AnyObject] else{return}
                 
@@ -685,7 +466,6 @@ extension EditProfileViewController {
                         return
                     }
                     self.redirectOnSuccess(metaData: metaData)
-//                    self.navigationController?.popViewController(animated: true)
                     for vwController in (self.navigationController?.viewControllers)! {
                         if vwController.isKind(of: SettingViewController .classForCoder()){
                             self.navigationController?.popViewController(animated: true)
@@ -727,7 +507,7 @@ extension EditProfileViewController {
     
     func uploadCoverPic() {
         isSelectedCover = true
-       
+        
         guard let userID = appDelegate.loginUser?.user_id else {
             return
         }
@@ -751,7 +531,6 @@ extension EditProfileViewController {
     
     func registerAudioToken(){
         if txtFirstName.text != oldFirstName || txtLastName.text != oldLastName{
-//            AudioTokenService.shared.callGetAudioTokenAPI(identity: myAudioIdentity, isForRegister: true)
         }
     }
     
@@ -812,7 +591,6 @@ extension EditProfileViewController{
         }
         locationPicker.completion = { [weak self] (placeDetail) in
             guard let self = self else { return }
-            //self.txtLocation.text = placeDetail?.formattedAddress
             self.latitude = placeDetail?.coordinate?.latitude ?? 0.0
             self.longitude = placeDetail?.coordinate?.longitude ?? 0.0
             self.strCity = placeDetail?.locality ?? ""
@@ -846,7 +624,7 @@ extension EditProfileViewController{
                             }
                             MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                             MInioimageupload.shared().callback = { message in
-                            print("UploadImage::::::::::::::\(message)")
+                                print("UploadImage::::::::::::::\(message)")
                                 self.profileImgUrl = message
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                                     self.uploadProfilePic()
@@ -854,7 +632,7 @@ extension EditProfileViewController{
                             }
                         }
                     })
-
+                    
                 }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default, btnTwoTapped: { [weak self] (action) in
                     guard let self = self else { return }
                     self.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
@@ -870,21 +648,19 @@ extension EditProfileViewController{
                     })
                 }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
                     guard let self = self else { return }
-                    /****************NEW CODE****************/
                     let frstNameltr = (self.txtFirstName.text?.first)!
-                            let convStrName = String(frstNameltr)
-                            let text = convStrName
-                            let attributes = [
-                              NSAttributedString.Key.foregroundColor: UIColor.white,
-                                NSAttributedString.Key.backgroundColor:#colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1),
-                                // NSAttributedString.Key.font: UIFont.systemFont(ofSize: 3)
-                              NSAttributedString.Key.font: UIFont.init(name: "AmericanTypewriter-Semibold", size: 40),
-                            ]
-                            let textSize = text.size(withAttributes: attributes)
-                            UIGraphicsBeginImageContextWithOptions(textSize, true, 0)
-                            text.draw(at: CGPoint.zero, withAttributes: attributes)
-                            let image = UIGraphicsGetImageFromCurrentImageContext()
-                            UIGraphicsEndImageContext()
+                    let convStrName = String(frstNameltr)
+                    let text = convStrName
+                    let attributes = [
+                        NSAttributedString.Key.foregroundColor: UIColor.white,
+                        NSAttributedString.Key.backgroundColor:#colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1),
+                        NSAttributedString.Key.font: UIFont.init(name: "AmericanTypewriter-Semibold", size: 40),
+                    ]
+                    let textSize = text.size(withAttributes: attributes)
+                    UIGraphicsBeginImageContextWithOptions(textSize, true, 0)
+                    text.draw(at: CGPoint.zero, withAttributes: attributes)
+                    let image = UIGraphicsGetImageFromCurrentImageContext()
+                    UIGraphicsEndImageContext()
                     self.isremovedImage = true
                     self.imgUser.image = image
                     CUserDefaults.set(2, forKey:"imageReplaced")
@@ -892,9 +668,9 @@ extension EditProfileViewController{
                     self.imgEditIcon.isHidden = true
                     self.uploadProfilePic()
                 }
-
+                
             }
-  
+            
             if userdata == 2 {
                 self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
                     guard let self = self else { return }
@@ -937,8 +713,6 @@ extension EditProfileViewController{
         }
     }
     @IBAction func btnUploadCoverCLK (_ sender : UIButton) {
-   // @IBAction func btnUploadCoverCLK(_ sender : UIButton){
-        
         if self.imgCover.image != nil {
             self.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
                 guard let self = self else { return }
@@ -955,13 +729,13 @@ extension EditProfileViewController{
                         guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
                             return
                         }
-                       
+                        
                         self.imgName = imageURL.absoluteString ?? ""
                         guard let mobileNum = appDelegate.loginUser?.mobile else {return}
                         MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                       
+                        
                         MInioimageupload.shared().callback = { message in
-                        print("UploadImage::::::::::::::\(message)")
+                            print("UploadImage::::::::::::::\(message)")
                             self.coverImgUrl = message
                             
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
@@ -1056,11 +830,8 @@ extension EditProfileViewController{
     
     @IBAction func btnUpdateCompleteCLK(_ sender : UIButton) {
         if let completeProfileVC = CStoryboardProfile.instantiateViewController(withIdentifier: "CompleteProfileViewController") as? CompleteProfileViewController{
-//            let Dob = DateFormatter.shared().convertDaterevers(strDate: txtDOB.text)
             let dobupdateUserDtls = DateFormatter.shared().convertDatereveruserDetails(strDate: txtDOB.text)
-    //        let chgtimeFormat =  dobupdateUserDtls?.description ?? "" + " " + "GMT+0000 (Coordinated Universal Time)"
             let Dob = "\(dobupdateUserDtls?.description ?? "" ) \(" GMT+0000 (Coordinated Universal Time)")"
-            
             completeProfileVC.dob_edit = Dob
             completeProfileVC.firstName_edit = txtFirstName.text ?? ""
             completeProfileVC.lastName_edit = txtLastName.text ?? ""

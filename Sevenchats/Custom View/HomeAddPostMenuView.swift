@@ -18,7 +18,7 @@ protocol PostTypeSelectionDelegate {
 class HomeAddPostMenuView: UIView {
     
     var delegate : PostTypeSelectionDelegate!
-    //@IBOutlet var clPostMenu : UICollectionView!
+
     @IBOutlet var tblPostMenu : UITableView!
     @IBOutlet var btnClose : UIButton!
     @IBOutlet var cntHeightTBl : NSLayoutConstraint!
@@ -62,24 +62,11 @@ class HomeAddPostMenuView: UIView {
         viewPopUp.layer.borderColor = UIColor.black.withAlphaComponent(0.4).cgColor
         //viewPopUp.backgroundColor = .clear
         viewPopUp.clipsToBounds = true
-        //tblPostMenu.clipsToBounds = true
-        
-        /*self.clPostMenu.register(UINib(nibName: "HomeAddPostCollCell", bundle: nil), forCellWithReuseIdentifier: "HomeAddPostCollCell")
-         
-         _ = self.clPostMenu.setConstraintConstant(CScreenWidth, edge: .leading, ancestor: true)
-         _ = self.clPostMenu.setConstraintConstant(-CScreenWidth, edge: .trailing, ancestor: true)
-         _ = self.btnClose.setConstraintConstant(-100, edge: .bottom, ancestor: true)
-         GCDMainThread.async {
-         self.clPostMenu.layer.cornerRadius = 8
-         }
-         */
-        
+     
         _ = self.viewPopUp.setConstraintConstant(CScreenWidth, edge: .leading, ancestor: true)
         _ = self.viewPopUp.setConstraintConstant(-CScreenWidth, edge: .trailing, ancestor: true)
         _ = self.btnClose.setConstraintConstant(-100, edge: .bottom, ancestor: true)
         GCDMainThread.async {
-            //self.viewPopUp.layer.cornerRadius = 8
-            //self.viewPopUp.addPikeOnView(side: .Right,size: 15)
         }
     }
     
@@ -107,9 +94,6 @@ class HomeAddPostMenuView: UIView {
             self.removeFromSuperview()
             self.delegate.didSelectPostType("100")
         }
-        
-        //self.removeFromSuperview()
-        //self.delegate.didSelectPostType(100)
     }
 }
 

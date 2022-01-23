@@ -20,7 +20,6 @@
 
 import UIKit
 import CoreLocation
-//import GooglePlacePicker
 import ActiveLabel
 
 class RegisterViewController: ParentViewController {
@@ -337,7 +336,7 @@ extension RegisterViewController {
                 self.profileImgUrlupdate = message
             }
         }
-    
+        
         var gender = 1
         if txtGender.text == "Male" {
             gender = CMale
@@ -346,7 +345,7 @@ extension RegisterViewController {
         } else {
             gender = COther
         }
-      
+        
         let dobconvert = DateFormatter.shared().convertDatereversSinup(strDate: self.txtDob.text)
         let FirstName = self.txtFirstName.text ?? ""
         let LastName = self.txtLastName.text ?? ""
@@ -386,9 +385,9 @@ extension RegisterViewController {
         
         self.dictSinup = dict
         self.redirectToVerificationScreen()
-
+        
     }
-
+    
     func uploadUserProfile(userID : Int, signUpResponse : AnyObject?,imageEmpty:Bool) {
         if imageEmpty == true{
             print("image empty convert text to image")
@@ -408,7 +407,7 @@ extension RegisterViewController {
     
     func redirectToVerificationScreen() {
         MILoader.shared.hideLoader()
-       
+        
         CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
         CUserDefaults.synchronize()
         let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .alert)
@@ -423,7 +422,7 @@ extension RegisterViewController {
         }))
         self.present(alert, animated: true, completion: nil)
     }
-   
+    
 }
 
 // MARK:- --------- Action Event
@@ -435,7 +434,6 @@ extension RegisterViewController{
         }
         locationPicker.completion = { [weak self] (placeDetail) in
             guard let self = self else { return }
-            //self.txtLocation.text = placeDetail?.formattedAddress
             self.latitude = placeDetail?.coordinate?.latitude ?? 0.0
             self.longitude = placeDetail?.coordinate?.longitude ?? 0.0
         }
@@ -443,7 +441,6 @@ extension RegisterViewController{
     }
     
     @IBAction func btnUploadImageCLK(_ sender : UIButton) {
-//        guard let mobileNo = self.txtMobileNumber.text else {return}
         if self.imgUser.image != nil {
             self.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { (action) in
                 self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { (image, info) in
@@ -541,7 +538,7 @@ extension RegisterViewController{
             
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
             self.signup()
-//            self.redirectToVerificationScreen()
+            //            self.redirectToVerificationScreen()
         }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
     }
     
@@ -588,16 +585,15 @@ extension RegisterViewController{
         APIRequest.shared().verifyEmail(api: api,email : txtEmail.text ?? "", verifyCode: txtEmail.text!) { (response, error) in
             if response != nil && error == nil{
                 
-                    if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
-                        objVerify.userEmail = self.txtEmail.text ?? ""
-                        objVerify.passwordStr = self.txtPWD.text ?? ""
-                        objVerify.isEmail_Mobile = true
-                        objVerify.dictSingupdatas = self.dictSinup ?? [:]
-                        objVerify.userMobile = self.txtMobileNumber.text ?? ""
-                        objVerify.isEmailVerify = true
-                        self.navigationController?.pushViewController(objVerify, animated: true)
-                    }
-//                }
+                if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
+                    objVerify.userEmail = self.txtEmail.text ?? ""
+                    objVerify.passwordStr = self.txtPWD.text ?? ""
+                    objVerify.isEmail_Mobile = true
+                    objVerify.dictSingupdatas = self.dictSinup ?? [:]
+                    objVerify.userMobile = self.txtMobileNumber.text ?? ""
+                    objVerify.isEmailVerify = true
+                    self.navigationController?.pushViewController(objVerify, animated: true)
+                }
             }else {
                 guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
                 let errorMsg = errorUserinfo.stringAfter(":")
@@ -622,7 +618,7 @@ extension RegisterViewController{
                 }
                 
                 if let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject] {
-                    let step = responseData.valueForInt(key: "step") ?? 0
+                    _ = responseData.valueForInt(key: "step") ?? 0
                 }
             }else {
                 
@@ -632,7 +628,7 @@ extension RegisterViewController{
             }
         }
     }
-
+    
 }
 
 

@@ -32,7 +32,6 @@ class MakeAsSoldProduceCell: UITableViewCell, ProductDetailBaseCell  {
             return
         }
         self.modelData = _model
-        
     }
     
     @IBAction func onMarkAsSold(_ sender:UIButton){

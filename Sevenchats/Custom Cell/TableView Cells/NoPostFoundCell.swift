@@ -15,7 +15,6 @@ class NoPostFoundCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
-        //lblMessage.text = CMessageNoPost
         lblMessage.text = CToEnhanceFeed
     }
 

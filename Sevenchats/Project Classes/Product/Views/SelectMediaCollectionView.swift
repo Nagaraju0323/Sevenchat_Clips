@@ -25,7 +25,6 @@ class SelectMediaCollectionView: UICollectionView {
     let maxVideoFileSizeInMB : Int = 50
     let totalMediaUploadLimit = 5
     let interItemsSpacing: CGFloat = 10
-    
     var arrVideo = [String]()
     var arrImages = [String]()
     var arrImagesVideo = [String]()
@@ -33,12 +32,11 @@ class SelectMediaCollectionView: UICollectionView {
     var imageString = ""
     var content = [String:Any]()
     var isSeletected = true
-    
-    
     let imagePicker = UIImagePickerController()
     var photosPickerViewController = TLPhotosPickerViewController()
     var arrDeletedApiImages : [String] = []
     var isConfirmAlertOnDelete = false
+    
     override var contentSize:CGSize {
         didSet {
             self.invalidateIntrinsicContentSize()
@@ -54,16 +52,10 @@ class SelectMediaCollectionView: UICollectionView {
         
         self.delegate = self
         self.dataSource =  self
-        
-        
         imagePicker.delegate = self
-        
         photosPickerViewController.delegate = self
-        
         self.register(UINib(nibName: "AddMediaCollCell", bundle: nil), forCellWithReuseIdentifier: "AddMediaCollCell")
-        
         self.register(UINib(nibName: "SelectMediaCollCell", bundle: nil), forCellWithReuseIdentifier: "SelectMediaCollCell")
-        
         self.contentInset = UIEdgeInsets(top: interItemsSpacing, left: interItemsSpacing, bottom: interItemsSpacing, right: interItemsSpacing)
         self.isPagingEnabled    = false
     }
@@ -267,7 +259,7 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
         if mediaType == "public.image"{
             var image:UIImage?
             //            var selectedImage: UIImage!
-            var imageUrl: URL!
+            var _: URL!
             if self.imagePicker.allowsEditing {
                 image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
             } else {
@@ -291,7 +283,6 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
                         print("UploadImage::::::::::::::\(imgUrls)")
                         self.imgName = imgUrls
                         let content:[String:Any]  = [
-                            //                                "mime": "video",
                             "mime": "image",
                             "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                             "image_path":imgUrls
@@ -360,7 +351,6 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
                                 let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
                                 let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
                                 let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                                //                                        print("replace1\(replaced1)")
                                 self.imageString = replaced1!
                             } catch {
                                 print(error.localizedDescription)
@@ -521,9 +511,7 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                     videoMedia.url = url.absoluteString
                     let urlVidoes = UIImage()
                     self?.imgName = url.absoluteString
-                    //                    self?.imgName.stringToImage { [self](image) in
                     let modileNum = appDelegate.loginUser?.mobile
-                    
                     MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum ?? "", ImageSTt: urlVidoes ,isFrom:"videos",uploadFrom:self?.imgName ?? "")
                     
                     MInioimageupload.shared().callback = { [self] imgUrls in
@@ -550,7 +538,6 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                             let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
                             let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
                             let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                            //                                        print("replace1\(replaced1)")
                             self?.imageString = replaced1!
                         } catch {
                             print(error.localizedDescription)
@@ -618,7 +605,6 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                                 let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
                                 let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
                                 let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                                //                                        print("replace1\(replaced1)")
                                 self?.imageString = replaced1!
                             } catch {
                                 print(error.localizedDescription)
@@ -672,7 +658,6 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                     
                     self?.imgName = url.absoluteString
                     self?.imgName.stringToImage {(image) in
-                        //                                    MInioimageupload.shared().uploadMinioimage(ImgnameStr:image!)
                         guard let mobileNum = appDelegate.loginUser?.mobile else {
                             return
                         }
@@ -701,7 +686,6 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                                 let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
                                 let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
                                 let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                                //                                        print("replace1\(replaced1)")
                                 self?.imageString = replaced1!
                             } catch {
                                 print(error.localizedDescription)

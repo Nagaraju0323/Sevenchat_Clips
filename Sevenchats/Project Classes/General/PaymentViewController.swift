@@ -64,15 +64,5 @@ extension PaymentViewController {
         MIGeneralsAPI.shared().removeAdvertisement(transactionID: "abc") { (_) in
             MILoader.shared.hideLoader()
         }
-        
-        /*MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        RageProducts.store.prepareProductForBuy(productIDs: [sevenchatsyear], completionHandler: { (transactionState, product) in
-            MILoader.shared.hideLoader()
-            if transactionState != nil {
-                RageProducts.store.manageIAPState(self.viewController!,transactionState!, product)
-            }else {
-                // show alert here...
-            }
-        })*/
     }
 }

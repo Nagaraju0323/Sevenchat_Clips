@@ -7,9 +7,6 @@
 //
 
 import UIKit
-//import Photos
-//import AssetsLibrary
-//import TLPhotoPicker
 
 class AddMediaCollCell: UICollectionViewCell {
 

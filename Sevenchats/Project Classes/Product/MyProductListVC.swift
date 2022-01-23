@@ -63,7 +63,7 @@ class MyProductListVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "loadder"), object: nil)
         
     }
-
+    
     //MARK: - Memory management methods
     deinit {
         print("### deinit -> MyProductListVC")
@@ -126,8 +126,8 @@ extension MyProductListVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductListCell") as? ProductListCell, !allMyProduct.isEmpty else{
             return UITableViewCell(frame: .zero)
         }
-      
-             cell.product = allMyProduct[indexPath.row]
+        
+        cell.product = allMyProduct[indexPath.row]
         // Load more data....
         if (indexPath == tblProductList.lastIndexPath()) && !self.isLoadMoreCompleted {
             self.myProductList(isLoader: false)
@@ -171,17 +171,15 @@ extension MyProductListVC {
         
         guard let userID = appDelegate.loginUser?.user_id else {return}
         let userIDstr = String(describing: userID)
-
-        //self.allMyProduct.removeAll()
+        
         apiTask = APIRequest.shared().getmyProductList(param: para,showLoader: isLoader, userID:userIDstr, completion:{ [weak self](response, error) in
             guard let _ = self else { return }
             self?.refreshControl.endRefreshing()
-//            self?.allMyProduct.removeAll()
+            //            self?.allMyProduct.removeAll()
             if response != nil {
                 GCDMainThread.async {
                     let arrDatass = response!["products"] as? [String : Any] ?? [:]
-                     let arrData = arrDatass["my_product"] as? [[String : Any]] ?? []
-                    //self.isLoadMoreCompleted = (arrData.count == 0)
+                    let arrData = arrDatass["my_product"] as? [[String : Any]] ?? []
                     if self?.pageNumber == 1{
                         self?.allMyProduct.removeAll()
                     }
@@ -193,9 +191,6 @@ extension MyProductListVC {
                     }
                     for obj in arrData{
                         self?.allMyProduct.append(MDLProduct(fromDictionary: obj))
-//                        if obj["user_email"] as? String == appDelegate.loginUser?.email{
-//                            self?.allMyProduct.append(MDLProduct(fromDictionary: obj))
-//                        }
                     }
                     if self?.tblProductList != nil{
                         self?.tblProductList.reloadData()
@@ -233,19 +228,13 @@ extension MyProductListVC {
         guard let userid = appDelegate.loginUser?.user_id else {return}
         para["title"] = SearchStr
         para["user_id"] = userid.description
-        
-        
-
-        //self.allMyProduct.removeAll()
         apiTask = APIRequest.shared().getmyProductListSearch(param: para,showLoader: isLoader, completion:{ [weak self](response, error) in
             guard let _ = self else { return }
             self?.refreshControl.endRefreshing()
-//            self?.allMyProduct.removeAll()
             if response != nil {
                 GCDMainThread.async {
                     let arrDatass = response!["products"] as? [String : Any] ?? [:]
-                     let arrData = arrDatass["my_product"] as? [[String : Any]] ?? []
-                    //self.isLoadMoreCompleted = (arrData.count == 0)
+                    let arrData = arrDatass["my_product"] as? [[String : Any]] ?? []
                     if self?.pageNumber == 1{
                         self?.allMyProduct.removeAll()
                     }
@@ -257,9 +246,6 @@ extension MyProductListVC {
                     }
                     for obj in arrData{
                         self?.allMyProduct.append(MDLProduct(fromDictionary: obj))
-//                        if obj["user_email"] as? String == appDelegate.loginUser?.email{
-//                            self?.allMyProduct.append(MDLProduct(fromDictionary: obj))
-//                        }
                     }
                     if self?.tblProductList != nil{
                         self?.tblProductList.reloadData()
@@ -276,9 +262,6 @@ extension MyProductListVC {
             }
         })
     }
-    
-    
-    
     func allProductListFilter(isLoader:Bool = true,category:String) {
         
         if apiTask?.state == URLSessionTask.State.running {
@@ -302,14 +285,10 @@ extension MyProductListVC {
         apiTask = APIRequest.shared().getProductListCategory(param:para ,category:category, showLoader: isLoader, completion:{ [weak self](response, error) in
             guard let _ = self else { return }
             self?.refreshControl.endRefreshing()
-//            self?.allMyProduct.removeAll()
             if response != nil {
                 GCDMainThread.async {
-//                    let arrData = response![CData] as? [[String : Any]] ?? []
-                    
                     let arrDatass = response!["products"] as? [String : Any] ?? [:]
-                     let arrData = arrDatass["products"] as? [[String : Any]] ?? []
-                    //self.isLoadMoreCompleted = (arrData.count == 0)
+                    let arrData = arrDatass["products"] as? [[String : Any]] ?? []
                     if self?.pageNumber == 1{
                         self?.allMyProduct.removeAll()
                     }
@@ -322,19 +301,13 @@ extension MyProductListVC {
                     for obj in arrData{
                         if obj.valueForString(key: "user_id") == appDelegate.loginUser?.user_id.description{
                             self?.allMyProduct.append(MDLProduct(fromDictionary: obj))
-                                                    
-                                                }
-                        
-                        
-//                        if obj["user_email"] as? String == appDelegate.loginUser?.email{
-//                            self?.allMyProduct.append(MDLProduct(fromDictionary: obj))
-//                        }
+                        }
                     }
                     if self?.tblProductList != nil{
                         self?.tblProductList.reloadData()
                         if self?.pageNumber == 2 && !(self?.isLoadMoreCompleted ?? true){
-                            let indexPath = IndexPath(row: 0,section: 0)
-                           // self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                            _ = IndexPath(row: 0,section: 0)
+                            // self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
                         }
                     }
                 }

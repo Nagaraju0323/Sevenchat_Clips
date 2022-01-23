@@ -6,6 +6,14 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : SharePostViewController                   *
+ * Changes :                                             *
+ * Deisplay Share Details user can like and comments,    *
+ * Delete forparticular post                             *
+ ********************************************************/
+
 import Foundation
 import UIKit
 

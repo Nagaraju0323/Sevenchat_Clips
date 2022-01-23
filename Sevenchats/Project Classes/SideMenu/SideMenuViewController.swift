@@ -11,7 +11,7 @@ import UIKit
 
 let kNotificationCount = "kNotificationCount"
 class SideMenuViewController: ParentViewController {
-
+    
     
     @IBOutlet var lblUserName : UILabel!
     @IBOutlet var imgUser : UIImageView!
@@ -33,53 +33,21 @@ class SideMenuViewController: ParentViewController {
         super.viewWillAppear(animated)
         
         self.updateUserProfile()
-        
-        //New OLD
-
         arrMenu = [
             [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "ic_home"), CImageSelected:#imageLiteral(resourceName: "ic_home"), kNotificationCount:0],
             [CTitle:CNavFriends as Any, CImage:#imageLiteral(resourceName: "ic_friend"), CImageSelected:#imageLiteral(resourceName: "ic_friend"), kNotificationCount:0],
             [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "ic_groups"), CImageSelected:#imageLiteral(resourceName: "ic_groups"), kNotificationCount:0],
-//            [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), kNotificationCount:0],
             [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "ic_chats"), CImageSelected:#imageLiteral(resourceName: "ic_chats"), kNotificationCount:0],
             [CTitle:CSideNews as Any, CImage:#imageLiteral(resourceName: "ic_news"), CImageSelected:#imageLiteral(resourceName: "ic_news"), kNotificationCount:0],
             [CTitle:CSidePSL as Any, CImage:#imageLiteral(resourceName: "ic_psl"), CImageSelected:#imageLiteral(resourceName: "ic_psl"), kNotificationCount:0],
-
             [CTitle:CSideNotifications as Any, CImage:#imageLiteral(resourceName: "ic_notification"), CImageSelected:#imageLiteral(resourceName: "ic_notification"), kNotificationCount:0],
             [CTitle:CStores as Any, CImage:#imageLiteral(resourceName: "ic_store"), CImageSelected:#imageLiteral(resourceName: "ic_store"), kNotificationCount:0],
-//            [CTitle:CFileTitle as Any, CImage:UIImage(named: "ic_menu_file")!, CImageSelected:UIImage(named: "ic_menu_file")!, kNotificationCount:0],
             [CTitle:CSideQuotes as Any, CImage:#imageLiteral(resourceName: "ic_quotes"), CImageSelected:#imageLiteral(resourceName: "ic_quotes"), kNotificationCount:0],
-//            [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_postadd"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_postadd"), kNotificationCount:0],
-//            [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_eventcalendar"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_eventcalendar"), kNotificationCount:0],
             [CTitle:CMyRewards as Any, CImage:#imageLiteral(resourceName: "ic_rewards"), CImageSelected:#imageLiteral(resourceName: "ic_rewards"), kNotificationCount:0],
             [CTitle:CSideFavWebSites as Any, CImage:#imageLiteral(resourceName: "ic_favorite"), CImageSelected:#imageLiteral(resourceName: "ic_favorite"), kNotificationCount:0],
-            //[CTitle:CSideProfile as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_profile"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_profile"), kNotificationCount:0],
             [CTitle:CSideSettings as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
             [CTitle:CSideLogout as Any, CImage:#imageLiteral(resourceName: "ic_logout"), CImageSelected:#imageLiteral(resourceName: "ic_logout"), kNotificationCount:0]
         ]
-    
-        //New Code
-        
-        
-//        arrMenu = [
-//            [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "home ios"), CImageSelected:#imageLiteral(resourceName: "home ios"), kNotificationCount:0],
-//            [CTitle:CNavFriends as Any, CImage:#imageLiteral(resourceName: "friends"), CImageSelected:#imageLiteral(resourceName: "friends"), kNotificationCount:0],
-//            [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "team"), CImageSelected:#imageLiteral(resourceName: "team"), kNotificationCount:0],
-//            [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "invitation"), CImageSelected:#imageLiteral(resourceName: "invitation"), kNotificationCount:0],
-//            [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "chat"), CImageSelected:#imageLiteral(resourceName: "chat"), kNotificationCount:0],
-//            [CTitle:CSideNews as Any, CImage:#imageLiteral(resourceName: "news"), CImageSelected:#imageLiteral(resourceName: "news"), kNotificationCount:0],
-//            [CTitle:CSideNotifications as Any, CImage:#imageLiteral(resourceName: "Notification.png"), CImageSelected:#imageLiteral(resourceName: "Notification.png"), kNotificationCount:0],
-//            [CTitle:CStores as Any, CImage:#imageLiteral(resourceName: "Store"), CImageSelected:#imageLiteral(resourceName: "Store"), kNotificationCount:0],
-//            [CTitle:CFileTitle as Any, CImage:#imageLiteral(resourceName: "Files"), CImageSelected:#imageLiteral(resourceName: "Files"), kNotificationCount:0],
-//            [CTitle:CSideQuotes as Any, CImage:#imageLiteral(resourceName: "quote.png"), CImageSelected:#imageLiteral(resourceName: "quote.png"), kNotificationCount:0],
-//            [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "Postads"), CImageSelected:#imageLiteral(resourceName: "Postads"), kNotificationCount:0],
-//            [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "event Calender"), CImageSelected:#imageLiteral(resourceName: "event Calender"), kNotificationCount:0],
-//            [CTitle:CMyRewards as Any, CImage:#imageLiteral(resourceName: "Myrewards"), CImageSelected:#imageLiteral(resourceName: "Myrewards"), kNotificationCount:0],
-//            [CTitle:CSideFavWebSites as Any, CImage:#imageLiteral(resourceName: "wifi-signal"), CImageSelected:#imageLiteral(resourceName: "wifi-signal"), kNotificationCount:0],
-//            //[CTitle:CSideProfile as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_profile"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_profile"), kNotificationCount:0],
-//            [CTitle:CSideSettings as Any, CImage:#imageLiteral(resourceName: "Settings"), CImageSelected:#imageLiteral(resourceName: "Settings"), kNotificationCount:0],
-//            [CTitle:CSideLogout as Any, CImage:#imageLiteral(resourceName: "logout"), CImageSelected:#imageLiteral(resourceName: "logout"), kNotificationCount:0]
-//        ]
         
         tblMenu.reloadData()
         
@@ -144,119 +112,19 @@ extension SideMenuViewController {
             [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "ic_home"), CImageSelected:#imageLiteral(resourceName: "ic_home"), kNotificationCount:0],
             [CTitle:CNavFriends as Any, CImage:#imageLiteral(resourceName: "ic_friend"), CImageSelected:#imageLiteral(resourceName: "ic_friend"), kNotificationCount:0],
             [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "ic_groups"), CImageSelected:#imageLiteral(resourceName: "ic_groups"), kNotificationCount: groupCount],
-//            [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), kNotificationCount:0],
             [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "ic_chats"), CImageSelected:#imageLiteral(resourceName: "ic_chats"), kNotificationCount:userCount],
             [CTitle:CSideNews as Any, CImage:#imageLiteral(resourceName: "ic_news"), CImageSelected:#imageLiteral(resourceName: "ic_news"), kNotificationCount:0],
             [CTitle:CSidePSL as Any, CImage:#imageLiteral(resourceName: "ic_psl"), CImageSelected:#imageLiteral(resourceName: "ic_psl"), kNotificationCount:0],
-
             [CTitle:CSideNotifications as Any, CImage:#imageLiteral(resourceName: "ic_notification"), CImageSelected:#imageLiteral(resourceName: "ic_notification"), kNotificationCount:notificationCount],
             [CTitle:CStores as Any, CImage:#imageLiteral(resourceName: "ic_store"), CImageSelected:#imageLiteral(resourceName: "ic_store"), kNotificationCount:0],
-//            [CTitle:CFileTitle as Any, CImage:UIImage(named: "ic_menu_file")!, CImageSelected:UIImage(named: "ic_menu_file")!, kNotificationCount:0],
             [CTitle:CSideQuotes as Any, CImage:#imageLiteral(resourceName: "ic_quotes"), CImageSelected:#imageLiteral(resourceName: "ic_quotes"), kNotificationCount:0],
-//            [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_postadd"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_postadd"), kNotificationCount:0],
-//            [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_eventcalendar"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_eventcalendar"), kNotificationCount:0],
             [CTitle:CMyRewards as Any, CImage:#imageLiteral(resourceName: "ic_rewards"), CImageSelected:#imageLiteral(resourceName: "ic_rewards"), kNotificationCount:0],
             [CTitle:CSideFavWebSites as Any, CImage:#imageLiteral(resourceName: "ic_favorite"), CImageSelected:#imageLiteral(resourceName: "ic_favorite"), kNotificationCount:0],
-            //[CTitle:CSideProfile as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_profile"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_profile"), kNotificationCount:0],
             [CTitle:CSideSettings as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
             [CTitle:CSideLogout as Any, CImage:#imageLiteral(resourceName: "ic_logout"), CImageSelected:#imageLiteral(resourceName: "ic_logout"), kNotificationCount:0]
         ]
         
         self.tblMenu.reloadData()
-        
-        
-        
-//        _ = APIRequest.shared().getNotificationCount { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil && error == nil {
-//                if let notificationInfo = response?[CJsonData] as? [String:Any] {
-//
-//                    let groupCount = notificationInfo.valueForInt(key: "group_count") ?? 0
-//                    let userCount = notificationInfo.valueForInt(key: "user_count") ?? 0
-//                    let notificationCount = notificationInfo.valueForInt(key: "notification_count") ?? 0
-//
-//                    UIApplication.shared.applicationIconBadgeNumber = groupCount + userCount + notificationCount
-//
-//                    if groupCount > 0 || userCount > 0 || notificationCount > 0 {
-//                        CUserDefaults.set(true, forKey: UserDefaultNotificationCountBadge)
-//                    }else {
-//                        CUserDefaults.set(false, forKey: UserDefaultNotificationCountBadge)
-//                    }
-//                    DispatchQueue.main.async {
-//                        if let viewcontroller = (appDelegate.sideMenuController.rootViewController as? UINavigationController)?.viewControllers.first as? ParentViewController{
-//                            if viewcontroller.view.tag != 111{
-//                                viewcontroller.addHomeBurgerButton()
-//                            }
-//                        }
-//                    }
-//
-//                    self.arrMenu = [
-//                        [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "ic_home"), CImageSelected:#imageLiteral(resourceName: "ic_home"), kNotificationCount:0],
-//                        [CTitle:CNavFriends as Any, CImage:UIImage(named:"ic_friend")!, CImageSelected:UIImage(named:"ic_friend")!, kNotificationCount:0],
-//                        [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_groups"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_groups"), kNotificationCount:notificationInfo.valueForInt(key: "group_count") ?? 0],
-//                        [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), kNotificationCount:0],
-//                        [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_chat"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_chat"), kNotificationCount:notificationInfo.valueForInt(key: "user_count") ?? 0],
-//                        [CTitle:CSideNews as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_news"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_news"), kNotificationCount:0],
-//                        [CTitle:CSideNotifications as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_notification"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_notification"), kNotificationCount:notificationInfo.valueForInt(key: "notification_count") ?? 0],
-//                        [CTitle:CStores as Any, CImage:UIImage(named: "ic_store_unselected")!, CImageSelected:UIImage(named: "ic_store_unselected")!, kNotificationCount:0],
-//                        [CTitle:CFileTitle as Any, CImage:UIImage(named: "ic_menu_file")!, CImageSelected:UIImage(named: "ic_menu_file")!, kNotificationCount:0],
-//                        [CTitle:CSideQuotes as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_quotes"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_quotes"), kNotificationCount:0],
-//                        [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_postadd"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_postadd"), kNotificationCount:0],
-//                        [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_eventcalendar"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_eventcalendar"), kNotificationCount:0],
-//                        [CTitle:CMyRewards as Any, CImage:UIImage(named: "ic_wallet_deselect")!, CImageSelected:UIImage(named: "ic_wallet_deselect")!, kNotificationCount:0],
-//                        [CTitle:CSideFavWebSites as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_favwedsite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_favwedsite"), kNotificationCount:0],
-//                        //[CTitle:CSideProfile as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_profile"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_profile"), kNotificationCount:0],
-//                        [CTitle:CSideSettings as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_setting"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_setting"), kNotificationCount:0],
-//                        [CTitle:CSideLogout as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_logout"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_logout"), kNotificationCount:0]
-//                    ]
-//
-//
-//
-////                    self.arrMenu = [
-////                        [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "ic_home"), CImageSelected:#imageLiteral(resourceName: "ic_home"), kNotificationCount:0],
-////                        [CTitle:CNavFriends as Any, CImage:UIImage(named:"ic_friend")!, CImageSelected:UIImage(named:"ic_friend")!, kNotificationCount:0],
-////                        [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_groups"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_groups"), kNotificationCount:notificationInfo.valueForInt(key: "group_count") ?? 0],
-////                        [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_connectInvite"), kNotificationCount:0],
-////                        [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_chat"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_chat"), kNotificationCount:notificationInfo.valueForInt(key: "user_count") ?? 0],
-////                        [CTitle:CSideNews as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_news"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_news"), kNotificationCount:0],
-////                        [CTitle:CSideNotifications as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_notification"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_notification"), kNotificationCount:notificationInfo.valueForInt(key: "notification_count") ?? 0],
-////                        [CTitle:CStores as Any, CImage:UIImage(named: "ic_store_unselected")!, CImageSelected:UIImage(named: "ic_store_selected")!, kNotificationCount:0],
-////                        [CTitle:CFileTitle as Any, CImage:UIImage(named: "ic_menu_file")!, CImageSelected:UIImage(named: "ic_menu_file_selected")!, kNotificationCount:0],
-////                        [CTitle:CSideQuotes as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_quotes"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_quotes"), kNotificationCount:0],
-////                        [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_postadd"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_postadd"), kNotificationCount:0],
-////                        [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_eventcalendar"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_eventcalendar"), kNotificationCount:0],
-////                        [CTitle:CMyRewards as Any, CImage:UIImage(named: "ic_wallet_deselect")!, CImageSelected:UIImage(named: "ic_wallet_select")!, kNotificationCount:0],
-////                        [CTitle:CSideFavWebSites as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_favwedsite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_favwebsite"), kNotificationCount:0],
-////                        //[CTitle:CSideProfile as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_profile"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_profile"), kNotificationCount:0],
-////                        [CTitle:CSideSettings as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_setting"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_setting"), kNotificationCount:0],
-////                        [CTitle:CSideLogout as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_logout"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_logout"), kNotificationCount:0]
-////                    ]
-//
-////                    self.arrMenu = [
-//////                        [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "home ios"), CImageSelected:#imageLiteral(resourceName: "home ios"), kNotificationCount:0],
-////                        [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "home ios"), CImageSelected:#imageLiteral(resourceName: "home ios"), kNotificationCount:0],
-//////                        [CTitle:CNavFriends as Any, CImage:UIImage(named:"ic_friend")!, CImageSelected:UIImage(named:"ic_friend")!, kNotificationCount:0],
-////                        [CTitle:CNavFriends as Any, CImage:#imageLiteral(resourceName: "friends"), CImageSelected:#imageLiteral(resourceName: "friends"), kNotificationCount:0],
-////                        [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "team"), CImageSelected:#imageLiteral(resourceName: "team"), kNotificationCount:notificationInfo.valueForInt(key: "group_count") ?? 0],
-////                        [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "invitation"), CImageSelected:#imageLiteral(resourceName: "invitation"), kNotificationCount:0],
-////                        [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "chat"), CImageSelected:#imageLiteral(resourceName: "chat"), kNotificationCount:notificationInfo.valueForInt(key: "user_count") ?? 0],
-////                        [CTitle:CSideNews as Any, CImage:#imageLiteral(resourceName: "news"), CImageSelected:#imageLiteral(resourceName: "news"), kNotificationCount:0],
-////                        [CTitle:CSideNotifications as Any, CImage:#imageLiteral(resourceName: "Notification.png"), CImageSelected:#imageLiteral(resourceName: "Notification.png"), kNotificationCount:notificationInfo.valueForInt(key: "notification_count") ?? 0],
-////                        [CTitle:CStores as Any, CImage:#imageLiteral(resourceName: "Store"), CImageSelected:#imageLiteral(resourceName: "Store"), kNotificationCount:0],
-////                        [CTitle:CFileTitle as Any, CImage:#imageLiteral(resourceName: "Files"), CImageSelected:#imageLiteral(resourceName: "Files"), kNotificationCount:0],
-////                        [CTitle:CSideQuotes as Any, CImage:#imageLiteral(resourceName: "quote.png"), CImageSelected:#imageLiteral(resourceName: "quote.png"), kNotificationCount:0],
-////                        [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "Postads"), CImageSelected:#imageLiteral(resourceName: "Postads"), kNotificationCount:0],
-////                        [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "event Calender"), CImageSelected:#imageLiteral(resourceName: "event Calender"), kNotificationCount:0],
-////                        [CTitle:CMyRewards as Any, CImage:#imageLiteral(resourceName: "Myrewards"), CImageSelected:#imageLiteral(resourceName: "Myrewards"), kNotificationCount:0],
-////                        [CTitle:CSideFavWebSites as Any, CImage:#imageLiteral(resourceName: "wifi-signal"), CImageSelected:#imageLiteral(resourceName: "wifi-signal"), kNotificationCount:0],
-////                        //[CTitle:CSideProfile as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_profile"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_selected_profile"), kNotificationCount:0],
-////                        [CTitle:CSideSettings as Any, CImage:#imageLiteral(resourceName: "Settings"), CImageSelected:#imageLiteral(resourceName: "Settings"), kNotificationCount:0],
-////                        [CTitle:CSideLogout as Any, CImage:#imageLiteral(resourceName: "logout"), CImageSelected:#imageLiteral(resourceName: "logout"), kNotificationCount:0]
-////                    ]
-//                    self.tblMenu.reloadData()
-//                }
-//            }
-//        }
     }
 }
 
@@ -271,7 +139,7 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 50.0
+        //        return 50.0
         return CScreenWidth*13.34/100
     }
     
@@ -295,8 +163,6 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.btnImage.isSelected = false
                 cell.viewLine.isHidden = true
-                //cell.lblTitle.textColor = CRGB(r: 148, g: 151, b: 150)
-                //cell.lblTitle.textColor = CRGB(r: 153, g: 161, b: 154)
                 cell.lblTitle.textColor = CRGB(r: 129, g: 122, b: 122)
                 cell.contentView.backgroundColor = UIColor.clear
             }
@@ -324,7 +190,6 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
         case CFileTitle:
             
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardFile.instantiateViewController(withIdentifier: "FileSharingViewController"))
-            //appDelegate.hideSidemenu()
             let systemVersion = UIDevice.current.systemVersion.toInt ?? 0
             if systemVersion < 13 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -339,14 +204,12 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
         case CNavFriends:
             if let frndVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyFriendsViewController") as? MyFriendsViewController {
                 frndVC.isFromSideMenu = true
-                //self.navigationController?.pushViewController(frndVC, animated: true)
                 appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: frndVC)
                 appDelegate.hideSidemenu()
             }
             break
         case CSideChat:
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController"))
-            //appDelegate.hideSidemenu()
             let systemVersion = UIDevice.current.systemVersion.toInt ?? 0
             if systemVersion < 13 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -357,7 +220,6 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
             
         case CSideGroups:
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardGroup.instantiateViewController(withIdentifier: "GroupsViewController"))
-            //appDelegate.hideSidemenu()
             let systemVersion = UIDevice.current.systemVersion.toInt ?? 0
             if systemVersion < 13 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -368,7 +230,6 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
             
         case CSideQuotes:
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardSideMenu.instantiateViewController(withIdentifier: "QuotesViewController"))
-            //appDelegate.hideSidemenu()
             let systemVersion = UIDevice.current.systemVersion.toInt ?? 0
             if systemVersion < 13 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -392,8 +253,6 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
             appDelegate.hideSidemenu()
             break
         case CSidePSL:
-//            appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardSideMenu.instantiateViewController(withIdentifier: "PSLSideViewController"))
-            
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardSideMenu.instantiateViewController(withIdentifier: "PSLViewController"))
             appDelegate.hideSidemenu()
             break
@@ -430,7 +289,7 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardEvent.instantiateViewController(withIdentifier: "EventListViewController"))
             appDelegate.hideSidemenu()
             break
-
+            
         case CSideNotifications:
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardGeneral.instantiateViewController(withIdentifier: "NotificationViewController"))
             //appDelegate.hideSidemenu()
@@ -452,7 +311,6 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
             break
         case CSideSettings:
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardSetting.instantiateViewController(withIdentifier: "SettingViewController"))
-            //appDelegate.hideSidemenu()
             let systemVersion = UIDevice.current.systemVersion.toInt ?? 0
             if systemVersion < 13 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -465,12 +323,10 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageLogout, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                 guard let _ = self else { return }
                 MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: 1)
-//                TVITokenService.shared.deleteUserBindingAPI()
-//                AudioTokenService.shared.unregisterTwilioVoice()
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             
             break
-
+            
         default:
             break
         }

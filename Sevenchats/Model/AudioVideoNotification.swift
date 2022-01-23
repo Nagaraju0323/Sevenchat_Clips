@@ -21,12 +21,6 @@ class AudioVideoNotification : NSObject {
     var userData : NotificationUserData!
     
     fileprivate var _notificationType : String?
-//    var notificationType : CallNotificationType!{
-//        return CallNotificationType(rawValue: _notificationType ?? "") ?? .None
-//    }
-    
-    
-    
     init(fromDictionary dictionary: [String:Any]){
         
         if let _aps = dictionary["aps"] as? [String:Any]{

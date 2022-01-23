@@ -62,8 +62,6 @@ class MyFriendsViewController: ParentViewController {
         
     }
     
-    
-    
     // MARK:- --------- Initialization
     func Initialization(){
         NotificationCenter.default.addObserver(self, selector: #selector(NotificationRecived), name: NSNotification.Name(rawValue: "NotificationRecived"), object: nil)
@@ -227,9 +225,8 @@ extension MyFriendsViewController{
         
     }
     
-
     //MARK:- FRIEND STATUS
-
+    
     func getListFriends(_ search : String?, showLoader : Bool) {
         
         guard let user_Id = appDelegate.loginUser?.user_id else {return}
@@ -237,7 +234,6 @@ extension MyFriendsViewController{
         apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 0, search: search, group_id : Int(user_Id), showLoader: showLoader, completion: { [weak self] (response, error) in
             guard let self = self else { return }
             self.refreshControl.endRefreshing()
-            //  self.tblFriendList.tableFooterView = nil
             if response != nil{
                 if let arrList = response!["my_friends"] as? [[String:Any]]{
                     self.arrList = arrList
@@ -253,7 +249,6 @@ extension MyFriendsViewController{
         apiTask = APIRequest.shared().getFriendList(page: self.pageNumber, request_type: 1, search: search, group_id : Int(user_Id), showLoader: showLoader, completion: { [weak self] (response, error) in
             guard let self = self else { return }
             self.refreshControl.endRefreshing()
-            //  self.tblFriendList.tableFooterView = nil
             if response != nil{
                 if let arrList = response!["frndReq"] as? [[String:Any]]{
                     self.arrRequestList = arrList
@@ -285,14 +280,11 @@ extension MyFriendsViewController{
                         MIGeneralsAPI.shared().sendNotification(friend_ID!.toString, userID: friend_ID!.toString, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName)
                         
                         MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:"Connections",type:CFriendsrequestaccept,title:"Connections",name:name,icon:image)
-                        
-                        
                     }
                 }
                 
                 var frndInfo = userInfo
                 if let index = self.arrFriendList.firstIndex(where: {$0["friend_user_id"] as? String == friend_ID!.toString}){
-                    //                        if let index = self.arrFriendList.firstIndex(where: {$0[CUserId] as? Int == userid}){
                     self.arrFriendList.remove(at: index)
                     self.isRefreshingUserData = true
                     UIView.performWithoutAnimation {
@@ -313,12 +305,10 @@ extension MyFriendsViewController{
                 if message == "0"{
                     MIGeneralsAPI.shared().sendNotification( friend_ID!.toString, userID: friend_ID!.toString, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent: "", showDisplayContent: "accepted your friend request", senderName: firstName + lastName)
                 }
-
+                
             }
         })
-        
     }
-    
 }
 
 // MARK:- --------- UICollectionView Delegate/Datasources
@@ -423,7 +413,6 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
                 var frndStatus = 0
                 var alertMessage = ""
                 do{
-                    
                     for data in self?.arrList ?? []{
                         if userInfo.valueForString(key: "friend_user_id") == data?.valueForString(key: "friend_user_id"){
                             self?.Friend_status = 5
@@ -436,7 +425,6 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
                     }
                     
                 }
-                // switch userInfo.valueForInt(key: CFriend_status) {
                 switch self?.Friend_status {
                 case 1:
                     frndStatus = CFriendRequestCancel
@@ -465,8 +453,6 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                 
             }
-            
-            
             switch selectedIndexPath.item {
             case 0:
                 cell.viewAcceptReject.isHidden = true
@@ -494,13 +480,7 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let userInfo = arrFriendList[indexPath.row]
-        //        appDelegate.moveOnProfileScreen(userInfo.valueForString(key: CUserId), self)
-        //        appDelegate.moveOnProfileScreenNew(userInfo.valueForString(key: CFriendID), userInfo.valueForString(key: CUsermailID), self)
         appDelegate.moveOnProfileScreenNew(userInfo.valueForString(key: "friend_user_id"), userInfo.valueForString(key: CUsermailID), self)
-        
-        
-        
-        
     }
 }
 
@@ -517,31 +497,24 @@ extension MyFriendsViewController {
             btnSearch.isHidden = true
             break
         case 1:
-            
             txtSearch.resignFirstResponder()
             lblTitle.isHidden = false
             viewSearchBar.isHidden = true
             btnCancel.isHidden = true
             btnSearch.isHidden = false
-            
             // Clear all search data...
             if !(txtSearch.text?.isBlank)! {
                 txtSearch.text = nil
                 self.pageNumber = 1
                 self.getFriendList(txtSearch.text, showLoader: false)
             }
-            
             break
-            
         case 2:
             txtSearch.text = nil
             break
-            
         default:
             break
-            
         }
-        
     }
 }
 
@@ -552,7 +525,6 @@ extension MyFriendsViewController : UITextFieldDelegate {
         if apiTask?.state == URLSessionTask.State.running {
             apiTask?.cancel()
         }
-        
         if (textFiled.text?.count)! < 2{
             pageNumber = 1
             arrFriendList.removeAll()
@@ -560,7 +532,6 @@ extension MyFriendsViewController : UITextFieldDelegate {
             self.getFriendList("", showLoader: false)
             return
         }
-        
         pageNumber = 1
         self.getFriendList(txtSearch.text, showLoader: false)
     }

@@ -101,51 +101,7 @@ extension BlockUserListViewController{
         self.getBlockUserListFromServer(false, search: txtSearch.text)
     }
     
-//    fileprivate func getBlockUserListFromServer(_ shouldShowLoader : Bool, search : String?){
-//
-//        if apiTask?.state == URLSessionTask.State.running {
-//            return
-//        }
-//
-//        // Add load more indicator here...
-//        if self.pageNumber > 2 {
-//            self.tblBlockList.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-//        }else{
-//            self.tblBlockList.tableFooterView = nil
-//        }
-//
-//        apiTask = APIRequest.shared().getBlockUserList(page: pageNumber, search: search, showLoader: shouldShowLoader) { (response, error) in
-//            self.refreshControl.endRefreshing()
-//            self.tblBlockList.tableFooterView = nil
-//
-//            if response != nil && error == nil{
-//                if let arrList = response![CJsonData] as? [[String:Any]]{
-//
-//                    // Remove all data here when page number == 1
-//                    if self.pageNumber == 1{
-//                        self.arrBlockUserList.removeAll()
-//                        self.tblBlockList.reloadData()
-//                    }
-//
-//                    // Add Data here...
-//                    if arrList.count > 0{
-//                        self.arrBlockUserList = self.arrBlockUserList + arrList
-//                        self.tblBlockList.reloadData()
-//                        self.pageNumber += 1
-//                    }
-//                }
-//
-//                if let metaInfo = response![CJsonMeta] as? [String : Any]{
-//                    self.setBlockCountAttributeString(metaInfo.valueForInt(key: CTotal))
-//                }
-//
-//                self.vwBlockCount.isHidden = self.arrBlockUserList.count == 0
-//                self.lblNoData.isHidden = self.arrBlockUserList.count > 0
-//            }
-//
-//        }
-//    }
- //MARK:-
+ //MARK:- API Call
     fileprivate func getBlockUserListFromServer(_ shouldShowLoader : Bool, search : String?){
             
             if apiTask?.state == URLSessionTask.State.running {
@@ -165,9 +121,7 @@ extension BlockUserListViewController{
                 
                 if response != nil && error == nil{
                     let total = response!["total_block_users"] as? Int
-                    print("total\(total)")
                     if let arrList = response!["block_users"] as? [[String:Any]]{
-                        
                         // Remove all data here when page number == 1
                         if self.pageNumber == 1{
                             self.arrBlockUserList.removeAll()
@@ -192,8 +146,6 @@ extension BlockUserListViewController{
                 
             }
     }
-    
-    
 }
 
 
@@ -216,14 +168,12 @@ extension BlockUserListViewController : UITableViewDataSource, UITableViewDelega
         if let cell = tableView.dequeueReusableCell(withIdentifier: "BlockUserListTblCell", for: indexPath) as? BlockUserListTblCell {
             let userInfo = arrBlockUserList[indexPath.row]
             cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-            //cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
             cell.imgUser.image=UIImage(named: "ic_sidemenu_normal_profile")
             cell.btnUnblock.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageUnBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
                     guard let self = self else { return }
                     self.apiUhblockUser(userInfo.valueForString(key: "friend_user_id") ?? "",index: indexPath.row)
-                    //self.apiUhblockUser(userInfo.valueForInt(key: CId) ?? 0,index: indexPath.row)
                     }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
@@ -312,14 +262,12 @@ extension BlockUserListViewController{
 extension BlockUserListViewController{
     
     func apiUhblockUser(_ userId: String, index:Int){
-        //APIRequest.shared().blockUnblockUser(userID:userId, block_unblock_status: 0, completion: { (response, error) in
            APIRequest.shared().blockUnblockUserNew(userID:userId, block_unblock_status: "7", completion: { (response, error) in
             if response != nil{
                 self.arrBlockUserList.remove(at: index)
                 UIView.performWithoutAnimation {
                     self.tblBlockList.reloadData()
                 }
-                
                 self.vwBlockCount.isHidden = self.arrBlockUserList.count == 0
                 self.lblNoData.isHidden = self.arrBlockUserList.count > 0
             }

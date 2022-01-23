@@ -6,11 +6,11 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
-/********************************************************
-* Author :  Chandrika.R                                *
-* Model  : GroupChat Messages                          *
-* options: Group Create                                *
-********************************************************/
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : CreateChatGroupViewController               *
+ * Changes :                                             *
+ ********************************************************/
 
 import UIKit
 import IQKeyboardManagerSwift
@@ -115,7 +115,6 @@ class CreateChatGroupViewController: ParentViewController {
         
         MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: #imageLiteral(resourceName: "ic_shout_discussion"),isFrom:"",uploadFrom:"")
         MInioimageupload.shared().callback = { message in
-        print("UploadImage::::::::::::::\(message)")
         self.defaultImgUrl = message
         }
     }
@@ -250,15 +249,10 @@ extension CreateChatGroupViewController{
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CUploadImage, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
 
-//          apiPara[CGroupType] = btnPublic.isSelected ? 1 : 2
             apiPara[CGroupType] = "1"
-            
             // While editing the group.....
             if groupID != nil {
                 apiPara[CGroupId] = groupID?.toString
-//                            if let groupInfo = self.iObject as? [String : Any]{
-//                                apiPara[CLink] = groupInfo.valueForString(key: CGroupLink)
-//                            }
             }
 
             APIRequest.shared().EditChatGroup(para: apiPara, image: imgGroupIcon.image) { (response, error) in
@@ -276,7 +270,6 @@ extension CreateChatGroupViewController{
                     if self.groupID == nil {
                         let arrUserIDS = self.arrSelectedParticipants.map({$0.valueForString(key: CUserId) })
                         if arrUserIDS.count > 0 {
-//                            MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrUserIDS, status: 0, groupId: _groupID, isSend:0)
                         }
                     }
                     
@@ -342,14 +335,6 @@ extension CreateChatGroupViewController{
             
             APIRequest.shared().addEditChatGroup(para: dict, image: imgGroupIcon.image) { [self] (response, error) in
                  if response != nil && error == nil {
-//                    if let metaInfo = response![CJsonMeta] as? [String:Any]{
-//                        guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
-//                        let errorMsg = errorUserinfo.stringAfter(":")
-//
-//                        print("erroMsg\(errorMsg)")
-//
-//                    }
-                     
                      var _groupID = "0"
                     var _groupName = ""
                      if let groupInfo = response![CJsonData] as? [String : Any]{
@@ -413,8 +398,6 @@ extension CreateChatGroupViewController{
         
         if (textField.text?.count)! > 0 {
             currentPage = 1
-             //existed group and
-//            self.loadSearchGroup(showLoader: false)
         }
 
         if textField.text?.count == 0{
@@ -616,22 +599,11 @@ extension CreateChatGroupViewController{
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
                 self.groupImage = image
-                
-//                if let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL {
-//                    self.imgName = imageURL.absoluteString ?? ""
-//                }else if let imageURL =  info?[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-//                    
-////                    try? image?.pngData()?.write(to: imageURL)
-//
-//
-//                }
-//                self.imgName = imageURL.absoluteString ?? ""
                 guard let mobileNum = appDelegate.loginUser?.mobile else {
                     return
                 }
                 MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                 MInioimageupload.shared().callback = { message in
-                print("UploadImage::::::::::::::\(message)")
                 self.imgName = message
                 }
             }
@@ -656,7 +628,6 @@ extension CreateChatGroupViewController{
                 }
                 MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                 MInioimageupload.shared().callback = { message in
-                print("UploadImage::::::::::::::\(message)")
                 self.imgName = message
                 }
             }

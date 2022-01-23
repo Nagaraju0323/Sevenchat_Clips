@@ -6,6 +6,12 @@
 //  Copyright © 2020 mac-00020. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ForwardViewController                       *
+ * Changes :                                             *
+ ********************************************************/
+
 import UIKit
 
 class ForwardViewController: ParentViewController {
@@ -148,30 +154,7 @@ extension ForwardViewController {
 //MARK: - ForwardMessages
 extension ForwardViewController {
     func forwardMessageToUsers(usersIDs: [Int], groupIDs:[String:[String]]) {
-//        for userId in usersIDs {
-//            let channelId = CMQTTUSERTOPIC + "\(userId)"
-//            MIMQTT.shared().messagePaylaod(
-//                arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userId)"],
-//                channelId: channelId,
-//                message: forwardMsg.message,
-//                messageType: .text,
-//                chatType: .user,
-//                groupID: nil,
-//                forwardedMsgId: forwardMsg.message_id ?? "", is_auto_delete: 0
-//            )
-//        }
-//        for (_, obj) in groupIDs.enumerated() {
-//            let channelId = CMQTTUSERTOPIC + obj.key
-//            MIMQTT.shared().messagePaylaod(
-//                arrUser: obj.value,
-//                channelId: channelId,
-//                message: forwardMsg.message,
-//                messageType: .text,
-//                chatType: .group,
-//                groupID: obj.key,
-//                forwardedMsgId: forwardMsg.message_id ?? "", is_auto_delete: 0
-//            )
-//        }
+
         if msgCount == msgidUsertItems.count{
             self.navigationController?.popViewController(animated: true)
         }
@@ -181,69 +164,12 @@ extension ForwardViewController {
     }
     
     func forwardMediaToUsers(msgType : MessageType,users: [MDLCloneMedia], groups: [MDLCloneMedia]) {
-//        for userObj in users {
-//            let channelId = CMQTTUSERTOPIC + userObj.userId
-//            MIMQTT.shared().messagePaylaod(
-//                arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)",userObj.userId],
-//                channelId: channelId,
-//                message: userObj.imageUrl,
-//                messageType: msgType, chatType: .user,
-//                groupID: nil,
-//                forwardedMsgId: forwardMsg.message_id ?? "",
-//                cloleFile: userObj, is_auto_delete: 0
-//            )
-//        }
-        
-//        for groupObj in groups {
-//            let channelId = CMQTTUSERTOPIC + groupObj.groupId
-//            MIMQTT.shared().messagePaylaod(
-//                arrUser: groupObj.groupUsersIds,
-//                channelId: channelId,
-//                message: groupObj.imageUrl,
-//                messageType: msgType,
-//                chatType: .group,
-//                groupID: groupObj.groupId,
-//                forwardedMsgId: forwardMsg.message_id ?? "",
-//                cloleFile: groupObj, is_auto_delete: 0
-//            )
-//        }
+
         self.navigationController?.popViewController(animated: true)
     }
     
     func forwardSharedLocationToUsers(msgType : MessageType,users: [MDLCloneMedia], groups: [MDLCloneMedia]) {
-//        for userObj in users {
-//            let channelId = CMQTTUSERTOPIC + userObj.userId
-//            MIMQTT.shared().messagePaylaod(
-//                arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)",
-//                userObj.userId],
-//                channelId: channelId,
-//                message: userObj.imageUrl,
-//                messageType: msgType,
-//                chatType: .user,
-//                groupID: nil,
-//                latitude: self.forwardMsg.latitude,
-//                longitude: self.forwardMsg.longitude,
-//                address: self.forwardMsg.address ?? "",
-//                forwardedMsgId:forwardMsg.message_id ?? "",
-//                cloleFile: userObj, is_auto_delete: 0
-//            )
-//        }
-//        for groupObj in groups {
-//            let channelId = CMQTTUSERTOPIC + groupObj.groupId
-//            MIMQTT.shared().messagePaylaod(
-//                arrUser: groupObj.groupUsersIds,
-//                channelId: channelId,
-//                message: groupObj.imageUrl,
-//                messageType: msgType,
-//                chatType: .group,
-//                groupID: groupObj.groupId,
-//                latitude: self.forwardMsg.latitude,
-//                longitude: self.forwardMsg.longitude,
-//                address: self.forwardMsg.address ?? "",
-//                forwardedMsgId: forwardMsg.message_id ?? "",
-//                cloleFile: groupObj, is_auto_delete: 0
-//            )
-//        }
+
         self.navigationController?.popViewController(animated: true)
     }
 }

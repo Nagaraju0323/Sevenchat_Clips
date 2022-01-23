@@ -9,7 +9,7 @@
 import UIKit
 
 class OtherUserFriendListViewController: ParentViewController {
-
+    
     @IBOutlet var viewSearchBar : UIView!
     @IBOutlet var btnSearch : UIButton!
     @IBOutlet var btnBack : UIButton!
@@ -25,9 +25,6 @@ class OtherUserFriendListViewController: ParentViewController {
     
     var userID : Int?
     var userIDNew : String?
-//    var arrListFriend = [[String : Any]?]()
-//    var arrRequestList = [[String : Any]?]()
-//    var arrPendingList = [[String : Any]?]()
     var arrBlockList = [[String : Any]?]()
     var Friend_status = 0
     var arrFriendList = [[String:Any]]()
@@ -40,7 +37,7 @@ class OtherUserFriendListViewController: ParentViewController {
         super.viewDidLoad()
         Initialization()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
@@ -90,61 +87,52 @@ extension OtherUserFriendListViewController {
     
     fileprivate func getFriendListFromServer(_ search : String?) {
         
-       // if let userid = userID {
-            if apiTask?.state == URLSessionTask.State.running {
-                return
-            }
+        if apiTask?.state == URLSessionTask.State.running {
+            return
+        }
+        // Add load more indicator here...
+        if self.pageNumber > 2 {
+            self.tblFriendList.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+        }else{
+            self.tblFriendList.tableFooterView = nil
+        }
+        apiTask = APIRequest.shared().getOtherUserFriendListNew(user_id: userIDNew) { (response, error) in
+            self.refreshControl.endRefreshing()
+            self.tblFriendList.tableFooterView = nil
             
-            
-            // Add load more indicator here...
-            if self.pageNumber > 2 {
-                self.tblFriendList.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-            }else{
-                self.tblFriendList.tableFooterView = nil
-            }
-            
-           // apiTask = APIRequest.shared().getOtherUserFriendList(page: pageNumber, user_id: userid, search: search) { (response, error) in
-            apiTask = APIRequest.shared().getOtherUserFriendListNew(user_id: userIDNew) { (response, error) in
-                self.refreshControl.endRefreshing()
-                self.tblFriendList.tableFooterView = nil
-
-                if response != nil && error == nil {
-                    let list = response!["friends_Of_friend"] as? [String:Any]
-                    if let arrList = list![CJsonData] as? [[String:Any]] {
-                        print("arraylist\(arrList)")
-                        for data in arrList{
-                            self.getFriendStatus(user_id: data.valueForString(key: "id"))
-                        }
-                      //  self.getFriendStatus(user_id: <#String#>)
-                        // Remove all data here when page number == 1
-                        if self.pageNumber == 1{
-                            self.arrFriendList.removeAll()
-                            self.tblFriendList.reloadData()
-                        }
-                        
-                        // Add Data here...
-                        if arrList.count > 0 {
-                            self.arrFriendList = self.arrFriendList + arrList
-                            self.tblFriendList.reloadData()
-                            self.pageNumber += 1
-                        }
+            if response != nil && error == nil {
+                let list = response!["friends_Of_friend"] as? [String:Any]
+                if let arrList = list![CJsonData] as? [[String:Any]] {
+                    print("arraylist\(arrList)")
+                    for data in arrList{
+                        self.getFriendStatus(user_id: data.valueForString(key: "id"))
+                    }
+                    // Remove all data here when page number == 1
+                    if self.pageNumber == 1{
+                        self.arrFriendList.removeAll()
+                        self.tblFriendList.reloadData()
+                    }
+                    
+                    // Add Data here...
+                    if arrList.count > 0 {
+                        self.arrFriendList = self.arrFriendList + arrList
+                        self.tblFriendList.reloadData()
+                        self.pageNumber += 1
                     }
                 }
             }
-        //}
+        }
     }
     //MARK:- GET BLOCK LIST
     func getFriendStatus(user_id : String?) {
-        // if let userid = self.userID{
-//        let friendID = userInfo.valueForString(key: "user_id")
-       print(user_id)
+        
         let dict :[String:Any]  =  [
             "user_id":  appDelegate.loginUser?.user_id ?? "",
             "friend_user_id": user_id ?? ""
             
         ]
-            APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
-                    self?.refreshControl.endRefreshing()
+        APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
+            self?.refreshControl.endRefreshing()
             if response != nil && error == nil{
                 if let arrList = response!["data"] as? [[String:Any]]{
                     self?.arrBlockList = arrList
@@ -154,14 +142,14 @@ extension OtherUserFriendListViewController {
         })
     }
     // Update Friend status Friend/Unfriend/Cancel Request
-   fileprivate func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?) {
-    let friend_ID = userInfo.valueForInt(key: "friend_user_id")
-           let dict :[String:Any]  =  [
+    fileprivate func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?) {
+        let friend_ID = userInfo.valueForInt(key: "friend_user_id")
+        let dict :[String:Any]  =  [
             "user_id":  userid?.toString as Any,
-               "friend_user_id": friend_ID!.toString,
-               "request_type": status!.toString
-               ]
-    
+            "friend_user_id": friend_ID!.toString,
+            "request_type": status!.toString
+        ]
+        
         APIRequest.shared().friendRquestStatus(dict: dict, completion: { (response, error) in
             if response != nil{
                 var frndInfo = userInfo
@@ -177,13 +165,10 @@ extension OtherUserFriendListViewController {
                             self.isRefreshingUserData = false
                         }
                     }
-                    
-                    
                 }
             }
         })
     }
-    
 }
 
 // MARK:- --------- UITableView Datasources/Delegate
@@ -212,28 +197,27 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
             cell.btnUnfriendCancelRequest.isHidden = true
             cell.viewAcceptReject.isHidden = true
             do{
-//MARK:- FRIENDS
-                        for data in arrBlockList{
-                            if data?.valueForString(key: "request_status") == "5"{
-                                self.Friend_status = 5
-                            }
-                        }
- //MARK:- REQUEST
-                        for data in arrBlockList{
-                            let user_id = appDelegate.loginUser?.user_id
-                            if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
-                                    self.Friend_status = 1
-                                }
-                            }
-//MARK:- PENDING
-                            for data in arrBlockList{
-                                let user_id = appDelegate.loginUser?.user_id
-                                if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
-                                        self.Friend_status = 2
-                                    }
-                                }
-                        }
-           // switch userInfo.valueForInt(key: CFriend_status) {
+                //MARK:- FRIENDS
+                for data in arrBlockList{
+                    if data?.valueForString(key: "request_status") == "5"{
+                        self.Friend_status = 5
+                    }
+                }
+                //MARK:- REQUEST
+                for data in arrBlockList{
+                    let user_id = appDelegate.loginUser?.user_id
+                    if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
+                        self.Friend_status = 1
+                    }
+                }
+                //MARK:- PENDING
+                for data in arrBlockList{
+                    let user_id = appDelegate.loginUser?.user_id
+                    if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
+                        self.Friend_status = 2
+                    }
+                }
+            }
             switch self.Friend_status {
             case 0: //... Add Friend
                 cell.btnUnfriendCancelRequest.isHidden = appDelegate.loginUser?.user_id == Int64(userInfo.valueForString(key: CUserId))
@@ -249,7 +233,7 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
             default:
                 break
             }
-
+            
             cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
                 
@@ -270,24 +254,24 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                 var isShowAlert = false
                 var alertMessage = ""
                 do{
-                                    for data in self.arrBlockList {
-                                        if data?.valueForString(key: "request_status") == "5"{
-                                        self.Friend_status = 5
-                                    }
-                                }
-                                    for data in self.arrBlockList {
-                                        let user_id = appDelegate.loginUser?.user_id
-                                        if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
-                                            self.Friend_status = 1
-                                        }
-                                    }
-                                    for data in self.arrBlockList{
-                                        let user_id = appDelegate.loginUser?.user_id
-                                        if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
-                                                self.Friend_status = 0
-                                            }
-                                        }
-                                }
+                    for data in self.arrBlockList {
+                        if data?.valueForString(key: "request_status") == "5"{
+                            self.Friend_status = 5
+                        }
+                    }
+                    for data in self.arrBlockList {
+                        let user_id = appDelegate.loginUser?.user_id
+                        if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
+                            self.Friend_status = 1
+                        }
+                    }
+                    for data in self.arrBlockList{
+                        let user_id = appDelegate.loginUser?.user_id
+                        if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
+                            self.Friend_status = 0
+                        }
+                    }
+                }
                 switch self.Friend_status {
                 case 0:
                     frndStatus = CFriendRequestSent
@@ -313,7 +297,7 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
             
             // Load More data..
             if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData{
-//                self.getFriendListFromServer(txtSearch.text)
+                //                self.getFriendListFromServer(txtSearch.text)
             }
             
             return cell
@@ -324,7 +308,6 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let userInfo = arrFriendList[indexPath.row]
-//        appDelegate.moveOnProfileScreen(userInfo.valueForString(key: CUserId), self)
         appDelegate.moveOnProfileScreenNew(userInfo.valueForString(key: "id"), userInfo.valueForString(key: CUsermailID), self)
     }
 }
@@ -379,7 +362,6 @@ extension OtherUserFriendListViewController{
             break
             
         }
-        
         // Remove search data on Cancel/Clear button click...
         if sender.tag != 0{
             txtSearch.text = nil

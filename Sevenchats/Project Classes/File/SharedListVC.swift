@@ -6,6 +6,17 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+
+
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : SharedListVC                                *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
+
 import UIKit
 
 class SharedListVC: ParentViewController {
@@ -109,35 +120,6 @@ extension SharedListVC {
         if apiTask?.state == URLSessionTask.State.running {
             return
         }
-        
-//       apiTask = APIRequest.shared().sharedFriendsList(param: para, showLoader: isLoader) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            self.refreshControl.endRefreshing()
-//            if response != nil {
-//
-//                GCDMainThread.async {
-//
-//                    let arrData = response![CData] as? [[String : Any]] ?? []
-//
-//                    // Remove all data here when page number == 1
-//                    if self.currentPage == 1 {
-//                        self.arrUsers.removeAll()
-//                        self.tblSharedList.reloadData()
-//                    }
-//
-//                    if arrData.count > 0{
-//                        self.currentPage += 1
-//                    }
-//
-//                    for obj in arrData{
-//                        self.arrUsers.append(MDLFriendsList(fromDictionary: obj))
-//                    }
-//
-//                    self.isLoadMoreCompleted = (arrData.count == 0)
-//                    self.tblSharedList.reloadData()
-//                }
-//            }
-//        }
     }
     
     fileprivate func removeSharedFriendList(friendsId: Int) {
@@ -145,13 +127,6 @@ extension SharedListVC {
         para[CFolderID] = self.folder.id
         para["friend_ids"] = friendsId
         
-//        APIRequest.shared().removeSharedFriendList(param: para, showLoader: true) { (response, error) in
-//            if response != nil {
-//                GCDMainThread.async {
-//                    self.tblSharedList.reloadData()
-//                }
-//            }
-//        }
     }
 }
 

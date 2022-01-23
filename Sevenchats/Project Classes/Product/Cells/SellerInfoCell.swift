@@ -26,10 +26,8 @@ class SellerInfoCell: UITableViewCell, ProductDetailBaseCell  {
         self.selectionStyle = .none
         self.imgSeller.layer.cornerRadius = self.imgSeller.frame.size.width / 2
         lblSellerInfo.text = CSellerInformation
-//        lblSellerInfo.text = "cellerinformation"
         btnContactSeller.setTitle(CContactSeller, for: .normal)
         btnBuyNow.setTitle(CBuyNow, for: .normal)
-        
     }
     
     func configure(withModel: ProductBaseModel) {
@@ -43,8 +41,7 @@ class SellerInfoCell: UITableViewCell, ProductDetailBaseCell  {
     }
     
     @IBAction func onContactSellerPressed(_ sender:UIButton){
-        
-        
+
         if let contactInfo : ContactSellerVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ContactSellerVC") as? ContactSellerVC{
             
             guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
@@ -52,11 +49,7 @@ class SellerInfoCell: UITableViewCell, ProductDetailBaseCell  {
             guard let lastName = appDelegate.loginUser?.last_name else {return}
             let userName = "\(firstName) \(lastName)"
             MIGeneralsAPI.shared().sendNotification(self.modelData.userId ?? "", userID: user_ID.description, subject: "Viewed your product \(self.modelData.productDescription ?? "") please click to view \(userName)", MsgType: "CHAT_MESSAGE", MsgSent:"", showDisplayContent: "Product", senderName: firstName + lastName)
-            
-            
-            
             contactInfo.productIDs = self.modelData.productID
-//            contactInfo.sellerID = self.modelData.userId
             contactInfo.productEmailid = self.modelData.pemail
             contactInfo.productUserName = self.modelData.firstName + " " + self.modelData.lastName
             contactInfo.productMobile = self.modelData.pmobileNum
@@ -70,7 +63,6 @@ class SellerInfoCell: UITableViewCell, ProductDetailBaseCell  {
     }
     
     @IBAction func onUserPressed(_ sender : UIButton){
-//        appDelegate.moveOnProfileScreen(self.modelData.userId.description, self.viewController)
         appDelegate.moveOnProfileScreenNew(self.modelData.userId.description, self.modelData.pemail.description, self.viewController)
     }
 }

@@ -6,6 +6,12 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : PostFiltersViewController                   *
+ * Changes :                                             *
+ ********************************************************/
+
 import UIKit
 let CFilterMainCat = "mainCat"
 let CFilterSubCat = "subCat"
@@ -398,12 +404,6 @@ extension PostFiltersViewController{
             if let blockHandler = self.block {
                 blockHandler(self.arrSelectedCategory, "refresh screen")
             }
-            
-            /*CATransaction.begin()
-            CATransaction.setCompletionBlock {
-                
-            }
-            CATransaction.commit()*/
             self.navigationController?.popViewController(animated: true)
         }
         

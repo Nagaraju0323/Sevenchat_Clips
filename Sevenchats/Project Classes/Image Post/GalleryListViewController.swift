@@ -10,14 +10,12 @@ import UIKit
 import PhotosUI
 
 class GalleryListViewController: ParentViewController {
-
+    
     @IBOutlet var clGallery : UICollectionView!
     var isFromChatScreen : Bool!
     var arrGalleryImages = PHFetchResult<PHAsset>()
-    
     var arrSelectedImages = [UIImage]()
     var arrSelectedImageIndexPath = [IndexPath]()
-    
     var isAddMoreImage : Bool = false
     var isAllreadySelectedImageCount : Int = 0
     
@@ -48,18 +46,14 @@ extension GalleryListViewController{
         self.phAssetController(.image) { [weak self] (result) in
             guard let self = self else { return }
             if result != nil{
-                print(result!)
                 self.arrGalleryImages = result!
                 GCDMainThread.async {
                     self.clGallery.reloadData()
                 }
-                
             }
         }
-        
     }
 }
-
 
 // MARK:- --------- UICollectionView Delegate/Datasources
 extension GalleryListViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -84,27 +78,10 @@ extension GalleryListViewController: UICollectionViewDelegate, UICollectionViewD
         let asset = arrGalleryImages[indexPath.item]
         cell.lblImageNumber.text = "\(indexPath.row + 1)"
         cell.imgGallery.backgroundColor = UIColor.white
-
-
-        // To Get image Path..
-//        PHImageManager.default().requestImageData(for: asset, options: nil) { (data, name, orientation, info) in
-//            if let info = info {
-//                if data != nil {
-//                    cell.imgGallery.image = UIImage(data: data!, scale: 1.0)
-//                }
-//
-//                if info.keys.contains(NSString(string: "PHImageFileURLKey")) {
-//                    if let path = info[NSString(string: "PHImageFileURLKey")] as? NSURL {
-//                        cell.strImagePath = path.absoluteString
-//                    }
-//                }
-//            }
-//        }
         
         PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width : cell.frame.size.width, height : cell.frame.size.height), contentMode: .default, options: nil, resultHandler: { (image, info) in
             cell.imgGallery.image = image
         })
-        
         
         if self.arrSelectedImageIndexPath.contains(indexPath){
             cell.imgGallery.alpha = 0.5
@@ -113,13 +90,11 @@ extension GalleryListViewController: UICollectionViewDelegate, UICollectionViewD
             cell.imgGallery.alpha = self.arrSelectedImageIndexPath.contains(indexPath) ? 0.5 : 1.0
             cell.imgSelected.isHidden = true
         }
-        
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
+        
         if arrSelectedImageIndexPath.contains(indexPath){
             if let index = arrSelectedImageIndexPath.firstIndex(where: {$0 == indexPath}){
                 arrSelectedImageIndexPath.remove(at: index)
@@ -148,12 +123,6 @@ extension GalleryListViewController: UICollectionViewDelegate, UICollectionViewD
                         }
                     }
                 }
-                
-                /*if let img  = cell.imgGallery.image {
-                    arrSelectedImageIndexPath.append(indexPath)
-                    arrSelectedImages.append(img)
-                    clGallery.reloadData()
-                }*/
             }
         }
     }

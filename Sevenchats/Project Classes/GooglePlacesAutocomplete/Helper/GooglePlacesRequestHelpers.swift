@@ -85,9 +85,6 @@ public class GooglePlacesRequestHelpers {
     
     static func getPlaceDetails(id: String, apiKey: String, completion: @escaping (PlaceDetails?) -> Void) {
         let parameters = [ "placeid": id, "key": apiKey ]
-        /*if let deviceLanguage = deviceLanguage {
-            parameters["language"] = deviceLanguage
-        }*/
         doRequest(
             "https://maps.googleapis.com/maps/api/place/details/json",
             params: parameters,

@@ -20,10 +20,6 @@ class TblFriendsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.imgVFriend.roundView()
-        //self.imgVFriend.layer.cornerRadius = (self.imgVFriend.bounds.height / 2)
-        //self.imgVFriend.clipsToBounds = true
-
-//        self.btnSelectFriend.setImage(UIImage(named: "ic_small_checkmark_selected"), for: .selected)
         self.btnSelectFriend.setImage(UIImage(named: "ic_select"), for: .selected)
         self.btnSelectFriend.setImage(UIImage(named: "ic_unselect"), for: .normal)
     }

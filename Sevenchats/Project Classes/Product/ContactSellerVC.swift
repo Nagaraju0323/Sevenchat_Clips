@@ -15,13 +15,10 @@ class ContactSellerVC: ParentViewController {
     @IBOutlet weak var lblName: MIGenericLabel!
     @IBOutlet weak var lblEmail: MIGenericLabel!
     @IBOutlet weak var lblPhone: MIGenericLabel!
-    
     @IBOutlet weak var txtMessage: GenericTextView!
     @IBOutlet weak var lblTextCount: MIGenericLabel!
-    
     @IBOutlet weak var lblYourInfo: MIGenericLabel!
     @IBOutlet weak var btnSubmit: MIGenericButton!
-    
     @IBOutlet weak var vwContainer: UIView!{
         didSet{
             vwContainer.isHidden = true
@@ -61,14 +58,7 @@ extension ContactSellerVC {
         lblYourInfo.text = CYourInfo
         self.txtMessage.isHidden = true
         self.lblTextCount.isHidden = true 
-//        txtMessage.placeHolder = CMessage.capitalized
-//        txtMessage.isScrollEnabled = true
-//        txtMessage.txtDelegate = self
-//        txtMessage.textLimit = "1500"
-//        lblTextCount.text = "0/\(txtMessage.textLimit ?? "0")"
-        
         self.btnSubmit.setTitle(CForgotBtnSubmit, for: .normal)
-        
         self.lblName.text = productUserName ?? ""
         self.lblEmail.text = productEmailid ?? ""
         self.lblPhone.text = productMobile ?? ""
@@ -113,25 +103,6 @@ extension ContactSellerVC {
     
     fileprivate func getSellerDetails(){
         self.vwContainer.isHidden = false
-//        guard self.sellerID != 0 else{
-//            return
-//        }
-//        APIRequest.shared().getSellerInfo(sellerId: self.sellerID)  { [weak self](response, error) in
-//            if response != nil {
-//                GCDMainThread.async {
-//
-//                    let data = response![CData] as? [String : Any] ?? [:]
-//                    print(data)
-//                    self?.lblName.text = data["full_name"] as? String ?? ""
-//                    self?.lblEmail.text = data["email"] as? String ?? ""
-//                    let countryCode =  data["country_id"] as? String ?? ""
-//                    let mobile =  data["mobile"] as? String ?? ""
-//                    self?.lblPhone.text = "+" + countryCode + " " + mobile
-//
-//                    self?.vwContainer.isHidden = false
-//                }
-//            }
-//        }
     }
     
     fileprivate func contactToSeller(){
@@ -141,17 +112,5 @@ extension ContactSellerVC {
         var para = [String : Any]()
         para["product_id"] = self.productID.description
         para["message"] = self.txtMessage!.text
-        
-        print("Request : \(para)")
-//        APIRequest.shared().contactSeller(sellerId: self.sellerID, para: para) { [weak self](response, error) in
-//            guard let _ = self else { return }
-//            if response != nil {
-//                GCDMainThread.async {
-//                    //let data = response![CData] as? [String : Any] ?? [:]
-//                    self?.navigationController?.popViewController(animated: true)
-//                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CContactToSellerSuccessfully, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                }
-//            }
-//        }
     }
 }

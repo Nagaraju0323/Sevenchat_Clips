@@ -132,10 +132,7 @@ extension MyRewardsVC {
     fileprivate func getRewardsSummaryNew(isLoader: Bool) {
         
         guard let userID = appDelegate.loginUser?.user_id.description else { return }
-        
-//        dict["user_id"] = userID
         dict[CUserId] = userID
-        
         APIRequest.shared().rewardsSummaryNew(dict:dict,showLoader: isLoader) { [weak self] (response, error) in
             guard let self = self else { return }
             
@@ -144,8 +141,6 @@ extension MyRewardsVC {
             print(response as Any)
             self.arrHistory.removeAll()
             if response != nil {
-                
-                //                GCDMainThread.async {
                 let arrData = response![CData] as? [[String : Any]] ?? []
                 if let arrMessageList : [TblRewardCategory] = TblRewardCategory.fetch(predicate: nil, orderBy: CCategoryName, ascending: true) as? [TblRewardCategory] {
                     for interest in arrMessageList {
@@ -156,7 +151,6 @@ extension MyRewardsVC {
                         let points:[String] = arrData.map({$0.valueForString(key: CPointreward)})
                         if arrNameList.contains(where: { $0.description == interest.category_name }) {
                             let indexname = arrNameList.firstIndex{$0 == interest.category_name}
-                            // dict[CPointreward] = arrData[index ?? 0].valueForString(key: CPointreward)
                             dict[CPointreward] = points[indexname ?? 0]
                         } else {
                             dict[CPointreward] = "0"

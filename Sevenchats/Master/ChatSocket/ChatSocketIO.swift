@@ -364,12 +364,7 @@ extension ChatSocketIo: StompClientLibDelegate{
             ChatSocketIo.shared().messagePaylaod(arrUser: ["\(sender )"], channelId:topic , message: txtmessage, messageType: .audio, chatType: .group, groupID: topic, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: sender , isSelected: true,senderName:userName ?? "",SenderProfImg:userProfile ?? "")
         }
     }
-  
-    /********************************************************
-     * Author :  Chandrika R                               *
-     * Model  : Recived Message messageNotfication        *
-     * option                                              *
-     ********************************************************/
+
     func recivedMessageNotficationGrp(dictMsg:[String:Any]){
       
         var txtmessage:String?
@@ -378,10 +373,8 @@ extension ChatSocketIo: StompClientLibDelegate{
         var userName:String?
         var userProfile:String?
         
-//        let userInfo : [String:String] = dictMsg.userInfo as! [String:String]
         let content = dictMsg["content"] as? String ?? ""
         let sender = dictMsg["sender"] as? String ?? ""
-//      let timestamp = userInfo["timestamp"]
         let topic = dictMsg["topic"] as? String ?? ""
         do {
             let dict = try convertToDictionary(from: content)
@@ -434,15 +427,7 @@ extension ChatSocketIo {
     func messagePaylaod(arrUser: [String?], channelId: String?, message: String?, messageType: MessageType?, chatType: ChatType?,  groupID: String?, latitude:Double = 0.0, longitude:Double = 0.0, address: String = "", forwardedMsgId: String = "", cloleFile:MDLCloneMedia? = nil,sender:String,isSelected:Bool,senderName:String,SenderProfImg:String){
 
         var dicPayload = [String : Any]()
-
-//        if chatType == .user{
-//            if sender != appDelegate.loginUser?.user_id.description{
-//                dicPayload[CSender_Id] = sender
-//            }
-//        }else{
             dicPayload[CSender_Id] = sender
-//        }
-//        dicPayload[CSender_Id] = sender
         dicPayload[CMessage] = message
         dicPayload[CMsg_type] = messageType?.rawValue
         dicPayload[CChat_type] = chatType?.rawValue

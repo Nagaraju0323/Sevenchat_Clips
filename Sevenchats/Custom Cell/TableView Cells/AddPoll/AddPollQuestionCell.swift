@@ -27,7 +27,6 @@ class AddPollQuestionCell: UITableViewCell {
         self.btnAdd.setImage(UIImage(named:"ic_add_poll_option"), for: .selected)
         self.btnAdd.setImage(UIImage(named:"ic_minus"), for: .normal)
         txtOption.placeholderColor = UIColor.lightGray
-        //txtOption.clearButtonMode = .whileEditing
         txtOption.delegate = self
     }
 

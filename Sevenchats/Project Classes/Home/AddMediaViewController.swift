@@ -6,6 +6,13 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : AddMediaViewController                      *
+ * Changes :                                             *
+ * Added Media file Like photo,Vidoes,Audio,images       *
+ ********************************************************/
+
 import Foundation
 import UIKit
 import TLPhotoPicker
@@ -15,11 +22,9 @@ import AssetsLibrary
 class AddMediaViewController: ParentViewController {
     
     //MARK: - IBOutlet/Object/Variable Declaration
-    //    @IBOutlet weak var txtCategory: MIGenericTextFiled!
     @IBOutlet weak var btnUploadMedia: MIGenericButton!
     @IBOutlet weak var lblNote: MIGenericLabel!
     @IBOutlet private weak var categoryDropDownView: CustomDropDownView!
-    //    @IBOutlet private weak var subcategoryDropDownView: CustomDropDownView!
     
     let imagePicker = UIImagePickerController()
     var photosPickerVC = TLPhotosPickerViewController()
@@ -38,15 +43,14 @@ class AddMediaViewController: ParentViewController {
     @IBOutlet weak var btnSelectGroupFriend : UIButton!
     @IBOutlet weak var viewSelectGroup : UIView!
     @IBOutlet weak var topContainer : UIView!
-    var profileImage:UIImage?
-    
-    
     @IBOutlet weak var txtInviteType : MIGenericTextFiled!
+    
     var selectedInviteType : Int = 3 {
         didSet{
             self.didChangeInviteType()
         }
     }
+    var profileImage:UIImage?
     var arrMedia : [MDLAddMedia] = []
     var arrMediaString = [String]()
     let maxVideoFileSizeInMB : Int = 50
@@ -58,7 +62,6 @@ class AddMediaViewController: ParentViewController {
     var arrDeletedApiImages : [String] = []
     let dispatchGroup = DispatchGroup()
     var imgName = ""
-    
     var arrImages = [String]()
     var arrImagesVideo = [String]()
     var arrSubCategory =  [[String : Any]]()
@@ -74,6 +77,7 @@ class AddMediaViewController: ParentViewController {
     //MARK: - View life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.setupView()
         topContainer.isHidden = true
         viewSelectGroup.isHidden = true
@@ -215,14 +219,11 @@ extension AddMediaViewController {
                                         media.serverImgURL = imgData.valueForString(key: CImage)
                                     }
                                     self.arrMedia.append(media)
-                                    
-                                    
                                 }
                                 GCDMainThread.async {
                                     self.colVMedia.reloadData()
                                 }
                             }
-                            
                         }
                     }
                 }
@@ -351,7 +352,6 @@ extension AddMediaViewController: UICollectionViewDelegate, UICollectionViewData
                         if let mediaId = obj?.mediaID{
                             self?.arrDeletedApiImages.append(mediaId)
                         }
-                        //self?.selectedAssets.remove(at: sender.tag)
                         self?.arrMedia.remove(at: sender.tag)
                         self?.colVMedia.reloadData()
                         
@@ -362,10 +362,8 @@ extension AddMediaViewController: UICollectionViewDelegate, UICollectionViewData
                         self?.arrDeletedApiImages.append(mediaId)
                     }
                     
-                    //self?.selectedAssets.remove(at: sender.tag)
                     self?.arrImagesVideo.remove(at: sender.tag)
                     self?.arrMedia.remove(at: sender.tag)
-                    
                     self?.colVMedia.reloadData()
                 }
             }
@@ -408,7 +406,6 @@ extension AddMediaViewController: UICollectionViewDelegateFlowLayout {
         
         if collectionView == self.colVMedia{
             let width = (collectionView.bounds.width - 20) / 2
-            //width = width - 15
             let height = width - ((width * 40) / 100)
             return CGSize(width: width, height: height)
         }
@@ -478,7 +475,7 @@ extension AddMediaViewController  {
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String ?? ""
         if mediaType == "public.image"{
             var image:UIImage?
-            var imageUrl: URL!
+            var _: URL!
             if self.imagePicker.allowsEditing {
                 image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
             } else {
@@ -498,7 +495,6 @@ extension AddMediaViewController  {
                     let localPath = documentDirectory.appending(imgName)
                     
                     let modileNum = appDelegate.loginUser?.mobile
-                    
                     MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum ?? "", ImageSTt: image!,isFrom:"",uploadFrom:"")
                     
                     MInioimageupload.shared().callback = { [self] imgUrls in
@@ -515,7 +511,6 @@ extension AddMediaViewController  {
                             let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
                             let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
                             let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                            //                                        print("replace1\(replaced1)")
                             self.imageString = replaced1!
                         } catch {
                             print(error.localizedDescription)
@@ -523,12 +518,10 @@ extension AddMediaViewController  {
                         self.arrImagesVideo.append(self.imageString)
                         print("*****************\(self.arrImagesVideo)")
                         if localPath.count == self.arrImagesVideo.count{
-                            print("Success")
                             DispatchQueue.main.async {
                                 MILoader.shared.hideLoader()
                             }
                         }else{
-                            print("Failed")
                             DispatchQueue.main.async {
                                 MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                             }
@@ -552,7 +545,6 @@ extension AddMediaViewController  {
                     let videoURL = info[UIImagePickerController.InfoKey.mediaURL] as? URL
                     if videoURL != nil {
                         let asset = AVURLAsset(url: videoURL!, options: nil)
-                        
                         let modileNum = appDelegate.loginUser?.mobile
                         let sampleImage = UIImage()
                         
@@ -580,8 +572,6 @@ extension AddMediaViewController  {
                             self.arrImagesVideo.append(self.imageString)
                             print("*****************\(self.arrImagesVideo)")
                         }
-                        
-                        
                         self.createThumbnailOfVideoFromRemoteUrl(url: asset.url)
                     }
                 }
@@ -756,7 +746,6 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                             let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
                             let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
                             let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                            //                                        print("replace1\(replaced1)")
                             self?.imageString = replaced1!
                         } catch {
                             print(error.localizedDescription)
@@ -764,12 +753,12 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                         self?.arrImagesVideo.append(self!.imageString)
                         print("*****************\(self!.arrImagesVideo)")
                         if self?.arrImages.count == self?.arrImagesVideo.count{
-                            print("Success")
+                            
                             DispatchQueue.main.async {
                                 MILoader.shared.hideLoader()
                             }
                         }else{
-                            print("Failed")
+                            
                             DispatchQueue.main.async {
                                 MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                             }
@@ -813,7 +802,6 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                     MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum ?? "", ImageSTt: urlVidoes ,isFrom:"videos",uploadFrom:self?.imgName ?? "")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
                         MInioimageupload.shared().callback = { [self] imgUrls in
-                            print("UploadImage::::::::::::::\(imgUrls)")
                             self?.imgName = imgUrls
                             let content:[String:Any]  = [
                                 "mime": "video",
@@ -826,7 +814,6 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                                 let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
                                 let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
                                 let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                                //                                        print("replace1\(replaced1)")
                                 self?.imageString = replaced1!
                             } catch {
                                 print(error.localizedDescription)
@@ -834,12 +821,10 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                             self?.arrImagesVideo.append(self!.imageString)
                             print("*****************\(self!.arrImagesVideo)")
                             if self?.arrImages.count == self?.arrImagesVideo.count{
-                                print("Success")
                                 DispatchQueue.main.async {
                                     MILoader.shared.hideLoader()
                                 }
                             }else{
-                                print("Failed")
                                 DispatchQueue.main.async {
                                     MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                                 }
@@ -906,7 +891,6 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                                 let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
                                 let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
                                 let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                                //                                        print("replace1\(replaced1)")
                                 self?.imageString = replaced1!
                             } catch {
                                 print(error.localizedDescription)
@@ -914,12 +898,10 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                             self?.arrImagesVideo.append(self!.imageString)
                             print("*****************\(self!.arrImagesVideo)")
                             if self?.arrImages.count == self?.arrImagesVideo.count{
-                                print("Success")
                                 DispatchQueue.main.async {
                                     MILoader.shared.hideLoader()
                                 }
                             }else{
-                                print("Failed")
                                 DispatchQueue.main.async {
                                     MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                                 }
@@ -1068,13 +1050,11 @@ extension AddMediaViewController {
             self.txtInviteType.text = CPostPostsInviteContacts
             viewSelectGroup.hide(byHeight: false)
         case 3:
-            //self.txtInviteType.text = CPostPostsInviteAllFriends
             self.txtInviteType.text = CPostPostsInvitePublic
             btnSelectGroupFriend.isHidden = true
             viewSelectGroup.hide(byHeight: true)
         case 4:
             self.txtInviteType.text = CPostPostsInviteAllFriends
-            // self.txtInviteType.text = CPostPostsInvitePublic
             btnSelectGroupFriend.isHidden = true
             viewSelectGroup.hide(byHeight: true)
         default:

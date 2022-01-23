@@ -35,7 +35,7 @@ class GroupChatDetailsViewController: ParentViewController,MIAudioPlayerDelegate
             cnNavigationHeight.constant = IS_iPhone_X_Series ? 84 : 64
         }
     }
- 
+    
     @IBOutlet var cnVwMsgContainerBottom : NSLayoutConstraint! {
         didSet {
             cnVwMsgContainerBottom.constant = IS_iPhone_X_Series ? 34 : 0
@@ -175,13 +175,9 @@ class GroupChatDetailsViewController: ParentViewController,MIAudioPlayerDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        if self.fetchHome.numberOfSections(in: tblChat) == 0{
-        
-//        }
-        
         self.updateUIAccordingToLanguage()
         self.getGroupInformationFromServer()
- 
+        
         if self.arrSelectedMediaForChat.count > 0 {
             self.storeMediaToLocal(.image)
         }
@@ -198,23 +194,23 @@ class GroupChatDetailsViewController: ParentViewController,MIAudioPlayerDelegate
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.AudioMsgbegan), name: NSNotification.Name(rawValue: "AudioMsgbegan"), object: nil)
     }
-   
+    
     //funcation Create Topic
     func createTopictoChat(){
         if isCreateNewChat == false {
             ChatSocketIo.shared().createTopicTouser(userTopic:"/topic/" + group_id)
             print("::::::::Topic is Cretaed:::")
         }
-     }
+    }
     
     @objc func shouldReload() {
-    self.tblChat.scrollToBottom()
-     }
+        self.tblChat.scrollToBottom()
+    }
     
     @objc func swipeEditReload(){
         self.tblChat.scrollToBottom()
         self.tblChat.reloadData()
-     }
+    }
     
     var notificationObserver: Any? {
         willSet {
@@ -292,7 +288,7 @@ class GroupChatDetailsViewController: ParentViewController,MIAudioPlayerDelegate
     
     // MARK:Auto Delete Check Status
     func checkAutoDeleteStatus(){
-
+        
     }
     
 }
@@ -302,29 +298,29 @@ extension GroupChatDetailsViewController {
         MIToastAlert.shared.showToastAlert(position: .bottom, message: "Hold to record,Relase to send " )
     }
     @objc func audioMsglongTap(_ sender: UIGestureRecognizer){
-       
-            if sender.state == .ended {
-                self.audioMsgView.isHidden = true
-                self.audioMsgTimeLbl.isHidden = true
-                self.txtViewMessage.isHidden = false
-                self.txtViewMessage.placeHolder = ""
-                self.isRecordingfunc(_isRecording: false)
+        
+        if sender.state == .ended {
+            self.audioMsgView.isHidden = true
+            self.audioMsgTimeLbl.isHidden = true
+            self.txtViewMessage.isHidden = false
+            self.txtViewMessage.placeHolder = ""
+            self.isRecordingfunc(_isRecording: false)
+        }
+        else if sender.state == .began {
+            self.txtViewMessage.placeHolder = ""
+            self.txtViewMessage.isHidden = true
+            
+            self.isRecordingfunc(_isRecording: true)
+            self.imgGIF.isHidden = false
+            
+            if let path =  Bundle.main.path(forResource: "microphone", ofType: "gif") {
+                if let data = NSData(contentsOfFile: path) {
+                    let gif = FLAnimatedImage(animatedGIFData: data as Data)
+                    imgGIF.animatedImage = gif
+                }
             }
-            else if sender.state == .began {
-                self.txtViewMessage.placeHolder = ""
-                self.txtViewMessage.isHidden = true
-                
-                self.isRecordingfunc(_isRecording: true)
-                self.imgGIF.isHidden = false
-              
-                if let path =  Bundle.main.path(forResource: "microphone", ofType: "gif") {
-                    if let data = NSData(contentsOfFile: path) {
-                        let gif = FLAnimatedImage(animatedGIFData: data as Data)
-                        imgGIF.animatedImage = gif
-                    }
-                  }
-            }
-     }
+        }
+    }
     
     func isRecordingfunc(_isRecording:Bool){
         if(isRecording){
@@ -391,16 +387,16 @@ extension GroupChatDetailsViewController {
             APIRequest.shared().groupDetail(group_id: groupInfo.valueForString(key: CGroupId),shouldShowLoader:false) { (response, error) in
                 if response != nil && error == nil{
                     DispatchQueue.main.async {
-                    if let groupInfo = response![CJsonData] as? [[String : Any]] {
-                        self.iObject = groupInfo
-                        self.setGroupDetails()
-                        for groupDetails in groupInfo{
-                            self.group_id = groupDetails["group_id"] as? String ?? ""
-                            if let uesrInfo = groupDetails[CAPITFriendsList] as? [[String : Any]] {
-                                self.arrMembers = uesrInfo
+                        if let groupInfo = response![CJsonData] as? [[String : Any]] {
+                            self.iObject = groupInfo
+                            self.setGroupDetails()
+                            for groupDetails in groupInfo{
+                                self.group_id = groupDetails["group_id"] as? String ?? ""
+                                if let uesrInfo = groupDetails[CAPITFriendsList] as? [[String : Any]] {
+                                    self.arrMembers = uesrInfo
+                                }
                             }
-                         }
-                       }
+                        }
                     }
                 }
             }
@@ -414,7 +410,6 @@ extension GroupChatDetailsViewController {
             }
         }
         refreshControl.beginRefreshing()
-//        self.getMessagesFromServer(isNew: true)
     }
     
     func getMessagesFromServer(isNew : Bool) {
@@ -426,15 +421,15 @@ extension GroupChatDetailsViewController {
                 return
             }
         }
-        var apiTimeStamp : Double = 0
-            sessionTask = APIRequest.shared().userMesageListNew(chanelID: group_id) { [weak self] (response, error) in
+        var _ : Double = 0
+        sessionTask = APIRequest.shared().userMesageListNew(chanelID: group_id) { [weak self] (response, error) in
             guard let self = self else { return }
             var txtmsg = ""
             self.refreshControl.endRefreshing()
             self.tblChat.tableFooterView = UIView()
             if response != nil && error == nil {
-               let resp = response as? [String] ?? []
-          
+                let resp = response as? [String] ?? []
+                
                 resp.forEach { item in
                     var imagepath = ""
                     var senders  = ""
@@ -443,8 +438,6 @@ extension GroupChatDetailsViewController {
                     dict?.removeValue(forKey: "content")
                     var dictcontent =  self.convertToDictionarywithtry(from: dictcont ?? "")
                     if dictcontent?["type"] == "image" || dictcontent?["type"] == "video" || dictcontent?["type"] == "audio" {
-//                        let txtMsgfrom = dictcontent?["message"]?.replace(string: "\\", replacement: "")
-//                        let imagedict = self.convertToDictionarywithtry(from: txtMsgfrom ?? "")
                         imagepath = dictcontent?["message"] ?? ""
                         txtmsg = imagepath
                     }else {
@@ -453,7 +446,6 @@ extension GroupChatDetailsViewController {
                     
                     let senderName = dictcontent?["name"] ?? ""
                     let senderProfImg = dictcontent?["profile_image"] ?? ""
-//                    let timstmamp = dict?["timestamp"]?.replace(string: "T", replacement: " ").stringBefore(".")
                     let timstmamp = dict?["timestamp"]?.replace(string: "T", replacement: " ")
                     let chatTimeStamp = DateFormatter.shared().timestampGMTFromDateNew(date: timstmamp)
                     let create  = chatTimeStamp?.toString
@@ -465,21 +457,21 @@ extension GroupChatDetailsViewController {
                     if dictcontent?["type"] == "image"{
                         
                         ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.group_id , message: txtmsg, messageType: .image, chatType: .group, groupID: self.group_id, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "",timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
-                            UserDefaultHelper.userChatLastMsg = true
+                        UserDefaultHelper.userChatLastMsg = true
                         
                     }else if dictcontent?["type"] == "video"{
-                     
+                        
                         ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.group_id , message: txtmsg, messageType: .video, chatType: .group, groupID: self.group_id, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "",timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
-                            UserDefaultHelper.userChatLastMsg = true
+                        UserDefaultHelper.userChatLastMsg = true
                         
                     }else if dictcontent?["type"] == "audio"{
                         ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.group_id , message: txtmsg, messageType: .audio, chatType: .group, groupID: self.group_id, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "",timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
-                            UserDefaultHelper.userChatLastMsg = true
+                        UserDefaultHelper.userChatLastMsg = true
                         
                     }else {
-
+                        
                         ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.group_id , message: txtmsg, messageType: .text, chatType: .group, groupID: self.group_id, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "",timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
-                            UserDefaultHelper.userChatLastMsg = true
+                        UserDefaultHelper.userChatLastMsg = true
                     }
                     
                 }
@@ -490,107 +482,102 @@ extension GroupChatDetailsViewController {
         
     }
     
-
+    
     fileprivate func storeMediaToLocal(_ mediaType: MessageType, latitude:Double = 0.0, longitude:Double = 0.0, address: String = "") {
         
         // Send Message to all user...
         let arrUserIDS = arrMembers.map({$0.valueForString(key: CUserId) })
         if arrUserIDS.count > 0 {
-//            if let groupInfo = self.iObject as? [String : Any] {
-                
-//                let channelId = CMQTTUSERTOPIC + "\(groupInfo.valueForInt(key: CGroupId) ?? 0)"
-                
-                for media in self.arrSelectedMediaForChat {
-                    if mediaType == .image {
-                        if let img = media as? UIImage {
-                            
-                            guard let mobileNum = appDelegate.loginUser?.mobile else { return }
-                            MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: img,isFrom:"",uploadFrom:"")
-                            MInioimageupload.shared().callback = { message in
-                                print("UploadImage::::::::::::::\(message)")
-                                self.uploadImgUrl = message
-                                    self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"image", thumbLine: img)
-                            }
-                            //.....Store Image in Directory...
-                            let documentsDirectory = self.applicationDocumentsDirectory()
-                            //                        let imgName = "/MOOSA_\(Int(Date().currentTimeStamp * 1000)).jpg"
-                            let imgName = "/\(CApplicationName ?? "sevenchat")_\(Int(Date().currentTimeStamp * 1000)).jpg"
-                            let imgPath = documentsDirectory?.appending(imgName)
-                            let imageData =  img.jpegData(compressionQuality: 1.0)
-                        }
-                    } else if mediaType == .video && self.arrSelectedMediaForChat.count > 0 {
-                        if let videoURL = self.arrSelectedMediaForChat.first as? String {
-                            
-                            var urlVidoes = UIImage()
-                            let ThumbImageView = UIImageView()
-                            if let urlVideo = URL(string: videoURL){
-                                self.getThumbnailImageFromVideoUrl(url: urlVideo) { (thumbNailImage) in
-                                    ThumbImageView.image = thumbNailImage
-                                    guard let urlVid = ThumbImageView.image else { return }
-                                    urlVidoes = urlVid
-                            }
-                        }
-                            guard let mobileNum = appDelegate.loginUser?.mobile else { return }
-                            MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: urlVidoes,isFrom:"videos",uploadFrom:videoURL)
-                            MInioimageupload.shared().callback = { message in
-                                print("UploadImage::::::::::::::\(message)")
-                                self.uploadImgUrl = message
-                                    self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"video", thumbLine: urlVidoes)
-                            }
-                            
-                        }
-                    } else if mediaType == .audio && self.arrSelectedMediaForChat.count > 0 {
-                        if let audioURL = self.arrSelectedMediaForChat.first as? String {
-                            
-                            var urlVidoes = UIImage()
-                            let ThumbImageView = UIImageView()
-                            if let urlVideo = URL(string: audioURL){
-                                self.getThumbnailImageFromVideoUrl(url: urlVideo) { (thumbNailImage) in
-                                    ThumbImageView.image = thumbNailImage
-                                    guard let urlVid = ThumbImageView.image else { return }
-                                    urlVidoes = urlVid
-                            }
-                        }
-                            
-                            guard let mobileNum = appDelegate.loginUser?.mobile else { return }
-                            MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: urlVidoes,isFrom:"audio",uploadFrom:audioURL)
-                            MInioimageupload.shared().callback = { message in
-                                print("UploadImage::::::::::::::\(message)")
-                                self.uploadImgUrl = message
-                                    self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"audio", thumbLine: urlVidoes)
-                            }
-                        }
-                    }else if mediaType == .location && self.arrSelectedMediaForChat.count > 0 {
-                        guard let img = media as? UIImage else{
-                            return
+            for media in self.arrSelectedMediaForChat {
+                if mediaType == .image {
+                    if let img = media as? UIImage {
+                        
+                        guard let mobileNum = appDelegate.loginUser?.mobile else { return }
+                        MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: img,isFrom:"",uploadFrom:"")
+                        MInioimageupload.shared().callback = { message in
+                            print("UploadImage::::::::::::::\(message)")
+                            self.uploadImgUrl = message
+                            self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"image", thumbLine: img)
                         }
                         //.....Store Image in Directory...
                         let documentsDirectory = self.applicationDocumentsDirectory()
                         let imgName = "/\(CApplicationName ?? "sevenchat")_\(Int(Date().currentTimeStamp * 1000)).jpg"
-                        let imgPath = documentsDirectory?.appending(imgName)
-                        let imageData =  img.jpegData(compressionQuality: 1.0)
-                        if let path = imgPath {
-                            let imgURL = URL(fileURLWithPath: path)
-                            try! imageData?.write(to: imgURL, options: .atomicWrite)
-                            
-                            guard let mobileNum = appDelegate.loginUser?.mobile else { return }
-                            MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: img,isFrom:"",uploadFrom:"")
-                            MInioimageupload.shared().callback = { message in
-                                print("UploadImage::::::::::::::\(message)")
-                                
-                                 self.uploadImgUrl = message
-                                    self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"image", thumbLine: img)
-                                
+                        _ = documentsDirectory?.appending(imgName)
+                        _ =  img.jpegData(compressionQuality: 1.0)
+                    }
+                } else if mediaType == .video && self.arrSelectedMediaForChat.count > 0 {
+                    if let videoURL = self.arrSelectedMediaForChat.first as? String {
+                        
+                        var urlVidoes = UIImage()
+                        let ThumbImageView = UIImageView()
+                        if let urlVideo = URL(string: videoURL){
+                            self.getThumbnailImageFromVideoUrl(url: urlVideo) { (thumbNailImage) in
+                                ThumbImageView.image = thumbNailImage
+                                guard let urlVid = ThumbImageView.image else { return }
+                                urlVidoes = urlVid
                             }
-                          
+                        }
+                        guard let mobileNum = appDelegate.loginUser?.mobile else { return }
+                        MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: urlVidoes,isFrom:"videos",uploadFrom:videoURL)
+                        MInioimageupload.shared().callback = { message in
+                            print("UploadImage::::::::::::::\(message)")
+                            self.uploadImgUrl = message
+                            self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"video", thumbLine: urlVidoes)
+                        }
+                        
+                    }
+                } else if mediaType == .audio && self.arrSelectedMediaForChat.count > 0 {
+                    if let audioURL = self.arrSelectedMediaForChat.first as? String {
+                        
+                        var urlVidoes = UIImage()
+                        let ThumbImageView = UIImageView()
+                        if let urlVideo = URL(string: audioURL){
+                            self.getThumbnailImageFromVideoUrl(url: urlVideo) { (thumbNailImage) in
+                                ThumbImageView.image = thumbNailImage
+                                guard let urlVid = ThumbImageView.image else { return }
+                                urlVidoes = urlVid
+                            }
+                        }
+                        
+                        guard let mobileNum = appDelegate.loginUser?.mobile else { return }
+                        MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: urlVidoes,isFrom:"audio",uploadFrom:audioURL)
+                        MInioimageupload.shared().callback = { message in
+                            print("UploadImage::::::::::::::\(message)")
+                            self.uploadImgUrl = message
+                            self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"audio", thumbLine: urlVidoes)
                         }
                     }
+                }else if mediaType == .location && self.arrSelectedMediaForChat.count > 0 {
+                    guard let img = media as? UIImage else{
+                        return
+                    }
+                    //.....Store Image in Directory...
+                    let documentsDirectory = self.applicationDocumentsDirectory()
+                    let imgName = "/\(CApplicationName ?? "sevenchat")_\(Int(Date().currentTimeStamp * 1000)).jpg"
+                    let imgPath = documentsDirectory?.appending(imgName)
+                    let imageData =  img.jpegData(compressionQuality: 1.0)
+                    if let path = imgPath {
+                        let imgURL = URL(fileURLWithPath: path)
+                        try! imageData?.write(to: imgURL, options: .atomicWrite)
+                        
+                        guard let mobileNum = appDelegate.loginUser?.mobile else { return }
+                        MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: img,isFrom:"",uploadFrom:"")
+                        MInioimageupload.shared().callback = { message in
+                            print("UploadImage::::::::::::::\(message)")
+                            
+                            self.uploadImgUrl = message
+                            self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"image", thumbLine: img)
+                            
+                        }
+                        
+                    }
                 }
-                
-                self.arrSelectedMediaForChat.removeAll()
-                // Upload media on server...
-//                self.uploadMediaFileToServer()
-//            }
+            }
+            
+            self.arrSelectedMediaForChat.removeAll()
+            // Upload media on server...
+            //                self.uploadMediaFileToServer()
+            //            }
         }
     }
     
@@ -598,102 +585,13 @@ extension GroupChatDetailsViewController {
     fileprivate func uploadMediaFileToServer() {
         if let groupInfo = self.iObject as? [String : Any] {
             let channelId = CMQTTUSERTOPIC + groupInfo.valueForString(key: CGroupId)
-//            MIMQTT.shared().syncUnsentMediaToServer(channelId)
+            //            MIMQTT.shared().syncUnsentMediaToServer(channelId)
             self.tblChat.scrollToBottom()
         }
     }
     
 }
 
-// MARK:- --------- MQTTDelegate
-// MARK:-
-//extension GroupChatDetailsViewController: MQTTDelegate {
-//    func didReceiveMessage(_ message: [String : Any]?) {
-//
-//        isLoadMore = false
-//        if appDelegate.getTopMostViewController().isKind(of: GroupChatDetailsViewController.classForCoder()) && message?.valueForInt(key: CChat_type) == 2 {
-//            /*
-//             For ACK to sender..
-//             For group message only
-//             */
-//            if let groupInfo = self.iObject as? [String : Any] {
-//                if let gID = message?.valueForInt(key: CGroupId), groupInfo.valueForInt(key: CGroupId) == gID {
-//                    MIMQTT.shared().sendMessageReadAcknowledgement(messageInfo: message!, groupID: groupInfo.valueForInt(key: CGroupId))
-//                }
-//            }
-//        }
-//
-//        // Update chat message table from local..
-//        if fetchHome != nil {
-//            fetchHome.loadData()
-//        }
-//        if message?.valueForInt(key: CPublishType) == CPUBLISHMESSAGETYPE {
-//            let groupID = message?.valueForInt(key: CGroupId)
-//
-//            if let arrGroups = TblChatGroupList.fetch(predicate: NSPredicate(format: "\(CGroupId) == \(groupID ?? 0)")) as? [TblChatGroupList] {
-//
-//                if arrGroups.count > 0 {
-//                    let groupInfo = arrGroups.first
-//                    groupInfo?.last_message = message?.valueForString(key: CMessage)
-//                    groupInfo?.msg_type = Int16(message?.valueForInt(key: CMsg_type) ?? 0)
-//
-//                    // If sender is not login user then only increase count..
-//                    if Int64(message?.valueForString(key: CSender_Id) ?? "0") != appDelegate.loginUser?.user_id {
-//                        groupInfo?.unread_count += 1
-//                    }
-//
-//                    groupInfo?.datetime = message?.valueForDouble(key: CCreated_at) ?? 0.0
-//                    groupInfo?.chat_time = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestamp(timestamp: groupInfo?.datetime ?? 0.0/1000) ?? 0.0
-//                    CoreData.saveContext()
-//                    if let groupList = self.getViewControllerFromNavigation(GroupsViewController.self){
-//                        groupList.fetchGroupListFromLocal()
-//                    }
-//                }
-//            }
-//        }
-//        GCDMainThread.asyncAfter(deadline: .now() + 2) {
-//            self.isLoadMore = true
-//        }
-//    }
-//
-//    func didRefreshMessage() {
-//        isLoadMore = false
-//
-//        // Update chat message table from local..
-//        if fetchHome != nil {
-//            fetchHome.loadData()
-//        }
-//
-//        GCDMainThread.asyncAfter(deadline: .now() + 2) {
-//            self.isLoadMore = true
-//        }
-//    }
-//
-//    func didDeletedGroup(_ message: [String : Any]?) {
-//        // Group is Delete or You are no longer availble in this group..
-//        if let groupInfo = self.iObject as? [String : Any] {
-//            if message?.valueForInt(key: CGroupId) == groupInfo.valueForInt(key: CGroupId) {
-//
-//                for viewController in (self.navigationController?.viewControllers)! where viewController.isKind(of: GroupsViewController.classForCoder()) {
-//                    let groupVC = viewController as? GroupsViewController
-//                    groupVC!.getGroupListFromServer(isNew: true)
-//                    self.navigationController?.popToViewController(groupVC!, animated: true)
-//                    break
-//                }
-//
-//                let status = message?.valueForInt(key: CJsonStatus)
-//                if status == 1 {
-//                    // If adming Delete the group
-//                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageGroupDeleted, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                }else if status == 2 {
-//                    // If adming remove login user
-//                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageGroupNoLongerAvailable, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                }
-//
-//            }
-//        }
-//    }
-//}
 
 // MARK:- --------- FetchController
 // MARK:-
@@ -708,7 +606,6 @@ extension GroupChatDetailsViewController {
             if indexpath == self.tblChat.lastIndexPath() && self.isLoadMore && self.sessionTask != nil{
                 if self.sessionTask.state != .running {
                     print("Load more data ====== ")
-//                    self.getMessagesFromServer(isNew: false)
                 }
             }
             
@@ -775,7 +672,7 @@ extension GroupChatDetailsViewController {
                     cellReceiver.configureAudioReceiverCell(messageInfo)
                     cellReceiver.audioReceiverCellDelegate = self
                     cellReceiver.tag = indexpath.row
-
+                    
                     if let selectedID = self.strSelectedAudioMessageID, selectedID == messageInfo.message_id {
                         cellReceiver.btnPlayPause.isSelected = MIAudioPlayer.shared().isPlaying()
                         cellReceiver.audioSlider.isUserInteractionEnabled = MIAudioPlayer.shared().isPlaying()
@@ -833,7 +730,7 @@ extension GroupChatDetailsViewController {
                 headerDate = CToday
             }else if headerDate == YesterdayDate {
                 headerDate = CYesterday
-               
+                
             }
             headerView.lblDate.text = headerDate.uppercased()
         }
@@ -965,12 +862,12 @@ extension GroupChatDetailsViewController {
                 
                 // Check Visiblity for Receiver Cell
                 if let cell = visibleCells as? AudioReceiverTblCell {
-                        if cell.messageInformation.message_id == selectedID {
-                            isCellVisible = true
-                            break
+                    if cell.messageInformation.message_id == selectedID {
+                        isCellVisible = true
+                        break
                     }
                 }
-            
+                
                 // Check Visiblity for Sender Cell
                 if let cell = visibleCells as? AudioSenderTblCell {
                     if cell.messageInformation.message_id == selectedID {
@@ -1004,19 +901,9 @@ extension GroupChatDetailsViewController: GenericTextViewDelegate {
         if textView.text.count < 1 || textView.text.isBlank{
             btnSend.isUserInteractionEnabled = false
             btnSend.alpha = 0.5
-//            btnAutoDelete.isUserInteractionEnabled = false
-//            btnAudioMsg.isHidden = false
-//            btnAutoDelete.isHidden = true
-//            btnAutoDelete.alpha = 0.5
-            
-            
         }else {
             btnSend.isUserInteractionEnabled = true
             btnSend.alpha = 1
-//            btnAutoDelete.isUserInteractionEnabled = true
-//            btnAutoDelete.isHidden = false
-//            btnAudioMsg.isHidden = true
-//            btnAutoDelete.alpha = 1
         }
         
         if height < 34 {
@@ -1082,7 +969,6 @@ extension GroupChatDetailsViewController {
                         "profile_image":profileImage
                     ]
                     let dictAsString = asString(jsonDictionary: content)
-//                    let trimmedString = dictAsString.components(separatedBy: .whitespacesAndNewlines).joined()
                     let dict:[String:Any] = [
                         "sender": user_ID.description,
                         "topic" : group_id,
@@ -1094,7 +980,7 @@ extension GroupChatDetailsViewController {
                         self.tblChat.tableFooterView = UIView()
                         if response != nil && error == nil {
                             guard let arrList = response as? [String:Any] else { return }
-                             self.fetchHome.loadData()
+                            self.fetchHome.loadData()
                             if let arrStatus = arrList["message"] as? String{
                                 print("arrStatus,\(arrStatus)")
                                 let strArr = self.arrMembers.map({$0.valueForString(key: CUserId) })
@@ -1177,14 +1063,6 @@ extension GroupChatDetailsViewController {
         alertController.addAction(galleryAction)
         
         let audioAction = UIAlertAction(title: CBtnAudio, style: .default, handler: { (alert) in
-            //            self.presentMediaPickerController(allowsPickingMultipleItems: false, showsCloudItems: false, mediaPickerControllerHandler: { (mediaCollectionItm) in
-            //                if mediaCollectionItm != nil{
-            //                    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAudioSendConfirmation, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-            //                        //
-            //                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-            //                }
-            //            })
-            
             if let songVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "SongListViewController") as? SongListViewController {
                 songVC.setBlock(block: { (songName, message) in
                     if let audioName = songName as? String {
@@ -1239,8 +1117,6 @@ extension GroupChatDetailsViewController {
             self.locationPicker?.showCurrentLocationButton = true
             self.locationPicker?.getImageLocation = true
             self.locationPicker?.completion = {  (placeDetail) in
-                //print(placeDetail?.coordinate?.latitude ?? 0.0)
-                //print(placeDetail?.coordinate?.longitude ?? 0.0)
                 if let img = placeDetail?.locationImage {
                     self.arrSelectedMediaForChat.removeAll()
                     self.arrSelectedMediaForChat.append(img)
@@ -1273,7 +1149,7 @@ extension GroupChatDetailsViewController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         if let groupInfo = self.iObject as? [String: Any] {
-        
+            
             if (groupInfo.valueForString(key: "grouuser_idp_admin")) == appDelegate.loginUser?.user_id.description {
                 
                 let groupDetailAction = UIAlertAction(title: CGroupDetail, style: .default) { [weak self] (_) in
@@ -1302,34 +1178,12 @@ extension GroupChatDetailsViewController {
                     guard let _ = self else { return }
                     self?.claerchatControllers()
                 }
-   
+                
                 let deleteAction = UIAlertAction(title: CGroupDelete, style: .default) { [weak self] (_) in
                     guard let self = self else { return }
                     self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertGroupDelete, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                        // call Delete group api here...
-//                        APIRequest.shared().deleteGroup(group_id: groupInfo.valueForInt(key: CGroupId), completion: { (response, error) in
-//                            if response != nil && error == nil{
-//                                
-//                                // Publish for delete status..
-//                                let arrUserIDS = self.arrMembers.map({$0.valueForString(key: CUserId) })
-//                                if arrUserIDS.count > 0 {
-//                                    if let groupInfo = self.iObject as? [String : Any] {
-//                                        MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrUserIDS, status: 1, groupId: groupInfo.valueForString(key: CGroupId), isSend: 1)
-//                                    }
-//                                }
-//                                
-//                                if let blockHandler = self.block {
-//                                    blockHandler(nil, "refresh screen")
-//                                }
-//                                self.navigationController?.popViewController(animated: true)
-//                            }
-//                        })
                     }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                 }
-//                if IsAudioVideoEnable {
-//                    alertController.addAction(audioAction)
-//                    alertController.addAction(videoAction)
-//                }
                 alertController.addAction(groupDetailAction)
                 alertController.addAction(editAction)
                 alertController.addAction(deleteAction)
@@ -1366,10 +1220,6 @@ extension GroupChatDetailsViewController {
                     }
                 }
                 if groupInfo.valueForInt(key: CBlock_unblock_status) != 1 {
-//                    if IsAudioVideoEnable {
-//                        alertController.addAction(audioAction)
-//                        alertController.addAction(videoAction)
-//                    }
                     alertController.addAction(reportAction)
                 }
                 alertController.addAction(groupDetailAction)
@@ -1384,8 +1234,7 @@ extension GroupChatDetailsViewController {
     
     func claerchatControllers() {
         if let arrMessages = TblMessages.fetchAllObjects() as? [TblMessages] {
-            for messageInfo in arrMessages {
-//                MIMQTT.shared().deleteAllMessageFromLocal(messageInfo, isSender: false)
+            for _ in arrMessages {
             }
         }
     }
@@ -1395,8 +1244,8 @@ extension GroupChatDetailsViewController {
         if let groupInfo = self.iObject as? [String: Any] {
             if let videoChat  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "GroupUserListVC") as? GroupUserListVC {
                 videoChat.groupId = groupInfo.valueForInt(key: CGroupId) ?? 0
-                 videoChat.userImage = groupInfo.valueForString(key: CGroupImage)
-                 videoChat.fullName = groupInfo.valueForString(key: CGroupTitle)
+                videoChat.userImage = groupInfo.valueForString(key: CGroupImage)
+                videoChat.fullName = groupInfo.valueForString(key: CGroupTitle)
                 videoChat.listType = .Audio
                 self.navigationController?.pushViewController(videoChat, animated: true)
             }
@@ -1408,123 +1257,56 @@ extension GroupChatDetailsViewController {
         if let groupInfo = self.iObject as? [String: Any] {
             
             if let videoChat  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "GroupUserListVC") as? GroupUserListVC {
-                       videoChat.groupId = groupInfo.valueForInt(key: CGroupId) ?? 0
-                       videoChat.userImage = groupInfo.valueForString(key: CGroupImage)
-                       videoChat.fullName = groupInfo.valueForString(key: CGroupTitle)
-                       videoChat.listType = .Video
-                       self.navigationController?.pushViewController(videoChat, animated: true)
-                   }
+                videoChat.groupId = groupInfo.valueForInt(key: CGroupId) ?? 0
+                videoChat.userImage = groupInfo.valueForString(key: CGroupImage)
+                videoChat.fullName = groupInfo.valueForString(key: CGroupTitle)
+                videoChat.listType = .Video
+                self.navigationController?.pushViewController(videoChat, animated: true)
+            }
         }
-       
+        
     }
 }
 
 extension GroupChatDetailsViewController{
-
-@IBAction func btnAutoDeleteCLK(_ sender : UIButton){
-    weak var weakSelf = self
-    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-        if !self.txtViewMessage.text.trim.isBlank {
-            if let userid = self.userID{
-//                let channelId = CMQTTUSERTOPIC + "\(userid)"
-                // Send message to both Login and front user...
-//                MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: self.txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 1)
-                self.txtViewMessage.text = nil
-                self.txtViewMessage.updatePlaceholderFrame(false)
-                self.cnTextViewHeightHeight.constant = 34
-                self.txtViewMessage.resignFirstResponder()
-                self.btnSend.isUserInteractionEnabled = true
-                self.btnSend.alpha = 0.5
-//                self.btnAutoDelete.isUserInteractionEnabled = true
-//                self.btnAutoDelete.isHidden = true
-//                self.btnAudioMsg.isHidden = false
-//                self.btnAutoDelete.alpha = 0.5
-                self.tblChat.scrollToBottom()
-            }
-        }
-    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
     
-}
+    //@IBAction func btnAutoDeleteCLK(_ sender : UIButton){
+    //    weak var weakSelf = self
+    //    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
+    //        if !self.txtViewMessage.text.trim.isBlank {
+    //            if let userid = self.userID{
+    ////                let channelId = CMQTTUSERTOPIC + "\(userid)"
+    //                // Send message to both Login and front user...
+    ////                MIMQTT.shared().messagePaylaod(arrUser: ["\(appDelegate.loginUser?.user_id ?? 0)", "\(userid)"], channelId: channelId, message: self.txtViewMessage.text.trim, messageType: .text, chatType: .user, groupID: nil, is_auto_delete: 1)
+    //                self.txtViewMessage.text = nil
+    //                self.txtViewMessage.updatePlaceholderFrame(false)
+    //                self.cnTextViewHeightHeight.constant = 34
+    //                self.txtViewMessage.resignFirstResponder()
+    //                self.btnSend.isUserInteractionEnabled = true
+    //                self.btnSend.alpha = 0.5
+    ////                self.btnAutoDelete.isUserInteractionEnabled = true
+    ////                self.btnAutoDelete.isHidden = true
+    ////                self.btnAudioMsg.isHidden = false
+    ////                self.btnAutoDelete.alpha = 0.5
+    //                self.tblChat.scrollToBottom()
+    //            }
+    //        }
+    //    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+    //
+    //}
     @objc func DidSelectCLK(_ notifiction :Notification){
-//                if let indexValue = notifiction.userInfo?["index"] as? IndexPath{
-//                        if let cell = tblChat.cellForRow(at: NSIndexPath(row: indexValue.row, section: indexValue.section) as IndexPath) as? MessageReceiverTblCell{
-//                            let msgId = cell.messageInformation.message_id
-//                            messageidListItems.append(msgId ?? "")
-//                            if messageidListItems.count > 1{
-////                                btnSwipeforward.isHidden = true
-//                            }else{
-////                                btnSwipeforward.isHidden = false
-//                            }
-//                            cell.viewMessageContainer.backgroundColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
-////                            viewChatMoreitemsView.isHidden = false
-////                            lblDeleteCount.text = String(messageidListItems.count)
-//
-//                        }
-//                        if let cell = tblChat.cellForRow(at: NSIndexPath(row: indexValue.row, section: indexValue.section) as IndexPath) as? MessageSenderTblCell{
-//                            let msgId = cell.messageInformation.message_id
-//                            messageidListItems.append(msgId ?? "")
-//                            if messageidListItems.count > 1{
-////                                btnSwipeforward.isHidden = true
-//                            }else{
-////                                btnSwipeforward.isHidden = false
-//                            }
-//                            cell.viewMessageContainer.backgroundColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
-//                            print("count\(messageidListItems.count)")
-////                            viewChatMoreitemsView.isHidden = false
-////                            lblDeleteCount.text = String(messageidListItems.count)
-//                        }
-//                }
         
     }
     
     @objc func DidDisSelectCLk(_ notifiction :Notification){
-//                if let indexValue = notifiction.userInfo?["index"] as? IndexPath{
-//                        if let cell = tblChat.cellForRow(at: NSIndexPath(row: indexValue.row, section: indexValue.section) as IndexPath) as? MessageReceiverTblCell{
-//                            let msgId = cell.messageInformation.message_id
-//                            while let idx = messageidListItems.index(of:msgId ?? "") {
-//                             messageidListItems.remove(at: idx)
-//                            }
-//                            if messageidListItems.count > 1{
-////                                btnSwipeforward.isHidden = true
-//                            }else{
-////                                btnSwipeforward.isHidden = false
-//                            }
-//                            print("count\(messageidListItems.count)")
-//                            if messageidListItems.count > 0 {
-////                                viewChatMoreitemsView.isHidden = false
-////                                lblDeleteCount.text = String(messageidListItems.count)
-//                            }else {
-////                                viewChatMoreitemsView.isHidden = true
-//                            }
-//                            cell.viewMessageContainer.backgroundColor = CRGB(r: 178, g: 236, b: 228)
-//                        }
-//                        if let cell = tblChat.cellForRow(at: NSIndexPath(row: indexValue.row, section: indexValue.section) as IndexPath) as? MessageSenderTblCell{
-//                            let msgId = cell.messageInformation.message_id
-//                            while let idx = messageidListItems.index(of:msgId ?? "") {
-//                             messageidListItems.remove(at: idx)
-//                            }
-//                            if messageidListItems.count > 1{
-////                                btnSwipeforward.isHidden = true
-//                            }else{
-////                                btnSwipeforward.isHidden = false
-//                            }
-//                            if messageidListItems.count > 0 {
-////                                viewChatMoreitemsView.isHidden = false
-////                                lblDeleteCount.text = String(messageidListItems.count)
-//                            }else {
-////                                viewChatMoreitemsView.isHidden = true
-//                            }
-//                            cell.viewMessageContainer.backgroundColor = CRGB(r: 228, g: 230, b: 235)
-//                        }
-//
-//                }
+        
     }
 }
 
 extension GroupChatDetailsViewController{
-
+    
     @IBAction func btnSwipeforwardCLK(_ sender : UIButton){
-      if messageidListItems.count > 0 {
+        if messageidListItems.count > 0 {
             for msArrayid in messageidListItems{
                 if let arrMessages = TblMessages.fetchAllObjects() as? [TblMessages] {
                     for arrMsg in arrMessages{
@@ -1533,19 +1315,15 @@ extension GroupChatDetailsViewController{
                             self.view.addSubview(addPostView)
                             addPostView.showPostOption()
                             addPostView.showPostOptionGroup(arrMembers)
-//                            addPostView.showPostMessage(arrMsg, UserId: self.userID ?? 0, chatTypeMode: 1)
                             let groupid = Int(arrMsg.group_id ?? "0") ?? 0
                             addPostView.showPostMessage(arrMsg, UserId: groupid,chatTypeMode:2)
-
+                            
                         }
                     }
                 }
             }
         }
-//        self.messageidListItems.removeAll()
-//        tblChat.reloadData()
-//        lblDeleteCount.text = ""
-//        self.viewChatMoreitemsView.isHidden = true
+        
     }
     func delSelectedChatMessages() {
         if messageidListItems.count > 0 {
@@ -1554,107 +1332,63 @@ extension GroupChatDetailsViewController{
                     for arrMsg in arrMessages{
                         if arrMsg.message_id == msArrayid{
                             print(arrMsg)
-//                            MIMQTT.shared().deleteSelectMessage(arrMsg, isSender: false)
                         }
                     }
-
+                    
                 }
             }
-
+            
         }
         self.messageidListItems.removeAll()
         tblChat.reloadData()
-//        lblDeleteCount.text = ""
-//        self.viewChatMoreitemsView.isHidden = true
     }
     @IBAction func btnDeleteCLK(_ sender : UIButton){
-            self.delSelectedChatMessages()
-
-        }
-
-        @IBAction func btnForwordCLK(_ sender : UIButton){
-              let storyboard = UIStoryboard(name: "Forward", bundle: nil)
-                if let ForwdController = storyboard.instantiateViewController(withIdentifier: "ForwardViewController") as? ForwardViewController {
-                    ForwdController.forwaordCallBack = { message in
-                        print("message",message)
-//                        self.lblDeleteCount.text = String(self.messageidListItems.count ?? 0)
-//                        self.viewChatMoreitemsView.isHidden = false
-                    }
-                    ForwdController.msgidUsertItems = messageidListItems
-                    ForwdController.usrCharinfo = true
-                    self.navigationController?.pushViewController(ForwdController, animated: true)
-                }
+        self.delSelectedChatMessages()
+        
+    }
+    
+    @IBAction func btnForwordCLK(_ sender : UIButton){
+        let storyboard = UIStoryboard(name: "Forward", bundle: nil)
+        if let ForwdController = storyboard.instantiateViewController(withIdentifier: "ForwardViewController") as? ForwardViewController {
+            ForwdController.forwaordCallBack = { message in
             }
-
-        @IBAction func btnCopyCLK(_ sender : UIButton){
-            MIToastAlert.shared.showToastAlert(position: .bottom, message: String(messageidListItems.count) + " Messages Copied" )
-            pastebaord.strings = []
-            isCopySeleted = true
-            if messageidListItems.count > 0 {
-                for msArrayid in messageidListItems{
-                    if let arrMessages = TblMessages.fetchAllObjects() as? [TblMessages] {
-                        for arrMsg in arrMessages{
-                            if arrMsg.message_id == msArrayid{
-                                let Datevalue  = DateFormatter.dateStringFrom(timestamp: Double(arrMsg.msgdate ?? ""), withFormate: CreatedAtPostConvert)
-                                let date = NSDate(timeIntervalSince1970: Double(arrMsg.chat_time))
-                                let dateFormatter = DateFormatter()
-                                dateFormatter.dateFormat = "HH:mm"
-                                let datevalue = dateFormatter.string(from: date as Date)
-                                pastebaord.addItems([[UIPasteboard.typeListString[0] as! String : "["],[UIPasteboard.typeListString[0] as! String : Datevalue],[UIPasteboard.typeListString[0] as! String : " "],[UIPasteboard.typeListString[0] as! String :datevalue ],[UIPasteboard.typeListString[0] as! String : "]"],[UIPasteboard.typeListString[0] as! String : arrMsg.full_name ?? ""],[UIPasteboard.typeListString[0] as! String : ":"],[UIPasteboard.typeListString[0] as! String : arrMsg.message ?? ""],[UIPasteboard.typeListString[0] as! String : "\n"]])
-                            }
+            ForwdController.msgidUsertItems = messageidListItems
+            ForwdController.usrCharinfo = true
+            self.navigationController?.pushViewController(ForwdController, animated: true)
+        }
+    }
+    
+    @IBAction func btnCopyCLK(_ sender : UIButton){
+        MIToastAlert.shared.showToastAlert(position: .bottom, message: String(messageidListItems.count) + " Messages Copied" )
+        pastebaord.strings = []
+        isCopySeleted = true
+        if messageidListItems.count > 0 {
+            for msArrayid in messageidListItems{
+                if let arrMessages = TblMessages.fetchAllObjects() as? [TblMessages] {
+                    for arrMsg in arrMessages{
+                        if arrMsg.message_id == msArrayid{
+                            let Datevalue  = DateFormatter.dateStringFrom(timestamp: Double(arrMsg.msgdate ?? ""), withFormate: CreatedAtPostConvert)
+                            let date = NSDate(timeIntervalSince1970: Double(arrMsg.chat_time))
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "HH:mm"
+                            let datevalue = dateFormatter.string(from: date as Date)
+                            pastebaord.addItems([[UIPasteboard.typeListString[0] as! String : "["],[UIPasteboard.typeListString[0] as! String : Datevalue],[UIPasteboard.typeListString[0] as! String : " "],[UIPasteboard.typeListString[0] as! String :datevalue ],[UIPasteboard.typeListString[0] as! String : "]"],[UIPasteboard.typeListString[0] as! String : arrMsg.full_name ?? ""],[UIPasteboard.typeListString[0] as! String : ":"],[UIPasteboard.typeListString[0] as! String : arrMsg.message ?? ""],[UIPasteboard.typeListString[0] as! String : "\n"]])
                         }
                     }
                 }
             }
-            self.messageidListItems.removeAll()
         }
+        self.messageidListItems.removeAll()
+    }
     
     func claerchatController() {
         if let arrMessages = TblMessages.fetchAllObjects() as? [TblMessages] {
             for messageInfo in arrMessages {
-//                MIMQTT.shared().deleteAllMessageFromLocal(messageInfo, isSender: false)
+                //                MIMQTT.shared().deleteAllMessageFromLocal(messageInfo, isSender: false)
             }
         }
     }
 }
-extension GroupChatDetailsViewController{
-    //MARK :- Swipe Action perform
-//    @objc func SwipeReplyCLK(_ notifiction :Notification){
-//        //MARK : TEXT MESSAGE SENDER
-//        if let indexValue = notifiction.userInfo?["index"] as? IndexPath{
-//
-//        if let cell = tblChat.cellForRow(at: NSIndexPath(row: indexValue.row, section: indexValue.section) as IndexPath) as? MessageSenderTblCell{
-//
-//           let originalFrame = CGRect(x: 0, y: cell.frame.origin.y,width: cell.bounds.size.width, height:cell.bounds.size.height)
-//            UIView.animate(withDuration: 0.2, animations: {cell.frame = originalFrame})
-//            let addPostView = SwipeReplayMsgView.initHomeAddPostMenuViews()
-//
-//
-//
-//            self.view.addSubview(addPostView)
-//            addPostView.showPostOption()
-//            addPostView.showPostOptionGroup(arrMembers)
-//            let groupid = Int(cell.messageInformation.group_id ?? "0")
-//            addPostView.showPostMessage(cell.messageInformation, UserId:groupid ?? 0,chatTypeMode:2)
-//        }
-//
-//        if let cell = tblChat.cellForRow(at: NSIndexPath(row: indexValue.row, section: indexValue.section) as IndexPath) as? MessageReceiverTblCell{
-//           let originalFrame = CGRect(x: 0, y: cell.frame.origin.y,width: cell.bounds.size.width, height:cell.bounds.size.height)
-//            UIView.animate(withDuration: 0.2, animations: {cell.frame = originalFrame})
-//            let addPostView = SwipeReplayMsgView.initHomeAddPostMenuViews()
-//            self.view.addSubview(addPostView)
-//            addPostView.showPostOption()
-//            let groupid = Int(cell.messageInformation.group_id ?? "0")
-//            addPostView.showPostOptionGroup(arrMembers)
-//            addPostView.showPostMessage(cell.messageInformation, UserId: groupid ?? 0,chatTypeMode:2)
-//        }
-//
-//        }
-//}
-
-
-}
-
 //MARK:- Audio message send
 extension GroupChatDetailsViewController{
     
@@ -1707,13 +1441,13 @@ extension GroupChatDetailsViewController{
     func start_recording(_ sender: UIButton){
         if(isRecording){
             finishAudioRecording(success: true)
-//            play_btn_ref.isEnabled = true
+            //            play_btn_ref.isEnabled = true
             isRecording = false
         }else{
             setup_recorder()
             audioRecorder.record()
             meterTimer = Timer.scheduledTimer(timeInterval: 0.1, target:self, selector:#selector(self.updateAudioMeter(timer:)), userInfo:nil, repeats:true)
-//            play_btn_ref.isEnabled = false
+            //            play_btn_ref.isEnabled = false
             isRecording = true
         }
     }
@@ -1806,14 +1540,14 @@ extension GroupChatDetailsViewController{
         return anyResult as? [String: String] ?? [:]
     }
     func asString(jsonDictionary: [String:Any]) -> String {
-      do {
-        let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
-        return String(data: data, encoding: String.Encoding.utf8) ?? ""
-      } catch {
-        return ""
-      }
+        do {
+            let data = try JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
+            return String(data: data, encoding: String.Encoding.utf8) ?? ""
+        } catch {
+            return ""
+        }
     }
-
+    
     func getThumbnailImageFromVideoUrl(url: URL, completion: @escaping ((_ image: UIImage?)->Void)){
         DispatchQueue.global().async { //1
             let asset = AVAsset(url: url) //2
@@ -1837,90 +1571,12 @@ extension GroupChatDetailsViewController{
 }
 extension GroupChatDetailsViewController {
     
-//    func ImageAttachemntApiCall(uploadImgUrl:String,type:String,thumbLine:UIImage){
-//
-//        var uploadString = ""
-//        guard let user_ID = appDelegate.loginUser?.user_id else { return }
-//        guard let firstName = appDelegate.loginUser?.first_name  else { return }
-//        guard let lastName = appDelegate.loginUser?.last_name else { return }
-//        guard let profileImage = appDelegate.loginUser?.profile_img else { return }
-//
-//            let content:[String:Any]  = [
-//                "mime": "image",
-//                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
-//                "image_path":uploadImgUrl
-//            ]
-//            do {
-//                let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
-//                let jsonString = String(data: jsonData, encoding: .utf8)
-//                let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
-//                let imgStr_first = trimmedString?.replacingOccurrences(of: "\\/\\/", with: "//")
-//                let imgStr_second = imgStr_first?.replacingOccurrences(of: "\\/", with: "/")
-//                let imgStr_Third = imgStr_second?.replacingOccurrences(of: "\"", with: "\\\"")
-//                uploadString = imgStr_Third ?? ""
-//
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//
-//        let contentString:[String:Any]  = [
-//            "message": uploadString,
-//            "type": type,
-//            "chat" : "group",
-//            "name" : firstName + lastName,
-//            "profile_image":profileImage
-//
-//        ]
-//        let dictAsString = asString(jsonDictionary: contentString)
-//        let trimmedString = dictAsString.components(separatedBy: .whitespacesAndNewlines).joined()
-//        let dict:[String:Any] = [
-//            "sender": user_ID.description,
-//            "topic" : group_id,
-//            "content":trimmedString,
-//        ]
-//        sessionTask = APIRequest.shared().userSentMsg(dict:dict) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            self.refreshControl.endRefreshing()
-//            self.tblChat.tableFooterView = UIView()
-//            if response != nil && error == nil {
-//                self.fetchHome.loadData()
-//                ChatSocketIo.shared().socketDelegate = self
-//                let strArr = self.arrMembers.map({$0.valueForString(key: CUserId) })
-//                strArr.forEach { friends_ID in
-//                    MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "Message", MsgType: "GROUP_MESSAGE", MsgSent:"send Attachment", showDisplayContent: "send a GROUP message to you", senderName: "Group")
-//                }
-//            }
-//        }
-//    }
-    
     func ImageAttachemntApiCall(uploadImgUrl:String,type:String,thumbLine:UIImage){
-        
-//        ChatSocketIo.shared().SocketInitilized()
-        
-        var uploadString = ""
         guard let user_ID = appDelegate.loginUser?.user_id else { return }
         guard let firstName = appDelegate.loginUser?.first_name  else { return }
         guard let lastName = appDelegate.loginUser?.last_name else { return }
         guard let profileImage = appDelegate.loginUser?.profile_img else { return }
         
-//            let content:[String:Any]  = [
-//                "mime": "image",
-//                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
-//                "image_path":uploadImgUrl
-//            ]
-//            do {
-//                let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
-//                let jsonString = String(data: jsonData, encoding: .utf8)
-//                let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
-//                let imgStr_first = trimmedString?.replacingOccurrences(of: "\\/\\/", with: "//")
-//                let imgStr_second = imgStr_first?.replacingOccurrences(of: "\\/", with: "/")
-//                let imgStr_Third = imgStr_second?.replacingOccurrences(of: "\"", with: "\\\"")
-//                uploadString = imgStr_Third ?? ""
-//
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-            
         let contentString:[String:Any]  = [
             "message": uploadImgUrl,
             "type": type,
@@ -1950,7 +1606,7 @@ extension GroupChatDetailsViewController {
                     }else {
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "send a text Message to you \(self.group_Name)", MsgType: "GROUP_MESSAGE", MsgSent: "send Attachment" as? String, showDisplayContent: "send a text Message to you \(self.group_Name)", senderName: firstName + lastName)
+                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "send a text Message to you \(self.group_Name)", MsgType: "GROUP_MESSAGE", MsgSent: "send Attachment", showDisplayContent: "send a text Message to you \(self.group_Name)", senderName: firstName + lastName)
                     }
                 }
             }
@@ -1962,7 +1618,7 @@ extension GroupChatDetailsViewController {
 }
 
 extension GroupChatDetailsViewController{
-  
+    
     func convertToDictionarywithtry(from text: String) -> [String: String]? {
         guard let data = text.data(using: .utf8) else { return nil }
         let anyResult = try? JSONSerialization.jsonObject(with: data, options: [])

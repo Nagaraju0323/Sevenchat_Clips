@@ -62,7 +62,6 @@ class GroupsViewController: ParentViewController {
             self?.navigationItem.titleView = self?.searchBar
             UIView.animate(withDuration: 0.1, animations: {
                 self?.searchBar.alpha = 1
-                //                self?.searchBar.searchTextField.clearButtonMode = .never
             }, completion: { finished in
                 self?.searchBar.becomeFirstResponder()
             })
@@ -94,10 +93,6 @@ class GroupsViewController: ParentViewController {
             self.tblGroups.pullToRefreshControl = self.refreshControl
         }
         
-        /*//...Will be show alert when user come in this screen from click on group link
-         if groupType == CGroupTypePrivate {
-         self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CJoinPrivateGroupMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
-         }*/
     }
     
     func setCancelBarButton(){
@@ -124,14 +119,6 @@ extension GroupsViewController {
         guard let userid = appDelegate.loginUser?.user_id else {return}
         self.tblGroups.tableFooterView = nil
         var apiTimeStamp : Double = 0
-        
-        //        if !isNew {
-        //            // When need old data...
-        //            if let chatInfo = MIGeneralsAPI.shared().fetchChatGroupObjectFromLocal(isNew: !isNew) {
-        //                apiTimeStamp = chatInfo.datetime
-        //                self.tblGroups.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-        //            }
-        //        }
         apiTask = APIRequest.shared().getGroupChatList(timestamp: apiTimeStamp,search:userid.description , showLoader: true) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil {
@@ -173,7 +160,6 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         //return arrGroupList.count
-        //NEW CODE
         if(isSearch) {
             if self.arrGroupSearchList.isEmpty{
                 self.tblGroups.setEmptyMessage(CThereIsNoOnGoingChat)

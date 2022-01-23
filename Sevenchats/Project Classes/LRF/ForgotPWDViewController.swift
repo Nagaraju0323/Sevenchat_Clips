@@ -1,4 +1,21 @@
 
+//
+//  ForgotPWDViewController.swift
+//  Sevenchats
+//
+//  Created by mac-0005 on 08/08/18.
+//  Copyright © 2018 mac-0005. All rights reserved.
+//
+
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ForgotPWDViewController                     *
+ * Changes :                                             *
+ * for got pass word Redirect to Web page                *
+ *                                                       *
+ ********************************************************/
+
+
 import UIKit
 
 class ForgotPWDViewController: ParentViewController {
@@ -65,8 +82,6 @@ class ForgotPWDViewController: ParentViewController {
             self.txtCountryCode.text = ((arrCountryList![0] as! TblCountry).country_code)
             self.country_id = Int(((arrCountryList![0] as! TblCountry).country_id))
         }
-        
-        
         let arrCountry = TblCountry.fetch(predicate: nil, orderBy: CCountryName, ascending: true)
         let arrCountryCode = arrCountry?.value(forKeyPath: "countryname_code") as? [Any]
         
@@ -90,9 +105,7 @@ extension ForgotPWDViewController:GenericTextFieldDelegate{
         if textField == txtEmailMobile{
             cnTxtEmailLeading.constant = 20
             txtCountryCode.isHidden = true
-            
             self.view.layoutIfNeeded()
-            
             GCDMainThread.async {
                 self.txtEmailMobile.updateBottomLineAndPlaceholderFrame()
             }
@@ -196,36 +209,6 @@ extension ForgotPWDViewController{
 extension ForgotPWDViewController {
     
     func forgotPassword() {
-      
-        
-//        var dict = [String : AnyObject]()
-//        var isEnterEmail = true
-//        if self.txtEmailMobile.text?.range(of:"@") != nil {
-//            dict = [CEmail_or_Mobile : txtEmailMobile.text as Any,
-//                    CType : CEmailType] as [String : AnyObject]
-//        } else {
-//            dict = [CEmail_or_Mobile : txtEmailMobile.text as Any,
-//                    CType : CMobileType,
-//                    CCountry_id : self.country_id] as [String : AnyObject]
-//            isEnterEmail = false
-//        }
-//
-//        APIRequest.shared().forgotPassword(dict : dict) { (response, error) in
-//
-//            if response != nil && error == nil {
-//                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-//
-//                    if metaData.valueForInt(key: CJsonStatus) ==  CStatusFour {
-//                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaData.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                    }else{
-//                        if let objResetPWD = CStoryboardLRF.instantiateViewController(withIdentifier: "ResetPWDViewController") as? ResetPWDViewController{
-//                            objResetPWD.isEnterEmail = isEnterEmail
-//                            objResetPWD.strEmailMobile = self.txtEmailMobile.text
-//                            self.navigationController?.pushViewController(objResetPWD, animated: true)
-//                        }
-//                    }
-//                }
-//            }
-//        }
+
     }
 }

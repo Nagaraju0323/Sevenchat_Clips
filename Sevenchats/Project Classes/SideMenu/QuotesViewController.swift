@@ -39,7 +39,6 @@ class QuotesViewController: ParentViewController {
         
         self.loadQuotes(showLoader: true)
     }
-    
 }
 
 // MARK:- --------- API Functions
@@ -56,7 +55,6 @@ extension QuotesViewController {
         if apiTask?.state == URLSessionTask.State.running {
             return
         }
-        
         // Add load more indicator here...
         if self.currentPage > 2 {
             self.tblQuotes.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
@@ -68,29 +66,15 @@ extension QuotesViewController {
             guard let self = self else { return }
             self.refreshControl.endRefreshing()
             self.tblQuotes.tableFooterView = nil
-//            self.arrQuotes.removeAll()
             if response != nil && error == nil {
-//                if let arrData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
-//                    if self.currentPage == 1 {
-//                        self.arrQuotes.removeAll()
-//                    }
-//
-//                    if arrData.count > 0 {
-//                        self.arrQuotes = self.arrQuotes + arrData
-//                        self.tblQuotes.reloadData()
-//                        self.currentPage += 1
-//                    }
-//                }
                 
                 if let arrDatas = response![CQuotes] as? [String:Any]{
-//                    let arrDatass = response!["products"] as? [String : Any] ?? [:]
                     let arrData = arrDatas[CQuotes] as? [[String : AnyObject]] ?? []
                     
                     // Remove all data here when page number == 1
                     if self.currentPage == 1{
                         self.arrQuotes.removeAll()
                     }
-//                    self.isLoadMoreCompleted = arrQuotes.isEmpty
                     // Add Data here...
                     if arrData.count > 0{
                         self.arrQuotes = self.arrQuotes + arrData
@@ -100,9 +84,6 @@ extension QuotesViewController {
                         self.tblQuotes.reloadData()
                     }
                 }
-                
-                
-                
             }
         })
     }
@@ -130,15 +111,10 @@ extension QuotesViewController: UITableViewDelegate, UITableViewDataSource{
             
             cell.lblQuotes.text = dict.valueForString(key: "quote_desc")
             cell.lblQuotesWriter.text = dict.valueForString(key: "author_name")
-//            cell.lblQuotesPostDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CCreated_at), withFormate: "dd MMM yyyy hh:mm a")
-          
             let created_At = dict.valueForString(key: "created_at")
             let cnvStr = created_At.stringBefore("G")
-//            let removeFrst = cnvStr.chopPrefix(3)
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             cell.lblQuotesPostDate.text = startCreated
-            
-            
             cell.btnShare.tag = indexPath.row
             cell.btnShare.touchUpInside { [weak self](sender) in
                 guard let _ = self else { return }
@@ -148,18 +124,14 @@ extension QuotesViewController: UITableViewDelegate, UITableViewDataSource{
                 sharePost.shareURL = postData?.valueForString(key: CShare_url) ?? ""
                 sharePost.presentShareActivity()
             }
-            
             //...Load More
             if indexPath == tblQuotes.lastIndexPath() {
                 self.loadQuotes(showLoader: false)
             }
-            
             return cell
         }
-        
         return tableView.tableViewDummyCell()
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }

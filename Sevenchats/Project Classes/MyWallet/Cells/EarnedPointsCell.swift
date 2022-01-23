@@ -28,26 +28,8 @@ class EarnedPointsCell: UITableViewCell {
                 self.lblPointCount.textColor = UIColor(hexString: "06c0a6") // Green
             }
             lblDescription.attributedText = htmlToAttributedString("Credited for " + rewardDetail.title, lblDescription.font)
-//            lblDate.text = rewardDetail.creditedDate
             imgUserProfile.loadImageFromUrl(rewardDetail.friendImage, true)
-            
-//            switch rewardDetail.title {
-//            case "Article Add": // Article
-//                self.imgUserProfile.image = UIImage(named: "ic_1_article_post")
-//            case "Gallery Add": // Gallery
-//                self.imgUserProfile.image = UIImage(named: "ic_2_gallery_post")
-//            case "Chirpy Add": // Chirpy
-//                self.imgUserProfile.image = UIImage(named: "ic_3_chipy_post")
-//            case "Shout Add": // Shout
-//                self.imgUserProfile.image = UIImage(named: "ic_4_shout_post")
-//            case "Forum Add": // Forum
-//                self.imgUserProfile.image = UIImage(named: "ic_5_forum_post")
-//            case "Event Add": // Event
-//                self.imgUserProfile.image = UIImage(named: "ic_6_event_post")
-//            case "Poll Add": // Poll
-//                self.imgUserProfile.image = UIImage(named: "ic_10_poll_post")
-//            default :break
-//            }
+
             switch rewardDetail.title {
             case "Article Add": // Article
                 self.imgUserProfile.image = #imageLiteral(resourceName: "ic_1_article")
@@ -97,7 +79,6 @@ class EarnedPointsCell: UITableViewCell {
         
         self.lblDescription.textColor = UIColor(hexString: "a09c9c")
         self.lblDate.textColor = ColorAppTheme
-        
         self.viewMainContainer.layer.cornerRadius = 8
         self.viewMainContainer.shadow(color: CRGB(r: 237, g: 236, b: 226), shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)
         self.imgUserProfile.layer.cornerRadius = self.imgUserProfile.frame.size.width / 2

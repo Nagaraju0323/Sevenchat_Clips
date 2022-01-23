@@ -6,6 +6,13 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : UpgradeStoragePopUpView                     *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 
 protocol popupDelegate : class {
@@ -115,25 +122,7 @@ extension UpgradeStoragePopUpView {
         para["storage_type"] =  self.upgradPlan.storageType.rawValue
         para["transaction_date"] = Date.generateCurrentWith(dateFormate: "yyyy-MM-dd")
         print(para)
-//        _ = APIRequest.shared().upgradStoragePlan(param: para, showLoader: true) { (response, error) in
-//            if response != nil {
-//                if let meta = response!.value(forKey: CJsonMeta) as? [String : Any]{
-//                    if meta.valueForInt(key: CStatus) == 0{
-//                        DispatchQueue.main.async {
-//                            self.removeFromSuperview()
-//                            self.onCompleted?(true,nil)
-//                        }
-//                    }else{
-//                        let strMsg = meta.valueForString(key: "message")
-//                        if !strMsg.isEmpty{
-//                            self.onCompleted?(false,strMsg)
-//                        }else{
-//                            self.onCompleted?(false,nil)
-//                        }
-//                    }
-//                }
-//            }
-//        }
+
     }
 }
 

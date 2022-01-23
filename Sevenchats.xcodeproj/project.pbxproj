@@ -133,10 +133,6 @@
 		62E1A5EB240E2EC5001BD7A8 /* ChangePWDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A3AB240E2EC4001BD7A8 /* ChangePWDViewController.swift */; };
 		62E1A5EC240E2EC5001BD7A8 /* SelectInterestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A3AC240E2EC4001BD7A8 /* SelectInterestsViewController.swift */; };
 		62E1A5ED240E2EC5001BD7A8 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A3AD240E2EC4001BD7A8 /* RegisterViewController.swift */; };
-		62E1A5EE240E2EC5001BD7A8 /* AudioCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A3AF240E2EC4001BD7A8 /* AudioCallVC.swift */; };
-		62E1A5EF240E2EC5001BD7A8 /* OneToOneVideoCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A3B0240E2EC4001BD7A8 /* OneToOneVideoCallVC.swift */; };
-		62E1A5F0240E2EC5001BD7A8 /* IncomeAudioCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A3B1240E2EC4001BD7A8 /* IncomeAudioCallVC.swift */; };
-		62E1A5F1240E2EC5001BD7A8 /* IncomingVideoCallVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A3B2240E2EC4001BD7A8 /* IncomingVideoCallVC.swift */; };
 		62E1A5F2240E2EC5001BD7A8 /* UserChatDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A3B4240E2EC4001BD7A8 /* UserChatDetailViewController.swift */; };
 		62E1A5F3240E2EC5001BD7A8 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A3B5240E2EC4001BD7A8 /* ChatListViewController.swift */; };
 		62E1A5F4240E2EC5001BD7A8 /* ChatFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A3B6240E2EC4001BD7A8 /* ChatFriendViewController.swift */; };
@@ -445,17 +441,10 @@
 		62E1A730240E2EC5001BD7A8 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A51D240E2EC4001BD7A8 /* GradientButton.swift */; };
 		62E1A731240E2EC5001BD7A8 /* GenericTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A51E240E2EC4001BD7A8 /* GenericTextView.swift */; };
 		62E1A732240E2EC5001BD7A8 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A51F240E2EC4001BD7A8 /* GradientView.swift */; };
-		62E1A733240E2EC5001BD7A8 /* ad2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A521240E2EC4001BD7A8 /* ad2.jpg */; };
 		62E1A734240E2EC5001BD7A8 /* ads.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A522240E2EC4001BD7A8 /* ads.png */; };
 		62E1A735240E2EC5001BD7A8 /* tom.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A523240E2EC4001BD7A8 /* tom.jpg */; };
 		62E1A736240E2EC5001BD7A8 /* image_placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A524240E2EC4001BD7A8 /* image_placeholder.jpg */; };
 		62E1A737240E2EC5001BD7A8 /* Home Post in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A525240E2EC4001BD7A8 /* Home Post */; };
-		62E1A738240E2EC5001BD7A8 /* whatsapp.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A527240E2EC4001BD7A8 /* whatsapp.mp3 */; };
-		62E1A739240E2EC5001BD7A8 /* Phone-Ringing.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A528240E2EC4001BD7A8 /* Phone-Ringing.m4a */; };
-		62E1A73A240E2EC5001BD7A8 /* Phone-Ringing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A529240E2EC4001BD7A8 /* Phone-Ringing.wav */; };
-		62E1A73B240E2EC5001BD7A8 /* whatsapp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A52A240E2EC4001BD7A8 /* whatsapp.wav */; };
-		62E1A73C240E2EC5001BD7A8 /* whatsapp.caf in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A52B240E2EC4001BD7A8 /* whatsapp.caf */; };
-		62E1A73D240E2EC5001BD7A8 /* Triton.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A52C240E2EC4001BD7A8 /* Triton.mp3 */; };
 		62E1A73E240E2EC5001BD7A8 /* user_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A52D240E2EC4001BD7A8 /* user_placeholder.png */; };
 		62E1A73F240E2EC5001BD7A8 /* avtar.png in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A52E240E2EC4001BD7A8 /* avtar.png */; };
 		62E1A740240E2EC5001BD7A8 /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A52F240E2EC4001BD7A8 /* 1.jpg */; };
@@ -551,22 +540,10 @@
 		62E1A79E240E2EC5001BD7A8 /* MDLStateAndCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A597240E2EC4001BD7A8 /* MDLStateAndCity.swift */; };
 		62E1A79F240E2EC5001BD7A8 /* PollOptionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A599240E2EC4001BD7A8 /* PollOptionTableView.swift */; };
 		62E1A7A0240E2EC5001BD7A8 /* MIGeneralsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A59A240E2EC4001BD7A8 /* MIGeneralsAPI.swift */; };
-		62E1A7A1240E2EC5001BD7A8 /* TVIVideoHelper+CallKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A59D240E2EC4001BD7A8 /* TVIVideoHelper+CallKit.swift */; };
-		62E1A7A2240E2EC5001BD7A8 /* AppParticipant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A59E240E2EC4001BD7A8 /* AppParticipant.swift */; };
-		62E1A7A3240E2EC5001BD7A8 /* TVITokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A59F240E2EC4001BD7A8 /* TVITokenService.swift */; };
-		62E1A7A4240E2EC5001BD7A8 /* VoIPNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5A0240E2EC4001BD7A8 /* VoIPNotificationHandler.swift */; };
-		62E1A7A5240E2EC5001BD7A8 /* TVIVideoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5A1240E2EC4001BD7A8 /* TVIVideoHelper.swift */; };
-		62E1A7A6240E2EC5001BD7A8 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5A2240E2EC4001BD7A8 /* Settings.swift */; };
-		62E1A7A7240E2EC5001BD7A8 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5A3240E2EC4001BD7A8 /* Utils.swift */; };
-		62E1A7A8240E2EC5001BD7A8 /* TwilioAPIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5A4240E2EC4001BD7A8 /* TwilioAPIs.swift */; };
-		62E1A7A9240E2EC5001BD7A8 /* VideoCallNotification in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A5A5240E2EC4001BD7A8 /* VideoCallNotification */; };
 		62E1A7AA240E2EC5001BD7A8 /* AudioModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5A7240E2EC4001BD7A8 /* AudioModel.swift */; };
-		62E1A7AB240E2EC5001BD7A8 /* AudioCallHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5A8240E2EC4001BD7A8 /* AudioCallHelper.swift */; };
-		62E1A7AC240E2EC5001BD7A8 /* AudioTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5A9240E2EC4001BD7A8 /* AudioTokenService.swift */; };
 		62E1A7AD240E2EC5001BD7A8 /* ProductHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5AA240E2EC4001BD7A8 /* ProductHelper.swift */; };
 		62E1A7AE240E2EC5001BD7A8 /* MICollectionViewBubbleLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5AB240E2EC4001BD7A8 /* MICollectionViewBubbleLayout.swift */; };
 		62E1A7AF240E2EC5001BD7A8 /* UserSuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5AC240E2EC4001BD7A8 /* UserSuggestionView.swift */; };
-		62E1A7B0240E2EC5001BD7A8 /* MIMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5AD240E2EC4001BD7A8 /* MIMQTT.swift */; };
 		62E1A7B1240E2EC5001BD7A8 /* MIAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5AE240E2EC4001BD7A8 /* MIAudioPlayer.swift */; };
 		62E1A7B2240E2EC5001BD7A8 /* MimeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5AF240E2EC4001BD7A8 /* MimeType.swift */; };
 		62E1A7B3240E2EC5001BD7A8 /* SharePostHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5B0240E2EC4001BD7A8 /* SharePostHelper.swift */; };
@@ -742,10 +719,6 @@
 		62E1A3AB240E2EC4001BD7A8 /* ChangePWDViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePWDViewController.swift; sourceTree = "<group>"; };
 		62E1A3AC240E2EC4001BD7A8 /* SelectInterestsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectInterestsViewController.swift; sourceTree = "<group>"; };
 		62E1A3AD240E2EC4001BD7A8 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		62E1A3AF240E2EC4001BD7A8 /* AudioCallVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioCallVC.swift; sourceTree = "<group>"; };
-		62E1A3B0240E2EC4001BD7A8 /* OneToOneVideoCallVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneToOneVideoCallVC.swift; sourceTree = "<group>"; };
-		62E1A3B1240E2EC4001BD7A8 /* IncomeAudioCallVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomeAudioCallVC.swift; sourceTree = "<group>"; };
-		62E1A3B2240E2EC4001BD7A8 /* IncomingVideoCallVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IncomingVideoCallVC.swift; sourceTree = "<group>"; };
 		62E1A3B4240E2EC4001BD7A8 /* UserChatDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserChatDetailViewController.swift; sourceTree = "<group>"; };
 		62E1A3B5240E2EC4001BD7A8 /* ChatListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		62E1A3B6240E2EC4001BD7A8 /* ChatFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatFriendViewController.swift; sourceTree = "<group>"; };
@@ -1056,17 +1029,10 @@
 		62E1A51D240E2EC4001BD7A8 /* GradientButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		62E1A51E240E2EC4001BD7A8 /* GenericTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericTextView.swift; sourceTree = "<group>"; };
 		62E1A51F240E2EC4001BD7A8 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		62E1A521240E2EC4001BD7A8 /* ad2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ad2.jpg; sourceTree = "<group>"; };
 		62E1A522240E2EC4001BD7A8 /* ads.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ads.png; sourceTree = "<group>"; };
 		62E1A523240E2EC4001BD7A8 /* tom.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tom.jpg; sourceTree = "<group>"; };
 		62E1A524240E2EC4001BD7A8 /* image_placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_placeholder.jpg; sourceTree = "<group>"; };
 		62E1A525240E2EC4001BD7A8 /* Home Post */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Home Post"; sourceTree = "<group>"; };
-		62E1A527240E2EC4001BD7A8 /* whatsapp.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = whatsapp.mp3; sourceTree = "<group>"; };
-		62E1A528240E2EC4001BD7A8 /* Phone-Ringing.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Phone-Ringing.m4a"; sourceTree = "<group>"; };
-		62E1A529240E2EC4001BD7A8 /* Phone-Ringing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Phone-Ringing.wav"; sourceTree = "<group>"; };
-		62E1A52A240E2EC4001BD7A8 /* whatsapp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = whatsapp.wav; sourceTree = "<group>"; };
-		62E1A52B240E2EC4001BD7A8 /* whatsapp.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = whatsapp.caf; sourceTree = "<group>"; };
-		62E1A52C240E2EC4001BD7A8 /* Triton.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Triton.mp3; sourceTree = "<group>"; };
 		62E1A52D240E2EC4001BD7A8 /* user_placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user_placeholder.png; sourceTree = "<group>"; };
 		62E1A52E240E2EC4001BD7A8 /* avtar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avtar.png; sourceTree = "<group>"; };
 		62E1A52F240E2EC4001BD7A8 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
@@ -1162,22 +1128,10 @@
 		62E1A597240E2EC4001BD7A8 /* MDLStateAndCity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MDLStateAndCity.swift; sourceTree = "<group>"; };
 		62E1A599240E2EC4001BD7A8 /* PollOptionTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PollOptionTableView.swift; sourceTree = "<group>"; };
 		62E1A59A240E2EC4001BD7A8 /* MIGeneralsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIGeneralsAPI.swift; sourceTree = "<group>"; };
-		62E1A59D240E2EC4001BD7A8 /* TVIVideoHelper+CallKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TVIVideoHelper+CallKit.swift"; sourceTree = "<group>"; };
-		62E1A59E240E2EC4001BD7A8 /* AppParticipant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppParticipant.swift; sourceTree = "<group>"; };
-		62E1A59F240E2EC4001BD7A8 /* TVITokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVITokenService.swift; sourceTree = "<group>"; };
-		62E1A5A0240E2EC4001BD7A8 /* VoIPNotificationHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoIPNotificationHandler.swift; sourceTree = "<group>"; };
-		62E1A5A1240E2EC4001BD7A8 /* TVIVideoHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVIVideoHelper.swift; sourceTree = "<group>"; };
-		62E1A5A2240E2EC4001BD7A8 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		62E1A5A3240E2EC4001BD7A8 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		62E1A5A4240E2EC4001BD7A8 /* TwilioAPIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwilioAPIs.swift; sourceTree = "<group>"; };
-		62E1A5A5240E2EC4001BD7A8 /* VideoCallNotification */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VideoCallNotification; sourceTree = "<group>"; };
 		62E1A5A7240E2EC4001BD7A8 /* AudioModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioModel.swift; sourceTree = "<group>"; };
-		62E1A5A8240E2EC4001BD7A8 /* AudioCallHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioCallHelper.swift; sourceTree = "<group>"; };
-		62E1A5A9240E2EC4001BD7A8 /* AudioTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioTokenService.swift; sourceTree = "<group>"; };
 		62E1A5AA240E2EC4001BD7A8 /* ProductHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductHelper.swift; sourceTree = "<group>"; };
 		62E1A5AB240E2EC4001BD7A8 /* MICollectionViewBubbleLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MICollectionViewBubbleLayout.swift; sourceTree = "<group>"; };
 		62E1A5AC240E2EC4001BD7A8 /* UserSuggestionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSuggestionView.swift; sourceTree = "<group>"; };
-		62E1A5AD240E2EC4001BD7A8 /* MIMQTT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIMQTT.swift; sourceTree = "<group>"; };
 		62E1A5AE240E2EC4001BD7A8 /* MIAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIAudioPlayer.swift; sourceTree = "<group>"; };
 		62E1A5AF240E2EC4001BD7A8 /* MimeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MimeType.swift; sourceTree = "<group>"; };
 		62E1A5B0240E2EC4001BD7A8 /* SharePostHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharePostHelper.swift; sourceTree = "<group>"; };
@@ -1450,7 +1404,6 @@
 				62E1A45E240E2EC4001BD7A8 /* Core Data */,
 				62E1A395240E2EC4001BD7A8 /* Home */,
 				62E1A3A4240E2EC4001BD7A8 /* LRF */,
-				62E1A3AE240E2EC4001BD7A8 /* AudioVideo */,
 				62E1A3B3240E2EC4001BD7A8 /* Chat */,
 				62E1A3B7240E2EC4001BD7A8 /* File */,
 				62E1A3D6240E2EC4001BD7A8 /* GooglePlacesAutocomplete */,
@@ -1506,17 +1459,6 @@
 				62E1A3AD240E2EC4001BD7A8 /* RegisterViewController.swift */,
 			);
 			path = LRF;
-			sourceTree = "<group>";
-		};
-		62E1A3AE240E2EC4001BD7A8 /* AudioVideo */ = {
-			isa = PBXGroup;
-			children = (
-				62E1A3AF240E2EC4001BD7A8 /* AudioCallVC.swift */,
-				62E1A3B0240E2EC4001BD7A8 /* OneToOneVideoCallVC.swift */,
-				62E1A3B1240E2EC4001BD7A8 /* IncomeAudioCallVC.swift */,
-				62E1A3B2240E2EC4001BD7A8 /* IncomingVideoCallVC.swift */,
-			);
-			path = AudioVideo;
 			sourceTree = "<group>";
 		};
 		62E1A3B3240E2EC4001BD7A8 /* Chat */ = {
@@ -2162,7 +2104,6 @@
 		62E1A520240E2EC4001BD7A8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				62E1A521240E2EC4001BD7A8 /* ad2.jpg */,
 				62E1A522240E2EC4001BD7A8 /* ads.png */,
 				62E1A523240E2EC4001BD7A8 /* tom.jpg */,
 				62E1A524240E2EC4001BD7A8 /* image_placeholder.jpg */,
@@ -2178,12 +2119,6 @@
 		62E1A526240E2EC4001BD7A8 /* Ringtones */ = {
 			isa = PBXGroup;
 			children = (
-				62E1A527240E2EC4001BD7A8 /* whatsapp.mp3 */,
-				62E1A528240E2EC4001BD7A8 /* Phone-Ringing.m4a */,
-				62E1A529240E2EC4001BD7A8 /* Phone-Ringing.wav */,
-				62E1A52A240E2EC4001BD7A8 /* whatsapp.wav */,
-				62E1A52B240E2EC4001BD7A8 /* whatsapp.caf */,
-				62E1A52C240E2EC4001BD7A8 /* Triton.mp3 */,
 			);
 			path = Ringtones;
 			sourceTree = "<group>";
@@ -2382,7 +2317,6 @@
 				62E1A5AA240E2EC4001BD7A8 /* ProductHelper.swift */,
 				62E1A5AB240E2EC4001BD7A8 /* MICollectionViewBubbleLayout.swift */,
 				62E1A5AC240E2EC4001BD7A8 /* UserSuggestionView.swift */,
-				62E1A5AD240E2EC4001BD7A8 /* MIMQTT.swift */,
 				62E1A5AE240E2EC4001BD7A8 /* MIAudioPlayer.swift */,
 				62E1A5AF240E2EC4001BD7A8 /* MimeType.swift */,
 				62E1A5B0240E2EC4001BD7A8 /* SharePostHelper.swift */,
@@ -2403,8 +2337,6 @@
 			isa = PBXGroup;
 			children = (
 				62E1A59C240E2EC4001BD7A8 /* Video */,
-				62E1A5A4240E2EC4001BD7A8 /* TwilioAPIs.swift */,
-				62E1A5A5240E2EC4001BD7A8 /* VideoCallNotification */,
 				62E1A5A6240E2EC4001BD7A8 /* Audio */,
 			);
 			path = VideoAudioCalling;
@@ -2413,13 +2345,6 @@
 		62E1A59C240E2EC4001BD7A8 /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				62E1A59D240E2EC4001BD7A8 /* TVIVideoHelper+CallKit.swift */,
-				62E1A59E240E2EC4001BD7A8 /* AppParticipant.swift */,
-				62E1A59F240E2EC4001BD7A8 /* TVITokenService.swift */,
-				62E1A5A0240E2EC4001BD7A8 /* VoIPNotificationHandler.swift */,
-				62E1A5A1240E2EC4001BD7A8 /* TVIVideoHelper.swift */,
-				62E1A5A2240E2EC4001BD7A8 /* Settings.swift */,
-				62E1A5A3240E2EC4001BD7A8 /* Utils.swift */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -2428,8 +2353,6 @@
 			isa = PBXGroup;
 			children = (
 				62E1A5A7240E2EC4001BD7A8 /* AudioModel.swift */,
-				62E1A5A8240E2EC4001BD7A8 /* AudioCallHelper.swift */,
-				62E1A5A9240E2EC4001BD7A8 /* AudioTokenService.swift */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -2546,7 +2469,6 @@
 			files = (
 				62E1A651240E2EC5001BD7A8 /* RewardCategoryCell.xib in Resources */,
 				62E1A787240E2EC5001BD7A8 /* Localizable.strings (Base) in Resources */,
-				62E1A733240E2EC5001BD7A8 /* ad2.jpg in Resources */,
 				62E1A6FD240E2EC5001BD7A8 /* HomeSharedChirpyTblCell.xib in Resources */,
 				62E1A605240E2EC5001BD7A8 /* CreateFileTableCell.xib in Resources */,
 				62E1A705240E2EC5001BD7A8 /* HomeSharedEventImageTblCell.xib in Resources */,
@@ -2562,7 +2484,6 @@
 				62E1A6FA240E2EC5001BD7A8 /* HomeSharedChirpyImageTblCell.xib in Resources */,
 				455F87ED245D9B4C00DF9C17 /* TblFriendsCell.xib in Resources */,
 				62E1A688240E2EC5001BD7A8 /* Setting.storyboard in Resources */,
-				62E1A73A240E2EC5001BD7A8 /* Phone-Ringing.wav in Resources */,
 				62E1A718240E2EC5001BD7A8 /* EventInviteesAcceptedTblCell.xib in Resources */,
 				62E1A6F4240E2EC5001BD7A8 /* NoPostFoundCell.xib in Resources */,
 				62E1A7C6240E2EC5001BD7A8 /* Poppins-Italic.otf in Resources */,
@@ -2576,7 +2497,6 @@
 				62E1A7C2240E2EC5001BD7A8 /* Poppins-Light.otf in Resources */,
 				18BD809F25F89A7200FE318A /* user-details.json in Resources */,
 				1864F6A025F60773001C69A5 /* PostStoriesCollCell.xib in Resources */,
-				62E1A738240E2EC5001BD7A8 /* whatsapp.mp3 in Resources */,
 				62E1A6B5240E2EC5001BD7A8 /* HomeFourmTblCell.xib in Resources */,
 				180A6A5426CD8E3E00C1F3F2 /* Hindi.json in Resources */,
 				62E1A68D240E2EC5001BD7A8 /* LocationPicker.storyboard in Resources */,
@@ -2612,13 +2532,11 @@
 				62E1A7CE240E2EC5001BD7A8 /* Poppins-Regular.otf in Resources */,
 				62E1A7C8240E2EC5001BD7A8 /* Poppins-MediumItalic.otf in Resources */,
 				62E1A753240E2EC5001BD7A8 /* NotificationAlertView.xib in Resources */,
-				62E1A73D240E2EC5001BD7A8 /* Triton.mp3 in Resources */,
 				62E1A638240E2EC5001BD7A8 /* SellerInfoCell.xib in Resources */,
 				62E1A7C0240E2EC5001BD7A8 /* Poppins-ThinItalic.otf in Resources */,
 				62E1A710240E2EC5001BD7A8 /* AddPollQuestionCell.xib in Resources */,
 				62E1A70C240E2EC5001BD7A8 /* PostDeletedDetailCell.xib in Resources */,
 				62E1A73E240E2EC5001BD7A8 /* user_placeholder.png in Resources */,
-				62E1A73B240E2EC5001BD7A8 /* whatsapp.wav in Resources */,
 				62E1A6FB240E2EC5001BD7A8 /* HomeSharedPollTblCell.xib in Resources */,
 				62E1A7BD240E2EC5001BD7A8 /* Poppins-ExtraBoldItalic.otf in Resources */,
 				62E1A62E240E2EC5001BD7A8 /* AddReviewProductCell.xib in Resources */,
@@ -2641,7 +2559,6 @@
 				62E1A68E240E2EC5001BD7A8 /* Home.storyboard in Resources */,
 				62E1A68F240E2EC5001BD7A8 /* AudioVideo.storyboard in Resources */,
 				62E1A735240E2EC5001BD7A8 /* tom.jpg in Resources */,
-				62E1A73C240E2EC5001BD7A8 /* whatsapp.caf in Resources */,
 				184E183E2608712E00E1D5D7 /* EventHldListTblCell.xib in Resources */,
 				18E1C99A26270F5E00E9A0D0 /* SwipeReplayIMGView.xib in Resources */,
 				62E1A7BC240E2EC5001BD7A8 /* Poppins-SemiBoldItalic.otf in Resources */,
@@ -2693,7 +2610,6 @@
 				62E1A7D0240E2EC5001BD7A8 /* credentials.plist in Resources */,
 				62E1A7CC240E2EC5001BD7A8 /* Gobold Regular.otf in Resources */,
 				62E1A736240E2EC5001BD7A8 /* image_placeholder.jpg in Resources */,
-				62E1A7A9240E2EC5001BD7A8 /* VideoCallNotification in Resources */,
 				62E1A734240E2EC5001BD7A8 /* ads.png in Resources */,
 				62E1A62C240E2EC5001BD7A8 /* SelectMediaCollCell.xib in Resources */,
 				62E1A63A240E2EC5001BD7A8 /* ProductDetailCell.xib in Resources */,
@@ -2704,7 +2620,6 @@
 				62E1A6BC240E2EC5001BD7A8 /* HomeEventsCell.xib in Resources */,
 				62E1A6AF240E2EC5001BD7A8 /* EventInviteesAcceptedCollCell.xib in Resources */,
 				62E1A7D2240E2EC5001BD7A8 /* GoogleService-Info.plist in Resources */,
-				62E1A739240E2EC5001BD7A8 /* Phone-Ringing.m4a in Resources */,
 				62E1A71A240E2EC5001BD7A8 /* EventCommentTblHeader.xib in Resources */,
 				62E1A747240E2EC5001BD7A8 /* CalendarHeaderView.xib in Resources */,
 				1863D1012600D3CD00B5BDE8 /* StickerCollectionViewCell.xib in Resources */,
@@ -2863,13 +2778,11 @@
 				62E1A730240E2EC5001BD7A8 /* GradientButton.swift in Sources */,
 				62E1A6F2240E2EC5001BD7A8 /* NewsTblCell.swift in Sources */,
 				62E1A623240E2EC5001BD7A8 /* GroupUserListVC.swift in Sources */,
-				62E1A5F0240E2EC5001BD7A8 /* IncomeAudioCallVC.swift in Sources */,
 				62E1A775240E2EC5001BD7A8 /* ExtensionDate.swift in Sources */,
 				62E1A711240E2EC5001BD7A8 /* QuotesTblCell.swift in Sources */,
 				62E1A6F0240E2EC5001BD7A8 /* EmptyInviteFriendCell.swift in Sources */,
 				62E1A5D8240E2EC5001BD7A8 /* ShoutsDetailViewController.swift in Sources */,
 				62E1A6F7240E2EC5001BD7A8 /* SettingsTblCell.swift in Sources */,
-				62E1A7A5240E2EC5001BD7A8 /* TVIVideoHelper.swift in Sources */,
 				62E1A62D240E2EC5001BD7A8 /* AddReviewProductCell.swift in Sources */,
 				62E1A67E240E2EC5001BD7A8 /* OnboardingViewController.swift in Sources */,
 				62E1A69F240E2EC5001BD7A8 /* ImageZoomCollCell.swift in Sources */,
@@ -2895,7 +2808,6 @@
 				62E1A5DD240E2EC5001BD7A8 /* AddMediaViewController.swift in Sources */,
 				62E1A61E240E2EC5001BD7A8 /* AdvertiseViewController.swift in Sources */,
 				62E1A5DF240E2EC5001BD7A8 /* CreateShoutsViewController.swift in Sources */,
-				62E1A7A1240E2EC5001BD7A8 /* TVIVideoHelper+CallKit.swift in Sources */,
 				62E1A639240E2EC5001BD7A8 /* ProductGalleryImagesCell.swift in Sources */,
 				18222BD1277A2BAE0018A8A2 /* MILoader.swift in Sources */,
 				62E1A624240E2EC5001BD7A8 /* GroupMemberRequestViewController.swift in Sources */,
@@ -2922,12 +2834,10 @@
 				62E1A6CD240E2EC5001BD7A8 /* MyFriendTblCell.swift in Sources */,
 				62E1A63F240E2EC5001BD7A8 /* ReviewProductCell.swift in Sources */,
 				62E1A76D240E2EC5001BD7A8 /* MIKeyboardManager.swift in Sources */,
-				62E1A7B0240E2EC5001BD7A8 /* MIMQTT.swift in Sources */,
 				62E1A670240E2EC5001BD7A8 /* ForumSharedDetailViewController.swift in Sources */,
 				62E1A78A240E2EC5001BD7A8 /* FailureModel.swift in Sources */,
 				1836482A26E1E33C000440FA /* ChatSocketIO.swift in Sources */,
 				62E1A6B6240E2EC5001BD7A8 /* HomeShoutsTblCell.swift in Sources */,
-				62E1A7A6240E2EC5001BD7A8 /* Settings.swift in Sources */,
 				62E1A79B240E2EC5001BD7A8 /* MDLPollUserList.swift in Sources */,
 				62E1A64E240E2EC5001BD7A8 /* AllProductListVC.swift in Sources */,
 				62E1A66B240E2EC5001BD7A8 /* GalleryListViewController.swift in Sources */,
@@ -2954,7 +2864,6 @@
 				184E1848260872A300E1D5D7 /* CountryHolidayList.swift in Sources */,
 				62E1A647240E2EC5001BD7A8 /* AllProductVC.swift in Sources */,
 				62E1A5EA240E2EC5001BD7A8 /* LoginViewController.swift in Sources */,
-				62E1A5F1240E2EC5001BD7A8 /* IncomingVideoCallVC.swift in Sources */,
 				62E1A70E240E2EC5001BD7A8 /* LikesTblCell.swift in Sources */,
 				62E1A5E2240E2EC5001BD7A8 /* AddArticleViewController.swift in Sources */,
 				62E1A67D240E2EC5001BD7A8 /* EventListViewController.swift in Sources */,
@@ -2968,7 +2877,6 @@
 				62E1A5FF240E2EC5001BD7A8 /* TblSharedFilesDetailsCell.swift in Sources */,
 				62E1A761240E2EC5001BD7A8 /* MIServiceManager.swift in Sources */,
 				62E1A708240E2EC5001BD7A8 /* HomeSharedArticleCell.swift in Sources */,
-				62E1A7A8240E2EC5001BD7A8 /* TwilioAPIs.swift in Sources */,
 				62E1A674240E2EC5001BD7A8 /* ChirpySharedDetailsViewController.swift in Sources */,
 				62E1A5E7240E2EC5001BD7A8 /* InviteAndConnectViewController.swift in Sources */,
 				62E1A7A0240E2EC5001BD7A8 /* MIGeneralsAPI.swift in Sources */,
@@ -3042,7 +2950,6 @@
 				62E1A641240E2EC5001BD7A8 /* ContactSellerVC.swift in Sources */,
 				62E1A76B240E2EC5001BD7A8 /* ExtensionDictionary.swift in Sources */,
 				62E1A703240E2EC5001BD7A8 /* PostDeletedCell.swift in Sources */,
-				62E1A7AC240E2EC5001BD7A8 /* AudioTokenService.swift in Sources */,
 				62E1A673240E2EC5001BD7A8 /* ImageSharedDetailViewController.swift in Sources */,
 				62E1A615240E2EC5001BD7A8 /* GooglePlacesRequestHelpers.swift in Sources */,
 				62E1A6EC240E2EC5001BD7A8 /* NoPostFoundCell.swift in Sources */,
@@ -3113,7 +3020,6 @@
 				62E1A6DE240E2EC5001BD7A8 /* ChatUserListTblCell.swift in Sources */,
 				62E1A6F5240E2EC5001BD7A8 /* NotificationRequestTblCell.swift in Sources */,
 				62E1A6AC240E2EC5001BD7A8 /* MyFriendListTabBarCollCell.swift in Sources */,
-				62E1A7A7240E2EC5001BD7A8 /* Utils.swift in Sources */,
 				62E1A5D7240E2EC5001BD7A8 /* HomeSearchViewController.swift in Sources */,
 				62E1A619240E2EC5001BD7A8 /* ReportViewController.swift in Sources */,
 				62E1A78D240E2EC5001BD7A8 /* MDLStorage.swift in Sources */,
@@ -3140,9 +3046,7 @@
 				62E1A729240E2EC5001BD7A8 /* MIGenericButton.swift in Sources */,
 				62E1A62A240E2EC5001BD7A8 /* GroupsViewController.swift in Sources */,
 				62E1A77E240E2EC5001BD7A8 /* ExtensionUIBarButtonItem.swift in Sources */,
-				62E1A7A4240E2EC5001BD7A8 /* VoIPNotificationHandler.swift in Sources */,
 				62E1A6A4240E2EC5001BD7A8 /* VideoCallCell.swift in Sources */,
-				62E1A5EE240E2EC5001BD7A8 /* AudioCallVC.swift in Sources */,
 				62E1A675240E2EC5001BD7A8 /* EventSharedDetailViewController.swift in Sources */,
 				62E1A6D7240E2EC5001BD7A8 /* MessageReceiverTblCell.swift in Sources */,
 				1863D0DD2600C30600B5BDE8 /* PreviewView.swift in Sources */,
@@ -3166,13 +3070,11 @@
 				1863D1082600D3CD00B5BDE8 /* UIImageViewExtensions.swift in Sources */,
 				184E030725F237DF00F80C78 /* ClListviewCell.swift in Sources */,
 				184E17FE260866C000E1D5D7 /* ColorsCollectionViewDelegate.swift in Sources */,
-				62E1A7A3240E2EC5001BD7A8 /* TVITokenService.swift in Sources */,
 				62E1A778240E2EC5001BD7A8 /* ExtensionDouble.swift in Sources */,
 				62E1A6EB240E2EC5001BD7A8 /* ContactListTblViewCell.swift in Sources */,
 				62E1A5DC240E2EC5001BD7A8 /* HomeViewController.swift in Sources */,
 				1864F69F25F60773001C69A5 /* PostStoriesCollCell.swift in Sources */,
 				62E1A741240E2EC5001BD7A8 /* MaintenanceView.swift in Sources */,
-				62E1A5EF240E2EC5001BD7A8 /* OneToOneVideoCallVC.swift in Sources */,
 				62E1A66F240E2EC5001BD7A8 /* PollSharedDetailsViewController.swift in Sources */,
 				62E1A72F240E2EC5001BD7A8 /* MIGenericView.swift in Sources */,
 				62E1A7B1240E2EC5001BD7A8 /* MIAudioPlayer.swift in Sources */,
@@ -3186,7 +3088,6 @@
 				62E1A6A7240E2EC5001BD7A8 /* GalleryListCollCell.swift in Sources */,
 				1863D0DA2600C30600B5BDE8 /* SwiftyRecordButton.swift in Sources */,
 				1863D10B2600D3CD00B5BDE8 /* UIView+Image.swift in Sources */,
-				62E1A7AB240E2EC5001BD7A8 /* AudioCallHelper.swift in Sources */,
 				62E1A7B6240E2EC5001BD7A8 /* Utility.swift in Sources */,
 				62E1A614240E2EC5001BD7A8 /* GooglePlacesAutocompleteContainer.swift in Sources */,
 				62E1A65C240E2EC5001BD7A8 /* CompleteProfileViewController.swift in Sources */,
@@ -3227,7 +3128,6 @@
 				62E1A685240E2EC5001BD7A8 /* SocialMedia.xcdatamodeld in Sources */,
 				62E1A7B2240E2EC5001BD7A8 /* MimeType.swift in Sources */,
 				62E1A665240E2EC5001BD7A8 /* NewsViewController.swift in Sources */,
-				62E1A7A2240E2EC5001BD7A8 /* AppParticipant.swift in Sources */,
 				7CF3E7E7278D335B0054E394 /* PSLViewController.swift in Sources */,
 				62E1A5EB240E2EC5001BD7A8 /* ChangePWDViewController.swift in Sources */,
 				62E1A61C240E2EC5001BD7A8 /* LikeViewController.swift in Sources */,

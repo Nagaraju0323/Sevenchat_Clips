@@ -6,6 +6,14 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ShoutsDetailViewController                  *
+ * Changes :                                             *
+ * Deisplay Shout Details user can like and comments,    *
+ * Delete forparticular post                             *
+ ********************************************************/
+
 import UIKit
 import ActiveLabel
 
@@ -107,13 +115,11 @@ class ShoutsDetailViewController: ParentViewController {
         }
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(self.btnMenuClicked(_:)))]
-        
         self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
         self.refreshControl.tintColor = ColorAppTheme
         self.tblCommentList.pullToRefreshControl = self.refreshControl
         self.pageNumber = 1
         self.getShoutsDetailsFromServer()
-        
         
     }
     
@@ -143,7 +149,6 @@ extension ShoutsDetailViewController{
         if apiTask?.state == URLSessionTask.State.running {
             apiTask?.cancel()
         }
-        
         self.pageNumber = 1
         refreshControl.beginRefreshing()
         self.getShoutsDetailsFromServer()
@@ -154,7 +159,6 @@ extension ShoutsDetailViewController{
         
         self.parentView.isHidden = true
         if let shouID = self.shoutID {
-            
             APIRequest.shared().viewPostDetailNew(postID: shouID, apiKeyCall: CAPITagshoutsDetials){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
@@ -169,7 +173,6 @@ extension ShoutsDetailViewController{
             }
         }
     }
-    
     
     fileprivate func openUserProfileScreen(){
         
@@ -234,7 +237,6 @@ extension ShoutsDetailViewController{
                         "status_id": "3"
                     ]
                 
-                
                 APIRequest.shared().deletePostNew(postDetials: dict, apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
                     guard let self = self else { return }
                     if response != nil && error == nil{
@@ -256,7 +258,6 @@ extension ShoutsDetailViewController{
             self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
             
             apiTask = APIRequest.shared().getProductCommentLists(page: pageNumber, showLoader: false, productId:shoID) { [weak self] (response, error) in
-                //            apiTask  = APIRequest.shared().getCommentList(page: pageNumber, showLoader: false, post_id: shoID, rss_id: nil) { [weak self] (response, error) in
                 guard let self = self else { return }
                 self.tblCommentList.tableFooterView = UIView()
                 self.apiTask?.cancel()
@@ -275,13 +276,11 @@ extension ShoutsDetailViewController{
                             self.pageNumber += 1
                         }
                     }
-                    
                     print("arrCommentListCount : \(self.arrCommentList.count)")
                 }
             }
         }
     }
-    
 }
 
 // MARK:- --------- UITableView Datasources/Delegate
@@ -316,14 +315,11 @@ extension ShoutsDetailViewController: UITableViewDelegate, UITableViewDataSource
             let commentInfo = arrCommentList[indexPath.row]
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
-            
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
-            
             var commentText = commentInfo.valueForString(key: "comment")
             cell.lblCommentText.enabledTypes.removeAll()
             cell.viewDevider.isHidden = ((arrCommentList.count - 1) == indexPath.row)
-            
             if Int64(commentInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
                 cell.btnMoreOption.isHidden = false
             }else{
@@ -332,7 +328,6 @@ extension ShoutsDetailViewController: UITableViewDelegate, UITableViewDataSource
             cell.btnMoreOption.touchUpInside { [weak self] (_) in
                 self?.btnMoreOptionOfComment(index: indexPath.row)
             }
-            
             if let arrIncludedUsers = commentInfo["user_id"] as? [[String : Any]] {
                 for userInfo in arrIncludedUsers {
                     let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
@@ -347,11 +342,9 @@ extension ShoutsDetailViewController: UITableViewDelegate, UITableViewDataSource
                         
                         if arrSelectedUser.count > 0 {
                             let userSelectedInfo = arrSelectedUser[0]
-                            //  appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
                         }
                     })
-                    
                     commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
                 }
             }
@@ -360,7 +353,6 @@ extension ShoutsDetailViewController: UITableViewDelegate, UITableViewDataSource
                 guard let self = self else { return }
                 label.text = commentText
                 label.minimumLineHeight = 0.0
-                
                 label.configureLinkAttribute = { [weak self](type, attributes, isSelected) in
                     guard let _ = self else { return attributes }
                     var atts = attributes
@@ -371,13 +363,11 @@ extension ShoutsDetailViewController: UITableViewDelegate, UITableViewDataSource
             
             cell.btnUserName.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
-                //                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
             }
             
             cell.btnUserImage.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
-                //                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
             }
             // Load more data....
@@ -440,10 +430,8 @@ extension ShoutsDetailViewController: GenericTextViewDelegate{
                 viewUserSuggestion.searchString = ""
                 viewUserSuggestion.isSearchString = true
             }
-            
             viewUserSuggestion.filterUser(textView, shouldChangeTextIn: range, replacementText: text)
         }
-        
         return true
     }
 }
@@ -512,15 +500,13 @@ extension ShoutsDetailViewController{
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }
                         self.editCommentId =  nil
-                        //                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-                        
+                        // self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                         //self.lblNoData.isHidden = self.arrCommentList.count != 0
                     }
                 }
             }
         }
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadder"), object: nil)
-        
     }
     
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
@@ -553,7 +539,6 @@ extension ShoutsDetailViewController{
         }else {
             likeCount = 2
             like = 0
-            
         }
         guard let userID = appDelegate.loginUser?.user_id else {
             return
@@ -582,7 +567,6 @@ extension ShoutsDetailViewController{
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
-                    //                    info = response!["liked_users"] as? [String:Any] ?? [:]
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
                     self?.btnLikeCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     if self?.notifcationIsSlected == true{
@@ -605,7 +589,6 @@ extension ShoutsDetailViewController{
     }
     
     func btnMoreOptionOfComment(index:Int){
-        
         self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
             guard let _ = self else {return}
             DispatchQueue.main.async {

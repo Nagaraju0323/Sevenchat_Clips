@@ -16,37 +16,28 @@ class HomeEventImageTblCell: UITableViewCell {
     @IBOutlet weak var viewMainContainer : UIView!
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var imgUser : UIImageView!
-    //@IBOutlet weak var imgEvent : UIImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblEventPostDate : UILabel!
-    
     @IBOutlet weak var lblEventType : UILabel!
     @IBOutlet weak var lblEventCategory : UILabel!
     @IBOutlet weak var lblEventTitle : UILabel!
     @IBOutlet weak var lblEventDescription : UILabel!
-    
     @IBOutlet weak var btnLikesCount : UIButton!
     @IBOutlet weak var btnLike : UIButton!
     @IBOutlet weak var btnComment : UIButton!
-
-    //@IBOutlet weak var btnReport : UIButton!
     @IBOutlet weak var btnShare : UIButton!
     @IBOutlet weak var btnIconShare : UIButton!
     @IBOutlet weak var btnMore : UIButton!
     @IBOutlet weak var btnProfileImg : UIButton!
     @IBOutlet weak var btnUserName : UIButton!
-    
     @IBOutlet weak var btnInterested : MIGenericButton!
     @IBOutlet weak var btnNotInterested : MIGenericButton!
     @IBOutlet weak var btnMaybe : MIGenericButton!
-
     @IBOutlet weak var lblStartDate : UILabel!
     @IBOutlet weak var lblEndDate : UILabel!
-    
     @IBOutlet weak var lblEventStartDate : UILabel!
     @IBOutlet weak var lblEventEndDate : UILabel!
     @IBOutlet weak var lblEventLocation : UILabel!
-    
     @IBOutlet weak var blurImgView : BlurImageView!
     
     var likeCount = 0
@@ -58,8 +49,6 @@ class HomeEventImageTblCell: UITableViewCell {
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
-    
-    
     var onChangeEventStatus : ((Int) -> Void)? = nil
     
     override func awakeFromNib() {
@@ -139,7 +128,6 @@ extension HomeEventImageTblCell{
     
     func homeEventDataSetup(_ postInfo : [String : Any]){
         
-//        postID = postInfo.valueForInt(key: CId) ?? 0
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         posted_ID = postInfo.valueForString(key: "user_id")
         
@@ -165,10 +153,6 @@ extension HomeEventImageTblCell{
         
         lblEventType.text = CTypeEvent
         lblEventCategory.text = postInfo.valueForString(key: CCategory).uppercased()
-//        btnLike.isSelected = postInfo.valueForInt(key: CIs_Like) == 1
-//        likeCount = postInfo.valueForInt(key: CTotal_like) ?? 0
-//        btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-
         let is_Liked = postInfo.valueForString(key: CIsLiked)
        
         if is_Liked == "Yes"{
@@ -178,43 +162,22 @@ extension HomeEventImageTblCell{
         }
         
          likeCount = postInfo.valueForString(key: CLikes).toInt ?? 0
-//        likeCount = product.likes!.toInt!
          btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-
-//        let commentCount = postInfo.valueForInt(key: CTotalComment) ?? 0
         let commentCount = postInfo.valueForString(key: "comments").toInt
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount ?? 0), for: .normal)
         btnShare.setTitle(CBtnShare, for: .normal)
-       
-        //Dateconvert
         let created_At = postInfo.valueForString(key: CCreated_at)
         let cnvStr = created_At.stringBefore("G")
-//        let removeFrst = cnvStr.chopPrefix(3)
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         self.lblEventPostDate.text = startCreated
         
-        
-//        lblEventLocation.text = postInfo.valueForString(key: CEvent_Location)
         print("postinfo.location\(postInfo.valueForString(key: "address_line1"))")
-        
-//        let location = CLLocation(latitude: postInfo.valueForString(key: CLatitude).toDouble ?? 0.0, longitude: postInfo.valueForString(key: CLongitude).toDouble ?? 0.0)
-//        let strAddress = selectLocation(location: location)
         lblEventLocation.text = postInfo.valueForString(key:CEvent_Location)
-        
-//        btnMaybe.setTitle("\(postInfo.valueForString(key: CTotalMaybeInterestedUsers))\n" + CMaybe, for: .normal)
-//        btnNotInterested.setTitle("\(postInfo.valueForString(key: CTotalNotInterestedUsers))\n" + CDeclined, for: .normal)
-//        btnInterested.setTitle("\(postInfo.valueForString(key: CTotalInterestedUsers))\n" + CConfirmed, for: .normal)
         btnMaybe.setTitle("\(postInfo.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(postInfo.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
         btnInterested.setTitle("\(postInfo.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)
-        
-        
-        
-        
         let currentDateTime = Date().timeIntervalSince1970
-        
         if let endDateTime = postInfo.valueForDouble(key: CEvent_End_Date) {
-
             btnMaybe.isEnabled = Double(currentDateTime) <= endDateTime
             btnNotInterested.isEnabled = Double(currentDateTime) <= endDateTime
             btnInterested.isEnabled = Double(currentDateTime) <= endDateTime
@@ -223,10 +186,6 @@ extension HomeEventImageTblCell{
         btnMaybe.isSelected = false
         btnNotInterested.isSelected = false
         btnInterested.isSelected = false
-        
-
-        
-//        switch postInfo.valueForInt(key: CIsInterested) {
         switch postInfo.valueForString(key: "selected_choice").toInt ?? 0 {
                 case 3:
                     btnMaybe.isSelected = true
@@ -275,13 +234,6 @@ extension HomeEventImageTblCell{
     }
     
     @IBAction func onLikePressed(_ sender:UIButton){
-        
-//        self.btnLike.isSelected = !self.btnLike.isSelected
-//        self.likeCount = self.btnLike.isSelected ? self.likeCount + 1 : self.likeCount - 1
-//        self.btnLikesCount.setTitle(appDelegate.getLikeString(like: self.likeCount), for: .normal)
-//        MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.postID, rss_id: nil, type: 1, likeStatus: self.btnLike.isSelected ? 1 : 0, viewController: self.viewController)
-        
-        
         self.btnLike.isSelected = !self.btnLike.isSelected
         
         if self.btnLike.isSelected == true{
@@ -321,7 +273,6 @@ extension HomeEventImageTblCell{
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
-//                    info = response!["liked_users"] as? [String:Any] ?? [:]
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
                     self?.btnLikesCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     guard let user_ID = appDelegate.loginUser?.user_id.description else { return }

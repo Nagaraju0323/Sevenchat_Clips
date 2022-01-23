@@ -18,14 +18,14 @@ class ProfilePreferenceViewController: ParentViewController {
     @IBOutlet var lblBasic : UILabel!
     @IBOutlet var lblUnknown : UILabel!
     @IBOutlet var lblBlockedUser : UILabel!
-
+    
     @IBOutlet var imgNextArrow : UIImageView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -37,7 +37,7 @@ class ProfilePreferenceViewController: ParentViewController {
     
     // MARK:- --------- Initialization
     func Initialization(){
-       
+        
         self.setLanguageText()
         
         if appDelegate.loginUser?.visible_to_friend == 1 {
@@ -106,24 +106,21 @@ class ProfilePreferenceViewController: ParentViewController {
 extension ProfilePreferenceViewController{
     
     func changeProfilePrefrences(friend_visible : Int, unknown_visible : Int) {
-//        guard let useremail = appDelegate.loginUser?.email else {return }
+        guard let userId = appDelegate.loginUser?.user_id else {return }
         
-        let dict :[String:Any]  =
-              [
-                "user_id":appDelegate.loginUser?.user_id,
-                "push_notify":"1",
-                "email_notify":"1",
-                "visible_to_friend":friend_visible.description,
-                "visible_to_other":unknown_visible.description
-              ]
+        let dict :[String:Any]  = [
+            "user_id":userId.description,
+            "push_notify":"1",
+            "email_notify":"1",
+            "visible_to_friend":friend_visible.description,
+            "visible_to_other":unknown_visible.description
+        ]
         APIRequest.shared().changeProfilePreferencesNew(profileDetials: dict as [String : Any]) { (response, error) in
             if response != nil && error == nil {
                 if let metaInfo = response![CJsonMeta] as? [String:Any]{
                     let status  = metaInfo.valueForString(key: "status")
                     if status == "0"{
-                        
                         guard let useremail = appDelegate.loginUser?.email else {return }
-                        
                         let dict:[String:Any] = [
                             CEmail_Mobile : useremail
                         ]
@@ -135,20 +132,11 @@ extension ProfilePreferenceViewController{
                                 }
                             }
                         }
-                        
                     }
                 }
             }
         }
     }
-
-    
-//    func changeProfilePrefrences(friend_visible : Int, unknown_visible : Int) {
-//        APIRequest.shared().changeProfilePreferences(friend_visible_status: friend_visible, unknown_visible_status: unknown_visible) { (response, error) in
-//            if response != nil && error == nil {
-//            }
-//        }
-//    }
 }
 
 //MARK:- ---------- Action Event

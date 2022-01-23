@@ -9,7 +9,7 @@
 import UIKit
 
 class ProductListCell: UITableViewCell {
-
+    
     //MARK: - IBOutlet/Object/Variable Declaration
     @IBOutlet var viewMainContainer : UIView!
     @IBOutlet var viewSubContainer : UIView!
@@ -21,7 +21,7 @@ class ProductListCell: UITableViewCell {
     @IBOutlet var imgUser : UIImageView!
     @IBOutlet var lblUserName : UILabel!
     @IBOutlet var lblPostDate : UILabel!
-
+    
     @IBOutlet weak var collVImages: ProductMediaCollectionView!
     
     @IBOutlet var btnLikesCount : MIGenericButton!
@@ -32,7 +32,7 @@ class ProductListCell: UITableViewCell {
     
     @IBOutlet weak var vwCountImage : UIView!
     @IBOutlet weak var lblCountImage : UILabel!
-
+    
     var likeCount = 0
     var likeTotalCount = 0
     var arrMedia : [MDLAddMedia] = []
@@ -44,27 +44,16 @@ class ProductListCell: UITableViewCell {
             collVImages.arrMedia = product.galleryImages
             lblUserName.text = product.firstName + " " + product.lastName
             lblPrice.text = product.formatedPriceAmount
-//            lblPrice.text = product.productPrice
             lblName.text = product.productTitle
-            
-            
-//            lblPostDate.text = DateFormatter.dateStringFrom(timestamp: product.createdAt, withFormate: "dd MMM yyy, hh:mm a")
-            
             let created_At = product.createdAt
             let cnvStr = created_At?.stringBefore("G")
-//            let removeFrst = cnvStr?.chopPrefix(3)
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             lblPostDate.text = startCreated
-            //Load Images From Minio
-            
-//          imgUser.loadImageFromUrl(product.userProfileImage, true)
-            
             if product.userAsLiked == "Yes"{
                 btnLike.isSelected = true
             }else {
                 btnLike.isSelected = false
             }
-
             imgUser.loadImageFromUrl(product.userProfileImage, true)
             likeCount = product.likes!.toInt!
             btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
@@ -78,9 +67,6 @@ class ProductListCell: UITableViewCell {
             }
             let commentCount = product.totalComments.toInt ?? 0
             btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-//            btnShare.setTitle(CBtnShare, for: .normal)
-            
-            //btnMore.isHidden = !(product.userId.description == appDelegate.loginUser?.user_id.description)
             self.vwCountImage.isHidden = (product.galleryImages.count <= 1)
         }
     }
@@ -94,15 +80,12 @@ class ProductListCell: UITableViewCell {
         
         self.btnLikesCount.setTitle(CLike, for: .normal)
         self.btnComment.setTitle(CComment, for: .normal)
-//        self.btnShare.setTitle(CBtnShare, for: .normal)
-        
         self.viewSubContainer.layer.cornerRadius = 8
         self.viewMainContainer.layer.cornerRadius = 8
         self.viewMainContainer.shadow(color: CRGB(r: 237, g: 236, b: 226), shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)
         self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width / 2
         
         self.collVImages.scrollToIndex = { [weak self] (index) in
-//            self?.lblCountImage.text =  "\(index)" + " / " + "\(self?.product.galleryImages.count ?? 0)"
             self?.lblCountImage.text =  ""
         }
     }
@@ -129,7 +112,6 @@ extension ProductListCell {
     }
     
     @IBAction func onUserPressed(_ sender : UIButton){
-//        appDelegate.moveOnProfileScreen(product.userId.description, self.viewController)
         appDelegate.moveOnProfileScreenNew(product.productUserID.description, product.email.description, self.viewController)
         
     }
@@ -138,9 +120,9 @@ extension ProductListCell {
         let shareProduct = CShareProductText + " " + self.product.shareUrl
         self.viewController?.presentActivityViewController(mediaData: nil, contentTitle: shareProduct)
     }
-
+    
     @IBAction func onLikePressed(_ sender : UIButton){
-
+        
         self.btnLike.isSelected = !self.btnLike.isSelected
         if self.btnLike.isSelected == true{
             likeCount = 1
@@ -149,56 +131,32 @@ extension ProductListCell {
         }else {
             likeCount = 2
         }
-        
-//        self.likeCount = self.btnLike.isSelected ? self.likeCount + 1 : self.likeCount - 1
-//        self.btnLikesCount.setTitle(appDelegate.getLikeString(like: self.likeCount), for: .normal)
         guard let userID = appDelegate.loginUser?.user_id else {
             return
         }
-//        let likecount = NSNumber(value: self.btnLike.isSelected).intValue
-        
-        
-//        APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: Int(product.productID) ?? 0, isLike: NSNumber(value: self.btnLike.isSelected).intValue){ [weak self](response, error) in
         APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: Int(product.productID) ?? 0, isLike: likeCount){ [weak self](response, error) in
             
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async {
-                   
+                    
                     let data = response![CJsonMeta] as? [String:Any] ?? [:]
                     let stausLike = data["status"] as? String ?? "0"
                     if stausLike == "0"{
                         self?.likeCountfromSever(productId: Int((self?.product.productID)!) ?? 0)
                     }
-                
-                    
-//                    let data = response![CData] as? [String:Any] ?? [:]
-//                    let totalLike = data["total_like"] as? Int ?? 0
-//                    let isLike = data["is_like"] as? Int ?? 0
-//                    ProductHelper<UIViewController>.likeUnlike(productId: (self?.product.id ?? 0), isLike: isLike, totalLike: totalLike, controller: self?.viewController, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
                 }
             }
         }
     }
-    
-    
-    /********************************************************
-     * Author : Chandrika R                                 *
-     * Model   : product Create Notification                *
-     * option                                               *
-     ********************************************************/
-    
     //MARK :- Button Like count
     func likeCountfromSever(productId: Int){
- 
+        
         APIRequest.shared().likeUnlikeProductCount(productId: Int(product.productID) ?? 0){ [weak self](response, error) in
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
-//                    let data = response!["liked_users"] as? [String:Any] ?? [:]
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
-//                    self.likeCount = self.btnLike.isSelected ? self.likeCount + 1 : self.likeCount - 1
-                    
                     if self?.notifcationIsSlected == true{
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
                             let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
@@ -218,8 +176,6 @@ extension ProductListCell {
                     
                     self?.btnLikesCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     
-//                    let isLike = data["is_like"] as? Int ?? 0
-//                    ProductHelper<UIViewController>.likeUnlike(productId: (self?.product.id ?? 0), isLike: isLike, totalLike: self?.likeTotalCount ?? 0, controller: self?.viewController, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
                 }
             }
         }
@@ -247,12 +203,12 @@ extension ProductListCell {
             guard let _ = self else { return }
             self?.viewController?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeleteProduct, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                 guard let _ = self else { return }
-             
+                
                 APIRequest.shared().deleteProduct(productId:self?.product.productID ?? ""){ [weak self](response, error) in
                     guard let _ = self else { return }
                     if response != nil {
                         GCDMainThread.async {
-
+                            
                             ProductHelper<UIViewController>.deleteProduct(
                                 controller: self?.viewController,
                                 refreshCnt: [StoreListVC.self,ProductSearchVC.self],
@@ -260,18 +216,12 @@ extension ProductListCell {
                                 isLoader: true
                             )
                             
-
+                            
                         }
                     }
                 }
                 
-//                ProductHelper<UIViewController>.deleteProduct(
-//                    controller: self?.viewController,
-//                    refreshCnt: [StoreListVC.self,ProductSearchVC.self],
-//                    productID: (self?.product.id ?? 0),
-//                    isLoader: true
-//                )
-                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
         }
     }
     
@@ -280,7 +230,6 @@ extension ProductListCell {
         self.viewController?.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CReport, btnOneStyle: .default) { [weak self] (alert) in
             guard let _ = self else { return }
             if let productReport : ProductReportVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductReportVC") as? ProductReportVC{
-                print("self.product\(self?.product.product_id)")
                 productReport.productId = self?.product.product_id.toInt ?? 0
                 self?.viewController?.navigationController?.pushViewController(productReport, animated: true)
             }

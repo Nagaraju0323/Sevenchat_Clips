@@ -55,7 +55,6 @@ class ProductDetailVC: ParentViewController {
     var apiTask : URLSessionTask?
     var apiTaskCommentList : URLSessionTask?
     var arrMedia : [MDLAddMedia] = []
-    
     var arrCommentList = [[String:Any]]()
     var arrUserForMention = [[String:Any]]()
     var arrFilterUser = [[String:Any]]()
@@ -73,16 +72,12 @@ class ProductDetailVC: ParentViewController {
     var commentsInfo = [String:Any]()
     var productVC:Int?
     var productUserID = ""
-    
-    
     var ImgName = ""
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
-        
-        
         //self.addAddProduct()
     }
     
@@ -91,9 +86,6 @@ class ProductDetailVC: ParentViewController {
     }
     
     func addAddProduct(){
-        //        self.arrProducts.append(MDLProductDetail())
-        //self.arrProducts.append(MDLSellerInfo())
-        //self.arrProducts.append(MDLProductAddRating())
         self.arrProducts.append(MDLProductReview())
         self.tblProduct.reloadData()
     }
@@ -164,18 +156,12 @@ extension ProductDetailVC {
     }
     
     func updateOnMarkAsSold(available_status:String){
-        
         self.product?.isSold = 2
-        
-        let pro = product?.productID
+        _ = product?.productID
         guard let userId = appDelegate.loginUser?.user_id else { return }
         let userID = userId.description
         arrMedia = product?.galleryImages ?? []
-        
-        
-        guard let imgStr = product?.galleyimagesArray else {
-            return
-        }
+        guard let imgStr = product?.galleyimagesArray else {return}
         do {
             let data = try JSONEncoder().encode(imgStr)
             let jsonCnvstr = String(data: data, encoding: .utf8)!
@@ -183,7 +169,6 @@ extension ProductDetailVC {
             let rpl_Str1 = jsonCnvstr.replacingOccurrences(of: "\"[", with: "[")
             let rpl_Str2 = rpl_Str1.replacingOccurrences(of: "]\"", with: "]")
             let rep_Str3 = rpl_Str2.replacingOccurrences(of: "\\/", with: "/")
-            
             ImgName = rep_Str3
             
         } catch { print(error) }
@@ -222,16 +207,8 @@ extension ProductDetailVC {
                     message = CProductHasBeenUpdate
                     let data = response![CData] as? [String : Any] ?? [:]
                     _ = MDLProduct(fromDictionary: data)
-                  
-                    ProductHelper<UIViewController>.updateProductData(product: self.product!, controller: self.viewController, refreshCnt: [StoreListVC.self, ProductSearchVC.self,MyProductListVC.self])
                     
-//                    ProductHelper<UIViewController>.availableProduct(
-//                        controller: self.viewController,
-//                        refreshCnt: [StoreListVC.self,ProductSearchVC.self],
-//                        productID: (self.product?.productID.toInt ?? 0),
-//                        isLoader: true
-//                    )
-//
+                    ProductHelper<UIViewController>.updateProductData(product: self.product!, controller: self.viewController, refreshCnt: [StoreListVC.self, ProductSearchVC.self,MyProductListVC.self])
                     self.arrProducts = self.arrProducts.filter({$0.tpye != .MakeAsSoldProduceCell})
                     UIView.performWithoutAnimation {
                         self.tblProduct.reloadSections(IndexSet(integer: 0), with: .none)
@@ -241,14 +218,12 @@ extension ProductDetailVC {
                 }else{
                     ProductHelper.createProduct(controller: self, refreshCnt: [StoreListVC.self])
                 }
-            self.navigationController?.popViewController(animated: true)
-                //                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.navigationController?.popViewController(animated: true)
             }
         }
     }
     
     func btnMoreOptionOfComment(index:Int){
-        //let postId = articleInformation.valueForInt(key: CId)
         self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
             guard let self = self else {return}
             self.isEditBtnCLK = true
@@ -336,10 +311,6 @@ extension ProductDetailVC : UITableViewDelegate, UITableViewDataSource{
         }else{
             if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTblCell", for: indexPath) as? CommentTblCell{
                 let commentInfo = arrCommentList[indexPath.row]
-//                cell.lblCommentPostDate.text = DateFormatter.shared().durationString(duration: commentInfo.valueForString(key: CCreated_upat))
-                
-//                cell.lblCommentPostDate.text = DateFormatter.shared().durationString(duration: commentInfo.valueForString(key: CCreated_upat))
-                
                 let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
                 cell.lblCommentPostDate.text = timeStamp
                 cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
@@ -370,7 +341,6 @@ extension ProductDetailVC : UITableViewDelegate, UITableViewDataSource{
                             
                             if arrSelectedUser.count > 0 {
                                 let userSelectedInfo = arrSelectedUser[0]
-//                                appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
                                 appDelegate.moveOnProfileScreenNew(userSelectedInfo.valueForString(key: CUserId), userSelectedInfo.valueForString(key: CUsermailID), self)
                             }
                         })
@@ -394,19 +364,15 @@ extension ProductDetailVC : UITableViewDelegate, UITableViewDataSource{
                 
                 cell.btnUserName.touchUpInside { [weak self] (sender) in
                     guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                     appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
-                    
                 }
                 
                 cell.btnUserImage.touchUpInside { [weak self] (sender) in
                     guard let self = self else { return }
-//                    appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                     appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.lblCommentText.text = commentText
-                
                 // Load more data....
                 
                 //                if (indexPath == tblProduct.lastIndexPath()) && apiTaskCommentList?.state != URLSessionTask.State.running {
@@ -506,33 +472,25 @@ extension ProductDetailVC {
             return
         }
         let userID = String(userId)
-        
         var para = [String:Any]()
         para["user_id"] = userID
         para["product_id"] = self.productIds
         
-        
         let _ = APIRequest.shared().getProductDetail(para:para,productID: self.productId,userID:userID, showLoader: true, completion:{ [weak self](response, error) in
             guard let self = self else { return }
-            //self?.refreshControl.endRefreshing()
             if response != nil {
                 GCDMainThread.async {
-                    //                    self.arrProducts.removeAll()
                     guard let data = response?[CData] as? [[String:Any]] else {
                         return
                     }
-                    //                    let data = response![CData] as! [[String : Any]]
                     for arrayData in data{
-                        
                         self.product = MDLProduct(fromDictionary: arrayData)
                         self.title = self.product?.productTitle ?? ""
                         self.arrProducts.append(self.product!)
                         self.commentCount = self.product?.totalComments.toInt ?? 0
                         let isMyProduct = (self.product!.userId.description == appDelegate.loginUser?.user_id.description)
                         
-                        guard let emailID  = appDelegate.loginUser?.email else {
-                            return
-                        }
+                        guard let emailID  = appDelegate.loginUser?.email else {return}
                         if self.product?.email == emailID {
                             if self.product?.productState == "1"{
                                 self.arrProducts.append(MDLMarkAsSold(fromDictionary: arrayData))
@@ -540,59 +498,7 @@ extension ProductDetailVC {
                         } else {
                             self.arrProducts.append(MDLSellerInfo(fromDictionary: arrayData))
                         }
-                        
-                        
-                        //                        self.arrProducts.append(MDLProductAddRating(fromDictionary: data))
-                        //                        if self.VcController == 1 || self.VcController == 2 {
-                        //                            self.arrProducts.append(MDLSellerInfo(fromDictionary: arrayData))
-                        //                            self.arrProducts.append(MDLMarkAsSold(fromDictionary: arrayData))
-                        //                        }
-                        
-                        //                        if self.product!.isSold == 1 && !isMyProduct{
-                        //                            // Sellter Info
-                        //                            self.arrProducts.append(MDLSellerInfo(fromDictionary: arrayData))
-                        //                        }else if self.product!.isSold == 2 && !isMyProduct{
-                        //                            // Add Review
-                        //                            self.arrProducts.append(MDLProductAddRating(fromDictionary: data))
-                        //                        }
-                        //                        if self.product!.productState == "yes" && isMyProduct{
-                        //                            // Mark as Sold
-                        //                            self.arrProducts.append(MDLMarkAsSold(fromDictionary: arrayData))
-                        //                        }
-                        
-                        //                        if self.product!.isSold == 1 && !isMyProduct{
-                        //                            // Sellter Info
-                        //                            self.arrProducts.append(MDLSellerInfo(fromDictionary: data))
-                        //                        }else if self.product!.isSold == 2 && !isMyProduct{
-                        //                            // Add Review
-                        //                           // self.arrProducts.append(MDLProductAddRating(fromDictionary: data))
-                        //                        }
-                        //
-                        //                        if self.product!.isSold == 1 && isMyProduct{
-                        //                            // Mark as Sold
-                        //                            self.arrProducts.append(MDLMarkAsSold(fromDictionary: data))
-                        //                        }
                     }
-                    //                    self.product = MDLProduct(fromDictionary: data)
-                    //                    self.title = self.product?.productTitle ?? ""
-                    //                    self.arrProducts.append(self.product!)
-                    //                    //self.commentCount = self.product?.totalComment ?? 0
-                    //                    let isMyProduct = (self.product!.userId.description == appDelegate.loginUser?.user_id.description)
-                    //                    if self.VcController == 1 || self.VcController == 2 {
-                    //                        self.arrProducts.append(MDLSellerInfo(fromDictionary: data))
-                    //                    }
-                    //
-                    //                    if self.product!.isSold == 1 && !isMyProduct{
-                    //                        // Sellter Info
-                    //                        self.arrProducts.append(MDLSellerInfo(fromDictionary: data))
-                    //                    }else if self.product!.isSold == 2 && !isMyProduct{
-                    //                        // Add Review
-                    ////                        self.arrProducts.append(MDLProductAddRating(fromDictionary: data))
-                    //                    }
-                    //                    if self.product!.isSold == 1 && isMyProduct{
-                    //                        // Mark as Sold
-                    //                        self.arrProducts.append(MDLMarkAsSold(fromDictionary: data))
-                    //                    }
                     self.tblProduct.reloadData()
                 }
             }else{
@@ -606,7 +512,6 @@ extension ProductDetailVC {
         if apiTaskCommentList?.state == URLSessionTask.State.running {
             return
         }
-        
         // Add load more indicator here...
         self.tblProduct.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
         
@@ -616,9 +521,7 @@ extension ProductDetailVC {
             guard let self = self else { return }
             
             self.tblProduct.tableFooterView = UIView()
-            //            self.refreshControl.endRefreshing()
             self.apiTask?.cancel()
-            
             if response != nil {
                 
                 if let arrList = response!["comments"] as? [[String:Any]] {
@@ -634,7 +537,6 @@ extension ProductDetailVC {
                         self.pageNumber += 1
                     }
                 }
-                
                 print("arrCommentListCount : \(self.arrCommentList.count)")
                 //self.lblNoData.isHidden = self.arrCommentList.count != 0
             }
@@ -662,42 +564,10 @@ extension ProductDetailVC {
                     self.btnSend.isUserInteractionEnabled = false
                     self.btnSend.alpha = 0.5
                     self.txtViewComment.updatePlaceholderFrame(false)
-                    
-                    
-                    //                    if let comment = response![CJsonData] as? [String : Any] {
-                    //                        if (self.editCommentId ?? 0) == 0{
-                    //                            self.arrCommentList.insert(comment, at: 0)
-                    //                            self.product?.totalComment += 1
-                    //                            self.tblProduct.reloadData()
-                    //                            ProductHelper<UIViewController>.updateProductData(product: self.product!, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
-                    //                        }else{
-                    //                            // Edit comment in array
-                    //                            if let index = self.arrCommentList.index(where: { $0["comment_id"] as? Int ==  (self.editCommentId ?? 0)}) {
-                    //                                self.arrCommentList.remove(at: index)
-                    //                                self.arrCommentList.insert(comment, at: 0)
-                    //                                self.tblProduct.reloadData()
-                    //                                /*UIView.performWithoutAnimation {
-                    //                                    let indexPath = IndexPath(item: index, section: 1)
-                    //                                    if (self.tblProduct.indexPathsForVisibleRows?.contains(indexPath))!{
-                    //                                        self.tblProduct.reloadRows(at: [indexPath], with: .none)
-                    //                                    }
-                    //                                }*/
-                    //                            }
-                    //                        }
-                    //                        self.genericTextViewDidChange(self.txtViewComment, height: 10)
-                    //                    }
                     if let comment = response!["meta"] as? [String : Any] {
                         if (comment["status"] as? String ?? "") == "0"{
-                            
-//                            guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
-//                            MIGeneralsAPI.shared().sendNotification(self.productUserID, userID: user_ID, subject: "Comment on product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment on product")
-//
-                            
-                            
                             if self.isEditBtnCLK == true {
                                 self.arrCommentList.remove(at: self.index_Row ?? 0)
-                                //                                self.tblProduct.deleteRows(at: [IndexPath(row: self.index_Row ?? 0, section: 0)], with: .automatic)
-                                //                                deleteComment(self.index_Row ?? 0)
                                 self.commentsInfo["comment"] = strComment
                                 self.arrCommentList.insert(self.commentsInfo, at: self.index_Row ?? 0)
                                 self.tblProduct.reloadData()
@@ -707,16 +577,12 @@ extension ProductDetailVC {
                                         self.tblProduct.reloadRows(at: [indexPath], with: .none)
                                     }
                                 }
-                                //                                ProductHelper<UIViewController>.updateProductData(product: self.product!, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
                                 self.isEditBtnCLK = false
-                                //                                self.getCommentListFromServer(showLoader: true)
-                                
                             }else {
                                 var productCount = self.product?.totalComments.toInt ?? 0
                                 productCount += 1
                                 self.product?.totalComments = productCount.toString
                                 self.getCommentListFromServer(showLoader: true)
-//                                ProductHelper<UIViewController>.updateProductData(product: self.product!, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
                                 ProductHelper<UIViewController>.updateProductDatacomments(product: self.product!,totalComment:productCount.toString, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
                                 
                                 self.isEditBtnCLK = false
@@ -725,7 +591,7 @@ extension ProductDetailVC {
                         }
                         self.genericTextViewDidChange(self.txtViewComment, height: 10)
                     }
-                
+                    
                     let data = response![CJsonMeta] as? [String:Any] ?? [:]
                     guard let userID = appDelegate.loginUser?.user_id else{return}
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
@@ -742,39 +608,14 @@ extension ProductDetailVC {
             }
         }
     }
-    //OLD code by MI
-    //    func deleteComment(_ index:Int){
-    //
-    //        let commentInfo = self.arrCommentList[index]
-    //        let commentId = commentInfo.valueForInt(key: "comment_id") ?? 0
-    //
-    //        APIRequest.shared().deleteProductComment(commentId: commentId) { [weak self] (response, error) in
-    //            guard let self = self else { return }
-    //            if response != nil && error == nil {
-    //                DispatchQueue.main.async {
-    //                    self.arrCommentList.remove(at: index)
-    //                    self.product?.totalComment -= 1
-    //                    self.tblProduct.reloadData()
-    //                    ProductHelper<UIViewController>.updateProductData(product: self.product!, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
-    //                }
-    //            }
-    //        }
-    //    }
-    //OLD code by NEWCode
-    
     func deleteComment(_ index:Int){
         
-        //        let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
         let commentInfo = self.arrCommentList[index]
-        
         let commentId = commentInfo.valueForString(key: "updated_at")
         let strComment = commentInfo.valueForString(key: "comment")
         
-        guard let userID = appDelegate.loginUser?.user_id else{
-            return
-        }
+        guard let userID = appDelegate.loginUser?.user_id else{return}
         let userId = userID.description
-        
         APIRequest.shared().deleteProductCommentNew(productId:productIds, commentId : commentId, comment: strComment, include_user_id: userId)  { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil && error == nil {
@@ -783,7 +624,6 @@ extension ProductDetailVC {
                     var productCount = self.product?.totalComments.toInt ?? 0
                     productCount -= 1
                     self.product?.totalComments = productCount.toString
-                    //                    self.product?.totalComment -= 1
                     self.tblProduct.reloadData()
                     ProductHelper<UIViewController>.updateProductDatacomments(product: self.product!,totalComment:productCount.toString, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
                 }

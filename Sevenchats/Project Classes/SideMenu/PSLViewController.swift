@@ -9,7 +9,7 @@
 import UIKit
 
 class PSLViewController: ParentViewController {
-
+    
     @IBOutlet fileprivate weak var collNewCategory : UICollectionView!
     @IBOutlet fileprivate weak var tblNews : UITableView! {
         didSet {
@@ -21,8 +21,7 @@ class PSLViewController: ParentViewController {
     @IBOutlet fileprivate weak var cnImgVTopBgHeight : NSLayoutConstraint!
     @IBOutlet fileprivate weak var activityLoader : UIActivityIndicatorView!
     @IBOutlet fileprivate weak var lblNoData : UILabel!
-
-   // var arrNewsCategory = [TblNewsCategory]()
+    
     var arrNewsCategory = [TblPslCategory]()
     var arrNews = [[String : AnyObject]]()
     var selectedCateIndexPath = IndexPath(item: 0, section: 0)
@@ -75,17 +74,6 @@ class PSLViewController: ParentViewController {
             }
         }
     }
-    
-//    fileprivate func getNewsCategoryFromLocal() {
-//
-//        if let arrData = TblNewsCategory.fetch(predicate: nil, orderBy: CCategoryName, ascending: true) {
-//            if arrData.count > 0 {
-//                arrNewsCategory = arrData as! [TblNewsCategory]
-//                collNewCategory.reloadData()
-//                self.loadNewsListForParticularCategoryFromServer(categoryID: (arrNewsCategory[selectedCateIndexPath.row].category_name ?? ""), isShowLoader: true)
-//            }
-//        }
-//    }
 }
 
 //MARK:-
@@ -111,8 +99,6 @@ extension PSLViewController {
         if isShowLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
         }
-        guard let country = appDelegate.loginUser?.country else { return }
-        guard let language = appDelegate.loginUser?.lang_name else {return}
         var para = [String:Any]()
         para["type"] = "PSL"
         para["category_name"] = categoryID
@@ -142,8 +128,6 @@ extension PSLViewController {
         self.present(activityController, animated: true, completion: nil)
     }
 }
-
-
 
 //MARK:-
 //MARK:- UICollectionView Delegate and Datasource
@@ -188,8 +172,6 @@ extension PSLViewController : UICollectionViewDelegateFlowLayout,UICollectionVie
         self.loadNewsListForParticularCategoryFromServer(categoryID: (arrNewsCategory[indexPath.item].category_name ?? ""), isShowLoader: true)
     }
 }
-
-
 //MARK:-
 //MARK:- UITableView Delegate and Datasource
 
@@ -205,14 +187,6 @@ extension PSLViewController : UITableViewDelegate, UITableViewDataSource {
             let newsInfo = arrNews[indexPath.row]
             cell.lblTitle.text = newsInfo.valueForString(key: "favourite_website_title")
             cell.lblDesc.text = newsInfo.valueForString(key: "description")
-            
-           // cell.lblProvidedBy.text = "\(CProvidedBy) \(newsInfo.valueForString(key: "source"))"
-           // cell.imgVNews.loadImageFromUrl(newsInfo.valueForString(key: "urlToImage"), false)
-            
-//            cell.btnShare.touchUpInside { [weak self](sender) in
-//                guard let self = self else { return }
-//                self.shareNews(shareUrl: newsInfo.valueForString(key: "favourite_website_url"))
-//            }
             return cell
         }
         

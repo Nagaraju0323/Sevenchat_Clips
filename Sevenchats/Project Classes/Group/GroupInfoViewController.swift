@@ -7,10 +7,10 @@
 //
 
 /********************************************************
-* Author :  Chandrika.R                                *
-* Model  : GroupChat Messages                          *
-* options: Group Info                                  *
-********************************************************/
+ * Author :  Chandrika.R                                *
+ * Model  : GroupChat Messages                          *
+ * options: Group Info                                  *
+ ********************************************************/
 
 import UIKit
 
@@ -37,18 +37,18 @@ class GroupInfoViewController: ParentViewController {
         super.viewDidLoad()
         Initialization()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
     // MARK:- --------- Initialization
     func Initialization(){
-    
+        
         self.setLanguageText()
         self.setGroupInformation()
         self.getGroupInformationFromServer(true)
-    
+        
         btnExitGroup.layer.cornerRadius = 5
         lblGroupType.layer.cornerRadius = 5
         lblGroupType.layer.borderWidth = 1
@@ -56,7 +56,7 @@ class GroupInfoViewController: ParentViewController {
     }
     
     func setLanguageText() {
-
+        
         lblGroupLinkTxt.text = "\(CGroupInfoLink):"
         btnAddMore.setTitle("+\(CGroupInfoAddMore)", for: .normal)
     }
@@ -68,7 +68,7 @@ extension GroupInfoViewController{
     func setGroupInformation() {
         if let groupInfo = self.iObject as? [String : Any]{
             self.title = groupInfo.valueForString(key: CGroupTitle)
-//            lblGroupType.text = groupInfo.valueForInt(key: CGroupType) == 1 ? CGroupPublic : CGroupPrivate
+            //            lblGroupType.text = groupInfo.valueForInt(key: CGroupType) == 1 ? CGroupPublic : CGroupPrivate
             lblGroupType.isHidden = true
             
             if groupInfo.valueForString(key: CGroupLink).isBlank{
@@ -81,7 +81,6 @@ extension GroupInfoViewController{
             strImgGroup = groupInfo.valueForString(key: CGroupImage)
             strGroupName = groupInfo.valueForString(key: "group_title")
             self.btnAddMore.isHidden = true
-//            if Int64(groupInfo.valueForString(key: CCreated_By)) == appDelegate.loginUser?.user_id{
             if Int64(groupInfo.valueForString(key: "group_admin")) == appDelegate.loginUser?.user_id{
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_edit_profile"), style: .plain, target: self, action: #selector(btnEditClicked(_:)))
                 self.btnAddMore.isHidden = false
@@ -101,11 +100,11 @@ extension GroupInfoViewController{
                         
                         for groupData in groupInfo{
                             if let uesrInfo = groupData["friends_list"] as? [[String : Any]]{
-                            self.arrMembers = uesrInfo
-                            self.lblMemberCount.text = self.arrMembers.count == 1 ? "\(self.arrMembers.count) \(CGroupMember)" : "\(self.arrMembers.count) \(CGroupMembers)"
-                            self.tblUser.reloadData()
-                            self.showHideTableAddParticipants()
-                        }
+                                self.arrMembers = uesrInfo
+                                self.lblMemberCount.text = self.arrMembers.count == 1 ? "\(self.arrMembers.count) \(CGroupMember)" : "\(self.arrMembers.count) \(CGroupMembers)"
+                                self.tblUser.reloadData()
+                                self.showHideTableAddParticipants()
+                            }
                         }
                     }
                 }
@@ -125,7 +124,7 @@ extension GroupInfoViewController{
                 self.cnTblUserHeight.constant = self.tblUser.contentSize.height
             }
         }
-
+        
     }
     
 }
@@ -160,9 +159,6 @@ extension GroupInfoViewController : UITableViewDelegate, UITableViewDataSource{
                     APIRequest.shared().removeMemberFromGroup(group_id: iObject?.valueForString(key: CGroupId).toInt, group_users_id: userInfo.valueForString(key: CUserId), completion: { [self] (response, error) in
                         if response != nil && error == nil{
                             
-                            // Pulbish to removed user.
-//                            let user_ID =  appDelegate.loginUser?.user_id.description ?? ""
-//                            MIGeneralsAPI.shared().sendNotification(userInfo.valueForString(key: CUserId), userID: user_ID.description, subject: "has left from the group\(self.strGroupName)", MsgType: "GROUP_REMOVE", MsgSent:"", showDisplayContent: "has left from the group\(self.strGroupName)", senderName: self.strGroupName)
                             self.arrMembers.remove(at: indexPath.row)
                             self.tblUser.reloadData()
                             self.showHideTableAddParticipants()
@@ -173,7 +169,6 @@ extension GroupInfoViewController : UITableViewDelegate, UITableViewDataSource{
             }
             cell.btnUserInfo.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(userInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(userInfo.valueForString(key: CUserId), userInfo.valueForString(key: CUsermailID), self)
             }
             
@@ -234,8 +229,8 @@ extension GroupInfoViewController{
                 var groupID = ""
                 
                 if userSelectType == 1{
-                     groupID =  groupInfo.valueForString(key: CGroupId)
-                     user_id =  groupInfo.valueForString(key: "group_admin")
+                    groupID =  groupInfo.valueForString(key: CGroupId)
+                    user_id =  groupInfo.valueForString(key: "group_admin")
                 }else {
                     groupID =  groupInfo.valueForString(key: CGroupId)
                     user_id =  appDelegate.loginUser?.user_id.description ?? ""
@@ -253,7 +248,7 @@ extension GroupInfoViewController{
                                             
                                         }else{
                                             MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "has left from the group\(self.strGroupName)", MsgType: "GROUP_REMOVE", MsgSent:"", showDisplayContent: "has left from the group\(self.strGroupName)", senderName: self.strGroupName)
-                                    }
+                                        }
                                     }
                                 }
                                 if userSelectType == 1{
@@ -265,7 +260,7 @@ extension GroupInfoViewController{
                                             
                                         }else{
                                             MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "has deleted the group \(self.strGroupName)", MsgType: "GROUP_REMOVE", MsgSent:"", showDisplayContent: "has deleted the group\(self.strGroupName)", senderName: self.strGroupName)
-                                    }
+                                        }
                                     }
                                     
                                 }
@@ -276,7 +271,6 @@ extension GroupInfoViewController{
                             let arrUserIDS = self.arrMembers.map({$0.valueForString(key: CUserId) })
                             if arrUserIDS.count > 0 {
                                 if let groupInfo = self.iObject as? [String : Any] {
-//                                    MIMQTT.shared().messagePayloadForGroupCreateAndDelete(arrUser: arrUserIDS, status: 1, groupId: groupInfo.valueForString(key: CGroupId), isSend: 0)
                                 }
                             }
                         }
@@ -289,8 +283,7 @@ extension GroupInfoViewController{
                             }
                         }
                         
-                        guard let groupID = appDelegate.loginUser?.user_id else { return }
-//                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: groupID.description, subject: "Group is Removed successfully", MsgType: "GROUP_REMOVE", MsgSent: "", showDisplayContent: "Group is Removed successfully")
+                        //                        guard let groupID = appDelegate.loginUser?.user_id else { return }
                         self.navigationController?.popToRootViewController(animated: true)
                         self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CgroupRemoved, btnOneTitle: CBtnOk, btnOneTapped: nil)
                     }
@@ -298,7 +291,7 @@ extension GroupInfoViewController{
             }
         }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
     }
-
+    
     
     @IBAction func btnCopyLink(_ sender : UIButton){
         if lblLink.text != nil && !(lblLink.text?.isBlank)!{

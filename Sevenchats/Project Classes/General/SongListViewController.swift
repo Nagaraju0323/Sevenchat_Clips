@@ -239,7 +239,6 @@ class SongListTblCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         GCDMainThread.async {
-            //            self.imgSong.layer.cornerRadius = self.imgSong.frame.height/2
         }
     }
     

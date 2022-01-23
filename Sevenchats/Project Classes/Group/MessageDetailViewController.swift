@@ -6,11 +6,11 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
-/********************************************************
-* Author :  Chandrika.R                                *
-* Model  : GroupChat Messages                          *
-* options: Group Messages & Notifications              *
-********************************************************/
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : MessageDetailViewController                 *
+ * Changes :                                             *
+ ********************************************************/
 import UIKit
 
 class MessageDetailViewController: ParentViewController,MIAudioPlayerDelegate {
@@ -102,19 +102,7 @@ extension MessageDetailViewController {
     }
     
     fileprivate func getMessageDetailFromSever() {
-        
-//        _ = APIRequest.shared().messageDetails(message_id: messageInfo?.message_id, completion: { (response, error) in
-//            if response != nil && error == nil {
-//                if let data = response![CJsonData] as? [String : Any] {
-//                    if let arrRead = data[CRead_Users]  as? [[String : Any]] {
-//                        self.arrReadUser.removeAll()
-//                        self.arrReadUser = arrRead
-//                        self.tblMessageDetail.reloadData()
-//                    }
-//                }
-//            }
-//        })
-        
+
     }
 }
 

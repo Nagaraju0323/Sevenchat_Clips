@@ -12,8 +12,6 @@ class FavWebSitesTblCell: UITableViewCell {
 
     @IBOutlet var viewMainContainer : UIView!
     @IBOutlet var viewSubContainer : UIView!
-    
-    //@IBOutlet var viewContainer : UIView!
     @IBOutlet var lblWebSiteType : UILabel!
     @IBOutlet var lblWebSiteTitle : UILabel!
     @IBOutlet var lblWebSiteDescription : UILabel!
@@ -23,6 +21,7 @@ class FavWebSitesTblCell: UITableViewCell {
     @IBOutlet var btnComment : UIButton!
     @IBOutlet var btnReport : UIButton!
     @IBOutlet var btnShare : UIButton!
+
     var likeCount = 0
     var commentCount = 0
     var commentCounts = ""
@@ -32,8 +31,6 @@ class FavWebSitesTblCell: UITableViewCell {
         super.awakeFromNib()
         
         GCDMainThread.async {
-            /*self.viewContainer.layer.cornerRadius = 8
-            self.viewContainer.shadow(color: CRGB(r: 237, g: 236, b: 226), shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)*/
             self.viewSubContainer.layer.cornerRadius = 8
             self.viewMainContainer.layer.cornerRadius = 8
             self.viewMainContainer.shadow(color: CRGB(r: 237, g: 236, b: 226), shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)

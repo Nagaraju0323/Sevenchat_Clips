@@ -6,6 +6,13 @@
 //  Copyright © 2020 mac-00020. All rights reserved.
 //
 
+
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ForwardPageViewController                   *
+ * Changes :                                             *
+ ********************************************************/
+
 import UIKit
 
 protocol ForwardPageViewControllerDelegate : class {

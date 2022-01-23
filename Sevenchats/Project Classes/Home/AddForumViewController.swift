@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : AddForumViewController                      *
+ * Changes :                                             *
+ * AddForum with text Limit 5000 charectes                *
+ ********************************************************/
+
 import UIKit
 
 enum ForumType : Int {
@@ -37,7 +44,6 @@ class AddForumViewController: ParentViewController {
     @IBOutlet weak var scrollViewContainer : UIView!
     @IBOutlet weak var lblTextCount : UILabel!
     @IBOutlet private weak var categoryDropDownView: CustomDropDownView!
-    //    @IBOutlet private weak var subcategoryDropDownView: CustomDropDownView!
     @IBOutlet weak var txtInviteType : MIGenericTextFiled!
     
     var selectedInviteType : Int = 3 {
@@ -113,7 +119,7 @@ class AddForumViewController: ParentViewController {
         // By default `All type` selected
         self.selectedInviteType = 4
     }
-  
+    
     
     fileprivate func setQuoteText(){
         var strQuote = self.quoteDesc
@@ -122,15 +128,11 @@ class AddForumViewController: ParentViewController {
         }
         self.txtViewForumMessage.text = strQuote
         self.lblTextCount.text = "\(strQuote.count)/5000"
-
+        
         GCDMainThread.async {
             self.txtViewForumMessage.updatePlaceholderFrame(true)
         }
     }
-    
-    
-    
-    
     
     func updateUIAccordingToLanguage(){
         
@@ -389,13 +391,11 @@ extension AddForumViewController{
             self.txtInviteType.text = CPostPostsInviteContacts
             viewSelectGroup.hide(byHeight: false)
         case 3:
-            //self.txtInviteType.text = CPostPostsInviteAllFriends
             self.txtInviteType.text = CPostPostsInvitePublic
             btnSelectGroupFriend.isHidden = true
             viewSelectGroup.hide(byHeight: true)
         case 4:
             self.txtInviteType.text = CPostPostsInviteAllFriends
-            // self.txtInviteType.text = CPostPostsInvitePublic
             btnSelectGroupFriend.isHidden = true
             viewSelectGroup.hide(byHeight: true)
         default:
@@ -409,8 +409,6 @@ extension AddForumViewController{
     
     @objc fileprivate func btnAddForumClicked(_ sender : UIBarButtonItem) {
         self.resignKeyboard()
-        
-        //        let ageValue = txtForumAgeLimit.text?.toInt ?? 0
         
         if (txtForumTitle.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageForumTitle, btnOneTitle: CBtnOk, btnOneTapped: nil)
@@ -461,24 +459,23 @@ extension AddForumViewController: GenericTextViewDelegate{
         
         if textView == txtViewForumMessage{
             lblTextCount.text = "\(textView.text.count)/5000"
-            //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
         }
     }
-
+    
 }
 
 
 extension AddForumViewController: GenericTextFieldDelegate {
-   
+    
     @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    if textField == txtForumTitle{
-        if txtForumTitle.text?.count ?? 0 > 20{
-            return false
+        if textField == txtForumTitle{
+            if txtForumTitle.text?.count ?? 0 > 20{
+                return false
+            }
+            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
         }
-        let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-        let filtered = string.components(separatedBy: cs).joined(separator: "")
-        return (string == filtered)
-    }
-    return true
+        return true
     }
 }

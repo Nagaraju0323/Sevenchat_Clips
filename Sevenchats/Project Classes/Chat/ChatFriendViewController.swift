@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ChatFriendViewController                    *
+ * Changes :                                             *
+ * Chat Friends List                                     *
+ ********************************************************/
+
 import UIKit
 import StompClientLib
 import TrueTime
@@ -53,8 +60,6 @@ class ChatFriendViewController: ParentViewController {
     // MARK:- --------- Initialization
     func Initialization(){
         self.lblTitle.text = CNavFriends
-        //self.title = CNavFriends
-        //self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_refresh"), style: .plain, target: self, action: #selector(btnRefreshClicked(_:)))
         
         GCDMainThread.async {
             self.cnNavigationHeight.constant = IS_iPhone_X_Series ? 84 : 64

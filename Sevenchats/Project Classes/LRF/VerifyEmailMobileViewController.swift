@@ -7,17 +7,20 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                *
- * Model   : verification OTP & Resend OTP              *
- * Changes :                                            *
+ * Author  : Chandrika.R                                 *
+ * Model   : VerifyEmailMobileViewController             *
+ * Changes :                                             *
+ * verify OTP with Auth Server once user Enter valid OTP *
+ * Registration is completed                             *
+ *                                                       *
  ********************************************************/
 
 import UIKit
 
 class VerifyEmailMobileViewController: ParentViewController {
+    
     @IBOutlet var btnSubmit : UIButton!
     @IBOutlet var btnResend : UIButton!
-    
     @IBOutlet var txtVerificationCode : MIGenericTextFiled!
     @IBOutlet var lblNote : UILabel!
     
@@ -84,7 +87,7 @@ extension VerifyEmailMobileViewController {
         APIRequest.shared().verifyEmail(api: api,email : userEmail, verifyCode: txtVerificationCode.text!) { (response, error) in
             if response != nil && error == nil{
                 if let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject] {
-                    let step = responseData.valueForInt(key: "step") ?? 2
+                    _ = responseData.valueForInt(key: "step") ?? 2
                 }
             }else {
                 guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
@@ -104,7 +107,7 @@ extension VerifyEmailMobileViewController {
                     
                 }
                 if let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject] {
-                    let step = responseData.valueForInt(key: "step") ?? 0
+                    _ = responseData.valueForInt(key: "step") ?? 0
                     if !self.isFromEditProfile {
                         if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
                             self.apiStatusCode = metaData.valueForInt(key: CJsonStatus) ?? 0
@@ -178,12 +181,9 @@ extension VerifyEmailMobileViewController {
                     
                     inviteContancVC.isFromSideMenu = false
                     self.navigationController?.pushViewController(inviteContancVC, animated: true)
-                    
-//                    TVITokenService.shared.bindVoIPToken()
-//                    AudioTokenService.shared.callGetAudioTokenAPI(identity: myAudioIdentity, isForRegister: true)
                 }
             }
-           
+            
         }
     }
     
@@ -196,7 +196,6 @@ extension VerifyEmailMobileViewController {
         APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
-                    print("message::::::::::::::uploadprifileimage")
                     let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                     guard let image = appDelegate.loginUser?.profile_img else { return }
                     MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image)
@@ -232,7 +231,6 @@ extension VerifyEmailMobileViewController{
     }
     
     @IBAction func btnResendCodeCLK(_ sender : UIButton){
-        //        self.resendCode()
         if isEmail_Mobile == true {
             self.verifyEmail()
         }else {
@@ -256,7 +254,7 @@ extension VerifyEmailMobileViewController: GenericTextFieldDelegate {
 }
 
 extension VerifyEmailMobileViewController{
-
+    
     func convertStringToDictionary(text: String) -> [String:AnyObject]? {
         if let data = text.data(using: .utf8) {
             do {
@@ -269,13 +267,8 @@ extension VerifyEmailMobileViewController{
         return nil
     }
 }
-/********************************************************
- * Author :  Chadriak.R                                 *
- * Model  : Singup & Create Register                    *
- * Description: API Calls                               *
- ********************************************************/
 
-
+// MARK:- --------- API Auth
 extension VerifyEmailMobileViewController{
     
     func singupRegisterUser(param:[String:Any]){
@@ -364,9 +357,6 @@ extension VerifyEmailMobileViewController{
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
                 guard let userMsg = dict?["message"] as? String else { return }
                 DispatchQueue.main.async {
-//                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-//                    self.UserDetailsfeath(userEmailId:self.userEmail,accessToken:"")
-//                    MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
                 }
             } catch let error  {
                 print("error trying to convert data to \(error)")
@@ -386,7 +376,6 @@ extension VerifyEmailMobileViewController{
             ]
             APIRequest.shared().uploadUserProfile(userID: userID, para:dict,profileImgName:profileImgUrlupdate) { (response, error) in
                 if response != nil && error == nil {
-                    print("message::::::::::::::uploadprifileimage")
                 }
             }
         }

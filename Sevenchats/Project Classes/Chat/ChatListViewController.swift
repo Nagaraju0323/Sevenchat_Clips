@@ -5,11 +5,11 @@
 //  Created by mac-0005 on 30/08/18.
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
-
-/********************************************************
- * Author :  Chandrika.R                                *
- * Model  : UserchatDetails                             *
- * options: Chat Friends List                           *
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ChatListViewController                      *
+ * Changes :                                             *
+ *  Chat Friends List                                    *
  ********************************************************/
 
 import UIKit
@@ -73,7 +73,6 @@ class ChatListViewController: ParentViewController {
             self?.navigationItem.titleView = self?.searchBar
             UIView.animate(withDuration: 0.1, animations: {
                 self?.searchBar.alpha = 1
-                //                self?.searchBar.searchTextField.clearButtonMode = .never
             }, completion: { finished in
                 self?.searchBar.becomeFirstResponder()
             })

@@ -30,20 +30,8 @@ class MDLPollOption : NSObject{
         lastName = dictionary["last_name"] as? String ?? ""
         profileImage = dictionary["profile_image"] as? String ?? ""
         pollUsers.append(MDLPollUserList(fromDictionary: dictionary))
-//        pollUsers = []
-//        for obj in dictionary["users"] as? [[String : Any]] ?? []{
-//            pollUsers.append(MDLPollUserList(fromDictionary: obj))
-//        }
+
     }
-    
-    /*func calculateVote(totalVote:Int){
-        //Vote count = Percentace of vote * Total Vote / 100
-        voteCount = pollVotePer * totalVote / 100
-    }
-    func getPercentaceOfVote(totalVote:Int) -> Int {
-        //Percentace of vote = Vote count * 100 / Total Vote
-        return voteCount * 100 / totalVote
-    }*/
     
     func toDictionary() -> [String:Any] {
         var dictionary = [String:Any]()

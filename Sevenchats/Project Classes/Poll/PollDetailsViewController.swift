@@ -26,7 +26,7 @@ class PollDetailsViewController: ParentViewController {
     @IBOutlet weak var btnUserName : UIButton!
     @IBOutlet weak var lblVoteCount : UILabel!
     
-   
+    
     
     @IBOutlet weak var tblVAnswre: PollOptionTableView!
     
@@ -70,7 +70,6 @@ class PollDetailsViewController: ParentViewController {
     var pollIDNew : String?
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
-    
     var arrCommentList = [[String:Any]]()
     var arrUserForMention = [[String:Any]]()
     var arrFilterUser = [[String:Any]]()
@@ -87,14 +86,12 @@ class PollDetailsViewController: ParentViewController {
     var pollInformation = [String : Any]()
     var chngString:String?
     var pollfromHomeview:String?
-    
     var dictArray = [String]()
     var arrPostList = [String : Any]()
     var optionText = ""
     var apiTask : URLSessionTask?
     var arr = [String]()
     var totalVotesNew = ""
-   
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
@@ -170,17 +167,13 @@ class PollDetailsViewController: ParentViewController {
             btnLike.contentHorizontalAlignment = .left
             btnLikeCount.contentHorizontalAlignment = .right
             btnComment.contentHorizontalAlignment = .right
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
             btnShare.contentHorizontalAlignment = .right
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
         }else{
             // Normal Flow...
             btnLike.contentHorizontalAlignment = .right
             btnLikeCount.contentHorizontalAlignment = .left
             btnComment.contentHorizontalAlignment = .left
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
             btnShare.contentHorizontalAlignment = .left
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
         }
     }
 }
@@ -188,62 +181,36 @@ class PollDetailsViewController: ParentViewController {
 // MARK:- --------- Api Functions
 extension PollDetailsViewController {
     
-    //    func getPollDetailsFromServer() {
-    //
-    //        self.parentView.isHidden = true
-    //        if let artID = self.pollID {
-    //            APIRequest.shared().viewPostDetail(postID: artID) { (response, error) in
-    //                if response != nil {
-    //                    self.parentView.isHidden = false
-    //                    if let articleInfo = response![CJsonData] as? [String : Any]{
-    //                        DispatchQueue.main.async {
-    //                            self.setPollDetails(articleInfo)
-    //                            self.openUserProfileScreen()
-    //                        }
-    //                    }
-    //                }
-    //                self.getCommentListFromServer(showLoader: true)
-    //            }
-    //        }
-    //    }
-    
-    
     func getPollDetailsFromServer() {
-
-//        self.parentView.isHidden = true
+        
         if let artID = self.pollID {
             APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
-                    //self.parentView.isHidden = false
                     DispatchQueue.main.async {
-                    if let Info = response!["data"] as? [[String:Any]]{
-                        for articleInfo in Info {
-                            self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
-                            print("self.totalVotes\(self.totalVotesNew)")
+                        if let Info = response!["data"] as? [[String:Any]]{
+                            for articleInfo in Info {
+                                self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
+                                print("self.totalVotes\(self.totalVotesNew)")
+                            }
+                            self.openUserProfileScreen()
+                            
                         }
-                        self.openUserProfileScreen()
-                       
                     }
                 }
             }
-//            self.getCommentListFromServer(showLoader: true)
         }
     }
-}
-    
     
     fileprivate func openUserProfileScreen(){
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-//            appDelegate.moveOnProfileScreen(self.pollInformation.valueForString(key: CUserId), self)
             appDelegate.moveOnProfileScreenNew(self.pollInformation.valueForString(key: CUserId), self.pollInformation.valueForString(key: CUsermailID), self)
         }
         
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-//            appDelegate.moveOnProfileScreen(self.pollInformation.valueForString(key: CUserId), self)
             appDelegate.moveOnProfileScreenNew(self.pollInformation.valueForString(key: CUserId), self.pollInformation.valueForString(key: CUsermailID), self)
         }
     }
@@ -256,27 +223,13 @@ extension PollDetailsViewController {
             
             self.pollIDNew = pollInfo.valueForString(key:CPostId)
             posted_ID = pollInfo.valueForString(key: "user_id")
-      
+            
             lblUserName.text = pollInfo.valueForString(key: CFirstname) + " " + pollInfo.valueForString(key: CLastname)
-            //            lblPollPostDate.text = DateFormatter.dateStringFrom(timestamp: pollInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
             lblPollTitle.text = pollInfo.valueForString(key: CTitle)
             
             imgUser.loadImageFromUrl(pollInfo.valueForString(key: CUserProfileImage), true)
             
             var polls : [MDLPollOption] = []
-            //            let pollstring = pollInfo["options"] as? String
-            
-            //            let replaced2 = pollstring?.replacingOccurrences(of: "\"", with: "")
-            ////        let replaced3 = replaced2?.replacingOccurrences(of: ",", with: ", ")
-            //            let str = replaced2?.stripped
-            //            let fullNameArr:[String] = str?.components(separatedBy:" ") ?? []
-            //            var dictionary = [String: String]()
-            //            for player in fullNameArr {
-            //            dictionary["poll_text"] = player
-            //            print("dictinory\(dictionary)")
-            //            polls.append(MDLPollOption(fromDictionary: dictionary))
-            //            }
-            
             if isSelected == true {
                 let pollstring = pollInfo["options"] as? String
                 let replaced2 = pollstring?.replacingOccurrences(of: "\"", with: "")
@@ -297,7 +250,7 @@ extension PollDetailsViewController {
                 let replaced4 = replaced3?.replacingOccurrences(of: "]", with: "")
                 chngString = replaced4
             }
-      
+            
             let fullNameArr:[String] = chngString?.components(separatedBy:",") ?? []
             var dictionary = [String: String]()
             for player in fullNameArr {
@@ -305,9 +258,9 @@ extension PollDetailsViewController {
                 print("dictinory\(dictionary)")
                 polls.append(MDLPollOption(fromDictionary: dictionary))
             }
-//            self.tblVAnswre.reloadData()
+            //            self.tblVAnswre.reloadData()
             let voteCount:Int =  self.totalVotesNew.toInt ?? 0
-            self.updateVoteCount(count: voteCount ?? 0)
+            self.updateVoteCount(count: voteCount )
             tblVAnswre.updateVoteCount = { [weak self] (votesCount) in
                 guard let _ = self else {return}
                 DispatchQueue.main.async {
@@ -320,16 +273,8 @@ extension PollDetailsViewController {
                     MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformation, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self)
                 }
             }
-            
-            //                var polls : [MDLPollOption] = []
-            //                for obj in pollsData[CPolles] as? [[String : Any]] ?? []{
-            //                    polls.append(MDLPollOption(fromDictionary: obj))
-            //                }
-            print("pols\(polls)")
             tblVAnswre.totalVotes = voteCount
             tblVAnswre.arrOption = polls
-//            tblVAnswre.reloadData()
-            
             if pollInfo.valueForString(key: CUserId) == "\(String(describing: appDelegate.loginUser?.user_id ?? 0))"{
                 tblVAnswre.isSelected = true
             }else{
@@ -338,20 +283,9 @@ extension PollDetailsViewController {
             tblVAnswre.userVotedPollId = pollInfo.valueForInt(key: CUserVotedPoll) ?? 0
             tblVAnswre.postID = pollInfo.valueForInt(key: CId) ?? 0
             tblVAnswre.userID = pollInfo.valueForInt(key: CUserId) ?? 0
-            
             tblVAnswre.reloadData()
-            //            }
-            
             lblPollType.text = CTypePoll
-            
             lblPollCategory.text = pollInfo.valueForString(key: CCategory).uppercased()
-            //            btnLike.isSelected = pollInfo.valueForInt(key: CIs_Like) == 1
-            //            likeCount = pollInfo.valueForInt(key: CTotal_like) ?? 0
-            //            self.commentCount = pollInfo.valueForInt(key: CTotalComment) ?? 0
-            //            btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-            //            btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-            
-            
             let is_Liked = pollInfo.valueForString(key: CIsLiked)
             
             if is_Liked == "Yes"{
@@ -369,11 +303,8 @@ extension PollDetailsViewController {
             self.tblCommentList.updateHeaderViewHeight(extxtraSpace: 0)
             let created_At = pollInfo.valueForString(key: CCreated_at)
             let cnvStr = created_At.stringBefore("G")
-//            let removeFrst = cnvStr.chopPrefix(3)
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             lblPollPostDate.text = startCreated
-            
-            
             btnShare.setTitle(CBtnShare, for: .normal)
             tblVAnswre.layoutIfNeeded()
             self.view.layoutIfNeeded()
@@ -389,26 +320,12 @@ extension PollDetailsViewController {
         }
     }
     
-//    fileprivate func deleteArticlePost(){
-//        if let artID = self.pollID{
-//            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-//                APIRequest.shared().deletePost(postID: artID, completion: { (response, error) in
-//                    if response != nil && error == nil{
-//                        self.navigationController?.popViewController(animated: true)
-//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, artID, self, .deletePost)
-//                    }
-//                })
-//            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-//        }
-//    }
-    
-    
     fileprivate func deleteArticlePost(_ pollInfo : [String : Any]?){
         if let artID = self.pollID{
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
                 
                 let postTypeDelete = "post_poll"
-              let dict =
+                let dict =
                     [
                         "post_id":pollInfo?.valueForString(key: "post_id"),
                         "post_category": pollInfo?.valueForString(key: "post_category"),
@@ -418,17 +335,13 @@ extension PollDetailsViewController {
                         "selected_persons": pollInfo?.valueForString(key: "selected_persons"),
                         "status_id": "3"
                     ]
-                    APIRequest.shared().deletePostNew(postDetials: dict, apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
-              //  APIRequest.shared().deletePost(postID: artID, completion: { (response, error) in
-//                    if response != nil && error == nil{
-//                        self?.navigationController?.popViewController(animated: true)
-//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, artID, self!, .deletePost)
-//                    }
-                        guard let self = self else { return }
-                        if response != nil && error == nil{
-                            self.navigationController?.popViewController(animated: true)
-                            MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, artID, self, .deletePost)
-                        }
+                APIRequest.shared().deletePostNew(postDetials: dict as [String : Any], apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
+                    
+                    guard let self = self else { return }
+                    if response != nil && error == nil{
+                        self.navigationController?.popViewController(animated: true)
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, artID, self, .deletePost)
+                    }
                 })
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
         }
@@ -439,12 +352,10 @@ extension PollDetailsViewController {
 extension PollDetailsViewController{
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
         
-       // if Int64(pollInformation.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
         if pollInformation.valueForString(key: "user_email") == appDelegate.loginUser?.email{
             self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { (alert) in
                 self.deleteArticlePost(self.pollInformation)
             }
-            
         }else{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportPoll
@@ -494,7 +405,7 @@ extension PollDetailsViewController{
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
-                    //                    info = response!["liked_users"] as? [String:Any] ?? [:]
+                    
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
                     self?.btnLikeCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
@@ -511,10 +422,7 @@ extension PollDetailsViewController{
     }
     
     
-    
-    
     @IBAction func btnShareReportCLK(_ sender : UIButton){
-        //self.presentActivityViewController(mediaData: pollInformation.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
         let sharePost = SharePostHelper(controller: self, dataSet: pollInformation)
         sharePost.shareURL = pollInformation.valueForString(key: CShare_url)
         sharePost.presentShareActivity()
@@ -567,7 +475,7 @@ extension PollDetailsViewController{
                         self?.pageNumber += 1
                     }
                 }
-                print("arrCommentListCount : \(self?.arrCommentList.count)")
+                print("arrCommentListCount : \(String(describing: self?.arrCommentList.count))")
                 //self.lblNoData.isHidden = self.arrCommentList.count != 0
             }
         }
@@ -608,7 +516,6 @@ extension PollDetailsViewController: UITableViewDelegate, UITableViewDataSource{
         {
             let commentInfo = arrCommentList[indexPath.row]
             weak var weakCell = cell
-            // cell.lblCommentPostDate.text = DateFormatter.shared().durationString(duration: commentInfo.valueForString(key: CCreated_at))
             
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
@@ -642,7 +549,6 @@ extension PollDetailsViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if arrSelectedUser.count > 0 {
                             let userSelectedInfo = arrSelectedUser[0]
-//                            appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(userSelectedInfo.valueForString(key: CUserId), userSelectedInfo.valueForString(key: CUsermailID), self)
                         }
                     })
@@ -665,14 +571,12 @@ extension PollDetailsViewController: UITableViewDelegate, UITableViewDataSource{
             
             cell.btnUserName.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
                 
             }
             
             cell.btnUserImage.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             
@@ -722,7 +626,6 @@ extension PollDetailsViewController: GenericTextViewDelegate{
             if !strText.isEmpty && strText.count > range.location && viewUserSuggestion.isSearchString{
                 let str = String(strText[range.location ... range.location])
                 if text.isEmpty{
-                    //viewUserSuggestion.searchString -= text
                 }
                 if str == "@" {
                     viewUserSuggestion.isSearchString = false
@@ -755,63 +658,6 @@ extension PollDetailsViewController{
     
     @IBAction func btnSendCommentCLK(_ sender : UIButton){
         self.resignKeyboard()
-        
-        //        if (txtViewComment.text?.isBlank)! {
-        //            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageCommentBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        //        } else {
-        //
-        //            // Get Final text for comment..
-        //            let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
-        //
-        //            // Get Mention user's Ids..
-        //            let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-        //
-        //            APIRequest.shared().sendComment(post_id: pollID, commentId: self.editCommentId, rss_id: rssId, type: rssId != nil ? 2 : 1, comment: strComment, include_user_id: includedUser) { (response, error) in
-        //                if response != nil && error == nil {
-        //                    DispatchQueue.main.async {
-        //                        if response != nil && error == nil {
-        //
-        //                            self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
-        //                            self.txtViewComment.text = ""
-        //                            self.btnSend.isUserInteractionEnabled = false
-        //                            self.btnSend.alpha = 0.5
-        //                            self.txtViewComment.updatePlaceholderFrame(false)
-        //
-        //                            if let comment = response![CJsonData] as? [String : Any] {
-        //                                if (self.editCommentId ?? 0) == 0{
-        //                                    self.arrCommentList.insert(comment, at: 0)
-        //                                    self.commentCount += 1
-        //
-        //                                    self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-        //
-        //                                    self.tblCommentList.reloadData()
-        //                                    if let responsInfo = response as? [String : Any]{
-        //                                        // To udpate previous screen data....
-        //                                        if (self.rssId != nil){
-        //                                            MIGeneralsAPI.shared().refreshWebSiteScreens(responsInfo, self.rssId, self, .commentPost)
-        //                                        }else{
-        //                                            MIGeneralsAPI.shared().refreshPostRelatedScreens(responsInfo, self.pollID, self, .commentPost)
-        //                                        }
-        //                                    }
-        //                                }else{
-        //                                    // Edit comment in array
-        //                                    if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
-        //                                        self.arrCommentList.remove(at: index)
-        //                                        self.arrCommentList.insert(comment, at: 0)
-        //                                        self.tblCommentList.reloadData()
-        //                                    }
-        //                                }
-        //                                self.genericTextViewDidChange(self.txtViewComment, height: 10)
-        //                            }
-        //                            self.editCommentId =  nil
-        //                            self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-        //                            //self.lblNoData.isHidden = self.arrCommentList.count != 0
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //
-        //        }
         
         if (txtViewComment.text?.isBlank)!{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageCommentBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
@@ -886,56 +732,7 @@ extension PollDetailsViewController{
                 self?.deleteComment(index)
             }
         }
-        
-//        
-//        self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
-//            
-//            guard let self = self else {return}
-//            let commentInfo = self.arrCommentList[index]
-//            var commentText = commentInfo.valueForString(key: "comment")
-//            DispatchQueue.main.async {
-//                self.viewUserSuggestion.resetData()
-//                self.editCommentId = commentInfo.valueForInt(key: CId)
-//                if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
-//                    for userInfo in arrIncludedUsers {
-//                        let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-//                        commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
-//                        self.viewUserSuggestion.addSelectedUser(user: userInfo)
-//                    }
-//                }
-//                self.txtViewComment.text = commentText
-//                self.viewUserSuggestion.setAttributeStringInTextView(self.txtViewComment)
-//                self.txtViewComment.updatePlaceholderFrame(true)
-//                let constraintRect = CGSize(width: self.txtViewComment.frame.size.width, height: .greatestFiniteMagnitude)
-//                let boundingBox = self.txtViewComment.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.txtViewComment.font!], context: nil)
-//                self.genericTextViewDidChange(self.txtViewComment, height: ceil(boundingBox.height))
-//            }
-//            
-//        }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](_) in
-//            guard let _ = self else {return}
-//            DispatchQueue.main.async {
-//                self?.deleteComment(index)
-//            }
-//        }
     }
-    
-    //    func deleteComment(_ index:Int){
-    //        let commentInfo = self.arrCommentList[index]
-    //        let commentId = commentInfo.valueForInt(key: CId) ?? 0
-    //        APIRequest.shared().deleteComment(commentId: commentId) { [weak self] (response, error) in
-    //            guard let self = self else { return }
-    //            if response != nil && error == nil {
-    //                DispatchQueue.main.async {
-    //                    self.commentCount -= 1
-    //                    self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
-    //                    self.arrCommentList.remove(at: index)
-    //                    self.tblCommentList.reloadData()
-    //                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.pollID, self, .deleteComment)
-    //                }
-    //            }
-    //        }
-    //    }
-    
     func deleteComment(_ index:Int){
         
         let commentInfo = self.arrCommentList[index]

@@ -154,10 +154,7 @@ class EventDetailImageViewController: ParentViewController {
             btnLike.contentHorizontalAlignment = .left
             btnLikeCount.contentHorizontalAlignment = .right
             btnComment.contentHorizontalAlignment = .right
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
             btnShare.contentHorizontalAlignment = .right
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
-            
             // Reverse Flow...
             btnInterested.contentHorizontalAlignment = .right
             btnInterested.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
@@ -246,16 +243,13 @@ extension EventDetailImageViewController {
         self.parentView.isHidden = true
         
         APIRequest.shared().viewPostDetailNew(postID: self.postID!, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in
-      //  APIRequest.shared().viewPostDetail(postID: shouID) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil {
                 self.parentView.isHidden = false
                 if let shoInfo = response!["data"] as? [[String:Any]]{
-                    for arraydata in shoInfo {
-//                        self.setEventDetail(dict: self.eventInfo)
+                    for _ in shoInfo {
                         self.openUserProfileScreen()
                     }
-                    
                 }
             }
             self.getCommentListFromServer(showLoader: true)
@@ -303,14 +297,14 @@ extension EventDetailImageViewController {
         btnNotInterested.setTitle("\(dict.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
         btnInterested.setTitle("\(dict.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)
         let image = dict.valueForString(key: "image")
-                if image.isEmpty {
-                    blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
-                }else{
-                    blurImgView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
-                }
+        if image.isEmpty {
+            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+        }else{
+            blurImgView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
+        }
         self.eventImgURL = dict.valueForString(key: "image")
         let is_Liked = dict.valueForString(key: CIsLiked)
-       
+        
         if is_Liked == "Yes"{
             btnLike.isSelected = true
         }else {
@@ -322,8 +316,6 @@ extension EventDetailImageViewController {
         commentCount = dict.valueForString(key: "comments").toInt ?? 0
         self.totalComment = commentCount
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-        
-        
         if let endDateTime = dict.valueForDouble(key: CEvent_End_Date) {
             
             btnMaybe.isEnabled = Double(currentDateTime) <= endDateTime
@@ -334,50 +326,16 @@ extension EventDetailImageViewController {
         
         
         switch dict.valueForString(key: "selected_choice").toInt ?? 0 {
-                case 3:
-                    btnMaybe.isSelected = true
-                case 1:
-                    btnInterested.isSelected = true
-                case 2:
-                    btnNotInterested.isSelected = true
-                default:
-                    break
-                }
+        case 3:
+            btnMaybe.isSelected = true
+        case 1:
+            btnInterested.isSelected = true
+        case 2:
+            btnNotInterested.isSelected = true
+        default:
+            break
+        }
         setSelectedButtonStyle(dict)
-        
-//        if dict.valueForString(key:"maybe_count") == "0" {
-//
-//                btnMaybe.layer.borderColor = CRGB(r: 255, g: 237, b: 216).cgColor
-//                btnMaybe.layer.borderWidth = 2
-//                btnMaybe.backgroundColor =  .clear
-//                self.eventActCount = dict.valueForString(key:"maybe_count")
-//
-//        }else{
-//            btnMaybe.isSelected = true
-//            btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
-//            self.eventActCount = dict.valueForString(key:"maybe_count")
-//        }
-//        if dict.valueForString(key:"yes_count") == "0"{
-//            btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
-//            btnInterested.layer.borderWidth = 2
-//            btnInterested.backgroundColor =  .clear
-//            self.eventActCount = dict.valueForString(key:"yes_count")
-//        }else{
-//            btnInterested.isSelected = true
-//            btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
-//            self.eventActCount = dict.valueForString(key:"yes_count")
-//
-//        }
-//        if dict.valueForString(key:"no_count") == "0"{
-//            btnNotInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
-//            btnNotInterested.layer.borderWidth = 2
-//            btnNotInterested.backgroundColor =  .clear
-//            self.eventActCount = dict.valueForString(key:"no_count")
-//        }else{
-//            btnNotInterested.isSelected = true
-//            btnNotInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
-//            self.eventActCount = dict.valueForString(key:"no_count")
-//        }
         setSelectedButtonStyle()
         
         imgUser.loadImageFromUrl(dict.valueForString(key: CUserProfileImage), true)
@@ -406,29 +364,29 @@ extension EventDetailImageViewController {
     }
     
     func setSelectedButtonStyle(_ dict : [String : Any]?){
-           btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
-           btnInterested.layer.borderWidth = 2
-           btnInterested.backgroundColor =  .clear
-
-           btnMaybe.layer.borderColor = CRGB(r: 255, g: 237, b: 216).cgColor
-           btnMaybe.layer.borderWidth = 2
-           btnMaybe.backgroundColor =  .clear
-
-           btnNotInterested.layer.borderColor = CRGB(r: 255, g: 214, b: 214).cgColor
-           btnNotInterested.layer.borderWidth = 2
-           btnNotInterested.backgroundColor =  .clear
-           
-           if dict?.valueForString(key:"selected_choice") == "3"{
-               btnMaybe.isSelected = true
-               btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
-           }else if dict?.valueForString(key:"selected_choice") == "2"{
-               btnNotInterested.isSelected = true
-               btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
-           }else if dict?.valueForString(key:"selected_choice") == "1"{
-               btnInterested.isSelected = true
-               btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
-           }
-       }
+        btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
+        btnInterested.layer.borderWidth = 2
+        btnInterested.backgroundColor =  .clear
+        
+        btnMaybe.layer.borderColor = CRGB(r: 255, g: 237, b: 216).cgColor
+        btnMaybe.layer.borderWidth = 2
+        btnMaybe.backgroundColor =  .clear
+        
+        btnNotInterested.layer.borderColor = CRGB(r: 255, g: 214, b: 214).cgColor
+        btnNotInterested.layer.borderWidth = 2
+        btnNotInterested.backgroundColor =  .clear
+        
+        if dict?.valueForString(key:"selected_choice") == "3"{
+            btnMaybe.isSelected = true
+            btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+        }else if dict?.valueForString(key:"selected_choice") == "2"{
+            btnNotInterested.isSelected = true
+            btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+        }else if dict?.valueForString(key:"selected_choice") == "1"{
+            btnInterested.isSelected = true
+            btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+        }
+    }
     
     func setSelectedButtonStyle(){
         let arrButton = [btnInterested,btnMaybe,btnNotInterested]
@@ -447,64 +405,59 @@ extension EventDetailImageViewController {
         
         if type != eventInfo.valueForInt(key: CIsInterested){
             //MARK:- NEW
-                       let totalIntersted = eventInfo.valueForString(key: "yes_count")
-                       let totalNotIntersted = eventInfo.valueForString(key:"no_count")
-                       let totalMaybe = eventInfo.valueForString(key: "maybe_count")
-                       switch eventInfo.valueForInt(key: CIsInterested) {
-                       case CTypeInterested:
-                        eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
-                           break
-                       case CTypeNotInterested:
-                        eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
-                           break
-                       case CTypeMayBeInterested:
-                        eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
-                           break
-                       default:
-                           break
-                       }
+            let totalIntersted = eventInfo.valueForString(key: "yes_count")
+            let totalNotIntersted = eventInfo.valueForString(key:"no_count")
+            let totalMaybe = eventInfo.valueForString(key: "maybe_count")
+            switch eventInfo.valueForInt(key: CIsInterested) {
+            case CTypeInterested:
+                eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+                break
+            case CTypeNotInterested:
+                eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+                break
+            case CTypeMayBeInterested:
+                eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+                break
+            default:
+                break
+            }
             eventInfo[CIsInterested] = type
-                       
-                       switch type {
-                       case CTypeInterested:
-                        
-                        let yesCount = totalIntersted.toInt ?? 0
-                        let totalCnt = (yesCount + 1).toString
-                        eventInfo["yes_count"] = totalCnt.toInt ?? 0 - 1
-                           break
-                       case CTypeNotInterested:
-                        let yesCount = totalNotIntersted.toInt ?? 0
-                        let totalCnt = (yesCount + 1).toString
-                        eventInfo["no_count"] = totalCnt.toInt ?? 0 - 1
-                           break
-                       case CTypeMayBeInterested:
-                        
-                        let yesCount = totalMaybe.toInt ?? 0
-                        let totalCnt = (yesCount + 1).toString
-                        eventInfo["maybe_count"] = totalCnt.toInt ?? 0 - 1
-                           break
-                       default:
-                           break
-                       }
-                       //var postId = postInfo.valueForInt(key: CId)
+            
+            switch type {
+            case CTypeInterested:
+                
+                let yesCount = totalIntersted.toInt ?? 0
+                let totalCnt = (yesCount + 1).toString
+                eventInfo["yes_count"] = totalCnt.toInt ?? 0 - 1
+                break
+            case CTypeNotInterested:
+                let yesCount = totalNotIntersted.toInt ?? 0
+                let totalCnt = (yesCount + 1).toString
+                eventInfo["no_count"] = totalCnt.toInt ?? 0 - 1
+                break
+            case CTypeMayBeInterested:
+                
+                let yesCount = totalMaybe.toInt ?? 0
+                let totalCnt = (yesCount + 1).toString
+                eventInfo["maybe_count"] = totalCnt.toInt ?? 0 - 1
+                break
+            default:
+                break
+            }
+            //var postId = postInfo.valueForInt(key: CId)
             let postId = eventInfo.valueForString(key: "post_id")
             _ = eventInfo.valueForInt(key: CIsSharedPost)
-           //            if isSharedPost == 1{
-           //                postId = postInfo[COriginalPostId] as? Int ?? 0
-           //            }
             self.setEventDetail(dict: eventInfo)
             MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
-            
         }
-        
     }
     func deletePost(_ eventInfo : [String : Any]?) {
+        
+        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
             
-            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
-                
             let postTypeDelete = "post_event"
-          let dict =
-          
+            let dict =
+                
                 [
                     "post_id": eventInfo?.valueForString(key: "post_id"),
                     "image": eventInfo?.valueForString(key: "image"),
@@ -518,19 +471,18 @@ extension EventDetailImageViewController {
                     "end_date": eventInfo?.valueForString(key: "end_date"),
                     "targeted_audience": eventInfo?.valueForString(key: "targeted_audience"),
                     "selected_persons": eventInfo?.valueForString(key: "selected_persons"),
-            "status_id": "3"
+                    "status_id": "3"
                 ]
-                APIRequest.shared().deletePostNew(postDetials: dict, apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
-                    guard let self = self else { return }
-            if response != nil && error == nil{
-            self.navigationController?.popViewController(animated: true)
-           // MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, chirID, self, .deletePost)
-                                       
-        }
-                })
-                
-            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-        }
+            APIRequest.shared().deletePostNew(postDetials: dict, apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
+                guard let self = self else { return }
+                if response != nil && error == nil{
+                    self.navigationController?.popViewController(animated: true)
+                    // MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, chirID, self, .deletePost)
+                    
+                }
+            })
+        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+    }
     
 }
 
@@ -583,7 +535,7 @@ extension EventDetailImageViewController: UITableViewDelegate, UITableViewDataSo
                     guard let self = self else { return }
                     self.setDropDownList(action: self.arrDropDown[row])
                     setHeaderTile()
-                    }, defaultPlaceholder: "")
+                }, defaultPlaceholder: "")
                 header.txtDropDown.becomeFirstResponder()
             }
             
@@ -641,8 +593,6 @@ extension EventDetailImageViewController: UITableViewDelegate, UITableViewDataSo
             let commentInfo = arrCommentList[indexPath.row]
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
-            
-            
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
             
@@ -703,9 +653,9 @@ extension EventDetailImageViewController: UITableViewDelegate, UITableViewDataSo
             }
             
             // Load more data....
-//            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
-//                self.getCommentListFromServer(showLoader: false)
-//            }
+            //            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
+            //                self.getCommentListFromServer(showLoader: false)
+            //            }
             
             return cell
         }
@@ -754,12 +704,12 @@ extension EventDetailImageViewController{
                 GCDMainThread.async {
                     let infodatass = response![CJsonData] as? [[String:Any]] ?? [[:]]
                     for infora in infodatass{
-                    self?.info = infora
+                        self?.info = infora
                     }
                     let data = response![CJsonMeta] as? [String:Any] ?? [:]
                     let stausLike = data["status"] as? String ?? "0"
                     if stausLike == "0"{
-                    self?.likeCountfromSever(productId: self?.postIDNew?.toInt ?? 0,likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
+                        self?.likeCountfromSever(productId: self?.postIDNew?.toInt ?? 0,likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
                     }
                 }
             }
@@ -771,7 +721,7 @@ extension EventDetailImageViewController{
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
-//                    info = response!["liked_users"] as? [String:Any] ?? [:]
+                    //                    info = response!["liked_users"] as? [String:Any] ?? [:]
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
                     self?.btnLikeCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
@@ -800,7 +750,7 @@ extension EventDetailImageViewController{
     }
     
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
-         if eventInfo.valueForString(key: "user_email") == appDelegate.loginUser?.email {
+        if eventInfo.valueForString(key: "user_email") == appDelegate.loginUser?.email {
             if let endDateTime = eventInfo.valueForDouble(key: CEvent_End_Date), (Double(currentDateTime) > endDateTime) {
                 
                 self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
@@ -810,7 +760,7 @@ extension EventDetailImageViewController{
                     self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnOk, btnOneTapped: { [weak self] (action) in
                         guard let self = self else { return }
                         self.deletePost(self.eventInfo)
-                        }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
+                    }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
                 }
             } else {
                 
@@ -844,38 +794,38 @@ extension EventDetailImageViewController{
 extension EventDetailImageViewController{
     fileprivate func getCommentListFromServer(showLoader: Bool){
         if let evntID = self.postIDNew{
-        if apiTask?.state == URLSessionTask.State.running {
-            self.refreshControl.endRefreshing()
-            return
-        }
-        // Add load more indicator here...
-        self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
-        self.arrCommentList.removeAll()
-        apiTask = APIRequest.shared().getProductCommentLists(page: pageNumber, showLoader: false, productId:evntID) { [weak self] (response, error) in
-            guard let self = self else { return }
-            self.tblCommentList.tableFooterView = UIView()
-            self.refreshControl.endRefreshing()
-            self.apiTask?.cancel()
-            if response != nil {
-                if let arrList = response!["comments"] as? [[String:Any]] {
-                    // Remove all data here when page number == 1
-                    if self.pageNumber == 1 {
-                        self.arrCommentList.removeAll()
-                        self.tblCommentList.reloadData()
+            if apiTask?.state == URLSessionTask.State.running {
+                self.refreshControl.endRefreshing()
+                return
+            }
+            // Add load more indicator here...
+            self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
+            self.arrCommentList.removeAll()
+            apiTask = APIRequest.shared().getProductCommentLists(page: pageNumber, showLoader: false, productId:evntID) { [weak self] (response, error) in
+                guard let self = self else { return }
+                self.tblCommentList.tableFooterView = UIView()
+                self.refreshControl.endRefreshing()
+                self.apiTask?.cancel()
+                if response != nil {
+                    if let arrList = response!["comments"] as? [[String:Any]] {
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrCommentList.removeAll()
+                            self.tblCommentList.reloadData()
+                        }
+                        // Add Data here...
+                        if arrList.count > 0{
+                            self.arrCommentList = self.arrCommentList + arrList
+                            self.tblCommentList.reloadData()
+                            self.pageNumber += 1
+                        }
                     }
-                    // Add Data here...
-                    if arrList.count > 0{
-                        self.arrCommentList = self.arrCommentList + arrList
-                        self.tblCommentList.reloadData()
-                        self.pageNumber += 1
-                    }
+                    print("arrCommentListCount : \(self.arrCommentList.count)")
+                    //self.lblNoData.isHidden = self.arrCommentList.count != 0
                 }
-                print("arrCommentListCount : \(self.arrCommentList.count)")
-                //self.lblNoData.isHidden = self.arrCommentList.count != 0
             }
         }
     }
-  }
 }
 
 // MARK:-  --------- Generic UITextView Delegate
@@ -993,7 +943,7 @@ extension EventDetailImageViewController{
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }
                         self.editCommentId =  nil
-//                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                        //                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                         //self.lblNoData.isHidden = self.arrCommentList.count != 0
                     }
                 }
@@ -1015,7 +965,7 @@ extension EventDetailImageViewController{
         let commentInfo = self.arrCommentList[index]
         let commentId = commentInfo.valueForString(key: "updated_at")
         let strComment = commentInfo.valueForString(key: "comment")
-  
+        
         guard let userID = appDelegate.loginUser?.user_id else{
             return
         }

@@ -108,9 +108,7 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
         
         let option = self.arrOption[indexPath.row]
         cell.lblName.text = option.pollText
-        //        cell.btnCheckAnwer.isSelected = false
-        //        cell.btnCheckAnwer.isHidden = false
-        //        cell.btnSelectAnwer.isHidden = false
+    
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.50) {
             if "\(self.userEmailID)" == "\(String(describing: appDelegate.loginUser?.email ?? ""))"{
                 let intArray = self.dictArray.compactMap { Double($0) }
@@ -162,11 +160,7 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                     cell.btnCheckAnwer.isHidden = true
                     print("not voted")
                 }
-                //                if self.userVotedPollId == option.pollId{
-                //                    cell.btnCheckAnwer.isSelected = false
-                //                }else{
-                //                    cell.btnCheckAnwer.isHidden = true
-                //                }
+
             }else{
                 
                 cell.btnCheckAnwer.isSelected = false
@@ -177,8 +171,6 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
             
             cell.btnCheckAnwer.tag = indexPath.row
             cell.btnSelectAnwer.tag = indexPath.row
-            //        cell.btnCheckAnwer.isUserInteractionEnabled = !self.isSelected
-            //        cell.btnSelectAnwer.isUserInteractionEnabled = !self.isSelected
             cell.didSelected = { [weak self] (index) in
                 guard let _ = self else {return}
                 MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
@@ -187,14 +179,11 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.40) {
                     
                     MILoader.shared.hideLoader()
-                    // self?.updateVoteCountReload?(self?.refereshData ?? [:])
                     self?.updateindex?(index)
                     let total = Double(self?.totalVotesNew ?? "0.0") ?? 0
                     cell.progressV.setProgress(Float(total), animated: false)
                     cell.lblPercentage.text = "\(Int((total * 100).rounded()))%"
-                    //cell.btnCheckAnwer.isHidden = true
                     cell.btnSelectAnwer.isSelected = true
-                    //cell.btnCheckAnwer.isHidden = true
                 }
             }
         }
@@ -212,8 +201,6 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
         if let cell = tableView.cellForRow(at: indexPath) as? PollProgressTblCell {
             optionText =  cell.lblName.text ?? ""
         }
-//        if "\(self.userEmailID)" == "\(String(describing: appDelegate.loginUser?.email ?? ""))"{return}
-        
         self.postDetailsList(optionTexts: self.optionText,arg: true, completion:{(success) -> Void in
             if success {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.40) {
@@ -276,9 +263,6 @@ extension PollOptionTableView{
                             
                             self!.pollOptionArr =  self?.jsonToStringConvert(pollString:datas["options"] as? String ?? "") ?? []
                             
-//                            let results = pollOption
-//                                .trimmingCharacters(in: CharacterSet(charactersIn: "[]"))
-//                                .components(separatedBy:",")
                             let obj = datas["results"] as? [String : AnyObject] ?? [:]
                             if obj.count == 1 {
                                 self?.arrPostList =  obj

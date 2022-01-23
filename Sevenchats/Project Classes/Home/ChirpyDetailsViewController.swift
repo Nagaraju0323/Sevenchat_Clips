@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ChirpyDetailsViewController                 *
+ * Changes :                                             *
+ * Show Chiripy Details,Like and comments to post        *
+ ********************************************************/
+
 import UIKit
 import ActiveLabel
 
@@ -44,10 +51,10 @@ class ChirpyDetailsViewController: ParentViewController {
             viewUserSuggestion.initialization()
         }
     }
-
+    
     @IBOutlet weak var btnProfileImg : UIButton!
     @IBOutlet weak var btnUserName : UIButton!
-
+    
     var refreshControl = UIRefreshControl()
     var arrCommentList = [[String:Any]]()
     var chirpyInformation = [String:Any]()
@@ -58,7 +65,6 @@ class ChirpyDetailsViewController: ParentViewController {
     var likeCount = 0
     var commentCount = 0
     var editCommentId : Int? = nil
-    
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false 
@@ -111,17 +117,13 @@ class ChirpyDetailsViewController: ParentViewController {
             btnLike.contentHorizontalAlignment = .left
             btnLikeCount.contentHorizontalAlignment = .right
             btnComment.contentHorizontalAlignment = .right
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
             btnShare.contentHorizontalAlignment = .right
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
         }else{
             // Normal Flow...
             btnLike.contentHorizontalAlignment = .right
             btnLikeCount.contentHorizontalAlignment = .left
             btnComment.contentHorizontalAlignment = .left
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
             btnShare.contentHorizontalAlignment = .left
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
         }
         txtViewComment.placeHolder = CMessageTypeYourMessage
         txtViewComment.type = "1"
@@ -132,25 +134,25 @@ class ChirpyDetailsViewController: ParentViewController {
 extension ChirpyDetailsViewController{
     
     fileprivate func getChirpyDetailsFromServer() {
-            
-            self.parentView.isHidden = true
-            if let chirID = self.chirpyID {
-                APIRequest.shared().viewPostDetailNew(postID: chirID, apiKeyCall: CAPITagchirpiesDetials){ [weak self] (response, error) in
-                    guard let self = self else { return }
-                    if response != nil {
-                        self.parentView.isHidden = false
-                        if let Info = response!["data"] as? [[String:Any]]{
+        
+        self.parentView.isHidden = true
+        if let chirID = self.chirpyID {
+            APIRequest.shared().viewPostDetailNew(postID: chirID, apiKeyCall: CAPITagchirpiesDetials){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    self.parentView.isHidden = false
+                    if let Info = response!["data"] as? [[String:Any]]{
                         print(Info as Any)
-                            for chirpInfo in Info {
+                        for chirpInfo in Info {
                             self.openUserProfileScreen()
                         }
-                        }
                     }
-                    self.getCommentListFromServer()
                 }
+                self.getCommentListFromServer()
             }
         }
-        
+    }
+    
     fileprivate func openUserProfileScreen(){
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
@@ -196,16 +198,15 @@ extension ChirpyDetailsViewController{
         refreshControl.beginRefreshing()
         self.getChirpyDetailsFromServer()
     }
-
+    
     fileprivate func getCommentListFromServer(){
+        
         if let chirID = self.chirpyID{
-            
             if apiTask?.state == URLSessionTask.State.running {
                 return
             }
             // Add load more indicator here...
             self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
-            
         }
     }
     
@@ -271,7 +272,7 @@ extension ChirpyDetailsViewController: UITableViewDelegate, UITableViewDataSourc
                         let arrSelectedUser = arrIncludedUsers.filter({$0[CFullName] as? String == name})
                         
                         if arrSelectedUser.count > 0 {
-                            let userSelectedInfo = arrSelectedUser[0]
+                            _ = arrSelectedUser[0]
                             appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
                         }
                     })
@@ -388,11 +389,11 @@ extension ChirpyDetailsViewController{
         }else{
             if let chirId = self.chirpyID{
                 // Get Final text for comment..
-                let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
+                _ = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
                 // Get Mention user's Ids..
-                let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
+                _ = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
                 
-
+                
             }
         }
     }
@@ -439,16 +440,16 @@ extension ChirpyDetailsViewController{
     }
     
     func btnMoreOptionOfComment(index:Int){
-             self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
-                 guard let _ = self else {return}
-                 DispatchQueue.main.async {
-                    self?.deleteComment(index)
-     
-                 }
-             }
+        self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
+            guard let _ = self else {return}
+            DispatchQueue.main.async {
+                self?.deleteComment(index)
+                
+            }
+        }
     }
     
     func deleteComment(_ index:Int){
-
+        
     }
 }

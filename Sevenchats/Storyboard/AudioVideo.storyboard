@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -116,6 +117,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="TJu-lL-Qa6"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tTJ-Yp-a8M" firstAttribute="width" secondItem="RIc-8i-SbY" secondAttribute="width" id="2VJ-1A-jYi"/>
@@ -142,7 +144,6 @@
                             <constraint firstItem="NAJ-IP-bVA" firstAttribute="leading" secondItem="TJu-lL-Qa6" secondAttribute="leading" constant="10" id="xmQ-Fh-N5Y"/>
                             <constraint firstItem="TJu-lL-Qa6" firstAttribute="bottom" secondItem="JfM-WA-3BX" secondAttribute="bottom" id="zMS-4b-Qn0"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="TJu-lL-Qa6"/>
                     </view>
                     <connections>
                         <outlet property="btnFlipCamera" destination="tTJ-Yp-a8M" id="2Z5-7i-pYN"/>
@@ -200,10 +201,11 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pey-eH-Jxd">
                                 <rect key="frame" x="0.0" y="70" width="375" height="597"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="2zg-Vo-rp3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="GCe-OX-cmi" firstAttribute="trailing" secondItem="2zg-Vo-rp3" secondAttribute="trailing" id="Iyn-TF-WzP"/>
                             <constraint firstItem="Pey-eH-Jxd" firstAttribute="top" secondItem="GCe-OX-cmi" secondAttribute="bottom" id="Smb-PW-htK"/>
@@ -213,7 +215,6 @@
                             <constraint firstItem="2zg-Vo-rp3" firstAttribute="bottom" secondItem="Pey-eH-Jxd" secondAttribute="bottom" id="t52-Ny-n8g"/>
                             <constraint firstItem="GCe-OX-cmi" firstAttribute="top" secondItem="2zg-Vo-rp3" secondAttribute="top" id="whY-vZ-DxJ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="2zg-Vo-rp3"/>
                     </view>
                     <connections>
                         <outlet property="tblUsers" destination="Pey-eH-Jxd" id="QRf-pk-POT"/>
@@ -315,6 +316,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="DwT-DC-yMR"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Rsq-r2-YUM" firstAttribute="trailing" secondItem="DwT-DC-yMR" secondAttribute="trailing" id="2GT-NG-rRl"/>
@@ -338,7 +340,6 @@
                             <constraint firstItem="Rsq-r2-YUM" firstAttribute="bottom" secondItem="DwT-DC-yMR" secondAttribute="bottom" id="x3w-27-yja"/>
                             <constraint firstItem="pPs-jO-iiW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="DwT-DC-yMR" secondAttribute="leading" constant="40" id="yml-Gv-Tzy"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="DwT-DC-yMR"/>
                     </view>
                     <connections>
                         <outlet property="btnMuteVideo" destination="zql-LY-PDt" id="rBu-Nv-zyp"/>
@@ -438,6 +439,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="YLG-ek-37X"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="QBV-Yc-dhE" firstAttribute="centerX" secondItem="YLG-ek-37X" secondAttribute="centerX" id="4WV-W3-a1A"/>
@@ -456,7 +458,6 @@
                             <constraint firstItem="YLG-ek-37X" firstAttribute="bottom" secondItem="Z6a-GB-0pf" secondAttribute="bottom" constant="80" id="ylQ-76-2JQ"/>
                             <constraint firstItem="Z6a-GB-0pf" firstAttribute="centerX" secondItem="YLG-ek-37X" secondAttribute="centerX" id="zZX-tt-157"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="YLG-ek-37X"/>
                     </view>
                     <connections>
                         <outlet property="imgUser" destination="ZGB-k8-cPM" id="CGi-hp-oEL"/>
@@ -560,6 +561,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="c10-6q-m2d"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="h1S-A2-CJw" firstAttribute="centerX" secondItem="c10-6q-m2d" secondAttribute="centerX" id="0NY-Gv-k0b"/>
@@ -583,7 +585,6 @@
                             <constraint firstItem="Wdb-BM-mtP" firstAttribute="top" secondItem="W4q-pl-4kB" secondAttribute="bottom" constant="20" id="yWn-FH-ry6"/>
                             <constraint firstItem="W4q-pl-4kB" firstAttribute="centerY" secondItem="c10-6q-m2d" secondAttribute="centerY" multiplier="0.5" id="yvw-Zv-wbd"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="c10-6q-m2d"/>
                     </view>
                     <connections>
                         <outlet property="btnMuteVideo" destination="Dc9-fd-YAe" id="5Ya-5f-Z0a"/>
@@ -609,5 +610,8 @@
         <image name="ic_flip_camera" width="178" height="177"/>
         <image name="ic_speacker_enable" width="154" height="154"/>
         <image name="user_placeholder.png" width="300" height="300"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

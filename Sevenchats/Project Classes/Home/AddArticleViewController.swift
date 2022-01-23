@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : AddArticleViewController                    *
+ * Changes :                                             *
+ * Add article and limit with 5000 charectes             *
+ ********************************************************/
+
 import UIKit
 
 enum ArticleType : Int {
@@ -18,7 +25,6 @@ class AddArticleViewController: ParentViewController {
     var articleType : ArticleType!
     
     @IBOutlet weak var topContainer : UIView!
-    
     @IBOutlet weak var viewAddImageContainer : UIView!
     @IBOutlet weak var viewUploadedImageContainer : UIView!
     @IBOutlet weak var imgArticle : UIImageView!
@@ -26,7 +32,6 @@ class AddArticleViewController: ParentViewController {
     @IBOutlet weak var btnSelectGroupFriend : UIButton!
     @IBOutlet weak var lblUploadImage : UILabel!
     @IBOutlet weak var lblTextCount : UILabel!
-    
     @IBOutlet weak var txtArticleTitle : MIGenericTextFiled!
     @IBOutlet weak var txtArticleAgeLimit : MIGenericTextFiled!
     @IBOutlet weak var txtViewArticleContent : GenericTextView!{
@@ -90,7 +95,6 @@ class AddArticleViewController: ParentViewController {
         viewUploadedImageContainer.isHidden = true
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddArticleClicked(_:)))]
         
-//        let arrCategory = MIGeneralsAPI.shared().fetchCategoryFromLocal()
         let arrCategory = MIGeneralsAPI.shared().fetchCategoryFromLocalArticle()
         
         /// Set Dropdown on txtCategory
@@ -100,9 +104,6 @@ class AddArticleViewController: ParentViewController {
         
         /// On select text from the auto-complition
         categoryDropDownView.onSelectText = { [weak self] (item) in
-            
-            
-            
             guard let `self` = self else { return }
             
             let objArry = arrCategory.filter({ (obj) -> Bool in
@@ -112,7 +113,6 @@ class AddArticleViewController: ParentViewController {
             if (objArry.count > 0) {
                 self.categoryName = (objArry.first?[CCategoryName] as? String) ?? ""
             }
-//            self.loadInterestList(interestType : self.categoryName ?? "" , showLoader : true)
         }
         
         let arrInviteType = [CPostPostsInviteGroups, CPostPostsInviteContacts,  CPostPostsInvitePublic, CPostPostsInviteAllFriends]
@@ -126,6 +126,7 @@ class AddArticleViewController: ParentViewController {
         self.selectedInviteType = 4
     }
     
+    //List text charectes
     fileprivate func setQuoteText(){
         var strQuote = self.quoteDesc
         if strQuote.count > 5000{
@@ -138,7 +139,6 @@ class AddArticleViewController: ParentViewController {
             self.txtViewArticleContent.updatePlaceholderFrame(true)
         }
     }
-    
     
     func updateUIAccordingToLanguage(){
         
@@ -160,11 +160,8 @@ class AddArticleViewController: ParentViewController {
         lblUploadImage.text = CUploadImage
         txtArticleTitle.placeHolder = CArticlePlaceholderTitle
         categoryDropDownView.txtCategory.placeholder = CArticlePlaceholderSelecetCategory
-//        subcategoryDropDownView.txtCategory.placeholder = CArticlePlaceholderSelecetCategory
         txtViewArticleContent.placeHolder = CArticlePlaceholderContent
-//        txtArticleAgeLimit.placeHolder = CPostPlaceholderMinAge
         txtInviteType.placeHolder = CVisiblity
-        
         btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
     }
 }
@@ -172,13 +169,11 @@ class AddArticleViewController: ParentViewController {
 // MARK:- --------- Api Functions
 extension AddArticleViewController{
     
-    
-    
     fileprivate func addEditArticle(){
+        
         var apiPara = [String : Any]()
         var apiParaGroups = [String]()
         var apiParaFriends = [String]()
-        
         apiPara[CPostType] = 1
         apiPara[CTitle] = txtArticleTitle.text
         apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
@@ -203,24 +198,23 @@ extension AddArticleViewController{
         
         if self.selectedInviteType == 1{
             let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-           apiParaGroups = groupIDS.components(separatedBy: ",")
-          
+            apiParaGroups = groupIDS.components(separatedBy: ",")
+            
         }else if self.selectedInviteType == 2{
             let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
             apiParaFriends = userIDS.components(separatedBy: ",")
         }
         
         if apiParaGroups.isEmpty == false {
-                  dict[CTargetAudiance] = apiParaGroups
-              }else {
-                  dict[CTargetAudiance] = "none"
-              }
-            
-              if apiParaFriends.isEmpty == false {
-                  dict[CSelectedPerson] = apiParaFriends
-              }else {
-                  dict[CSelectedPerson] = "none"
-            }
+            dict[CTargetAudiance] = apiParaGroups
+        }else {
+            dict[CTargetAudiance] = "none"
+        }
+        if apiParaFriends.isEmpty == false {
+            dict[CSelectedPerson] = apiParaFriends
+        }else {
+            dict[CSelectedPerson] = "none"
+        }
         APIRequest.shared().addEditPost(para: dict, image: imgArticle.image,apiKeyCall: CAPITagarticles) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil && error == nil{
@@ -233,12 +227,10 @@ extension AddArticleViewController{
         }
     }
     
-    
     fileprivate func loadArticleDetailFromServer(){
         if let artID = self.articleID{
             
             APIRequest.shared().viewPostDetailNew(postID: artID, apiKeyCall: CAPITagarticlesDetials){ [weak self] (response, error) in
-                //  APIRequest.shared().viewPostDetail(postID: shouID) { [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false
@@ -251,20 +243,15 @@ extension AddArticleViewController{
                 }
             }
         }
-        
     }
     
     fileprivate func setEventDetail (_ articleInfo : [String : Any]) {
         
-        //        self.categoryID = articleInfo.valueForInt(key: CCategory_Id)
         self.categoryName = articleInfo.valueForString(key: CInteresttype)
         self.categorysubName = articleInfo.valueForString(key: CinterestLevel2)
         txtArticleTitle.text = articleInfo.valueForString(key: CTitle)
         categoryDropDownView.txtCategory.text = articleInfo.valueForString(key: CCategory)
-        
         txtViewArticleContent.text = articleInfo.valueForString(key: CContent)
-//        txtArticleAgeLimit.text = articleInfo.valueForString(key: CMinAge)
-        
         //...Set Event image
         if articleInfo.valueForString(key: CImage) != "" {
             imgArticle.loadImageFromUrl(articleInfo.valueForString(key: CImage), false)
@@ -325,8 +312,6 @@ extension AddArticleViewController: UICollectionViewDelegate, UICollectionViewDa
         }else{
             cell.lblBubbleText.text = selectedInfo.valueForString(key: CGroupTitle)
         }
-        
-        
         return cell
     }
     
@@ -334,9 +319,7 @@ extension AddArticleViewController: UICollectionViewDelegate, UICollectionViewDa
         
         arrSelectedGroupFriends.remove(at: indexPath.row)
         clGroupFriend.reloadData()
-        
-        if arrSelectedGroupFriends.count == 0
-        {
+        if arrSelectedGroupFriends.count == 0{
             btnSelectGroupFriend.isHidden = false
             clGroupFriend.isHidden = true
             btnAddMoreFriends.isHidden = true
@@ -344,10 +327,8 @@ extension AddArticleViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let selectedInfo = arrSelectedGroupFriends[indexPath.row]
-        
         var title = ""
+        let selectedInfo = arrSelectedGroupFriends[indexPath.row]
         if self.selectedInviteType == 2 {
             title = selectedInfo.valueForString(key: CFirstname) + " " + selectedInfo.valueForString(key: CLastname)
         }else{
@@ -375,7 +356,7 @@ extension AddArticleViewController{
                 self.imgArticle.image = image
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
-               
+                
                 if let selectedImage = info?[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                     let imgName = UUID().uuidString
                     let documentDirectory = NSTemporaryDirectory()
@@ -391,14 +372,11 @@ extension AddArticleViewController{
                         return
                     }
                     MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                    
-    //                MInioimageupload.shared().uploadMinioimage(ImgnameStr:image!)
-                    //  MInioimageupload.shared().uploadMinioVideo(ImgnameStr:image!)
                     MInioimageupload.shared().callback = { message in
                         print("UploadImage::::::::::::::\(message)")
                         self.profileImgUrl = message
-                                  }
-                              }
+                    }
+                }
                 
             }
         }
@@ -456,13 +434,11 @@ extension AddArticleViewController{
             self.txtInviteType.text = CPostPostsInviteContacts
             viewSelectGroup.hide(byHeight: false)
         case 3:
-            //self.txtInviteType.text = CPostPostsInviteAllFriends
-          self.txtInviteType.text = CPostPostsInvitePublic
+            self.txtInviteType.text = CPostPostsInvitePublic
             btnSelectGroupFriend.isHidden = true
             viewSelectGroup.hide(byHeight: true)
         case 4:
             self.txtInviteType.text = CPostPostsInviteAllFriends
-           // self.txtInviteType.text = CPostPostsInvitePublic
             btnSelectGroupFriend.isHidden = true
             viewSelectGroup.hide(byHeight: true)
         default:
@@ -498,26 +474,23 @@ extension AddArticleViewController{
 extension AddArticleViewController: GenericTextViewDelegate{
     
     func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
-        
         if textView == txtViewArticleContent{
-//            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
             lblTextCount.text = "\(textView.text.count)/5000"
         }
     }
-    
 }
 
 extension AddArticleViewController: GenericTextFieldDelegate {
-   
+    
     @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    if textField == txtArticleTitle{
-        if txtArticleTitle.text?.count ?? 0 > 20{
-            return false
+        if textField == txtArticleTitle{
+            if txtArticleTitle.text?.count ?? 0 > 20{
+                return false
+            }
+            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
         }
-        let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-        let filtered = string.components(separatedBy: cs).joined(separator: "")
-        return (string == filtered)
-    }
-    return true
+        return true
     }
 }

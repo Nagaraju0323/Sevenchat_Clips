@@ -41,8 +41,6 @@ class ProductSearchVC: ParentViewController {
                 self.filterObj.status = searchStatus
                 self.appliedFilterAndSearch()
             }
-            //allProductVC?.searchStatus = searchStatus
-            //myProductVC?.searchStatus = searchStatus
         }
     }
     var filterObj = MDLStoreAppliedFilter()
@@ -77,9 +75,6 @@ class ProductSearchVC: ParentViewController {
 extension ProductSearchVC {
     
     fileprivate func setupView() {
-        
-        //registerForKeyboardWillShowNotification(tblse)
-        //registerForKeyboardWillHideNotification(txtSearch)
         
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let navBarHeight = self.navigationController?.navigationBar.bounds.height
@@ -134,15 +129,6 @@ extension ProductSearchVC {
         
         sementView.addSubItems(arrViews: [allProduct,myProduct])
         sementView.selectedSegmentIndex = 0
-        
-//        let arrOption = [CTypeAll,CAvailable,CSold] //(0=>all,1=>available,2=>sold)
-//        txtSearchDropdown.setPickerData(arrPickerData: arrOption, selectedPickerDataHandler: { [weak self](string, row, index) in
-//            guard let _ = self else {return}
-//            if self?.searchStatus != row{
-//                self?.searchStatus = row
-//            }
-//            }, defaultPlaceholder: "")
-//
         txtSearchDropdown.text = CTypeAll
     }
 }
@@ -199,7 +185,6 @@ extension ProductSearchVC : PageViewControllerDelegate {
     func appliedFilterAndSearch(){
         
         if self.pageVC?.currentIndex == 0{
-            //self.allProductVC?.filterObj = self.filterObj
             var isChangeFiler = false
             if self.allProductVC?.filterObj.search != self.filterObj.search{
                 self.allProductVC?.filterObj.search = self.filterObj.search

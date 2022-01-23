@@ -15,11 +15,9 @@ class MyRewardsHistoryVC: ParentViewController {
     //MARK: - IBOutlet/Object/Variable Declaration
     @IBOutlet weak var tblHistory: UITableView!
     var refreshControl = UIRefreshControl()
-    
     var isLoadMoreCompleted = false
     var currentPage : Int = 0
     var apiTask : URLSessionTask?
-    
     var arrRewards : [MDLRewardDetail] = []
     var type : RewardCategory = RewardCategory.Posts
     var rewards = MDLRewards(level: "", points: 0)
@@ -99,7 +97,7 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "EarnedPointsCell") as? EarnedPointsCell else {
             return UITableViewCell(frame: .zero)
         }
-    
+        
         cell.rewardDetail = self.arrRewards[indexPath.row]
         cell.type = self.type
         
@@ -117,19 +115,19 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
         
         let rewardObj = self.arrRewards[indexPath.row]
         switch self.type {
-            
+        
         case .Connections, .UsageTime:
             appDelegate.moveOnProfileScreen(rewardObj.friendId.description, self)
             break
             
         case .Posts:
-//            self.redirectOnPostDetailScreen(rewardObj)
+            //            self.redirectOnPostDetailScreen(rewardObj)
             break
             
         case .SellPosts:
             self.redirectOnProductDetail(rewardObj)
             break
-
+            
         default: break
         }
     }
@@ -143,42 +141,10 @@ extension MyRewardsHistoryVC {
         self.refreshControl.beginRefreshing()
         self.currentPage = 1
         self.isLoadMoreCompleted = false
-
+        
         self.getRewardsDetail(isLoader: false)
     }
     
-//    fileprivate func getRewardsDetail(isLoader: Bool) {
-//
-//        if apiTask?.state == URLSessionTask.State.running {
-//            return
-//        }
-//
-//        apiTask = APIRequest.shared().rewardsDetail(type:self.type.rawValue,page: self.currentPage,showLoader: isLoader) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//
-//            self.refreshControl.endRefreshing()
-//            print(response as Any)
-//            if response != nil {
-//                GCDMainThread.async {
-//
-//                    if self.currentPage == 1 {
-//                        self.arrRewards.removeAll()
-//                    }
-//                    self.currentPage += 1
-//                    let arrData = response![CData] as? [[String : Any]] ?? []
-//                    _ = arrData.map({self.arrRewards.append(MDLRewardDetail(fromDictionary: $0))})
-//                    self.isLoadMoreCompleted = arrData.isEmpty
-//
-//                    let meta = response![CJsonMeta] as? [String : Any] ?? [:]
-//                    let level = meta.valueForString(key: "level")
-//                    let points = meta.valueForInt(key: "total_points") ?? 0
-//                    self.rewards = MDLRewards(name: self.categoryName, level: level, points: points)
-//
-//                    self.tblHistory.reloadData()
-//                }
-//            }
-//        }
-//    }
     
     fileprivate func getRewardsDetail(isLoader: Bool) {
         
@@ -206,117 +172,23 @@ extension MyRewardsHistoryVC {
                     self.currentPage += 1
                     let arrData = response!["rewards_history"] as? [String : Any] ?? [:]
                     let arrDatas = arrData["rewards_history"] as? [[String : Any]] ?? [[:]]
-//                    let arrData_history = arrData["rewards_history"] as? [String : Any] ?? [:]
                     _ = arrDatas.map({self.arrRewards.append(MDLRewardDetail(fromDictionary: $0))})
-//                    self.isLoadMoreCompleted = arrData.isEmpty
-//
-//                    let meta = response![CJsonMeta] as? [String : Any] ?? [:]
-//                    let level = meta.valueForString(key: "level")
                     let points = arrData.valueForString(key: "total_points").toInt
                     self.rewards = MDLRewards(name: self.categoryName, level: "", points: points ?? 0)
-                    
                     self.tblHistory.reloadData()
                 }
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 extension MyRewardsHistoryVC {
-    
     func redirectOnProductDetail(_ rewardDetail : MDLRewardDetail) {
-        
         if let productDetail : ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC{
             productDetail.VcController = 2
             productDetail.productId = rewardDetail.productId
             self.navigationController?.pushViewController(productDetail, animated: true)
         }
     }
-    
-//    func redirectOnPostDetailScreen(_ rewardDetail : MDLRewardDetail) {
-//        let postType = rewardDetail.postType
-//        let postId = rewardDetail.postId
-//        switch postType {
-//        case CStaticArticleId:
-//
-//            if let viewArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
-//                viewArticleVC.articleID = postId
-//                self.navigationController?.pushViewController(viewArticleVC, animated: true)
-//            }
-//            break
-//
-//        case CStaticGalleryId:
-//            if let imageDetailsVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
-//                imageDetailsVC.imgPostId = postId
-//                self.navigationController?.pushViewController(imageDetailsVC, animated: true)
-//            }
-//            break
-//
-//        case CStaticChirpyId:
-//
-//            if rewardDetail.isPostImage == 0{
-//
-//                if let chirpyDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyDetailsViewController") as? ChirpyDetailsViewController{
-//                    chirpyDetailsVC.chirpyID = postId
-//                    self.navigationController?.pushViewController(chirpyDetailsVC, animated: true)
-//                }
-//            }else{
-//                if let chirpyImageVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController{
-//                    chirpyImageVC.chirpyID = postId
-//                    self.navigationController?.pushViewController(chirpyImageVC, animated: true)
-//                }
-//            }
-//            break
-//        case CStaticShoutId:
-//
-//            if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
-//                shoutsDetailsVC.shoutID = postId
-//                self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
-//            }
-//            break
-//
-//        case CStaticForumId:
-//
-//            if let forumDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController{
-//                forumDetailsVC.forumID = postId
-//                self.navigationController?.pushViewController(forumDetailsVC, animated: true)
-//            }
-//            break
-//
-//        case CStaticEventId:
-//
-//            if rewardDetail.isPostImage == 0 {
-//                if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? EventDetailViewController {
-//                    eventDetailsVC.postID = postId
-//                    self.navigationController?.pushViewController(eventDetailsVC, animated: true)
-//                }
-//            }else{
-//
-//                if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
-//                    eventDetailsVC.postID = postId
-//                    self.navigationController?.pushViewController(eventDetailsVC, animated: true)
-//                }
-//            }
-//            break
-//
-//        case CStaticPollId:
-//            if let viewArticleVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
-//                viewArticleVC.pollID = postId
-//                self.navigationController?.pushViewController(viewArticleVC, animated: true)
-//            }
-//            break
-//        default:
-//            break
-//        }
-//    }
+ 
 }

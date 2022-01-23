@@ -21,9 +21,6 @@ class EventDetailViewController: ParentViewController {
     @IBOutlet weak var lblEventAddress : UILabel!
     @IBOutlet weak var lblEventDescription : UILabel!
     @IBOutlet weak var lblEventCategory : UILabel!
-    //@IBOutlet weak var lblInvitedUserCount : UILabel!
-    //@IBOutlet weak var lblAboutEvent : UILabel!
-    
     @IBOutlet weak var btnLikeCount : UIButton!
     @IBOutlet weak var btnLike : UIButton!
     @IBOutlet weak var btnComment : UIButton!
@@ -31,11 +28,6 @@ class EventDetailViewController: ParentViewController {
     @IBOutlet weak var btnMaybe : UIButton!
     @IBOutlet weak var btnNotInterested : UIButton!
     @IBOutlet weak var btnInterested : UIButton!
-    
-    //@IBOutlet weak var viewEventImage : UIView!
-    //@IBOutlet weak var imgVEvent : UIImageView!
-    
-    //@IBOutlet weak var vwInvitedCount : UIView!
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var lbluserName : UILabel!
     @IBOutlet weak var tblUserList : UITableView!
@@ -72,10 +64,10 @@ class EventDetailViewController: ParentViewController {
             viewUserSuggestion.userSuggestionDelegate = self
         }
     }
-
+    
     @IBOutlet weak var btnProfileImg : UIButton!
     @IBOutlet weak var btnUserName : UIButton!
-
+    
     var postID : Int?
     var rssId : Int?
     var arrInvitedUser = [[String : Any]]()
@@ -95,7 +87,6 @@ class EventDetailViewController: ParentViewController {
     var arrConfirmed = [[String : Any]]()
     var arrMaybe = [[String : Any]]()
     var arrDeclined = [[String : Any]]()
-    
     let currentDateTime = Date().timeIntervalSince1970
     
     override func viewDidLoad() {
@@ -191,10 +182,7 @@ class EventDetailViewController: ParentViewController {
             btnLike.contentHorizontalAlignment = .left
             btnLikeCount.contentHorizontalAlignment = .right
             btnComment.contentHorizontalAlignment = .right
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
             btnShare.contentHorizontalAlignment = .right
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
-            
             // Reverse Flow...
             btnInterested.contentHorizontalAlignment = .right
             btnInterested.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
@@ -210,9 +198,7 @@ class EventDetailViewController: ParentViewController {
             btnLike.contentHorizontalAlignment = .right
             btnLikeCount.contentHorizontalAlignment = .left
             btnComment.contentHorizontalAlignment = .left
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
             btnShare.contentHorizontalAlignment = .left
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
             
             // Normal Flow...
             btnInterested.contentHorizontalAlignment = .left
@@ -230,55 +216,33 @@ class EventDetailViewController: ParentViewController {
 // MARK:- --------- Api Functions
 extension EventDetailViewController {
     
-//    func loadEventDetailFromServer() {
-//        self.parentView.isHidden = true
-//        APIRequest.shared().viewPostDetail(postID: self.postID) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil {
-//                self.parentView.isHidden = false
-//                self.setEventDetail(dict: response?.value(forKey: CJsonData) as! [String : AnyObject])
-//                self.openUserProfileScreen()
-//            }
-//            self.getCommentListFromServer(showLoader: true)
-//        }
-//    }
-    
-    
-    
     func loadEventDetailFromServer() {
-            self.parentView.isHidden = true
-            
-            APIRequest.shared().viewPostDetailNew(postID: self.postID!, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in
-          //  APIRequest.shared().viewPostDetail(postID: shouID) { [weak self] (response, error) in
-                guard let self = self else { return }
-                if response != nil {
-                    self.parentView.isHidden = false
-                    if let shoInfo = response!["data"] as? [[String:Any]]{
-                    
-                    print(shoInfo as Any)
-                        for arraydata in shoInfo {
-//                            self.setEventDetail(dict: arraydata)
-                            self.openUserProfileScreen()
-                        }
-                        
+        self.parentView.isHidden = true
+        
+        APIRequest.shared().viewPostDetailNew(postID: self.postID!, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in
+            guard let self = self else { return }
+            if response != nil {
+                self.parentView.isHidden = false
+                if let shoInfo = response!["data"] as? [[String:Any]]{
+                    for arraydata in shoInfo {
+                        self.openUserProfileScreen()
                     }
                 }
-                self.getCommentListFromServer(showLoader: true)
             }
+            self.getCommentListFromServer(showLoader: true)
         }
+    }
     
     fileprivate func openUserProfileScreen(){
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-//            appDelegate.moveOnProfileScreen(self.eventInfo.valueForString(key: CUserId), self)
-            appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CUserId), self.eventInfo.valueForString(key: CUsermailID), self)
             
+            appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CUserId), self.eventInfo.valueForString(key: CUsermailID), self)
         }
-        
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-//            appDelegate.moveOnProfileScreen(self.eventInfo.valueForString(key: CUserId), self)
+            
             appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CUserId), self.eventInfo.valueForString(key: CUsermailID), self)
         }
     }
@@ -289,11 +253,8 @@ extension EventDetailViewController {
         eventInfo = dict
         self.parentView.isHidden = false
         self.lbluserName.text = "\(dict.valueForString(key: CFirstname)) \(dict.valueForString(key: CLastname))"
-//
-//        self.lblEventPostDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-        
         let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:eventInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
-          self.lblEventPostDate.text = timeStamp
+        self.lblEventPostDate.text = timeStamp
         
         self.lblEventCategory.text = dict.valueForString(key: CCategory).uppercased()
         self.lblEventType.text = CTypeEvent
@@ -307,13 +268,6 @@ extension EventDetailViewController {
         self.btnMaybe.setTitle("\(dict.valueForString(key: CTotalMaybeInterestedUsers))\n" + CMaybe, for: .normal)
         self.btnNotInterested.setTitle("\(dict.valueForString(key: CTotalNotInterestedUsers))\n" + CDeclined, for: .normal)
         
-        /*if dict.valueForString(key: CImage).isBlank{
-         //viewEventImage.hide(byHeight: true)
-         viewEventImage.isHidden = true
-         }else{
-         imgVEvent.loadImageFromUrl(dict.valueForString(key: CImage), false)
-         }*/
-        
         self.btnLike.isSelected = dict.valueForBool(key: CIs_Like)
         
         likeCount = dict.valueForInt(key: CTotal_like) ?? 0
@@ -323,7 +277,7 @@ extension EventDetailViewController {
         self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
         
         if let endDateTime = dict.valueForDouble(key: CEvent_End_Date) {
-
+            
             btnMaybe.isEnabled = Double(currentDateTime) <= endDateTime
             btnNotInterested.isEnabled = Double(currentDateTime) <= endDateTime
             btnInterested.isEnabled = Double(currentDateTime) <= endDateTime
@@ -439,21 +393,7 @@ extension EventDetailViewController {
     }
     
     func deletePost() {
-//        APIRequest.shared().removePost(postID: self.postID) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil {
-//
-//                for vwController in (self.navigationController?.viewControllers)! {
-//                    if vwController.isKind(of: EventListViewController .classForCoder()) {
-//                        let eventVC = vwController as? EventListViewController
-//                        eventVC?.currentPage = 1
-//                        eventVC?.loadEventList(showLoader: false)
-//                        break
-//                    }
-//                }
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//        }
+        
     }
 }
 
@@ -506,7 +446,7 @@ extension EventDetailViewController: UITableViewDelegate, UITableViewDataSource{
                     guard let self = self else { return }
                     self.setDropDownList(action: self.arrDropDown[row])
                     setHeaderTile()
-                    }, defaultPlaceholder: "")
+                }, defaultPlaceholder: "")
                 header.txtDropDown.becomeFirstResponder()
             }
             
@@ -594,7 +534,6 @@ extension EventDetailViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if arrSelectedUser.count > 0 {
                             let userSelectedInfo = arrSelectedUser[0]
-//                            appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(userSelectedInfo.valueForString(key: CUserId), userSelectedInfo.valueForString(key: CUsermailID), self)
                         }
                     })
@@ -617,13 +556,11 @@ extension EventDetailViewController: UITableViewDelegate, UITableViewDataSource{
             
             cell.btnUserName.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             
             cell.btnUserImage.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                /appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             
@@ -685,7 +622,6 @@ extension EventDetailViewController{
     }
     
     @IBAction func btnShareReportCLK(_ sender : UIButton){
-        //self.presentActivityViewController(mediaData: eventInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
         let sharePost = SharePostHelper(controller: self, dataSet: eventInfo)
         sharePost.shareURL = eventInfo.valueForString(key: CShare_url)
         sharePost.presentShareActivity()
@@ -713,21 +649,21 @@ extension EventDetailViewController{
                     }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
                 }
             } else {
-              
-            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self] (alert) in
-                guard let self = self else { return }
-                //...Edit Post
-                let addEventVC:AddEventViewController = CStoryboardEvent.instantiateViewController(withIdentifier: "AddEventViewController") as! AddEventViewController
-                addEventVC.eventID = self.postID
-                addEventVC.eventType = .editEvent
-                self.navigationController?.pushViewController(addEventVC, animated: true)
-            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
-                guard let self = self else { return }
-                //...Delete Post
-                self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
-                    self.deletePost()
-                }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
-            }
+                
+                self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self] (alert) in
+                    guard let self = self else { return }
+                    //...Edit Post
+                    let addEventVC:AddEventViewController = CStoryboardEvent.instantiateViewController(withIdentifier: "AddEventViewController") as! AddEventViewController
+                    addEventVC.eventID = self.postID
+                    addEventVC.eventType = .editEvent
+                    self.navigationController?.pushViewController(addEventVC, animated: true)
+                }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
+                    guard let self = self else { return }
+                    //...Delete Post
+                    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                        self.deletePost()
+                    }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
+                }
             }
         }else {
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
@@ -765,38 +701,8 @@ extension EventDetailViewController{
             self.refreshControl.endRefreshing()
             return
         }
-        
         // Add load more indicator here...
         self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
-        
-//        apiTask = APIRequest.shared().getCommentList(page: pageNumber, showLoader: showLoader, post_id: self.postID, rss_id: self.rssId) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            self.tblCommentList.tableFooterView = UIView()
-//            self.refreshControl.endRefreshing()
-//            self.apiTask?.cancel()
-//
-//            if response != nil {
-//
-//                if let arrList = response![CJsonData] as? [[String:Any]] {
-//
-//                    // Remove all data here when page number == 1
-//                    if self.pageNumber == 1 {
-//                        self.arrCommentList.removeAll()
-//                        self.tblCommentList.reloadData()
-//                    }
-//
-//                    // Add Data here...
-//                    if arrList.count > 0{
-//                        self.arrCommentList = self.arrCommentList + arrList
-//                        self.tblCommentList.reloadData()
-//                        self.pageNumber += 1
-//                    }
-//                }
-//
-//                print("arrCommentListCount : \(self.arrCommentList.count)")
-//                //self.lblNoData.isHidden = self.arrCommentList.count != 0
-//            }
-//        }
     }
 }
 
@@ -828,7 +734,7 @@ extension EventDetailViewController: GenericTextViewDelegate{
     }
     
     func genericTextView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-       
+        
         if viewUserSuggestion != nil {
             let strText = textView.text ?? ""
             if !strText.isEmpty && strText.count > range.location && viewUserSuggestion.isSearchString{
@@ -876,44 +782,6 @@ extension EventDetailViewController{
             
             // Get Mention user's Ids..
             let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-            
-//            APIRequest.shared().sendComment(post_id: self.postID, commentId: self.editCommentId, rss_id: rssId, type: rssId != nil ? 2 : 1, comment: strComment, include_user_id: includedUser) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                if response != nil && error == nil {
-//                    
-//                    self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
-//                    self.txtViewComment.text = ""
-//                    self.btnSend.isUserInteractionEnabled = false
-//                    self.btnSend.alpha = 0.5
-//                    self.txtViewComment.updatePlaceholderFrame(false)
-//                    
-//                    if let comment = response![CJsonData] as? [String : Any] {
-//                        if (self.editCommentId ?? 0) == 0{
-//                            self.arrCommentList.insert(comment, at: 0)
-//                            self.commentCount += 1
-//                            
-//                            self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-//                            
-//                            self.tblCommentList.reloadData()
-//                            if let responsInfo = response as? [String : Any]{
-//                                // To udpate previous screen data....
-//                                MIGeneralsAPI.shared().refreshPostRelatedScreens(responsInfo, self.postID, self, .commentPost)
-//                            }
-//                        }else{
-//                            // Edit comment in array
-//                            if let index = self.arrCommentList.firstIndex(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
-//                                self.arrCommentList.remove(at: index)
-//                                self.arrCommentList.insert(comment, at: 0)
-//                                self.tblCommentList.reloadData()
-//                            }
-//                        }
-//                        self.genericTextViewDidChange(self.txtViewComment, height: 10)
-//                    }
-//                    self.editCommentId =  nil
-//                    self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-//                    //self.lblNoData.isHidden = self.arrCommentList.count != 0
-//                }
-//            }
         }
     }
     
@@ -950,19 +818,5 @@ extension EventDetailViewController{
     }
     
     func deleteComment(_ index:Int){
-//        let commentInfo = self.arrCommentList[index]
-//        let commentId = commentInfo.valueForInt(key: CId) ?? 0
-//        APIRequest.shared().deleteComment(commentId: commentId) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil && error == nil {
-//                DispatchQueue.main.async {
-//                    self.commentCount -= 1
-//                    self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
-//                    self.arrCommentList.remove(at: index)
-//                    self.tblCommentList.reloadData()
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.postID, self, .deleteComment)
-//                }
-//            }
-//        }
     }
 }

@@ -12,9 +12,6 @@ import UIKit
 class AllProductList: UIViewController {
     
     //MARK: - IBOutlet/Object/Variable Declaration
-    //@IBOutlet weak var txt: UITextField!
-    
-    
     //MARK: - View life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()

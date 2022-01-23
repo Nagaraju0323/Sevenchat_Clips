@@ -15,7 +15,7 @@ class AllProductListVC: UIViewController {
     //MARK: - IBOutlet/Object/Variable Declaration
     @IBOutlet weak var tblProductList: UITableView!{
         didSet{
-
+            
             tblProductList.tableFooterView = UIView(frame: .zero)
             tblProductList.separatorStyle = .none
             tblProductList.register(UINib(nibName: "ProductListCell", bundle: nil), forCellReuseIdentifier: "ProductListCell")
@@ -49,7 +49,6 @@ class AllProductListVC: UIViewController {
     var allProduct : [MDLProduct] = []
     var pageNumber = 1
     var isLoadMoreCompleted = false
-    
     var noProductsFound = ""
     var isFromSearch = false
     
@@ -100,7 +99,7 @@ extension AllProductListVC {
 
 //MARK: - UITableView Delegates & DataSource
 extension AllProductListVC: UITableViewDelegate, UITableViewDataSource {
-   
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if self.allProduct.isEmpty && !noProductsFound.isEmpty{
@@ -117,9 +116,9 @@ extension AllProductListVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell(frame: .zero)
         }
         cell.product = allProduct[indexPath.row]
-//         Load more data....
+        //         Load more data....
         if (indexPath == tblProductList.lastIndexPath()) && !self.isLoadMoreCompleted {
-           // self.allProductList(isLoader: false)
+            // self.allProductList(isLoader: false)
         }
         return cell
     }
@@ -165,13 +164,12 @@ extension AllProductListVC {
         para["limit"] = "10"
         para["user_id"] = userID
         para["page"] = self.pageNumber
-
+        
         apiTask = APIRequest.shared().getProductList(param:para ,userID:userID, showLoader: isLoader, completion:{ [weak self](response, error) in
             guard let _ = self else { return }
             self?.refreshControl.endRefreshing()
             if response != nil {
                 GCDMainThread.async {
-//                    let arrData = response![CData] as? [[String : Any]] ?? []
                     let arrDatass = response!["products"] as? [String : Any] ?? [:]
                     let arrData = arrDatass["products"] as? [[String : Any]] ?? []
                     
@@ -230,7 +228,6 @@ extension AllProductListVC {
             self?.refreshControl.endRefreshing()
             if response != nil {
                 GCDMainThread.async {
-//                    let arrData = response![CData] as? [[String : Any]] ?? []
                     let arrDatass = response!["products"] as? [String : Any] ?? [:]
                     let arrData = arrDatass["products"] as? [[String : Any]] ?? []
                     
@@ -264,9 +261,6 @@ extension AllProductListVC {
         })
     }
     
-    
-    
-    
     func allProductListFilter(isLoader:Bool = true,category:String) {
         
         if apiTask?.state == URLSessionTask.State.running {
@@ -285,13 +279,12 @@ extension AllProductListVC {
         var para = [String : Any]()
         para["limit"] = "10"
         para["page"] = self.pageNumber
-
+        
         apiTask = APIRequest.shared().getProductListCategory(param:para ,category:category, showLoader: isLoader, completion:{ [weak self](response, error) in
             guard let _ = self else { return }
             self?.refreshControl.endRefreshing()
             if response != nil {
                 GCDMainThread.async {
-//                    let arrData = response![CData] as? [[String : Any]] ?? []
                     let arrDatass = response!["products"] as? [String : Any] ?? [:]
                     let arrData = arrDatass["products"] as? [[String : Any]] ?? []
                     
@@ -308,16 +301,16 @@ extension AllProductListVC {
                     print(arrData)
                     for obj in arrData{
                         if obj.valueForString(key: "user_id") != appDelegate.loginUser?.user_id.description{
-                        self?.allProduct.append(MDLProduct(fromDictionary: obj))
-                                                    
-                                                }
-                       // self?.allProduct.append(MDLProduct(fromDictionary: obj))
+                            self?.allProduct.append(MDLProduct(fromDictionary: obj))
+                            
+                        }
+                        // self?.allProduct.append(MDLProduct(fromDictionary: obj))
                     }
                     if self?.tblProductList != nil{
                         self?.tblProductList.reloadData()
                         if self?.pageNumber == 2 && !(self?.isLoadMoreCompleted ?? false){
-                            let indexPath = IndexPath(row: 0,section: 0)
-                           // self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                            _ = IndexPath(row: 0,section: 0)
+                            // self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
                         }
                     }
                 }

@@ -26,19 +26,15 @@ class TotalEarnedPointsCell: UITableViewCell {
     @IBOutlet weak var imgLevelBG: UIImageView!
     @IBOutlet weak var lblYouhaveEarned: MIGenericLabel!
     @IBOutlet weak var lblLevel: MIGenericLabel!
-    //@IBOutlet weak var lblPoints: MIGenericLabel!
     @IBOutlet weak var lblPointCount: MIGenericLabel!
-    
     @IBOutlet weak var cntImgBGLeading: NSLayoutConstraint!
     @IBOutlet weak var cntImgBGTop: NSLayoutConstraint!
     
     var reward : MDLRewards! {
         didSet {
             if self.reward.name.isEmpty {
-                //lblYouhaveEarned.text = CYouHaveEarned
                 lblTotalPoints.text = self.reward.points > 1 ? CPoints : CPoint
             } else {
-                //lblYouhaveEarned.text = self.reward.name
                 lblTotalPoints.text = CTotalPoints
             }
             lblLevel.isHidden = self.reward.level.isEmpty

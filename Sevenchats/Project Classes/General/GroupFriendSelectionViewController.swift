@@ -6,6 +6,12 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : GroupFriendSelectionViewController          *
+ * Changes :                                             *
+ ********************************************************/
+
 import UIKit
 
 class GroupFriendSelectionViewController: ParentViewController {
@@ -76,25 +82,20 @@ extension GroupFriendSelectionViewController{
         var apiTimeStamp : Double = 0
         
         if !isNew {
-            // When need old data...
             if let chatInfo = MIGeneralsAPI.shared().fetchChatGroupObjectFromLocal(isNew: !isNew) {
                 apiTimeStamp = chatInfo.datetime
                 self.tblGroupFriend.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
             }
         }
-       guard let userid = appDelegate.loginUser?.user_id else {
+        guard let userid = appDelegate.loginUser?.user_id else {
             return
         }
         
         apiTask = APIRequest.shared().getGroupChatList(timestamp: apiTimeStamp, search: userid.description, showLoader: showLoader) { (response, error) in
             self.arrGroupFriend.removeAll()
             if response != nil{
-//                self.refreshControl.endRefreshing()
-//                self.tblGroupFriend.tableFooterView = UIView()
-//
                 if let arrList = response![CJsonData] as? [[String:Any]]{
-                    print("arrList::::::\(arrList)")
-
+                    
                     // Remove all data here when timestamp == 0
                     if apiTimeStamp == 0{
                         self.arrGroupFriend.removeAll()
@@ -106,29 +107,6 @@ extension GroupFriendSelectionViewController{
                         self.tblGroupFriend.reloadData()
                     }
                 }
-//                if let arrList = response!["data"] as? [[String:Any]]{
-//
-//                    for item in arrList {
-//                        if let dataGroups = item["groups"] as? [[String:Any]]{
-//
-//
-//                            if self.pageNumber == 1{
-//                                self.arrGroupFriend.removeAll()
-//                                self.tblGroupFriend.reloadData()
-//                            }
-//
-//                            // Add Data here...
-//                            if dataGroups.count > 0{
-//                                self.arrGroupFriend = self.arrGroupFriend + dataGroups
-//                                self.tblGroupFriend.reloadData()
-//                                self.pageNumber += 1
-//                            }
-//
-//                        }
-//                    }
-//
-//                }
-
                 self.lblNoData.isHidden = self.arrGroupFriend.count != 0
             }
         }
@@ -157,9 +135,7 @@ extension GroupFriendSelectionViewController{
             self.tblGroupFriend.tableFooterView = UIView()
             self.arrGroupFriend.removeAll()
             if response != nil{
-                //                if let arrList = response![CJsonData] as? [[String:Any]]{
                 if let arrList = response!["my_friends"] as? [[String:Any]]{
-                    
                     // Remove all data here when page number == 1
                     if self.pageNumber == 1{
                         self.arrGroupFriend.removeAll()
@@ -205,13 +181,7 @@ extension GroupFriendSelectionViewController : UITableViewDelegate, UITableViewD
             // If user looking for friend....
             if isFriendList!{
                 cell.lblUserName.text = userGroupInfo.valueForString(key: "first_name") + " " + userGroupInfo.valueForString(key: CLastname)
-                //                print(arrSelectedGroupFriend.contains(where: {$0[CUserId] as? Int == userGroupInfo.valueForInt(key: CUserId) }))
-                //                print(arrSelectedGroupFriend)
-                //                print("contain2",userGroupInfo.valueForInt(key: CUserId))
-                
                 cell.btnSelect.isSelected = arrSelectedGroupFriend.contains(where: {$0["friend_user_id"] as? String == userGroupInfo.valueForString(key: "friend_user_id") })
-                //                cell.btnSelect.isSelected = arrSelectedGroupFriend.contains(where: {$0[CUserId] as? Int == userGroupInfo.valueForInt(key: CUserId) })
-                
                 cell.imgUser.loadImageFromUrl(userGroupInfo.valueForString(key: "profile_image"), true)
             }else{
                 // If user looking for Group....
@@ -242,10 +212,6 @@ extension GroupFriendSelectionViewController : UITableViewDelegate, UITableViewD
         if isFriendList!{
             // For Friend selection.....
             if arrSelectedGroupFriend.contains(where: {$0["friend_user_id"] as? String == userGroupInfo.valueForString(key: "friend_user_id")}){
-                //                if let index = arrSelectedGroupFriend.index(where: {$0["friend_user_id"] as? Int == userGroupInfo.valueForInt(key: "friend_user_id")}){
-                //                    arrSelectedGroupFriend.remove(at: index)
-                //                }
-                
                 if let index = arrSelectedGroupFriend.index(where: {$0["friend_user_id"] as? String == userGroupInfo.valueForString(key: "friend_user_id")}){
                     arrSelectedGroupFriend.remove(at: index)
                 }

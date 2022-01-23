@@ -15,10 +15,10 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
     var imgPickerController : UIImagePickerController? = UIImagePickerController()
     var isNavigateFromSidePanel : Bool = false
     var iObject : Any?
-  
+    
     
     private var shadowImageView: UIImageView?
-
+    
     
     //MARK:- UIStatusBar
     //MARK:-
@@ -46,7 +46,6 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
         }
     }
     
-    
     //MARK:- LifeCycle
     //MARK:-
     override func viewDidLoad() {
@@ -72,7 +71,7 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.resignKeyboard()
-         shadowImageView?.isHidden = false
+        shadowImageView?.isHidden = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -84,7 +83,7 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
         if view is UIImageView && view.bounds.size.height <= 1 {
             return (view as! UIImageView)
         }
-
+        
         for subview in view.subviews {
             if let imageView = findShadowImage(under: subview) {
                 return imageView
@@ -105,8 +104,6 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
         self.navigationController?.navigationBar.barTintColor = ColorAppBackground1
         self.navigationController?.navigationBar.tintColor = .white
         self.navigationController?.navigationBar.barStyle = .default
-        //self.navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "ic_navigation_bg"), for: .default)
-        //self.navigationController?.navigationBar.setBackgroundImage(#imageLiteral(resourceName: "ic_navigation_bg").resizableImage(withCapInsets: UIEdgeInsets.zero, resizingMode: .stretch), for: .default)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "ic_navigation_bg"), for: .default)
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -116,10 +113,10 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
         var imgBack = UIImage()
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
             /*if IS_iOS10 {
-                imgBack = UIImage(named: "ic_back_reverse")!
-            }else {
-                imgBack = UIImage(named: "ic_back")!
-            }*/
+             imgBack = UIImage(named: "ic_back_reverse")!
+             }else {
+             imgBack = UIImage(named: "ic_back")!
+             }*/
             imgBack = UIImage(named: "ic_back")!
         }else{
             imgBack = UIImage(named: "ic_back")!
@@ -152,7 +149,7 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
         {
             // Transparent Navigation
             //......Show burger menu in navigationItem......
-//            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:imgMenu, style: .plain, target: self, action: #selector(leftBurgerMenuClicked))
+            //            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:imgMenu, style: .plain, target: self, action: #selector(leftBurgerMenuClicked))
             
             addHomeBurgerButton()
             
@@ -169,9 +166,9 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
         {
             // Normal Navigation
             //......Show burger menu in navigationItem......
-//            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:imgMenu, style: .plain, target: self, action: #selector(leftBurgerMenuClicked))
+            //            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:imgMenu, style: .plain, target: self, action: #selector(leftBurgerMenuClicked))
             addHomeBurgerButton()
-
+            
             self.navigationItem.hidesBackButton = true
             self.showHideAddView()
         }else if (self.view.tag == 106)
@@ -193,7 +190,7 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
             // Hide Navigation
             self.navigationController?.isNavigationBarHidden = true
         }else if (self.view.tag == 110) {
-         
+            
             //......Show Add view
             self.showHideAddView()
             self.navigationController?.isNavigationBarHidden = true
@@ -240,7 +237,7 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
             btnHomeBurger.setImage(imgMenu, for: .normal)
             btnHomeBurger.contentHorizontalAlignment = .left
         }
-
+        
         btnHomeBurger.sizeToFit()
         
         btnHomeBurger.touchUpInside { [weak self](sender) in
@@ -250,7 +247,7 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
         btnHomeBurger.CViewSetHeight(height: 35)
         btnHomeBurger.CViewSetWidth(width: 35)
         viewBurgger.addSubview(btnHomeBurger)
-
+        
         // If any notification count is there then only red dot will show.
         if let badgeCount = CUserDefaults.value(forKey: UserDefaultNotificationCountBadge) as? Bool, badgeCount {
             let imgNotificationBadge = UIImageView(frame: CGRect(x: imgMenu.size.width-10, y: 5, width: 10, height: 10))
@@ -271,7 +268,7 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
     func showHideAddView() {
         
         var isHideAdd : Bool = true
-
+        
         if appDelegate.loginUser != nil {
             if let arrAdd = TblAdvertise.fetchAllObjects(), arrAdd.count > 0 && !(appDelegate.loginUser?.user_type)! {
                 isHideAdd = false

@@ -6,6 +6,14 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ResetPWDViewController                      *
+ * Changes :                                             *
+ * User can reset password                               *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 
 class ResetPWDViewController: ParentViewController {
@@ -17,7 +25,6 @@ class ResetPWDViewController: ParentViewController {
     
     var isEnterEmail : Bool?
     var strEmailMobile : String?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,9 +91,7 @@ extension ResetPWDViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetAlertNewPWDBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else if !(txtNewPWD.text?.isValidPassword ?? false) {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetAlertMinLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }/*else if !(txtNewPWD.text?.isValidPassword)! || (txtNewPWD.text?.count)! < 8  || !(txtNewPWD.text?.isPasswordSpecialCharacterValid)!{
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetAlertMinLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }*/else if (txtConfirmPWD.text?.isBlank)! {
+        }else if (txtConfirmPWD.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetAlertConfirmPWDBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else if txtNewPWD.text != txtConfirmPWD.text{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetAlertPWDConfirmPWDNotMatch, btnOneTitle: CBtnOk, btnOneTapped: nil)
@@ -100,15 +105,6 @@ extension ResetPWDViewController{
 extension ResetPWDViewController{
     
     func resetPassword () {
-//        APIRequest.shared().resetPassword(otp: txtOTP.text!, oldPwd: txtConfirmPWD.text!, email_or_mobile : strEmailMobile, type : isEnterEmail! ? 1 : 2) { (response, error) in
-//            if response != nil && error == nil {
-//                self.navigationController?.popToRootViewController(animated: true)
-//
-//                if let metaInfo = response![CJsonMeta] as? [String : Any]{
-//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaInfo.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                }
-//
-//            }
-//        }
+
     }
 }

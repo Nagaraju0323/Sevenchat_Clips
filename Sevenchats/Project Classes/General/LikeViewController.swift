@@ -5,6 +5,11 @@
 //  Created by mac-0005 on 16/08/18.
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : LikeViewController                          *
+ * Changes :                                             *
+ ********************************************************/
 
 import UIKit
 
@@ -158,34 +163,6 @@ extension LikeViewController{
                 }
             }
         }
-        
-//        apiTask = APIRequest.shared().productsLikesUserList(page: pageNumber, productId: productID, completion:{ (response, error) in
-//
-//            self.activityIndicator.isHidden = true
-//            self.activityIndicator.stopAnimating()
-//            self.refreshControl.endRefreshing()
-//            self.tblLike.tableFooterView = nil
-//
-//            if response != nil{
-//                if let arrList = response![CJsonData] as? [[String:Any]]{
-//
-//                    // Remove all data here when page number == 1
-//                    if self.pageNumber == 1{
-//                        self.arrLikes.removeAll()
-//                        self.tblLike.reloadData()
-//                    }
-//
-//                    // Add Data here...
-//                    if arrList.count > 0{
-//                        self.arrLikes = self.arrLikes + arrList
-//                        self.tblLike.reloadData()
-//                        self.pageNumber += 1
-//                    }
-//
-//                    self.lblNoData.isHidden = self.arrLikes.count > 0
-//                }
-//            }
-//        })
     }
 }
 // MARK:- --------- UITableView Datasources/Delegate

@@ -15,7 +15,6 @@ class MyFriendTblCell: UITableViewCell {
     @IBOutlet var btnUnfriendCancelRequest : UIButton!
     @IBOutlet var btnAcceptRequest : UIButton!
     @IBOutlet var btnRejectRequest : UIButton!
-    
     @IBOutlet var viewAcceptReject : UIView!
     
     override func awakeFromNib() {

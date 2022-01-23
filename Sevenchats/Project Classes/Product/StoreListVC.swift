@@ -6,6 +6,15 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : StoreListVC                                 *
+ * Changes :                                             *
+
+ ********************************************************/
+
+
 import Foundation
 import UIKit
 
@@ -103,8 +112,6 @@ extension StoreListVC {
             guard let _ = self else {return}
             
             if let searchProduct : ProductSearchVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductSearchVC") as? ProductSearchVC{
-                //searchProduct.allProduct = self?.allProductVC?.allProduct ?? []
-                //searchProduct.allMyProduct = self?.myProductVC?.allMyProduct ?? []
                 searchProduct.filterObj = MDLStoreAppliedFilter(search: "", category: self?.filterObj.category ?? "", status: 0, sort: self?.filterObj.sort ?? .NewToOld)
                 self?.navigationController?.pushViewController(searchProduct, animated: false)
             }
@@ -117,13 +124,6 @@ extension StoreListVC {
             DispatchQueue.main.async {
                 if let searchProduct : FilterProductVC = CStoryboardProduct.instantiateViewController(withIdentifier: "FilterProductVC") as? FilterProductVC{
                     searchProduct.filterIDs = self?.filterObj.category ?? ""
-//                    searchProduct.onApplyFilter = { [weak self] (filter) in
-//                        guard let _ = self else {return}
-//                        if self?.filterObj.category != filter{
-//                            self?.filterObj.category = filter
-//                            self?.appliedFilterAndSearch()
-//                        }
-//                    }
                     searchProduct.onApplyFilterName = { [weak self] (filterName) in
                         guard let _ = self else {return}
                         if self?.filterObj.categoryName != filterName{
@@ -187,12 +187,6 @@ extension StoreListVC : PageViewControllerDelegate {
                 self.allProductVC?.filterObj.search = self.filterObj.search
                 isChangeFiler = true
             }
-            
-            /// If update categpry in filter list
-//            if self.allProductVC?.filterObj.category != self.filterObj.category{
-//                self.allProductVC?.filterObj.category = self.filterObj.category
-//                isChangeFiler = true
-//            }
             
             if self.allProductVC?.filterObj.categoryName != self.filterObj.categoryName{
                 self.allProductVC?.filterObj.categoryName = self.filterObj.categoryName
@@ -258,13 +252,10 @@ extension StoreListVC : PageViewControllerDelegate {
             if isChangeFiler{
                 self.myProductVC?.isLoadMoreCompleted = false
                 self.myProductVC?.pageNumber = 1
-//                self.myProductVC?.apiTask?.cancel()
-//                self.myProductVC?.myProductList(isLoader: true)
                 self.myProductVC?.allProductListFilter(isLoader: true, category:self.filterObj.categoryName)
             }else {
                 self.myProductVC?.isLoadMoreCompleted = false
                 self.myProductVC?.pageNumber = 1
-//                self.myProductVC?.apiTask?.cancel()
                 self.myProductVC?.allProductListFilter(isLoader: true, category:self.filterObj.categoryName)
             }
         }

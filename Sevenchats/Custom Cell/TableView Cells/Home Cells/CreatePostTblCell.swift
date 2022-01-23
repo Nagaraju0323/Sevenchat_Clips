@@ -40,7 +40,6 @@ class CreatePostTblCell: UITableViewCell{
     @IBOutlet weak var viewMainContainer : UIView!
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var lblTextCount : UILabel!
-    
     @IBOutlet weak var btnInviteGroup : UIButton!
     @IBOutlet weak var btnInviteContacts : UIButton!
     @IBOutlet weak var btnInviteAllFriend : UIButton!
@@ -61,16 +60,7 @@ class CreatePostTblCell: UITableViewCell{
  //   CShoutPlaceholderContents
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-//        topContainer.isHidden = true
-//        viewSelectGroup.isHidden = true
-        
-      
-//        topContainer.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
-//        viewSelectGroup.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         textViewMessage.genericDelegate = self
-//        clGroupFriend.delegate = self
-//        clGroupFriend.dataSource = self
         lblTextCount.isHidden = true
         lblCreateShout.text = CCreateshout
         // Initialization code
@@ -91,16 +81,10 @@ class CreatePostTblCell: UITableViewCell{
     }
     // MARK:- --------- Initialization
     func Initialization(){
-        
-//        textViewMessage.delegate = self
-//        lblCreateShout.text = CCreateshout
         textViewMessage.textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 20, right: 0)
         textViewMessage.textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 20, right: 0)
         
-//        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnCreateShoutsClicked(_:)))]
         PostButton.addTarget(self, action:#selector(btnCreateShoutsClicked(_:)), for: .touchUpInside)
-        
-//        btnInviteTypeCLK(btnInviteAllFriend)
         if shoutsType == .shareQuote{
             self.setQuoteText()
         }
@@ -124,26 +108,10 @@ class CreatePostTblCell: UITableViewCell{
             lblCreateShout.textAlignment = .right
             
         }else{
-            // Normal Flow...
-//            btnInviteGroup.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
-//            btnInviteGroup.contentHorizontalAlignment = .left
-//
-//            btnInviteContacts.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
-//            btnInviteContacts.contentHorizontalAlignment = .left
-//
-//            btnInviteAllFriend.titleEdgeInsets = UIEdgeInsets(top: 0, left: 3, bottom: 0, right: 0)
-//            btnInviteAllFriend.contentHorizontalAlignment = .left
-//
-//            btnSelectGroupFriend.contentHorizontalAlignment = .left
-//            clGroupFriend.transform = CGAffineTransform.identity
             lblCreateShout.textAlignment = .left
            
         }
         PostButton.setTitle(CProfilePost, for: .normal)
-//        btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
-//        btnInviteGroup.setTitle(Cshout_groups, for: .normal)
-//        btnInviteContacts.setTitle(Cshout_friends, for: .normal)
-//        btnInviteAllFriend.setTitle(Cshout_public, for: .normal)
     }
     @IBAction func brtEmojiClick(_ sender:UIButton){
         textViewMessage.becomeFirstResponder()
@@ -271,14 +239,6 @@ extension CreatePostTblCell{
     
     @objc fileprivate func btnCreateShoutsClicked(_ sender : UIButton) {
        
-//        if (textViewMessage.text?.isBlank)! {
-//           self.closureShowMessage?(1)
-//
-//        }else if (btnInviteGroup.isSelected || btnInviteContacts.isSelected) && arrSelectedGroupFriends.count == 0 {
-//            self.closureShowMessage?(2)
-//        }else{
-//            self.addEditShout()
-//        }
         if (textViewMessage.text?.isBlank)! {
            self.closureShowMessage?(1)
             
@@ -293,23 +253,9 @@ extension CreatePostTblCell{
         var apiPara = [String : Any]()
         apiPara[CPostType] = 4
         apiPara[CPost_Detail] = textViewMessage.text
-        var apiParaGroups = [String]()
-        var apiParaFriends = [String]()
+        let apiParaGroups = [String]()
+        let apiParaFriends = [String]()
 
-//        if btnInviteGroup.isSelected{
-//            // For group...
-//            apiPara[CPublish_To] = 1
-//            let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-//            apiPara[CGroup_Ids] = groupIDS
-//        }else if btnInviteContacts.isSelected{
-//            // For Contact...
-//            apiPara[CPublish_To] = 2
-//            let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-//            apiPara[CInvite_Ids] = userIDS
-//        }else{
-//            // For All Friend...
-//            apiPara[CPublish_To] = 3
-//        }
         guard let userid = appDelegate.loginUser?.user_id else {return}
 
         // When user editing the article....
@@ -324,36 +270,10 @@ extension CreatePostTblCell{
         dict[Cimages] = ""
         dict[CTitle] = ""
         dict[CpostContent] = txtshout
-        dict["age_limit"] = "20"
+        dict["age_limit"] = "13"
         apiPara[CPublish_To] = 1
         
-        
-//        if btnInviteGroup.isSelected{
-//            // For group...
-//            apiPara[CPublish_To] = 1
-////            let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-////            apiPara[CGroup_Ids] = groupIDS
-//
-//            let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-//            apiParaGroups = groupIDS.components(separatedBy: ",")
-//
-//        }else if btnInviteContacts.isSelected{
-//            // For Contact...
-//            apiPara[CPublish_To] = 2
-////            let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-////            apiPara[CInvite_Ids] = userIDS
-//
-//            let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
-//            apiParaFriends = userIDS.components(separatedBy: ",")
-//
-//        }else{
-//            // For All Friend...
-//            apiPara[CPublish_To] = 3
-//        }
-        
-        
         if apiParaGroups.isEmpty == false {
-//            dict[CTargetAudiance] = apiParaGroups
             dict[CTargetAudiance] = apiParaGroups
         }else {
             dict[CTargetAudiance] = "none"
@@ -371,18 +291,6 @@ extension CreatePostTblCell{
         
         APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagshouts) { (response, error) in
             if response != nil && error == nil{
-                print("responsevalues",response)
-                
-//                if self.shoutsType == .shareQuote{
-//                    (appDelegate.sideMenuController.leftViewController as? SideMenuViewController)?.selectIndex(0)
-//                    appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
-//                }else{
-//                    self.onDataAvailable?(true)
-////                    self.navigationController?.popViewController(animated: true)
-//                }
-              
-                
-               
                 var message = ""
                 if self.shoutsType == .editShouts{
                     message = CMessageShoutPostUpdated
@@ -404,23 +312,6 @@ extension CreatePostTblCell{
                         self.onDataAvailable?(true)
                     }
                 }
-                
-                
-//                if let shoutInfo = response![CJsonData] as? [String : Any]{
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(shoutInfo,self.shoutID, self, self.shoutsType == .editShouts ? .editPost : .addPost)
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(shoutInfo, self.shoutsType == .editShouts ? .editPost : .addPost)
-              
-//                }
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
             }
         }
     }
@@ -475,7 +366,6 @@ class CreatePostTblCell1: UITableViewCell{
     
     @IBOutlet weak var viewMainContainer : UIView!
     @IBOutlet weak var viewSubContainer : UIView!
-    
     @IBOutlet weak var pollButton: UIButton!
     @IBOutlet weak var galleryButton: UIButton!
     @IBOutlet weak var forumButton: UIButton!

@@ -11,7 +11,7 @@ import UIKit
 import AVFoundation
 
 class ProductMediaCollectionView: UICollectionView {
-   
+    
     //MARK: - IBOutlet/Object/Variable Declaration
     //@IBOutlet weak var vw: UIView!
     
@@ -40,7 +40,7 @@ class ProductMediaCollectionView: UICollectionView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-     
+        
         self.delegate = self
         self.dataSource =  self
         
@@ -60,7 +60,7 @@ extension ProductMediaCollectionView: UICollectionViewDelegate, UICollectionView
                 return CGSize(width: (width / 2) - 1 , height: collectionView.bounds.height / 2 - 2)
             }else if arrMedia.count == 4 {
                 let width = collectionView.bounds.size.width
-//                return CGSize(width: 166, height: 78)
+                //                return CGSize(width: 166, height: 78)
                 return CGSize(width: (width / 2) - 1 , height: collectionView.bounds.height / 2 - 2)
             } else if arrMedia.count == 3{
                 if indexPath.item == 0{
@@ -79,10 +79,10 @@ extension ProductMediaCollectionView: UICollectionViewDelegate, UICollectionView
             }else {
                 return CGSize(width:collectionView.bounds.width, height: collectionView.bounds.height - 2)
             }
-          }else {
+        }else {
             return CGSize(width:collectionView.bounds.width, height: collectionView.bounds.height - 2)
         }
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -90,24 +90,14 @@ extension ProductMediaCollectionView: UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        /************************OLD CODE ******************/
-        /*guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductGalleryImagesCell", for: indexPath) as? ProductGalleryImagesCell else {
-            return UICollectionViewCell(frame: .zero)
-        }
-        let model = self.arrMedia[indexPath.row]
-        cell.blurImgView.loadImageFromUrl(model.serverImgURL, false)
-        cell.imgVideoIcon.isHidden = !(model.assetType == .Video)
-        self.setCurrentImageCount()
-        cell.invalidateIntrinsicContentSize()
-        return cell*/
-        /***********************NEW CODE *************************/
+        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductGalleryImagesCell", for: indexPath) as? ProductGalleryImagesCell else {
             return UICollectionViewCell(frame: .zero)
         }
         let model = self.arrMedia[indexPath.row]
         
         if indexPath.row == 3{
-
+            
             let imgExt = model.serverImgURL?.fileExtension()
             if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
                 if let urlVideo = URL(string: model.serverImgURL ?? ""){
@@ -118,19 +108,11 @@ extension ProductMediaCollectionView: UICollectionViewDelegate, UICollectionView
             }else {
                 cell.blurImgView.loadImageFromUrl(model.serverImgURL, false)
             }
-           
+            
             cell.imgVideoIcon.isHidden = !(model.assetType == .Video)
             
             self.setCurrentImageCount()
             cell.invalidateIntrinsicContentSize()
-//            cell.showLabelCount.isHidden = false
-//            cell.showImageBlur.isHidden = false
-//            cell.showImageBlur.backgroundColor =  UIColor.red.withAlphaComponent(0.5)
-//            cell.showLabelCount.font = cell.showLabelCount.font.withSize(20)
-//            cell.showLabelCount.textColor = .white
-//            cell.showLabelCount.text = "+4"
-            
-            
         }else{
             
             let imgExt = model.serverImgURL?.fileExtension()
@@ -210,5 +192,5 @@ extension ProductMediaCollectionView{
             }
         }
     }
-
+    
 }

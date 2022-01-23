@@ -6,6 +6,14 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : SharedFilesVC                              *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
 import UIKit
 
 class SharedFilesVC: UIViewController {
@@ -107,16 +115,6 @@ extension SharedFilesVC {
         var para = [String : Any]()
         para[CFolderID] = folderId
         para[CType] = 0
-        
-//        APIRequest.shared().deleteFolder(param: para, showLoader: true) { [weak self](response, error) in
-//            guard let self = self else { return }
-//            if response != nil {
-//                GCDMainThread.async {
-//                    self.arrFiles = self.arrFiles.filter({$0.id != folderId})
-//                    self.tblVSharedFiles.reloadData()
-//                }
-//            }
-//        }
     }
 }
 

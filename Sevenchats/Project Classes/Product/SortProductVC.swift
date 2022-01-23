@@ -8,11 +8,6 @@
 
 import Foundation
 import UIKit
-//OLD CODE
-/*enum ProductSort : Int, CaseIterable {
-    case OldToNew = 0
-    case NewToOld
-}*/
 
 enum ProductSort : Int, CaseIterable {
     case OldToNew = 0
@@ -20,7 +15,6 @@ enum ProductSort : Int, CaseIterable {
     case AtoZ
     
 }
-
 
 class SortProductVC: ParentViewController {
     
@@ -34,8 +28,6 @@ class SortProductVC: ParentViewController {
             
             tblSort.delegate = self
             tblSort.dataSource = self
-            
-            //tblSort.reloadData()
         }
     }
     var selectedSortType = ProductSort.NewToOld

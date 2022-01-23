@@ -6,6 +6,14 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : FriendsVC                                   *
+ * Changes :                                             *
+ * List of user Friends                                  *
+ ********************************************************/
+
+
 import UIKit
 
 class FriendsVC: ParentViewController {
@@ -230,55 +238,13 @@ extension FriendsVC {
             apiTask?.cancel()
         }
         
-//        apiTask = APIRequest.shared().sharedFriendList(param: para, showLoader: isLoader) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//
-//            self.refreshControl.endRefreshing()
-//            print(response as Any)
-//            if response != nil {
-//                // Remove all data here when page number == 1
-//                GCDMainThread.async {
-//                    if self.pageNumber == 1{
-//                        self.arrFriendList.removeAll()
-//                    }
-//                    let arrData = response![CData] as? [[String : Any]] ?? []
-//                    if arrData.count == 0{
-//                        self.isLoadMoreCompleted = true
-//                    }else{
-//                        self.pageNumber += 1
-//                    }
-//                    for obj in arrData {
-//                        self.arrFriendList.append(MDLFriendsList(fromDictionary: obj))
-//                    }
-//                    self.tblVFriends.reloadData()
-//                }
-//            }
-//        }
     }
 
     fileprivate func shareFolder(friendIds:String) {
         
         var para = [String : Any] ()
-        
         para[CFolderID] = self.folder.id
         para["friend_ids"] = friendIds
-        
-//        APIRequest.shared().ShareFolder(param: para, showLoader: true) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            print(response as Any)
-//            if response != nil {
-//                GCDMainThread.async {
-//                    if let _ = self.navigationController?.getViewControllerFromNavigation(SharedFilesDetailsVC.self){
-//                        self.navigationController?.popViewController(animated: false)
-//                    }else if let controller = self.navigationController?.getViewControllerFromNavigation(FileSharingViewController.self){
-//                        self.navigationController?.popToViewController(controller, animated: true)
-//                    }else{
-//                        self.navigationController?.popToRootViewController(animated: true)
-//                    }
-//                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CFolderHasBeenSharedSuccessfully, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                }
-//            }
-//        }
     }
 }
 

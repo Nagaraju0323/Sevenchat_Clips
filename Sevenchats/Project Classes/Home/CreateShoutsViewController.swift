@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : CreateShoutsViewController                  *
+ * Changes :                                             *
+ * Create short message with text Limit 150 charectes    *
+ ********************************************************/
+
 import UIKit
 
 enum ShoutsType : Int {
@@ -30,9 +37,9 @@ class CreateShoutsViewController: ParentViewController {
     @IBOutlet weak var lblTextCount : UILabel!
     @IBOutlet weak var textViewMessage : GenericTextView!{
         didSet{
-        self.textViewMessage.txtDelegate = self
-        self.textViewMessage.textLimit = "150"
-        self.textViewMessage.type = "1"
+            self.textViewMessage.txtDelegate = self
+            self.textViewMessage.textLimit = "150"
+            self.textViewMessage.type = "1"
         }
     }
     
@@ -346,8 +353,7 @@ extension CreateShoutsViewController: UICollectionViewDelegate, UICollectionView
 // MARK:-  --------- Generic UITextView Delegate
 extension CreateShoutsViewController: GenericTextViewDelegate{
     
-    func genericTextViewDidChange(_ textView: UITextView, height: CGFloat)
-    {
+    func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
         lblTextCount.text = "\(textView.text.count)/150"
     }
     
@@ -377,10 +383,7 @@ extension CreateShoutsViewController{
     
     @IBAction func btnInviteTypeCLK(_ sender : UIButton){
         
-        if sender.isSelected {
-            return
-        }
-        
+        if sender.isSelected {return}
         btnInviteGroup.isSelected = false
         btnInviteContacts.isSelected = false
         btnInviteAllFriend.isSelected = false

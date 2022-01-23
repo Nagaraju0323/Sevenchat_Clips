@@ -25,7 +25,7 @@ class FavWebSideViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
-      
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,9 +36,9 @@ class FavWebSideViewController: ParentViewController {
     
     @objc func methodOfReceivedNotification(notification: Notification) {
         self.pullToRefresh()
-//        tblFavWebSite.reloadData()
-    
-     }
+        //        tblFavWebSite.reloadData()
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -67,9 +67,6 @@ extension FavWebSideViewController{
     
     fileprivate func getWebSiteListFromServer(_ shouldShowLoader : Bool){
         
-        var para = [String : Any]()
-        
-        
         if apiTask?.state == URLSessionTask.State.running {
             return
         }
@@ -82,14 +79,12 @@ extension FavWebSideViewController{
         }
         guard let userID = appDelegate.loginUser?.user_id else {return}
         
-        
         apiTask = APIRequest.shared().getFavWebSiteList(page: pageNumber, type: "FAV", showLoader: shouldShowLoader,userId:userID.description) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil{
-                //                self.arrFavWebSite.removeAll()
                 self.refreshControl.endRefreshing()
                 self.tblFavWebSite.tableFooterView = nil
-               
+                
                 if let webarrList = response![CWebsites] as? [String:Any]{
                     let arrList = webarrList["favourite_websites"] as? [[String : Any]] ?? []
                     if self.pageNumber == 1{
@@ -105,8 +100,6 @@ extension FavWebSideViewController{
                         self.tblFavWebSite.reloadData()
                     }
                 }
-                
-                
             }
         }
     }
@@ -133,25 +126,13 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
             
             
             let dicFavWeSite = arrFavWebSite[indexPath.row]
-            //            cell.lblWebSiteTitle.text = dicFavWeSite.valueForString(key: "title")
             cell.lblWebSiteType.text = dicFavWeSite.valueForString(key: "category_name").uppercased()
             cell.lblWebSiteDescription.text = dicFavWeSite.valueForString(key: "description")
             cell.lblWebSiteTitle.text = dicFavWeSite.valueForString(key: "favourite_website_title")
-            
-            // cell.lblWebSitePostDate.text = DateFormatter.dateStringFrom(timestamp: dicFavWeSite.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-         
             let created_At = dicFavWeSite.valueForString(key: "created_at")
             let cnvStr = created_At.stringBefore("G")
-//            let removeFrst = cnvStr.chopPrefix(3)
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             cell.lblWebSitePostDate.text = startCreated
-            
-            //cell.btnLike.isSelected = dicFavWeSite.valueForInt(key: CIs_Like) == 1
-            //cell.likeCount = dicFavWeSite.valueForInt(key: CLikes) ?? 0
-            //cell.btnLikeCount.setTitle(appDelegate.getLikeString(like: cell.likeCount), for: .normal)
-            //cell.commentCount = dicFavWeSite.valueForInt(key: CTotalComment) ?? 0
-            //let strCommentCount = appDelegate.getCommentCountString(comment: cell.commentCount)
-            //cell.btnComment.setTitle(strCommentCount, for: .normal)
             
             let userLiker = dicFavWeSite.valueForString(key: "user_has_liked")
             if userLiker == "Yes" {
@@ -163,8 +144,6 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
             
             let strLikeCount =  "\(cell.likeCounts) \(CLike)"
             cell.btnLikeCount.setTitle(strLikeCount, for: .normal)
-            //            cell.btnLikeCount.setTitle(appDelegate.getLikeString(like: Int(cell.likeCounts) ?? 0), for: .normal)
-            
             cell.commentCounts = dicFavWeSite.valueForString(key: "comments")
             let strCommentCount = appDelegate.getCommentCountString(comment: Int(cell.commentCounts) ?? 0)
             cell.btnComment.setTitle(strCommentCount, for: .normal)
@@ -174,13 +153,8 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
             cell.btnLike.touchUpInside { [weak self] (sender) in
                 guard let _ = self else { return }
                 weakCell?.btnLike.isSelected = !weakCell!.btnLike.isSelected
-                
-                //weakCell?.likeCount = weakCell!.btnLike.isSelected ? Int(weakCell!.likeCounts) ?? 0 + 1 : Int(weakCell!.likeCounts) ?? 0 - 1
-                //weakCell?.btnLikeCount.setTitle(appDelegate.getLikeString(like: weakCell?.likeCount ?? 0), for: .normal)
-
                 if  weakCell?.btnLike.isSelected == true{
                     self?.likeCount = 1
-//                    self.notifcationIsSlected = true
                 }else {
                     self?.likeCount = 2
                 }
@@ -216,7 +190,6 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
             cell.btnLikeCount.touchUpInside { [weak self] (sender) in
                 guard let _ = self else { return }
                 if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
-//                    likeVC.rssID = dicFavWeSite.valueForString(key: "favourite_website_id").toInt
                     likeVC.postIDNew = dicFavWeSite.valueForString(key: "favourite_website_id")
                     self?.navigationController?.pushViewController(likeVC, animated: true)
                 }
@@ -226,7 +199,6 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
                 guard let _ = self else { return }
                 if let commentVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController{
                     commentVC.rssID = dicFavWeSite.valueForString(key: CfavWebID)
-//                    commentVC.commentCount = Int(dicFavWeSite.valueForString(key: "comments")) ?? 0
                     self?.navigationController?.pushViewController(commentVC, animated: true)
                 }
             }
@@ -235,11 +207,9 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
                 guard let _ = self else { return }
                 if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController{
                     reportVC.reportType = .reportRss
-                    //reportVC.reportID = dicFavWeSite.valueForInt(key: "id")
                     reportVC.reportedURL = dicFavWeSite.valueForString(key: "favourite_website_url")
                     self?.navigationController?.pushViewController(reportVC, animated: true)
                 }
-                
             }
             
             cell.btnShare.touchUpInside { [weak self] (sender) in
@@ -266,11 +236,6 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
             newsWebVC.iObject = favWebsiteInfo
             self.navigationController?.pushViewController(newsWebVC, animated: true)
         }
-        
-        /*if let favWebSiteDetailVC = CStoryboardSideMenu.instantiateViewController(withIdentifier: "FavWebSiteDetailViewController") as? FavWebSiteDetailViewController{
-         favWebSiteDetailVC.websiteInfo = arrFavWebSite[indexPath.row]
-         self.navigationController?.pushViewController(favWebSiteDetailVC, animated: true)
-         }*/
     }
 }
 

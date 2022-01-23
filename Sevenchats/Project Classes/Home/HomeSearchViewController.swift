@@ -6,6 +6,14 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : HomeSearchViewController                    *
+ * Changes :                                             *
+ * search Users based on First Name, send Friends Request*
+ * unfriends                                             *
+ ********************************************************/
+
 import UIKit
 let CCategoryType = "type"
 let CCategoryId = "id"
@@ -61,7 +69,6 @@ class HomeSearchViewController: ParentViewController {
             self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
             self.refreshControl.tintColor = ColorAppTheme
             self.tblEvents.pullToRefreshControl = self.refreshControl
-            
         }
         
         tblEvents.estimatedRowHeight = 350
@@ -86,32 +93,28 @@ class HomeSearchViewController: ParentViewController {
         tblEvents.register(UINib(nibName: "HomeSharedFourmTblCell", bundle: nil), forCellReuseIdentifier: "HomeSharedFourmTblCell")
         tblEvents.register(UINib(nibName: "HomeSharedPollTblCell", bundle: nil), forCellReuseIdentifier: "HomeSharedPollTblCell")
         tblEvents.register(UINib(nibName: "CreatePostTblCell", bundle: nil), forCellReuseIdentifier: "CreatePostTblCell")
-        
         tblEvents.register(UINib(nibName: "PostDeletedCell", bundle: nil), forCellReuseIdentifier: "PostDeletedCell")
         
         var arrSearchType = [[String : Any]]()
         arrSearchType = [
             [CCategoryType:CTypeUser,CCategoryId:CStaticSearchUserTypeId]
-            
         ]
         
         txtSearchDropdown.setPickerData(arrPickerData: arrSearchType, key: CCategoryType, selectedPickerDataHandler: { [weak self] (string, row, index) in
+            
             guard let self = self else { return }
             let dic = arrSearchType[row]
             self.searchType = dic.valueForInt(key: CCategoryId)!
-            
             if self.txtSearch.text?.isBlank ?? true{
                 return
             }
             if self.apiTask?.state == URLSessionTask.State.running {
                 self.apiTask?.cancel()
             }
-            
             self.timeStamp = nil
             self.isPost = nil
         }, defaultPlaceholder: "")
         txtSearchDropdown.text = CTypeUser
-        
     }
     
     func updateUIAccordingToLanguage() {
@@ -149,12 +152,9 @@ extension HomeSearchViewController  {
     
     func getSearchDataFromServer(_ searchText : String?, _ typeLook : String?){
         
-        let myGroup = DispatchGroup()
-        
         if apiTask?.state == URLSessionTask.State.running {
             return
         }
-        
         // Add load more indicator here...
         if self.pageNumber > 2 {
             self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
@@ -191,17 +191,7 @@ extension HomeSearchViewController  {
     }
     
     func deletePost(_ postId : Int, _ index : Int){
-        weak var weakSelf = self
-        //        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-        //            APIRequest.shared().deletePost(postID: postId, completion: { (response, error) in
-        //                if response != nil && error == nil{
-        //                    weakSelf?.arrHomeSearch.remove(at: index)
-        //                    UIView.performWithoutAnimation {
-        //                        weakSelf?.tblEvents.reloadData()
-        //                    }
-        //                }
-        //            })
-        //        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+        //        weak var weakSelf = self
     }
     
     // Update Friend status Friend/Unfriend/Cancel Request
@@ -255,7 +245,6 @@ extension HomeSearchViewController : UITextFieldDelegate {
         if apiTask?.state == URLSessionTask.State.running {
             apiTask?.cancel()
         }
-        
         if (textFiled.text?.count)! < 2{
             timeStamp = nil
             isPost = nil
@@ -264,11 +253,9 @@ extension HomeSearchViewController : UITextFieldDelegate {
             tblEvents.reloadData()
             return
         }
-        
         timeStamp = nil
         isPost = nil
         self.getSearchDataFromServer(txtSearch.text, "new")
-        
     }
     
 }
@@ -416,14 +403,9 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
             // Load more data...
-            //            self.loadMore(indexPath)
-            
+            // self.loadMore(indexPath)
             return cell
         }
-        
-        
-        
-        
         
         //        switch searchInfo.valueForInt(key: CSearchType) {
         //        case CStaticArticleId:
@@ -1458,20 +1440,6 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
         return tableView.tableViewDummyCell()
     }
     
-    
-//    @objc func imageTapped(_ sender: UITapGestureRecognizer) {
-//        print("image tapped")
-//        
-//        
-//        
-//        let senderTag = arrHomeSearch[]
-//        
-//        
-//        
-//    }
-//    
-    
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let searchInfo = arrHomeSearch[indexPath.row]
@@ -1659,14 +1627,12 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
     }
 }
 
-
 // MARK:- --------  TableView Cells Action
 extension HomeSearchViewController{
     fileprivate func btnInterestedNotInterestedMayBeCLK(_ type : Int?, _ indexpath : IndexPath?){
         
         var postInfo = arrHomeSearch[indexpath!.row]
         if type != postInfo.valueForInt(key: CIsInterested){
-            
             // Update existing count here...
             let totalIntersted = postInfo.valueForInt(key: CTotalInterestedUsers)
             let totalNotIntersted = postInfo.valueForInt(key: CTotalNotInterestedUsers)
@@ -1705,7 +1671,6 @@ extension HomeSearchViewController{
                 postId = postInfo[COriginalPostId] as? Int ?? 0
             }
             MIGeneralsAPI.shared().interestNotInterestMayBe(postId, type!, viewController: self)
-            
             arrHomeSearch.remove(at: (indexpath?.row)!)
             arrHomeSearch.insert(postInfo, at: (indexpath?.row)!)
             UIView.performWithoutAnimation {
@@ -1714,10 +1679,10 @@ extension HomeSearchViewController{
                 }
             }
         }
-        
     }
     
     fileprivate func btnLikesCountCLK(_ postId : Int?) {
+        
         if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController {
             likeVC.postID = postId
             self.navigationController?.pushViewController(likeVC, animated: true)
@@ -1725,11 +1690,11 @@ extension HomeSearchViewController{
     }
     
     fileprivate func btnCommentCLK(_ postId : Int?) {
+        
         if let commentVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController {
             commentVC.postId = postId
             self.navigationController?.pushViewController(commentVC, animated: true)
         }
-        
     }
     
     fileprivate func btnSharedMoreCLK(_ index : Int?, _ postInfo : [String : Any]){
@@ -1738,7 +1703,6 @@ extension HomeSearchViewController{
         let postId = sharePostData[CId] as? Int ?? 0
         let postType = postInfo.valueForInt(key: CPostType)
         let currentDateTime = Date().timeIntervalSince1970
-        
         
         if let endDateTime = postInfo.valueForDouble(key: CEvent_End_Date), (postType == CStaticEventId), (Double(currentDateTime) > endDateTime) {
             
@@ -1822,13 +1786,12 @@ extension HomeSearchViewController{
             }
         }
     }
-    
+    //------Button More with Action
     fileprivate func btnMoreCLK(_ index : Int?, _ postInfo : [String : Any]) {
         
         let postId = postInfo.valueForInt(key: CId)
         let postType = postInfo.valueForInt(key: CPostType)
         let currentDateTime = Date().timeIntervalSince1970
-        
         
         if let endDateTime = postInfo.valueForDouble(key: CEvent_End_Date), (postType == CStaticEventId), (Double(currentDateTime) > endDateTime) {
             
@@ -1903,16 +1866,13 @@ extension HomeSearchViewController {
         txtSearch.text = nil
         timeStamp = nil
         isPost = nil
-        
         tblEvents.restore()
         arrHomeSearch.removeAll()
         tblEvents.reloadData()
     }
-    
     @IBAction func btnBackMainCLK(_ sender : UIButton) {
         self.navigationController?.popViewController(animated: false)
     }
-    
 }
 
 

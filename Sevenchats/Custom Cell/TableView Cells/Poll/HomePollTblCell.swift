@@ -71,7 +71,6 @@ extension HomePollTblCell{
     
     func homePollDataSetup(_ postInfo : [String : Any],isSelected:Bool){
         
-        //        postID = postInfo.valueForInt(key: CId) ?? 0
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         pollIDNew = postInfo.valueForString(key: "post_id").toInt ?? 0
         posted_ID = postInfo.valueForString(key: "user_id")
@@ -90,7 +89,6 @@ extension HomePollTblCell{
             let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
             let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
             chngString = rplstr_Three
-            // fullNameArr =  jsonToStringConvert(pollString: postData["options"] as? String ?? "")
         }else {
             //homeviewcontroller
             let pollstring = postData["options"] as? String
@@ -108,7 +106,6 @@ extension HomePollTblCell{
             polls.append(MDLPollOption(fromDictionary: dictionary))
         }
         self.getPollDetailsFromServer()
-        //  let voteCount = postData.valueForInt(key:CAllVotes) ?? 0
         let voteCount:Int =  self.totalVotesNew.toInt ?? 0
         self.updateVoteCount(count: voteCount)
         

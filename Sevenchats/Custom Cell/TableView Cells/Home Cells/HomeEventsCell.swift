@@ -19,24 +19,18 @@ class HomeEventsCell: UITableViewCell {
     @IBOutlet weak var lblEventType : UILabel!
     @IBOutlet weak var lblEventTitle : UILabel!
     @IBOutlet weak var lblEventDescription : UILabel!
-    
     @IBOutlet weak var btnLikesCount : UIButton!
     @IBOutlet weak var btnLike : UIButton!
     @IBOutlet weak var btnComment : UIButton!
-    //@IBOutlet weak var btnReport : UIButton!
     @IBOutlet weak var btnShare : UIButton!
     @IBOutlet weak var btnIconShare : UIButton!
     @IBOutlet weak var btnMore : UIButton!
-    
     @IBOutlet weak var btnProfileImg : UIButton!
     @IBOutlet weak var btnUserName : UIButton!
-    
     @IBOutlet weak var btnInterested : MIGenericButton!
     @IBOutlet weak var btnNotInterested : MIGenericButton!
     @IBOutlet weak var btnMaybe : MIGenericButton!
-    
     @IBOutlet weak var lblEventLocation : UILabel!
-    
     @IBOutlet weak var lblStartDate : UILabel!
     @IBOutlet weak var lblEndDate : UILabel!
     @IBOutlet weak var lblEventStartDate : UILabel!
@@ -55,7 +49,6 @@ class HomeEventsCell: UITableViewCell {
         
         //dedde5
         func setupInterestButton(sender:UIButton){
-            //sender.backgroundColor = CRGB(r: 222, g: 221, b: 229)
             sender.layer.cornerRadius = 3
             sender.clipsToBounds = true
         }
@@ -86,10 +79,7 @@ class HomeEventsCell: UITableViewCell {
             btnLike.contentHorizontalAlignment = .left
             btnLikesCount.contentHorizontalAlignment = .right
             btnComment.contentHorizontalAlignment = .right
-           // btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
             btnShare.contentHorizontalAlignment = .right
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
-            
             // Reverse Flow...
             btnInterested.contentHorizontalAlignment = .right
             btnInterested.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
@@ -106,17 +96,12 @@ class HomeEventsCell: UITableViewCell {
             btnLike.contentHorizontalAlignment = .right
             btnLikesCount.contentHorizontalAlignment = .left
             btnComment.contentHorizontalAlignment = .left
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
             btnShare.contentHorizontalAlignment = .left
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
-            
             // Normal Flow...
             btnInterested.contentHorizontalAlignment = .left
             btnInterested.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-            
             btnNotInterested.contentHorizontalAlignment = .left
             btnNotInterested.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-            
             btnMaybe.contentHorizontalAlignment = .left
             btnMaybe.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
 
@@ -129,14 +114,10 @@ extension HomeEventsCell{
     
     func homeEventDataSetup(_ postInfo : [String : Any]){
         
-//        postID = postInfo.valueForInt(key: CId) ?? 0
+
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        //"\(CPostedOn) " + DateFormatte
-//        self.lblEventPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-        
-        
         lblEventTitle.text = postInfo.valueForString(key: CTitle)
         lblEventDescription.text = postInfo.valueForString(key: CContent)
         
@@ -145,28 +126,10 @@ extension HomeEventsCell{
         
         lblEventStartDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
         lblEventEndDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
-        
-        
         lblEventLocation.text = postInfo.valueForString(key: CEvent_Location)
-
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         lblEventType.text = CTypeEvent
         lblEventCategory.text = postInfo.valueForString(key: CCategory).uppercased()
-//        btnLike.isSelected = postInfo.valueForInt(key: CIs_Like) == 1
-//        likeCount = postInfo.valueForInt(key: CTotal_like) ?? 0
-//        btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-       
-//        let commentCount = postInfo.valueForInt(key: CTotalComment) ?? 0
-//        btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-//        btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-        
-        
-        
-//        btnShare.setTitle(CBtnShare, for: .normal)
-//        btnMaybe.setTitle("\(postInfo.valueForString(key: CTotalMaybeInterestedUsers))\n" + CMaybe, for: .normal)
-//        btnNotInterested.setTitle("\(postInfo.valueForString(key: CTotalNotInterestedUsers))\n" + CDeclined, for: .normal)
-//        btnInterested.setTitle("\(postInfo.valueForString(key: CTotalInterestedUsers))\n" + CConfirmed, for: .normal)
-//
         btnShare.setTitle(CBtnShare, for: .normal)
         btnMaybe.setTitle("\(postInfo.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(postInfo.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
@@ -185,17 +148,6 @@ extension HomeEventsCell{
         btnNotInterested.isSelected = false
         btnInterested.isSelected = false
 
-//        switch postInfo.valueForInt(key: CIsInterested) {
-//        case 1:
-//            btnMaybe.isSelected = true
-//        case 2:
-//            btnInterested.isSelected = true
-//        case 3:
-//            btnNotInterested.isSelected = true
-//        default:
-//            break
-//        }
-//
         switch postInfo.valueForInt(key: "selected_choice") {
                 case 1:
                     btnMaybe.isSelected = true
@@ -216,18 +168,12 @@ extension HomeEventsCell{
         }
         
          likeCount = postInfo.valueForString(key: CLikes).toInt ?? 0
-//        likeCount = product.likes!.toInt!
          btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-
-//        let commentCount = postInfo.valueForInt(key: CTotalComment) ?? 0
         let commentCount = postInfo.valueForString(key: "comments").toInt
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount ?? 0), for: .normal)
         btnShare.setTitle(CBtnShare, for: .normal)
-       
-        //Dateconvert
         let created_At = postInfo.valueForString(key: CCreated_at)
         let cnvStr = created_At.stringBefore("G")
-//        let removeFrst = cnvStr.chopPrefix(3)
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         self.lblEventPostDate.text = startCreated
         setSelectedButtonStyle()
@@ -265,11 +211,6 @@ extension HomeEventsCell {
     
     @IBAction func onLikePressed(_ sender:UIButton){
         
-//        self.btnLike.isSelected = !self.btnLike.isSelected
-//        self.likeCount = self.btnLike.isSelected ? self.likeCount + 1 : self.likeCount - 1
-//        self.btnLikesCount.setTitle(appDelegate.getLikeString(like: self.likeCount), for: .normal)
-//        MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.postID, rss_id: nil, type: 1, likeStatus: self.btnLike.isSelected ? 1 : 0, viewController: self.viewController)
-        
         self.btnLike.isSelected = !self.btnLike.isSelected
         
         if self.btnLike.isSelected == true{
@@ -306,7 +247,7 @@ extension HomeEventsCell {
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
-//                    info = response!["liked_users"] as? [String:Any] ?? [:]
+
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
                     self?.btnLikesCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)

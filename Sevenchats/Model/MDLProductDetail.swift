@@ -56,8 +56,6 @@ struct MDLSellerInfo: ProductBaseModel {
         id = dictionary["id"] as? Int ?? 0
         lastName = dictionary["last_name"] as? String ?? ""
         userId = dictionary["user_id"] as? String ?? ""
-        
-//        userProfileImage = dictionary["user_profile_image"] as? String ?? ""
         userProfileImage = dictionary["profile_image"] as? String ?? ""
         strPaymentType = dictionary["payment_type"] as? String ?? "1"
         pemail = dictionary["email"] as? String ?? "1"

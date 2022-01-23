@@ -47,7 +47,6 @@ class GroupUserListVC: ParentViewController {
     }
     
     @IBOutlet weak var vwSearch: UIView!
-    
     @IBOutlet weak var txtSearch: UITextField!{
         didSet{
             txtSearch.placeholder = CSearch
@@ -124,15 +123,6 @@ extension GroupUserListVC {
             return
         }
         
-//        if let videoChat  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "OneToOneVideoCallVC") as? OneToOneVideoCallVC {
-//
-//            videoChat.id = groupId
-//            videoChat.userImage = self.userImage
-//            videoChat.fullName = self.fullName
-//            videoChat.memberId = selectedUserIds
-//            videoChat.roomType = .GroupRoom
-//            self.navigationController?.pushViewController(videoChat, animated: true)
-//        }
     }
     
     func moveToAudioCallingScreen() {
@@ -144,14 +134,6 @@ extension GroupUserListVC {
             return
         }
         
-//        if let audioCall  = CStoryboardAudioVideo.instantiateViewController(withIdentifier: "AudioCallVC") as? AudioCallVC {
-//
-//            audioCall.userImage = self.userImage
-//            audioCall.fullName = self.fullName
-//            audioCall.members = selectedMembers
-//            audioCall.roomType = .GroupRoom
-//            self.navigationController?.pushViewController(audioCall, animated: true)
-//        }
     }
 }
 
@@ -259,44 +241,9 @@ extension GroupUserListVC {
             apiTask?.cancel()
         }
         
-        let param : [String : Any] = [
+        let _ : [String : Any] = [
             "page" : self.pageNumber,
             "search":strSearch
         ]
-        
-//        apiTask = APIRequest.shared().getGroupMemberUserList(groupId: self.groupId, param: param, showLoader: isLoader, completion: { [weak self](response, error) in
-//            guard let self = self else {return}
-//
-//            self.refreshControl.endRefreshing()
-//
-//            if response != nil {
-//                GCDMainThread.async {
-//                    if let arrList = response![CJsonData] as? [[String:Any]]{
-//
-//                        // Remove all data here when page number == 1
-//                        if self.pageNumber == 1{
-//                            self.arrUsers.removeAll()
-//                        }
-//
-//                        // Add Data here...
-//                        if arrList.count > 0 {
-//                            for object in arrList{
-//
-//                                let model = MDLFriendsList(forGroupUserList: object)
-//                                if let selectedObj = self.arrSelectedIds.filter({$0.userId == model.userId}).first{
-//                                    self.arrUsers.append(selectedObj)
-//                                } else {
-//                                    self.arrUsers.append( model)
-//                                }
-//                            }
-//                            self.pageNumber += 1
-//                        }
-//                        let myId = (appDelegate.loginUser?.user_id ?? 0).description
-//                        self.arrUsers = self.arrUsers.filter({$0.userId.description != myId })
-//                        self.tblUsers.reloadData()
-//                    }
-//                }
-//            }
-//        })
     }
 }

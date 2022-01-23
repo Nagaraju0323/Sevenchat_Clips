@@ -6,10 +6,18 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : SelectInterestsViewController               *
+ * Changes :                                             *
+ * User can Selecte own Intrest                          *
+ ********************************************************/
+
 import UIKit
 
 class SelectInterestsViewController: ParentViewController {
-
+    
     @IBOutlet var imgSelectAllFriend : UIImageView!
     @IBOutlet var btnSelectAllFriend : UIButton!
     @IBOutlet var tblInterest : UITableView!
@@ -33,17 +41,15 @@ class SelectInterestsViewController: ParentViewController {
     var refreshControl = UIRefreshControl()
     var currentPage : Int = 1
     var apiTask : URLSessionTask?
-    
     var arrInterest = [[String : Any]]()
     var arrSelectedInterest = [[String : Any]]()
-
     var isBackButtomHide : Bool!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
@@ -65,11 +71,10 @@ class SelectInterestsViewController: ParentViewController {
         GCDMainThread.async {
             self.viewSearchBar.layer.cornerRadius = self.viewSearchBar.frame.size.height/2
         }
-                
+        
         refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
         refreshControl.tintColor = ColorAppTheme
         tblInterest.pullToRefreshControl = refreshControl
-        
         self.loadInterestList(search: txtSearch.text ?? "", showLoader: true)
         
     }
@@ -104,48 +109,12 @@ extension SelectInterestsViewController{
         if apiTask?.state == URLSessionTask.State.running {
             apiTask?.cancel()
         }
-
+        
         refreshControl.beginRefreshing()
         currentPage = 1
         self.loadInterestList(search: txtSearch.text ?? "", showLoader: false)
     }
-    //OLD Code by MI
-//    func loadInterestList(search : String, showLoader : Bool) {
-//
-//        if apiTask?.state == URLSessionTask.State.running {
-//            return
-//        }
-//
-//        // Add load more indicator here...
-//        if self.currentPage > 2 {
-//            self.tblInterest.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-//        }else{
-//            self.tblInterest.tableFooterView = nil
-//        }
-//
-//        apiTask = APIRequest.shared().getInterestList(search: search, type: CInterestType, page: currentPage, showLoader : showLoader) { (response, error) in
-//            self.refreshControl.endRefreshing()
-//
-//            self.tblInterest.tableFooterView = nil
-//
-//            if response != nil && error == nil {
-//                if let arrData = response![CJsonData] as? [[String : Any]]
-//                {
-//                    if self.currentPage == 1 {
-//                        self.arrInterest.removeAll()
-//                        self.tblInterest.reloadData()
-//                    }
-//
-//                    if arrData.count > 0{
-//                        self.arrInterest = self.arrInterest + arrData
-//                        self.tblInterest.reloadData()
-//                        self.currentPage += 1
-//                    }
-//                }
-//            }
-//        }
-//    }
-   
+    
     func loadInterestList(search : String, showLoader : Bool) {
         
         if apiTask?.state == URLSessionTask.State.running {
@@ -167,7 +136,7 @@ extension SelectInterestsViewController{
             self.refreshControl.endRefreshing()
             self.arrInterest.removeAll()
             self.tblInterest.tableFooterView = nil
-
+            
             if response != nil && error == nil {
                 if let arrData = response![CJsonData] as? [[String : Any]]
                 {
@@ -189,33 +158,6 @@ extension SelectInterestsViewController{
     
     func addInterestRequest(interestName : String) {
         
-//        APIRequest.shared().addInterestRequest(interest_name: interestName) { (response, error) in
-//            if response != nil && error == nil {
-//                if let data = response![CJsonData] as? [String : Any]{
-//                    let interest : [String:Any] = [
-//                        "id": data.valueForInt(key: "id") ?? 0,
-//                        "name":data.valueForString(key: "name")
-//                    ]
-//                    if self.arrInterest.count > 0{
-//                        self.arrInterest.insert(interest, at: 0)
-//                        self.arrSelectedInterest.insert(interest, at: 0)
-//                    }else{
-//                        self.arrInterest.append(interest)
-//                        self.arrSelectedInterest.append(interest)
-//                    }
-//
-//                    DispatchQueue.main.async {
-//                        self.tblInterest.reloadData()
-//                    }
-//                }
-//                if let meta = response![CJsonMeta] as? [String : Any]{
-//                    DispatchQueue.main.async {
-//                        let msg = meta.valueForString(key: CMessage)
-//                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: msg, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                    }
-//                }
-//            }
-//        }
     }
     
     func addSelectedInterest(_ moveOnBackScreen : Bool){
@@ -227,14 +169,6 @@ extension SelectInterestsViewController{
             interestID = "0"
         }
         
-//        APIRequest.shared().addInterestWithID(interestID: interestID) { (response, error) in
-//            if response != nil && error == nil {
-//                MIMQTT.shared().MQTTInitialSetup()
-//                MIGeneralsAPI.shared().getAdvertisementList()
-//                appDelegate.initHomeViewController()
-//                MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: nil)
-//            }
-//        }
     }
 }
 
@@ -278,7 +212,7 @@ extension SelectInterestsViewController : UITableViewDataSource, UITableViewDele
             
             cell.imgSelected.isHidden = !arrSelectedInterest.contains(where: { $0.valueForString(key: "interest_type") == dict.valueForString(key: "interest_type")} )
             cell.lblLanguage.text = dict.valueForString(key: "interest_type")
-
+            
             //...Load More
             if indexPath == tblInterest.lastIndexPath() {
                 self.loadInterestList(search: txtSearch.text ?? "", showLoader: false)
@@ -314,12 +248,8 @@ extension SelectInterestsViewController{
         
         switch sender.tag {
         case 0: // Skip CLK
-//            MIMQTT.shared().MQTTInitialSetup()
-//            MIGeneralsAPI.shared().getAdvertisementList()
             appDelegate.initHomeViewController()
-//            MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: nil)
             break
-            
         case 1: // Done CLK
             self.addSelectedInterest(false)
             break
@@ -328,7 +258,7 @@ extension SelectInterestsViewController{
             break
         }
     }
-
+    
     @IBAction func btnDoneCLK(_ sender : UIButton){
         
         for vwController in (self.navigationController?.viewControllers)! {
@@ -355,7 +285,7 @@ extension SelectInterestsViewController{
             tblInterest.reloadData()
         }
     }
-
+    
     @IBAction func btnAddInterestCLK(_ sender : UIButton){
         let alertController = UIAlertController(title: CMessageAddInterest, message: CCreateOwnInterest, preferredStyle: .alert)
         
@@ -363,7 +293,7 @@ extension SelectInterestsViewController{
         }
         alertController.addAction(UIAlertAction(title: CBtnCancel, style: .default, handler: nil))
         alertController.addAction(UIAlertAction(title: CBtnSave, style: .default, handler: { (alert) in
-        
+            
             if (alertController.textFields?.count)! > 0{
                 let textField = alertController.textFields![0]
                 if (textField.text?.isBlank)!{

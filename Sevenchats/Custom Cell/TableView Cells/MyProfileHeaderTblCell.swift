@@ -41,7 +41,6 @@ class MyProfileHeaderTblCell: UITableViewCell {
     @IBOutlet weak var btnShare : UIButton!
     @IBOutlet weak var btnUserProfile : UIButton!
     @IBOutlet weak var btnUserProfileStatus : UIButton!
-    //@IBOutlet weak var cntBtnShareHorizontal : NSLayoutConstraint!
     @IBOutlet weak var cntBtnShareTraling : NSLayoutConstraint!
     
     var pageNumber = 1

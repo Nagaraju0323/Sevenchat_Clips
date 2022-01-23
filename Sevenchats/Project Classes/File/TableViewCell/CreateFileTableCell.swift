@@ -6,6 +6,8 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+
+
 import UIKit
 
 class CreateFileTableCell: UITableViewCell {
@@ -25,10 +27,7 @@ class CreateFileTableCell: UITableViewCell {
     @IBOutlet weak var lblFileName: UILabel!
     @IBOutlet weak var lblFileDate: UILabel!
     @IBOutlet weak var imgV: UIImageView!
-    /*@IBOutlet weak var btnDelete: UIButton!
-    @IBOutlet weak var btnRetry: UIButton!*/
     @IBOutlet weak var btnStatus: UIButton!
-    
     @IBOutlet weak var vwShareFile: UIView!
     @IBOutlet weak var btnShareFile: UIButton!
     
@@ -85,10 +84,6 @@ class TblSharedFileDetailsCollCell: UITableViewCell,UICollectionViewDelegate,UIC
         super.awakeFromNib()
         self.selectionStyle = .none
         
-//        self.shareFolderLstcol.register(UINib(nibName: "CreateListviewCVCell", bundle: nil), forCellWithReuseIdentifier: "CreateListviewCVCell")
-//        shareFolderLstcol.delegate = self
-//        shareFolderLstcol.dataSource = self
-        // Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -102,18 +97,6 @@ class TblSharedFileDetailsCollCell: UITableViewCell,UICollectionViewDelegate,UIC
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arrMediaFiles.count
     }
-    
-//    func collectionView(collectionView: UICollectionView,
-//                                   layout collectionViewLayout: UICollectionViewLayout,
-//                                          sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-//        let spaceBetweenCells = 12
-////        let width = (Int(self.clGallery.frame.size.width) - spaceBetweenCells * 3) / 3
-////        _ = (Int(self.clGallery.frame.size.height) - spaceBetweenCells * 3) / 3
-////        return CGSize(width:width, height: width)
-//
-//        return CGSize(width: frame.size.width/2 - 10, height: (frame.size.height-20)/2)
-//    }
-//
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
 
         

@@ -6,6 +6,15 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ChangePWDViewController                     *
+ * Changes :                                             *
+ * Modified User password                                *
+ *                                                       *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 
 class ChangePWDViewController: ParentViewController {
@@ -14,12 +23,12 @@ class ChangePWDViewController: ParentViewController {
     @IBOutlet var txtOldPWD : MIGenericTextFiled!
     @IBOutlet var txtNewPWD : MIGenericTextFiled!
     @IBOutlet var txtConfirmPWD : MIGenericTextFiled!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -40,17 +49,7 @@ class ChangePWDViewController: ParentViewController {
 }
 // MARK:- --------- API
 extension ChangePWDViewController {
-    
     func changePassword() {
-//        APIRequest.shared().changePassword(oldPwd: txtOldPWD.text ?? "", newPwd: txtConfirmPWD.text ?? "") { (response, error) in
-//            if response != nil && error == nil {
-//                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaData.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: { (action) in
-//                        self.navigationController?.popToRootViewController(animated: true)
-//                    })
-//                }
-//            }
-//        }
     }
 }
 
@@ -66,14 +65,11 @@ extension ChangePWDViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetAlertNewPWDBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else if !(txtNewPWD.text?.isValidPassword ?? false) {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterPasswordMinLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }/*else if !(txtNewPWD.text?.isValidPassword)! || (txtNewPWD.text?.count)! < 8  || !(txtNewPWD.text?.isPasswordSpecialCharacterValid)!{
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterPasswordMinLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        }*/else if (txtConfirmPWD.text?.isBlank)! {
+        }else if (txtConfirmPWD.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetAlertConfirmPWDBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else if txtNewPWD.text != txtConfirmPWD.text{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetAlertPWDConfirmPWDNotMatch, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-//            self.changePassword()
             self.changePasswords()
         }
     }
@@ -81,42 +77,38 @@ extension ChangePWDViewController{
     
 }
 
-
+// MARK:- --------- API
 extension ChangePWDViewController{
-
-func changePasswords(){
-
     
-    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
-    guard let userName = appDelegate.loginUser?.email else{ return}
-    
-    let password = txtNewPWD.text ?? ""
-    let old_password = txtOldPWD.text ?? ""
-    
-    let data : Data = "username=\(userName)&password=\(password)&grant_type=password&client_id=null&client_secret=null&old_password=\(old_password)".data(using: .utf8)!
-    
-    let url = URL(string: "\(BASEAUTH)auth/resetPassword")
-//    let url = URL(string: "https://qa.sevenchats.com:7443/auth/resetPassword")
-    var request : URLRequest = URLRequest(url: url!)
-    request.httpMethod = "PUT"
-    
-    request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
-    
-    request.setValue("Bearer \("f17511300f38aef3f6d1a674c07e7292c1dc56ec")", forHTTPHeaderField:"Authorization")
-    request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
-    request.httpBody = data
-
-    let config = URLSessionConfiguration.default
-    let session = URLSession(configuration: config)
-    let task = session.dataTask(with: request, completionHandler: {
-        (data, response, error) in
-        if let error = error{
-            print("somethis\(error)")
-        }
-        else if let response = response {
-        }else if let data = data{
-        }
-//        DispatchQueue.main.async { [self] in // Correct
+    func changePasswords(){
+        
+        
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
+        guard let userName = appDelegate.loginUser?.email else{ return}
+        
+        let password = txtNewPWD.text ?? ""
+        let old_password = txtOldPWD.text ?? ""
+        
+        let data : Data = "username=\(userName)&password=\(password)&grant_type=password&client_id=null&client_secret=null&old_password=\(old_password)".data(using: .utf8)!
+        
+        let url = URL(string: "\(BASEAUTH)auth/resetPassword")
+        var request : URLRequest = URLRequest(url: url!)
+        request.httpMethod = "PUT"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
+        request.setValue("Bearer \("f17511300f38aef3f6d1a674c07e7292c1dc56ec")", forHTTPHeaderField:"Authorization")
+        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
+        request.httpBody = data
+        
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) in
+            if let error = error{
+                print("somethis\(error)")
+            }
+            else if let response = response {
+            }else if let data = data{
+            }
             guard let responseData = data else {
                 print("Error: did not receive data")
                 return
@@ -129,31 +121,25 @@ func changePasswords(){
                 DispatchQueue.main.async {
                     if userMsg == "Something went wrong!"{
                         MILoader.shared.hideLoader()
-
                         self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Password Does not Match", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                             self.dismiss(animated: true, completion: nil)
-//                            self.navigationController?.popToRootViewController(animated: true)
                         })
                         
                     }else {
                         MILoader.shared.hideLoader()
-
                         self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                             self.dismiss(animated: true, completion: nil)
                             self.navigationController?.popToRootViewController(animated: true)
                         })
                     }
-                    
-               
-             }
+                }
             }catch let error  {
                 print("error trying to convert data to \(error)")
             }
-//        }
-    })
-    task.resume()
-}
-
+        })
+        task.resume()
+    }
+    
 }
 
 extension ChangePWDViewController{

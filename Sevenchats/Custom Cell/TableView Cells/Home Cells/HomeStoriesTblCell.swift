@@ -96,17 +96,9 @@ extension HomeStoriesTblCell:UICollectionViewDelegate,UICollectionViewDataSource
             
             if let vc = storyBoard.instantiateViewController(withIdentifier: "showCameraViewController") as? showCameraViewController {
                 vc.modalPresentationStyle = .overFullScreen
-//                vc.pages = self.userDetails
-//                vc.currentIndex = indexPath.row
                 self.viewController?.present(vc, animated: true, completion: nil)
             }
-            
-//            self.viewController?.present(objSomeViewController, animated: true, completion: nil)
-            
-//            let ViewController = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CameraVC") as? 
-//            self.navigationController?.pushViewController(ViewController!, animated: true)
-            
-        
+
             
         }else {
             DispatchQueue.main.async {

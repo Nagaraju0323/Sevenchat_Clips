@@ -41,50 +41,6 @@ struct MDLRewardSummary {
     }
 }
 
-//struct MDLRewardDetail {
-//
-//    var id : Int!
-//    var pointsConfigId : Int!
-//    var points : Int!
-//    var messageText : String!
-//    fileprivate var _creditedDate : Double!
-//    var creditedDate : String {
-//        let date = Date(timeIntervalSince1970: _creditedDate)
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.locale = DateFormatter.shared().locale
-//        dateFormatter.dateFormat = "dd MMM yyyy, hh:mm a"
-//        return dateFormatter.string(from: date)
-//    }
-//
-//    var friendId : Int!
-//    var postId : Int!
-//    var postType : Int!
-//    var advertisementId : String!
-//    var productId : Int!
-//    var detailText : String!
-//    var friendImage : String!
-//    var isPostImage : Int!
-//
-//    init(fromDictionary dictionary: [String:Any]) {
-//
-//        id = dictionary["id"] as? Int ?? 0
-//        pointsConfigId = dictionary["points_config_id"] as? Int ?? 0
-//        points = dictionary["points"] as? Int ?? 0
-//        messageText = dictionary["message_text"] as? String ?? ""
-//        _creditedDate = dictionary["credited_date"] as? Double ?? 0
-//        friendId = dictionary["friend_id"] as? Int ?? 0
-//        postId = dictionary["post_id"] as? Int ?? 0
-//        postType = dictionary["post_type"] as? Int ?? 0
-//        advertisementId = dictionary["advertisement_id"] as? String ?? ""
-//        productId = dictionary["product_id"] as? Int ?? 0
-//        detailText = dictionary["detail_text"] as? String ?? ""
-//        friendImage = dictionary["friend_image"] as? String ?? ""
-//        isPostImage = dictionary["is_post_image"] as? Int ?? 0
-//
-//    }
-//}
-
-
 
 struct MDLRewardDetail {
     
@@ -92,15 +48,6 @@ struct MDLRewardDetail {
     var pointsConfigId : Int!
     var points : Int!
     var messageText : String!
-//    fileprivate var _creditedDate : Double!
-//    var creditedDate : String {
-//        let date = Date(timeIntervalSince1970: _creditedDate)
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.locale = DateFormatter.shared().locale
-//        dateFormatter.dateFormat = "dd MMM yyyy, hh:mm a"
-//        return dateFormatter.string(from: date)
-//    }
-    
     var friendId : Int!
     var postId : Int!
     var postType : String!

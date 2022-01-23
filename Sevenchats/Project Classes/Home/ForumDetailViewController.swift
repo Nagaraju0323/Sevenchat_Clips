@@ -6,6 +6,14 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ForumDetailViewController                   *
+ * Changes :                                             *
+ * Deisplay Forum Details user can like and comments,    *
+ * Delete forparticular post                             *
+ ********************************************************/
+
 import UIKit
 import ActiveLabel
 
@@ -154,16 +162,11 @@ extension ForumDetailViewController{
         if let forID = self.forumID {
             
             APIRequest.shared().viewPostDetailNew(postID: forID, apiKeyCall: CAPITagforumsDetials){ [weak self] (response, error) in
-                //  APIRequest.shared().viewPostDetail(postID: shouID) { [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false
                     if let Info = response!["data"] as? [[String:Any]]{
-                        
-                        print(Info as Any)
                         for _ in Info {
-                            
-                            //                            self.setForumDetailData(arraydata)
                             self.openUserProfileScreen()
                         }
                     }
@@ -228,20 +231,18 @@ extension ForumDetailViewController{
                 guard let self = self else { return }
                 
                 let postTypeDelete = "post_forum"
-                let dict =
-                    
-                    [
-                        "post_id": fourmInfo?.valueForString(key: "post_id"),
-                        "image": "",
-                        "post_title":  fourmInfo?.valueForString(key: "post_title"),
-                        "post_category":  fourmInfo?.valueForString(key: "post_category"),
-                        "post_content":  fourmInfo?.valueForString(key: "post_content"),
-                        "age_limit":  fourmInfo?.valueForString(key: "age_limit"),
-                        "targeted_audience": fourmInfo?.valueForString(key: "targeted_audience"),
-                        "selected_persons": fourmInfo?.valueForString(key: "selected_persons"),
-                        "status_id": "3"
-                    ]
-                APIRequest.shared().deletePostNew(postDetials: dict, apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
+                let dict = [
+                    "post_id": fourmInfo?.valueForString(key: "post_id"),
+                    "image": "",
+                    "post_title":  fourmInfo?.valueForString(key: "post_title"),
+                    "post_category":  fourmInfo?.valueForString(key: "post_category"),
+                    "post_content":  fourmInfo?.valueForString(key: "post_content"),
+                    "age_limit":  fourmInfo?.valueForString(key: "age_limit"),
+                    "targeted_audience": fourmInfo?.valueForString(key: "targeted_audience"),
+                    "selected_persons": fourmInfo?.valueForString(key: "selected_persons"),
+                    "status_id": "3"
+                ]
+                APIRequest.shared().deletePostNew(postDetials: dict as [String : Any], apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
                     
                     guard let self = self else { return }
                     if response != nil && error == nil{
@@ -277,7 +278,6 @@ extension ForumDetailViewController{
                             self.arrCommentList.removeAll()
                             self.tblCommentList.reloadData()
                         }
-                        
                         // Add Data here...
                         if arrList.count > 0{
                             self.arrCommentList = self.arrCommentList + arrList
@@ -285,7 +285,6 @@ extension ForumDetailViewController{
                             self.pageNumber += 1
                         }
                     }
-                    
                     print("arrCommentListCount : \(self.arrCommentList.count)")
                 }
             }
@@ -387,9 +386,9 @@ extension ForumDetailViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
             // Load more data....
-            //            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
-            //                self.getCommentListFromServer()
-            //            }
+            //if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
+            // self.getCommentListFromServer()
+            //  }
             
             return cell
         }
@@ -584,7 +583,6 @@ extension ForumDetailViewController{
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
-                    //                    info = response!["liked_users"] as? [String:Any] ?? [:]
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
                     self?.btnLikeCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     guard let user_ID = appDelegate.loginUser?.user_id.description else { return }

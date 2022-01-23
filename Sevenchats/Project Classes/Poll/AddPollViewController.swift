@@ -23,15 +23,12 @@ class MDLAddPollQuestion : NSObject{
 class AddPollViewController: ParentViewController {
     
     //MARK: - IBOutlet/Object/Variable Declaration
-    //@IBOutlet weak var txt: UITextField!
-    
     @IBOutlet var topContaier : UIView!
     @IBOutlet var btnAddMoreFriends : UIButton!
     @IBOutlet var btnSelectGroupFriend : UIButton!
     @IBOutlet var clGroupFriend : UICollectionView!
     @IBOutlet var viewSelectGroup : UIView!
     @IBOutlet private weak var categoryDropDownView: CustomDropDownView!
-//    @IBOutlet private weak var subcategoryDropDownView: CustomDropDownView!
     
     @IBOutlet var txtQuestion : GenericTextView!{
         didSet{
@@ -83,7 +80,6 @@ class AddPollViewController: ParentViewController {
         super.viewWillAppear(animated)
     }
     
-    
     //MARK: - Memory management methods
     deinit {
         print("### deinit -> AddPollViewController")
@@ -120,29 +116,10 @@ extension AddPollViewController {
                 return ((obj[CCategoryName] as? String) == item)
             })
             
-//            if (objArry.count > 0) {
-//                self.categoryID = (objArry.first?[CId] as? Int) ?? 0
-//            }
-            
             if (objArry.count > 0) {
                 self.categoryName = (objArry.first?[CCategoryName] as? String) ?? ""
             }
-//            self.loadInterestList(interestType : self.categoryName ?? "" , showLoader : true)
         }
-        
-        /// On select text from the auto-complition
-//        subcategoryDropDownView.onSelectText = { [weak self] (item) in
-//
-//            guard let `self` = self else { return }
-//
-//            let objArry = self.arrsubCategorys.filter({ (obj) -> Bool in
-//                return ((obj.interestLevel2) == item)
-//            })
-//
-//            if (objArry.count > 0) {
-//                self.categorysubName = (objArry.first?.interestLevel2) ?? ""
-//            }
-//        }
         let arrInviteType = [CPostPostsInviteGroups, CPostPostsInviteContacts,  CPostPostsInvitePublic, CPostPostsInviteAllFriends]
         
         txtInviteType.setPickerData(arrPickerData: arrInviteType, selectedPickerDataHandler: { [weak self] (text, row, component) in
@@ -173,7 +150,6 @@ extension AddPollViewController {
             if self?.isValidForAddPost() ?? false{
                 print("Ready for post")
                 self?.addEditPoll()
-                //self?.navigationController?.popViewController(animated: true)
             }
         }
         self.navigationItem.rightBarButtonItems = [addMediaBarButtion]
@@ -184,7 +160,6 @@ extension AddPollViewController {
         txtQuestion.placeHolder = CAddQuestion
         txtQuestion.textLimit = "200"
         categoryDropDownView.txtCategory.placeholder = CSelectCategoryOfPoll
-//        subcategoryDropDownView.txtCategory.placeholder = CSelectCategoryOfPoll
         btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
         txtInviteType.placeHolder = CVisiblity
     
@@ -253,37 +228,13 @@ extension AddPollViewController {
         apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
         
         apiPara[CPublish_To] = self.selectedInviteType
-//        if self.selectedInviteType == 1{
-//            // For group...
-//            let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-//            apiPara[CGroup_Ids] = groupIDS
-//        }else if self.selectedInviteType == 2{
-//            // For Contact...
-//            let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-//            apiPara[CInvite_Ids] = userIDS
-//        }
-        
-        /*// When user editing the article....
-        if pollType == PollType.editPoll{
-            apiPara[CId] = pollID
-        }*/
-        
         var arrOptions : [String] = []
         for obj in self.arrQuestions{
             if !obj.option.isBlank{
                 arrOptions.append(obj.option)
             }
         }
-        
         let arrOptToString:String = "\(arrOptions)"
-        
-        /*var index = 0
-        for value in arrOptions{
-            // Format : option[0] = "value"
-            let key = "\(COptions)[\(index)]"
-            apiPara[key] = value
-            index += 1
-        }*/
         apiPara[COptions] = arrOptions
         let strConvertJson = arrJson(arrString:arrOptions)
         let pollOption = strConvertJson.components(separatedBy: .whitespacesAndNewlines).joined()
@@ -332,24 +283,6 @@ extension AddPollViewController {
             dict[CSelectedPerson] = "none"
         }
         
-        
-        
-       /*Oldcode by Mi
-        APIRequest.shared().addEditPoll(para: apiPara) { (response, error) in
-            if response != nil && error == nil{
-                self.navigationController?.popViewController(animated: true)
-                
-                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePollPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                
-                if let pollInfo = response![CJsonData] as? [String : Any]{
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(pollInfo,self.pollID, self,  .addPost)
-                    
-                    APIRequest.shared().saveNewInterest(interestID: pollInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: pollInfo.valueForString(key: CCategory))
-                }
-            }
-        }
-        */
-        
         APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagpolls) { [weak self] (response, error) in
             if response != nil && error == nil{
                 
@@ -376,31 +309,6 @@ extension AddPollViewController {
         }
         
     }
-    
-//    func loadInterestList(interestType : String, showLoader : Bool) {
-//
-//        if apiTask?.state == URLSessionTask.State.running {
-//            return
-//        }
-//        guard let langName = appDelegate.loginUser?.lang_name else {return}
-//
-//        apiTask = APIRequest.shared().getInterestSubListNew(langName : langName,interestType:interestType, page: currentPage, showLoader : showLoader) { (response, error) in
-//            self.arrsubCategorys.removeAll()
-//            if response != nil && error == nil {
-//                if let arrData = response![CJsonData] as? [[String : Any]]
-//                {
-//                    for obj in arrData{
-//                        self.arrsubCategorys.append(MDLIntrestSubCategory(fromDictionary: obj))
-//                    }
-//
-//                    self.subcategoryDropDownView.arrDataSource = self.arrsubCategorys.map({ (obj) -> String in
-//                        return (obj.interestLevel2 ?? "")
-//                    })
-//
-//                }
-//            }
-//        }
-//    }
 }
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
@@ -549,13 +457,12 @@ extension AddPollViewController{
             self.txtInviteType.text = CPostPostsInviteContacts
             viewSelectGroup.hide(byHeight: false)
         case 3:
-            //self.txtInviteType.text = CPostPostsInviteAllFriends
+          
           self.txtInviteType.text = CPostPostsInvitePublic
             btnSelectGroupFriend.isHidden = true
             viewSelectGroup.hide(byHeight: true)
         case 4:
             self.txtInviteType.text = CPostPostsInviteAllFriends
-           // self.txtInviteType.text = CPostPostsInvitePublic
             btnSelectGroupFriend.isHidden = true
             viewSelectGroup.hide(byHeight: true)
         default:

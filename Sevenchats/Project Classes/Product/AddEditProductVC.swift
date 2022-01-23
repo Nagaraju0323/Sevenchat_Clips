@@ -22,20 +22,14 @@ class AddEditProductVC: ParentViewController {
     //MARK: - IBOutlet/Object/Variable Declaration -
     
     @IBOutlet weak var collVMedia : SelectMediaCollectionView!
-    
     @IBOutlet private weak var categoryDropDownView: CustomDropDownView!
-    
     @IBOutlet private weak var subcategoryDropDownView: CustomDropDownView!
-    
     @IBOutlet weak var lblMax5MediaUpload : MIGenericLabel!
     @IBOutlet weak var lblAboutProduct : MIGenericLabel!
     @IBOutlet weak var lblTermsAndCondition : ActiveLabel!
     @IBOutlet weak var lblTextLimit : MIGenericLabel!
-    
     @IBOutlet weak var txtProductTitle : MIGenericTextFiled!
-    
     @IBOutlet weak var txtLocation : MIGenericTextFiled!
-    
     @IBOutlet weak var txtProductDesc : GenericTextView!{
         didSet{
             txtProductDesc.txtDelegate = self
@@ -48,15 +42,7 @@ class AddEditProductVC: ParentViewController {
         }
     }
     @IBOutlet weak var txtCurrencyList : MIGenericTextFiled!
-//    @IBOutlet weak var txtLocation : GenericTextView!{
-//        didSet{
-//            self.txtLocation.txtDelegate = self
-//            self.txtLocation.isScrollEnabled = true
-//            self.txtLocation.textLimit = "200"
-//        }
-//    }
     @IBOutlet weak var txtLastDOP : MIGenericTextFiled!
-    
     @IBOutlet weak var txtCountrys : MIGenericTextFiled!
     @IBOutlet weak var txtStates : MIGenericTextFiled!
     @IBOutlet weak var txtCitys : MIGenericTextFiled!
@@ -71,6 +57,7 @@ class AddEditProductVC: ParentViewController {
     
     var arrCategory : [MDLProductCategory] = []
     var arrCurrency : [MDLCurrencies] = []
+    var arrsubCategorys : [MDLProductSubCategory] = []
     var apiTask : URLSessionTask?
     var countryID : Int?
     var stateID : Int?
@@ -97,10 +84,8 @@ class AddEditProductVC: ParentViewController {
     var currentPage : Int = 1
     var latitude: Double = 0.0
     var longitude: Double = 0.0
-    
     var isEdit = ""
     var categorysubName : String?
-    var arrsubCategorys : [MDLProductSubCategory] = []
     var isedits = ""
     
     //MARK: - View life cycle methods
@@ -132,49 +117,45 @@ extension AddEditProductVC {
     
     func intilization() {
         txtProductTitle.txtDelegate = self
-    let arrCategory = MIGeneralsAPI.shared().fetchproductCategoryFromLocalArticle()
-    
-    /// Set Dropdown on txtCategory
-    categoryDropDownView.arrDataSource = arrCategory.map({ (obj) -> String in
-        return (obj["product_category_type"] as? String ?? "")
-    })
-    
-    /// On select text from the auto-complition
-    categoryDropDownView.onSelectText = { [weak self] (item) in
-
-        guard let `self` = self else { return }
+        let arrCategory = MIGeneralsAPI.shared().fetchproductCategoryFromLocalArticle()
         
-        let objArry = arrCategory.filter({ (obj) -> Bool in
-            return ((obj["product_category_type"] as? String) == item)
+        /// Set Dropdown on txtCategory
+        categoryDropDownView.arrDataSource = arrCategory.map({ (obj) -> String in
+            return (obj["product_category_type"] as? String ?? "")
         })
         
-        if (objArry.count > 0) {
-            self.categoryName = (objArry.first?["product_category_type"] as? String) ?? ""
-        }
+        /// On select text from the auto-complition
+        categoryDropDownView.onSelectText = { [weak self] (item) in
+            
+            guard let `self` = self else { return }
+            
+            let objArry = arrCategory.filter({ (obj) -> Bool in
+                return ((obj["product_category_type"] as? String) == item)
+            })
+            
+            if (objArry.count > 0) {
+                self.categoryName = (objArry.first?["product_category_type"] as? String) ?? ""
+            }
             self.loadInterestList(interestType : self.categoryName ?? "" , showLoader : true)
-    }
+        }
         /// On select text from the auto-complition
         subcategoryDropDownView.onSelectText = { [weak self] (item) in
-
+            
             guard let `self` = self else { return }
-
+            
             let objArry = self.arrsubCategorys.filter({ (obj) -> Bool in
                 return ((obj.interestLevel1) == item)
             })
-
+            
             if (objArry.count > 0) {
                 self.categorysubName = (objArry.first?.interestLevel1) ?? ""
             }
         }
-        
     }
-    
-    
     
     fileprivate func setupView() {
         
         self.isEditMode = (self.product != nil)
-        
         self.collVMedia.isConfirmAlertOnDelete = self.isEditMode
         updateUIAccordingToLanguage()
         txtProductDesc.viewBottomLine.backgroundColor = .clear
@@ -246,7 +227,6 @@ extension AddEditProductVC {
         txtStates.placeHolder = CStatePlaceholder
         txtCitys.placeHolder = CCityPlaceholder
         configTermsAndConditionLabel()
-        
         loadCountryList()
     }
     
@@ -263,9 +243,7 @@ extension AddEditProductVC {
         let customType1 = ActiveType.custom(pattern: "(\\s\(CSettingTermsAndConditions)\\b)|(\\s\(CSettingPrivacyPolicy)\\b)")
         lblTermsAndCondition.enabledTypes = [customType1]
         lblTermsAndCondition.customColor[customType1] = UIColor(hex: "06C0A6") //.blue
-        
         lblTermsAndCondition.text = CProductTermsAndConditionsText
-        
         lblTermsAndCondition.handleCustomTap(for: customType1) { [weak self] (custom) in
             
             guard let self = self else {return}
@@ -285,175 +263,17 @@ extension AddEditProductVC {
             }
         }
     }
-
-    
-    
-    
-    
-    
-  func setCurrenyList(){
+    func setCurrenyList(){
         let currencys = self.arrCurrency.compactMap({$0.currencyName})
         self.txtCurrencyList.setPickerData(arrPickerData: currencys as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
             guard let self = self else {return}
-            
             if self.arrCurrency[row].currencyName != self.selectedCurrencyName && self.selectedCurrencyName != nil{
-                //                self.txtProductPrice.text = ""
             }
             self.selectedCurrencyName = self.arrCurrency[row].currencyName
         }, defaultPlaceholder: "")
     }
- 
     
-    
-    //MARK:-
-    /*fileprivate func loadCountryList(){
-        
-        self.txtCountrys.isEnabled = true
-        self.txtStates.isEnabled = false
-        self.txtCitys.isEnabled = false
-        
-        self.showHideCountryStateCityFileds()
-        
-        let arrCountry = TblCountry.fetch(predicate: nil, orderBy: CCountryName, ascending: true)
-        let arrCountryCode = arrCountry?.value(forKeyPath: "country_name") as? [Any]
-        
-        if (arrCountryCode?.count)! > 0 {
-            
-            txtCountrys.setPickerData(arrPickerData: arrCountryCode!, selectedPickerDataHandler: { [weak self] (select, index, component) in
-                guard let self = self else { return }
-                let dict = arrCountry![index] as AnyObject
-                let countryName = dict.value(forKey: CCountryName) as? String
-                if countryName != self.countryName {
-                    self.countryID = dict.value(forKey: CCountry_id) as? Int
-                    self.txtStates.text = ""
-                    self.txtCitys.text = ""
-                    self.stateID = nil
-                    self.cityID = nil
-                    self.txtStates.isEnabled = false
-                    self.txtCitys.isEnabled = false
-                    self.showHideCountryStateCityFileds()
-                    self.loadStateList()
-                }
-                }, defaultPlaceholder: "")
-        }
-    }
-    
-    fileprivate func loadStateList(isCancelTask:Bool = true) {
-        
-        func setStateList(arrState:[MDLState]){
-            let states = arrState.compactMap({$0.stateName})
-            self.txtStates.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
-                guard let self = self else {return}
-                if arrState[row].stateId != self.stateID{
-                    self.stateID = arrState[row].stateId
-                    self.txtCitys.isEnabled = false
-                    self.txtCitys.text = ""
-                    self.showHideCountryStateCityFileds()
-                    self.loadCityList()
-                }
-                
-                }, defaultPlaceholder: "")
-        }
-        if apiTask?.state == URLSessionTask.State.running && isCancelTask {
-            apiTask?.cancel()
-        }
-        //...Load country list from server
-        let timestamp : TimeInterval = 0
-        //apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryID ?? 0) { [weak self] (response, error) in
-        apiTask = APIRequest.shared().stateList(timestamp: timestamp as AnyObject, countryID: self.countryName ?? "") { [weak self] (response, error) in
-            guard let self = self else {return}
-            if response != nil && error == nil {
-                DispatchQueue.main.async {
-                    let arrData = response![CData] as? [[String : Any]] ?? []
-                    var arrState : [MDLState] = []
-                    for obj in arrData{
-                        arrState.append(MDLState(fromDictionary: obj))
-                    }
-                    if arrState.isEmpty{
-                        arrState.append(MDLState(fromDictionary: ["state_name":" "]))
-                        self.stateID = 0
-                        self.cityID = 0
-                        self.txtStates.isEnabled = false
-                        self.txtCitys.isEnabled = false
-                        self.txtStates.text = ""
-                        self.txtCitys.text = ""
-                    }else{
-                        self.txtStates.isEnabled = true
-                    }
-                    self.showHideCountryStateCityFileds()
-                    setStateList(arrState: arrState)
-                }
-            }
-        }
-    }
-    
-    fileprivate func loadCityList(isCancelTask:Bool = true) {
-        
-        func setCityList(arrCity:[MDLCity]){
-            MILoader.shared.hideLoader()
-            let states = arrCity.compactMap({$0.cityName})
-            self.txtCitys.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
-                guard let self = self else {return}
-                self.cityID = arrCity[row].cityId
-                //self.showHideCountryStateCityFileds()
-                }, defaultPlaceholder: "")
-        }
-        if apiTask?.state == URLSessionTask.State.running && isCancelTask {
-            apiTask?.cancel()
-        }
-        //...Load country list from server
-        let timestamp : TimeInterval = 0
-      //  apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateID ?? 0) { [weak self] (response, error) in
-        apiTask = APIRequest.shared().cityList(timestamp: timestamp as AnyObject, stateId: self.stateName ?? "") { [weak self] (response, error) in
-            guard let self = self else {return}
-            if response != nil && error == nil {
-                DispatchQueue.main.async {
-                    let arrData = response![CData] as? [[String : Any]] ?? []
-                    var arrCity : [MDLCity] = []
-                    for obj in arrData{
-                        arrCity.append(MDLCity(fromDictionary: obj))
-                    }
-                    if arrCity.isEmpty{
-                        arrCity.append(MDLCity(fromDictionary: ["city_name":" "]))
-                        self.cityID = 0
-                        self.txtCitys.isEnabled = false
-                        self.txtCitys.text = ""
-                    }else{
-                        self.txtCitys.isEnabled = true
-                    }
-                    self.showHideCountryStateCityFileds()
-                    setCityList(arrCity: arrCity)
-                }
-            }else {
-                MILoader.shared.hideLoader()
-            }
-        }
-    }
-    
-    /// This method is called on change country, state and city.
-    /// It will hide the textfiled If no data found of country, state and city.
-    fileprivate func showHideCountryStateCityFileds(){
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.3, animations: {
-                if !self.txtStates.isEnabled{
-                    self.txtStates.superview?.alpha = 0
-                }else{
-                    self.txtStates.superview?.alpha = 1
-                }
-                if !self.txtCitys.isEnabled{
-                    self.txtCitys.superview?.alpha = 0
-                }else{
-                    self.txtCitys.superview?.alpha = 1
-                }
-            }, completion: { (_) in
-                self.txtStates.superview?.isHidden = !self.txtStates.isEnabled
-                self.txtCitys.superview?.isHidden = !self.txtCitys.isEnabled
-            })
-        }
-    }*/
-    
-    
-  fileprivate func loadCountryList(){
+    fileprivate func loadCountryList(){
         
         self.txtCountrys.isEnabled = true
         self.txtStates.isEnabled = false
@@ -859,7 +679,6 @@ extension AddEditProductVC {
                     }else{
                         ProductHelper.createProduct(controller: self, refreshCnt: [StoreListVC.self])
                     }
-                    //  self.navigationController?.popToRootViewController(animated: true)
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadder"), object: nil)
                     self.navigationController?.popViewController(animated: true)
                     CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
@@ -908,7 +727,6 @@ extension AddEditProductVC {
             ]
             
             if (userID ) != ""{
-                //            dict["user_id"] = self.userID
                 dict["user_id"] = userID
             }
             if (cityName ?? "") != ""{
@@ -919,7 +737,6 @@ extension AddEditProductVC {
                 // When user editing the article....
                 apiURL = apiTag + "/" + _product.id.description
                 _ = self.collVMedia.arrDeletedApiImages.map({$0}).joined(separator: ",")
-                //                body["delete_ids"] = deletedIDS
                 _arrMedia = self.collVMedia.arrMedia.filter({$0.uploadMediaStatus != .Succeed})
             }
             APIRequest.shared().addEditProduct(apiTag: CAddProductNew, dict:dict, arrMedia: _arrMedia, showLoader: true) { [weak self] (response, error) in
@@ -930,7 +747,6 @@ extension AddEditProductVC {
                         guard let image = appDelegate.loginUser?.profile_img else { return }
                         let stausLike = metaInfo["status"] as? String ?? "0"
                         if stausLike == "0" {
-                            
                             MIGeneralsAPI.shared().addRewardsPoints(CPostonstore,message:"Post_on_store",type:CPostonstore,title:"Post on store",name:name,icon:image)
                         }
                     }
@@ -948,8 +764,6 @@ extension AddEditProductVC {
                     }else{
                         ProductHelper.createProduct(controller: self, refreshCnt: [StoreListVC.self])
                     }
-                    //  self.navigationController?.popToRootViewController(animated: true)
-                    
                     self.navigationController?.popViewController(animated: true)
                     CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 }
@@ -996,51 +810,47 @@ extension AddEditProductVC {
 extension AddEditProductVC{
     
     func loadInterestList(interestType : String, showLoader : Bool) {
-
+        
         if apiTask?.state == URLSessionTask.State.running {
             return
         }
         guard let langName = appDelegate.loginUser?.lang_name else {return}
-
+        
         apiTask = APIRequest.shared().getInterestSubListNew(langName : langName,interestType:interestType, page: currentPage, showLoader : showLoader) { (response, error) in
             self.arrsubCategorys.removeAll()
             if response != nil && error == nil {
-                if let arrData = response![CJsonData] as? [[String : Any]]
-                {
+                if let arrData = response![CJsonData] as? [[String : Any]]{
                     for obj in arrData{
                         self.arrsubCategorys.append(MDLProductSubCategory(fromDictionary: obj))
                     }
-
+                    
                     self.subcategoryDropDownView.arrDataSource = self.arrsubCategorys.map({ (obj) -> String in
                         return (obj.interestLevel1 ?? "")
                     })
-
+                    
                 }
             }
         }
     }
-    
-    
 }
-
 
 extension AddEditProductVC{
-
-@IBAction func btnSelectLocationCLK(_ sender : UIButton){
     
-    guard let locationPicker = CStoryboardLocationPicker.instantiateViewController(withIdentifier: "LocationPickerVC") as? LocationPickerVC else {
-        return
-    }
-    locationPicker.prefixLocation = CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
-    locationPicker.showCurrentLocationButton = true
-    locationPicker.completion = { [weak self] (placeDetail) in
-        guard let self = self else { return }
+    @IBAction func btnSelectLocationCLK(_ sender : UIButton){
         
-        self.txtLocation.text = placeDetail?.formattedAddress
-        self.latitude = placeDetail?.coordinate?.latitude ?? 0.0
-        self.longitude = placeDetail?.coordinate?.longitude ?? 0.0
+        guard let locationPicker = CStoryboardLocationPicker.instantiateViewController(withIdentifier: "LocationPickerVC") as? LocationPickerVC else {
+            return
+        }
+        locationPicker.prefixLocation = CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
+        locationPicker.showCurrentLocationButton = true
+        locationPicker.completion = { [weak self] (placeDetail) in
+            guard let self = self else { return }
+            
+            self.txtLocation.text = placeDetail?.formattedAddress
+            self.latitude = placeDetail?.coordinate?.latitude ?? 0.0
+            self.longitude = placeDetail?.coordinate?.longitude ?? 0.0
+        }
+        self.navigationController?.pushViewController(locationPicker, animated: true)
+        
     }
-    self.navigationController?.pushViewController(locationPicker, animated: true)
-  
-}
 }

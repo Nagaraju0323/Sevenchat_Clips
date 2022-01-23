@@ -154,17 +154,15 @@ extension FilterProductVC: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         guard let text = textField.text,
-            let textRange = Range(range, in: text) else{
-                return true
+              let textRange = Range(range, in: text) else{
+            return true
         }
         let updatedText = text.replacingCharacters(in: textRange,with: string)
-        //self.getProductCategory(searchText: updatedText, isLoader: false)
         self.searchCategory(searchText: updatedText)
         return true
     }
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            //self.getProductCategory(searchText: "", isLoader: false)
             self.searchCategory(searchText: "")
         }
         return true
@@ -190,7 +188,6 @@ extension FilterProductVC: UITableViewDelegate, UITableViewDataSource {
             return 0
         }
         self.tblFilter.restore()
-//        return searchData.count + 1
         return searchData.count
     }
     
@@ -199,13 +196,6 @@ extension FilterProductVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductFilterCell") as? ProductFilterCell else{
             return UITableViewCell(frame: .zero)
         }
-        
-//        guard indexPath.row != 0 else { // Select all
-//            cell.category = selectAll
-//            return cell
-//        }
-//
-       // let filterObj = self.searchData[indexPath.row - 1]
         let filterObj = self.searchData[indexPath.row]
         cell.category = filterObj
         return cell
@@ -213,23 +203,10 @@ extension FilterProductVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        if indexPath.row == 0{ // Select All
-//            selectAll.isSelected.toggle()
-//            self.arrFilter.forEach({$0.isSelected = selectAll.isSelected})
-//            self.tblFilter.reloadData()
-//            return
-//        }
-        
-        
-        
         selectAll.isSelected = false
-//        let filterObj = self.searchData[indexPath.row - 1]
         let filterObj = self.searchData[indexPath.row]
         self.arrFilter.forEach({$0.isSelected = selectAll.isSelected})
         filterObj.isSelected.toggle()
-        
-     
-        
         if checkIsAllCategorySelected(){
             selectAll.isSelected.toggle()
             self.searchData.forEach({$0.isSelected = !selectAll.isSelected})

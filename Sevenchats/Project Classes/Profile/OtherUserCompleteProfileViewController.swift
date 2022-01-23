@@ -9,7 +9,7 @@
 import UIKit
 
 class OtherUserCompleteProfileViewController: ParentViewController,MICollectionViewBubbleLayoutDelegate {
-
+    
     @IBOutlet weak var lblBiography : UILabel!
     @IBOutlet weak var lblGender : UILabel!
     @IBOutlet weak var lblStatus : UILabel!
@@ -17,7 +17,6 @@ class OtherUserCompleteProfileViewController: ParentViewController,MICollectionV
     @IBOutlet weak var lblReligion : UILabel!
     @IBOutlet weak var lblProfession : UILabel!
     @IBOutlet weak var lblIncomeLevel : UILabel!
-
     @IBOutlet weak var lblTitleBiography : UILabel!
     @IBOutlet weak var lblTitleGender : UILabel!
     @IBOutlet weak var lblTitleStatus : UILabel!
@@ -26,9 +25,9 @@ class OtherUserCompleteProfileViewController: ParentViewController,MICollectionV
     @IBOutlet weak var lblTitleProfession : UILabel!
     @IBOutlet weak var lblTitleIncomeLevel : UILabel!
     @IBOutlet weak var lblTitlePersonalInterest : UILabel!
-    
     @IBOutlet weak var clPersonalInterest : UICollectionView!
     @IBOutlet weak var cnCollHeight : NSLayoutConstraint!
+    
     var isLoginUser : Bool!
     var arrPersonalInterest = [[String : AnyObject]]()
     var userID : Int!
@@ -38,7 +37,7 @@ class OtherUserCompleteProfileViewController: ParentViewController,MICollectionV
         Initialization()
         clPersonalInterest.isHidden = true
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -97,9 +96,6 @@ extension OtherUserCompleteProfileViewController{
             }else{
                 lblEducation.text = nil
             }
-            
-            
-            
             //...Relationship
             let arrRelation = TblRelation.fetch(predicate: NSPredicate(format: "%K == %d", CRelationship_id, appDelegate.loginUser?.relationship_id ?? 0), orderBy: CName, ascending: true)
             if (arrRelation?.count)! > 0 {
@@ -145,44 +141,27 @@ extension OtherUserCompleteProfileViewController{
             lblEducation.text  = appDelegate.loginUser?.education_name
             lblStatus.text = appDelegate.loginUser?.relationship
             lblIncomeLevel.text = appDelegate.loginUser?.annual_income
-            
-////            arrPersonalInterest = appDelegate.loginUser?.interests as! [[String : AnyObject]]
-//            clPersonalInterest.reloadData()
-//            clPersonalInterest.performBatchUpdates( { [weak self] in
-//                self?.cnCollHeight.constant = self?.clPersonalInterest.contentSize.height ?? 0
-//            }) { [weak self] (completed) in
-//                guard let _ = self else { return }
-//                self?.cnCollHeight.constant = self?.clPersonalInterest.contentSize.height ?? 0
-//            }
-            
         } else {
             self.loadUserDetail()
         }
     }
-//MARK:- NEW CODE
+    //MARK:- NEW CODE
     
     func loadUserDetail() {
-            if let userid = userID{
-                APIRequest.shared().userDetailNew(userID: userid.toString,apiKeyCall: "users/id/") { [weak self] (response, error) in
-                //APIRequest.shared().userDetail(userID: userid) { [weak self] (response, error) in
-    //                guard let self = self else { return }
-                    if response != nil && error == nil {
-                        //if let userInfo = response![CJsonData] as? [String : Any]{
-                        if let Info = response!["data"] as? [[String:Any]]{
-                            for userInfo in Info {
-                                self?.title = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-                           
-                        
+        if let userid = userID{
+            APIRequest.shared().userDetailNew(userID: userid.toString,apiKeyCall: "users/id/") { [weak self] (response, error) in
+                if response != nil && error == nil {
+                    if let Info = response!["data"] as? [[String:Any]]{
+                        for userInfo in Info {
                             self?.title = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-
+                            self?.title = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
+                            
                             self?.lblBiography.text = userInfo.valueForString(key: CShort_biography)
-                                self?.lblProfession.text = userInfo.valueForString(key: CProfession)
-                                self?.lblReligion.text = userInfo.valueForString(key: CReligion)
-                                self?.lblEducation.text = userInfo.valueForString(key: "education")
-                                self?.lblStatus.text = userInfo.valueForString(key: "relationship")
-                                self?.lblIncomeLevel.text = userInfo.valueForString(key: "income")
-
-
+                            self?.lblProfession.text = userInfo.valueForString(key: CProfession)
+                            self?.lblReligion.text = userInfo.valueForString(key: CReligion)
+                            self?.lblEducation.text = userInfo.valueForString(key: "education")
+                            self?.lblStatus.text = userInfo.valueForString(key: "relationship")
+                            self?.lblIncomeLevel.text = userInfo.valueForString(key: "income")
                             switch userInfo.valueForInt(key: CGender) {
                             case CMale :
                                 self?.lblGender.text = CRegisterGenderMale
@@ -191,33 +170,20 @@ extension OtherUserCompleteProfileViewController{
                             default :
                                 self?.lblGender.text = CRegisterGenderOther
                             }
-
+                            
                             //...Relationship
                             let arrRelation = TblRelation.fetch(predicate: NSPredicate(format: "%K == %d", CRelationship_id, userInfo.valueForInt(key: CRelationship_id) ?? 0), orderBy: CName, ascending: true)
                             if (arrRelation?.count)! > 0 {
                                 let dict = arrRelation![0] as? TblRelation
                                 self?.lblStatus.text = dict?.name
                             }
-
-                            //...Education
-                            //Oldcode by Mi
-                            /*
-                            let arrEducation = TblEducation.fetch(predicate: NSPredicate(format: "%K == %d", CEducation_id, userInfo.valueForInt(key: CEducation_id) ?? 0), orderBy: CName, ascending: true)
-                            if (arrEducation?.count)! > 0 {
-                                let dict = arrEducation![0] as? TblEducation
-                                self.lblEducation.text = dict?.name
-                            }
-                            */
-                            //Newcode by Nagaraju
-
-
                             //...Income
                             let arrIncome = TblAnnualIncomes.fetch(predicate: NSPredicate(format: "%K == %d", CAnnual_income_id, userInfo.valueForInt(key: CAnnual_income_id) ?? 0), orderBy: CIncome, ascending: true)
                             if (arrIncome?.count)! > 0 {
                                 let dict = arrIncome![0] as? TblAnnualIncomes
                                 self?.lblIncomeLevel.text = dict?.income
                             }
-
+                            
                             if let arrInter = userInfo[CInterest] as? [[String : AnyObject]]{
                                 self?.arrPersonalInterest = arrInter
                                 self?.clPersonalInterest.reloadData()
@@ -228,78 +194,14 @@ extension OtherUserCompleteProfileViewController{
                                     self?.cnCollHeight.constant = self?.clPersonalInterest.contentSize.height ?? 0
                                 }
                             }
-
+                            
                         }
-                    }
                     }
                 }
             }
+        }
     }
-//    func loadUserDetail() {
-//        if let userid = userID{
-//            APIRequest.shared().userDetail(userID: userid) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                if response != nil && error == nil {
-//                    if let userInfo = response![CJsonData] as? [String : Any]{
-//                        self.title = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-//
-//                        self.lblBiography.text = userInfo.valueForString(key: CShort_biography)
-//                        self.lblProfession.text = userInfo.valueForString(key: CProfession)
-//                        self.lblReligion.text = userInfo.valueForString(key: CReligion)
-//
-//                        switch userInfo.valueForInt(key: CGender) {
-//                        case CMale :
-//                            self.lblGender.text = CRegisterGenderMale
-//                        case CFemale :
-//                            self.lblGender.text = CRegisterGenderFemale
-//                        default :
-//                            self.lblGender.text = CRegisterGenderOther
-//                        }
-//
-//                        //...Relationship
-//                        let arrRelation = TblRelation.fetch(predicate: NSPredicate(format: "%K == %d", CRelationship_id, userInfo.valueForInt(key: CRelationship_id) ?? 0), orderBy: CName, ascending: true)
-//                        if (arrRelation?.count)! > 0 {
-//                            let dict = arrRelation![0] as? TblRelation
-//                            self.lblStatus.text = dict?.name
-//                        }
-//
-//                        //...Education
-//                        //Oldcode by Mi
-//                        /*
-//                        let arrEducation = TblEducation.fetch(predicate: NSPredicate(format: "%K == %d", CEducation_id, userInfo.valueForInt(key: CEducation_id) ?? 0), orderBy: CName, ascending: true)
-//                        if (arrEducation?.count)! > 0 {
-//                            let dict = arrEducation![0] as? TblEducation
-//                            self.lblEducation.text = dict?.name
-//                        }
-//                        */
-
-//
-//
-//                        //...Income
-//                        let arrIncome = TblAnnualIncomes.fetch(predicate: NSPredicate(format: "%K == %d", CAnnual_income_id, userInfo.valueForInt(key: CAnnual_income_id) ?? 0), orderBy: CIncome, ascending: true)
-//                        if (arrIncome?.count)! > 0 {
-//                            let dict = arrIncome![0] as? TblAnnualIncomes
-//                            self.lblIncomeLevel.text = dict?.income
-//                        }
-//
-//                        if let arrInter = userInfo[CInterest] as? [[String : AnyObject]]{
-//                            self.arrPersonalInterest = arrInter
-//                            self.clPersonalInterest.reloadData()
-//                            self.clPersonalInterest.performBatchUpdates({ [weak self] in
-//                                self?.cnCollHeight.constant = self?.clPersonalInterest.contentSize.height ?? 0
-//                            }) { [weak self](completed) in
-//                                guard let _ = self else { return }
-//                                self?.cnCollHeight.constant = self?.clPersonalInterest.contentSize.height ?? 0
-//                            }
-//                        }
-//
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
-
 
 // MARK:- --------- UICollectionView Delegate/Datasources
 extension OtherUserCompleteProfileViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -324,8 +226,7 @@ extension OtherUserCompleteProfileViewController: UICollectionViewDelegate, UICo
     // MARK: -
     // MARK: - MICollectionViewBubbleLayoutDelegate
     
-    func collectionView(_ collectionView:UICollectionView, itemSizeAt indexPath:NSIndexPath) -> CGSize
-    {
+    func collectionView(_ collectionView:UICollectionView, itemSizeAt indexPath:NSIndexPath) -> CGSize{
         let fontToResize =  CFontPoppins(size: 12, type: .light).setUpAppropriateFont()
         let dict = arrPersonalInterest[indexPath.row]
         var size = dict.valueForString(key: CName).size(withAttributes: [NSAttributedString.Key.font: fontToResize!])
@@ -336,10 +237,8 @@ extension OtherUserCompleteProfileViewController: UICollectionViewDelegate, UICo
         if size.width > collectionView.frame.size.width {
             size.width = collectionView.frame.size.width
         }
-        
         return size;
     }
-    
 }
 
 // MARK:- --------- Action Event

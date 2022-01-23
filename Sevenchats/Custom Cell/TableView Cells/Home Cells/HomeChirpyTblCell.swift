@@ -17,9 +17,7 @@ class HomeChirpyTblCell: UITableViewCell {
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblChirpyPostDate : UILabel!
     @IBOutlet weak var lblChirpyCategory : UILabel!
-    
     @IBOutlet weak var lblChirpyType : UILabel!
-    //@IBOutlet weak var btnReport : UIButton!
     @IBOutlet weak var btnShare : UIButton!
     @IBOutlet weak var btnIconShare : UIButton!
     @IBOutlet weak var btnMore : UIButton!
@@ -28,6 +26,7 @@ class HomeChirpyTblCell: UITableViewCell {
     @IBOutlet weak var btnLikesCount : UIButton!
     @IBOutlet weak var btnLike : UIButton!
     @IBOutlet weak var btnComment : UIButton!
+
     var likeCount = 0
     var postID = 0
     var likeTotalCount = 0
@@ -63,17 +62,15 @@ class HomeChirpyTblCell: UITableViewCell {
             btnLike.contentHorizontalAlignment = .left
             btnLikesCount.contentHorizontalAlignment = .right
             btnComment.contentHorizontalAlignment = .right
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
             btnShare.contentHorizontalAlignment = .right
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+           
         }else{
             // Normal Flow...
             btnLike.contentHorizontalAlignment = .right
             btnLikesCount.contentHorizontalAlignment = .left
             btnComment.contentHorizontalAlignment = .left
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
             btnShare.contentHorizontalAlignment = .left
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
+           
         }
     }
 }
@@ -83,17 +80,11 @@ extension HomeChirpyTblCell{
         
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         posted_ID = postInfo.valueForString(key: "user_id")
-//        postID = postInfo.valueForInt(key: CId) ?? 0
         lblChirpyType.text = CTypeChirpy
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         lblChirpyDescription.text = postInfo.valueForString(key: CContent)
         lblChirpyCategory.text = postInfo.valueForString(key: CCategory).uppercased()
-//        self.lblChirpyPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-        
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
-//        btnLike.isSelected = postInfo.valueForInt(key: CIs_Like) == 1
-//        likeCount = postInfo.valueForInt(key: CTotal_like) ?? 0
-//        btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
         let commentCount = postInfo.valueForInt(key: CTotalComment) ?? 0
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
         btnShare.setTitle(CBtnShare, for: .normal)
@@ -109,7 +100,6 @@ extension HomeChirpyTblCell{
         
         let created_At = postInfo.valueForString(key: CCreated_at)
         let cnvStr = created_At.stringBefore("G")
-//        let removeFrst = cnvStr.chopPrefix(3)
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblChirpyPostDate.text = startCreated
         
@@ -121,12 +111,7 @@ extension HomeChirpyTblCell{
 extension HomeChirpyTblCell {
     
     @IBAction func onLikePressed(_ sender:UIButton){
-        
-//        self.btnLike.isSelected = !self.btnLike.isSelected
-//        self.likeCount = self.btnLike.isSelected ? self.likeCount + 1 : self.likeCount - 1
-//        self.btnLikesCount.setTitle(appDelegate.getLikeString(like: self.likeCount), for: .normal)
-//        MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.postID, rss_id: nil, type: 1, likeStatus: self.btnLike.isSelected ? 1 : 0, viewController: self.viewController)
-      
+
         self.btnLike.isSelected = !self.btnLike.isSelected
         if self.btnLike.isSelected == true{
             likeCount = 1
@@ -153,7 +138,6 @@ extension HomeChirpyTblCell {
                     let stausLike = data["status"] as? String ?? "0"
                     if stausLike == "0"{
                         self?.likeCountfromSever(productId: Int((self?.self.postID)!),likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
-//                        self?.likeCountfromSever(productId: Int((self?.self.postID)!))
                     }
                 }
             }
@@ -166,14 +150,11 @@ extension HomeChirpyTblCell {
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
-//                    info = response!["liked_users"] as? [String:Any] ?? [:]
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
                     self?.btnLikesCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
-                    
                     guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
-                    
                     if self?.notifcationIsSlected == true{
                         MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
                         self?.notifcationIsSlected == false 

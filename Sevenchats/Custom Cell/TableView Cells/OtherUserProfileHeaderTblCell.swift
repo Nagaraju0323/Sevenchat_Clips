@@ -145,25 +145,6 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
         self.userProfileImg = userInfo.valueForString(key: CImage)
         imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
         imgUserCover.loadImageFromUrl(userInfo.valueForString(key: "cover_image"), true)
-        //btnTotalFriend.setTitle(userInfo.valueForString(key: CTotal_friends), for: .normal)
-        /*if (totalFriend) <= 0{
-         hideFriendsList(isHide: true)
-         }else{
-         hideFriendsList(isHide: false)
-         }*/
-        //        let totalFriend = userInfo.valueForInt(key: CTotal_friends) ?? 0
-        //        let totalFriend = self.frdsofFrds.count
-        //        btnTotalFriend.hide(byWidth: !(totalFriend > 4))
-        //        btnTotalFriend.setTitle("\(totalFriend)", for: .normal)
-        //
-        //        viewFriendFirst.hide(byWidth: true)
-        //        viewFriendSecond.hide(byWidth: true)
-        //        _ = viewFriendSecond.setConstraintConstant(0, edge: .leading, ancestor: true)
-        //        viewFriendThird.hide(byWidth: true)
-        //        _ = viewFriendThird.setConstraintConstant(0, edge: .leading, ancestor: true)
-        //        viewFriendFourth.hide(byWidth: true)
-        //        _ = viewFriendFourth.setConstraintConstant(0, edge: .leading, ancestor: true)
-        
         let user_id = userInfo.valueForString(key: "user_id")
         self.getFriendListFromServer(user_id)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) {
@@ -276,15 +257,7 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
             //            }
             // Put your code which should be executed with a delay here
         }
-        
-        
-        //        btnTotalFriend.isHidden = userInfo.valueForInt(key: CTotal_friends)! > 4 ? false : true
-        
-        // Hide view complete profile button
-        // For Friend user
-        // Basic -> 1, Completed -> 2
-        //        if userInfo.valueForInt(key: CFriend_status) == 5 {
-        //           if userInfo.valueForInt(key: CVisible_to_friend) == 1 {
+     
         
         for data in frdList{
             if data?.valueForString(key: "request_status") == "5"{

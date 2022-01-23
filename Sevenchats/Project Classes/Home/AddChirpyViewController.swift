@@ -6,11 +6,14 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
-/********************************************************
- * Author :  Chandrika.R                                *
- * Model  : Add New Categories                          *
- * Description:                                         *
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : AddChirpyViewController                     *
+ * Changes :                                             *
+ * Add article and limit with 5000 charectes,select      *
+ * Categries                                             *
  ********************************************************/
+
 
 import UIKit
 
@@ -35,25 +38,23 @@ class AddChirpyViewController: ParentViewController {
             self.txtViewChirpyContent.type = "1"
         }
     }
-
+    
     @IBOutlet weak var btnAddMoreFriends : UIButton!
     @IBOutlet weak var lblTextCount : UILabel!
-    
     @IBOutlet weak var btnSelectGroupFriend : UIButton!
     @IBOutlet weak var clGroupFriend : UICollectionView!
     @IBOutlet weak var viewSelectGroup : UIView!
     @IBOutlet private weak var categoryDropDownView: CustomDropDownView!
-//    @IBOutlet private weak var subcategoryDropDownView: CustomDropDownView!
     @IBOutlet weak var scrollViewContainer : UIView!
     @IBOutlet weak var lblUploadImage : UILabel!
-    
     @IBOutlet weak var txtInviteType : MIGenericTextFiled!
+    
     var selectedInviteType : Int = 3 {
         didSet{
             self.didChangeInviteType()
         }
     }
-
+    
     
     var arrSelectedGroupFriends = [[String : Any]]()
     var chirpyID : Int?
@@ -77,9 +78,8 @@ class AddChirpyViewController: ParentViewController {
         self.Initialization()
         topContainer.isHidden = true
         viewSelectGroup.isHidden = true
-//        lblTextCount.isHidden = true
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -100,14 +100,13 @@ class AddChirpyViewController: ParentViewController {
         setQuoteText()
         viewUploadedImageContainer.isHidden = true
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddChirpyClicked(_:)))]
-
+        
         let arrCategory = MIGeneralsAPI.shared().fetchCategoryFromLocalChiripy()
         
         /// Set Dropdown on txtCategory
         categoryDropDownView.arrDataSource = arrCategory.map({ (obj) -> String in
             return (obj[CCategoryName] as? String ?? "")
         })
-        
         /// On select text from the auto-complition
         categoryDropDownView.onSelectText = { [weak self] (item) in
             
@@ -122,17 +121,16 @@ class AddChirpyViewController: ParentViewController {
             }
             
         }
-        
         let arrInviteType = [CPostPostsInviteGroups, CPostPostsInviteContacts,  CPostPostsInvitePublic, CPostPostsInviteAllFriends]
         
         txtInviteType.setPickerData(arrPickerData: arrInviteType, selectedPickerDataHandler: { [weak self] (text, row, component) in
             guard let self = self else { return }
             self.selectedInviteType = (row + 1)
-            }, defaultPlaceholder: CPostPostsInviteGroups)
+        }, defaultPlaceholder: CPostPostsInviteGroups)
         
         // By default `All type` selected
         self.selectedInviteType = 4
-
+        
     }
     
     fileprivate func setQuoteText(){
@@ -152,16 +150,14 @@ class AddChirpyViewController: ParentViewController {
         
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
             // Reverse Flow...
-            
             btnSelectGroupFriend.contentHorizontalAlignment = .right
             clGroupFriend.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         }else{
             // Normal Flow...
-            
             btnSelectGroupFriend.contentHorizontalAlignment = .left
             clGroupFriend.transform = CGAffineTransform.identity
         }
-
+        
         if chirpyType == .editChirpy{
             self.title = CNavEditChirpy
         }else{
@@ -190,7 +186,6 @@ extension AddChirpyViewController{
         if chirpyType == .editChirpy{
             apiPara[CId] = chirpyID
         }
-        
         do {
             let data = try JSONEncoder().encode(arrImagesVideo)
             let string = String(data: data, encoding: .utf8)!
@@ -198,13 +193,11 @@ extension AddChirpyViewController{
             let replaced3 = replaced2.replacingOccurrences(of: "}\"", with: "}")
             let replaced4 = replaced3.replacingOccurrences(of: "\\/\\/", with: "//")
             let replaced5 = replaced4.replacingOccurrences(of: "\\/", with: "/")
-            print(replaced5)
             self.ImguploadStr = replaced5
         } catch { print(error) }
         
         let txtchiripy = txtViewChirpyContent.text.replace(string: "\n", replacement: "\\n")
         
-       
         guard let userID = appDelegate.loginUser?.user_id else {return}
         var dict :[String:Any]  =  [
             "user_id":userID.description,
@@ -239,7 +232,7 @@ extension AddChirpyViewController{
         APIRequest.shared().addEditPost(para: dict, image: imgChirpy.image, apiKeyCall: CAPITagchirpies) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil && error == nil{
-               
+                
                 if let chirpyInfo = response![CJsonData] as? [String : Any]{
                     MIGeneralsAPI.shared().refreshPostRelatedScreens(chirpyInfo,self.chirpyID, self,self.chirpyType == .editChirpy ? .editPost : .addPost)
                     
@@ -278,41 +271,38 @@ extension AddChirpyViewController{
                 
                 self.navigationController?.popViewController(animated: true)
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.chirpyType == .editChirpy ? CMessageChirpyPostUpdated : CMessageChirpyPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
-               
+                
             }
         }
     }
     
     fileprivate func removeChirpyImage() {
-
+        
     }
     
     fileprivate func loadChirpyDetailFromServer(){
-            if let chirpyID = self.chirpyID{
-                
-                APIRequest.shared().viewPostDetailNew(postID: chirpyID, apiKeyCall: CAPITagchirpiesDetials){ [weak self] (response, error) in
-              //  APIRequest.shared().viewPostDetail(postID: shouID) { [weak self] (response, error) in
-                    guard let self = self else { return }
-                    if response != nil {
-                        self.parentView.isHidden = false
-                        if let Info = response!["data"] as? [[String:Any]]{
-                            for chirpyInfo in Info {
+        if let chirpyID = self.chirpyID{
+            
+            APIRequest.shared().viewPostDetailNew(postID: chirpyID, apiKeyCall: CAPITagchirpiesDetials){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    self.parentView.isHidden = false
+                    if let Info = response!["data"] as? [[String:Any]]{
+                        for chirpyInfo in Info {
                             self.setChirpyDetail(chirpyInfo)
-                            }
                         }
                     }
                 }
             }
         }
-
+    }
+    
     fileprivate func setChirpyDetail (_ chirpyInfo : [String : Any]) {
         
         self.categoryID = chirpyInfo.valueForInt(key: CCategory_Id)
         categoryDropDownView.txtCategory.text = chirpyInfo.valueForString(key: CCategory)
         txtViewChirpyContent.text = chirpyInfo.valueForString(key: CContent)
         lblTextCount.text = "\(txtViewChirpyContent.text.count)/5000"
-//        lblTextCount.isHidden = true
-        
         //...Set Chirpy image
         if chirpyInfo.valueForString(key: CImage) != "" {
             imgChirpy.loadImageFromUrl(chirpyInfo.valueForString(key: CImage), false)
@@ -325,7 +315,7 @@ extension AddChirpyViewController{
         
         //...Set invite type
         self.selectedInviteType = chirpyInfo.valueForInt(key: CPublish_To) ?? 3
-
+        
         switch self.selectedInviteType {
         case 1:
             if let arrInvitee = chirpyInfo[CInvite_Groups] as? [[String : Any]]{
@@ -356,7 +346,7 @@ extension AddChirpyViewController{
             self.txtViewChirpyContent.updatePlaceholderFrame(true)
         }
     }
-
+    
 }
 
 
@@ -388,9 +378,7 @@ extension AddChirpyViewController: UICollectionViewDelegate, UICollectionViewDat
         
         arrSelectedGroupFriends.remove(at: indexPath.row)
         clGroupFriend.reloadData()
-        
-        if arrSelectedGroupFriends.count == 0
-        {
+        if arrSelectedGroupFriends.count == 0{
             btnSelectGroupFriend.isHidden = false
             clGroupFriend.isHidden = true
             btnAddMoreFriends.isHidden = true
@@ -422,9 +410,7 @@ extension AddChirpyViewController: GenericTextViewDelegate{
     func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
         
         if textView == txtViewChirpyContent{
-//            lblTextCount.isHidden = true
             lblTextCount.text = "\(textView.text.count)/5000"
-//            lblTextCount.text = "\(textView.text.count)/\(txtViewChirpyContent.textLimit ?? "0")"
         }
     }
 }
@@ -440,15 +426,11 @@ extension AddChirpyViewController{
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
                 
-                guard let mobileNum = appDelegate.loginUser?.mobile else {
-                    return
-                }
+                guard let mobileNum = appDelegate.loginUser?.mobile else {return}
                 MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                 MInioimageupload.shared().callback = { message in
-                print("UploadImage::::::::::::::\(message)")
-                self.uploadImgUrl = message
+                    self.uploadImgUrl = message
                 }
-
             }
         }
     }
@@ -502,13 +484,11 @@ extension AddChirpyViewController{
             self.txtInviteType.text = CPostPostsInviteContacts
             viewSelectGroup.hide(byHeight: false)
         case 3:
-            //self.txtInviteType.text = CPostPostsInviteAllFriends
-          self.txtInviteType.text = CPostPostsInvitePublic
+            self.txtInviteType.text = CPostPostsInvitePublic
             btnSelectGroupFriend.isHidden = true
             viewSelectGroup.hide(byHeight: true)
         case 4:
             self.txtInviteType.text = CPostPostsInviteAllFriends
-           // self.txtInviteType.text = CPostPostsInvitePublic
             btnSelectGroupFriend.isHidden = true
             viewSelectGroup.hide(byHeight: true)
         default:

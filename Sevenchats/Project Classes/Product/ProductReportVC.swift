@@ -21,13 +21,11 @@ class ProductReportVC: ParentViewController {
         }
     }
     @IBOutlet weak var lblTextCount: MIGenericLabel!
-    
     @IBOutlet weak var lblWhyAreYouReporting: MIGenericLabel!
     @IBOutlet weak var lblIThinkItsScam: MIGenericLabel!
     @IBOutlet weak var lblItsDuplicateList: MIGenericLabel!
     @IBOutlet weak var lblItsWrongCat: MIGenericLabel!
     @IBOutlet weak var lblOther: MIGenericLabel!
-    
     @IBOutlet weak var btnSubmit: MIGenericButton!
     @IBOutlet weak var btnIThinkItsScam: MIGenericButton!
     @IBOutlet weak var btnItsDuplicateList: MIGenericButton!
@@ -65,9 +63,7 @@ extension ProductReportVC {
         lblItsDuplicateList.text = CItADuplicateList
         lblItsWrongCat.text = CItsInWrongCat
         lblOther.text = COtherText
-        
         btnSubmit.setTitle(CForgotBtnSubmit, for: .normal)
-        
         txtProblem.placeHolder = CWriteAboutYourProblem
         txtProblem.isScrollEnabled = true
         txtProblem.txtDelegate = self
@@ -75,8 +71,6 @@ extension ProductReportVC {
         lblTextCount.text = "0/\(txtProblem.textLimit ?? "0")"
         
         func setRadioButtonImage(_ sender:UIButton){
-//            sender.setImage(UIImage(named: "ic_btn_radio_selected"), for: .selected)
-//            sender.setImage(UIImage(named: "ic_btn_radio_unselected"), for: .normal)
             sender.setImage(UIImage(named: "ic_select"), for: .selected)
             sender.setImage(UIImage(named: "ic_unselect"), for: .normal)
         }
@@ -115,15 +109,10 @@ extension ProductReportVC {
     }
     
     @IBAction func onSubmitPressed(_ sender: UIButton) {
-       
+        
         DispatchQueue.main.async {
             self.reportProductApi()
         }
-//        self.reportProductApi()
-//        if isValidAllFields(){
-//            print("Ready for submit")
-//            self.reportProductApi()
-//        }
     }
 }
 
@@ -139,7 +128,6 @@ extension ProductReportVC {
         para["status_id"] = "1"
         
         APIRequest.shared().reportProduct(para: para) { [weak self](response, error) in
-            //            guard let self = self else { return }
             if response != nil {
                 GCDMainThread.async {
                     self?.navigationController?.popToRootViewController(animated: true)

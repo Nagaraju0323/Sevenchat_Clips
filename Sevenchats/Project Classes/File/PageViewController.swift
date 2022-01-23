@@ -20,15 +20,6 @@ class PageViewController: UIPageViewController {
     
     //MARK: - IBOutlet/Object/Variable Declaration
     var orderedViewControllers: [UIViewController] = [UIViewController]()
-    
-    /*lazy var orderedViewControllers: [UIViewController] = {
-        return [
-            FeaturedListVC.instantiateFrom(appStoryboard: .Dashboard),
-            FeaturedListVC.instantiateFrom(appStoryboard: .Dashboard),
-            FeaturedListVC.instantiateFrom(appStoryboard: .Dashboard)
-        ]
-    }()*/
-    
     var currentIndex : Int = 0
     
     //MARK: - Life Cycle

@@ -9,7 +9,7 @@
 import UIKit
 
 class HomeFourmTblCell: UITableViewCell {
-
+    
     @IBOutlet weak var viewMainContainer : UIView!
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var lblFourmDescription : UILabel!
@@ -22,12 +22,12 @@ class HomeFourmTblCell: UITableViewCell {
     @IBOutlet weak var btnLikesCount : UIButton!
     @IBOutlet weak var btnLike : UIButton!
     @IBOutlet weak var btnComment : UIButton!
-    //@IBOutlet var btnReport : UIButton!
     @IBOutlet weak var btnShare : UIButton!
     @IBOutlet weak var btnIconShare : UIButton!
     @IBOutlet weak var btnMore : UIButton!
     @IBOutlet weak var btnProfileImg : UIButton!
     @IBOutlet weak var btnUserName : UIButton!
+    
     var likeCount = 0
     var postID = 0
     var likeTotalCount = 0
@@ -49,7 +49,7 @@ class HomeFourmTblCell: UITableViewCell {
             self.lblFourmType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
         }
-   }
+    }
     override func layoutSubviews() {
         super.layoutSubviews()
         self.updateUIAccordingToLanguage()
@@ -62,17 +62,15 @@ class HomeFourmTblCell: UITableViewCell {
             btnLike.contentHorizontalAlignment = .left
             btnLikesCount.contentHorizontalAlignment = .right
             btnComment.contentHorizontalAlignment = .right
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 7)
             btnShare.contentHorizontalAlignment = .right
-           // btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8)
+            
         }else{
             // Normal Flow...
             btnLike.contentHorizontalAlignment = .right
             btnLikesCount.contentHorizontalAlignment = .left
             btnComment.contentHorizontalAlignment = .left
-            //btnComment.titleEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
             btnShare.contentHorizontalAlignment = .left
-            //btnShare.titleEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+            
         }
     }
 }
@@ -80,24 +78,16 @@ class HomeFourmTblCell: UITableViewCell {
 extension HomeFourmTblCell{
     
     func homeFourmDataSetup(_ postInfo : [String : Any]){
-//        postID = postInfo.valueForInt(key: CId) ?? 0
+        
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         posted_ID = postInfo.valueForString(key: "user_id")
         lblFourmType.text = CTypeForum
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-//        self.lblFourmPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
         lblFourmTitle.text = postInfo.valueForString(key: CTitle)
         lblFourmDescription.text = postInfo.valueForString(key: CContent)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         self.lblFourmCategory.text = postInfo.valueForString(key: CCategory).uppercased()
-//        btnLike.isSelected = postInfo.valueForInt(key: CIs_Like) == 1
-//        likeCount = postInfo.valueForInt(key: CTotal_like) ?? 0
-//        btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-        
-//        let commentCount = postInfo.valueForInt(key: CTotalComment) ?? 0
-//        btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-//        btnShare.setTitle(CBtnShare, for: .normal)
         let commentCount = postInfo.valueForString(key: "comments").toInt
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount ?? 0), for: .normal)
         btnShare.setTitle(CBtnShare, for: .normal)
@@ -107,61 +97,21 @@ extension HomeFourmTblCell{
         }else {
             btnLike.isSelected = false
         }
-
+        
         likeCount = postInfo.valueForString(key: CLikes).toInt ?? 0
         btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
         
         let created_At = postInfo.valueForString(key: CCreated_at)
         let cnvStr = created_At.stringBefore("G")
-//        let removeFrst = cnvStr.chopPrefix(3)
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblFourmPostDate.text = startCreated
-        
-        
-        
     }
 }
 
 //MARK: - IBAction's
 extension HomeFourmTblCell {
     
-//    @IBAction func onLikePressed(_ sender:UIButton){
-//
-////        self.btnLike.isSelected = !self.btnLike.isSelected
-////        self.likeCount = self.btnLike.isSelected ? self.likeCount + 1 : self.likeCount - 1
-////        self.btnLikesCount.setTitle(appDelegate.getLikeString(like: self.likeCount), for: .normal)
-////        MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.postID, rss_id: nil, type: 1, likeStatus: self.btnLike.isSelected ? 1 : 0, viewController: self.viewController)
-//
-//        self.btnLike.isSelected = !self.btnLike.isSelected
-//        if self.btnLike.isSelected == true{
-//            likeCount = 1
-//        }else {
-//            likeCount = 2
-//        }
-//        guard let userID = appDelegate.loginUser?.user_id else {
-//            return
-//        }
-//        APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: Int(self.postID), isLike: likeCount){ [weak self](response, error) in
-//            guard let _ = self else { return }
-//            if response != nil {
-//                GCDMainThread.async {
-//                    let data = response![CJsonMeta] as? [String:Any] ?? [:]
-//                    let stausLike = data["status"] as? String ?? "0"
-//                    if stausLike == "0"{
-//                        self?.likeCountfromSever(productId: Int((self?.self.postID)!))
-//                    }
-//                }
-//            }
-//        }
-//
-//    }
-    
     @IBAction func onLikePressed(_ sender:UIButton){
-        
-//        self.btnLike.isSelected = !self.btnLike.isSelected
-//        self.likeCount = self.btnLike.isSelected ? self.likeCount + 1 : self.likeCount - 1
-//        self.btnLikesCount.setTitle(appDelegate.getLikeString(like: self.likeCount), for: .normal)
-//        MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.postID, rss_id: nil, type: 1, likeStatus: self.btnLike.isSelected ? 1 : 0, viewController: self.viewController)
         
         self.btnLike.isSelected = !self.btnLike.isSelected
         
@@ -181,10 +131,10 @@ extension HomeFourmTblCell {
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async {
-                   
+                    
                     let infodatass = response![CJsonData] as? [[String:Any]] ?? [[:]]
                     for infora in infodatass{
-                    self?.info = infora
+                        self?.info = infora
                     }
                     let data = response![CJsonMeta] as? [String:Any] ?? [:]
                     let stausLike = data["status"] as? String ?? "0"
@@ -196,29 +146,11 @@ extension HomeFourmTblCell {
         }
     }
     
-    
-    
-    
-    
-//    func likeCountfromSever(productId: Int){
-//        APIRequest.shared().likeUnlikeProductCount(productId: Int(self.postID) ){ [weak self](response, error) in
-//            guard let _ = self else { return }
-//            if response != nil {
-//                GCDMainThread.async { [self] in
-//                    self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
-//                    self?.btnLikesCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
-//                }
-//            }
-//        }
-//    }
-    
-    
     func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){
         APIRequest.shared().likeUnlikeProductCount(productId: Int(self.postID) ){ [weak self](response, error) in
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
-//                    info = response!["liked_users"] as? [String:Any] ?? [:]
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
                     self?.btnLikesCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
@@ -241,8 +173,8 @@ extension HomeFourmTblCell {
                     MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
                 }
             }
-          
+            
         }
     }
 }
-    
+

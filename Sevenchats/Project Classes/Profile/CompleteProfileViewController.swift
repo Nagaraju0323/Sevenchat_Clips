@@ -31,13 +31,10 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
     @IBOutlet var btnUnEmployed : UIButton!
     @IBOutlet var btnStudent : UIButton!
     @IBOutlet var btnAddInterest : UIButton!
-    
     @IBOutlet var btnTextfiledClearStatus : UIButton!
     @IBOutlet var btnTextfiledClearEducation : UIButton!
     @IBOutlet var btnTextfiledClearIncomLevel : UIButton!
     @IBOutlet var vwProfessionAndIncome : UIView!
-    
-    
     @IBOutlet var scrollView : UIScrollView!
     
     var arrInterest = [[String : Any]]()
@@ -49,22 +46,17 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
     var inCome = ""
     var currentPage : Int = 0
     var apiTask : URLSessionTask?
-   
-    
-    //Newchanges
     var firstName_edit:String?
     var lastName_edit:String?
     var dob_edit:String?
     var isSelected:Bool?
     var category_id = ""
-  
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialization()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -73,26 +65,21 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
         btnAddInterest.isHidden = true
-        //lblProfession.isHidden = true
         viewAddInterest.isHidden = true
         lblPersonalInterest.isHidden = true
-        
         viewAddInterest.backgroundColor = .clear
-        
     }
     
     // MARK:- ---------- Initialization
     
     func Initialization(){
+        
         self.title = CNavCompleteProfile
         txtReligion.txtDelegate = self
         txtProfession.txtDelegate = self
-        
         viewAddInterest.layer.cornerRadius = 3
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_save_profile"), style: .plain, target: self, action: #selector(btnCompleteClicked(_:)))
-        
         self.prefilledUserDetail()
-        
         txtGender.setPickerData(arrPickerData: [CRegisterGenderMale, CRegisterGenderFemale ,CRegisterGenderOther], selectedPickerDataHandler: { (text, row, component) in
         }, defaultPlaceholder: "")
         
@@ -139,7 +126,6 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
         btnEmployed.setTitle(CProfilePlaceholderEmployed, for: .normal)
         btnUnEmployed.setTitle(CBtnUnemployed, for: .normal)
         btnStudent.setTitle(CBtnStudent, for: .normal)
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.scrollView.contentOffset = CGPoint.zero
         }
@@ -164,7 +150,7 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
         }else {
             txtEducation.text  = appDelegate.loginUser?.education_name
         }
-            
+        
         if appDelegate.loginUser?.annual_income == "null"{
             txtIncomeLevel.text = ""
         }else {
@@ -190,9 +176,6 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
             self.btnProfessionCLK(btnStudent)
             txtProfession.text = nil
         default:
-            /*txtProfession.hide(byHeight: true)
-            _ = txtProfession.setConstraintConstant(0, edge: .top, ancestor: true)*/
-            
             self.vwProfessionAndIncome.hide(byHeight: true)
             break
         }
@@ -201,7 +184,6 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
             if !(self.txtProfession.text?.isBlank)! {
                 self.txtProfession.updatePlaceholderFrame(true)
             }
-            
             if !(self.txtIncomeLevel.text?.isBlank)! {
                 self.txtIncomeLevel.updatePlaceholderFrame(true)
             }
@@ -219,8 +201,6 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
                 }
             }
         }
-        
-//        arrInterest = appDelegate.loginUser?.interests as! [[String : AnyObject]]
         guard let addIntrest = appDelegate.loginUser?.interests as? [[String : AnyObject]] else {
             return
         }
@@ -230,12 +210,7 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
     
     
     func loadRelationList(){
-        //Oldcode by Mi
-        /*
-         let arr = TblRelation.fetch(predicate: NSPredicate(format: "%K == %d", CRelationship_id, (appDelegate.loginUser?.relationship_id)!), orderBy: CName, ascending: true)
-        let arrData = TblRelation.fetch(predicate: nil, orderBy: CName, ascending: true)
-        let arrRelation = arrData?.value(forKeyPath: CName) as? [Any]
-         */
+        
         let arr = TblRelation.fetch(predicate: NSPredicate(format: "%K == %s", CName, CName), orderBy:CName, ascending: true)
         let arrData = TblRelation.fetch(predicate: nil, orderBy: CName, ascending: true)
         let arrRelation = arrData?.value(forKeyPath: CName) as? [Any]
@@ -245,11 +220,9 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
             let dict = arr![0] as? TblRelation
             txtStatus.text = dict?.name
             self.btnTextfiledClearStatus.isSelected = true
-            //Oldcode by Mi
-//             self.relationshipID = Int(Int64((dict?.relationship_id)!))
             self.relationShip = dict?.name ?? ""
         }
-
+        
         btnTextfiledClearStatus.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
             self.relationshipID = 0
@@ -265,7 +238,6 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
                 guard let self = self else { return }
                 self.btnTextfiledClearStatus.isSelected = true
                 let dict = arrData![row] as AnyObject
-//                self.relationshipID = dict.value(forKey: CRelationship_id) as! Int
                 self.relationShip = dict.value(forKey: CName) as! String
             }, defaultPlaceholder: "")
         }
@@ -274,22 +246,18 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
     }
     
     func loadAnnualIncomeList(){
-
+        
         let arr = TblAnnualIncomes.fetch(predicate: NSPredicate(format: "%K == %s", CIncome,CIncome), orderBy: CIncome, ascending: true)
         let arrData = TblAnnualIncomes.fetch(predicate: nil, orderBy: CIncome, ascending: true)
         let arrIncome = arrData?.value(forKeyPath: CIncome) as? [Any]
-        
-        
         //...Prefill income
         if (arrData?.count)! > 0 {
             let dict = arrData![0] as? TblAnnualIncomes
             txtIncomeLevel.text = dict?.income
             self.btnTextfiledClearIncomLevel.isSelected = true
-//            self.incomeID = Int(Int64((dict?.annual_income_id)!))
-           // self.incomeID = Int(Int64((dict?.annual_income_id)!))
             self.inCome = dict?.income ?? ""
         }
-
+        
         btnTextfiledClearIncomLevel.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
             self.incomeID = 0
@@ -305,7 +273,6 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
                 guard let self = self else { return }
                 self.btnTextfiledClearIncomLevel.isSelected = true
                 let dict = arrData![row] as AnyObject
-//              self.incomeID = dict.value(forKey: CAnnual_income_id) as! Int
                 self.inCome = dict.value(forKey: CIncome) as! String
             }, defaultPlaceholder: "")
         }
@@ -322,9 +289,8 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
             txtEducation.text = dict?.name
             self.btnTextfiledClearEducation.isSelected = true
             self.educationName = (dict?.name ?? "")
-//            self.educationID = Int(Int64((dict?.education_id)!))
         }
-
+        
         btnTextfiledClearEducation.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
             self.educationID = 0
@@ -340,14 +306,10 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
                 guard let self = self else { return }
                 self.btnTextfiledClearEducation.isSelected = true
                 let dict = arrData![row] as AnyObject
-                //Oldcode by Mi
-//                self.educationID = dict.value(forKey: CEducation_id) as! Int
                 self.educationName = (dict.name ?? "")
             }, defaultPlaceholder: "")
         }
     }
-    
-
 }
 
 // MARK:- --------- UICollectionView Delegate/Datasources
@@ -362,10 +324,8 @@ extension CompleteProfileViewController: UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BubbleWithCancelCollCell", for: indexPath) as! BubbleWithCancelCollCell
-//        let strCat = arrInterest[indexPath.row].valueForString(key: "name")
         let strCat = arrInterest[indexPath.row].valueForString(key: "interest_type")
         cell.lblBubbleText.text = strCat
-        
         return cell
     }
     
@@ -375,24 +335,21 @@ extension CompleteProfileViewController: UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let fontToResize =  CFontPoppins(size: 12, type: .light).setUpAppropriateFont()
         let title = arrInterest[indexPath.row].valueForString(key: "interest_type")
         var size = title.size(withAttributes: [NSAttributedString.Key.font: fontToResize!])
         size.width = CGFloat(ceilf(Float(size.width + 65)))
         size.height = clInterest.frame.size.height
         return size
-        
     }
 }
 
 // MARK:- ------------ API
 extension CompleteProfileViewController{
-
+    
     func completeProfile() {
         
         var gender = 1
-        
         if txtGender.text == CRegisterGenderMale {
             gender = CMale
         } else if txtGender.text == CRegisterGenderFemale {
@@ -400,7 +357,6 @@ extension CompleteProfileViewController{
         } else {
             gender = COther
         }
-        
         var interestID = ""
         if arrInterest.count > 0 {
             interestID = arrInterest.map({"\($0.valueForInt(key: "id") ?? 0)"}).joined(separator: ",")
@@ -409,8 +365,7 @@ extension CompleteProfileViewController{
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.calendar = Calendar(identifier: .gregorian)
         formatter.locale = DateFormatter.shared().locale
-
-        var user_acc_type = "1"
+        let user_acc_type = "1"
         var emplymenntStatus = 0
         var professionText = ""
         if btnEmployed.isSelected{
@@ -423,15 +378,12 @@ extension CompleteProfileViewController{
             emplymenntStatus = 3
             professionText = CBtnStudent
         }
-        
         if !btnEmployed.isSelected{
             incomeID = 0
         }
-        
         var dict : [String:Any] = [
             CFirstname : appDelegate.loginUser?.first_name ?? "",
             CLastname : appDelegate.loginUser?.last_name ?? "",
-            //CDob : DateFormatter.shared().string(fromDate: date!, dateFormat: "dd MMM yyyy") ,
             CDob : dob_edit ?? "" ,
             CShort_biography : txtViewBiography.text ?? "",
             CGender : gender,
@@ -451,66 +403,66 @@ extension CompleteProfileViewController{
         
         
         let dictcomp:[String:Any] = [
-        "user_acc_type":user_acc_type,
-        "first_name":firstName_edit ?? "",
-        "last_name":lastName_edit ?? "",
-        "gender":gender.toString,
-        "religion":txtReligion.text ?? "",
-        "city_name":txtCity,
-        "profile_image":appDelegate.loginUser?.profile_img ?? "",
-        "cover_image":appDelegate.loginUser?.cover_image ?? "",
-        "mobile":txtmobile,
-        "email":txtemail,
-        "education":txtEducation.text ?? "",
-        "dob":dob_edit ?? "",
-        "short_biography":txtViewBiography.text ?? "",
-        "relationship":txtStatus.text ?? "",
-        "profession":professionText,
-        "address_line1":txtCity,
-        "latitude":0,
-        "longitude":0,
-        "user_type": "1",
-        "lang_name": langName,
-        "status_id":"1",
-        "income":inCome,
-        "employment_status":emplymenntStatus.description
+            "user_acc_type":user_acc_type,
+            "first_name":firstName_edit ?? "",
+            "last_name":lastName_edit ?? "",
+            "gender":gender.toString,
+            "religion":txtReligion.text ?? "",
+            "city_name":txtCity,
+            "profile_image":appDelegate.loginUser?.profile_img ?? "",
+            "cover_image":appDelegate.loginUser?.cover_image ?? "",
+            "mobile":txtmobile,
+            "email":txtemail,
+            "education":txtEducation.text ?? "",
+            "dob":dob_edit ?? "",
+            "short_biography":txtViewBiography.text ?? "",
+            "relationship":txtStatus.text ?? "",
+            "profession":professionText,
+            "address_line1":txtCity,
+            "latitude":0,
+            "longitude":0,
+            "user_type": "1",
+            "lang_name": langName,
+            "status_id":"1",
+            "income":inCome,
+            "employment_status":emplymenntStatus.description
         ]
         
         
         let dictUserDetails:[String:Any] = [
-        "user_acc_type":user_acc_type,
-        "first_name":firstName_edit ?? "",
-        "last_name":lastName_edit ?? "",
-        "gender":gender.toString,
-        "religion":txtReligion.text ?? "",
-        "city_name":txtCity,
-        "profile_image":appDelegate.loginUser?.profile_img ?? "",
-        "cover_image":appDelegate.loginUser?.cover_image ?? "",
-        "mobile":txtmobile,
-        "email":txtemail,
-        "dob":dob_edit ?? "",
-        "short_biography":txtViewBiography.text ?? "",
-        "relationship":txtStatus.text ?? "",
-        "profession":professionText,
-        "address_line1":txtCity,
-        "latitude":0,
-        "longitude":0,
-        "user_type": "1",
-        "lang_name": langName,
-        "status_id":"1",
-        "user_id":userID.description,
-        "country_name":appDelegate.loginUser?.country ?? "",
-        "state_name":appDelegate.loginUser?.state ?? "",
-        "education_name":txtEducation.text ?? "",
-        "employment_status":emplymenntStatus.description,
-        "annual_income" : inCome,
+            "user_acc_type":user_acc_type,
+            "first_name":firstName_edit ?? "",
+            "last_name":lastName_edit ?? "",
+            "gender":gender.toString,
+            "religion":txtReligion.text ?? "",
+            "city_name":txtCity,
+            "profile_image":appDelegate.loginUser?.profile_img ?? "",
+            "cover_image":appDelegate.loginUser?.cover_image ?? "",
+            "mobile":txtmobile,
+            "email":txtemail,
+            "dob":dob_edit ?? "",
+            "short_biography":txtViewBiography.text ?? "",
+            "relationship":txtStatus.text ?? "",
+            "profession":professionText,
+            "address_line1":txtCity,
+            "latitude":0,
+            "longitude":0,
+            "user_type": "1",
+            "lang_name": langName,
+            "status_id":"1",
+            "user_id":userID.description,
+            "country_name":appDelegate.loginUser?.country ?? "",
+            "state_name":appDelegate.loginUser?.state ?? "",
+            "education_name":txtEducation.text ?? "",
+            "employment_status":emplymenntStatus.description,
+            "annual_income" : inCome,
             
         ]
         
-     
+        
         APIRequest.shared().editProfile(dict: dictcomp as [String : AnyObject], para: dictUserDetails as [String : AnyObject], userID:userID.description, dob: userID.description ) { [self] (response, error) in
             if response != nil && error == nil {
-               
+                
                 let lastname = self.lastName_edit ?? ""
                 let firstName = self.firstName_edit ?? ""
                 let gender = gender.toString
@@ -531,15 +483,15 @@ extension CompleteProfileViewController{
                 let education = txtEducation.text ?? ""
                 
                 if !lastname.isEmpty && !firstName.isEmpty && !user_acc_type.isEmpty && !gender.isEmpty && !religion.isEmpty && !txtCity.isEmpty && !profile.isEmpty && !cover.isEmpty && !txtmobile.isEmpty && !txtemail.isEmpty && !dob.isEmpty && !bio.isEmpty && !reltionship.isEmpty && !professionText.isEmpty && !txtCity.isEmpty && !latitude.description.isEmpty && !lang.description.isEmpty && !user_type.isEmpty && !status_id.isEmpty && !langName.isEmpty && !emplymenntStatus.description.isEmpty && !income.isEmpty && !user_id.isEmpty && !country_name.isEmpty && !state_name.isEmpty  && !education.isEmpty{
-                     self.getRewardsDetail(isLoader:true)
+                    self.getRewardsDetail(isLoader:true)
                 }
-             self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: true)
             }
         }
     }
     
     
-     func getRewardsDetail(isLoader: Bool) {
+    func getRewardsDetail(isLoader: Bool) {
         
         self.currentPage = 1
         if apiTask?.state == URLSessionTask.State.running {
@@ -563,24 +515,13 @@ extension CompleteProfileViewController{
             if response != nil {
                 GCDMainThread.async {
                     if self.currentPage == 1 {
-                        
                     }
                     self.currentPage += 1
-                    
-//                    guard  let errorUserinfo = response?["error"] as? String else {return}
-////                    let errorMsg = errorUserinfo.stringAfter(":")
-////                    if errorMsg ==  " No Rewards History Details Found "{
-////                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-////                        guard let image = appDelegate.loginUser?.profile_img else { return }
-////                        MIGeneralsAPI.shared().addRewardsPoints(CCompleteprofile,message:"Complete_profile",type:CCompleteprofile,title:"Complete profile",name:name,icon:image)
-////                    }
-                    
                     let arrData = response!["rewards_history"] as? [String : Any] ?? [:]
                     let arrDatas = arrData["rewards_history"] as? [[String : Any]] ?? [[:]]
                     for arrDataPoint in arrDatas{
                         if arrDataPoint["type"] as? String == "Complete profile" || arrDataPoint["type"] as? String == "Register profile"{
                         }else {
-                          
                             let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                             guard let image = appDelegate.loginUser?.profile_img else { return }
                             MIGeneralsAPI.shared().addRewardsPoints(CCompleteprofile,message:"Complete_profile",type:CCompleteprofile,title:"Complete profile",name:name,icon:image)
@@ -631,19 +572,12 @@ extension CompleteProfileViewController{
         default:
             break
         }
-        
         if btnEmployed.isSelected{
-            /*txtProfession.hide(byHeight: false)
-            _ = txtProfession.setConstraintConstant(15, edge: .top, ancestor: true)*/
             self.vwProfessionAndIncome.hide(byHeight: false)
-
-        }else{
-            /*txtProfession.hide(byHeight: true)
-            _ = txtProfession.setConstraintConstant(0, edge: .top, ancestor: true)*/
             
+        }else{
             self.vwProfessionAndIncome.hide(byHeight: true)
         }
-        
         GCDMainThread.async {
             self.txtProfession.updateBottomLineAndPlaceholderFrame()
         }
@@ -669,7 +603,7 @@ extension CompleteProfileViewController : GenericTextFieldDelegate{
     
     func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
         
-
+        
         if textField == txtReligion || txtProfession == txtProfession{
             if txtReligion.text?.count ?? 0 > 20{
                 return false

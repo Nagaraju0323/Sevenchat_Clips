@@ -6,6 +6,14 @@
 //  Copyright © 2020 mac-00020. All rights reserved.
 //
 
+
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : GroupForwardViewController                  *
+ * Changes :                                             *
+ ********************************************************/
+
+
 import UIKit
 
 class GroupForwardViewController: UIViewController {

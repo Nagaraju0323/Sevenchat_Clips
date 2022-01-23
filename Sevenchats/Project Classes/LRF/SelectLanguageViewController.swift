@@ -6,10 +6,21 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+
+
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : SelectLanguageViewController                *
+ * Changes :                                             *
+ * User can Select Multiple Language Default is English  *
+ * as select app show content in that languge            *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 
 class SelectLanguageViewController: ParentViewController,UITableViewDataSource, UITableViewDelegate {
-
+    
     @IBOutlet var tblLanguage : UITableView!
     @IBOutlet var btnBack : UIButton!
     @IBOutlet var viewSearchBar : UIView!
@@ -37,7 +48,7 @@ class SelectLanguageViewController: ParentViewController,UITableViewDataSource, 
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -120,7 +131,7 @@ extension SelectLanguageViewController{
         
         return tableView.tableViewDummyCell()
     }
- 
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let languageInfo = arrLanguage![indexPath.row]
         selectedLanguage = languageInfo
@@ -136,7 +147,7 @@ extension SelectLanguageViewController : UITextFieldDelegate {
         
         if textField.text == "" {
             tblLanguage.restore()
-           self.fetchAllLanguagesFromLocal()
+            self.fetchAllLanguagesFromLocal()
         } else {
             
             let arr = TblLanguage.fetch(predicate: NSPredicate(format: "%K contains[c] %@", CName, txtSearch.text ?? ""), orderBy: CName, ascending: true)
@@ -161,7 +172,7 @@ extension SelectLanguageViewController : UITextFieldDelegate {
 
 // MARK:- --------- API
 extension SelectLanguageViewController{
- 
+    
     @objc func pullToRefresh() {
         refreshControl.beginRefreshing()
         
@@ -186,7 +197,7 @@ extension SelectLanguageViewController{
                         }
                     }
                 }else {
-                //...Get English language if not selected anyone
+                    //...Get English language if not selected anyone
                     if let arrLang  = TblLanguage.fetch(predicate: nil, orderBy: "lang_id", ascending: true) as? [TblLanguage] {
                         if arrLang.count > 0 {
                             self.selectedLanguage = arrLang.last
@@ -194,8 +205,8 @@ extension SelectLanguageViewController{
                     }
                 }
             }
-         })
-
+        })
+        
         APIRequest.shared().getLanguageList(showLoader: showLoader,completion: { (response, error) in
             self.refreshControl.endRefreshing()
             if response != nil && error == nil{
@@ -209,7 +220,7 @@ extension SelectLanguageViewController{
                         }
                     }
                 }else {
-                //...Get English language if not selected anyone
+                    //...Get English language if not selected anyone
                     if let arrLang  = TblLanguage.fetch(predicate: nil, orderBy: "lang_id", ascending: true) as? [TblLanguage] {
                         if arrLang.count > 0 {
                             self.selectedLanguage = arrLang.last
@@ -217,7 +228,7 @@ extension SelectLanguageViewController{
                     }
                 }
             }
-         })
+        })
     }
     
     func loadLanguageText() {
@@ -243,7 +254,7 @@ extension SelectLanguageViewController{
                         UILabel.appearance().semanticContentAttribute = .forceRightToLeft
                         appDelegate.window.semanticContentAttribute = .forceRightToLeft
                     }
-
+                    
                     MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
                     if let langCode = self.selectedLanguage.lang_code {
                         DateFormatter.shared().locale = Locale(identifier: langCode)

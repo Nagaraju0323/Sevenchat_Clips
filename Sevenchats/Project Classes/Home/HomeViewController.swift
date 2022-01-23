@@ -6,6 +6,19 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : HomeViewController                          *
+ * Changes :                                             *
+ * Added Search,Filter,List post,Like and comments post  *
+ * share particluar post,                                *
+ * Forum Details user can like and comments,short mesg   *
+ * send using with shout                                 *
+ * Delete forparticular post                             *
+ ********************************************************/
+
+
 import UIKit
 import PhotosUI
 
@@ -19,7 +32,6 @@ class HomeViewController: ParentViewController {
     @IBOutlet weak var lblNoData : UILabel!
     
     var searchbtnNav = UIButton()
-    
     var arrPostList = [[String : Any]]()
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
@@ -33,43 +45,41 @@ class HomeViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(loading), name: NSNotification.Name(rawValue: "loading"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(loadListval), name: NSNotification.Name(rawValue: "loadder"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pollloadder), name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
-       
-        // SpentTimeHelper.shared.startTime()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //lblNoData.text = CMessageNoPost
+        
         NotificationCenter.default.addObserver(self, selector: #selector(loading), name: NSNotification.Name(rawValue: "loading"), object: nil)
         lblNoData.text = CToEnhanceFeed
-//        self.getPostListFromServer(showLoader: false)
     }
     deinit {
         print("Deinit -> HomeViewController")
     }
     
     @objc func loadList(){
-            self.tblEvents.reloadData()
-        }
+        self.tblEvents.reloadData()
+    }
     @objc func loadListval(){
-            self.tblEvents.reloadData()
-        }
+        self.tblEvents.reloadData()
+    }
     @objc func pollloadder(){
-            self.tblEvents.reloadData()
-        }
+        self.tblEvents.reloadData()
+    }
     @objc func loading(){
-            self.tblEvents.reloadData()
-        }
+        self.tblEvents.reloadData()
+    }
     
     //MARK:- ----------- Initialization
     func Initialization(){
-
+        
         self.title = CSideHome
         
         let lblTitleName = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height: view.frame.height))
@@ -77,7 +87,7 @@ class HomeViewController: ParentViewController {
         lblTitleName.textColor = UIColor.white
         lblTitleName.font = UIFont(name:"Poppins-Bold",size: 16.0)
         navigationItem.titleView = lblTitleName
-
+        
         //Search Bar button
         searchbtnNav.setImage(UIImage(named: "ic_btn_search"), for: .normal)
         searchbtnNav.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
@@ -109,7 +119,7 @@ class HomeViewController: ParentViewController {
         tblEvents.register(UINib(nibName: "HomeSharedFourmTblCell", bundle: nil), forCellReuseIdentifier: "HomeSharedFourmTblCell")
         tblEvents.register(UINib(nibName: "HomeSharedPollTblCell", bundle: nil), forCellReuseIdentifier: "HomeSharedPollTblCell")
         tblEvents.register(UINib(nibName: "PostDeletedCell", bundle: nil), forCellReuseIdentifier: "PostDeletedCell")
-      //  tblEvents.register(UINib(nibName: "HomeStoriesTblCell", bundle: nil), forCellReuseIdentifier: "HomeStoriesTblCell")
+        //  tblEvents.register(UINib(nibName: "HomeStoriesTblCell", bundle: nil), forCellReuseIdentifier: "HomeStoriesTblCell")
         
         if IS_iPhone_X_Series{
             cnHeaderHight.constant = 210
@@ -145,137 +155,130 @@ extension HomeViewController {
      - Parameter showLoader:- showLoader is for show loader.
      */
     //MARK:- New Filter API
-        func getPostListFromServerNew() {
+    func getPostListFromServerNew() {
+        
+        if let userID = appDelegate.loginUser?.user_id {
+            if apiTask?.state == URLSessionTask.State.running {
+                return
+            }
+            // Add load more indicator here...
+            if self.pageNumber > 2 {
+                self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+            }else{
+                self.tblEvents.tableFooterView = nil
+            }
             
-            if let userID = appDelegate.loginUser?.user_id {
-                if apiTask?.state == URLSessionTask.State.running {
-                    return
-                }
-                // Add load more indicator here...
-                if self.pageNumber > 2 {
-                    self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-                }else{
-                    self.tblEvents.tableFooterView = nil
-                }
+            var serachType : String?
+            if arrSelectedFilterOption.count > 0 {
+                serachType = arrSelectedFilterOption.map({$0.valueForString(key: CCategoryId)}).joined(separator: ",")
+            }
+            
+            apiTask = APIRequest.shared().getPostListNew(page: self.pageNumber, user_id: Int(userID), search_type: serachType) { [weak self](response, error) in
+                guard let self = self else { return }
+                self.tblEvents.tableFooterView = nil
+                self.refreshControl.endRefreshing()
                 
-                var serachType : String?
-                if arrSelectedFilterOption.count > 0 {
-                    serachType = arrSelectedFilterOption.map({$0.valueForString(key: CCategoryId)}).joined(separator: ",")
-                }
-                
-                apiTask = APIRequest.shared().getPostListNew(page: self.pageNumber, user_id: Int(userID), search_type: serachType) { [weak self](response, error) in
-                    guard let self = self else { return }
-                    self.tblEvents.tableFooterView = nil
-                    self.refreshControl.endRefreshing()
-                    
-                    if response != nil && error == nil {
-                        let arrList = response?["Shout"] as? [[String : Any]]
+                if response != nil && error == nil {
+                    _ = response?["Shout"] as? [[String : Any]]
+                    if let arrArticleList = response?["Article"] as? [[String : Any]] {
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblEvents.reloadData()
+                        }
+                        // Add Data here...
+                        if arrArticleList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrArticleList
+                            self.tblEvents.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                    if let arrChirpyList = response?["Chirpy"] as? [[String : Any]] {
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblEvents.reloadData()
+                        }
+                        // Add Data here...
+                        if arrChirpyList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrChirpyList
+                            self.tblEvents.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                    if let arrEventList = response?["Event"] as? [[String : Any]] {
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblEvents.reloadData()
+                        }
+                        // Add Data here...
+                        if arrEventList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrEventList
+                            self.tblEvents.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                    if let arrForumList = response?["Forum"] as? [[String : Any]] {
                         
-                        if let arrArticleList = response?["Article"] as? [[String : Any]] {
-                            // Remove all data here when page number == 1
-                            if self.pageNumber == 1 {
-                                self.arrPostList.removeAll()
-                                self.tblEvents.reloadData()
-                            }
-                            // Add Data here...
-                            if arrArticleList.count > 0 {
-                                self.arrPostList = self.arrPostList + arrArticleList
-                                self.tblEvents.reloadData()
-                                self.pageNumber += 1
-                            }
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblEvents.reloadData()
                         }
-                        if let arrChirpyList = response?["Chirpy"] as? [[String : Any]] {
-                            // Remove all data here when page number == 1
-                            if self.pageNumber == 1 {
-                                self.arrPostList.removeAll()
-                                self.tblEvents.reloadData()
-                            }
-                            // Add Data here...
-                            if arrChirpyList.count > 0 {
-                                self.arrPostList = self.arrPostList + arrChirpyList
-                                self.tblEvents.reloadData()
-                                self.pageNumber += 1
-                            }
+                        
+                        // Add Data here...
+                        if arrForumList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrForumList
+                            self.tblEvents.reloadData()
+                            self.pageNumber += 1
                         }
-                        if let arrEventList = response?["Event"] as? [[String : Any]] {
-                            // Remove all data here when page number == 1
-                            if self.pageNumber == 1 {
-                                self.arrPostList.removeAll()
-                                self.tblEvents.reloadData()
-                            }
-                            // Add Data here...
-                            if arrEventList.count > 0 {
-                                self.arrPostList = self.arrPostList + arrEventList
-                                self.tblEvents.reloadData()
-                                self.pageNumber += 1
-                            }
+                    }
+                    if let arrGalleryList = response?["Gallery"] as? [[String : Any]] {
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblEvents.reloadData()
                         }
-                        if let arrForumList = response?["Forum"] as? [[String : Any]] {
-                            //if let arrList = response![CJsonData] as? [[String : Any]] {
-                            // Remove all data here when page number == 1
-                            if self.pageNumber == 1 {
-                                self.arrPostList.removeAll()
-                                self.tblEvents.reloadData()
-                            }
-                            
-                            // Add Data here...
-                            if arrForumList.count > 0 {
-                                self.arrPostList = self.arrPostList + arrForumList
-                                self.tblEvents.reloadData()
-                                self.pageNumber += 1
-                            }
+                        
+                        // Add Data here...
+                        if arrGalleryList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrGalleryList
+                            self.tblEvents.reloadData()
+                            self.pageNumber += 1
                         }
-                        if let arrGalleryList = response?["Gallery"] as? [[String : Any]] {
-                            //if let arrList = response![CJsonData] as? [[String : Any]] {
-                            // Remove all data here when page number == 1
-                            if self.pageNumber == 1 {
-                                self.arrPostList.removeAll()
-                                self.tblEvents.reloadData()
-                            }
-                            
-                            // Add Data here...
-                            if arrGalleryList.count > 0 {
-                                self.arrPostList = self.arrPostList + arrGalleryList
-                                self.tblEvents.reloadData()
-                                self.pageNumber += 1
-                            }
+                    }
+                    if let arrPollList = response?["Poll"] as? [[String : Any]] {
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblEvents.reloadData()
                         }
-                        if let arrPollList = response?["Poll"] as? [[String : Any]] {
-                            //if let arrList = response![CJsonData] as? [[String : Any]] {
-                            // Remove all data here when page number == 1
-                            if self.pageNumber == 1 {
-                                self.arrPostList.removeAll()
-                                self.tblEvents.reloadData()
-                            }
-                            
-                            // Add Data here...
-                            if arrPollList.count > 0 {
-                                self.arrPostList = self.arrPostList + arrPollList
-                                self.tblEvents.reloadData()
-                                self.pageNumber += 1
-                            }
+                        
+                        // Add Data here...
+                        if arrPollList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrPollList
+                            self.tblEvents.reloadData()
+                            self.pageNumber += 1
                         }
-                      
-                        if let arrShoutList = response?["Shout"] as? [[String : Any]] {
-                            //if let arrList = response![CJsonData] as? [[String : Any]] {
-                            // Remove all data here when page number == 1
-                            if self.pageNumber == 1 {
-                                self.arrPostList.removeAll()
-                                self.tblEvents.reloadData()
-                            }
-                            
-                            // Add Data here...
-                            if arrShoutList.count > 0 {
-                                self.arrPostList = self.arrPostList + arrShoutList
-                                self.tblEvents.reloadData()
-                                self.pageNumber += 1
-                            }
+                    }
+                    
+                    if let arrShoutList = response?["Shout"] as? [[String : Any]] {
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblEvents.reloadData()
+                        }
+                        
+                        // Add Data here...
+                        if arrShoutList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrShoutList
+                            self.tblEvents.reloadData()
+                            self.pageNumber += 1
                         }
                     }
                 }
-                
             }
         }
+    }
     
     func getPostListFromServer(showLoader : Bool){
         if apiTask?.state == URLSessionTask.State.running {
@@ -361,7 +364,7 @@ extension HomeViewController {
         }else{
             self.tblEvents.tableFooterView = nil
         }
-//        self.arrPostList.removeAll()
+        //        self.arrPostList.removeAll()
         guard let userID = appDelegate.loginUser?.user_id else {return}
         apiTask = APIRequest.shared().getPostList(userID: Int(userID), page: pageNumber, filter : arrFilterData, showLoader: showLoader) { [weak self] (response, error) in
             
@@ -374,7 +377,7 @@ extension HomeViewController {
                 if response != nil && error == nil {
                     let data = response!["post_listing"] as! [String:Any]
                     if let arrList = data["post"] as? [[String : Any]] {
-                    print(arrList)
+                        print(arrList)
                         // Remove all data here when page number == 1
                         if self.pageNumber == 1 {
                             self.arrPostList.removeAll()
@@ -407,7 +410,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0{
-//            return 95.0;
             if self.issearchSelected == true{
                 return 95
             }else {
@@ -419,7 +421,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             
         }else if indexPath.section == 2{
             if self.isSelected == true{
-//                return 310
                 return 200
             }else {
                 return 135;
@@ -497,12 +498,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         tableView.endUpdates()
                     }else if data == 1{
                         self.isSelected = true
-//                        self.issearchSelected = false
                         tableView.beginUpdates()
                         tableView.endUpdates()
                     }
                 }
-                
                 
                 cell.onDataAvailable = { (data) in
                     if data == true {
@@ -521,9 +520,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     let myProfileVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyProfileViewController")
                     myProfileVC.view.tag = 107
                     self?.navigationController?.pushViewController(myProfileVC, animated: true)
-                    //                     if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                    //                                                appDelegate.moveOnProfileScreen(userID.description, self)
-                    //                                            }
                 }
                 return cell
             }
@@ -544,8 +540,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         }
         
         let postInfo = arrPostList[indexPath.row]
-//        let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
-//        let isPostDeleted = postInfo.valueForInt(key: CIsPostDeleted)
+        //        let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
+        //        let isPostDeleted = postInfo.valueForInt(key: CIsPostDeleted)
         let isshared = 0
         let isdelete = 0
         if isshared == 1 && isdelete == 1{
@@ -628,26 +624,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
                     }
                     cell.btnIconShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
@@ -656,7 +648,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                         self.getPostListFromServer(showLoader: false)
                     }
-                    
                     return cell
                 }
             }
@@ -666,10 +657,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                 }
-                
                 cell.btnMore.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
                     if Int64(postInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
@@ -681,26 +670,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                     appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnUserName.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                     appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnShare.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                     let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                     sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                     sharePost.presentShareActivity()
                 }
                 cell.btnIconShare.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                     let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                     sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                     sharePost.presentShareActivity()
@@ -709,7 +694,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                     self.getPostListFromServer(showLoader: false)
                 }
-                
                 return cell
             }
             break
@@ -718,7 +702,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             //let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
             let isshared = 0
             if isshared == 1{
-
+                
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedGalleryCell", for: indexPath) as? HomeSharedGalleryCell {
                     cell.homeGalleryDataSetup(postInfo)
                     
@@ -740,7 +724,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                     }
@@ -748,32 +731,27 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                     }
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
                     }
                     cell.btnIconShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
@@ -791,7 +769,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                 }
                 
@@ -806,27 +783,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    self?.otherUserDetail(isLoader: true, userEmailId:postInfo.valueForString(key: CUsermailID))
-//                    appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                     appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnUserName.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                     appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnShare.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                     let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                     sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                     sharePost.presentShareActivity()
                 }
                 cell.btnIconShare.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                     let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                     sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                     sharePost.presentShareActivity()
@@ -841,9 +813,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
         case CStaticChirpyIdNew:
             //            3-chripy
-            if postInfo.valueForString(key: CImage).isBlank
-            {
-                //let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
+            if postInfo.valueForString(key: CImage).isBlank{
                 let isshared = 0
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyTblCell", for: indexPath) as? HomeSharedChirpyTblCell {
@@ -867,7 +837,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
                             if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
                                 appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                             }
                         }
@@ -875,32 +844,27 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
                             if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
                                 appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                             }
                         }
                         cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-//                            appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                         
                         cell.btnUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-//                            appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                         
                         cell.btnShare.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                             sharePost.presentShareActivity()
                         }
                         cell.btnIconShare.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                             sharePost.presentShareActivity()
@@ -914,8 +878,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
-                    cell.homeChirpyImageDataSetup(postInfo)
                     
+                    cell.homeChirpyImageDataSetup(postInfo)
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
@@ -932,26 +896,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
                     }
                     cell.btnIconShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
@@ -964,7 +924,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     return cell
                 }
             }else{
-               // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
                 let isshared = 0
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
@@ -988,7 +947,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
                             if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
                                 appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                             }
                         }
@@ -996,32 +954,27 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
                             if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
                                 appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                             }
                         }
                         cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-//                            appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                         
                         cell.btnUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-//                            appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                         
                         cell.btnShare.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                             sharePost.presentShareActivity()
                         }
                         cell.btnIconShare.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                             sharePost.presentShareActivity()
@@ -1040,7 +993,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
-//                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     }
                     
                     cell.btnMore.touchUpInside { [weak self] (sender) in
@@ -1051,29 +1003,24 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                             self?.btnReportCLK(postInfo)
                         }
                     }
-                    
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
                     }
                     cell.btnIconShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
@@ -1089,17 +1036,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
         case CStaticShoutIdNew:
             //            4-shout
-           // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
+            // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
             let isshared = 0
             if isshared == 1{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedShoutsTblCell", for: indexPath) as? HomeSharedShoutsTblCell {
-                    cell.homeShoutsDataSetup(postInfo)
                     
+                    cell.homeShoutsDataSetup(postInfo)
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     }
-                    
                     cell.btnMore.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
@@ -1109,11 +1055,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                             self?.btnSharedReportCLK(postInfo: postInfo)
                         }
                     }
-                    
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                     }
@@ -1121,25 +1065,21 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                     }
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
@@ -1160,11 +1100,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeShoutsTblCell", for: indexPath) as? HomeShoutsTblCell {
-                cell.homeShoutsDataSetup(postInfo)
                 
+                cell.homeShoutsDataSetup(postInfo)
                 cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                 }
                 
@@ -1179,27 +1118,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    self?.otherUserDetail(isLoader: true, userEmailId:postInfo.valueForString(key: CUsermailID))
                     appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId),postInfo.valueForString(key: CUsermailID), self)
-//                    appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnUserName.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                     appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnShare.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                     let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                     sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                     sharePost.presentShareActivity()
                 }
                 cell.btnIconShare.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                     let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                     sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                     sharePost.presentShareActivity()
@@ -1214,15 +1148,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
         case CStaticForumIdNew:
             //            5-forum
-           // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
+            // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
             let isshared = 0
             if isshared == 1{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedFourmTblCell", for: indexPath) as? HomeSharedFourmTblCell {
-                    cell.homeFourmDataSetup(postInfo)
                     
+                    cell.homeFourmDataSetup(postInfo)
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                     }
                     
@@ -1239,7 +1172,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                     }
@@ -1247,32 +1179,27 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                     }
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
                     }
                     cell.btnIconShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
@@ -1290,7 +1217,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                 }
                 
@@ -1305,26 +1231,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                     appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnUserName.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                     appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnShare.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                     let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                     sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                     sharePost.presentShareActivity()
                 }
                 cell.btnIconShare.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                     let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                     sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                     sharePost.presentShareActivity()
@@ -1341,7 +1263,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             //            6-event
             if postInfo.valueForString(key: CImage).isBlank{
                 
-               // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
+                // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
                 let isshared = 0
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventsCell", for: indexPath) as? HomeSharedEventsCell {
@@ -1369,7 +1291,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
                             if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
                                 appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                             }
                         }
@@ -1377,32 +1298,27 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
                             if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
                                 appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                             }
                         }
                         cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-//                            appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                         
                         cell.btnUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-//                            appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                         
                         cell.btnShare.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                             sharePost.presentShareActivity()
                         }
                         cell.btnIconShare.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                             sharePost.presentShareActivity()
@@ -1416,7 +1332,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 
-               // if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventsCell", for: indexPath) as? HomeEventsCell {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
                     cell.homeEventDataSetup(postInfo)
                     
@@ -1426,7 +1341,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                     }
                     
@@ -1441,26 +1355,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
                     }
                     cell.btnIconShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
@@ -1474,7 +1384,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }else{
                 let isshared = 0
-                //let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell", for: indexPath) as? HomeSharedEventImageTblCell {
                         cell.homeEventDataSetup(postInfo)
@@ -1500,7 +1409,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
                             if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
                                 appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                             }
                         }
@@ -1508,33 +1416,28 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
                             if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                                appDelegate.moveOnProfileScreen(userID.description, self)
                                 appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                             }
                         }
                         
                         cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-//                            appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                         
                         cell.btnUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-//                            appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                         
                         cell.btnShare.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                             sharePost.presentShareActivity()
                         }
                         cell.btnIconShare.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                             sharePost.presentShareActivity()
@@ -1548,12 +1451,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
+                    
                     cell.homeEventDataSetup(postInfo)
-                    
-                    
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                     }
                     cell.onChangeEventStatus = { [weak self] (action) in
@@ -1571,26 +1472,22 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
                     }
                     cell.btnIconShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
@@ -1602,13 +1499,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     return cell
                 }
-                
             }
             break
             
         case CStaticPollIdNew: // Poll Cell....
             let isshared = 0
-            //let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
             if isshared == 1{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedPollTblCell", for: indexPath) as? HomeSharedPollTblCell {
                     
@@ -1638,7 +1533,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                     }
@@ -1646,33 +1540,28 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-//                            appDelegate.moveOnProfileScreen(userID.description, self)
                             appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                         }
                     }
                     
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-//                        appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUserId), self)
                         appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                     }
                     
                     cell.btnShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
                     }
                     cell.btnIconShare.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
@@ -1689,7 +1578,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomePollTblCell", for: indexPath) as? HomePollTblCell {
                 
                 cell.homePollDataSetup(postInfo, isSelected: false)
-                
                 cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
                     self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
@@ -1708,41 +1596,24 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         self?.btnReportCLK(postData)
                     }
                 }
-                /*cell.btnMore.touchUpInside { [weak self] (sender) in
-                 guard let _ = self else { return }
-                 if Int64(postInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
-                 self?.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (alert) in
-                 guard let _ = self else { return }
-                 let postId = postInfo.valueForInt(key: CId) ?? 0
-                 self?.deletePost(postId, cell.btnMore.tag)
-                 }
-                 }else{
-                 self?.btnReportCLK(postInfo)
-                 }
-                 }*/
-                
                 cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                     appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnUserName.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-//                    appDelegate.moveOnProfileScreen(postInfo.valueForString(key: CUsermailID), self)
                     appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnShare.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                     let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                     sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                     sharePost.presentShareActivity()
                 }
                 cell.btnIconShare.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                     let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                     sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                     sharePost.presentShareActivity()
@@ -1811,16 +1682,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         }
         
         if indexPath.section == 2 {
-         return 
+            return
         }
         
         guard arrPostList[indexPath.row].count != 0 else { return}
-//        guard arrPostList[indexPath.row].count != 0 else { return}
+        //        guard arrPostList[indexPath.row].count != 0 else { return}
         let postInfo = arrPostList[indexPath.row]
-       // let postId = postInfo.valueForInt(key: CId)
+        // let postId = postInfo.valueForInt(key: CId)
         let postId = postInfo.valueForString(key: "post_id")
-//        let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
-//        let isPostDeleted = postInfo.valueForInt(key: CIsPostDeleted)
+        //        let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
+        //        let isPostDeleted = postInfo.valueForInt(key: CIsPostDeleted)
         let isshared = 0
         let isdelete = 0
         if isdelete == 1{
@@ -1834,7 +1705,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             return
         }
         switch postInfo.valueForString(key: CPostTypeNew) {
-       // switch postInfo.valueForInt(key: CPostType) {
+        
         case CStaticArticleIdNew:
             
             if isshared == 1{
@@ -1855,7 +1726,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
             
         case CStaticGalleryIdNew:
-           // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
             let isshared = 0
             if isshared == 1{
                 let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
@@ -1877,7 +1747,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         case CStaticChirpyIdNew:
             
             if postInfo.valueForString(key: CImage).isBlank{
-                //let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
                 let isshared = 0
                 if isshared == 1{
                     let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
@@ -1890,14 +1759,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     break
                 }
                 if let chirpyDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController{
-//                    chirpyDetailsVC.chirpyID = postId.toInt
-//                    chirpyDetailsVC.chirpyInfo = postInfo
                     chirpyDetailsVC.chirpyID = postId.toInt
                     chirpyDetailsVC.chirpyInformation = postInfo
                     self.navigationController?.pushViewController(chirpyDetailsVC, animated: true)
                 }
             }else{
-               // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
                 let isshared = 0
                 if isshared == 1{
                     let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
@@ -1916,7 +1782,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
         case CStaticShoutIdNew:
-            //let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
+            
             let isshared = 0
             let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
             if isshared == 1{
@@ -1930,7 +1796,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
-            
+                
                 shoutsDetailsVC.shoutInformations = postInfo
                 shoutsDetailsVC.shoutID = postId.toInt
                 self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
@@ -1938,7 +1804,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
             
         case CStaticForumIdNew:
-           // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
+            
             let isshared = 0
             if isshared == 1{
                 let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
@@ -1959,7 +1825,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             
         case CStaticEventIdNew:
             if postInfo.valueForString(key: CImage).isBlank{
-               // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
+                
                 let isshared = 0
                 if isshared == 1{
                     let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
@@ -1971,9 +1837,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
-                //if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? EventDetailViewController {
+                
                 if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
-                    //eventDetailsVC.postID = postInfo.valueForInt(key: CId)
+                    
                     eventDetailsVC.eventInfo = postInfo
                     eventDetailsVC.postID = postId.toInt
                     self.navigationController?.pushViewController(eventDetailsVC, animated: true)
@@ -1991,7 +1857,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     break
                 }
                 if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
-                   // eventDetailsVC.postID = postInfo.valueForInt(key: CId)
+                    // eventDetailsVC.postID = postInfo.valueForInt(key: CId)
                     eventDetailsVC.eventInfo = postInfo
                     eventDetailsVC.postID = postId.toInt
                     self.navigationController?.pushViewController(eventDetailsVC, animated: true)
@@ -2000,7 +1866,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             
             break
         case CStaticPollIdNew: // Poll Cell....
-            //let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
+            
             let isshared = 0
             if isshared == 1{
                 let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
@@ -2029,57 +1895,46 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
 // MARK:- --------  TableView Cells Action
 extension HomeViewController {
     fileprivate func btnInterestedNotInterestedMayBeCLK(_ type : Int?, _ indexpath : IndexPath?){
+        
         var postInfo = arrPostList[indexpath!.row]
         if type != postInfo.valueForInt(key: CIsInterested) {
-                       let totalIntersted = postInfo.valueForString(key: "yes_count")
-                       let totalNotIntersted = postInfo.valueForString(key:"no_count")
-                       let totalMaybe = postInfo.valueForString(key: "maybe_count")
-                       
-                       
-                       switch postInfo.valueForInt(key: CIsInterested) {
-                       case CTypeInterested:
-                           postInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
-                           break
-                       case CTypeNotInterested:
-                           postInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
-                           break
-                       case CTypeMayBeInterested:
-                           postInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
-                           break
-                       default:
-                           break
-                       }
-                       postInfo[CIsInterested] = type
-                       
-                       switch type {
-                       case CTypeInterested:
-                           postInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
-                           break
-                       case CTypeNotInterested:
-                           postInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
-                           break
-                       case CTypeMayBeInterested:
-                           postInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
-                           break
-                       default:
-                           break
-                       }
-                       //var postId = postInfo.valueForInt(key: CId)
-                       var postId = postInfo.valueForString(key: "post_id")
-                       let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
-           //            if isSharedPost == 1{
-           //                postId = postInfo[COriginalPostId] as? Int ?? 0
-           //            }
+            
+            let totalIntersted = postInfo.valueForString(key: "yes_count")
+            let totalNotIntersted = postInfo.valueForString(key:"no_count")
+            let totalMaybe = postInfo.valueForString(key: "maybe_count")
+            
+            switch postInfo.valueForInt(key: CIsInterested) {
+            case CTypeInterested:
+                postInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+                break
+            case CTypeNotInterested:
+                postInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+                break
+            case CTypeMayBeInterested:
+                postInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+                break
+            default:
+                break
+            }
+            postInfo[CIsInterested] = type
+            
+            switch type {
+            case CTypeInterested:
+                postInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+                break
+            case CTypeNotInterested:
+                postInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+                break
+            case CTypeMayBeInterested:
+                postInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+                break
+            default:
+                break
+            }
+            let postId = postInfo.valueForString(key: "post_id")
+            _ = postInfo.valueForInt(key: CIsSharedPost)
             MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
             
-//            
-//            arrPostList.remove(at: (indexpath?.row)!)
-//            arrPostList.insert(postInfo, at: (indexpath?.row)!)
-//            UIView.performWithoutAnimation {
-//                if (self.tblEvents.indexPathsForVisibleRows?.contains(indexpath!))!{
-//                    self.tblEvents.reloadRows(at: [indexpath!], with: .none)
-//                }
-//            }
         }
         
     }
@@ -2106,45 +1961,25 @@ extension HomeViewController {
             guard let _ = self else { return }
             
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
-//                switch postInfo!.valueForInt(key: CPostType) {
-//                case CStaticArticleId:
-//                    reportVC.reportType = .reportArticle
-//                case CStaticGalleryId:
-//                    reportVC.reportType = .reportGallery
-//                case CStaticChirpyId:
-//                    reportVC.reportType = .reportChirpy
-//                case CStaticShoutId:
-//                    reportVC.reportType = .reportShout
-//                case CStaticForumId:
-//                    reportVC.reportType = .reportForum
-//                case CStaticEventId:
-//                    reportVC.reportType = .reportEvent
-//                case CStaticPollId:
-//                    reportVC.reportType = .reportPoll
-//                default:
-//                    break
-//                }
                 
                 switch postInfo!.valueForString(key: CPostTypeNew) {
-                                case CStaticArticleIdNew:
-                                    reportVC.reportType = .reportArticle
-                                case CStaticGalleryIdNew:
-                                    reportVC.reportType = .reportGallery
-                                case CStaticChirpyIdNew:
-                                    reportVC.reportType = .reportChirpy
-                                case CStaticShoutIdNew:
-                                    reportVC.reportType = .reportShout
-                                case CStaticForumIdNew:
-                                    reportVC.reportType = .reportForum
-                                case CStaticEventIdNew:
-                                    reportVC.reportType = .reportEvent
-                                case CStaticPollIdNew:
-                                    reportVC.reportType = .reportPoll
-                                default:
-                                    break
-                                }
-                
-                
+                case CStaticArticleIdNew:
+                    reportVC.reportType = .reportArticle
+                case CStaticGalleryIdNew:
+                    reportVC.reportType = .reportGallery
+                case CStaticChirpyIdNew:
+                    reportVC.reportType = .reportChirpy
+                case CStaticShoutIdNew:
+                    reportVC.reportType = .reportShout
+                case CStaticForumIdNew:
+                    reportVC.reportType = .reportForum
+                case CStaticEventIdNew:
+                    reportVC.reportType = .reportEvent
+                case CStaticPollIdNew:
+                    reportVC.reportType = .reportPoll
+                default:
+                    break
+                }
                 
                 reportVC.userID = postInfo?.valueForInt(key: CUserId)
                 reportVC.reportID = postInfo?.valueForInt(key: CId)
@@ -2236,17 +2071,14 @@ extension HomeViewController {
                 guard let _ = self else { return }
                 switch postInfo.valueForInt(key: CPostType){
                 case CStaticArticleId:
+                    
                     if let addArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddArticleViewController") as? AddArticleViewController{
                         addArticleVC.articleType = .editArticle
                         addArticleVC.articleID = postId
                         self?.navigationController?.pushViewController(addArticleVC, animated: true)
                     }
                 case CStaticGalleryId:
-                    /*if let galleyVC = CStoryboardImage.instantiateViewController(withIdentifier: "GalleryPreviewViewController") as? GalleryPreviewViewController{
-                     galleyVC.imagePostType = .editImagePost
-                     galleyVC.imgPostId = postId
-                     self.navigationController?.pushViewController(galleyVC, animated: true)
-                     }*/
+                    
                     if let galleryListVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddMediaViewController") as? AddMediaViewController{
                         galleryListVC.imagePostType = .editImagePost
                         galleryListVC.imgPostId = postId
@@ -2254,12 +2086,14 @@ extension HomeViewController {
                     }
                     
                 case CStaticChirpyId:
+                    
                     if let addChirpyVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddChirpyViewController") as? AddChirpyViewController{
                         addChirpyVC.chirpyType = .editChirpy
                         addChirpyVC.chirpyID = postId
                         self?.navigationController?.pushViewController(addChirpyVC, animated: true)
                     }
                 case CStaticShoutId:
+                    
                     if let createShoutsVC = CStoryboardHome.instantiateViewController(withIdentifier: "CreateShoutsViewController") as? CreateShoutsViewController{
                         createShoutsVC.shoutsType = .editShouts
                         createShoutsVC.shoutID = postId
@@ -2267,6 +2101,7 @@ extension HomeViewController {
                     }
                     
                 case CStaticForumId:
+                    
                     if let addForumVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddForumViewController") as? AddForumViewController{
                         addForumVC.forumType = .editForum
                         addForumVC.forumID = postId
@@ -2274,6 +2109,7 @@ extension HomeViewController {
                     }
                     
                 case CStaticEventId:
+                    
                     if let addEventVC = CStoryboardEvent.instantiateViewController(withIdentifier: "AddEventViewController") as? AddEventViewController{
                         addEventVC.eventType = .editEvent
                         addEventVC.eventID = postId
@@ -2345,7 +2181,6 @@ extension HomeViewController: PostTypeSelectionDelegate{
         case CTypePoll:
             // Add Poll
             if let AddPollVC = CStoryboardPoll.instantiateViewController(withIdentifier: "AddPollViewController") as? AddPollViewController{
-                //AddPollVC.shoutsType = .addShouts
                 self.navigationController?.pushViewController(AddPollVC, animated: true)
             }
             break
@@ -2360,17 +2195,15 @@ extension HomeViewController: PostTypeSelectionDelegate{
         addPostView.delegate = self
         self.view.addSubview(addPostView)
         addPostView.showPostOption()
-        //        let tap = UITapGestureRecognizer(target: self, action:#selector(self.handleTap(_:)))
-        //        addPostView.addGestureRecognizer(tap)
-        //        addPostView.isUserInteractionEnabled = true
+        
     }
 }
 // MARK:- -------- Action Event
 extension HomeViewController{
     @objc fileprivate func btnFilterClicked(_ sender : UIBarButtonItem) {
-       
+        
         if let postFilterVC = CStoryboardProfile.instantiateViewController(withIdentifier: "ProfileFilterViewController") as? ProfileFilterViewController {
-
+            
             postFilterVC.arrSelectedFilter = arrSelectedFilterOption
             postFilterVC.setBlock { [weak self](object, message) in
                 guard let _ = self else { return }
@@ -2396,7 +2229,6 @@ extension HomeViewController{
     
     //search Button Click
     
-    //Search Button clicked
     @objc fileprivate func btnSearchClicked(_ sender : UIBarButtonItem) {
         if searchbtnNav.isSelected == true {
             issearchSelected = false

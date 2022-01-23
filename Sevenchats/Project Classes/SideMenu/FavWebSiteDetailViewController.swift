@@ -10,7 +10,7 @@ import UIKit
 import ActiveLabel
 
 class FavWebSiteDetailViewController: ParentViewController {
-
+    
     @IBOutlet var lblWebSiteType : UILabel!
     @IBOutlet var lblWebSiteTitle : UILabel!
     @IBOutlet var lblWebSiteDescription : UILabel!
@@ -50,7 +50,6 @@ class FavWebSiteDetailViewController: ParentViewController {
         didSet {
             tblCommentList.estimatedRowHeight = 100;
             tblCommentList.rowHeight = UITableView.automaticDimension;
-//            tblCommentList.transform = CGAffineTransform(rotationAngle: -.pi)
         }
     }
     
@@ -69,7 +68,7 @@ class FavWebSiteDetailViewController: ParentViewController {
         super.viewDidLoad()
         self.Initialization()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -83,11 +82,10 @@ class FavWebSiteDetailViewController: ParentViewController {
     func Initialization(){
         
         self.title = CSideFavWebSites
-
+        
         // Set website related contern here...
         self.favWebSiteDetails()
         self.getCommentListFromServer()
-        
     }
     
     func updateUIAccordingToLanguage(){
@@ -126,15 +124,6 @@ extension FavWebSiteDetailViewController {
     }
     
     fileprivate func getCommentListFromServer() {
-//        _ = APIRequest.shared().getCommentList(page: 1, showLoader: false, post_id: nil, rss_id: websiteInfo.valueForInt(key: CId)) { (response, error) in
-//            if response != nil && error == nil {
-//                if let arrComm = response![CJsonData] as? [[String : Any]] {
-//                    if let metaInfo = response![CJsonMeta] as? [String : Any] {
-//                        self.updateCommentSection(arrComm, metaInfo.valueForInt(key: "total")!)
-//                    }
-//                }
-//            }
-//        }
     }
     
     func updateCommentSection(_ arrComm : [[String : Any]], _ totalComment : Int){
@@ -208,9 +197,7 @@ extension FavWebSiteDetailViewController: UITableViewDelegate, UITableViewDataSo
                         
                         if arrSelectedUser.count > 0 {
                             let userSelectedInfo = arrSelectedUser[0]
-//                            appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(userSelectedInfo.valueForString(key: CUserId), userSelectedInfo.valueForString(key: CUsermailID), self)
-                            
                         }
                     })
                     
@@ -233,19 +220,15 @@ extension FavWebSiteDetailViewController: UITableViewDelegate, UITableViewDataSo
             
             cell.btnUserName.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             
             cell.btnUserImage.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
-            
             return cell
         }
-        
         return tableView.tableViewDummyCell()
     }
     
@@ -256,8 +239,7 @@ extension FavWebSiteDetailViewController: UITableViewDelegate, UITableViewDataSo
 // MARK:-  --------- Generic UITextView Delegate
 extension FavWebSiteDetailViewController: GenericTextViewDelegate{
     
-    func genericTextViewDidChange(_ textView: UITextView, height: CGFloat)
-    {
+    func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
         if textView.text.count < 1 || textView.text.isBlank{
             btnSend.isUserInteractionEnabled = false
             btnSend.alpha = 0.5
@@ -298,21 +280,6 @@ extension FavWebSiteDetailViewController{
             // Get Mention user's Ids..
             let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
             
-//            APIRequest.shared().sendComment(post_id: nil, commentId: nil, rss_id: websiteInfo.valueForInt(key: CId), type: 2, comment: strComment, include_user_id: includedUser) { (response, error) in
-//                if response != nil && error == nil {
-//                    
-//                    self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
-//                    self.txtViewComment.text = nil
-//                    self.btnSend.isUserInteractionEnabled = false
-//                    self.btnSend.alpha = 0.5
-//                    self.txtViewComment.updatePlaceholderFrame(false)
-//                    
-//                    if let responsInfo = response as? [String : Any]{
-//                        MIGeneralsAPI.shared().refreshWebSiteScreens(responsInfo, self.websiteInfo.valueForInt(key: CId), self, .commentPost)
-//                    }
-//                    
-//                }
-//            }
         }
     }
     

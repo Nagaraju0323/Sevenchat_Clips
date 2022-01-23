@@ -91,33 +91,14 @@ extension GroupMemberRequestViewController{
             return
         }
         
-        if let groupInfo = self.iObject as? [String : Any]{
-            
-//            apiTask = APIRequest.shared().getGroupPendingRequest(group_id: groupInfo.valueForInt(key: CGroupId), search : search) { (response, error) in
-//                self.refreshControl.endRefreshing()
-//
-//                if response != nil && error == nil{
-//                    if let memberInfo = response![CJsonData] as? [[String : Any]]{
-//                        self.arrMember = memberInfo
-//                        self.tblMember.reloadData()
-//
-//                        self.lblNoData.isHidden = self.arrMember.count > 0
-//                    }
-//                }
-//            }
-        }
+//        if let groupInfo = self.iObject as? [String : Any]{
+//        }
     }
     
     func accpetRejectGroupRequest(user_id : Int?, status : Int?, index : Int?){
-        if let groupInfo = self.iObject as? [String : Any]{
-//            APIRequest.shared().groupRequestStatus(group_id: groupInfo.valueForInt(key: CGroupId), user_id: user_id, status: status) { (response, error) in
-//                if response != nil && error == nil{
-//                    self.arrMember.remove(at: index!)
-//                    self.tblMember.reloadData()
-//                    self.lblNoData.isHidden = self.arrMember.count > 0
-//                }
-//            }
-        }
+//        if let groupInfo = self.iObject as? [String : Any]{
+//
+//        }
     }
 }
 

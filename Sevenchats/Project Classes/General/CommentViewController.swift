@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : CommentViewController                      *
+ * Changes :                                             *
+                            *
+ ********************************************************/
+
 import UIKit
 import ActiveLabel
 
@@ -111,51 +118,6 @@ extension CommentViewController{
         self.getCommentListFromServer(showLoader: false)
     }
     
-//    fileprivate func getCommentListFromServer(showLoader: Bool){
-//
-//        if apiTask?.state == URLSessionTask.State.running {
-//            return
-//        }
-//
-//        // Add load more indicator here...
-//        self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
-////        getProductCommentLists
-//        apiTask = APIRequest.shared().getCommentList(page: pageNumber, showLoader: showLoader, post_id: postId, rss_id: rssID) { [weak self] (response, error) in
-//
-////            apiTask = APIRequest.shared().getProductCommentLists(page: pageNumber, showLoader: showLoader, post_id: postId, rss_id: rssId) { [weak self] (response, error) in
-//
-//
-//            guard let self = self else { return }
-//            self.tblCommentList.tableFooterView = UIView()
-//            self.refreshControl.endRefreshing()
-//            self.apiTask?.cancel()
-//
-//            if response != nil {
-//
-//                if let arrList = response![CJsonData] as? [[String:Any]] {
-//
-//                    // Remove all data here when page number == 1
-//                    if self.pageNumber == 1 {
-//                        self.arrCommentList.removeAll()
-//                        self.tblCommentList.reloadData()
-//                    }
-//
-//                    // Add Data here...
-//                    if arrList.count > 0{
-//                        self.arrCommentList = self.arrCommentList + arrList
-//                        self.tblCommentList.reloadData()
-//                        self.pageNumber += 1
-//                    }
-//                }
-//
-//                print("arrCommentListCount : \(self.arrCommentList.count)")
-//                self.lblNoData.isHidden = self.arrCommentList.count != 0
-//            }
-//        }
-//    }
-    
-    
-    
     fileprivate func getCommentListFromServer(showLoader: Bool){
         
         if apiTask?.state == URLSessionTask.State.running {
@@ -172,7 +134,6 @@ extension CommentViewController{
             guard let self = self else { return }
 
             self.tblCommentList.tableFooterView = UIView()
-//            self.refreshControl.endRefreshing()
             self.apiTask?.cancel()
             
             if response != nil {
@@ -180,11 +141,7 @@ extension CommentViewController{
                 let commentCnt = response!["comments_count"] as? Int
                 let comments =  appDelegate.getCommentCountString(comment:commentCnt ?? 0)
                 self.commentCount = comments
-            
-                
-//                if let arrList = response![CJsonData] as? [[String:Any]] {
                     if let arrList = response!["comments"] as? [[String:Any]] {
-                    
                     // Remove all data here when page number == 1
                     if self.pageNumber == 1 {
                         self.arrCommentList.removeAll()
@@ -204,10 +161,7 @@ extension CommentViewController{
             }
         }
     }
-    
-    
 }
-
 
 // MARK:- --------- UITableView Datasources/Delegate
 extension CommentViewController: UITableViewDelegate, UITableViewDataSource{
@@ -244,7 +198,6 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource{
         {
             weak var weakCell = cell
             let commentInfo = arrCommentList[indexPath.row]
-//            cell.lblCommentPostDate.text = DateFormatter.shared().durationString(duration: commentInfo.valueForString(key: CCreated_at))
             
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
@@ -279,7 +232,6 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if arrSelectedUser.count > 0 {
                             let userSelectedInfo = arrSelectedUser[0]
-//                            appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
                             appDelegate.moveOnProfileScreenNew(userSelectedInfo.valueForString(key: CUserId), userSelectedInfo.valueForString(key: CUsermailID), self)
                         }
                     })
@@ -302,13 +254,11 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource{
             
             cell.btnUserName.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             
             cell.btnUserImage.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
                 appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             
@@ -432,36 +382,6 @@ extension CommentViewController{
     }
     
     func btnMoreOptionOfComment(index:Int){
-//        self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
-//
-//            guard let self = self else {return}
-//            let commentInfo = self.arrCommentList[index]
-//            var commentText = commentInfo.valueForString(key: "comment")
-//            DispatchQueue.main.async {
-//                self.viewUserSuggestion.resetData()
-//                self.editCommentId = commentInfo.valueForInt(key: CId)
-//                if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
-//                    for userInfo in arrIncludedUsers {
-//                        let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-//                        commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
-//                        self.viewUserSuggestion.addSelectedUser(user: userInfo)
-//                    }
-//                }
-//                self.txtViewComment.text = commentText
-//                self.viewUserSuggestion.setAttributeStringInTextView(self.txtViewComment)
-//                self.txtViewComment.updatePlaceholderFrame(true)
-//                let constraintRect = CGSize(width: self.txtViewComment.frame.size.width, height: .greatestFiniteMagnitude)
-//                let boundingBox = self.txtViewComment.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.txtViewComment.font!], context: nil)
-//                self.genericTextViewDidChange(self.txtViewComment, height: ceil(boundingBox.height))
-//            }
-//
-//        }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](_) in
-//            guard let _ = self else {return}
-//            DispatchQueue.main.async {
-//                self?.deleteComment(index)
-//            }
-//        }
-        
         
         self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
             guard let _ = self else {return}
@@ -472,26 +392,8 @@ extension CommentViewController{
         }
         
     }
-    
-//    func deleteComment(_ index:Int){
-//        let commentInfo = self.arrCommentList[index]
-//        let commentId = commentInfo.valueForInt(key: CId) ?? 0
-//        APIRequest.shared().deleteComment(commentId: commentId) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil && error == nil {
-//                DispatchQueue.main.async {
-//                    self.commentCount -= 1
-//                    //self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
-//                    self.arrCommentList.remove(at: index)
-//                    self.tblCommentList.reloadData()
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.postId, self, .deleteComment)
-//                }
-//            }
-//        }
-//    }
     func deleteComment(_ index:Int){
         
-//        let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
         let commentInfo = self.arrCommentList[index]
         
         let commentId = commentInfo.valueForString(key: "updated_at")
@@ -507,13 +409,9 @@ extension CommentViewController{
             if response != nil && error == nil {
                 DispatchQueue.main.async {
                     self.arrCommentList.remove(at: index)
-//                    var productCount = self.product?.totalComments.toInt ?? 0
-//                     productCount -= 1
-//                    self.product?.totalComments = productCount.toString
-//                    self.product?.totalComment -= 1
+
                     self.getCommentListFromServer(showLoader: true)
                     self.tblCommentList.reloadData()
-//                    ProductHelper<UIViewController>.updateProductData(product: self.product!, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
                 }
             }
         }

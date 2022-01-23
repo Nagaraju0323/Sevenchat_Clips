@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ReportViewController                        *
+ * Changes :                                             *
+
+ ********************************************************/
+
 import UIKit
 
 let kReportType = "type"
@@ -204,7 +211,7 @@ extension ReportViewController{
             para[CPostId] = self.reportID
         }
         
-        guard let userEmailID = appDelegate.loginUser?.email else {return }
+//        guard let userEmailID = appDelegate.loginUser?.email else {return }
         guard let status_id = appDelegate.loginUser?.status_id else { return }
         guard let user_id = appDelegate.loginUser?.user_id else { return }
         let userID = user_id.description
@@ -212,7 +219,6 @@ extension ReportViewController{
         let reportedurl = reportedURL ?? ""
         let reportTxt = textViewReportMessage.text.replace(string: "\n", replacement: " ")
         var dict :[String:Any]  =  [
-           // "element_id":post_id ?? "",
                "image":uploadImgUrl,
                "reason":reportTxt,
                "reported_user":reportIDNEW ?? "",
@@ -227,36 +233,6 @@ extension ReportViewController{
         }else{
             dict["element_id"] = post_id ?? ""
         }
-       /***********Newcode by  *********
-            APIRequest.shared().reportPostUserRSS(para: para, image: imgArticle.image) { (response, error) in
-            if response != nil {
-
-                switch self.reportType {
-                case .reportUser?:
-                    // Remove all user related post from previous screen
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, nil, self, .addPost)
-                case .reportRss?:
-                    // Remove website from previous screen
-                    MIGeneralsAPI.shared().refreshWebSiteScreens(nil, nil, self,  .reportPost)
-                default:
-                    // Remove post from previous screen
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.reportID, self, .reportPost)
-                }
-
-                // Notify to previous screen.
-                if let completionBlock = self.block {
-                    completionBlock(nil, "")
-                }
-
-                self.redirectToPreviousScreen()
-                if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaInfo.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: nil)
-                }
-            }
-        }
-        */
-        
-        
         APIRequest.shared().reportPostUserRSS(para: dict, image: imgArticle.image) { (response, error) in
         if response != nil {
 
@@ -404,10 +380,7 @@ extension ReportViewController{
                     return
                 }
                 self.imgName = imageURL.absoluteString ?? ""
-//                MInioimageupload.shared().uploadMinioimage(ImgnameStr:image!)
-                guard let mobileNum = appDelegate.loginUser?.mobile else {
-                    return
-                }
+                guard let mobileNum = appDelegate.loginUser?.mobile else { return}
                 MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                 MInioimageupload.shared().callback = { message in
                 print("UploadImage::::::::::::::\(message)")

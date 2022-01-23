@@ -35,7 +35,6 @@ class PollVotesListViewController: ParentViewController {
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
     var pollUser = [String: Any]()
-//    var pollUsers : [MDLPollUserList] = []
     var pollUsers : [MDLPollOptionsNew] = []
     
     //MARK: - View life cycle methods
@@ -57,7 +56,6 @@ extension PollVotesListViewController {
         
         self.title = CPollUsersList
        setPollUsers(users: pollUsers)
-        //setPollUser(user: pollUser)
         self.tblVoteList.reloadData()
     }
     
@@ -65,7 +63,6 @@ extension PollVotesListViewController {
         self.pageNumber = 1
         refreshControl.beginRefreshing()
         refreshControl.endRefreshing()
-        //self.getLikeListFromServer(false)
     }
 }
 
@@ -75,11 +72,6 @@ extension PollVotesListViewController {
         self.pollUsers = users
         self.tblVoteList.reloadData()
     }
-//
-//        func setPollUser(user:[String:Any]){
-//            self.pollUser = user
-//            self.tblVoteList.reloadData()
-//        }
 }
 
 //MARK: - UITableViewDelegate, UITableViewDataSource
@@ -95,8 +87,6 @@ extension PollVotesListViewController : UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PollVotesListTblCell") as? PollVotesListTblCell {
-//            cell.lblName.text = pollUser["first_name"] as! String
-//            cell.imgVProfile.loadImageFromUrl(pollUser["profile_image"] as! String, true)
           cell.lblName.text = pollUsers[indexPath.row].firstName + pollUsers[indexPath.row].lastName
             cell.imgVProfile.loadImageFromUrl(pollUsers[indexPath.row].profileImage, true)
             

@@ -38,9 +38,9 @@ class MyProfileViewController: ParentViewController {
     }
     
     @objc func loadList(){
-            //load data here
-            self.tblUser.reloadData()
-        }
+        //load data here
+        self.tblUser.reloadData()
+    }
     
     // MARK:- ---------- Initialization
     
@@ -75,7 +75,6 @@ class MyProfileViewController: ParentViewController {
         tblUser.register(UINib(nibName: "PostDeletedCell", bundle: nil), forCellReuseIdentifier: "PostDeletedCell")
         
         GCDMainThread.async {
-            // self.cnTblUserTopSpace.constant = (self.navigationController?.navigationBar.frame.size.height)! + UIApplication.shared.statusBarFrame.size.height
             self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
             self.refreshControl.tintColor = ColorAppTheme
             self.tblUser.pullToRefreshControl = self.refreshControl
@@ -86,7 +85,7 @@ class MyProfileViewController: ParentViewController {
         
         // To Get User detail from server.......
         self.myUserDetails()
-//        self.friendsListFromServer()
+        //        self.friendsListFromServer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,23 +120,23 @@ extension MyProfileViewController{
     }
     
     // To Get User detail from server.......
- //MARK:- NEW CODE
+    //MARK:- NEW CODE
     func myUserDetails(){
-            if let userID = appDelegate.loginUser?.user_id{
-                let dict:[String:Any] = [
-                    CEmail_Mobile : appDelegate.loginUser?.email ?? ""
-                ]
-                APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
-                    self.refreshControl.endRefreshing()
-                    if response != nil && error == nil {
-                        self.tblUser.reloadData()
-                        // Call post list api here........
-                        self.getPostListFromServer()
-                        
-                    }
+        if let userID = appDelegate.loginUser?.user_id{
+            let dict:[String:Any] = [
+                CEmail_Mobile : appDelegate.loginUser?.email ?? ""
+            ]
+            APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
+                self.refreshControl.endRefreshing()
+                if response != nil && error == nil {
+                    self.tblUser.reloadData()
+                    // Call post list api here........
+                    self.getPostListFromServer()
+                    
                 }
             }
         }
+    }
     func getPostListFromServer() {
         
         if let userID = appDelegate.loginUser?.user_id {
@@ -166,7 +165,6 @@ extension MyProfileViewController{
                 if response != nil && error == nil {
                     let data = response!["post_listing"] as! [String:Any]
                     if let arrList = data["post"] as? [[String : Any]] {
-                        //if let arrList = response![CJsonData] as? [[String : Any]] {
                         // Remove all data here when page number == 1
                         if self.pageNumber == 1 {
                             self.arrPostList.removeAll()
@@ -181,186 +179,182 @@ extension MyProfileViewController{
                         }
                     }
                 }else {
-//                    guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
-//                    let errorMsg = errorUserinfo.stringAfter(":")
-//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    
+                }
             }
-          }
         }
     }
     //MARK:- NEW FILTER API
-       func getPostListFromServerNew() {
-           
-           if let userID = appDelegate.loginUser?.user_id {
-               
-               if apiTask?.state == URLSessionTask.State.running {
-                   return
-               }
-               
-               // Add load more indicator here...
-               if self.pageNumber > 2 {
-                   self.tblUser.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-               }else{
-                   self.tblUser.tableFooterView = nil
-               }
-               
-               var serachType : String?
-               if arrSelectedFilterOption.count > 0 {
-                   serachType = arrSelectedFilterOption.map({$0.valueForString(key: CCategoryId)}).joined(separator: ",")
-               }
-               
-               apiTask = APIRequest.shared().getUserPostListNew(page: self.pageNumber, user_id: Int(userID), search_type: serachType) { [weak self](response, error) in
-                   guard let self = self else { return }
-                   self.tblUser.tableFooterView = nil
-                   self.refreshControl.endRefreshing()
-                   
-                   if response != nil && error == nil {
-                       let arrList = response?["Shout"] as? [[String : Any]]
-                       
-                       if let arrArticleList = response?["Article"] as? [[String : Any]] {
-                           //if let arrList = response![CJsonData] as? [[String : Any]] {
-                           // Remove all data here when page number == 1
-                           if self.pageNumber == 1 {
-                               self.arrPostList.removeAll()
-                               self.tblUser.reloadData()
-                           }
-                           
-                           // Add Data here...
-                           if arrArticleList.count > 0 {
-                               self.arrPostList = self.arrPostList + arrArticleList
-                               self.tblUser.reloadData()
-                               self.pageNumber += 1
-                           }
-                       }
-                       if let arrChirpyList = response?["Chirpy"] as? [[String : Any]] {
-                           //if let arrList = response![CJsonData] as? [[String : Any]] {
-                           // Remove all data here when page number == 1
-                           if self.pageNumber == 1 {
-                               self.arrPostList.removeAll()
-                               self.tblUser.reloadData()
-                           }
-                           
-                           // Add Data here...
-                           if arrChirpyList.count > 0 {
-                               self.arrPostList = self.arrPostList + arrChirpyList
-                               self.tblUser.reloadData()
-                               self.pageNumber += 1
-                           }
-                       }
-                       if let arrEventList = response?["Event"] as? [[String : Any]] {
-                           //if let arrList = response![CJsonData] as? [[String : Any]] {
-                           // Remove all data here when page number == 1
-                           if self.pageNumber == 1 {
-                               self.arrPostList.removeAll()
-                               self.tblUser.reloadData()
-                           }
-                           
-                           // Add Data here...
-                           if arrEventList.count > 0 {
-                               self.arrPostList = self.arrPostList + arrEventList
-                               self.tblUser.reloadData()
-                               self.pageNumber += 1
-                           }
-                       }
-                       if let arrForumList = response?["Forum"] as? [[String : Any]] {
-                           //if let arrList = response![CJsonData] as? [[String : Any]] {
-                           // Remove all data here when page number == 1
-                           if self.pageNumber == 1 {
-                               self.arrPostList.removeAll()
-                               self.tblUser.reloadData()
-                           }
-                           
-                           // Add Data here...
-                           if arrForumList.count > 0 {
-                               self.arrPostList = self.arrPostList + arrForumList
-                               self.tblUser.reloadData()
-                               self.pageNumber += 1
-                           }
-                       }
-                       if let arrGalleryList = response?["Gallery"] as? [[String : Any]] {
-                           //if let arrList = response![CJsonData] as? [[String : Any]] {
-                           // Remove all data here when page number == 1
-                           if self.pageNumber == 1 {
-                               self.arrPostList.removeAll()
-                               self.tblUser.reloadData()
-                           }
-                           
-                           // Add Data here...
-                           if arrGalleryList.count > 0 {
-                               self.arrPostList = self.arrPostList + arrGalleryList
-                               self.tblUser.reloadData()
-                               self.pageNumber += 1
-                           }
-                       }
-                       if let arrPollList = response?["Poll"] as? [[String : Any]] {
-                           //if let arrList = response![CJsonData] as? [[String : Any]] {
-                           // Remove all data here when page number == 1
-                           if self.pageNumber == 1 {
-                               self.arrPostList.removeAll()
-                               self.tblUser.reloadData()
-                           }
-                           
-                           // Add Data here...
-                           if arrPollList.count > 0 {
-                               self.arrPostList = self.arrPostList + arrPollList
-                               self.tblUser.reloadData()
-                               self.pageNumber += 1
-                           }
-                       }
-                     
-                       if let arrShoutList = response?["Shout"] as? [[String : Any]] {
-                           //if let arrList = response![CJsonData] as? [[String : Any]] {
-                           // Remove all data here when page number == 1
-                           if self.pageNumber == 1 {
-                               self.arrPostList.removeAll()
-                               self.tblUser.reloadData()
-                           }
-                           
-                           // Add Data here...
-                           if arrShoutList.count > 0 {
-                               self.arrPostList = self.arrPostList + arrShoutList
-                               self.tblUser.reloadData()
-                               self.pageNumber += 1
-                           }
-                       }
-                       
-                   }
-               }
-               
-           }
-       }
+    func getPostListFromServerNew() {
+        
+        if let userID = appDelegate.loginUser?.user_id {
+            
+            if apiTask?.state == URLSessionTask.State.running {
+                return
+            }
+            
+            // Add load more indicator here...
+            if self.pageNumber > 2 {
+                self.tblUser.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+            }else{
+                self.tblUser.tableFooterView = nil
+            }
+            
+            var serachType : String?
+            if arrSelectedFilterOption.count > 0 {
+                serachType = arrSelectedFilterOption.map({$0.valueForString(key: CCategoryId)}).joined(separator: ",")
+            }
+            
+            apiTask = APIRequest.shared().getUserPostListNew(page: self.pageNumber, user_id: Int(userID), search_type: serachType) { [weak self](response, error) in
+                guard let self = self else { return }
+                self.tblUser.tableFooterView = nil
+                self.refreshControl.endRefreshing()
+                
+                if response != nil && error == nil {
+                    _ = response?["Shout"] as? [[String : Any]]
+                    
+                    if let arrArticleList = response?["Article"] as? [[String : Any]] {
+                        
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblUser.reloadData()
+                        }
+                        
+                        // Add Data here...
+                        if arrArticleList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrArticleList
+                            self.tblUser.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                    if let arrChirpyList = response?["Chirpy"] as? [[String : Any]] {
+                        
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblUser.reloadData()
+                        }
+                        
+                        // Add Data here...
+                        if arrChirpyList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrChirpyList
+                            self.tblUser.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                    if let arrEventList = response?["Event"] as? [[String : Any]] {
+                        
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblUser.reloadData()
+                        }
+                        
+                        // Add Data here...
+                        if arrEventList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrEventList
+                            self.tblUser.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                    if let arrForumList = response?["Forum"] as? [[String : Any]] {
+                        
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblUser.reloadData()
+                        }
+                        
+                        // Add Data here...
+                        if arrForumList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrForumList
+                            self.tblUser.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                    if let arrGalleryList = response?["Gallery"] as? [[String : Any]] {
+                        
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblUser.reloadData()
+                        }
+                        
+                        // Add Data here...
+                        if arrGalleryList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrGalleryList
+                            self.tblUser.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                    if let arrPollList = response?["Poll"] as? [[String : Any]] {
+                        
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblUser.reloadData()
+                        }
+                        
+                        // Add Data here...
+                        if arrPollList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrPollList
+                            self.tblUser.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                    
+                    if let arrShoutList = response?["Shout"] as? [[String : Any]] {
+                        
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblUser.reloadData()
+                        }
+                        
+                        // Add Data here...
+                        if arrShoutList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrShoutList
+                            self.tblUser.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                    
+                }
+            }
+            
+        }
+    }
     func deletePostNew(_ postId : Int, _ index : Int, _ postType : [String : Any]) {
-           self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: {_ in
-           
-              
+        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: {_ in
+            
             switch postType.valueForString(key: CPostTypeNew){
             
             case CStaticArticleIdNew:
                 self.postTypeDelete = postType.valueForString(key: "type")
-                self.dict =
-                    [
-                        "post_id": postType.valueForString(key: "post_id"),
-                        "image":postType.valueForString(key: "image"),
-                        "post_title": postType.valueForString(key: "post_title"),
-                        "post_category": postType.valueForString(key: "post_category"),
-                        "post_content": postType.valueForString(key: "post_title"),
-                        "age_limit": postType.valueForString(key: "age_limit"),
-                        "targeted_audience": postType.valueForString(key: "targeted_audience"),
-                        "selected_persons": postType.valueForString(key: "selected_persons"),
-                        "status_id": "3"
-                    ]
+                self.dict = [
+                    "post_id": postType.valueForString(key: "post_id"),
+                    "image":postType.valueForString(key: "image"),
+                    "post_title": postType.valueForString(key: "post_title"),
+                    "post_category": postType.valueForString(key: "post_category"),
+                    "post_content": postType.valueForString(key: "post_title"),
+                    "age_limit": postType.valueForString(key: "age_limit"),
+                    "targeted_audience": postType.valueForString(key: "targeted_audience"),
+                    "selected_persons": postType.valueForString(key: "selected_persons"),
+                    "status_id": "3"
+                ]
                 
             case CStaticGalleryIdNew:
+                
                 self.postTypeDelete = postType.valueForString(key: "type")
-                self.dict =
-                    [
-                        "post_id": postType.valueForString(key: "post_id"),
-                        "post_category": postType.valueForString(key: "post_category"),
-                        "images":postType.valueForString(key: "image"),
-                        "targeted_audience": postType.valueForString(key: "targeted_audience"),
-                        "selected_persons": postType.valueForString(key: "selected_persons"),
-                        "status_id": "3"
-                    ]
+                self.dict = [
+                    "post_id": postType.valueForString(key: "post_id"),
+                    "post_category": postType.valueForString(key: "post_category"),
+                    "images":postType.valueForString(key: "image"),
+                    "targeted_audience": postType.valueForString(key: "targeted_audience"),
+                    "selected_persons": postType.valueForString(key: "selected_persons"),
+                    "status_id": "3"
+                ]
             case CStaticChirpyIdNew:
                 
                 self.postTypeDelete = postType.valueForString(key: "type")
@@ -444,19 +438,19 @@ extension MyProfileViewController{
                 
             }
             APIRequest.shared().deletePostNew(postDetials: self.dict, apiKeyCall: self.postTypeDelete, completion: { [weak self](response, error) in
-                   guard let self = self else { return }
-                   if response != nil && error == nil{
-                       self.arrPostList.remove(at: index)
-                       MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, postId, self, .deletePost)
-                       UIView.performWithoutAnimation {
-                           self.tblUser.reloadData()
-                       }
-                   }
-               })
-               
-           }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-       }
-       
+                guard let self = self else { return }
+                if response != nil && error == nil{
+                    self.arrPostList.remove(at: index)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, postId, self, .deletePost)
+                    UIView.performWithoutAnimation {
+                        self.tblUser.reloadData()
+                    }
+                }
+            })
+            
+        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+    }
+    
     
     
     func uploadProfilePic() {
@@ -465,7 +459,7 @@ extension MyProfileViewController{
         var dict = [String:Any]()
         dict[CUserId] = userID
         dict[CProfileImage] = profileImgUrl
-         
+        
         APIRequest.shared().uploadUserProfile(userID: Int(userID), para:dict,profileImgName:profileImgUrl){ [weak self] (response, error) in
             guard let self = self else { return }
             if let _response = response as? [String : AnyObject], error == nil {
@@ -478,10 +472,6 @@ extension MyProfileViewController{
                     sideMenuVc.updateUserProfile()
                     
                 }
-//                DispatchQueue.main.async {
-//                    self.tblUser.reloadData()
-//                }
-                
             }
         }
     }
@@ -504,7 +494,6 @@ extension MyProfileViewController{
                 if let sideMenuVc = appDelegate.sideMenuController.leftViewController as? SideMenuViewController {
                     sideMenuVc.updateUserProfile()
                 }
-                //  self.redirectOnSuccess(metaData: dict)
             }
         }
     }
@@ -548,7 +537,6 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                                 self.imgName = imageURL.absoluteString ?? ""
                                 MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                                 MInioimageupload.shared().callback = { message in
-                                    print("UploadImage::::::::::::::\(message)")
                                     self.coverImgUrl = message
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                                         self.uploadCoverPic()
@@ -570,9 +558,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                                 
                                 self.imgName = imageURL.absoluteString ?? ""
                                 MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                                //  MInioimageupload.shared().uploadMinioVideo(ImgnameStr:image!)
                                 MInioimageupload.shared().callback = { message in
-                                    print("UploadImage::::::::::::::\(message)")
                                     self.coverImgUrl = message
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                                         self.uploadCoverPic()
@@ -606,7 +592,6 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                                 self.imgName = imageURL.absoluteString ?? ""
                                 MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                                 MInioimageupload.shared().callback = { message in
-                                    print("UploadImage::::::::::::::\(message)")
                                     self.profileImgUrl = message
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                                         self.uploadProfilePic()
@@ -628,14 +613,14 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.imgUser.image = nil
                     }
                 }
-
+                
                 cell.onTotalFriendAction = { [weak self] in
                     if let frndVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyFriendsViewController") as? MyFriendsViewController {
                         
                         self?.navigationController?.pushViewController(frndVC, animated: true)
                     }
                 }
-
+                
                 cell.btnViewCompleteProfile.touchUpInside { [weak self](sender) in
                     if let completeVC = CStoryboardProfile.instantiateViewController(withIdentifier: "OtherUserCompleteProfileViewController") as? OtherUserCompleteProfileViewController {
                         completeVC.isLoginUser = true
@@ -645,10 +630,9 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 cell.btnShare.touchUpInside { [weak self](sender) in
                     if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController") as? ChatListViewController{
-                                       let nav = self?.viewController as? UINavigationController
-                                           nav?.pushViewController(userDetailVC, animated: true)
+                        let nav = self?.viewController as? UINavigationController
+                        nav?.pushViewController(userDetailVC, animated: true)
                     }
-                                       
                 }
                 return cell
             }
@@ -662,8 +646,6 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
         }
         
         let postInfo = arrPostList[indexPath.row]
-        // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
-        // let isPostDeleted = postInfo.valueForInt(key: CIsPostDeleted)
         let isshared = 0
         let isdelete = 0
         if isshared == 1 && isdelete == 1{
@@ -703,12 +685,10 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     
                     cell.btnMore.touchUpInside { [weak self](sender) in
-                        //self?.btnMoreCLK(indexPath.row, postInfo)
                         self?.btnSharedMoreCLK(indexPath.row, postInfo)
                     }
                     
                     cell.btnShare.touchUpInside { [weak self](sender) in
-                        //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                         sharePost.presentShareActivity()
@@ -727,7 +707,6 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.homeArticleDataSetup(postInfo)
                 
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
-//                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                 }
                 
@@ -736,7 +715,6 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 
                 cell.btnShare.touchUpInside { [weak self](sender) in
-                    //self?.presentActivityViewController(mediaData: postInfo.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
                     let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                     sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                     sharePost.presentShareActivity()
@@ -786,7 +764,6 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.homeGalleryDataSetup(postInfo)
                 
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
-//                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                 }
                 
@@ -847,7 +824,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.homeChirpyImageDataSetup(postInfo)
                     
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
-//                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                        //                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                     }
                     
@@ -876,7 +853,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.homeChirpyImageDataSetup(postInfo)
                         
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
-//                            self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                            //                            self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                             self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                         }
                         
@@ -904,7 +881,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.homeChirpyImageDataSetup(postInfo)
                     
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
-//                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                        //                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                     }
                     
@@ -964,7 +941,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.homeShoutsDataSetup(postInfo)
                 
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
-//                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                    //                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                 }
                 
@@ -1023,7 +1000,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.homeFourmDataSetup(postInfo)
                 
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
-//                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                    //                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                 }
                 
@@ -1093,7 +1070,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
-//                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                        //                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     }
                     
                     cell.btnMore.touchUpInside { [weak self](sender) in
@@ -1123,7 +1100,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
                             self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
-//                            self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
+                            //                            self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                         }
                         
                         cell.onChangeEventStatus = { [weak self] (action) in
@@ -1154,7 +1131,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.homeEventDataSetup(postInfo)
                     
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
-//                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                        //                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                     }
                     
@@ -1204,7 +1181,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                                 guard let _ = self else { return }
                                 let postID = sharePostData[postId] as? Int ?? 0
                                 let postType = sharePostData[CPostTypeNew]
-                               // self?.deletePost(postID, index, postType as! String)
+                                // self?.deletePost(postID, index, postType as! String)
                                 self?.deletePostNew(postID, index , sharePostData)
                             }
                         }
@@ -1230,7 +1207,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.homePollDataSetup(postInfo, isSelected: true)
                 
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
-//                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                    //                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                 }
                 cell.btnMore.tag = indexPath.row
@@ -1241,7 +1218,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         self?.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { (alert) in
                             let postId = postData.valueForString(key: "post_id")
                             let postType = postData.valueForString(key: CPostTypeNew)
-                           // self?.deletePost(postId.toInt ?? 0, index, postType)
+                            // self?.deletePost(postId.toInt ?? 0, index, postType)
                             self?.deletePostNew(postId.toInt ?? 0, index , postData)
                         }
                     }
@@ -1331,8 +1308,8 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let imageDetailsVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
-//                imageDetailsVC.galleryInfoNew = postInfo
-//                imageDetailsVC.imgPostId = postId.toInt
+                //                imageDetailsVC.galleryInfoNew = postInfo
+                //                imageDetailsVC.imgPostId = postId.toInt
                 imageDetailsVC.galleryInfo = postInfo
                 imageDetailsVC.imgPostId = postId.toInt
                 
@@ -1495,40 +1472,40 @@ extension MyProfileViewController{
     fileprivate func btnInterestedNotInterestedMayBeCLK(_ type : Int?, _ indexpath : IndexPath?){
         var postInfo = arrPostList[indexpath!.row]
         if type != postInfo.valueForInt(key: CIsInterested){
-                       let totalIntersted = postInfo.valueForString(key: "yes_count")
-                       let totalNotIntersted = postInfo.valueForString(key:"no_count")
-                       let totalMaybe = postInfo.valueForString(key: "maybe_count")
-                       
-                       
-                       switch postInfo.valueForInt(key: CIsInterested) {
-                       case CTypeInterested:
-                           postInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
-                           break
-                       case CTypeNotInterested:
-                           postInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
-                           break
-                       case CTypeMayBeInterested:
-                           postInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
-                           break
-                       default:
-                           break
-                       }
-                       postInfo[CIsInterested] = type
-                       
-                       switch type {
-                       case CTypeInterested:
-                           postInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
-                           break
-                       case CTypeNotInterested:
-                           postInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
-                           break
-                       case CTypeMayBeInterested:
-                           postInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
-                           break
-                       default:
-                           break
-                       }
-                       //var postId = postInfo.valueForInt(key: CId)
+            let totalIntersted = postInfo.valueForString(key: "yes_count")
+            let totalNotIntersted = postInfo.valueForString(key:"no_count")
+            let totalMaybe = postInfo.valueForString(key: "maybe_count")
+            
+            
+            switch postInfo.valueForInt(key: CIsInterested) {
+            case CTypeInterested:
+                postInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+                break
+            case CTypeNotInterested:
+                postInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+                break
+            case CTypeMayBeInterested:
+                postInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+                break
+            default:
+                break
+            }
+            postInfo[CIsInterested] = type
+            
+            switch type {
+            case CTypeInterested:
+                postInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+                break
+            case CTypeNotInterested:
+                postInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+                break
+            case CTypeMayBeInterested:
+                postInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+                break
+            default:
+                break
+            }
+            //var postId = postInfo.valueForInt(key: CId)
             let postId = postInfo.valueForString(key: "post_id")
             _ = postInfo.valueForInt(key: CIsSharedPost)
             MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
@@ -1574,7 +1551,7 @@ extension MyProfileViewController{
             self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
                 
                 guard let `self` = self else { return }
-              //  self.deletePost(postId.toInt ?? 0, index ?? 0, postType)
+                //  self.deletePost(postId.toInt ?? 0, index ?? 0, postType)
                 self.deletePostNew(postId.toInt ?? 0, index ?? 0, postInfo)
                 
             }

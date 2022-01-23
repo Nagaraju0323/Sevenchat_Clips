@@ -51,7 +51,6 @@ class ProductHelper<T:UIViewController> : NSObject{
                     guard let myProductList = myProductVC.myProductVC else {return}
                     
                     if let index = myProductList.allMyProduct.index(where:{$0.productID == product.productID})
-//                    if let index = myProductList.allMyProduct.index(where:{$0.id == product.id})
                     {
                         myProductList.allMyProduct.remove(at: index)
                         myProductList.allMyProduct.insert(product, at: 0)
@@ -65,7 +64,6 @@ class ProductHelper<T:UIViewController> : NSObject{
                     
                     guard let myProductList = searchProductVC.myProductVC else {return}
                     if let index = myProductList.allMyProduct.index(where:{$0.productID == product.productID}){
-//                    if let index = myProductList.allMyProduct.index(where:{$0.id == product.id}) {
                         myProductList.allMyProduct.remove(at: index)
                         myProductList.allMyProduct.insert(product, at: index)
                         UIView.performWithoutAnimation {
@@ -100,10 +98,8 @@ class ProductHelper<T:UIViewController> : NSObject{
                     guard let myProductList = myProductVC.myProductVC else {return}
                     
                     if let index = myProductList.allMyProduct.index(where:{$0.productID == productID})
-//                    if let index = myProductList.allMyProduct.index(where:{$0.id == product.id})
                     {
                         myProductList.allMyProduct.remove(at: index)
-//                        myProductList.allMyProduct.insert(product, at: 0)
                         myProductList.tblProductList.reloadData()
                     }
                     
@@ -114,7 +110,6 @@ class ProductHelper<T:UIViewController> : NSObject{
                     
                     guard let myProductList = searchProductVC.myProductVC else {return}
                     if let index = myProductList.allMyProduct.index(where:{$0.productID == product.productID}){
-//                    if let index = myProductList.allMyProduct.index(where:{$0.id == product.id}) {
                         myProductList.allMyProduct.remove(at: index)
                         myProductList.allMyProduct.insert(product, at: index)
                         UIView.performWithoutAnimation {
@@ -128,10 +123,6 @@ class ProductHelper<T:UIViewController> : NSObject{
             }
         }
     }
-    
-    
-    
-    
     class func deleteProduct(controller:UIViewController?,refreshCnt:[T.Type], productID:Int, isLoader:Bool = true) {
         
         func refershControllerOnDeleteAction(){
@@ -162,7 +153,6 @@ class ProductHelper<T:UIViewController> : NSObject{
                     DispatchQueue.main.async {
                         
                         guard let myProductList = myProductVC.myProductVC else {return}
-//                        myProductList.allMyProduct = myProductList.allMyProduct.filter({$0.id != productID})
                         myProductList.allMyProduct = myProductList.allMyProduct.filter({$0.productID != productID.description})
                         refereshDeletePost(tableView: myProductList.tblProductList)
                     }
@@ -171,12 +161,12 @@ class ProductHelper<T:UIViewController> : NSObject{
         }
         
         APIRequest.shared().deleteProduct(productID: productID, showLoader: isLoader, completion:{(response, error) in
-        
+            
             if response != nil {
                 GCDMainThread.async {
                     refershControllerOnDeleteAction()
                     
-
+                    
                 }
             }else{
                 MILoader.shared.hideLoader()
@@ -215,7 +205,7 @@ class ProductHelper<T:UIViewController> : NSObject{
                     DispatchQueue.main.async {
                         
                         guard let myProductList = myProductVC.myProductVC else {return}
-//                        myProductList.allMyProduct = myProductList.allMyProduct.filter({$0.id != productID})
+                        //                        myProductList.allMyProduct = myProductList.allMyProduct.filter({$0.id != productID})
                         myProductList.allMyProduct = myProductList.allMyProduct.filter({$0.productID == productID.description})
                         refereshDeletePost(tableView: myProductList.tblProductList)
                     }
@@ -223,22 +213,7 @@ class ProductHelper<T:UIViewController> : NSObject{
             }
         }
         
-//        APIRequest.shared().deleteProduct(productID: productID, showLoader: isLoader, completion:{(response, error) in
-//
-//            if response != nil {
-//                GCDMainThread.async {
-//                    refershControllerOnDeleteAction()
-//
-//
-//                }
-//            }else{
-//                MILoader.shared.hideLoader()
-//            }
-//        })
     }
-    
-    
-    
     
     
     class func reportProduct(controller:UIViewController?,refreshCnt:[T.Type], productID:Int, isLoader:Bool = true) {
@@ -277,9 +252,6 @@ class ProductHelper<T:UIViewController> : NSObject{
                 DispatchQueue.main.async {
                     
                     guard let myProductList = myProductVC.myProductVC else {return}
-//                    if let index = myProductList.allMyProduct.index(where:{$0.id == productId}) {
-//                        myProductList.allMyProduct[index].isLike = isLike
-                    //    myProductList.allMyProduct[index].totalLike = totalLike
                     if let index = myProductList.allMyProduct.index(where:{$0.productID == productId.toString}) {
                         if isLike == 0{
                             myProductList.allMyProduct[index].userAsLiked = "No"
@@ -287,7 +259,7 @@ class ProductHelper<T:UIViewController> : NSObject{
                             myProductList.allMyProduct[index].userAsLiked = "Yes"
                         }
                         myProductList.allMyProduct[index].likes = totalLike.toString
-                       let indexPath = IndexPath(item: index, section: 0)
+                        let indexPath = IndexPath(item: index, section: 0)
                         if (myProductList.tblProductList.indexPathsForVisibleRows?.contains(indexPath))!{
                             myProductList.tblProductList.reloadRows(at: [indexPath], with: .none)
                         }
@@ -347,12 +319,12 @@ class ProductHelper<T:UIViewController> : NSObject{
                     
                     guard let myProductList = myProductVC.myProductVC else {return}
                     if let index = myProductList.allMyProduct.index(where:{$0.productID.toInt == product.productID.toInt}) {
-//                        myProductList.allMyProduct.remove(at: index)
-//                        myProductList.allMyProduct[index].productState = "No"
+                        //                        myProductList.allMyProduct.remove(at: index)
+                        //                        myProductList.allMyProduct[index].productState = "No"
                         myProductList.allMyProduct[index].productState = "2"
                         
                         
-//                        myProductList.allMyProduct.insert(product, at: index)
+                        //                        myProductList.allMyProduct.insert(product, at: index)
                         let indexPath = IndexPath(item: index, section: 0)
                         if (myProductList.tblProductList.indexPathsForVisibleRows?.contains(indexPath))!{
                             myProductList.tblProductList.reloadRows(at: [indexPath], with: .none)
@@ -409,12 +381,7 @@ class ProductHelper<T:UIViewController> : NSObject{
                     
                     guard let myProductList = myProductVC.myProductVC else {return}
                     if let index = myProductList.allMyProduct.index(where:{$0.productID.toInt == product.productID.toInt}) {
-//                        myProductList.allMyProduct.remove(at: index)
-//                        myProductList.allMyProduct[index].productState = "No"
                         myProductList.allMyProduct[index].totalComments = totalComment
-                        
-                        
-//                        myProductList.allMyProduct.insert(product, at: index)
                         let indexPath = IndexPath(item: index, section: 0)
                         if (myProductList.tblProductList.indexPathsForVisibleRows?.contains(indexPath))!{
                             myProductList.tblProductList.reloadRows(at: [indexPath], with: .none)
@@ -423,8 +390,6 @@ class ProductHelper<T:UIViewController> : NSObject{
                     
                     guard let allProductList = myProductVC.allProductVC else {return}
                     if let index = allProductList.allProduct.index(where:{$0.productID.toInt == product.productID.toInt}) {
-                        //allProductList.allProduct.remove(at: index)
-                        //allProductList.allProduct.insert(product, at: index)
                         allProductList.allProduct[index].totalComments = totalComment
                         let indexPath = IndexPath(item: index, section: 0)
                         if (allProductList.tblProductList.indexPathsForVisibleRows?.contains(indexPath))!{

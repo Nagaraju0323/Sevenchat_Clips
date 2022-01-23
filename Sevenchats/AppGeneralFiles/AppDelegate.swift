@@ -839,69 +839,7 @@ extension AppDelegate : PKPushRegistryDelegate {
     func pushToIncomingCallVC(payload: PKPushPayload) {
          print("pushToIncomingCallVC")
     }
-    
-//    func voipPushHandle(payload: PKPushPayload, type: PKPushType) {
-//
-//        print("Payload : " + payload.dictionaryPayload.json)
-//
-//        let notificationType = payload.dictionaryPayload["twi_message_type"] as? String ?? ""
-//        if notificationType == "twilio.voice.call"{
-//
-//            //AudioTokenService.shared.audioAccessToken = payload.dictionaryPayload["twi_bridge_token"] as? String ?? ""
-//            var fromId = 0
-//            var fromName = payload.dictionaryPayload["twi_from"] as? String ?? "client:"
-//            fromName = fromName.replacingOccurrences(of: "client:", with: "")
-//            let arrName = fromName.components(separatedBy: "_")
-//
-//            var strFirstName = "unknown"
-//            var strLastName = ""
-//
-//            if arrName.count > 1{
-//                fromId = (arrName.first ?? "0").toInt ?? 0
-//            }
-//            if arrName.count >= 2{
-//                strFirstName = arrName[1]
-//            }
-//            if arrName.count >= 3{
-//                strFirstName = arrName[1]
-//                strLastName = arrName[2]
-//            }
-//            let member = Members(id: fromId, firstName: strFirstName, lastName: strLastName)
-//            let audio = AudioCall(
-//                //id: toIdentity.toInt ?? 0,
-//                members: [member],
-//                roomType: .UserRoom,
-//                name: "",
-//                image:"",
-//                isSender: false
-//            )
-//            let viewController = appDelegate.getTopMostViewController()
-//            if viewController.isKind(of: IncomingVideoCallVC.classForCoder()) || viewController.isKind(of: OneToOneVideoCallVC.classForCoder()) {
-//                return
-//            }
-//            if audioCallHelper != nil{
-//                return
-//            }
-//            audioCallHelper = AudioCallHelper(audio: audio, payload: payload)
-//            audioCallHelper?.setUpView()
-//            return
-//        }
-//        if notificationType == "twilio.voice.cancel"{
-//            audioCallHelper?.payload = payload
-//            audioCallHelper?.receiveAudioCallNotification()
-//            //audioCallHelper?.callDisconnected()
-//            return
-//        }
-//        if (type == PKPushType.voIP) {
-//            guard let pushPayload = payload.dictionaryPayload as? [String : Any] else {
-//                return
-//            }
-//            print(pushPayload)
-//
-//            appDelegate.notificationPayload = pushPayload
-//            VoIPNotificationHandler.shared().actionOnPushNotification(notification: pushPayload)
-//        }
-//    }
+
 }
 
 

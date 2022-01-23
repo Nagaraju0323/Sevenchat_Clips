@@ -6,6 +6,15 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : FileSharingViewController                   *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
 import UIKit
 
 /*protocol FilesSearchTextDelegate: class {
@@ -141,11 +150,7 @@ class FileSharingViewController: ParentViewController {
                 }
             }
         }
-//        sortBarItem
         self.navigationItem.rightBarButtonItems = [searchBarItem,sortBarItem]
-        
-        
-//        self.navigationItem.rightBarButtonItems = [searchBarItem]
         
         ///... For Cancel Search
         self.cancelBarItem = BlockBarButtonItem(title: CBtnCancel, style: .plain, actionHandler: { [weak self] (item) in
@@ -254,17 +259,6 @@ extension FileSharingViewController {
     fileprivate func getRestrictedType(){
         
         self.arrRestrictedFileType.removeAll()
-        
-//        APIRequest.shared().restrictedFiles(showLoader: false) { [weak self](response, error) in
-//            if response != nil {
-//                GCDMainThread.async {
-//                    let arrData = response![CData] as? [[String : Any]] ?? []
-//                    for obj in arrData{
-//                        self?.arrRestrictedFileType.append(MDLRestractedFile(fromDictionary: obj))
-//                    }
-//                }
-//            }
-//        }
     }
 }
 

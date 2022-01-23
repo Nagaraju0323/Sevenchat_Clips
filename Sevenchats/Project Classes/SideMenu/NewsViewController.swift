@@ -21,7 +21,7 @@ class NewsViewController: ParentViewController {
     @IBOutlet fileprivate weak var cnImgVTopBgHeight : NSLayoutConstraint!
     @IBOutlet fileprivate weak var activityLoader : UIActivityIndicatorView!
     @IBOutlet fileprivate weak var lblNoData : UILabel!
-
+    
     var arrNewsCategory = [TblNewsCategory]()
     var arrNews = [[String : AnyObject]]()
     var selectedCateIndexPath = IndexPath(item: 0, section: 0)

@@ -6,6 +6,14 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : TblSharedFilesDetailsCell                   *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
 import UIKit
 
 class TblSharedFilesDetailsCell: UITableViewCell {

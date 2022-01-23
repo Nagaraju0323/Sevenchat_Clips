@@ -113,12 +113,6 @@ extension AudioSenderTblCell {
             }
         }else {
             self.btnPlayPause.isHidden = false
-            
-            // When Audio Downloaded then apply long press gesture..
-//            if messageInfo?.message_Delivered != 1 && isGesture {
-//                self.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(self.messageLongPress(_:))))
-//            }
-            
         }
         
         // Video Download button.
@@ -128,7 +122,6 @@ extension AudioSenderTblCell {
             self.activityIndicator.isHidden = false
             self.activityIndicator.startAnimating()
             ChatSocketIo.shared().downloadAudioVideoAndStoreInDocumentDirectorySocket(messageInfo)
-//            MIMQTT.shared().downloadAudioVideoAndStoreInDocumentDirectory(messageInfo)
         }
         
         self.btnPlayPause.touchUpInside { [weak self] (sender) in
@@ -153,12 +146,12 @@ extension AudioSenderTblCell {
             guard let self = self else { return }
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             alertController.addAction(UIAlertAction(title: CBtnSendAgain, style: .default, handler: { (alert) in
-//                MIMQTT.shared().uploadMediaOnServer(messageInfo)
+
             }))
             
             alertController.addAction(UIAlertAction(title: CBtnDelete, style: .default, handler: { (alert) in
                 self.viewController?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDelete, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-//                    MIMQTT.shared().deleteMessageFromLocal(messageInfo)
+
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }))
             
@@ -189,11 +182,7 @@ extension AudioSenderTblCell {
             }
             
             alertController.addAction(UIAlertAction(title: CBtnShare, style: .default, handler: { (alert) in
-                /*// Share Audio
-                let videoPath = CTopMostViewController.applicationDocumentsDirectory()! + "/" + (self.messageInformation.localMediaUrl ?? "")
-                if FileManager.default.fileExists(atPath: videoPath) {
-                    self.viewController?.presentActivityViewController(mediaData: URL(fileURLWithPath: videoPath), contentTitle: CSharePostContentMsg)
-                }*/
+            
                 guard let url = URL(string: self.messageInformation.message ?? "") else{return}
                 
                 if let fileSharing = FileSharingProgressVC.getInstance(){
