@@ -10,13 +10,10 @@ import UIKit
 import CoreData
 import IQKeyboardManagerSwift
 import LGSideMenuController
-//import Fabric
-//import Crashlytics
 import GoogleSignIn
 import FBSDKLoginKit
 import GooglePlaces
 import GoogleMaps
-//import TwitterKit
 import Alamofire
 import UserNotifications
 import FirebaseInstanceID
@@ -25,8 +22,6 @@ import StoreKit
 import Lightbox
 import PushKit
 import CallKit
-//import TwilioVoice
-//import TwilioVideo
 import FirebaseMessaging
 import StompClientLib
 
@@ -40,14 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var notificationPayload : [AnyHashable : Any]?
     var sideMenuController = LGSideMenuController()
     var loginUser : TblUser?
-    
     var langugaeText : TblLanguageText?
     var viewAdvertise: AdvertiseView!
-//    var loginUsers : TblTotalFriends?
     var updateNotificationCount : UpdateNotificationCountInSideMenu!
     var voipRegistry : PKPushRegistry!
-//    var audioCallHelper : AudioCallHelper?
-//    var videoCallHelper : TVIVideoHelper?
     let window = UIWindow(frame: UIScreen.main.bounds)
     
     let notificationCenter = UNUserNotificationCenter.current()
@@ -210,32 +201,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Refresh profile data....
         //
-//        MIMQTT.shared().updateClientId()
         if appDelegate.loginUser?.user_id != nil {
-            
             MIGeneralsAPI.shared().laodLoginUserDetail()
             MIGeneralsAPI.shared().getAdvertisementList()
             ChatSocketIo.shared().SocketInitilized()
-//            if MIMQTT.shared().objMQTTClient != nil {
-//                if !(MIMQTT.shared().objMQTTClient?.connect())! {
-//                    let _ = MIMQTT.shared().objMQTTClient?.connect()
-//                }
-//            }
+
         }
         
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        
-//        MIMQTT.shared().deviceActualTime()
-//        if (VoIPNotificationHandler.shared().timer?.isValid ?? false), let notification = appDelegate.notificationPayload as? [String : Any]{
-//            VoIPNotificationHandler.shared().actionOnPushNotification(notification: notification)
-//        }
-        
         ChatSocketIo.shared().SocketInitilized()
         SocketIOManager.shared().establishConnection()
-        
-        
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -470,9 +447,6 @@ extension AppDelegate {
 
           langugaeText = TblLanguageText.findOrCreate(dictionary: [CLang_code : CUserDefaults.object(forKey: UserDefaultSelectedLangCode) as Any]) as? TblLanguageText
 
-//
-//            /MIMQTT.shared().MQTTInitialSetup()
-            
             ChatSocketIo.shared().SocketInitilized()
             MIGeneralsAPI.shared().getAdvertisementList()
           
@@ -529,12 +503,6 @@ extension AppDelegate {
     
     func initHomeViewController() {
         
-        /*let rootVC = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
-        self.setWindowRootViewController(rootVC: rootVC, animated: true, completion: nil)
-        self.initSidemenuViewController()*/
-        
-        //self.initSidemenuViewController()
- 
         
         let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
         if isAppLaunchHere{
@@ -601,26 +569,6 @@ extension AppDelegate {
         }
     }
     
-//    func moveOnProfileScreenNew(_ userID : String?,_ userEmail : String?, _ viewController : UIViewController?) {
-//
-//           DispatchQueue.main.async {
-//
-//               if (userID ?? "").isEmpty && (userEmail ?? "").isEmpty { return }
-//
-//               if Int64(userID!) == appDelegate.loginUser?.user_id || userEmail == appDelegate.loginUser?.email {
-//                   let myProfileVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyProfileViewController")
-//                   myProfileVC.view.tag = 107
-//                   viewController?.navigationController?.pushViewController(myProfileVC, animated: true)
-//               }else {
-//                   if let otherProfileVC = CStoryboardProfile.instantiateViewController(withIdentifier: "OtherUserProfileViewController") as? OtherUserProfileViewController {
-//                       otherProfileVC.useremail = userEmail
-//                       otherProfileVC.userIDNew = userID
-//                       viewController?.navigationController?.pushViewController(otherProfileVC, animated: true)
-//                   }
-//               }
-//           }
-//       }
-    
     func moveOnProfileScreenNew(_ userID : String?,_ userEmail : String?, _ viewController : UIViewController?) {
            
            DispatchQueue.main.async {
@@ -641,10 +589,6 @@ extension AppDelegate {
                }
            }
        }
-    
-    
-    
-    
 }
 
 // MARK:- ---------- General Method
