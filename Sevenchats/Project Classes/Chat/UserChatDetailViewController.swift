@@ -1258,8 +1258,8 @@ extension UserChatDetailViewController {
         videoAction.setValue(UIColor.black, forKey: "titleTextColor")
         alertController.addAction(videoAction)
         
-        let shareLocationAction = UIAlertAction(title: CShareCurrentLocation, style: .default, handler: { (alert) in
-            print(CShareCurrentLocation)
+        let shareLocationAction = UIAlertAction(title: CLocation, style: .default, handler: { (alert) in
+            print(CLocation)
             self.locationPicker?.showCurrentLocationButton = true
             self.locationPicker?.getImageLocation = true
             

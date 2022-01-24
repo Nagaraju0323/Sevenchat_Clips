@@ -109,7 +109,7 @@
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2qP-yy-2LK">
                                         <rect key="frame" x="83" y="90" width="37.5" height="2"/>
-                                        <color key="backgroundColor" red="0.97647058819999999" green="0.89411764709999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="rtJ-VM-p5I"/>
                                         </constraints>

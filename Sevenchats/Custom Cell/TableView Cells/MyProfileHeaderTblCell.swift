@@ -136,18 +136,18 @@ class MyProfileHeaderTblCell: UITableViewCell {
         }
         lblUserName.text = "\(appDelegate.loginUser?.first_name ?? "") \(appDelegate.loginUser?.last_name ?? "")"
         
-        lblLocation.attributedText = NSMutableAttributedString().bold(CLive_in).normal(" ").normal((appDelegate.loginUser?.city ?? ""))
-        
-        lblStatus.attributedText = NSMutableAttributedString().bold(CRelationship_Status).normal(" ").normal((appDelegate.loginUser?.relationship ?? ""))
+       // lblLocation.attributedText = NSMutableAttributedString().bold(CLive_in).normal(" ").normal((appDelegate.loginUser?.city ?? ""))
+        lblLocation.attributedText = NSMutableAttributedString().normal(CLive_in).normal(" ").bold((appDelegate.loginUser?.city ?? ""))
+        lblStatus.attributedText = NSMutableAttributedString().normal(CRelationship_Status).normal(" ").bold((appDelegate.loginUser?.relationship ?? ""))
         
         switch Int((appDelegate.loginUser?.gender)!) {
         case CMale :
-            lblGender.attributedText = NSMutableAttributedString().bold(gender).normal(" ").normal(CRegisterGenderMale)
+            lblGender.attributedText = NSMutableAttributedString().normal(gender).normal(" ").bold(CRegisterGenderMale)
         case CFemale :
-            lblGender.attributedText = NSMutableAttributedString().bold(gender).normal(" ").normal(CRegisterGenderFemale)
+            lblGender.attributedText = NSMutableAttributedString().normal(gender).normal(" ").bold(CRegisterGenderFemale)
             
         default :
-            lblGender.attributedText = NSMutableAttributedString().bold(gender).normal(" ").normal(CRegisterGenderOther)
+            lblGender.attributedText = NSMutableAttributedString().normal(gender).normal(" ").bold(CRegisterGenderOther)
             
         }
         _ = DateFormatter.shared().date(fromString: (appDelegate.loginUser?.dob)!, dateFormat: "yyyy-MM-dd")

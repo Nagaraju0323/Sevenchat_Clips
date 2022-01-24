@@ -468,7 +468,7 @@
                                                                 </connections>
                                                             </textView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.8980392157" green="0.93333333330000001" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.88235294119999996" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="waU-Uz-nQb" secondAttribute="bottom" id="1hh-iy-FYk"/>
                                                             <constraint firstItem="WRB-zH-J31" firstAttribute="top" secondItem="dOq-xc-zrf" secondAttribute="top" constant="8" id="G5m-NY-a75"/>
@@ -1954,7 +1954,7 @@ Declined</string>
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIs-ec-bQu">
-                                        <rect key="frame" x="10" y="18" width="61" height="36"/>
+                                        <rect key="frame" x="10" y="22" width="53" height="32"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1964,7 +1964,7 @@ Declined</string>
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jlq-DR-KiV">
-                                        <rect key="frame" x="320" y="18" width="45" height="36"/>
+                                        <rect key="frame" x="324" y="22" width="41" height="32"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="17"/>
                                         <state key="normal" title="Done">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2176,7 +2176,7 @@ Declined</string>
             <size key="intrinsicContentSize" width="277" height="20"/>
         </designable>
         <designable name="vHT-5j-uz0">
-            <size key="intrinsicContentSize" width="257.5" height="15.5"/>
+            <size key="intrinsicContentSize" width="258" height="17"/>
         </designable>
     </designables>
     <resources>

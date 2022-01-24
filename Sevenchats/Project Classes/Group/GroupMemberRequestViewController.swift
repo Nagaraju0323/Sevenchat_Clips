@@ -126,6 +126,7 @@ extension GroupMemberRequestViewController : UITableViewDelegate, UITableViewDat
             cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
                 self.accpetRejectGroupRequest(user_id: userInfo.valueForInt(key: CUserId), status: 2, index: indexPath.row)
+                
             }
             
             cell.btnRejectRequest.touchUpInside { [weak self] (sender) in

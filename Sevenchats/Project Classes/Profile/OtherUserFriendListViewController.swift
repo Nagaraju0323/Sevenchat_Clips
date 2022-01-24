@@ -143,11 +143,14 @@ extension OtherUserFriendListViewController {
     }
     // Update Friend status Friend/Unfriend/Cancel Request
     fileprivate func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?) {
-        let friend_ID = userInfo.valueForInt(key: "friend_user_id")
+//        let friend_ID = userInfo.valueForInt(key: "friend_user_id")
+        let friend_ID = userInfo.valueForString(key: "id")
+        guard let user_ID = appDelegate.loginUser?.user_id else { return }
+        
         let dict :[String:Any]  =  [
-            "user_id":  userid?.toString as Any,
-            "friend_user_id": friend_ID!.toString,
-            "request_type": status!.toString
+            "user_id": user_ID,
+            "friend_user_id": friend_ID,
+            "request_type": status?.toString as Any
         ]
         
         APIRequest.shared().friendRquestStatus(dict: dict, completion: { (response, error) in
@@ -237,8 +240,11 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
             cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
                 
-                self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 2)
-                self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 2)
+               // self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 2)
+                self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForAcceptRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                    guard let self = self else { return }
+                    self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 5)
+                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
             cell.btnRejectRequest.touchUpInside { [weak self] (sender) in
@@ -275,6 +281,8 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                 switch self.Friend_status {
                 case 0:
                     frndStatus = CFriendRequestSent
+                    isShowAlert = true
+                    alertMessage = CMessageAddfriend
                 case 1:
                     frndStatus = CFriendRequestCancel
                     isShowAlert = true

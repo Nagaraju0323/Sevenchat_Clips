@@ -503,6 +503,7 @@ var CMessageFilterMinSelection: String{ return appDelegate.langugaeText?.no_inte
 var CMessageDeletePost: String{ return appDelegate.langugaeText?.are_you_sure_you_want_to_delete_this_post ?? "Are you sure you want to delete this post?" }
 var CMessageCancelRequest: String{ return appDelegate.langugaeText?.alert_message_for_cancel ?? "Are you sure you want to cancel request?" }
 var CMessageUnfriend: String{ return appDelegate.langugaeText?.alert_message_for_unfriend ?? "Are you sure you want to unfriend?" }
+var CMessageAddfriend: String{ return appDelegate.langugaeText?.alert_message_addfriend ?? "Are you sure you want to addfriend?"}
 
 var CMessageLogout: String{ return appDelegate.langugaeText?.are_you_sure_you_want_to_logout ?? "Are you sure you want to logout?" }
 
@@ -1220,6 +1221,9 @@ var CCameraOrAudioPermission: String{
 
 var CAlertMessageForRejectRequest: String{
     return CLocalize(text: appDelegate.langugaeText?.alert_message_for_reject ?? "Are you sure you want to reject request?")
+}
+var CAlertMessageForAcceptRequest: String{
+    return CLocalize(text: appDelegate.langugaeText?.alert_message_for_accept ?? "Are you sure you want to accept request?")
 }
 
 var CToEnhanceFeed: String{

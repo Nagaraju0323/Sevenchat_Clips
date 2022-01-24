@@ -56,7 +56,7 @@
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_image_gallery_selection" translatesAutoresizingMaskIntoConstraints="NO" id="sem-Ni-KPu">
                                                                     <rect key="frame" x="8" y="8" width="25" height="25"/>
-                                                                    <color key="backgroundColor" red="0.54117647058823526" green="0.70980392156862748" blue="0.54509803921568623" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <color key="backgroundColor" red="0.12941177189350128" green="0.74901962280273438" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="25" id="E0I-2a-d3i"/>
                                                                         <constraint firstAttribute="height" constant="25" id="ttD-3E-Ege"/>
@@ -527,7 +527,7 @@
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0z-UP-3ME">
                                                                             <rect key="frame" x="83" y="90" width="40" height="2"/>
-                                                                            <color key="backgroundColor" red="0.97647058819999999" green="0.89411764709999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="2" id="onp-Uj-s5F"/>
                                                                             </constraints>
@@ -827,7 +827,7 @@
                                                                 </connections>
                                                             </textView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="0.89803921568627454" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" red="0.88235294119999996" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="yqQ-Vj-Y8b" secondAttribute="bottom" id="17r-yc-Rzh"/>
                                                             <constraint firstItem="YXk-qR-Nt1" firstAttribute="top" secondItem="fi9-De-LyT" secondAttribute="top" constant="8" id="4rk-i2-hsH"/>

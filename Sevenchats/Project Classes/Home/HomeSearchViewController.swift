@@ -196,13 +196,13 @@ extension HomeSearchViewController  {
     
     // Update Friend status Friend/Unfriend/Cancel Request
     func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?){
-        let friend_ID = userInfo.valueForInt(key: "friend_user_id")
+        let friend_ID = userInfo.valueForString(key: "user_id")
         guard let user_ID = appDelegate.loginUser?.user_id else { return }
         
         let dict :[String:Any]  =  [
             "user_id":  user_ID.description,
-            "friend_user_id": userid?.toString ?? "",
-            "request_type": status!.toString
+            "friend_user_id": friend_ID,
+            "request_type": status?.toString as Any
         ]
         
         APIRequest.shared().friendRquestStatus(dict: dict, completion: { [weak self] (response, error) in
@@ -353,13 +353,23 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                             GCDMainThread.async {
                                 if let arrList = response!["data"] as? [[String:Any]]{
                                     for arrLst in arrList{
-                                        self?.Friend_status =  arrLst.valueForString(key: "request_status").toInt ?? 0
+                                        let user_id = appDelegate.loginUser?.user_id
+                                        if arrLst.valueForString(key: "request_status") == "5"{
+                                            self?.Friend_status = 5
+                                        }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
+                                            self?.Friend_status = 1
+                                        }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description {
+                                            self?.Friend_status = 0
+                                        }
                                         var frndStatus = 1
                                         var isShowAlert = true
                                         var alertMessage = ""
+                                        
                                         switch self?.Friend_status {
                                         case 0:
                                             frndStatus = CFriendRequestSent
+                                            isShowAlert = true
+                                            alertMessage = CMessageAddfriend
                                         case 1:
                                             frndStatus = CFriendRequestCancel
                                             isShowAlert = true
@@ -372,7 +382,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                             break
                                         }
                                         if isShowAlert{
-                                            self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CTabRequestSend, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                                            self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                                                 guard let self = self else { return }
                                                 self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
                                             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
@@ -391,7 +401,10 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             
             cell.btnAccept.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
-                self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 2)
+                self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForAcceptRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                    guard let self = self else { return }
+                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 5)
+                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
             cell.btnReject.touchUpInside {[weak self] (sender) in
