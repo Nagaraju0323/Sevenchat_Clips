@@ -457,7 +457,7 @@
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yMN-xN-BoS">
                                                                             <rect key="frame" x="83" y="90" width="54" height="2"/>
-                                                                            <color key="backgroundColor" red="0.97647058819999999" green="0.89411764709999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="2" id="a8j-oY-DyW"/>
                                                                             </constraints>
@@ -726,7 +726,7 @@
                                                                 </connections>
                                                             </textView>
                                                         </subviews>
-                                                        <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="0.89803921568627454" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" red="0.88235294119999996" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="wo1-uG-fpN" secondAttribute="bottom" id="GQI-Te-f5N"/>
                                                             <constraint firstItem="hu9-cf-k4K" firstAttribute="leading" secondItem="yHp-dY-bJd" secondAttribute="leading" constant="20" id="JRh-mZ-mV1"/>

@@ -255,11 +255,11 @@ extension OtherUserProfileViewController{
     
     func friendStatusApi(_ userInfo : [String : Any], _ status : Int?) {
         
-        let friend_ID = userInfo.valueForInt(key: "user_id")
+        let friend_ID = userInfo.valueForString(key: "user_id")
         let dict :[String:Any]  =  [
             "user_id":  appDelegate.loginUser?.user_id ?? "",
-            "friend_user_id": friend_ID!.toString,
-            "request_type": status!.toString
+            "friend_user_id": friend_ID,
+            "request_type": status?.toString as Any
         ]
         
         APIRequest.shared().friendRquestStatus(dict: dict, completion: { [weak self] (response, error) in

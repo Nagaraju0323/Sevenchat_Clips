@@ -4689,6 +4689,9 @@ extension APIRequest {
             tblLanguageText.camera_permission_or_microphone_permission_not_granted_please_allow_it_from_setting = dict?.valueForString(key: "camera_permission_or_microphone_permission_not_granted_please_allow_it_from_setting")
             
             tblLanguageText.alert_message_for_reject = dict?.valueForString(key: "alert_message_for_reject")
+            tblLanguageText.alert_message_for_accept = dict?.valueForString(key: "alert_message_for_accept")
+           
+            tblLanguageText.alert_message_addfriend = dict?.valueForString(key: "alert_message_addfriend")
             tblLanguageText.to_enhance_feed = dict?.valueForString(key: "to_enhance_feed")
             tblLanguageText.force_update_text = dict?.valueForString(key: "force_update_text")
             tblLanguageText.later = dict?.valueForString(key: "later")

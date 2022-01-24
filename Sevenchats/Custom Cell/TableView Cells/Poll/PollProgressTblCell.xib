@@ -29,8 +29,8 @@
                         <subviews>
                             <progressView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" verticalHuggingPriority="748" horizontalCompressionResistancePriority="748" verticalCompressionResistancePriority="748" translatesAutoresizingMaskIntoConstraints="NO" id="bJc-JZ-tAt">
                                 <rect key="frame" x="0.0" y="0.0" width="339" height="67.5"/>
-                                <color key="progressTintColor" red="0.51372549020000002" green="0.64705882349999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="trackTintColor" red="0.84705882349999995" green="0.93333333330000001" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="progressTintColor" red="0.12941177189350128" green="0.74901962280273438" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="trackTintColor" red="0.85098039215686272" green="0.82745098039215681" blue="0.82745098039215681" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </progressView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cek-4F-dTL" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                 <rect key="frame" x="8" y="0.0" width="293" height="67.5"/>
@@ -43,12 +43,12 @@ asasad</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LjR-mN-nke">
-                                <rect key="frame" x="309" y="23" width="30" height="22"/>
+                                <rect key="frame" x="309" y="19" width="30" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="8yR-z4-geq"/>
                                 </constraints>
-                                <state key="normal" image="ic_poll_check"/>
+                                <state key="normal" image="checked-4"/>
                                 <connections>
                                     <action selector="onCheckAnswer:" destination="GPk-rx-wuE" eventType="touchUpInside" id="agd-5v-CAV"/>
                                 </connections>
@@ -112,6 +112,6 @@ asasad</string>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ic_poll_check" width="17" height="17"/>
+        <image name="checked-4" width="30" height="30"/>
     </resources>
 </document>

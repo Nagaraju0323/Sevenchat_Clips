@@ -67,8 +67,10 @@ class CreatePostTblCell: UITableViewCell{
         GCDMainThread.async {
             self.imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_img ?? ""), true)
             self.imgUser.layer.cornerRadius = self.imgUser.bounds.height / 2
-                       self.imgUser.layer.masksToBounds = true
-                       self.imgUser.clipsToBounds = true
+            self.imgUser.layer.masksToBounds = true
+            self.imgUser.clipsToBounds = true
+            self.imgUser.layer.borderWidth = 2
+            self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.PostButton.layer.cornerRadius = 8
             
                self.viewSubContainer.layer.cornerRadius = 8

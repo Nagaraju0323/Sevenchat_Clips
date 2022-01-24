@@ -20,8 +20,8 @@ class PollProgressTblCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        self.btnCheckAnwer.setImage(UIImage(named: "ic_poll_uncheck"), for: .normal)
-        self.btnCheckAnwer.setImage(UIImage(named: "ic_poll_check"), for: .selected)
+        self.btnCheckAnwer.setImage(UIImage(named: "dry-clean"), for: .normal)
+        self.btnCheckAnwer.setImage(UIImage(named: "checked-4"), for: .selected)
         //progressV.transform = progressV.transform.scaledBy(x: 1, y: 2)
     }
     

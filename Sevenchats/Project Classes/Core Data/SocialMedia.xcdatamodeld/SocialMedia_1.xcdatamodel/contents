@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="TblAdvertise" representedClassName="TblAdvertise" syncable="YES" codeGenerationType="class">
         <attribute name="ads_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="ads_image" optional="YES" attributeType="String"/>
@@ -590,7 +590,7 @@
         <attribute name="visible_to_other" optional="YES" attributeType="Integer 16" usesScalarValueType="YES"/>
     </entity>
     <elements>
-        <element name="TblAdvertise" positionX="-45" positionY="135" width="128" height="165"/>
+        <element name="TblAdvertise" positionX="-45" positionY="135" width="128" height="149"/>
         <element name="TblAnnualIncomes" positionX="-54" positionY="144" width="128" height="75"/>
         <element name="TblChatGroupList" positionX="-45" positionY="135" width="128" height="240"/>
         <element name="TblChatUserList" positionX="-45" positionY="135" width="128" height="285"/>

@@ -100,7 +100,7 @@
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="66n-U1-LIO">
                                                                 <rect key="frame" x="20" y="37" width="65" height="2"/>
-                                                                <color key="backgroundColor" red="0.97647058819999999" green="0.89411764709999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="2" id="170-ip-jV6"/>
                                                                     <constraint firstAttribute="width" constant="65" id="l4P-zk-i3G"/>
@@ -272,13 +272,13 @@
                                                                             <rect key="frame" x="20" y="20" width="40" height="40"/>
                                                                         </button>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Lily Morie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdI-pG-4Wb" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="70" y="20" width="225.5" height="19"/>
+                                                                            <rect key="frame" x="70" y="20" width="225.5" height="18"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAe-Vi-roZ">
-                                                                            <rect key="frame" x="70" y="20" width="225.5" height="19"/>
+                                                                            <rect key="frame" x="70" y="20" width="225.5" height="18"/>
                                                                         </button>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a day ago" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YGb-jw-RJ0" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                             <rect key="frame" x="303.5" y="20" width="51.5" height="18"/>
@@ -291,7 +291,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hailey Baldwin and Kendall jenner attended an " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="En5-P9-vCM" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                                            <rect key="frame" x="70" y="46" width="285" height="13"/>
+                                                                            <rect key="frame" x="70" y="45" width="285" height="14"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" id="CDQ-D8-Qux"/>
                                                                             </constraints>
@@ -447,7 +447,7 @@
                                                 </connections>
                                             </textView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.8980392157" green="0.93333333330000001" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.88235294119999996" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="xue-Bp-gnQ" firstAttribute="top" secondItem="9hT-OU-EgS" secondAttribute="top" constant="8" id="4kV-oB-Huf"/>
                                             <constraint firstAttribute="bottom" secondItem="xue-Bp-gnQ" secondAttribute="bottom" constant="8" id="Gmt-MJ-Zol"/>
@@ -951,7 +951,7 @@
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NYN-oS-wyP">
                                                                 <rect key="frame" x="20" y="37" width="65" height="2"/>
-                                                                <color key="backgroundColor" red="0.97647058819999999" green="0.89411764709999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="65" id="L2y-u9-2zn"/>
                                                                     <constraint firstAttribute="height" constant="2" id="N0s-0G-WqL"/>
@@ -1123,13 +1123,13 @@
                                                                             <rect key="frame" x="20" y="20" width="40" height="40"/>
                                                                         </button>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Lily Morie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="89U-h0-tUC" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="70" y="20" width="225.5" height="19"/>
+                                                                            <rect key="frame" x="70" y="20" width="225.5" height="18"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2O4-a5-RFo">
-                                                                            <rect key="frame" x="70" y="20" width="225.5" height="19"/>
+                                                                            <rect key="frame" x="70" y="20" width="225.5" height="18"/>
                                                                         </button>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a day ago" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YQs-i3-kdK" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                             <rect key="frame" x="303.5" y="20" width="51.5" height="18"/>
@@ -1142,7 +1142,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hailey Baldwin and Kendall jenner attended an " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUt-bM-6UA" customClass="ActiveLabel" customModule="ActiveLabel">
-                                                                            <rect key="frame" x="70" y="46" width="285" height="13"/>
+                                                                            <rect key="frame" x="70" y="45" width="285" height="14"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Ded-HW-8SN"/>
                                                                             </constraints>
@@ -1298,7 +1298,7 @@
                                                 </connections>
                                             </textView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.8980392157" green="0.93333333330000001" blue="0.86274509799999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.88235294119999996" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="BCU-IF-4LT" firstAttribute="top" secondItem="QC3-5f-k85" secondAttribute="top" id="89C-IH-Zus"/>
                                             <constraint firstAttribute="bottom" secondItem="BCU-IF-4LT" secondAttribute="bottom" id="MX3-cw-XP7"/>
@@ -1592,10 +1592,10 @@
     </scenes>
     <designables>
         <designable name="En5-P9-vCM">
-            <size key="intrinsicContentSize" width="232.5" height="13"/>
+            <size key="intrinsicContentSize" width="233" height="14"/>
         </designable>
         <designable name="gUt-bM-6UA">
-            <size key="intrinsicContentSize" width="232.5" height="13"/>
+            <size key="intrinsicContentSize" width="233" height="14"/>
         </designable>
     </designables>
     <resources>

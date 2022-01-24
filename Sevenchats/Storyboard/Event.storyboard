@@ -636,7 +636,7 @@
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gTY-1c-j5t">
                                                                             <rect key="frame" x="83" y="90" width="37.5" height="2"/>
-                                                                            <color key="backgroundColor" red="0.97647058819999999" green="0.89411764709999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="2" id="b3f-kX-yhe"/>
                                                                             </constraints>
@@ -1098,7 +1098,7 @@ Declined</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textView>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" red="0.88235294117647056" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="Hdw-O4-ptd" secondAttribute="bottom" id="1TA-BV-sAJ"/>
                                                             <constraint firstItem="lnQ-fu-b4H" firstAttribute="top" secondItem="cDy-NK-N2W" secondAttribute="top" constant="8" id="AFt-Tg-gid"/>
@@ -1373,7 +1373,7 @@ Declined</string>
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aia-KG-Dxb">
                                                                             <rect key="frame" x="83" y="90" width="37.5" height="2"/>
-                                                                            <color key="backgroundColor" red="0.97647058819999999" green="0.89411764709999997" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="2" id="tcj-MF-IdY"/>
                                                                             </constraints>
@@ -1856,7 +1856,7 @@ Declined</string>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textView>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="backgroundColor" red="0.88235294119999996" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstItem="aQw-Ta-qNI" firstAttribute="leading" secondItem="yVM-N7-scv" secondAttribute="trailing" constant="8" id="87g-LL-W11"/>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" id="MMG-JZ-9tv"/>

@@ -260,11 +260,12 @@ extension MyFriendsViewController{
     }
     
     func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?){
-        let friend_ID = userInfo.valueForInt(key: "friend_user_id")
+        let friend_ID = userInfo.valueForString(key: "friend_user_id")
+        let user_ID = userInfo.valueForString(key: "user_id")
         let dict :[String:Any]  =  [
-            "user_id":  userid!.toString,
-            "friend_user_id": friend_ID!.toString,
-            "request_type": status!.toString
+            "user_id":  user_ID,
+            "friend_user_id": friend_ID,
+            "request_type": status?.toString as Any
         ]
         APIRequest.shared().friendRquestStatus(dict: dict, completion: { [weak self] (response, error) in
             guard let self = self else { return }
@@ -277,14 +278,14 @@ extension MyFriendsViewController{
                         guard let image = appDelegate.loginUser?.profile_img else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(friend_ID!.toString, userID: friend_ID!.toString, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName)
+                        MIGeneralsAPI.shared().sendNotification(friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName)
                         
                         MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:"Connections",type:CFriendsrequestaccept,title:"Connections",name:name,icon:image)
                     }
                 }
                 
                 var frndInfo = userInfo
-                if let index = self.arrFriendList.firstIndex(where: {$0["friend_user_id"] as? String == friend_ID!.toString}){
+                if let index = self.arrFriendList.firstIndex(where: {$0["friend_user_id"] as? String == friend_ID}){
                     self.arrFriendList.remove(at: index)
                     self.isRefreshingUserData = true
                     UIView.performWithoutAnimation {
@@ -303,7 +304,7 @@ extension MyFriendsViewController{
                 guard let lastName = appDelegate.loginUser?.last_name else {return}
                 let message = metaInfo["message"] as? String ?? "0"
                 if message == "0"{
-                    MIGeneralsAPI.shared().sendNotification( friend_ID!.toString, userID: friend_ID!.toString, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent: "", showDisplayContent: "accepted your friend request", senderName: firstName + lastName)
+                    MIGeneralsAPI.shared().sendNotification( friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent: "", showDisplayContent: "accepted your friend request", senderName: firstName + lastName)
                 }
                 
             }
@@ -436,13 +437,17 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
                     break
                 }
                 self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
-                    self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 4)
+                    self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
             cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in
                 guard let _ = self else { return }
-                self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 5)
+               // self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 5)
+                self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForAcceptRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                    guard let self = self else { return }
+                    self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 5)
+                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
             cell.btnRejectRequest.touchUpInside { [weak self] (sender) in

@@ -427,7 +427,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t have an account?  Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jz9-aG-iZA" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="75" y="634" width="225.5" height="20"/>
+                                                        <rect key="frame" x="84" y="634" width="207" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" id="3F3-5Q-y8J"/>
                                                             <constraint firstAttribute="height" constant="20" id="pOY-XV-4kr"/>
@@ -437,7 +437,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-02-dox">
-                                                        <rect key="frame" x="75" y="627" width="225.5" height="34"/>
+                                                        <rect key="frame" x="84" y="627" width="207" height="34"/>
                                                         <connections>
                                                             <action selector="btnSignUpCLK:" destination="9CC-Gl-OGO" eventType="touchUpInside" id="A9V-s8-lKv"/>
                                                         </connections>
@@ -791,7 +791,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your registered email address/ mobile number to reset password." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JnT-BU-Hdq" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                <rect key="frame" x="48" y="174" width="319" height="42"/>
+                                <rect key="frame" x="48" y="174" width="319" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="El7-fv-mFe"/>
                                 </constraints>
@@ -800,7 +800,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ogn-QU-8uB" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                <rect key="frame" x="20" y="243" width="60" height="56"/>
+                                <rect key="frame" x="20" y="236" width="60" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="1eI-t3-Reh"/>
                                 </constraints>
@@ -812,7 +812,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YUv-Uu-n5k" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                <rect key="frame" x="20" y="243" width="374" height="56"/>
+                                <rect key="frame" x="20" y="236" width="374" height="56"/>
                                 <color key="textColor" name="AppDefault"/>
                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -824,7 +824,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8rg-X1-kyy" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                <rect key="frame" x="20" y="329" width="374" height="55.5"/>
+                                <rect key="frame" x="20" y="322" width="374" height="55.5"/>
                                 <color key="backgroundColor" red="0.51764705879999995" green="0.60392156860000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="8rg-X1-kyy" secondAttribute="height" multiplier="67:10" id="joD-N9-LsM"/>
@@ -986,7 +986,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8fa-gA-TVi" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="101.5" width="335" height="50"/>
+                                        <rect key="frame" x="20" y="95.5" width="335" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="8fa-gA-TVi" secondAttribute="height" multiplier="67:10" id="Z6Y-J6-tpD"/>
                                         </constraints>
@@ -998,7 +998,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mEG-Tr-vJF" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="191.5" width="335" height="45"/>
+                                        <rect key="frame" x="20" y="185.5" width="335" height="45"/>
                                         <color key="backgroundColor" red="0.51764705879999995" green="0.60392156860000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="mEG-Tr-vJF" secondAttribute="height" multiplier="67:9" id="S8b-j9-ItB"/>
@@ -1010,7 +1010,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We have sent you verification code to verify your mobile number (+919999999999)." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxJ-SX-Mnd" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="35" width="335" height="36.5"/>
+                                        <rect key="frame" x="20" y="35" width="335" height="30.5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" id="QaV-MK-zVU"/>
                                         </constraints>
@@ -1019,7 +1019,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w9d-D0-NaL" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="252" width="335" height="50"/>
+                                        <rect key="frame" x="20" y="246" width="335" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="w9d-D0-NaL" secondAttribute="height" multiplier="67:10" id="0Mf-Fa-cgH"/>
                                         </constraints>

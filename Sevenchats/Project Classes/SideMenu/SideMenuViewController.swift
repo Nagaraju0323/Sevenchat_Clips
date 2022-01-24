@@ -158,8 +158,10 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
             if selectedIndexPath == indexPath {
                 cell.btnImage.isSelected = true
                 cell.viewLine.isHidden = false
-                cell.lblTitle.textColor = CRGB(r: 131, g: 157, b: 102)
-                cell.contentView.backgroundColor = CRGB(r: 217, g: 238, b: 222)
+              //  cell.lblTitle.textColor = CRGB(r: 131, g: 157, b: 102)
+//                cell.contentView.backgroundColor = CRGB(r: 217, g: 238, b: 222)
+                cell.lblTitle.textColor = CRGB(r: 33, g: 191, b: 166)
+                cell.contentView.backgroundColor = CRGB(r: 230, g: 248, b: 246)
             } else {
                 cell.btnImage.isSelected = false
                 cell.viewLine.isHidden = true
