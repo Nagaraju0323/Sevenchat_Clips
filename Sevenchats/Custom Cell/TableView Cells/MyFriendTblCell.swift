@@ -37,7 +37,7 @@ class MyFriendTblCell: UITableViewCell {
                 GCDMainThread.async {
                     if let arrList = response!["data"] as? [[String:Any]]{
                         for arrLst in arrList{
-                            if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0"{
+                            if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" || arrLst.valueForString(key: "request_status") == "5" &&  arrLst.valueForString(key: "friend_status") == "2" {
                                 Friend_status = 0
                                 
                             }else if arrLst.valueForString(key: "request_status")  == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description {
