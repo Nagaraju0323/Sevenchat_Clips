@@ -6,6 +6,12 @@
 //  Copyright © 2021 mac-00020. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : RestrictedFilesVC                           *
+ * Description : EventHldListTblCell                     *
+ *                                                       *
+ ********************************************************/
 import UIKit
 
 

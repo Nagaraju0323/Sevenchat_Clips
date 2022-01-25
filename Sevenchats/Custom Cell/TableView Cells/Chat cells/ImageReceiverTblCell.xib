@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,7 +30,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Tommy" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hI-CE-AZn" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                        <rect key="frame" x="55" y="10" width="255" height="18.5"/>
+                        <rect key="frame" x="55" y="10" width="255" height="15.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" id="rh3-Yv-Gni"/>
@@ -42,7 +40,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ACr-kV-gCy">
-                        <rect key="frame" x="55" y="36.5" width="225" height="171"/>
+                        <rect key="frame" x="55" y="33.5" width="225" height="168"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n4X-pp-Nd6">
                                 <rect key="frame" x="0.0" y="0.0" width="225" height="21"/>
@@ -51,7 +49,7 @@
                                         <rect key="frame" x="5" y="6" width="10" height="9"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Forwarded" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="snt-hG-A1B" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="19" y="2" width="64.5" height="17"/>
+                                        <rect key="frame" x="19" y="2" width="58" height="17"/>
                                         <fontDescription key="fontDescription" name="Poppins-Italic" family="Poppins" pointSize="12"/>
                                         <color key="textColor" red="0.36862745099999999" green="0.36862745099999999" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -111,7 +109,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="04:23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wCX-GW-wrJ" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                <rect key="frame" x="8" y="146" width="31" height="17"/>
+                                <rect key="frame" x="8" y="146" width="31" height="14"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="YLp-MG-huh"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" id="ya6-eQ-0vd"/>
@@ -179,6 +177,6 @@
         <image name="ic_download" width="30" height="30"/>
         <image name="ic_forward_chat" width="10" height="9"/>
         <image name="ic_video_play" width="40" height="40"/>
-        <image name="user_placeholder.png" width="300" height="300"/>
+        <image name="user_placeholder.png" width="128" height="128"/>
     </resources>
 </document>

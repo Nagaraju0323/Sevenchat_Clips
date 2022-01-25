@@ -6,6 +6,13 @@
 //  Copyright © 2020 mac-00020. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : AudioVideoButtonCell                        *
+ * Description : AudioVideoButtonCell                    *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 
 class AudioVideoButtonCell: UITableViewCell {

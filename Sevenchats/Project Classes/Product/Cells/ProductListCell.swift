@@ -6,6 +6,15 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ProductListCell                             *
+ * Description : Like nand comment product list items    *
+ *
+ ********************************************************/
+
+
+
 import UIKit
 
 class ProductListCell: UITableViewCell {

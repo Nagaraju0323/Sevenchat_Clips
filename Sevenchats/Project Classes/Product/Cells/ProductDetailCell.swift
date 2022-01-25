@@ -6,6 +6,14 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ProductDetailCell                           *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
 import UIKit
 
 class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {

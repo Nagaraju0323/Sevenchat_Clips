@@ -8,7 +8,7 @@
 /*********************************************************
  * Author  : Chandrika.R                                 *
  * Model   : CreateFileColls                             *
- * Changes :                                             *
+ * Description :                                         *
  * Create Files                                          *
  ********************************************************/
 

@@ -6,6 +6,12 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ApplicationMessages                         *
+ * Description : ApplicationMessages                     *
+ ********************************************************/
+
 import Foundation
 
 //MARK:- GENERAL

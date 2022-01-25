@@ -6,6 +6,16 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : OtherUserProfileViewController              *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
+
 import UIKit
 let CNoDataCell = "NO"
 let CNoDataCellType = "cell_type"

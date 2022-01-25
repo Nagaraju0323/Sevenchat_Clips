@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : MILocationManager                           *
+ * Description : Update location help with google Maps   *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 import CoreLocation
 import Contacts

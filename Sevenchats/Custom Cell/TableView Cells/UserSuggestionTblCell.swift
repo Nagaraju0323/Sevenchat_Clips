@@ -5,6 +5,12 @@
 //  Created by mac-0005 on 28/12/18.
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : UserSuggestionTblCell                       *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
 
 import UIKit
 

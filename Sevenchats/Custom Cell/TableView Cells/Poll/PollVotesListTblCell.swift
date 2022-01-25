@@ -6,6 +6,13 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : RestrictedFilesVC                           *
+ * Description :  PollVotesList                          *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 
 class PollVotesListTblCell: UITableViewCell {

@@ -287,7 +287,6 @@
 		62E1A695240E2EC5001BD7A8 /* SharedPost.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A473240E2EC4001BD7A8 /* SharedPost.storyboard */; };
 		62E1A696240E2EC5001BD7A8 /* SideMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A474240E2EC4001BD7A8 /* SideMenu.storyboard */; };
 		62E1A697240E2EC5001BD7A8 /* Rewards.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A475240E2EC4001BD7A8 /* Rewards.storyboard */; };
-		62E1A698240E2EC5001BD7A8 /* CallLayoutCollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A478240E2EC4001BD7A8 /* CallLayoutCollView.swift */; };
 		62E1A699240E2EC5001BD7A8 /* VideoViewCollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A479240E2EC4001BD7A8 /* VideoViewCollView.swift */; };
 		62E1A69A240E2EC5001BD7A8 /* ContactListTblView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A47A240E2EC4001BD7A8 /* ContactListTblView.swift */; };
 		62E1A69B240E2EC5001BD7A8 /* AdvertiseCollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A47C240E2EC4001BD7A8 /* AdvertiseCollCell.xib */; };
@@ -875,7 +874,6 @@
 		62E1A473240E2EC4001BD7A8 /* SharedPost.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SharedPost.storyboard; sourceTree = "<group>"; };
 		62E1A474240E2EC4001BD7A8 /* SideMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SideMenu.storyboard; sourceTree = "<group>"; };
 		62E1A475240E2EC4001BD7A8 /* Rewards.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Rewards.storyboard; sourceTree = "<group>"; };
-		62E1A478240E2EC4001BD7A8 /* CallLayoutCollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CallLayoutCollView.swift; sourceTree = "<group>"; };
 		62E1A479240E2EC4001BD7A8 /* VideoViewCollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewCollView.swift; sourceTree = "<group>"; };
 		62E1A47A240E2EC4001BD7A8 /* ContactListTblView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListTblView.swift; sourceTree = "<group>"; };
 		62E1A47C240E2EC4001BD7A8 /* AdvertiseCollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdvertiseCollCell.xib; sourceTree = "<group>"; };
@@ -1829,7 +1827,6 @@
 		62E1A477240E2EC4001BD7A8 /* TableAndCollectioView */ = {
 			isa = PBXGroup;
 			children = (
-				62E1A478240E2EC4001BD7A8 /* CallLayoutCollView.swift */,
 				62E1A479240E2EC4001BD7A8 /* VideoViewCollView.swift */,
 				62E1A47A240E2EC4001BD7A8 /* ContactListTblView.swift */,
 			);
@@ -2933,7 +2930,6 @@
 				62E1A77B240E2EC5001BD7A8 /* ExtensionUIImage.swift in Sources */,
 				182A8DD42799D4DE00543C65 /* ProductListCell.swift in Sources */,
 				62E1A76F240E2EC5001BD7A8 /* ExtensionUIApplication.swift in Sources */,
-				62E1A698240E2EC5001BD7A8 /* CallLayoutCollView.swift in Sources */,
 				1863D1092600D3CD00B5BDE8 /* WatermarkCompositionInstruction.swift in Sources */,
 				62E1A6B7240E2EC5001BD7A8 /* HomeEventImageTblCell.swift in Sources */,
 				62E1A749240E2EC5001BD7A8 /* CreateGroupHeader.swift in Sources */,

@@ -10,7 +10,7 @@
  * Author  : Chandrika.R                                 *
  * Model   : UserChatDetailViewController                *
  * Changes :                                             *
- *  intigrated Socket IO,sent Msg,Attachment             *
+ * intigrated Socket IO,sent Msg,Attachment             *
  ********************************************************/
 
 import UIKit
@@ -209,6 +209,8 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
         messageidListItems.removeAll()
         NotificationCenter.default.addObserver(self, selector: #selector(self.DidSelectCLK), name: NSNotification.Name(rawValue: "DidSelectCLK"), object: nil)
@@ -453,6 +455,9 @@ extension UserChatDetailViewController {
     
     func getMessagesFromServer(isNew : Bool) {
         
+     
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        
         TblMessages.deleteAllObjects()
         if sessionTask != nil {
             if sessionTask.state == .running {
@@ -519,7 +524,6 @@ extension UserChatDetailViewController {
                 
             }
         }
-        
     }
     
     fileprivate func blockUnblockUserApi() {

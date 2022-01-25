@@ -5,6 +5,12 @@
 //  Created by mac-00020 on 30/05/19.
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : EventCommentTblHeader                       *
+ * Description :  EventCommentTblHeader                  *
+ *                                                       *
+ ********************************************************/
 
 import UIKit
 

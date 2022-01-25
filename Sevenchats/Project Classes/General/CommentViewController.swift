@@ -8,7 +8,7 @@
 
 /*********************************************************
  * Author  : Chandrika.R                                 *
- * Model   : CommentViewController                      *
+ * Model   : CommentViewController                       *
  * Changes :                                             *
                             *
  ********************************************************/

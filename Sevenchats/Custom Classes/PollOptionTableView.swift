@@ -6,6 +6,13 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : PollOptionTableView                         *
+ * Changes : poll selection dispaly percentages          *
+ *                                                       *
+ ********************************************************/
+
 import Foundation
 import UIKit
 

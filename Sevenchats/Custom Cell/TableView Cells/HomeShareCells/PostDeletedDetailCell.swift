@@ -6,6 +6,13 @@
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : PostDeletedDetailCell.R                     *
+ * Model   : PostDeletedDetailCell                       *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 
 class PostDeletedDetailCell: UITableViewCell {

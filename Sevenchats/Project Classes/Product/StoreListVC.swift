@@ -10,8 +10,7 @@
 /*********************************************************
  * Author  : Chandrika.R                                 *
  * Model   : StoreListVC                                 *
- * Changes :                                             *
-
+ * Changes :Display StoreList with  All/My product List  *
  ********************************************************/
 
 

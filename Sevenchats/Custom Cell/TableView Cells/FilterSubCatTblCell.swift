@@ -5,6 +5,13 @@
 //  Created by mac-0005 on 16/08/18.
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : FilterSubCatTblCell                         *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
 
 import UIKit
 let kItemPadding = 15

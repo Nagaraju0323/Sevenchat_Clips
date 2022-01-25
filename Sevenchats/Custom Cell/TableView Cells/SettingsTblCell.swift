@@ -6,6 +6,12 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : SettingsTblCell                             *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
 import UIKit
 
 class SettingsTblCell: UITableViewCell {

@@ -6,6 +6,12 @@
 //  Copyright © 2020 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ConnectAllHeaderView                        *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
 import UIKit
 
 class ConnectAllHeaderView: UITableViewHeaderFooterView {

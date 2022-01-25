@@ -6,6 +6,14 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : EventDetailImageViewController              *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
 import UIKit
 import ActiveLabel
 import Lightbox

@@ -6,6 +6,14 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : SideMenuViewController                      *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
 import UIKit
 
 
@@ -36,6 +44,7 @@ class SideMenuViewController: ParentViewController {
         arrMenu = [
             [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "ic_home"), CImageSelected:#imageLiteral(resourceName: "ic_home"), kNotificationCount:0],
             [CTitle:CNavFriends as Any, CImage:#imageLiteral(resourceName: "ic_friend"), CImageSelected:#imageLiteral(resourceName: "ic_friend"), kNotificationCount:0],
+            [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), kNotificationCount:0],
             [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "ic_groups"), CImageSelected:#imageLiteral(resourceName: "ic_groups"), kNotificationCount:0],
             [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "ic_chats"), CImageSelected:#imageLiteral(resourceName: "ic_chats"), kNotificationCount:0],
             [CTitle:CSideNews as Any, CImage:#imageLiteral(resourceName: "ic_news"), CImageSelected:#imageLiteral(resourceName: "ic_news"), kNotificationCount:0],
@@ -111,6 +120,7 @@ extension SideMenuViewController {
         self.arrMenu = [
             [CTitle:CSideHome as Any, CImage:#imageLiteral(resourceName: "ic_home"), CImageSelected:#imageLiteral(resourceName: "ic_home"), kNotificationCount:0],
             [CTitle:CNavFriends as Any, CImage:#imageLiteral(resourceName: "ic_friend"), CImageSelected:#imageLiteral(resourceName: "ic_friend"), kNotificationCount:0],
+            [CTitle:CSideConnectInvite as Any, CImage:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), CImageSelected:#imageLiteral(resourceName: "ic_sidemenu_normal_connectInvite"), kNotificationCount:0],
             [CTitle:CSideGroups as Any, CImage:#imageLiteral(resourceName: "ic_groups"), CImageSelected:#imageLiteral(resourceName: "ic_groups"), kNotificationCount: groupCount],
             [CTitle:CSideChat as Any, CImage:#imageLiteral(resourceName: "ic_chats"), CImageSelected:#imageLiteral(resourceName: "ic_chats"), kNotificationCount:userCount],
             [CTitle:CSideNews as Any, CImage:#imageLiteral(resourceName: "ic_news"), CImageSelected:#imageLiteral(resourceName: "ic_news"), kNotificationCount:0],
@@ -199,10 +209,31 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
                 }
             }
             break
+        case CSideConnectInvite:
+          if let inviteContancVC : InviteAndConnectViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "InviteAndConnectViewController") as? InviteAndConnectViewController{
+                        inviteContancVC.isFromSideMenu = true
+                        appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: inviteContancVC)
+                        appDelegate.hideSidemenu()
+                    }
+                    
+                    break
+            
         case CSideProfile:
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardProfile.instantiateViewController(withIdentifier: "MyProfileViewController"))
             appDelegate.hideSidemenu()
             break
+            
+      
+     
+        case CSideProfile:
+            appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardProfile.instantiateViewController(withIdentifier: "MyProfileViewController"))
+            appDelegate.hideSidemenu()
+            break
+            
+            
+     
+            
+            
         case CNavFriends:
             if let frndVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyFriendsViewController") as? MyFriendsViewController {
                 frndVC.isFromSideMenu = true

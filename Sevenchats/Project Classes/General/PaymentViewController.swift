@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : PaymentViewController                       *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 fileprivate let sevenchatsyear = "com.sevenchats.yearlyadv"
 

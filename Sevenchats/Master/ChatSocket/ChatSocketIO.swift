@@ -6,6 +6,12 @@
 ////  Copyright © 2021 mac-00020. All rights reserved.
 ////
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : ChatSocketIO                                *
+ * Description : Send message recived Message            *
+ ********************************************************/
+
 import Foundation
 import UIKit
 import AVKit
@@ -13,7 +19,7 @@ import TrueTime
 import StompClientLib
 
 
-// MQTTDelegate Methods
+
  protocol SocketDelegate: class {
      func didRefreshMessages()
 //    @objc optional func didChangedOnlineOfflineStatus(_ message: [String : Any]?)
@@ -22,9 +28,6 @@ import StompClientLib
 //    @objc optional func didRecivedMsgData(_ message:[String:Any]?)
 
 }
-
-
-
 
 var msgJsonData : ((String) -> Void)?
 

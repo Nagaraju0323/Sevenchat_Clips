@@ -55,7 +55,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lily Morie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuZ-Ok-q8o" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                            <rect key="frame" x="72" y="12" width="63" height="21"/>
+                                                            <rect key="frame" x="72" y="12" width="60.5" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="Qsf-kc-K31"/>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" id="pue-Kp-tDQ"/>
@@ -72,7 +72,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New iPhone design is ready …" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vDt-Lv-0rW" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                            <rect key="frame" x="72" y="34" width="172" height="19"/>
+                                                            <rect key="frame" x="72" y="34" width="164.5" height="19"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="19" id="QDo-gT-IqF"/>
                                                             </constraints>
@@ -204,7 +204,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfl-gP-xTo">
-                                                <rect key="frame" x="267" y="14" width="66" height="50"/>
+                                                <rect key="frame" x="270" y="14" width="60" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" id="24L-xd-47h"/>
                                                     <constraint firstAttribute="height" constant="50" id="INi-iz-0co"/>

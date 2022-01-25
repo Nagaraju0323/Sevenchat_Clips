@@ -6,6 +6,14 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : NewsViewController                          *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
 import UIKit
 
 class NewsViewController: ParentViewController {
@@ -27,7 +35,8 @@ class NewsViewController: ParentViewController {
     var selectedCateIndexPath = IndexPath(item: 0, section: 0)
     var apiTask : URLSessionTask?
     var refreshControl = UIRefreshControl()
-    var pageNumber = 0 
+    var pageNumber = 1
+    var isLoadMoreCompleted = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,31 +106,56 @@ extension NewsViewController {
             return
         }
         
-        if isShowLoader{
+//        if isShowLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
+//        }
+        
+        if self.pageNumber > 2 {
+            self.tblNews.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+        }else{
+            self.tblNews.tableFooterView = nil
         }
+        
         guard let country = appDelegate.loginUser?.country else { return }
         guard let language = appDelegate.loginUser?.lang_name else {return}
-        var para = [String:Any]()
-        para[Ccountry] = country
-        para[Clanguage] = language
-        para[Ccategory] = categoryID
-        
-        apiTask = APIRequest.shared().getNewsList(para: para, completion: { (response, error) in
-            MILoader.shared.hideLoader()
-            self.apiTask?.cancel()
-            self.refreshControl.endRefreshing()
-            self.activityLoader.stopAnimating()
+
+        if self.pageNumber > 2 {
+            self.tblNews.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+        }else{
+            self.tblNews.tableFooterView = nil
+        }
+        apiTask = APIRequest.shared().getNewsList( pagerNumber: self.pageNumber.toString,country:country,language:language,categoryID:categoryID) { [weak self] (response, error) in
             
-            if response != nil && error == nil {
-                if let arrData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
-                    self.arrNews.removeAll()
-                    self.arrNews = arrData
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.activityLoader.stopAnimating()
+                self.refreshControl.endRefreshing()
+                MILoader.shared.hideLoader()
+                
+                self.tblNews.tableFooterView = nil
+                
+                if response != nil && error == nil {
+                    if let arrData = response?.value(forKey: "news") as? [[String : AnyObject]] {
+                    
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrNews.removeAll()
+                            self.tblNews.reloadData()
+                        }
+                        self.isLoadMoreCompleted = arrData.isEmpty
+                        // Add Data here...
+                        if arrData.count > 0 {
+                            self.arrNews = self.arrNews + arrData
+                            self.tblNews.reloadData()
+                            self.pageNumber += 1
+                        }
+//                        self.tblNews.reloadData()
+                    }
+                    self.lblNoData.isHidden = self.arrNews.count > 0
                 }
-                self.tblNews.reloadData()
-                self.lblNoData.isHidden = self.arrNews.count > 0
             }
-        })
+        }
+          
     }
     
     fileprivate func shareNews(shareUrl:String) {
@@ -164,6 +198,7 @@ extension NewsViewController : UICollectionViewDelegateFlowLayout,UICollectionVi
                 cell.lblCategoryName.textColor = CRGB(r: 88, g: 109, b: 61)
             }
             
+           
             return cell
         }
         
@@ -172,8 +207,10 @@ extension NewsViewController : UICollectionViewDelegateFlowLayout,UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedCateIndexPath = indexPath
+        pageNumber = 1
         self.collNewCategory.reloadData()
         self.tblNews.setContentOffset(.zero, animated: false)
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
         self.loadNewsListForParticularCategoryFromServer(categoryID: (arrNewsCategory[indexPath.item].category_name ?? ""), isShowLoader: true)
     }
 }
@@ -202,10 +239,14 @@ extension NewsViewController : UITableViewDelegate, UITableViewDataSource {
                 guard let self = self else { return }
                 self.shareNews(shareUrl: newsInfo.valueForString(key: "url"))
             }
+            if indexPath == tblNews.lastIndexPath() && !self.isLoadMoreCompleted{
+                self.loadNewsListForParticularCategoryFromServer(categoryID: (arrNewsCategory[selectedCateIndexPath.row].category_name ?? ""), isShowLoader: false)
+            }
+            
             return cell
         }
         
-        return UITableViewCell()
+        return tblNews.tableViewDummyCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

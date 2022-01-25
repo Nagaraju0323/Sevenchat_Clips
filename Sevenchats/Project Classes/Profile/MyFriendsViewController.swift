@@ -6,8 +6,15 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : MyFriendsViewController                     *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
-//
+
 class MyFriendsViewController: ParentViewController {
     
     @IBOutlet weak var viewSearchBar : UIView!

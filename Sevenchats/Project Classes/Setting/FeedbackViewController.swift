@@ -9,7 +9,7 @@
 
 /*********************************************************
  * Author  : Chandrika.R                                 *
- * Model   : RegisterViewController                      *
+ * Model   : FeedbackViewController                      *
  * Changes :                                             *
  * User give the Feedbacks for Diffrent Categroires      *
  * and user Get reward Point for every Feed Back         *

@@ -1,6 +1,13 @@
 //
 //  MDLPollUserList.swift
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : RestrictedFilesVC                           *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
 import Foundation
 
 class MDLPollUserList : NSObject {

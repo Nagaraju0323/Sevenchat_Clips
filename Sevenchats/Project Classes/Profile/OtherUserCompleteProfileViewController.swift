@@ -6,6 +6,14 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : OtherUserCompleteProfileViewController      *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
 import UIKit
 
 class OtherUserCompleteProfileViewController: ParentViewController,MICollectionViewBubbleLayoutDelegate {

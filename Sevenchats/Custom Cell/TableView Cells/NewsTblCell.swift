@@ -5,6 +5,12 @@
 //  Created by mac-00017 on 09/10/18.
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : NewsTblCell                                 *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
 
 import UIKit
 

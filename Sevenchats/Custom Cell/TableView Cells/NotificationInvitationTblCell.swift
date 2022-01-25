@@ -5,6 +5,12 @@
 //  Created by Mac-0006 on 23/08/18.
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : NotificationInvitationTblCell               *
+ * Description :  NotificationInvitationTblCell          *
+ *                                                       *
+ ********************************************************/
 
 import UIKit
 import ActiveLabel

@@ -5,6 +5,12 @@
 //  Created by mac-00020 on 24/09/19.
 //  Copyright © 2019 mac-0005. All rights reserved.
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : PostDeletedCell                             *
+ * Changes : PostDeletedCell                             *
+ *                                                       *
+ ********************************************************/
 
 import UIKit
 

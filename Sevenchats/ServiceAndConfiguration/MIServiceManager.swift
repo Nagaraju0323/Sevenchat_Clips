@@ -6,6 +6,13 @@
 //  Copyright © 2019 Mac-00016. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : MIServiceManager                            *
+ * Description :Serives manager                          *
+ *                                                       *
+ ********************************************************/
+
 //Please Go through the Instruction File to Follow The Monitoring steps of Api Responce diffrent cases.
 import Foundation
 import Alamofire

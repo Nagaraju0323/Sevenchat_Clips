@@ -6,6 +6,14 @@
 //  Copyright © 2020 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : MyRewardsHistoryVC                          *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
 import Foundation
 import UIKit
 

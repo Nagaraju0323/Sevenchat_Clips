@@ -6,6 +6,13 @@
 //  Copyright © 2021 mac-00020. All rights reserved.
 //
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : MinioImgsave                                *
+ * Description :Save to images,Audio,Video files         *
+ *                                                       *
+ ********************************************************/
+
 import Foundation
 import UIKit
 import AWSS3

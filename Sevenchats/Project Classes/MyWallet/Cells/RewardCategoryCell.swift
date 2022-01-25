@@ -5,6 +5,14 @@
 //  Created by mac-00020 on 01/02/20.
 //  Copyright © 2020 mac-0005. All rights reserved.
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : RewardCategoryCell                          *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
+
 
 import UIKit
 

@@ -5,6 +5,12 @@
 //  Created by mac-00020 on 25/02/20.
 //  Copyright © 2020 mac-0005. All rights reserved.
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : RestrictedFilesVC                           *
+ * Description :  InviteSectionCell                      *
+ *                                                       *
+ ********************************************************/
 
 import UIKit
 import ContactsUI

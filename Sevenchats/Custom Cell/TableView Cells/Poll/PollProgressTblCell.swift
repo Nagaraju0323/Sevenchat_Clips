@@ -6,6 +6,12 @@
 //  Copyright © 2019 mac-00018. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : RestrictedFilesVC                           *
+ * Description : PollProgressTblCell                     *
+ ********************************************************/
+
 import UIKit
 
 class PollProgressTblCell: UITableViewCell {

@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : GalleryListViewController                   *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 import PhotosUI
 

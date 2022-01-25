@@ -6,6 +6,13 @@
 //  Copyright © 2018 Mac. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : NotificationAlertView                       *
+ * Description : NotificationAlertView                   *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 
 class NotificationAlertView: UIView {

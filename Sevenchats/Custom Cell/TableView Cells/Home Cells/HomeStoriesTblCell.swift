@@ -5,6 +5,12 @@
 //  Created by APPLE on 08/03/21.
 //  Copyright © 2021 mac-00020. All rights reserved.
 //
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : HomeStoriesTblCell                          *
+ * Changes : HomeStoriesTblCell                          *
+ *                                                       *
+ ********************************************************/
 
 import UIKit
 
@@ -14,8 +20,8 @@ class HomeStoriesTblCell: UITableViewCell {
     @IBOutlet weak var ViewMainContainer: UIView!
     var userDetails: [UserDetails] = []
     
-    let arrayvalues2 = ["naga","chandu","raju","rahul","madhu","naveen","royal","sonyy","chinna","sagar"]
-    let arrayvalues1 = ["naga"]
+    let arrayvalues2 = ["ravi","chandu","divya","rahul","madhu","naveen","royal","sonyy","chinna","sagar"]
+    let arrayvalues1 = ["sunil"]
     
     override func awakeFromNib() {
         super.awakeFromNib()

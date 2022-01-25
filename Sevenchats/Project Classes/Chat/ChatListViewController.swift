@@ -9,7 +9,7 @@
  * Author  : Chandrika.R                                 *
  * Model   : ChatListViewController                      *
  * Changes :                                             *
- *  Chat Friends List                                    *
+ * Chat Friends List                                    *
  ********************************************************/
 
 import UIKit

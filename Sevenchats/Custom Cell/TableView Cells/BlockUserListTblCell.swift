@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : AudioVideoButtonCell                        *
+ * Description : BlockUserListTblCell                    *
+ *                                                       *
+ ********************************************************/
+
 import UIKit
 
 class BlockUserListTblCell: UITableViewCell {

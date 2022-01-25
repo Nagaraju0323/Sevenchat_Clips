@@ -6,6 +6,7 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+
 import UIKit
 
 class GroupSuggetionTblCell: UITableViewCell {

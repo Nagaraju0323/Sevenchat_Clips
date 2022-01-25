@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : MessageReceiverTblCell                      *
+ * Changes :                                             *
+ *                                                       *
+ ********************************************************/
+
 enum CheckboxState: Int {
     case Checked = 1
     case Unchecked = 0

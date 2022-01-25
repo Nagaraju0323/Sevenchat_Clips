@@ -148,8 +148,7 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
 
 // MARK:- --------- Api Functions
 extension InviteAndConnectViewController{
-    func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?)
-    {
+    func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?){
         let friend_ID = userInfo.valueForInt(key: "friend_user_id")
         let dict :[String:Any]  =  [
             "user_id":  userid!.toString,

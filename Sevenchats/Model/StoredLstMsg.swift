@@ -6,10 +6,14 @@
 //  Copyright © 2021 mac-00020. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : StoredLstMsg                                *
+ * Description :                                         *
+ *                                                       *
+ ********************************************************/
+
 import Foundation
-
-
-
 //MARK: - MDLProductCategory
 public class MDLChatLastMSG :Encodable{
     

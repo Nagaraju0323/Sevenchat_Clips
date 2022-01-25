@@ -6,6 +6,13 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 
+/*********************************************************
+ * Author  : Chandrika.R                                 *
+ * Model   : APIRequest                                  *
+ * Description : All Api call                            *
+ *                                                       *
+ ********************************************************/
+
 import Foundation
 import UIKit
 import Alamofire
@@ -2555,7 +2562,15 @@ extension APIRequest {
         })!
     }
     
-    func getNewsList(para : [String:Any], completion: @escaping ClosureCompletion) -> URLSessionTask {
+    func getNewsList(pagerNumber:String?,country:String?,language:String?,categoryID:String?, completion: @escaping ClosureCompletion) -> URLSessionTask {
+       
+        var para = [String:Any]()
+        para["page"] = pagerNumber
+        para ["limit"] = "20"
+        para[Ccountry] = country
+        para[Clanguage] = language
+        para[Ccategory] = categoryID
+
         
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagNews, param: para as AnyObject as? [String : AnyObject], successBlock: { (task, response) in
             
