@@ -494,7 +494,7 @@ extension InviteAndConnectViewController{
                     let image = UIImage(data: imgData)
                     cell.imgUser.image = image
                 } else {
-                    cell.imgUser.image = UIImage(named: "avtar.png")
+                    cell.imgUser.image = UIImage(named: "user_placeholder.png")
                 }
                 
                 if (contactInfo?.phoneNumbers.count)! > 0 {

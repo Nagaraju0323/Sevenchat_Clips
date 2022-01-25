@@ -24,7 +24,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="144"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZHi-m6-d2Y">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZHi-m6-d2Y">
                         <rect key="frame" x="10" y="10" width="35" height="35"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="35" id="Pi7-BC-8Nl"/>
@@ -129,7 +129,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="avtar.png" width="126" height="126"/>
         <image name="ic_forward_chat" width="10" height="9"/>
+        <image name="user_placeholder.png" width="300" height="300"/>
     </resources>
 </document>

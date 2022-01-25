@@ -151,9 +151,9 @@ extension ChatFriendViewController : UITableViewDelegate, UITableViewDataSource{
             cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
             
             //..... LOAD MORE DATA.........
-            //            if indexPath == tblFriend.lastIndexPath(){
-            //                self.getFriendListFromServer(showLoader: false)
-            //            }
+            // if indexPath == tblFriend.lastIndexPath(){
+            // self.getFriendListFromServer(showLoader: false)
+            //  }
             
             return cell
         }

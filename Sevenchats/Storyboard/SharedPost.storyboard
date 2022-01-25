@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -34,16 +32,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QiR-Mp-tAJ">
-                                <rect key="frame" x="0.0" y="44" width="375" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Urk-GC-rtk">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sMC-MX-e3c">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cDh-b2-AN7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="706"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="750"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <view key="tableHeaderView" contentMode="scaleToFill" id="Dii-15-hOR">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="604"/>
@@ -55,7 +53,7 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jsZ-1V-zbb">
                                                                             <rect key="frame" x="0.0" y="0.0" width="351" height="112.5"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="04W-Rk-RGP">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="04W-Rk-RGP">
                                                                                     <rect key="frame" x="8" y="8" width="45" height="45"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="45" id="1sK-9O-ng5"/>
@@ -160,7 +158,7 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yrh-v7-qcl">
                                                                                     <rect key="frame" x="10" y="0.0" width="325" height="61"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="M5u-l2-aVe">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="M5u-l2-aVe">
                                                                                             <rect key="frame" x="0.0" y="8" width="45" height="45"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" constant="45" id="mYY-Vr-WsY"/>
@@ -476,7 +474,7 @@
                                                         </view>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ojn-Bb-57F" customClass="UserSuggestionView" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="578" width="240" height="128"/>
+                                                        <rect key="frame" x="0.0" y="622" width="240" height="128"/>
                                                         <subviews>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="06n-3T-fxV">
                                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -502,7 +500,7 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R6Q-aE-Xta">
-                                                        <rect key="frame" x="0.0" y="706" width="375" height="50"/>
+                                                        <rect key="frame" x="0.0" y="750" width="375" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3m-dy-DnH">
                                                                 <rect key="frame" x="317" y="0.0" width="50" height="50"/>
@@ -639,16 +637,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hwh-q2-NHP">
-                                <rect key="frame" x="0.0" y="44" width="375" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Li5-9f-9Ts">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dKi-5n-5cH">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="1CT-EE-i2q">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="706"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="750"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <view key="tableHeaderView" clipsSubviews="YES" contentMode="scaleToFill" id="UHw-h4-0Di">
@@ -661,7 +659,7 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jX1-Iz-Ok6">
                                                                             <rect key="frame" x="0.0" y="0.0" width="351" height="112.5"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="csh-k7-7jL">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="csh-k7-7jL">
                                                                                     <rect key="frame" x="8" y="8" width="45" height="45"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="45" id="0Cy-td-kSM"/>
@@ -766,7 +764,7 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ho-1B-QNw">
                                                                                     <rect key="frame" x="10" y="0.0" width="325" height="61"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="JjQ-T2-lC8">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="JjQ-T2-lC8">
                                                                                             <rect key="frame" x="0.0" y="8" width="45" height="45"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" constant="45" id="fD4-b3-w9b"/>
@@ -1095,7 +1093,7 @@
                                                         </connections>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mI8-JJ-dm6" customClass="UserSuggestionView" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="578" width="240" height="128"/>
+                                                        <rect key="frame" x="0.0" y="622" width="240" height="128"/>
                                                         <subviews>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ul8-8V-CRr">
                                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -1121,7 +1119,7 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ucR-DS-GN1">
-                                                        <rect key="frame" x="0.0" y="706" width="375" height="50"/>
+                                                        <rect key="frame" x="0.0" y="750" width="375" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hq0-xk-S5D">
                                                                 <rect key="frame" x="317" y="0.0" width="50" height="50"/>
@@ -1256,16 +1254,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ITZ-cS-kRG">
-                                <rect key="frame" x="0.0" y="44" width="375" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WmW-cn-M3F">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YOo-js-hHP">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="QJR-DC-BW4">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="706"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="750"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <view key="tableHeaderView" contentMode="scaleToFill" id="EgM-0m-LbZ">
@@ -1278,7 +1276,7 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TZ8-mZ-bJo">
                                                                             <rect key="frame" x="0.0" y="0.0" width="351" height="112.5"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZpH-bk-6hP">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZpH-bk-6hP">
                                                                                     <rect key="frame" x="8" y="8" width="45" height="45"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="45" id="eVd-hh-bM1"/>
@@ -1383,7 +1381,7 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t2m-di-2V9">
                                                                                     <rect key="frame" x="10" y="0.0" width="325" height="61"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="gwT-aD-uRJ">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="gwT-aD-uRJ">
                                                                                             <rect key="frame" x="0.0" y="8" width="45" height="45"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="45" id="Guv-RL-aC8"/>
@@ -1685,7 +1683,7 @@
                                                         </connections>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="elu-Jw-PgQ" customClass="UserSuggestionView" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="578" width="240" height="128"/>
+                                                        <rect key="frame" x="0.0" y="622" width="240" height="128"/>
                                                         <subviews>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ub0-Ep-XlJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -1711,7 +1709,7 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cd5-eT-5cP">
-                                                        <rect key="frame" x="0.0" y="706" width="375" height="50"/>
+                                                        <rect key="frame" x="0.0" y="750" width="375" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ez-2j-IUd">
                                                                 <rect key="frame" x="317" y="0.0" width="50" height="50"/>
@@ -1844,16 +1842,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Het-cW-Sgh">
-                                <rect key="frame" x="0.0" y="44" width="375" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVJ-nu-pPH">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aem-5P-EAi">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="6eB-ie-Xwr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="706"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="750"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <view key="tableHeaderView" contentMode="scaleToFill" id="Jbj-8w-v4A">
@@ -1866,7 +1864,7 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SG3-rA-yTt">
                                                                             <rect key="frame" x="0.0" y="0.0" width="351" height="112.5"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="1tP-IP-iCq">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="1tP-IP-iCq">
                                                                                     <rect key="frame" x="8" y="8" width="45" height="45"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="45" id="0sV-pF-Ils"/>
@@ -1971,7 +1969,7 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzK-fg-KVS">
                                                                                     <rect key="frame" x="10" y="0.0" width="325" height="61"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="u1F-TP-c5D">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="u1F-TP-c5D">
                                                                                             <rect key="frame" x="0.0" y="8" width="45" height="45"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="45" id="5g0-bE-nGs"/>
@@ -2290,7 +2288,7 @@
                                                         </connections>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AkS-Ld-6zi" customClass="UserSuggestionView" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="578" width="240" height="128"/>
+                                                        <rect key="frame" x="0.0" y="622" width="240" height="128"/>
                                                         <subviews>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EIN-ta-TsE">
                                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -2316,7 +2314,7 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ziG-7h-pKr">
-                                                        <rect key="frame" x="0.0" y="706" width="375" height="50"/>
+                                                        <rect key="frame" x="0.0" y="750" width="375" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fOf-AC-05B">
                                                                 <rect key="frame" x="317" y="0.0" width="50" height="50"/>
@@ -2451,16 +2449,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p1r-jo-o1e">
-                                <rect key="frame" x="0.0" y="44" width="375" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wzr-5J-521">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QVt-1Y-23P">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Daf-Qd-y4q">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="706"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="750"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <view key="tableHeaderView" contentMode="scaleToFill" id="1MK-w4-Kr3">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="392"/>
@@ -2472,7 +2470,7 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Unl-UU-Jrt">
                                                                             <rect key="frame" x="0.0" y="0.0" width="351" height="112.5"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="k2I-of-GXB">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="k2I-of-GXB">
                                                                                     <rect key="frame" x="8" y="8" width="45" height="45"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="45" id="6VP-ec-mBE"/>
@@ -2577,7 +2575,7 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="adz-kt-rfW">
                                                                                     <rect key="frame" x="10" y="0.0" width="325" height="61"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="PWC-Bf-nT6">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="PWC-Bf-nT6">
                                                                                             <rect key="frame" x="0.0" y="8" width="45" height="45"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="45" id="Q9G-WW-QTz"/>
@@ -2879,7 +2877,7 @@
                                                         </connections>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VkO-ek-r0p" customClass="UserSuggestionView" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="578" width="240" height="128"/>
+                                                        <rect key="frame" x="0.0" y="622" width="240" height="128"/>
                                                         <subviews>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jDY-1S-mQi">
                                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -2905,7 +2903,7 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="upd-8B-rJU">
-                                                        <rect key="frame" x="0.0" y="706" width="375" height="50"/>
+                                                        <rect key="frame" x="0.0" y="750" width="375" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2x1-XQ-gf9">
                                                                 <rect key="frame" x="317" y="0.0" width="50" height="50"/>
@@ -3037,16 +3035,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4He-XN-hCU">
-                                <rect key="frame" x="0.0" y="44" width="375" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tx8-NG-ZAB">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m8F-qH-CuT">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="5z6-Du-z7g">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="706"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="750"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
                                                             <outlet property="dataSource" destination="Jtq-r9-9VU" id="aCS-R5-TTE"/>
@@ -3054,7 +3052,7 @@
                                                         </connections>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bYX-rx-HOP" customClass="UserSuggestionView" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="578" width="240" height="128"/>
+                                                        <rect key="frame" x="0.0" y="622" width="240" height="128"/>
                                                         <subviews>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oT9-fl-3pr">
                                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -3080,7 +3078,7 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r9n-nK-AoM">
-                                                        <rect key="frame" x="0.0" y="706" width="375" height="50"/>
+                                                        <rect key="frame" x="0.0" y="750" width="375" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJV-8W-kTF">
                                                                 <rect key="frame" x="317" y="0.0" width="50" height="50"/>
@@ -3194,16 +3192,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gbg-qX-POL">
-                                <rect key="frame" x="0.0" y="44" width="414" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RU3-JY-ir9">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hFl-Mv-9kX">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="756"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="ud1-Ou-MLz">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="706"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="750"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <view key="tableHeaderView" contentMode="scaleToFill" id="UQP-Sn-861">
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="377"/>
@@ -3215,7 +3213,7 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kh9-61-1w8">
                                                                             <rect key="frame" x="0.0" y="0.0" width="390" height="112.5"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="lZ1-rp-WDt">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="lZ1-rp-WDt">
                                                                                     <rect key="frame" x="8" y="8" width="45" height="45"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="45" id="8hi-RW-nk3"/>
@@ -3320,7 +3318,7 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ngt-av-XyW">
                                                                                     <rect key="frame" x="10" y="0.0" width="364" height="61"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="rWr-1I-Ydv">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="rWr-1I-Ydv">
                                                                                             <rect key="frame" x="0.0" y="8" width="45" height="45"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="45" id="2LG-bj-3bN"/>
@@ -3634,7 +3632,7 @@
                                                         </connections>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xB6-LH-4ht" customClass="UserSuggestionView" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="578" width="240" height="128"/>
+                                                        <rect key="frame" x="0.0" y="622" width="240" height="128"/>
                                                         <subviews>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n7G-bS-YRd">
                                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -3660,7 +3658,7 @@
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CiM-4i-JfU">
-                                                        <rect key="frame" x="0.0" y="706" width="414" height="50"/>
+                                                        <rect key="frame" x="0.0" y="750" width="414" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HuC-9O-iuk">
                                                                 <rect key="frame" x="356" y="0.0" width="50" height="50"/>
@@ -3794,16 +3792,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGt-00-7dB">
-                                <rect key="frame" x="0.0" y="44" width="375" height="822"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEi-Eu-BPC">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="822"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ig1-5z-k1d">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="822"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AbL-2T-ph3">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="772"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="850"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <view key="tableHeaderView" contentMode="scaleToFill" id="Iby-e8-ejg">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="697"/>
@@ -3815,7 +3813,7 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZbT-ui-2pX">
                                                                             <rect key="frame" x="0.0" y="0.0" width="351" height="112.5"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZWO-cJ-bJT">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="ZWO-cJ-bJT">
                                                                                     <rect key="frame" x="8" y="8" width="45" height="45"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="45" id="KY6-QG-oBj"/>
@@ -3920,7 +3918,7 @@
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qFn-XF-X99">
                                                                                     <rect key="frame" x="10" y="0.0" width="325" height="61"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="shz-gd-tKe">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="shz-gd-tKe">
                                                                                             <rect key="frame" x="0.0" y="8" width="45" height="45"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" constant="45" id="Dfa-x7-TQm"/>
@@ -4444,7 +4442,7 @@ Declined</string>
                                                         </view>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHF-Ip-wLS" customClass="UserSuggestionView" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="644" width="240" height="128"/>
+                                                        <rect key="frame" x="0.0" y="722" width="240" height="128"/>
                                                         <subviews>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fyt-i8-c9L">
                                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -4470,7 +4468,7 @@ Declined</string>
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lnL-pJ-lOH">
-                                                        <rect key="frame" x="0.0" y="772" width="375" height="50"/>
+                                                        <rect key="frame" x="0.0" y="850" width="375" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ir5-Jg-4XA">
                                                                 <rect key="frame" x="317" y="0.0" width="50" height="50"/>
@@ -4611,16 +4609,16 @@ Declined</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ir-9v-XAv">
-                                <rect key="frame" x="0.0" y="44" width="375" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o21-kc-i2l">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RRF-fy-fig">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zl1-a5-ZEo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="706"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="750"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <view key="tableHeaderView" contentMode="scaleToFill" id="9Z1-Ye-RYS">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="492"/>
@@ -4632,7 +4630,7 @@ Declined</string>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BF8-sg-N4p">
                                                                             <rect key="frame" x="0.0" y="0.0" width="351" height="112.5"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="0Cv-W6-J6s">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="0Cv-W6-J6s">
                                                                                     <rect key="frame" x="8" y="8" width="45" height="45"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="45" id="SBf-KX-dqp"/>
@@ -4737,7 +4735,7 @@ Declined</string>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rsL-Gl-Uc5">
                                                                                     <rect key="frame" x="10" y="0.0" width="325" height="61"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="p7D-Kk-1F2">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="p7D-Kk-1F2">
                                                                                             <rect key="frame" x="0.0" y="8" width="45" height="45"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="45" id="Rrn-Jd-SXd"/>
@@ -5244,7 +5242,7 @@ Declined</string>
                                                         </view>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qhj-IG-pII" customClass="UserSuggestionView" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="578" width="240" height="128"/>
+                                                        <rect key="frame" x="0.0" y="622" width="240" height="128"/>
                                                         <subviews>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CHB-0T-7nK">
                                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -5270,7 +5268,7 @@ Declined</string>
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="owP-UB-IhA">
-                                                        <rect key="frame" x="0.0" y="706" width="375" height="50"/>
+                                                        <rect key="frame" x="0.0" y="750" width="375" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y6a-Ye-eGb">
                                                                 <rect key="frame" x="317" y="0.0" width="50" height="50"/>
@@ -5409,16 +5407,16 @@ Declined</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Awf-G6-lWd">
-                                <rect key="frame" x="0.0" y="44" width="375" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P7N-7t-abC">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PdL-kF-6FX">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="756"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tJx-w2-3Vr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="706"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="750"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <view key="tableHeaderView" contentMode="scaleToFill" id="sUf-bU-RUq">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="430"/>
@@ -5430,7 +5428,7 @@ Declined</string>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fMm-To-Rcq">
                                                                             <rect key="frame" x="0.0" y="0.0" width="351" height="112.5"/>
                                                                             <subviews>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="Eu8-Iu-O9n">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="Eu8-Iu-O9n">
                                                                                     <rect key="frame" x="8" y="8" width="45" height="45"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="45" id="K42-Sp-VYk"/>
@@ -5535,7 +5533,7 @@ Declined</string>
                                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aJo-d7-Vra">
                                                                                     <rect key="frame" x="10" y="0.0" width="325" height="61"/>
                                                                                     <subviews>
-                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="gPb-6C-AfF">
+                                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="gPb-6C-AfF">
                                                                                             <rect key="frame" x="0.0" y="8" width="45" height="45"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="45" id="6YI-gO-08J"/>
@@ -5853,7 +5851,7 @@ Declined</string>
                                                         </view>
                                                     </tableView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="va6-76-laC" customClass="UserSuggestionView" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="578" width="240" height="128"/>
+                                                        <rect key="frame" x="0.0" y="622" width="240" height="128"/>
                                                         <subviews>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ATb-Rh-YMQ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -5879,7 +5877,7 @@ Declined</string>
                                                         </connections>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvf-HS-u9V">
-                                                        <rect key="frame" x="0.0" y="706" width="375" height="50"/>
+                                                        <rect key="frame" x="0.0" y="750" width="375" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NMb-qR-GjE">
                                                                 <rect key="frame" x="317" y="0.0" width="50" height="50"/>
@@ -6015,7 +6013,7 @@ Declined</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y8S-pb-za5">
-                                <rect key="frame" x="0.0" y="44" width="375" height="756"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MFS-Ue-c18" customClass="GenericTextView" customModule="Sevenchats" customModuleProvider="target">
                                         <rect key="frame" x="20" y="20" width="335" height="115"/>
@@ -6217,7 +6215,6 @@ Declined</string>
         </scene>
     </scenes>
     <resources>
-        <image name="avtar.png" width="126" height="126"/>
         <image name="ic_close_add" width="18" height="18"/>
         <image name="ic_comment_count" width="15" height="15"/>
         <image name="ic_comment_send" width="30" height="30"/>
@@ -6236,5 +6233,6 @@ Declined</string>
         <image name="ic_thumps_maybe" width="23" height="18"/>
         <image name="ic_thumps_maybe_selected" width="23" height="18"/>
         <image name="ic_thumps_up_selected" width="18.5" height="15"/>
+        <image name="user_placeholder.png" width="128" height="128"/>
     </resources>
 </document>

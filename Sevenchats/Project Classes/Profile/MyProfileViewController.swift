@@ -555,14 +555,12 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                                 guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
                                     return
                                 }
-                                
                                 self.imgName = imageURL.absoluteString ?? ""
                                 MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                                 MInioimageupload.shared().callback = { message in
                                     self.coverImgUrl = message
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
                                         self.uploadCoverPic()
-                                        
                                     })
                                 }
                                 
@@ -570,7 +568,10 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         })
                     }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
                         guard let self = self else { return }
-                        cell.imgCover.image = nil
+//                        cell.imgCover.image = nil
+                        self.coverImgUrl = "https://qa.sevenchats.com:3443/sevenchats/CoverImage/IOS1643088311733.png"
+                        cell.imgCover.image = UIImage(named: "CoverImage.png")
+                        self.uploadCoverPic()
                     }
                 }
                 cell.btnProfileChange.touchUpInside {[weak self](sender) in
@@ -587,10 +588,10 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                                 cell.imgUser.image = image
                                 
                                 MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
-                                let userID : Int64 = appDelegate.loginUser?.user_id ?? 0
+                                let _ : Int64 = appDelegate.loginUser?.user_id ?? 0
                                 guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {return}
                                 self.imgName = imageURL.absoluteString ?? ""
-                                MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                                MInioimageupload.shared().uploadMinioimages(mobileNo: "ProfilePic", ImageSTt: image!,isFrom:"",uploadFrom:"")
                                 MInioimageupload.shared().callback = { message in
                                     self.profileImgUrl = message
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
@@ -606,11 +607,21 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                             guard let self = self else { return }
                             if image != nil{
                                 cell.imgUser.image = image
+                                
+                                MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                                MInioimageupload.shared().callback = { message in
+                                    self.profileImgUrl = message
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                        self.uploadProfilePic()
+                                    })
+                                }
                             }
                         })
                     }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
                         guard let self = self else { return }
-                        cell.imgUser.image = nil
+                    self.profileImgUrl = "https://qa.sevenchats.com:3443/sevenchats/ProfilePic/IOS1643090910947.png"
+                        self.uploadProfilePic()
+                    cell.imgUser.image = UIImage(named: "user_placeholder.png")
                     }
                 }
                 

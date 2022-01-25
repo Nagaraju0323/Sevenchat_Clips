@@ -2107,20 +2107,12 @@
 				62E1A522240E2EC4001BD7A8 /* ads.png */,
 				62E1A523240E2EC4001BD7A8 /* tom.jpg */,
 				62E1A524240E2EC4001BD7A8 /* image_placeholder.jpg */,
-				62E1A525240E2EC4001BD7A8 /* Home Post */,
-				62E1A526240E2EC4001BD7A8 /* Ringtones */,
 				62E1A52D240E2EC4001BD7A8 /* user_placeholder.png */,
-				62E1A52E240E2EC4001BD7A8 /* avtar.png */,
 				62E1A52F240E2EC4001BD7A8 /* 1.jpg */,
+				62E1A52E240E2EC4001BD7A8 /* avtar.png */,
+				62E1A525240E2EC4001BD7A8 /* Home Post */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		62E1A526240E2EC4001BD7A8 /* Ringtones */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Ringtones;
 			sourceTree = "<group>";
 		};
 		62E1A530240E2EC4001BD7A8 /* Custom View */ = {

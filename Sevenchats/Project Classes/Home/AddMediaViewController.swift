@@ -244,7 +244,6 @@ extension AddMediaViewController {
             apiPara[CId] = imgPostId
             let deletedIDS = self.arrDeletedApiImages.map({$0}).joined(separator: ",")
             apiPara[CDeleteIds] = deletedIDS
-            
             _arrMedia = self.arrMedia.filter({$0.uploadMediaStatus != .Succeed})
         }
         do {
@@ -505,7 +504,6 @@ extension AddMediaViewController  {
                             "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                             "image_path":imgUrls
                         ]
-                        
                         do {
                             let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
                             let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
@@ -564,7 +562,6 @@ extension AddMediaViewController  {
                                 let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
                                 let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
                                 let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
-                                //                                        print("replace1\(replaced1)")
                                 self.imageString = replaced1!
                             } catch {
                                 print(error.localizedDescription)
@@ -752,13 +749,11 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                         }
                         self?.arrImagesVideo.append(self!.imageString)
                         print("*****************\(self!.arrImagesVideo)")
-                        if self?.arrImages.count == self?.arrImagesVideo.count{
-                            
+                        if self?.arrImages.count == self?.arrImagesVideo.count || self?.arrMedia.count == self?.arrImagesVideo.count {
                             DispatchQueue.main.async {
                                 MILoader.shared.hideLoader()
                             }
                         }else{
-                            
                             DispatchQueue.main.async {
                                 MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                             }
@@ -820,7 +815,7 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                             }
                             self?.arrImagesVideo.append(self!.imageString)
                             print("*****************\(self!.arrImagesVideo)")
-                            if self?.arrImages.count == self?.arrImagesVideo.count{
+                            if self?.arrImages.count == self?.arrImagesVideo.count ||  self?.arrMedia.count == self?.arrImagesVideo.count{
                                 DispatchQueue.main.async {
                                     MILoader.shared.hideLoader()
                                 }
@@ -897,7 +892,7 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                             }
                             self?.arrImagesVideo.append(self!.imageString)
                             print("*****************\(self!.arrImagesVideo)")
-                            if self?.arrImages.count == self?.arrImagesVideo.count{
+                            if self?.arrImages.count == self?.arrImagesVideo.count || self?.arrMedia.count == self?.arrImagesVideo.count {
                                 DispatchQueue.main.async {
                                     MILoader.shared.hideLoader()
                                 }
@@ -905,7 +900,6 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                                 DispatchQueue.main.async {
                                     MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                                 }
-                                
                             }
                         }
                     }
@@ -922,12 +916,10 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                             self?.colVMedia.reloadData()
                         }
                     }
-                    
                     self?.dispatchGroup.leave()
                 }
                 break
             }
-            
         }
         self.colVMedia.reloadData()
         dispatchGroup.notify(queue: .main) {

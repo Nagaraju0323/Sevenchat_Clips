@@ -191,7 +191,8 @@ class EditProfileViewController: ParentViewController {
             btnUploadImage.setImage(UIImage(), for: .normal)
             imgEditIcon.isHidden = false
         } else{
-            imgCover.loadImageFromUrl((appDelegate.loginUser?.cover_image ?? ""), true)
+            imgCover.image = UIImage(named: "CoverImage.png")
+//            imgCover.loadImageFromUrl((appDelegate.loginUser?.cover_image ?? ""), true)
             imgEditIcon.isHidden = false
         }
         
@@ -508,9 +509,7 @@ extension EditProfileViewController {
     func uploadCoverPic() {
         isSelectedCover = true
         
-        guard let userID = appDelegate.loginUser?.user_id else {
-            return
-        }
+        guard let userID = appDelegate.loginUser?.user_id else {return}
         let dict :[String:Any]  =  [
             CUserId: userID.description,
             CCoverImage: coverImgUrl
@@ -644,29 +643,53 @@ extension EditProfileViewController{
                             self.isremovedImage = false
                             CUserDefaults.set(3, forKey:"imageReplaced")
                             CUserDefaults.synchronize()
+                            
+                            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
+                            guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
+                                return
+                            }
+                            self.imgName = imageURL.absoluteString ?? ""
+                            guard let mobileNum = appDelegate.loginUser?.mobile else {
+                                return
+                            }
+                            MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                            MInioimageupload.shared().callback = { message in
+                                print("UploadImage::::::::::::::\(message)")
+                                self.profileImgUrl = message
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                    self.uploadProfilePic()
+                                })
+                            }
                         }
                     })
                 }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
                     guard let self = self else { return }
-                    let frstNameltr = (self.txtFirstName.text?.first)!
-                    let convStrName = String(frstNameltr)
-                    let text = convStrName
-                    let attributes = [
-                        NSAttributedString.Key.foregroundColor: UIColor.white,
-                        NSAttributedString.Key.backgroundColor:#colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1),
-                        NSAttributedString.Key.font: UIFont.init(name: "AmericanTypewriter-Semibold", size: 40),
-                    ]
-                    let textSize = text.size(withAttributes: attributes)
-                    UIGraphicsBeginImageContextWithOptions(textSize, true, 0)
-                    text.draw(at: CGPoint.zero, withAttributes: attributes)
-                    let image = UIGraphicsGetImageFromCurrentImageContext()
-                    UIGraphicsEndImageContext()
+                    
+                    //Name To image Convert Future version
+//                    let frstNameltr = (self.txtFirstName.text?.first)!
+//                    let convStrName = String(frstNameltr)
+//                    let text = convStrName
+//                    let attributes = [
+//                        NSAttributedString.Key.foregroundColor: UIColor.white,
+//                        NSAttributedString.Key.backgroundColor:#colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1),
+//                        NSAttributedString.Key.font: UIFont.init(name: "AmericanTypewriter-Semibold", size: 40),
+//                    ]
+//                    let textSize = text.size(withAttributes: attributes)
+//                    UIGraphicsBeginImageContextWithOptions(textSize, true, 0)
+//                    text.draw(at: CGPoint.zero, withAttributes: attributes)
+//                    let image = UIGraphicsGetImageFromCurrentImageContext()
+//                    UIGraphicsEndImageContext()
                     self.isremovedImage = true
-                    self.imgUser.image = image
+//                    self.imgUser.image = image
                     CUserDefaults.set(2, forKey:"imageReplaced")
                     CUserDefaults.synchronize()
                     self.imgEditIcon.isHidden = true
-                    self.uploadProfilePic()
+//                    self.uploadProfilePic()
+                    
+                    self.profileImgUrl = "https://qa.sevenchats.com:3443/sevenchats/ProfilePic/IOS1643090910947.png"
+                        self.uploadProfilePic()
+                    self.imgUser.image = UIImage(named: "user_placeholder.png")
+                    
                 }
                 
             }
@@ -755,13 +778,16 @@ extension EditProfileViewController{
                         self.coverImg = true
                         self.CoverEditIcon.isHidden = false
                         self.imgCover.image = image
+                        self.uploadCoverPic()
                     }
                 })
             }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
                 guard let self = self else { return }
-                self.imgCover.image = nil
+
+                self.coverImgUrl = "https://qa.sevenchats.com:3443/sevenchats/CoverImage/IOS1643088311733.png"
+                self.imgCover.image = UIImage(named: "CoverImage.png")
                 self.CoverEditIcon.isHidden = true
-                self.uploadProfilePic()
+                self.uploadCoverPic()
                 
             }
             

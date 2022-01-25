@@ -143,8 +143,16 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
 //            lblBdate.text = ""
         }
         self.userProfileImg = userInfo.valueForString(key: CImage)
+        
         imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
-        imgUserCover.loadImageFromUrl(userInfo.valueForString(key: "cover_image"), true)
+        
+        if userInfo.valueForString(key: "cover_image")  == ""{
+            imgUserCover.image = UIImage(named: "CoverImage.png")
+        }else {
+            imgUserCover.loadImageFromUrl(userInfo.valueForString(key: "cover_image"), true)
+        }
+        
+//        imgUserCover.loadImageFromUrl(userInfo.valueForString(key: "cover_image"), true)
         let user_id = userInfo.valueForString(key: "user_id")
         self.getFriendListFromServer(user_id)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) {

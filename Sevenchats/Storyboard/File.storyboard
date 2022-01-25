@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="n8w-7k-rNM">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -30,6 +28,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="n8w-7k-rNM" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="TL0-aj-6mj">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -46,21 +45,21 @@
             <objects>
                 <viewController storyboardIdentifier="FileSharingViewController" id="hUF-NQ-4Ai" customClass="FileSharingViewController" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="105" contentMode="scaleToFill" id="yAQ-8l-Yfr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ih-l9-3r6">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qb7-tf-J5S">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="58"/>
                                         <color key="backgroundColor" red="0.84705882352941175" green="0.93333333333333335" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Qb7-tf-J5S" secondAttribute="height" multiplier="207:20" id="vch-X2-Qed"/>
                                         </constraints>
                                     </view>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxT-Ik-DUR">
-                                        <rect key="frame" x="0.0" y="36" width="375" height="631"/>
+                                        <rect key="frame" x="0.0" y="58" width="600" height="542"/>
                                         <connections>
                                             <segue destination="dEd-oL-hgQ" kind="embed" id="7rv-HO-fbm"/>
                                         </connections>
@@ -110,17 +109,17 @@
             <objects>
                 <viewController storyboardIdentifier="SharedListVC" id="XZj-4d-3xW" customClass="SharedListVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="102" contentMode="scaleToFill" id="p86-z8-Fcz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTr-ci-ueE">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="09c-h8-UCO">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="86.5"/>
                                         <subviews>
                                             <searchBar clipsSubviews="YES" contentMode="redraw" searchBarStyle="prominent" placeholder="Search friends" translatesAutoresizingMaskIntoConstraints="NO" id="V8f-a0-uBB">
-                                                <rect key="frame" x="20" y="9.5" width="335" height="35"/>
+                                                <rect key="frame" x="20" y="14" width="560" height="58.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="V8f-a0-uBB" secondAttribute="height" multiplier="67:7" id="Gyr-2U-0yn"/>
                                                 </constraints>
@@ -137,37 +136,37 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="WBi-4h-vks">
-                                        <rect key="frame" x="0.0" y="54" width="375" height="563"/>
+                                        <rect key="frame" x="0.0" y="86.5" width="600" height="433.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="separatorInset" minX="80" minY="0.0" maxX="25" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblSharedListCell" rowHeight="70" id="7qH-wo-Sbh" customClass="TblSharedListCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="375" height="70"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="600" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7qH-wo-Sbh" id="tPa-0d-ck0">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avtar.png" translatesAutoresizingMaskIntoConstraints="NO" id="9ar-JW-Yon">
-                                                            <rect key="frame" x="20" y="12.5" width="45" height="45"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="9ar-JW-Yon">
+                                                            <rect key="frame" x="20" y="-1" width="72" height="72"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="9ar-JW-Yon" secondAttribute="height" multiplier="1:1" id="TFQ-tS-VB0"/>
                                                             </constraints>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DGM-rd-qBV">
-                                                            <rect key="frame" x="20" y="12.5" width="45" height="45"/>
+                                                            <rect key="frame" x="20" y="-1" width="72" height="72"/>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lily Morie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wNZ-Vy-KRl">
-                                                            <rect key="frame" x="80" y="20" width="240" height="30"/>
+                                                            <rect key="frame" x="107" y="20" width="426" height="30"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yGh-hi-9mf">
-                                                            <rect key="frame" x="80" y="20" width="240" height="30"/>
+                                                            <rect key="frame" x="107" y="20" width="426" height="30"/>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeB-dm-VYS">
-                                                            <rect key="frame" x="330" y="25" width="20" height="20"/>
+                                                            <rect key="frame" x="543" y="19" width="32" height="32"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="NeB-dm-VYS" secondAttribute="height" multiplier="1:1" id="ABW-qp-eEH"/>
                                                             </constraints>
@@ -209,10 +208,10 @@
                                         </connections>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Utw-ho-nMs">
-                                        <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                        <rect key="frame" x="0.0" y="520" width="600" height="80"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQi-rr-mGD">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="16"/>
                                                 <state key="normal" title="Invite Others" backgroundImage="ic_navigation_bg">
                                                     <color key="titleColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -272,17 +271,17 @@
             <objects>
                 <viewController storyboardIdentifier="FriendsVC" id="rk4-s4-1d2" customClass="FriendsVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="102" contentMode="scaleToFill" id="Syj-5n-HUp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b9x-Q8-HXA">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f7L-hm-2jD">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="86.5"/>
                                         <subviews>
                                             <searchBar clipsSubviews="YES" contentMode="redraw" searchBarStyle="prominent" placeholder="Search friends" translatesAutoresizingMaskIntoConstraints="NO" id="Jlj-HQ-kQy">
-                                                <rect key="frame" x="20" y="8" width="335" height="38"/>
+                                                <rect key="frame" x="20" y="24" width="560" height="38"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="38" id="PH9-a5-fiS"/>
                                                 </constraints>
@@ -299,7 +298,7 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="7id-iy-nJi">
-                                        <rect key="frame" x="0.0" y="54" width="375" height="613"/>
+                                        <rect key="frame" x="0.0" y="86.5" width="600" height="513.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="separatorInset" minX="80" minY="0.0" maxX="25" maxY="0.0"/>
                                         <connections>
@@ -344,14 +343,14 @@
             <objects>
                 <viewController storyboardIdentifier="RestrictedFilesVC" id="1aX-kg-aMl" customClass="RestrictedFilesVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="102" contentMode="scaleToFill" id="6HY-Pq-AZt">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRn-Yf-Pcs">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="h4o-jg-7Rw">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="separatorInset" minX="80" minY="0.0" maxX="25" maxY="0.0"/>
                                     </tableView>
@@ -388,20 +387,20 @@
             <objects>
                 <viewController storyboardIdentifier="FileSharingProgressVC" id="0wg-d6-bao" customClass="FileSharingProgressVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oEy-YQ-rnY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LdE-ha-kte">
-                                <rect key="frame" x="40" y="267.5" width="295" height="132.5"/>
+                                <rect key="frame" x="40" y="234" width="520" height="132.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preparing to export" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l6U-P1-mqj">
-                                        <rect key="frame" x="71" y="10" width="153" height="22.5"/>
+                                        <rect key="frame" x="183.5" y="10" width="153" height="22.5"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gEH-js-6iu">
-                                        <rect key="frame" x="214" y="96.5" width="71" height="28"/>
+                                        <rect key="frame" x="439" y="96.5" width="71" height="28"/>
                                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="14"/>
                                         <inset key="contentEdgeInsets" minX="10" minY="4" maxX="10" maxY="4"/>
                                         <state key="normal" title="Cancel"/>
@@ -410,7 +409,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2w6-fG-heU">
-                                        <rect key="frame" x="101.5" y="72.5" width="92.5" height="20"/>
+                                        <rect key="frame" x="214" y="72.5" width="92.5" height="20"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -427,7 +426,7 @@
                                 </constraints>
                             </view>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="WGP-d7-7NC">
-                                <rect key="frame" x="177.5" y="310" width="20" height="20"/>
+                                <rect key="frame" x="290" y="276.5" width="20" height="20"/>
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
@@ -458,50 +457,50 @@
             <objects>
                 <viewController storyboardIdentifier="SharedFilesVC" id="Fsh-iz-5et" customClass="SharedFilesVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6z9-mR-ljd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GrK-Dx-aDZ">
-                                <rect key="frame" x="15" y="0.0" width="345" height="667"/>
+                                <rect key="frame" x="15" y="0.0" width="570" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblFilesCell" rowHeight="50" id="1Rr-MY-OO2" customClass="TblFilesCell" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="345" height="50"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="570" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Rr-MY-OO2" id="dt3-HM-cWy">
-                                            <rect key="frame" x="0.0" y="0.0" width="345" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="570" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aDb-yI-MYB" customClass="MIGenericView" customModule="Sevenchats" customModuleProvider="target">
-                                                    <rect key="frame" x="5" y="5" width="330" height="40"/>
+                                                    <rect key="frame" x="5" y="5" width="555" height="40"/>
                                                     <subviews>
                                                         <view clipsSubviews="YES" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e0z-JQ-jWA">
-                                                            <rect key="frame" x="0.0" y="0.0" width="330" height="40"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="555" height="40"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certificates " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="plM-bD-9dd" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                    <rect key="frame" x="56.5" y="5" width="227.5" height="18.5"/>
+                                                                    <rect key="frame" x="78.5" y="5" width="409.5" height="18.5"/>
                                                                     <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="13"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shared by: Amit Kapoor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bk8-yQ-66b" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                    <rect key="frame" x="56.5" y="28.5" width="227.5" height="14"/>
+                                                                    <rect key="frame" x="78.5" y="28.5" width="409.5" height="14"/>
                                                                     <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                                     <color key="textColor" red="0.60392156862745094" green="0.61176470588235299" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awv-Fu-PmW" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                                    <rect key="frame" x="294" y="8.5" width="31" height="23"/>
+                                                                    <rect key="frame" x="498" y="1" width="52" height="38"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="awv-Fu-PmW" secondAttribute="height" multiplier="15:11" id="1px-qP-P2J"/>
                                                                     </constraints>
                                                                     <state key="normal" image="ic_home_dot_grey"/>
                                                                 </button>
                                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ8-eW-2Yh">
-                                                                    <rect key="frame" x="15" y="4" width="31.5" height="32"/>
+                                                                    <rect key="frame" x="15" y="-6.5" width="53.5" height="53"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_folder" translatesAutoresizingMaskIntoConstraints="NO" id="jFA-Mf-UlD">
-                                                                            <rect key="frame" x="5.5" y="7" width="21" height="18"/>
+                                                                            <rect key="frame" x="16" y="17.5" width="21" height="18"/>
                                                                         </imageView>
                                                                     </subviews>
                                                                     <color key="backgroundColor" red="0.84705882349999995" green="0.93333333330000001" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -585,17 +584,17 @@
             <objects>
                 <viewController id="sCb-Y2-7gP" sceneMemberID="viewController">
                     <view key="view" tag="102" contentMode="scaleToFill" id="sb1-7h-pur">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kSz-VB-UFt">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kFq-XI-LEP">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="87"/>
                                         <subviews>
                                             <searchBar clipsSubviews="YES" contentMode="redraw" searchBarStyle="prominent" placeholder="Search..." translatesAutoresizingMaskIntoConstraints="NO" id="Gsc-TH-bil">
-                                                <rect key="frame" x="20" y="9.5" width="335" height="35"/>
+                                                <rect key="frame" x="20" y="26" width="560" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="0nf-yi-cPV"/>
                                                 </constraints>
@@ -612,21 +611,21 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mJP-lp-YcU">
-                                        <rect key="frame" x="0.0" y="59.5" width="375" height="607.5"/>
+                                        <rect key="frame" x="0.0" y="92" width="600" height="508"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblSharedFileDetailsCell" rowHeight="60" id="yYI-oT-dhx" customClass="TblSharedFileDetailsCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="600" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yYI-oT-dhx" id="Cmd-Qr-R5y">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yts-Gt-Rox" customClass="MIGenericView" customModule="Sevenchats" customModuleProvider="target">
-                                                            <rect key="frame" x="20" y="5" width="335" height="50"/>
+                                                            <rect key="frame" x="20" y="5" width="560" height="50"/>
                                                             <subviews>
                                                                 <view clipsSubviews="YES" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WvT-SA-FGM">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="50"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i8E-Qg-IAm">
                                                                             <rect key="frame" x="0.0" y="0.0" width="5" height="50"/>
@@ -636,19 +635,19 @@
                                                                             </constraints>
                                                                         </view>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SalarySleep.pdf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPY-93-5rk" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="20" y="5" width="227" height="18.5"/>
+                                                                            <rect key="frame" x="20" y="5" width="413" height="18.5"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="13"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01-01-2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xoT-bh-piY" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="20" y="28.5" width="227" height="14"/>
+                                                                            <rect key="frame" x="20" y="28.5" width="413" height="14"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                                             <color key="textColor" red="0.60392156862745094" green="0.61176470588235299" blue="0.61176470588235299" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IwZ-SF-WXd">
-                                                                            <rect key="frame" x="262" y="7.5" width="58" height="35"/>
+                                                                            <rect key="frame" x="448" y="-4.5" width="97" height="59"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="IwZ-SF-WXd" secondAttribute="height" multiplier="58:35" id="nLs-l0-Qrg"/>
                                                                             </constraints>
@@ -704,7 +703,7 @@
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zp2-Sq-MXk">
-                                        <rect key="frame" x="290" y="582" width="85" height="85"/>
+                                        <rect key="frame" x="515" y="515" width="85" height="85"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="85" id="9GZ-wv-3u3"/>
                                             <constraint firstAttribute="height" constant="85" id="a1T-aV-j0e"/>
@@ -754,17 +753,17 @@
             <objects>
                 <viewController storyboardIdentifier="CreateFolderVC" id="Ydq-9k-cJs" customClass="CreateFolderVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="102" contentMode="scaleToFill" id="cKw-ZC-NWR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZZb-RY-jh0">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6IN-Jr-jxs">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="192"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XIZ-f5-Re6" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="36" y="20" width="303" height="45.5"/>
+                                                <rect key="frame" x="57" y="20" width="486" height="72.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="XIZ-f5-Re6" secondAttribute="height" multiplier="67:10" id="fxU-4M-F8e"/>
@@ -777,7 +776,7 @@
                                                 </connections>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jk9-6g-ZDd">
-                                                <rect key="frame" x="140" y="75.5" width="95" height="40"/>
+                                                <rect key="frame" x="224" y="102.5" width="152" height="64"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="jk9-6g-ZDd" secondAttribute="height" multiplier="19:8" id="eEa-KS-FDl"/>
                                                 </constraints>
@@ -790,7 +789,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ODe-Kf-jHL">
-                                                <rect key="frame" x="245" y="81.5" width="28" height="28"/>
+                                                <rect key="frame" x="386" y="112" width="45" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ODe-Kf-jHL" secondAttribute="height" multiplier="1:1" id="G04-jP-TX1"/>
                                                 </constraints>
@@ -813,7 +812,7 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rO5-mJ-rPh">
-                                        <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                                        <rect key="frame" x="0.0" y="192" width="600" height="408"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="dataSource" destination="Ydq-9k-cJs" id="x1q-t0-Svh"/>
@@ -860,27 +859,27 @@
             <objects>
                 <viewController storyboardIdentifier="FilesVC" id="nKl-4b-yRK" customClass="FilesVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="104" contentMode="scaleToFill" id="mS5-Cr-f80">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vjM-HA-4a3">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6YL-ma-8Oh">
-                                        <rect key="frame" x="15" y="0.0" width="345" height="667"/>
+                                        <rect key="frame" x="15" y="0.0" width="570" height="600"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <view key="tableHeaderView" clipsSubviews="YES" contentMode="scaleToFill" id="1O2-CR-A5O">
-                                            <rect key="frame" x="0.0" y="0.0" width="345" height="91"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="570" height="91"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ea8-Q5-401">
-                                                    <rect key="frame" x="5" y="10" width="335" height="81"/>
+                                                    <rect key="frame" x="5" y="10" width="560" height="81"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_roundedRectangle" translatesAutoresizingMaskIntoConstraints="NO" id="CLa-g7-W8A">
-                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="81"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="560" height="81"/>
                                                         </imageView>
                                                         <progressView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="VjO-j7-4rg">
-                                                            <rect key="frame" x="10" y="25" width="315" height="8"/>
+                                                            <rect key="frame" x="10" y="25" width="540" height="8"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="8" id="lJl-yG-PXd"/>
                                                             </constraints>
@@ -888,7 +887,7 @@
                                                             <color key="trackTintColor" red="0.84705882349999995" green="0.93333333330000001" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </progressView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 MB" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAr-SK-18t" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="38" width="315" height="17"/>
+                                                            <rect key="frame" x="10" y="38" width="540" height="17"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -920,36 +919,36 @@
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblFilesCell" rowHeight="50" id="IMh-9g-6iW" customClass="TblFilesCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="115.5" width="345" height="50"/>
+                                                <rect key="frame" x="0.0" y="115.5" width="570" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IMh-9g-6iW" id="cyq-nb-tuG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="570" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XF1-eI-oVR" customClass="MIGenericView" customModule="Sevenchats" customModuleProvider="target">
-                                                            <rect key="frame" x="5" y="5" width="335" height="40"/>
+                                                            <rect key="frame" x="5" y="5" width="560" height="40"/>
                                                             <subviews>
                                                                 <view clipsSubviews="YES" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DPs-47-nsA">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="40"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certificates " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fU4-DW-mxb" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="61.5" y="11" width="79" height="18.5"/>
+                                                                            <rect key="frame" x="86.5" y="11" width="79" height="18.5"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="13"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hto-aK-wcE" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="293.5" y="8.5" width="31.5" height="23"/>
+                                                                            <rect key="frame" x="497.5" y="1" width="52.5" height="38.5"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="hto-aK-wcE" secondAttribute="height" multiplier="15:11" id="Ir7-0q-pPX"/>
                                                                             </constraints>
                                                                             <state key="normal" image="ic_home_dot_grey"/>
                                                                         </button>
                                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFZ-04-kcG">
-                                                                            <rect key="frame" x="15" y="1.5" width="36.5" height="37"/>
+                                                                            <rect key="frame" x="15" y="-10.5" width="61.5" height="61"/>
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_folder" translatesAutoresizingMaskIntoConstraints="NO" id="rBz-KS-s60">
-                                                                                    <rect key="frame" x="8" y="9.5" width="21" height="18"/>
+                                                                                    <rect key="frame" x="20" y="21.5" width="21" height="18"/>
                                                                                 </imageView>
                                                                             </subviews>
                                                                             <color key="backgroundColor" red="0.84705882349999995" green="0.93333333330000001" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1015,7 +1014,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1g9-P7-mG6">
-                                <rect key="frame" x="290" y="582" width="85" height="85"/>
+                                <rect key="frame" x="515" y="515" width="85" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="Ewh-r6-qlj"/>
                                     <constraint firstAttribute="width" constant="85" id="QLS-8h-1uO"/>
@@ -1055,27 +1054,27 @@
             <objects>
                 <viewController storyboardIdentifier="FilesVCTMP" id="eB0-kg-Pwg" customClass="FilesVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="104" contentMode="scaleToFill" id="8rr-NA-KNe">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B13-Xy-mDv">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zvn-DX-XQf">
-                                        <rect key="frame" x="15" y="0.0" width="345" height="667"/>
+                                        <rect key="frame" x="15" y="0.0" width="570" height="600"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <view key="tableHeaderView" clipsSubviews="YES" contentMode="scaleToFill" id="Zbi-rS-aVf">
-                                            <rect key="frame" x="0.0" y="0.0" width="345" height="120"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="570" height="120"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYa-OL-aPX">
-                                                    <rect key="frame" x="5" y="10" width="335" height="110"/>
+                                                    <rect key="frame" x="5" y="10" width="560" height="110"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_roundedRectangle" translatesAutoresizingMaskIntoConstraints="NO" id="emR-9P-x60">
-                                                            <rect key="frame" x="0.0" y="0.0" width="335" height="110"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="560" height="110"/>
                                                         </imageView>
                                                         <progressView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WSu-xd-sFa">
-                                                            <rect key="frame" x="10" y="25" width="315" height="8"/>
+                                                            <rect key="frame" x="10" y="25" width="540" height="8"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="8" id="EU5-Cb-1cw"/>
                                                             </constraints>
@@ -1083,13 +1082,13 @@
                                                             <color key="trackTintColor" red="0.84705882349999995" green="0.93333333330000001" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </progressView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 MB" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDX-Ra-clK" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="38" width="315" height="19.5"/>
+                                                            <rect key="frame" x="10" y="38" width="540" height="0.0"/>
                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RmQ-PH-HEq" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                            <rect key="frame" x="112.5" y="67.5" width="110" height="27.5"/>
+                                                            <rect key="frame" x="182.5" y="48" width="195" height="47"/>
                                                             <color key="backgroundColor" red="0.51372549020000002" green="0.64705882349999999" blue="0.35686274509999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="RmQ-PH-HEq" secondAttribute="height" multiplier="4:1" id="SSq-qQ-d2b"/>
@@ -1132,36 +1131,36 @@
                                         </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblFilesCell" rowHeight="50" id="Q3B-aG-I6h" customClass="TblFilesCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="144.5" width="345" height="50"/>
+                                                <rect key="frame" x="0.0" y="144.5" width="570" height="50"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q3B-aG-I6h" id="nwQ-Ls-2Nt">
-                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="50"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="570" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fi6-jn-eQD" customClass="MIGenericView" customModule="Sevenchats" customModuleProvider="target">
-                                                            <rect key="frame" x="5" y="5" width="335" height="40"/>
+                                                            <rect key="frame" x="5" y="5" width="560" height="40"/>
                                                             <subviews>
                                                                 <view clipsSubviews="YES" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kpm-tO-Vip">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="40"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certificates " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vhk-Ht-xde" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="61.5" y="11" width="79" height="18.5"/>
+                                                                            <rect key="frame" x="86.5" y="11" width="79" height="18.5"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="13"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="piA-vS-Asb" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="293.5" y="8.5" width="31.5" height="23"/>
+                                                                            <rect key="frame" x="497.5" y="1" width="52.5" height="38.5"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="piA-vS-Asb" secondAttribute="height" multiplier="15:11" id="YVj-Og-vlV"/>
                                                                             </constraints>
                                                                             <state key="normal" image="ic_home_dot_grey"/>
                                                                         </button>
                                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iqS-9l-yXs">
-                                                                            <rect key="frame" x="15" y="1.5" width="36.5" height="37"/>
+                                                                            <rect key="frame" x="15" y="-10.5" width="61.5" height="61"/>
                                                                             <subviews>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_folder" translatesAutoresizingMaskIntoConstraints="NO" id="EqZ-AD-X94">
-                                                                                    <rect key="frame" x="8" y="9.5" width="21" height="18"/>
+                                                                                    <rect key="frame" x="20" y="21.5" width="21" height="18"/>
                                                                                 </imageView>
                                                                             </subviews>
                                                                             <color key="backgroundColor" red="0.84705882349999995" green="0.93333333330000001" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1227,7 +1226,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JRN-P2-Fg8">
-                                <rect key="frame" x="290" y="582" width="85" height="85"/>
+                                <rect key="frame" x="515" y="515" width="85" height="85"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="85" id="cb6-u6-jed"/>
                                     <constraint firstAttribute="height" constant="85" id="dq4-aM-eNT"/>
@@ -1268,35 +1267,35 @@
             <objects>
                 <viewController storyboardIdentifier="NoInternetVC" id="Cg8-sT-LAw" customClass="NoInternetVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NII-2H-CAI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vE3-b6-pgj">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVW-z4-qxc">
-                                        <rect key="frame" x="20" y="169.5" width="335" height="328"/>
+                                        <rect key="frame" x="20" y="103.5" width="560" height="393"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_no_connection" translatesAutoresizingMaskIntoConstraints="NO" id="8In-z0-FmH">
-                                                <rect key="frame" x="50.5" y="20" width="234" height="110"/>
+                                                <rect key="frame" x="82" y="20" width="396" height="186"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="8In-z0-FmH" secondAttribute="height" multiplier="149:70" id="zl4-ES-NSE"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Internet!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gcd-Ab-rdL">
-                                                <rect key="frame" x="50.5" y="150" width="234" height="31"/>
+                                                <rect key="frame" x="82" y="226" width="396" height="31"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="22"/>
                                                 <color key="textColor" red="0.0" green="0.63921568627450975" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please check your internet Connection." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1oB-gl-WWd">
-                                                <rect key="frame" x="15" y="196" width="305" height="62"/>
+                                                <rect key="frame" x="15" y="272" width="530" height="31"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="22"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZLj-eX-07r">
-                                                <rect key="frame" x="115.5" y="278" width="104" height="30"/>
+                                                <rect key="frame" x="193.5" y="323" width="173" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="ZLj-eX-07r" secondAttribute="height" multiplier="55:16" id="6dZ-rH-ThD"/>
                                                 </constraints>
@@ -1353,19 +1352,19 @@
             <objects>
                 <viewController storyboardIdentifier="UpgradeStorageVC" id="0PR-yr-odt" customClass="UpgradeStorageVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4g8-Z8-C8o">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="G9m-ci-Efa">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="YpK-Qa-ZXZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="255"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="255"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_upload_storage_popup" translatesAutoresizingMaskIntoConstraints="NO" id="sgM-Eb-iNb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="255"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="255"/>
                                             <color key="backgroundColor" red="0.84705882349999995" green="0.93333333330000001" blue="0.74509803919999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </imageView>
                                     </subviews>
@@ -1379,20 +1378,20 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblUpgradeStorageCell" rowHeight="60" id="GgS-6s-NJv" customClass="TblUpgradeStorageCell" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="279.5" width="375" height="60"/>
+                                        <rect key="frame" x="0.0" y="279.5" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GgS-6s-NJv" id="06u-Q0-Abb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10 GB " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qY-ZJ-b7F" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                    <rect key="frame" x="20" y="21" width="220" height="18.5"/>
+                                                    <rect key="frame" x="20" y="21" width="379" height="18.5"/>
                                                     <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zuN-6D-Zzv" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                    <rect key="frame" x="250" y="14" width="110" height="32"/>
+                                                    <rect key="frame" x="409" y="4.5" width="176" height="51"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="zuN-6D-Zzv" secondAttribute="height" multiplier="121:35" id="dvJ-Qr-7jA"/>
                                                     </constraints>
@@ -1447,17 +1446,17 @@
             <objects>
                 <viewController id="Xbv-IJ-HcA" sceneMemberID="viewController">
                     <view key="view" tag="102" contentMode="scaleToFill" id="aim-tC-t8V">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s9l-xm-dKx">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yrZ-zr-yau">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="87"/>
                                         <subviews>
                                             <searchBar clipsSubviews="YES" contentMode="redraw" searchBarStyle="prominent" placeholder="Search..." translatesAutoresizingMaskIntoConstraints="NO" id="FCW-yW-DQF">
-                                                <rect key="frame" x="20" y="9.5" width="315" height="35"/>
+                                                <rect key="frame" x="20" y="26" width="540" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="rDo-ZF-rva"/>
                                                 </constraints>
@@ -1465,7 +1464,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebc-HL-6SV">
-                                                <rect key="frame" x="339" y="9.5" width="30" height="35"/>
+                                                <rect key="frame" x="564" y="26" width="30" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="czx-BF-fia"/>
                                                     <constraint firstAttribute="width" constant="30" id="fJk-97-4ZD"/>
@@ -1488,21 +1487,21 @@
                                         </constraints>
                                     </view>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WGJ-21-iOi">
-                                        <rect key="frame" x="0.0" y="59.5" width="375" height="607.5"/>
+                                        <rect key="frame" x="0.0" y="92" width="600" height="508"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblSharedFileDetailsCell" rowHeight="60" id="8yU-dv-U9e" customClass="TblSharedFileDetailsCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="375" height="60"/>
+                                                <rect key="frame" x="0.0" y="24.5" width="600" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8yU-dv-U9e" id="w9X-zS-hZX">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QOq-ci-CuI" customClass="MIGenericView" customModule="Sevenchats" customModuleProvider="target">
-                                                            <rect key="frame" x="20" y="5" width="335" height="50"/>
+                                                            <rect key="frame" x="20" y="5" width="560" height="50"/>
                                                             <subviews>
                                                                 <view clipsSubviews="YES" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wvw-bk-aog">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="560" height="50"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mpM-5M-WLx">
                                                                             <rect key="frame" x="0.0" y="0.0" width="5" height="50"/>
@@ -1512,19 +1511,19 @@
                                                                             </constraints>
                                                                         </view>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SalarySleep.pdf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3w-JP-8Ak" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="20" y="5" width="227" height="18.5"/>
+                                                                            <rect key="frame" x="20" y="5" width="413" height="18.5"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="13"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01-01-2019" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmL-hD-1uf" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="20" y="28.5" width="227" height="14"/>
+                                                                            <rect key="frame" x="20" y="28.5" width="413" height="14"/>
                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                                             <color key="textColor" red="0.60392156860000001" green="0.61176470589999998" blue="0.61176470589999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JkE-kN-WOy">
-                                                                            <rect key="frame" x="262" y="7.5" width="58" height="35"/>
+                                                                            <rect key="frame" x="448" y="-4.5" width="97" height="59"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="JkE-kN-WOy" secondAttribute="height" multiplier="58:35" id="f2Z-dF-jiI"/>
                                                                             </constraints>
@@ -1574,17 +1573,17 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TblSharedFileDetailsCollCell" rowHeight="126" id="cLG-LG-O2D" customClass="TblSharedFileDetailsCollCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="84.5" width="375" height="126"/>
+                                                <rect key="frame" x="0.0" y="84.5" width="600" height="126"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cLG-LG-O2D" id="HYN-8d-bfr">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="126"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="126"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K7l-87-GBZ">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="126"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="126"/>
                                                             <subviews>
                                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="i1U-dW-K5u" customClass="DynamicHeightCollectionView" customModule="Sevenchats" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="126"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="126"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="n8c-kV-3i6">
                                                                         <size key="itemSize" width="128" height="128"/>
@@ -1624,7 +1623,7 @@
                                         </connections>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Rp-7v-FSI">
-                                        <rect key="frame" x="290" y="582" width="85" height="85"/>
+                                        <rect key="frame" x="515" y="515" width="85" height="85"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="85" id="ff8-cY-cyd"/>
                                             <constraint firstAttribute="height" constant="85" id="tlc-tN-XQ9"/>
@@ -1675,17 +1674,17 @@
             <objects>
                 <viewController storyboardIdentifier="SharedFilesDetailsVC" id="7SB-pl-K3J" customClass="SharedFilesDetailsVC" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="102" contentMode="scaleToFill" id="ieg-Xy-sNp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sad-79-xau">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i9K-m7-bhD">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="87"/>
                                         <subviews>
                                             <searchBar clipsSubviews="YES" contentMode="redraw" searchBarStyle="prominent" placeholder="Search..." translatesAutoresizingMaskIntoConstraints="NO" id="UKV-6i-TyG">
-                                                <rect key="frame" x="20" y="9.5" width="315" height="35"/>
+                                                <rect key="frame" x="20" y="26" width="540" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="RrK-gA-xwW"/>
                                                 </constraints>
@@ -1693,7 +1692,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </searchBar>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pNZ-oc-w6O">
-                                                <rect key="frame" x="339" y="9.5" width="30" height="35"/>
+                                                <rect key="frame" x="564" y="26" width="30" height="35"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="35" id="0Rc-3o-87Q"/>
                                                     <constraint firstAttribute="width" constant="30" id="iZc-lc-Obc"/>
@@ -1716,7 +1715,7 @@
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="7a3-AJ-0q3">
-                                        <rect key="frame" x="0.0" y="54.5" width="375" height="612.5"/>
+                                        <rect key="frame" x="0.0" y="87" width="600" height="513"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="HOy-xK-Y5o">
                                             <size key="itemSize" width="375" height="60"/>
@@ -1726,7 +1725,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9uS-Vv-DRv">
-                                                <rect key="frame" x="10" y="0.0" width="355" height="60"/>
+                                                <rect key="frame" x="10" y="43.5" width="355" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="trL-SD-NK2">
                                                     <rect key="frame" x="0.0" y="0.0" width="355" height="60"/>
@@ -1800,7 +1799,7 @@
                                                 <size key="customSize" width="355" height="60"/>
                                             </collectionViewCell>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="" id="cSM-lc-Wh9">
-                                                <rect key="frame" x="104" y="65" width="167" height="147"/>
+                                                <rect key="frame" x="370" y="0.0" width="167" height="147"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dOu-Ep-yrc">
                                                     <rect key="frame" x="0.0" y="0.0" width="167" height="147"/>
@@ -1815,7 +1814,7 @@
                                         </connections>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xo1-p9-bcN">
-                                        <rect key="frame" x="290" y="582" width="85" height="85"/>
+                                        <rect key="frame" x="515" y="515" width="85" height="85"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="85" id="HQr-ch-GrS"/>
                                             <constraint firstAttribute="width" constant="85" id="sHs-9Q-INk"/>
@@ -1863,7 +1862,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="avtar.png" width="126" height="126"/>
         <image name="ic_add_btn" width="455" height="455"/>
         <image name="ic_btn_bg" width="555.5" height="71.5"/>
         <image name="ic_cancle" width="10.5" height="10.5"/>
@@ -1876,6 +1874,7 @@
         <image name="ic_no_connection" width="298" height="153"/>
         <image name="ic_roundedRectangle" width="187.5" height="100"/>
         <image name="ic_upload_storage_popup" width="372" height="213"/>
+        <image name="user_placeholder.png" width="128" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
