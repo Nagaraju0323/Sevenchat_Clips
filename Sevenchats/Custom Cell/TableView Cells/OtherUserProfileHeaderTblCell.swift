@@ -121,20 +121,20 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
         
         lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
         
-        lblLocation.attributedText = NSMutableAttributedString().bold(CLive_in).normal(" ").normal((userInfo.valueForString(key: "city") )).normal(" , ").normal(userInfo.valueForString(key: "state"))
+        lblLocation.attributedText = NSMutableAttributedString().normal(CLive_in).normal(" ").bold((userInfo.valueForString(key: "city") )).normal(" , ").bold(userInfo.valueForString(key: "state"))
         
         if userInfo.valueForString(key: "relationship") == "null"{
-            lblStatus.attributedText = NSMutableAttributedString().bold(CRelationship_Status).normal("N/A")
+            lblStatus.attributedText = NSMutableAttributedString().normal(CRelationship_Status).bold("N/A")
         }else {
-            lblStatus.attributedText = NSMutableAttributedString().bold(CRelationship_Status).normal(" ").normal((userInfo.valueForString(key: "relationship")))
+            lblStatus.attributedText = NSMutableAttributedString().normal(CRelationship_Status).normal(" ").bold((userInfo.valueForString(key: "relationship")))
         }
         switch Int(userInfo.valueForString(key: CGender)) {
         case CMale :
-            lblGender.attributedText = NSMutableAttributedString().bold(gender).normal(" ").normal(CRegisterGenderMale)
+            lblGender.attributedText = NSMutableAttributedString().normal(gender).normal(" ").bold(CRegisterGenderMale)
         case CFemale :
-            lblGender.attributedText = NSMutableAttributedString().bold(gender).normal(" ").normal(CRegisterGenderFemale)
+            lblGender.attributedText = NSMutableAttributedString().normal(gender).normal(" ").bold(CRegisterGenderFemale)
         default :
-            lblGender.attributedText = NSMutableAttributedString().bold(gender).normal(" ").normal(CRegisterGenderOther)
+            lblGender.attributedText = NSMutableAttributedString().normal(gender).normal(" ").bold(CRegisterGenderOther)
         }
         let date = DateFormatter.shared().date(fromString: userInfo.valueForString(key: CDob), dateFormat: "yyyy-MM-dd")
         if date != nil{

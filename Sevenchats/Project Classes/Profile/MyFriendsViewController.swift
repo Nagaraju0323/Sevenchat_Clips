@@ -408,23 +408,62 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
             cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
             
+//            cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
+//                guard let _ = self else { return }
+//
+//                var frndStatus = 0
+//                var alertMessage = ""
+//                do{
+//                    for data in self?.arrList ?? []{
+//                        if userInfo.valueForString(key: "friend_user_id") == data?.valueForString(key: "friend_user_id"){
+//                            self?.Friend_status = 5
+//                        }
+//                    }
+//                    for data in self?.arrRequestList ?? []{
+//                        if userInfo.valueForString(key: "friend_user_id") == data?.valueForString(key: "friend_user_id"){
+//                            self?.Friend_status = 1
+//                        }
+//                    }
+//
+//                }
+//                switch self?.Friend_status {
+//                case 1:
+//                    frndStatus = CFriendRequestCancel
+//                    alertMessage = CMessageCancelRequest
+//                case 5:
+//                    frndStatus = CFriendRequestUnfriend
+//                    alertMessage = CMessageUnfriend
+//                default:
+//                    break
+//                }
+//                self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+//                    self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
+//                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//            }
             cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
                 guard let _ = self else { return }
-                
+                let buttonPostion = sender.convert(sender.bounds.origin, to: tableView)
+                if let indexPath = tableView.indexPathForRow(at: buttonPostion) {
+                    let rowIndex =  indexPath.row
+                    let userinfos = self?.arrFriendList[rowIndex]
+                    let friendID = userinfos?.valueForString(key: "friend_user_id")
+                    let userID = userinfos?.valueForString(key: "user_id")
+                    let dict :[String:Any]  =  [
+                        "user_id": userID as Any,
+                        "friend_user_id": friendID as Any
+                    ]
+                    APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
+                        if response != nil && error == nil{
+                            GCDMainThread.async {
+                                if let arrList = response!["data"] as? [[String:Any]]{
+                                    for arrLst in arrList{
                 var frndStatus = 0
                 var alertMessage = ""
-                do{
-                    for data in self?.arrList ?? []{
-                        if userInfo.valueForString(key: "friend_user_id") == data?.valueForString(key: "friend_user_id"){
-                            self?.Friend_status = 5
-                        }
-                    }
-                    for data in self?.arrRequestList ?? []{
-                        if userInfo.valueForString(key: "friend_user_id") == data?.valueForString(key: "friend_user_id"){
-                            self?.Friend_status = 1
-                        }
-                    }
-                    
+                let user_id = appDelegate.loginUser?.user_id
+                if arrLst.valueForString(key: "request_status") == "5" && arrLst.valueForString(key: "friend_status") == "1" {
+                    self?.Friend_status = 5
+                }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
+                    self?.Friend_status = 1
                 }
                 switch self?.Friend_status {
                 case 1:
@@ -439,6 +478,15 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
                 self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                     self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+            }
+
+                                }
+                                
+                            }
+                            
+                        }
+                })
+            }
             }
             
             cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in

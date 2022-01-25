@@ -199,43 +199,43 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
             
             cell.btnUnfriendCancelRequest.isHidden = true
             cell.viewAcceptReject.isHidden = true
-            do{
-                //MARK:- FRIENDS
-                for data in arrBlockList{
-                    if data?.valueForString(key: "request_status") == "5"{
-                        self.Friend_status = 5
-                    }
-                }
-                //MARK:- REQUEST
-                for data in arrBlockList{
-                    let user_id = appDelegate.loginUser?.user_id
-                    if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
-                        self.Friend_status = 1
-                    }
-                }
-                //MARK:- PENDING
-                for data in arrBlockList{
-                    let user_id = appDelegate.loginUser?.user_id
-                    if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
-                        self.Friend_status = 2
-                    }
-                }
-            }
-            switch self.Friend_status {
-            case 0: //... Add Friend
-                cell.btnUnfriendCancelRequest.isHidden = appDelegate.loginUser?.user_id == Int64(userInfo.valueForString(key: CUserId))
-                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnAddFriend)  ", for: .normal)
-            case 1:  //...Cancel Request
-                cell.btnUnfriendCancelRequest.isHidden = false
-                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
-            case 2:  //...Accept-Reject
-                cell.viewAcceptReject.isHidden = false
-            case 5:  //...UnFriend
-                cell.btnUnfriendCancelRequest.isHidden = false
-                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnUnfriend)  ", for: .normal)
-            default:
-                break
-            }
+//            do{
+//                //MARK:- FRIENDS
+//                for data in arrBlockList{
+//                    if data?.valueForString(key: "request_status") == "5"{
+//                        self.Friend_status = 5
+//                    }
+//                }
+//                //MARK:- REQUEST
+//                for data in arrBlockList{
+//                    let user_id = appDelegate.loginUser?.user_id
+//                    if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
+//                        self.Friend_status = 1
+//                    }
+//                }
+//                //MARK:- PENDING
+//                for data in arrBlockList{
+//                    let user_id = appDelegate.loginUser?.user_id
+//                    if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
+//                        self.Friend_status = 2
+//                    }
+//                }
+//            }
+//            switch self.Friend_status {
+//            case 0: //... Add Friend
+//                cell.btnUnfriendCancelRequest.isHidden = appDelegate.loginUser?.user_id == Int64(userInfo.valueForString(key: CUserId))
+//                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnAddFriend)  ", for: .normal)
+//            case 1:  //...Cancel Request
+//                cell.btnUnfriendCancelRequest.isHidden = false
+//                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+//            case 2:  //...Accept-Reject
+//                cell.viewAcceptReject.isHidden = false
+//            case 5:  //...UnFriend
+//                cell.btnUnfriendCancelRequest.isHidden = false
+//                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+//            default:
+//                break
+//            }
             
             cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
@@ -254,30 +254,72 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
+//            cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
+//                guard let self = self else { return }
+//                var frndStatus = 0
+//                var isShowAlert = false
+//                var alertMessage = ""
+//                do{
+//                    for data in self.arrBlockList {
+//                        if data?.valueForString(key: "request_status") == "5"{
+//                            self.Friend_status = 5
+//                        }
+//                    }
+//                    for data in self.arrBlockList {
+//                        let user_id = appDelegate.loginUser?.user_id
+//                        if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
+//                            self.Friend_status = 1
+//                        }
+//                    }
+//                    for data in self.arrBlockList{
+//                        let user_id = appDelegate.loginUser?.user_id
+//                        if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
+//                            self.Friend_status = 0
+//                        }
+//                    }
+//                }
+//                switch self.Friend_status {
+//                case 0:
+//                    frndStatus = CFriendRequestSent
+//                    isShowAlert = true
+//                    alertMessage = CMessageAddfriend
+//                case 1:
+//                    frndStatus = CFriendRequestCancel
+//                    isShowAlert = true
+//                    alertMessage = CMessageCancelRequest
+//                case 5:
+//                    frndStatus = CFriendRequestUnfriend
+//                    isShowAlert = true
+//                    alertMessage = CMessageUnfriend
+//                default:
+//                    break
+//                }
+//                if isShowAlert {
+//                    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
+//                        self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
+//                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//                }else {
+//                    self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
+//                }
+//            }
             cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
                 var frndStatus = 0
                 var isShowAlert = false
                 var alertMessage = ""
-                do{
-                    for data in self.arrBlockList {
-                        if data?.valueForString(key: "request_status") == "5"{
-                            self.Friend_status = 5
-                        }
+                
+                for arrLst in self.arrBlockList{
+                    let user_id = appDelegate.loginUser?.user_id
+                    if arrLst?.valueForString(key: "request_status") == "0" &&   arrLst?.valueForString(key: "friend_status") == "0" ||  arrLst?.valueForString(key: "request_status") == "5" &&   arrLst?.valueForString(key: "friend_status") == "2" {
+                        self.Friend_status = 0
+                        
+                    }else if  arrLst?.valueForString(key: "request_status")  == "1" &&  arrLst?.valueForString(key: "senders_id") != user_id?.description {
+                        self.Friend_status = 2
+                    }else if arrLst?.valueForString(key: "request_status")  == "5"  && arrLst?.valueForString(key: "friend_status") == "1"{
+                        self.Friend_status = 5
+                    }else if arrLst?.valueForString(key: "request_status") == "1" && arrLst?.valueForString(key: "senders_id")  == user_id?.description {
+                        self.Friend_status = 1
                     }
-                    for data in self.arrBlockList {
-                        let user_id = appDelegate.loginUser?.user_id
-                        if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
-                            self.Friend_status = 1
-                        }
-                    }
-                    for data in self.arrBlockList{
-                        let user_id = appDelegate.loginUser?.user_id
-                        if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
-                            self.Friend_status = 0
-                        }
-                    }
-                }
                 switch self.Friend_status {
                 case 0:
                     frndStatus = CFriendRequestSent
@@ -302,7 +344,7 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                     self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
                 }
             }
-            
+        }
             // Load More data..
             if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData{
                 //                self.getFriendListFromServer(txtSearch.text)
