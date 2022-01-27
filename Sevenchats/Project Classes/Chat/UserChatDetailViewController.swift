@@ -10,7 +10,7 @@
  * Author  : Chandrika.R                                 *
  * Model   : UserChatDetailViewController                *
  * Changes :                                             *
- * intigrated Socket IO,sent Msg,Attachment             *
+ * intigrated Socket IO,sent Msg,Attachment              *
  ********************************************************/
 
 import UIKit
@@ -183,7 +183,6 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         ChatSocketIo.shared().SocketInitilized()
         createTopictoChat()
         ChatSocketIo.shared().socketDelegate = self
@@ -210,7 +209,9 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//        GCDMainThread.async {
+            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//         }
         
         messageidListItems.removeAll()
         NotificationCenter.default.addObserver(self, selector: #selector(self.DidSelectCLK), name: NSNotification.Name(rawValue: "DidSelectCLK"), object: nil)
@@ -284,8 +285,11 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
     // MARK:- --------- Initialization
     // MARK:-
     func Initialization() {
+        
         MIAudioPlayer.shared().miAudioPlayerDelegate = self
         GCDMainThread.async { [self] in
+            
+            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
             self.messageidListItems.removeAll()
             self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
             self.refreshControl.tintColor = ColorAppTheme
@@ -455,7 +459,6 @@ extension UserChatDetailViewController {
     
     func getMessagesFromServer(isNew : Bool) {
         
-     
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
         TblMessages.deleteAllObjects()

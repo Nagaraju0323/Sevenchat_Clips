@@ -486,11 +486,8 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
                     self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
-
                                 }
-                                
                             }
-                            
                         }
                 })
             }
@@ -527,10 +524,10 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.btnUnfriendCancelRequest.isHidden = true
             }
             
-            // Load more data...
-            //            if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData {
-            //                self.getFriendList(txtSearch.text, showLoader: false)
-            //            }
+             //Load more data...
+            if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData {
+                self.getFriendList(txtSearch.text, showLoader: false)
+            }
             
             return cell
         }

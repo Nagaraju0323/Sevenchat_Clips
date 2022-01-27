@@ -278,6 +278,11 @@ extension AddChirpyViewController{
     
     fileprivate func removeChirpyImage() {
         
+        self.uploadImgUrl = ""
+        
+        
+        
+        
     }
     
     fileprivate func loadChirpyDetailFromServer(){
@@ -446,6 +451,9 @@ extension AddChirpyViewController{
             self.viewUploadedImageContainer.isHidden = true
             self.viewAddImageContainer.isHidden = false
             self.imgChirpy.image = nil
+            self.uploadImgUrl = ""
+            
+            
         }
     }
     

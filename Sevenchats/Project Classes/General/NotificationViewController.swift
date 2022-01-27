@@ -39,6 +39,7 @@ class NotificationViewController: ParentViewController {
     var pageNumber = 1
     var subjectCat = ""
     var userID = ""
+    var isLoadMoreCompleted = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +74,8 @@ extension NotificationViewController {
     }
     
     fileprivate func getNotificationListFromServer(isLoader:Bool = false) {
+      
+        guard let user_ID = appDelegate.loginUser?.user_id else { return}
         
         if apiTask?.state == URLSessionTask.State.running {
             apiTask?.cancel()
@@ -80,11 +83,14 @@ extension NotificationViewController {
         if isLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
-        // Add load more indicator here...
-        //        self.tblVNotification.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : nil
-        guard let user_ID = appDelegate.loginUser?.user_id else { return}
+       
+        if self.pageNumber > 2 {
+            self.tblVNotification.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+        }else{
+            self.tblVNotification.tableFooterView = nil
+        }
         
-        apiTask = APIRequest.shared().getNotificationList(receiver: user_ID.description, completion: { [weak self] (response, error) in
+        apiTask = APIRequest.shared().getNotificationList(receiver: user_ID.description,pageNumber: pageNumber.description, completion: { [weak self] (response, error) in
             guard let self = self else { return }
             MILoader.shared.hideLoader()
             self.refreshControl.endRefreshing()
@@ -94,15 +100,17 @@ extension NotificationViewController {
             if response != nil && error == nil {
                 if let responseData = response![CJsonData] as? [[String : Any]] {
                     //...Remove all data
-                    if self.apiTimeStamp < 1 {
+                    if self.apiTimeStamp < 1 || self.pageNumber == 1 {
                         self.arrNotiificationList.removeAll()
                         MIGeneralsAPI.shared().readNotification("-1")
                     }
+                    self.isLoadMoreCompleted = responseData.isEmpty
+                    
                     //...Add Data here...
                     if (responseData.count > 0) {
                         self.arrNotiificationList = self.arrNotiificationList + responseData
                         self.tblVNotification.reloadData()
-                        
+                        self.pageNumber += 1
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
                             self.apiTimeStamp = metaInfo.valueForDouble(key: "timestamp") ?? 0.0
                         }
@@ -226,8 +234,14 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
             cell.imgUser.loadImageFromUrl(notificationInfo.valueForString(key: "icon"), true)
             cell.lblNotificationDetails.font = CFontPoppins(size: 14, type: .light).setUpAppropriateFont()
             cell.lblNotificationDetails.attributedText = self.htmlToAttributedString(notifcationContent, cell.lblNotificationDetails.font)
+            if indexPath == tblVNotification.lastIndexPath() && !self.isLoadMoreCompleted{
+                self.getNotificationListFromServer(isLoader: true)
+            }
+            
             return cell
         }
+        
+       
         
         return UITableViewCell()
         

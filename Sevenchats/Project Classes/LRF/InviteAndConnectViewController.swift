@@ -253,13 +253,15 @@ extension InviteAndConnectViewController{
                     phoneNumber = phoneNumber.replacingOccurrences(of: "-", with: "")
                     phoneNumber = phoneNumber.replacingOccurrences(of: "+", with: "")
                     phoneNumber = phoneNumber.replacingOccurrences(of: ".", with: "")
-                    
-                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+//                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                 }
             }else{
                 self.checkConnectAllFriendStatus()
                 self.btnSearch.isHidden = true
             }
+            // Now sorting Only for Phone Contact
+            self.manageSorting()
+            self.tblFriend.reloadData()
         }
     }
 }

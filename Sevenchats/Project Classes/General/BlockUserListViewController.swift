@@ -127,7 +127,7 @@ extension BlockUserListViewController{
                 self.tblBlockList.tableFooterView = nil
                 
                 if response != nil && error == nil{
-                    let total = response!["total_block_users"] as? Int
+                    _ = response!["total_block_users"] as? Int
                     if let arrList = response!["block_users"] as? [[String:Any]]{
                         // Remove all data here when page number == 1
                         if self.pageNumber == 1{

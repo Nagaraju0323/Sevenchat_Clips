@@ -1908,9 +1908,9 @@ extension APIRequest {
         }
         
         let dict : [String:Any]  =  [
-            "user_id": appDelegate.loginUser?.user_id,
-            "limit" : CLimit,
-            "page": page
+            "user_id": appDelegate.loginUser?.user_id.description ?? "",
+            "limit" : CLimitTW,
+            "page": page?.description ?? ""
         ]
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagBlockUsers, param: dict as [String : AnyObject], successBlock: { (task, response) in
             MILoader.shared.hideLoader()
@@ -2750,12 +2750,12 @@ extension APIRequest {
         
     }
     
-    func getNotificationList(receiver : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
+    func getNotificationList(receiver : String?,pageNumber:String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
         var param = [String:Any]()
         param["receiver"] = receiver
         param["type"] = "1"
-        param[CPage] = "1"
+        param[CPage] = pageNumber
         param["limit"] = CLimitTW
         
         return Networking.sharedInstance.GETNEWPRNOTF(apiTag: CAPITagNotifications, param: param as [String : AnyObject], successBlock: { (task, response) in

@@ -331,9 +331,7 @@ extension MIGeneralsAPI {
                 }
             }else {
                 
-                guard  let errorUserinfo = error?.userInfo["error"] as? String else {
-                    return
-                }
+                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
                 let errorMsg = errorUserinfo.stringAfter(":")
                 print("erroMsg\(errorMsg)")
                 if errorMsg == " choice Already Exists"{

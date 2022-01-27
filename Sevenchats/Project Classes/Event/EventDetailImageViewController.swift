@@ -432,6 +432,38 @@ extension EventDetailImageViewController {
     fileprivate func btnInterestedNotInterestedMayBeCLK(_ type : Int?){
         
         if type != eventInfo.valueForInt(key: CIsInterested){
+            
+            if eventInfo.valueForInt(key: "selected_choice") == 1 || eventInfo.valueForInt(key: "selected_choice") == 2  || eventInfo.valueForInt(key: "selected_choice") == 3  {
+                
+//                switch  eventInfo.valueForInt(key: "selected_choice"){
+//                case 1:
+//                    btnMaybe.isEnabled = false
+//                    btnMaybe.isSelected = false
+//                    btnNotInterested.isSelected = false
+//                    btnInterested.isSelected = true
+//
+//                    break
+//                case 2:
+//                    btnMaybe.isSelected = true
+//                    btnNotInterested.isSelected = false
+//                    btnInterested.isSelected = false
+//
+//                    break
+//                case 3:
+//                    btnMaybe.isSelected = false
+//                    btnNotInterested.isSelected = true
+//                    btnInterested.isSelected = false
+//
+//                    break
+//                default:
+//                    return
+//                }
+                btnInterested.isSelected = false
+                btnMaybe.isSelected = false
+                btnNotInterested.isSelected = false
+                return
+            }else {
+            
             //MARK:- NEW
             let totalIntersted = eventInfo.valueForString(key: "yes_count")
             let totalNotIntersted = eventInfo.valueForString(key:"no_count")
@@ -481,6 +513,7 @@ extension EventDetailImageViewController {
             _ = eventInfo.valueForInt(key: CIsSharedPost)
             self.setEventDetail(dict: eventInfo)
             MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
+            }
         }
     }
     func deletePost(_ eventInfo : [String : Any]?) {
