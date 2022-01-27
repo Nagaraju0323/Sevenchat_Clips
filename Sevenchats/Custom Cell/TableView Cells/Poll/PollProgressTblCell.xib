@@ -43,10 +43,12 @@ asasad</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LjR-mN-nke">
-                                <rect key="frame" x="309" y="19" width="30" height="30"/>
+                                <rect key="frame" x="297" y="17" width="34" height="34"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="8yR-z4-geq"/>
+                                    <constraint firstAttribute="width" constant="34" id="8yR-z4-geq"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="34" id="Y94-s2-iw0"/>
+                                    <constraint firstAttribute="height" constant="34" id="c0g-g1-Tn8"/>
                                 </constraints>
                                 <state key="normal" image="checked-4"/>
                                 <connections>
@@ -63,9 +65,9 @@ asasad</string>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="LjR-mN-nke" firstAttribute="centerY" secondItem="cek-4F-dTL" secondAttribute="centerY" id="0DQ-3b-860"/>
+                            <constraint firstItem="LjR-mN-nke" firstAttribute="centerY" secondItem="cek-4F-dTL" secondAttribute="centerY" constant="0.25" id="0DQ-3b-860"/>
                             <constraint firstItem="cek-4F-dTL" firstAttribute="leading" secondItem="twZ-V4-4EK" secondAttribute="leading" constant="8" id="1Wz-G7-cZV"/>
-                            <constraint firstItem="LjR-mN-nke" firstAttribute="leading" secondItem="cek-4F-dTL" secondAttribute="trailing" constant="8" id="2UQ-qd-GD8"/>
+                            <constraint firstItem="LjR-mN-nke" firstAttribute="leading" secondItem="cek-4F-dTL" secondAttribute="trailing" constant="-4" id="2UQ-qd-GD8"/>
                             <constraint firstItem="ZRO-w5-Fzi" firstAttribute="leading" secondItem="cek-4F-dTL" secondAttribute="leading" id="4tU-Lz-cwq"/>
                             <constraint firstAttribute="bottom" secondItem="bJc-JZ-tAt" secondAttribute="bottom" id="4xn-No-N3B"/>
                             <constraint firstAttribute="trailing" secondItem="ZRO-w5-Fzi" secondAttribute="trailing" id="9Yf-ZG-y0l"/>
@@ -73,7 +75,7 @@ asasad</string>
                             <constraint firstItem="bJc-JZ-tAt" firstAttribute="leading" secondItem="twZ-V4-4EK" secondAttribute="leading" id="HnF-OG-r5D"/>
                             <constraint firstAttribute="trailing" secondItem="bJc-JZ-tAt" secondAttribute="trailing" id="IeI-j0-1Oo"/>
                             <constraint firstItem="ZRO-w5-Fzi" firstAttribute="bottom" secondItem="cek-4F-dTL" secondAttribute="bottom" id="Lbv-ep-VoU"/>
-                            <constraint firstAttribute="trailing" secondItem="LjR-mN-nke" secondAttribute="trailing" id="Xjp-cs-vZa"/>
+                            <constraint firstAttribute="trailing" secondItem="LjR-mN-nke" secondAttribute="trailing" constant="8" id="Xjp-cs-vZa"/>
                             <constraint firstItem="bJc-JZ-tAt" firstAttribute="top" secondItem="twZ-V4-4EK" secondAttribute="top" id="eAF-Nk-4zm"/>
                             <constraint firstItem="ZRO-w5-Fzi" firstAttribute="top" secondItem="cek-4F-dTL" secondAttribute="top" id="k7i-Ns-dJk"/>
                             <constraint firstAttribute="bottom" secondItem="cek-4F-dTL" secondAttribute="bottom" id="s15-Pi-2m1"/>

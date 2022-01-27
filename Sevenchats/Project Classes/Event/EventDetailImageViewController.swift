@@ -110,6 +110,7 @@ class EventDetailImageViewController: ParentViewController {
     var eventActCount = ""
     var posted_ID = ""
     var profileImg = ""
+    var selectedChoice = ""
     var notifcationIsSlected = false
     let currentDateTime = Date().timeIntervalSince1970
     
@@ -372,6 +373,7 @@ extension EventDetailImageViewController {
     }
     
     func setSelectedButtonStyle(_ dict : [String : Any]?){
+        selectedChoice = dict?.valueForString(key:"selected_choice") ?? ""
         btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
         btnInterested.layer.borderWidth = 2
         btnInterested.backgroundColor =  .clear
@@ -408,7 +410,25 @@ extension EventDetailImageViewController {
             }
         }
     }
-    
+    func selectedoption(){
+        if selectedChoice.toInt == 1 {
+            btnMaybe.isEnabled = false
+            btnMaybe.isSelected = false
+            btnNotInterested.isSelected = false
+            btnInterested.isSelected = true
+           // onChangeEventStatus?(CTypeInterested)
+        }else if selectedChoice.toInt == 3 {
+            btnMaybe.isSelected = true
+            btnNotInterested.isSelected = false
+            btnInterested.isSelected = false
+           // onChangeEventStatus?(CTypeMayBeInterested)
+        }else if selectedChoice.toInt == 2 {
+            btnMaybe.isSelected = false
+            btnNotInterested.isSelected = true
+            btnInterested.isSelected = false
+           // onChangeEventStatus?(CTypeNotInterested)
+        }
+    }
     fileprivate func btnInterestedNotInterestedMayBeCLK(_ type : Int?){
         
         if type != eventInfo.valueForInt(key: CIsInterested){
@@ -418,12 +438,15 @@ extension EventDetailImageViewController {
             let totalMaybe = eventInfo.valueForString(key: "maybe_count")
             switch eventInfo.valueForInt(key: CIsInterested) {
             case CTypeInterested:
+                selectedoption()
                 eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
                 break
             case CTypeNotInterested:
+                selectedoption()
                 eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
                 break
             case CTypeMayBeInterested:
+                selectedoption()
                 eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
                 break
             default:
@@ -433,18 +456,19 @@ extension EventDetailImageViewController {
             
             switch type {
             case CTypeInterested:
-                
+                selectedoption()
                 let yesCount = totalIntersted.toInt ?? 0
                 let totalCnt = (yesCount + 1).toString
                 eventInfo["yes_count"] = totalCnt.toInt ?? 0 - 1
                 break
             case CTypeNotInterested:
+                selectedoption()
                 let yesCount = totalNotIntersted.toInt ?? 0
                 let totalCnt = (yesCount + 1).toString
                 eventInfo["no_count"] = totalCnt.toInt ?? 0 - 1
                 break
             case CTypeMayBeInterested:
-                
+                selectedoption()
                 let yesCount = totalMaybe.toInt ?? 0
                 let totalCnt = (yesCount + 1).toString
                 eventInfo["maybe_count"] = totalCnt.toInt ?? 0 - 1

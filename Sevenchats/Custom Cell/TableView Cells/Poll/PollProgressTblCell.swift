@@ -26,7 +26,7 @@ class PollProgressTblCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        self.btnCheckAnwer.setImage(UIImage(named: "dry-clean"), for: .normal)
+        self.btnCheckAnwer.setImage(UIImage(named: "new-moon-2"), for: .normal)
         self.btnCheckAnwer.setImage(UIImage(named: "checked-4"), for: .selected)
         //progressV.transform = progressV.transform.scaledBy(x: 1, y: 2)
     }

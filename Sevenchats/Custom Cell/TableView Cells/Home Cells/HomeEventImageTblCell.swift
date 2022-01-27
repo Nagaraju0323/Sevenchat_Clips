@@ -56,6 +56,7 @@ class HomeEventImageTblCell: UITableViewCell {
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
+    var selectedChoice = ""
     var onChangeEventStatus : ((Int) -> Void)? = nil
     
     override func awakeFromNib() {
@@ -193,11 +194,15 @@ extension HomeEventImageTblCell{
         btnMaybe.isSelected = false
         btnNotInterested.isSelected = false
         btnInterested.isSelected = false
+        selectedChoice = postInfo.valueForString(key: "selected_choice")
+        
         switch postInfo.valueForString(key: "selected_choice").toInt ?? 0 {
+   
                 case 3:
                     btnMaybe.isSelected = true
                 case 1:
                     btnInterested.isSelected = true
+ 
                 case 2:
                     btnNotInterested.isSelected = true
                 default:
@@ -306,28 +311,62 @@ extension HomeEventImageTblCell{
           
         }
     }
-    
+    func selectedoption(){
+        if selectedChoice.toInt == 1 {
+            btnMaybe.isEnabled = false
+            btnMaybe.isSelected = false
+            btnNotInterested.isSelected = false
+            btnInterested.isSelected = true
+            onChangeEventStatus?(CTypeInterested)
+        }else if selectedChoice.toInt == 3 {
+            btnMaybe.isSelected = true
+            btnNotInterested.isSelected = false
+            btnInterested.isSelected = false
+            onChangeEventStatus?(CTypeMayBeInterested)
+        }else if selectedChoice.toInt == 2 {
+            btnMaybe.isSelected = false
+            btnNotInterested.isSelected = true
+            btnInterested.isSelected = false
+            onChangeEventStatus?(CTypeNotInterested)
+        }
+    }
     @IBAction func onConfirmedPressed(_ sender:UIButton){
+        if selectedChoice.toInt == 0{
         btnMaybe.isSelected = false
         btnNotInterested.isSelected = false
         btnInterested.isSelected = true
         onChangeEventStatus?(CTypeInterested)
+        }else{
+            selectedoption()
+        }
     }
     
     @IBAction func onMayBePressed(_ sender:UIButton){
+        if selectedChoice.toInt == 0 {
         btnMaybe.isSelected = true
         btnNotInterested.isSelected = false
         btnInterested.isSelected = false
         onChangeEventStatus?(CTypeMayBeInterested)
+        }else{
+            selectedoption()
+        }
     }
     
     @IBAction func onDeclinedPressed(_ sender:UIButton){
-        btnMaybe.isSelected = false
-        btnNotInterested.isSelected = true
-        btnInterested.isSelected = false
-        onChangeEventStatus?(CTypeNotInterested)
+        if selectedChoice.toInt == 0{
+            btnMaybe.isSelected = false
+            btnNotInterested.isSelected = true
+            btnInterested.isSelected = false
+            onChangeEventStatus?(CTypeNotInterested)
+        }else{
+            selectedoption()
+        }
     }
-}
+    
+    
+    }
+    
+    
 
 extension HomeEventImageTblCell{
   
