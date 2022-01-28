@@ -78,6 +78,7 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
     @IBOutlet weak var imgUser : UIImageView! {
         didSet {
             imgUser.layer.cornerRadius = imgUser.frame.size.width/2
+            
         }
     }
     

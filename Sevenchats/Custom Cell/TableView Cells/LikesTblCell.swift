@@ -23,6 +23,8 @@ class LikesTblCell: UITableViewCell {
         
         GCDMainThread.async {
             self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
+            self.imgUser.layer.borderWidth = 2
+            self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         }
     }
 
