@@ -32,6 +32,8 @@ class SellerInfoCell: UITableViewCell, ProductDetailBaseCell  {
         
         self.selectionStyle = .none
         self.imgSeller.layer.cornerRadius = self.imgSeller.frame.size.width / 2
+        self.imgSeller.layer.borderWidth = 2
+        self.imgSeller.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         lblSellerInfo.text = CSellerInformation
         btnContactSeller.setTitle(CContactSeller, for: .normal)
         btnBuyNow.setTitle(CBuyNow, for: .normal)

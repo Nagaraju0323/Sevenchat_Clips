@@ -396,6 +396,7 @@ extension AddArticleViewController{
             self.viewUploadedImageContainer.isHidden = true
             self.viewAddImageContainer.isHidden = false
             self.imgArticle.image = nil
+            self.profileImgUrl = ""
         }
     }
     

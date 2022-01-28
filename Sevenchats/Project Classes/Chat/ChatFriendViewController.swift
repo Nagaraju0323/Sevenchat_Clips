@@ -64,6 +64,7 @@ class ChatFriendViewController: ParentViewController {
             self.cnNavigationHeight.constant = IS_iPhone_X_Series ? 84 : 64
             
             self.viewSearchBar.layer.cornerRadius = self.viewSearchBar.frame.size.height/2
+            
             self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
             self.refreshControl.tintColor = ColorAppTheme
             self.tblFriend.pullToRefreshControl = self.refreshControl

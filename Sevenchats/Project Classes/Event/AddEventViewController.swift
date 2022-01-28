@@ -406,6 +406,7 @@ extension AddEventViewController{
             self.viewUploadedImageContainer.isHidden = true
             self.viewAddImageContainer.isHidden = false
             self.imgEvent.image = nil
+            self.profileImgUrl = ""
         }
     }
     

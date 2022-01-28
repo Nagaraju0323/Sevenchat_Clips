@@ -56,6 +56,8 @@ class HomeChirpyImageTblCell: UITableViewCell {
             self.viewMainContainer.layer.cornerRadius = 8
             self.viewMainContainer.shadow(color: CRGB(r: 237, g: 236, b: 226), shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)
             self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
+            self.imgUser.layer.borderWidth = 2
+            self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblChirpyType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
         }
