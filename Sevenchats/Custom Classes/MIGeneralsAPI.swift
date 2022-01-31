@@ -2282,8 +2282,7 @@ extension MIGeneralsAPI {
             "subject":subject as Any,
             "senderName": senderName,
             //            "content":"<b>\(firstName) \(lastName)</b> &nbsp\(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
-            "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
-            
+            "content":"\(firstName)\(" ") \(lastName) \(" ") \(showDisplayContent ?? "")\(" ") \(MsgSent ?? "")",
             "link":"http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
             "type":MsgType as Any,
         ]
@@ -2304,7 +2303,7 @@ extension MIGeneralsAPI {
             "receiver":receiverID ?? "",
             "sender":userID ?? "",
             "type":1,
-            "subject":"\(userName) \(subject ?? "") \(MsgSent ?? "")",
+            "subject":"\(userName) \(" ") \(subject ?? "") \(" ") \(MsgSent ?? "")",
             "content":contentStr,
             "icon":profileImg
             

@@ -89,7 +89,7 @@ extension HomePollTblCell{
         lblPollTitle.text = postInfo.valueForString(key: CTitle)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         var polls : [MDLPollOption] = []
-        print("polls\(polls)")
+//        print("polls\(polls)")
         if isSelected == true {
             //myprofile
             let pollstring = postData["options"] as? String

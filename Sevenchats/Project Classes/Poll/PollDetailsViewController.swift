@@ -243,6 +243,7 @@ extension PollDetailsViewController {
             
             self.pollIDNew = pollInfo.valueForString(key:CPostId)
             posted_ID = pollInfo.valueForString(key: "user_id")
+            print(":::::::::::::::is_selected::\(pollInfo.valueForString(key: "is_selected"))")
       
             lblUserName.text = pollInfo.valueForString(key: CFirstname) + " " + pollInfo.valueForString(key: CLastname)
             lblPollTitle.text = pollInfo.valueForString(key: CTitle)
