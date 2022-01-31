@@ -195,7 +195,9 @@ extension FeedbackViewController{
                         self.navigationController?.popViewController(animated: true)
                         GCDMainThread.async {
                             if metaInfo.valueForString(key: CJsonMessage) == "Success"{
-                                self.success = CSuccess
+//                                self.success = CSuccess
+                                self.success =  metaInfo.valueForString(key: CJsonMessage)
+                                
                             }else {
                                 self.success =  metaInfo.valueForString(key: CJsonMessage)
                             }

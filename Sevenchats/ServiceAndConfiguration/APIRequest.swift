@@ -4010,6 +4010,9 @@ extension APIRequest {
             tblLanguageText.reset_verification_code_invalid = dict?.valueForString(key: "reset_verification_code_invalid")
             
             //register Screen Messages...
+            
+            tblLanguageText.success = dict?.valueForString(key: "success")
+            
             tblLanguageText.register = dict?.valueForString(key: "register")
             tblLanguageText.register_choose_from_phone = dict?.valueForString(key: "register_choose_from_phone")
             tblLanguageText.register_code = dict?.valueForString(key: "register_code")

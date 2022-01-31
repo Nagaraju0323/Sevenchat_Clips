@@ -101,10 +101,11 @@ extension FavWebSideViewController{
                     // Add Data here...
                     if arrList.count > 0{
                         self.arrFavWebSite = self.arrFavWebSite + arrList
+                        self.tblFavWebSite.reloadData()
                         self.pageNumber += 1
                     }
                     DispatchQueue.main.async {
-                        self.tblFavWebSite.reloadData()
+//                        self.tblFavWebSite.reloadData()
                     }
                 }
             }

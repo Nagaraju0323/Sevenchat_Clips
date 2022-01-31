@@ -55,6 +55,7 @@ let kNotTypeEventInvitationNew = "Event"
 let kNotTypeCommnet = "COMMENT"
 let kNotTypeGroupADD = "GROUP_ADD"
 let kNotTypeGroupRemove = "GROUP_REMOVE"
+let kNotTypeEventType = "EVENT_CHOICE"
 
 
 

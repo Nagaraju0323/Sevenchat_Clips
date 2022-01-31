@@ -461,16 +461,26 @@ extension EventDetailImageViewController {
             let totalIntersted = eventInfo.valueForString(key: "yes_count")
             let totalNotIntersted = eventInfo.valueForString(key:"no_count")
             let totalMaybe = eventInfo.valueForString(key: "maybe_count")
+                guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+                guard let firstName = appDelegate.loginUser?.first_name else {return}
+                guard let lastName = appDelegate.loginUser?.last_name else {return}
+                print(self.posted_ID)
             switch eventInfo.valueForInt(key: CIsInterested) {
             case CTypeInterested:
                
+                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+                
+                
                 eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
                 break
             case CTypeNotInterested:
+                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
                
                 eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
                 break
             case CTypeMayBeInterested:
+               
+                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
                
                 eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
                 break

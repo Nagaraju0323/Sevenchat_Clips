@@ -25,6 +25,7 @@ enum NotificationName {
     case FRIEND_ACCEPT
     case FRIEND_BLOCKED
     case FRIEND_REQUEST
+    case EVENT_CHOICE
     case COMMENT
 }
 
@@ -284,7 +285,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
             if let MyFriendsVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyFriendsViewController") as? MyFriendsViewController {
                 self.navigationController?.pushViewController(MyFriendsVC, animated: true)
             }
-        case kNotTypeCommnet:
+        case kNotTypeCommnet ,kNotTypeEventType:
             if let HomeVC = CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
                 self.navigationController?.pushViewController(HomeVC, animated: true)
             }

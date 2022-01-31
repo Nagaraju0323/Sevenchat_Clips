@@ -226,6 +226,8 @@ extension HomeEventImageTblCell{
            btnNotInterested.backgroundColor =  .clear
            
            if postInfo?.valueForString(key:"selected_choice") == "3"{
+            
+            
                btnMaybe.isSelected = true
                btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
            }else if postInfo?.valueForString(key:"selected_choice") == "2"{
@@ -315,7 +317,6 @@ extension HomeEventImageTblCell{
     }
     func selectedoption(){
         if selectedChoice.toInt == 1 {
-            btnMaybe.isEnabled = false
             btnMaybe.isSelected = false
             btnNotInterested.isSelected = false
             btnInterested.isSelected = true
@@ -332,43 +333,116 @@ extension HomeEventImageTblCell{
             onChangeEventStatus?(CTypeNotInterested)
         }
     }
+    
+//    @IBAction func onConfirmedPressed(_ sender:UIButton){
+//
+//        guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+//        guard let firstName = appDelegate.loginUser?.first_name else {return}
+//        guard let lastName = appDelegate.loginUser?.last_name else {return}
+//        if selectedChoice.toInt == 0{
+//        btnMaybe.isSelected = false
+//        btnNotInterested.isSelected = false
+//        btnInterested.isSelected = true
+//
+//            MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "", senderName: firstName + lastName)
+//        onChangeEventStatus?(CTypeInterested)
+//        }else{
+//            selectedoption()
+//        }
+//    }
     @IBAction func onConfirmedPressed(_ sender:UIButton){
-        if selectedChoice.toInt == 0{
-        btnMaybe.isSelected = false
-        btnNotInterested.isSelected = false
-        btnInterested.isSelected = true
-        onChangeEventStatus?(CTypeInterested)
-        }else{
-            selectedoption()
-        }
-    }
-    
-    @IBAction func onMayBePressed(_ sender:UIButton){
-        if selectedChoice.toInt == 0 {
-        btnMaybe.isSelected = true
-        btnNotInterested.isSelected = false
-        btnInterested.isSelected = false
-        onChangeEventStatus?(CTypeMayBeInterested)
-        }else{
-            selectedoption()
-        }
-    }
-    
-    @IBAction func onDeclinedPressed(_ sender:UIButton){
-        if selectedChoice.toInt == 0{
-            btnMaybe.isSelected = false
-            btnNotInterested.isSelected = true
-            btnInterested.isSelected = false
-            onChangeEventStatus?(CTypeNotInterested)
-        }else{
-            selectedoption()
-        }
-    }
-    
-    
-    }
-    
-    
+           if selectedChoice.toInt == 1 || selectedChoice.toInt == 2 || selectedChoice.toInt == 3 {
+               selectedoption()
+           }else{
+           btnMaybe.isSelected = false
+           btnNotInterested.isSelected = false
+           btnInterested.isSelected = true
+           onChangeEventStatus?(CTypeInterested)
+            
+            guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+            guard let firstName = appDelegate.loginUser?.first_name else {return}
+            guard let lastName = appDelegate.loginUser?.last_name else {return}
+            print(self.posted_ID)
+            
+            MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+            
+           }
+       }
+       
+       @IBAction func onMayBePressed(_ sender:UIButton){
+           if selectedChoice.toInt == 1 || selectedChoice.toInt == 2 || selectedChoice.toInt == 3 {
+               selectedoption()
+           }else{
+           btnMaybe.isSelected = true
+           btnNotInterested.isSelected = false
+           btnInterested.isSelected = false
+           onChangeEventStatus?(CTypeMayBeInterested)
+            
+            guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+            guard let firstName = appDelegate.loginUser?.first_name else {return}
+            guard let lastName = appDelegate.loginUser?.last_name else {return}
+            
+            MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+           
+           }
+       }
+       
+       @IBAction func onDeclinedPressed(_ sender:UIButton){
+           if selectedChoice.toInt == 1 || selectedChoice.toInt == 2 || selectedChoice.toInt == 3 {
+               selectedoption()
+           }else{
+               btnMaybe.isSelected = false
+               btnNotInterested.isSelected = true
+               btnInterested.isSelected = false
+               onChangeEventStatus?(CTypeNotInterested)
+            
+            guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+            guard let firstName = appDelegate.loginUser?.first_name else {return}
+            guard let lastName = appDelegate.loginUser?.last_name else {return}
+            
+             MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+          
+           }
+       }
+       
+//    @IBAction func onMayBePressed(_ sender:UIButton){
+//        if selectedChoice.toInt == 0 {
+//
+//            guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+//            guard let firstName = appDelegate.loginUser?.first_name else {return}
+//            guard let lastName = appDelegate.loginUser?.last_name else {return}
+//
+//        btnMaybe.isSelected = true
+//        btnNotInterested.isSelected = false
+//        btnInterested.isSelected = false
+//
+//            MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "", senderName: firstName + lastName)
+//
+//        onChangeEventStatus?(CTypeMayBeInterested)
+//        }else{
+//            selectedoption()
+//        }
+//    }
+//
+//    @IBAction func onDeclinedPressed(_ sender:UIButton){
+//        if selectedChoice.toInt == 0{
+//
+//            guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+//            guard let firstName = appDelegate.loginUser?.first_name else {return}
+//            guard let lastName = appDelegate.loginUser?.last_name else {return}
+//
+//            MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "", senderName: firstName + lastName)
+//
+//            btnMaybe.isSelected = false
+//            btnNotInterested.isSelected = true
+//            btnInterested.isSelected = false
+//            onChangeEventStatus?(CTypeNotInterested)
+//        }else{
+//            selectedoption()
+//        }
+//    }
+
+}
 
 extension HomeEventImageTblCell{
   

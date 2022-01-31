@@ -67,6 +67,7 @@ class CommentViewController: ParentViewController {
     var index_Row:Int?
     var commentsInfo = [String:Any]()
     var commentCount = ""
+    var isLoadMoreCompleted = false
     
     
     
@@ -148,6 +149,7 @@ extension CommentViewController{
                         self.tblCommentList.reloadData()
                     }
                     
+                    self.isLoadMoreCompleted = arrList.isEmpty
                     // Add Data here...
                     if arrList.count > 0{
                         self.arrCommentList = self.arrCommentList + arrList
@@ -263,9 +265,13 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
             // Load more data....
-//            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
+//            if (indexPath == tblCommentList.lastIndexPath()) || !self.isLoadMoreCompleted {
 //                self.getCommentListFromServer(showLoader: false)
 //            }
+//            
+            if indexPath == tblCommentList.lastIndexPath() && !self.isLoadMoreCompleted{
+                self.getCommentListFromServer(showLoader: false)
+            }
             
             return cell
         }

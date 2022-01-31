@@ -13,6 +13,7 @@
  *                                                       *
  ********************************************************/
 
+
 import Foundation
 import UIKit
 
@@ -35,6 +36,7 @@ class PollOptionTableView: UITableView {
     var optionPoll = [Double]()
     var voteList = [String: Any]()
     var postinfo = [String: Any]()
+    
     var totalVotes = 0
     var totalVotesNew = ""
     var updateVoteCount : ((Int) -> Void)?
@@ -50,7 +52,6 @@ class PollOptionTableView: UITableView {
     var refereshData = [String:Any]()
     var pollOptionArr:[String] = []
     var updateindex : ((Int) -> Void)?
-    var isSelectedvalue = 0
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -62,14 +63,26 @@ class PollOptionTableView: UITableView {
         super.awakeFromNib()
         DispatchQueue.main.async {
             self.postIDNew = self.postinfo.valueForString(key: "post_id").toInt ?? 0
-            self.isSelectedByUser = self.postinfo.valueForString(key: "is_selected")
+            
+            
+            let SelectedByUser = self.postinfo.valueForString(key: "is_selected")
+            
+            let replaced2 = SelectedByUser.replacingOccurrences(of: "\"", with: "")
+            let replaced3 = replaced2.replacingOccurrences(of: "[", with: "")
+            let replaced4 = replaced3.replacingOccurrences(of: "]", with: "")
+            
+            self.isSelectedByUser = replaced4
+            print(":::::::::::::selectedItems\(self.isSelectedByUser)")
+            
+            
+//            self.isSelectedByUser = self.postinfo.valueForString(key: "is_selected")
             // self.votedOption = self.postinfo.valueForString(key: "is_voted")
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.10) {
             self.postDetails(postID: self.postIDNew.toString)
         }
     }
-
+    
     override var contentSize:CGSize {
         didSet {
             self.invalidateIntrinsicContentSize()
@@ -103,18 +116,18 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return arrOption.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PollProgressTblCell") as? PollProgressTblCell else {
             return UITableViewCell(frame: .zero)
         }
         
         let option = self.arrOption[indexPath.row]
         cell.lblName.text = option.pollText
-
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.50) {
             if "\(self.userEmailID)" == "\(String(describing: appDelegate.loginUser?.email ?? ""))"{
                 let intArray = self.dictArray.compactMap { Double($0) }
@@ -125,8 +138,9 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                     guard !(percentagecorrect.isNaN || percentagecorrect.isInfinite) else {
                         return
                     }
+                    
                     let left = Double(Int(percentagecorrect))
-                    print("leftvalues:::::::\(left)")
+                   // print("leftvalues:::::::\(left)")
                     self.optionPoll.append(left)
                     cell.btnCheckAnwer.isHidden = true
                     cell.btnSelectAnwer.isHidden = true
@@ -153,31 +167,38 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                     let percentag = (self.optionPoll[indexPath.row] / 100.0)
                     cell.progressV.setProgress(Float(percentag), animated: false)
                     cell.lblPercentage.text = "\(Int((percentag * 100).rounded()))%"
+                    
                 }
+                
+                print("self.isSelectedByUser\(self.isSelectedByUser)")
+                print("option.pollText\(option.pollText)")
+                
+                
                 if option.pollText == self.isSelectedByUser{
                     cell.btnCheckAnwer.isHidden = false
                     cell.btnCheckAnwer.isSelected = true
-                    print("voted")
+                    //print("voted")
                 }else{
                     cell.btnCheckAnwer.isHidden = true
-                    print("not voted")
+                    //print("not voted")
                 }
-                
             }else{
+                
                 cell.btnCheckAnwer.isSelected = false
                 cell.btnSelectAnwer.isSelected = false
                 cell.progressV.setProgress(0.0, animated: true)
                 cell.lblPercentage.text = ""
             }
+            
             cell.btnCheckAnwer.tag = indexPath.row
             cell.btnSelectAnwer.tag = indexPath.row
             cell.didSelected = { [weak self] (index) in
                 guard let _ = self else {return}
+                let optiontext = option.pollText
 
-                    let optiontext = option.pollText
                 self?.apiForVoteForPoll(optiontext ?? "") { (success,result) -> Void in
                     if success {
-                       
+                        
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.40) {
                             MILoader.shared.hideLoader()
                             self?.updateindex?(index)
@@ -191,21 +212,11 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                                 cell.btnSelectAnwer.isSelected = true
                             }
                             
-                            }
+                        }
                     }
                 }
                 
                 
-//                   self?.apiForVoteForPoll(optiontext ?? "", completion: (Bool) -> Void)
-                
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.40) {
-//                        MILoader.shared.hideLoader()
-//                        self?.updateindex?(index)
-//                        let total = Double(self?.totalVotesNew ?? "0.0") ?? 0
-//                        cell.progressV.setProgress(Float(total), animated: false)
-//                        cell.lblPercentage.text = "\(Int((total * 100).rounded()))%"
-//                        cell.btnSelectAnwer.isSelected = true
-//                        }
             }
         }
         cell.progressV.updateLayout()
@@ -222,6 +233,8 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
         if let cell = tableView.cellForRow(at: indexPath) as? PollProgressTblCell {
             optionText =  cell.lblName.text ?? ""
         }
+        if "\(self.userEmailID)" == "\(String(describing: appDelegate.loginUser?.email ?? ""))"{return}
+        
         self.postDetailsList(optionTexts: self.optionText,arg: true, completion:{(success) -> Void in
             if success {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.40) {
@@ -240,11 +253,35 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
     }
 }
 //MARK:- API's Calling
+//extension PollOptionTableView {
+//
+//    func apiForVoteForPoll(_ optiontext:String){
+//        var apiPara = [String : Any]()
+//        apiPara[CPostId] = self.postIDNew
+//        apiPara["option"] = optiontext
+//        apiPara["user_id"] = appDelegate.loginUser?.user_id.description
+//        APIRequest.shared().voteForPoll(para: apiPara) { [weak self] (response, error) in
+//            guard let _ = self else {return}
+//            if response != nil{
+//                if let metaData = response?[CJsonMeta] as? [String : AnyObject] {
+//                    if metaData.valueForString(key: "status") == "0" {
+//                        self?.postDetails(postID:self?.postIDNew.toString ?? "")
+//                        //                        self?.reloadData()
+//
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+
+////MARK:- API's Calling
 extension PollOptionTableView {
 //    (completion: (success: Bool) -> Void)
     func apiForVoteForPoll(_ optiontext:String,completion: @escaping (_ success: Bool,_ result:Int) -> Void){
 //    func apiForVoteForPoll(_ optiontext:String){
-       
+
         var apiPara = [String : Any]()
         apiPara[CPostId] = self.postIDNew
         apiPara["option"] = optiontext
@@ -262,9 +299,9 @@ extension PollOptionTableView {
                 guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
                 let errorMsg = errorUserinfo.stringAfter(":")
                 if errorMsg ==  " option Already Exists"{
-                    
+
                     completion(true, 1)
-                   
+
                     let alertWindow = UIWindow(frame: UIScreen.main.bounds)
                         alertWindow.rootViewController = UIViewController()
 
@@ -272,18 +309,19 @@ extension PollOptionTableView {
                         alertController.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel, handler: { _ in
                             alertWindow.isHidden = true
                         }))
-                        
+
                         alertWindow.windowLevel = UIWindow.Level.alert + 1;
                         alertWindow.makeKeyAndVisible()
                         alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
-                    
-                    
+
+
                 }
             }
         }
-       
+
     }
 }
+
 
 //MARK:- API's Calling
 extension PollOptionTableView{
@@ -297,21 +335,18 @@ extension PollOptionTableView{
             if response != nil{
                 self?.arr.removeAll()
                 var arrayData  = ["0","0","0","0"]
-                var arrayList = [String]()
                 if let data = response![CData] as? [[String:Any]]{
-                    
                     if data.count == 1 {
                         for datas in data{
                             self?.arrOption = []
                             let objarray = (datas["options"] as? String ?? "" ).replace(string: "\"", replacement: "")
                             
                             self!.pollOptionArr =  self?.jsonToStringConvert(pollString:datas["options"] as? String ?? "") ?? []
-                            
                             let obj = datas["results"] as? [String : AnyObject] ?? [:]
                             if obj.count == 1 {
                                 self?.arrPostList =  obj
                                 for (key, value) in obj {
-                                    print("keyvalues:::::::\(key) values:::::::: \(value)")
+                                   // print("keyvalues:::::::\(key) values:::::::: \(value)")
                                     let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
                                     if indexOfA == 0{
                                         self?.arr = ["\(value)","0","0","0"]
@@ -326,12 +361,13 @@ extension PollOptionTableView{
                             }else {
                                 self?.arrPostList =  obj
                                 for (key, value) in obj {
-                                    print("key\(key) values \(value)")
+                                   // print("key\(key) values \(value)")
                                     //                                    self?.arr.append("\(value)")
                                     let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
                                     arrayData.remove(at: indexOfA ?? 0)
                                     arrayData.insert("\(value)", at: indexOfA ?? 0)
                                 }
+                                
                                 self?.arr += arrayData
                             }
                             self?.dictArray = self?.arr ?? []
@@ -341,6 +377,8 @@ extension PollOptionTableView{
                             GCDMainThread.async {
                                 self?.updateVoteCount?(self?.totalVotesNew.toInt ?? 0)
                                 self?.refreshOnVoteWithData?(datas)
+                                
+                                
                             }
                         }
                     }
@@ -351,12 +389,10 @@ extension PollOptionTableView{
     func postDetailsList(optionTexts: String,arg: Bool, completion: (Bool) -> ()) {
         
         apiTask = APIRequest.shared().votePollDetailsList(optionText : optionText,postID : self.postIDNew.toString) { (response, error) in
-            //            self.voteList.removeAll()
             self.arrOptionNew.removeAll()
             if response != nil && error == nil {
                 if let arrData = response![CJsonData] as? [[String : Any]]{
                     for dict in arrData {
-                        //                        self.voteList +=  dict
                         self.arrOptionNew.append(MDLPollOptionsNew(fromDictionary: dict))
                     }
                 }
@@ -383,6 +419,5 @@ extension PollOptionTableView{
     
     
 }
-
 
 

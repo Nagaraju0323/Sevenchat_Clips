@@ -60,6 +60,10 @@ class NewsWebViewController: ParentViewController {
             
             if isFavWebSite {
                 self.title = newInfo.valueForString(key: "title")
+//                let webSiteURL =  newInfo.valueForString(key: "favourite_website_url")
+//                if webSiteURL.range(of:"http") != nil ||  (webSiteURL.range(of:"https") != nil) {
+//                    print("exists")
+//                }
                 self.load(newInfo.valueForString(key: "favourite_website_url"),isFrom:false)
             }else {
                 self.title = newInfo.valueForString(key: "title")
