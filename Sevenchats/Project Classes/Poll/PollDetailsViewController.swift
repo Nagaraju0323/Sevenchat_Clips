@@ -280,7 +280,7 @@ extension PollDetailsViewController {
                 polls.append(MDLPollOption(fromDictionary: dictionary))
             }
             let voteCount:Int =  self.totalVotesNew.toInt ?? 0
-            self.updateVoteCount(count: voteCount ?? 0)
+            self.updateVoteCount(count: voteCount )
             tblVAnswre.updateVoteCount = { [weak self] (votesCount) in
                 guard let _ = self else {return}
                 DispatchQueue.main.async {
@@ -290,7 +290,9 @@ extension PollDetailsViewController {
             tblVAnswre.refreshOnVoteWithData = { [weak self] (optionData) in
                 guard let self = self else {return}
                 DispatchQueue.main.async {
-                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformation, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self)
+//                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformation, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self, isSelected: true)
+                    
+                    MIGeneralsAPI.shared().refreshPostRelatedScreenss(self.pollInformation, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self, .polladded, isSelected: true)
                 }
             }
             

@@ -206,6 +206,7 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                             cell.progressV.setProgress(Float(total), animated: false)
                             cell.lblPercentage.text = "\(Int((total * 100).rounded()))%"
                             if result == 1{
+                                
                                 cell.btnCheckAnwer.isHidden = false
                                 cell.btnCheckAnwer.isSelected = true
                             }else {
@@ -297,15 +298,15 @@ extension PollOptionTableView {
                 guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
                 let errorMsg = errorUserinfo.stringAfter(":")
                 if errorMsg ==  " option Already Exists"{
-
-                    completion(true, 1)
-
                     let alertWindow = UIWindow(frame: UIScreen.main.bounds)
                         alertWindow.rootViewController = UIViewController()
 
                         let alertController = UIAlertController(title: "Error", message: errorMsg, preferredStyle: UIAlertController.Style.alert)
                         alertController.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel, handler: { _ in
                             alertWindow.isHidden = true
+                            self?.postDetails(postID:self?.postIDNew.toString ?? "")
+                            completion(true, 1)
+                            return
                         }))
 
                         alertWindow.windowLevel = UIWindow.Level.alert + 1;

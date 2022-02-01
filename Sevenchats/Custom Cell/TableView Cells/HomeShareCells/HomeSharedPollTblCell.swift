@@ -107,7 +107,7 @@ extension HomeSharedPollTblCell{
             tblVAnswre.refreshOnVoteWithData = { [weak self] (optionData) in
                 guard let self = self else {return}
                 DispatchQueue.main.async {
-                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController)
+                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController,isSelected: false)
                 }
             }
             
