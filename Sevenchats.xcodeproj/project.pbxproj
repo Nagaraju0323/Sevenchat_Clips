@@ -2325,17 +2325,9 @@
 		62E1A59B240E2EC4001BD7A8 /* VideoAudioCalling */ = {
 			isa = PBXGroup;
 			children = (
-				62E1A59C240E2EC4001BD7A8 /* Video */,
 				62E1A5A6240E2EC4001BD7A8 /* Audio */,
 			);
 			path = VideoAudioCalling;
-			sourceTree = "<group>";
-		};
-		62E1A59C240E2EC4001BD7A8 /* Video */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Video;
 			sourceTree = "<group>";
 		};
 		62E1A5A6240E2EC4001BD7A8 /* Audio */ = {

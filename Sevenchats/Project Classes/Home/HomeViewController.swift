@@ -57,6 +57,8 @@ class HomeViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+//        self.getPostListFromServer(showLoader: true)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(loading), name: NSNotification.Name(rawValue: "loading"), object: nil)
         lblNoData.text = CToEnhanceFeed
     }

@@ -72,7 +72,7 @@ class PollOptionTableView: UITableView {
             let replaced4 = replaced3.replacingOccurrences(of: "]", with: "")
             
             self.isSelectedByUser = replaced4
-            print(":::::::::::::selectedItems\(self.isSelectedByUser)")
+           // print(":::::::::::::selectedItems\(self.isSelectedByUser)")
             
             
 //            self.isSelectedByUser = self.postinfo.valueForString(key: "is_selected")
@@ -170,8 +170,8 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                     
                 }
                 
-                print("self.isSelectedByUser\(self.isSelectedByUser)")
-                print("option.pollText\(option.pollText)")
+//                print("self.isSelectedByUser\(self.isSelectedByUser)")
+//                print("option.pollText\(option.pollText)")
                 
                 
                 if option.pollText == self.isSelectedByUser{
@@ -215,8 +215,6 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                         }
                     }
                 }
-                
-                
             }
         }
         cell.progressV.updateLayout()

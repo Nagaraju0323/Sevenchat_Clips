@@ -47,6 +47,7 @@ class AddParticipantsViewController: ParentViewController {
     var apiParaFriends = [String]()
     var userIdNotification = ""
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialization()

@@ -23,6 +23,8 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
     @IBOutlet var btnSelectAllFriend : UIButton!*/
     
     @IBOutlet var viewSearchBar : UIView!
+    var selectedRows:[IndexPath] = []
+
     @IBOutlet var btnSearch : UIButton!
     @IBOutlet var btnCancel : UIButton!
     @IBOutlet var txtSearch : UITextField!{
@@ -61,6 +63,7 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
         }
     }
     var arrSyncUser = [[String : Any]]()
+    var arrSync = [String]()
     var arrConnectAllFriend = [[String : Any]]()
     var arrSearchFriendList = [Any]()
     
@@ -363,6 +366,7 @@ extension InviteAndConnectViewController{
                             if let number = contactInfo?.phoneNumbers[0].value.stringValue,
                                 let finalNumber = self.parseNumber(number) {
                                 arrPhoneNumbers.append(finalNumber)
+                                self.arrSync.append(finalNumber)
                             }
                             
                         }else {
@@ -532,11 +536,11 @@ extension InviteAndConnectViewController{
                 self?.presentActivityViewController(mediaData: CAppStoreURI, contentTitle: "Sevenchats app invitation.\n" )
             }
           
-            
-            let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.hide(_: )))
-            recognizer.numberOfTapsRequired = 1
-            cell.contentView.addGestureRecognizer(recognizer)
-         
+//
+//            let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.hide(_: )))
+//            recognizer.numberOfTapsRequired = 1
+//            cell.contentView.addGestureRecognizer(recognizer)
+//
             
             
             return cell
@@ -594,7 +598,6 @@ extension InviteAndConnectViewController{
                             break
                         }
                     }
-                    
                     cell.btnInviteConnect.touchUpInside { [weak self] (sender) in
                         guard let self = self else { return }
                         // Remove all selected friend....
@@ -670,95 +673,140 @@ extension InviteAndConnectViewController{
                 
                 if (contactInfo?.phoneNumbers.count)! > 0 {
                     
-                    
-                    
+//                    cell.btnInviteConnect.isSelected = arrFriendList.contains(where: {JSON(rawValue: $0) ?? "" == JSON(rawValue: (contactInfo?.phoneNumbers[0].value.stringValue)!) ?? "" })
                     cell.lblUserInfo.text = contactInfo?.phoneNumbers[0].value.stringValue
+                    
+                    cell.btnInviteContentMove.isHidden = true
+                    
                     cell.btnInviteConnect.isHidden = false
+                    
+                    if selectedRows.contains(indexPath)
+                        {
+                          cell.btnInviteConnect.setImage(UIImage(named:"ic_select"), for: .normal)
+                        }
+                        else
+                        {
+                            cell.btnInviteConnect.setImage(UIImage(named:"ic_unselect"), for: .normal)
+                        }
+                    
+                    
+                    cell.btnInviteConnect.tag = indexPath.row
+//                    cell.btnInviteConnect.addTarget(self, action: #selector(checkBoxSelection(_:)), for: .touchUpInside)
+//                    cell.btnInviteConnect.addTarget(self, action: #selector(checkBoxSelection(_:)), for: .touchUpInside)
+                    
+                    
+//                    cell.btnInviteConnect.touchUpInside { [weak self] (sender) in
+//                        guard let self = self else { return }
+//
+////                        cell.btnInviteConnect.addTarget(self, action: #selector(checkBoxSelection(_:)), for: .touchUpInside)
+//                        // Remove all selected friend....
+//
+////                        print("ths is calling")
+//                            /*
+//                            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
+//                            MISocial.shared().sendDirectMessage(userID: twitterInfo?.valueForString(key: "id"), fromVC: self, friendListBlock: { (response, error) in
+//                                MILoader.shared.hideLoader()
+//                                print("Response :",response as Any)
+//                                if response != nil{
+//                                    MIToastAlert.shared.showToastAlert(position: .bottom, message: CInviteSentSuccess)
+//                                }else{
+//                                    MIToastAlert.shared.showToastAlert(position: .bottom, message: CInviteSentUnSuccess)
+//                                }
+//                            })*/
+//
+//                    }
+                    
+                    
+                    
+                  
+                    
+                    
+//                    cell.btnInviteConnect.isHidden = false
                     let phoneNumber = self.parseNumber(contactInfo?.phoneNumbers[0].value.stringValue ?? "")
 
-                    if let index = arrSyncUser.index(where: { $0["common_id"] as? String == phoneNumber}) {
-                        let syncUserInfo = arrSyncUser[index]
-                        
-                        cell.btnInviteConnect.isHidden = Int64(syncUserInfo.valueForString(key: "user_id")) == appDelegate.loginUser?.user_id ? true : false
-                        cell.btnInviteConnect.setImage(nil, for: .normal)
-                        cell.btnInviteConnect.setTitle(nil, for: .normal)
-                        let friendStatus = syncUserInfo.valueForInt(key: CCheck_status)
-                        if friendStatus == 0{
-                            cell.btnInviteConnect.setTitle(CBtnInvite, for: .normal)
-                        }else{
-                            switch syncUserInfo.valueForInt(key: CFriend_status) {
-                            case 0, 4, 3:
-                                if arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
-                                    cell.btnInviteConnect.setImage(UIImage(named: "ic_right"), for: .normal)
-                                }else{
-                                    cell.btnInviteConnect.setTitle("  \(CBtnConnect)  ", for: .normal)
-                                }
-                            case 1:
-                                cell.btnInviteConnect.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
-                            case 5:
-                                cell.btnInviteConnect.setTitle("  \(CBtnUnfriend)  ", for: .normal)
-                            default:
-                                break
-                            }
-                        }
-                        
-                        cell.btnInviteConnect.touchUpInside { [weak self] (sender) in
-                            
-                            guard let self = self else { return }
-                            if syncUserInfo.valueForInt(key: CCheck_status) == 0 {
-                                let strInviteText = "Sevenchats app invitation.\n" + CAppStoreURI
-                                self.openMessageComposer(number: cell.lblUserInfo.text, body: strInviteText)
-                            } else {
-                                // Friend request api...
-                                if  syncUserInfo.valueForInt(key: CFriend_status) == 0 {
-                                    if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
-                                        if let index = self.arrConnectAllFriend.index(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}) {
-                                            self.arrConnectAllFriend.remove(at: index)
-                                        }
-                                    }else{
-                                        self.arrConnectAllFriend.append(syncUserInfo)
-                                    }
-                                    self.tblFriend.reloadData()
-                                    self.checkConnectAllFriendStatus()
-                                }else{
-                                    var frndStatus = 0
-                                    var isShowAlert = false
-                                    var alertMessage = ""
-                                    switch syncUserInfo.valueForInt(key: CFriend_status) {
-                                    case 0, 3, 4:
-                                        frndStatus = CFriendRequestSent
-                                    case 1:
-                                        frndStatus = CFriendRequestCancel
-                                        isShowAlert = true
-                                        alertMessage = CMessageCancelRequest
-                                    case 5:
-                                        frndStatus = CFriendRequestUnfriend
-                                        isShowAlert = true
-                                        alertMessage = CMessageUnfriend
-                                    default:
-                                        break
-                                    }
-                                    if isShowAlert{
-                                        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                                            self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
-                                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-                                    }else{
-                                        self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
-                                    }
-                                }
-                            }
-                        }
-                    }else{
-                        //cell.btnInviteConnect.isHidden = true
-                        //change as per 
-                        cell.btnInviteConnect.isHidden = false
-                    }
+//                    if let index = arrSyncUser.index(where: { $0["common_id"] as? String == phoneNumber}) {
+//                        let syncUserInfo = arrSyncUser[index]
+//
+//                        cell.btnInviteConnect.isHidden = Int64(syncUserInfo.valueForString(key: "user_id")) == appDelegate.loginUser?.user_id ? true : false
+//                        cell.btnInviteConnect.setImage(nil, for: .normal)
+//                        cell.btnInviteConnect.setTitle(nil, for: .normal)
+//                        let friendStatus = syncUserInfo.valueForInt(key: CCheck_status)
+//                        if friendStatus == 0{
+//                            cell.btnInviteConnect.setTitle(CBtnInvite, for: .normal)
+//                        }else{
+//                            switch syncUserInfo.valueForInt(key: CFriend_status) {
+//                            case 0, 4, 3:
+//                                if arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
+//                                    cell.btnInviteConnect.setImage(UIImage(named: "ic_right"), for: .normal)
+//                                }else{
+//                                    cell.btnInviteConnect.setTitle("  \(CBtnConnect)  ", for: .normal)
+//                                }
+//                            case 1:
+//                                cell.btnInviteConnect.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+//                            case 5:
+//                                cell.btnInviteConnect.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+//                            default:
+//                                break
+//                            }
+//                        }
+//
+//                        cell.btnInviteConnect.touchUpInside { [weak self] (sender) in
+//
+//                            guard let self = self else { return }
+//                            if syncUserInfo.valueForInt(key: CCheck_status) == 0 {
+//                                let strInviteText = "Sevenchats app invitation.\n" + CAppStoreURI
+//                                self.openMessageComposer(number: cell.lblUserInfo.text, body: strInviteText)
+//                            } else {
+//                                // Friend request api...
+//                                if  syncUserInfo.valueForInt(key: CFriend_status) == 0 {
+//                                    if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
+//                                        if let index = self.arrConnectAllFriend.index(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}) {
+//                                            self.arrConnectAllFriend.remove(at: index)
+//                                        }
+//                                    }else{
+//                                        self.arrConnectAllFriend.append(syncUserInfo)
+//                                    }
+//                                    self.tblFriend.reloadData()
+//                                    self.checkConnectAllFriendStatus()
+//                                }else{
+//                                    var frndStatus = 0
+//                                    var isShowAlert = false
+//                                    var alertMessage = ""
+//                                    switch syncUserInfo.valueForInt(key: CFriend_status) {
+//                                    case 0, 3, 4:
+//                                        frndStatus = CFriendRequestSent
+//                                    case 1:
+//                                        frndStatus = CFriendRequestCancel
+//                                        isShowAlert = true
+//                                        alertMessage = CMessageCancelRequest
+//                                    case 5:
+//                                        frndStatus = CFriendRequestUnfriend
+//                                        isShowAlert = true
+//                                        alertMessage = CMessageUnfriend
+//                                    default:
+//                                        break
+//                                    }
+//                                    if isShowAlert{
+//                                        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
+//                                            self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
+//                                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//                                    }else{
+//                                        self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }else{
+//                        //cell.btnInviteConnect.isHidden = true
+//                        //change as per
+//                        cell.btnInviteConnect.isHidden = false
+//                    }
                 }else{
-                    cell.lblUserInfo.text = ""
-                    cell.btnInviteConnect.isHidden = true
+//                    cell.lblUserInfo.text = ""
+//                    cell.btnInviteConnect.isHidden = true
                 }
                 
-                break
+//                break
             default:
                 break
             }
@@ -770,11 +818,26 @@ extension InviteAndConnectViewController{
     }
     
     
-    @objc func hide(_ recognizer: UITapGestureRecognizer){
-          print("this is calling    ")
-
-
+//    @objc func hide(_ recognizer: UITapGestureRecognizer){
+//          print("this is calling    ")
+//
+//
+//        }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let selectedIndexPath = indexPath
+        if self.selectedRows.contains(selectedIndexPath){
+            self.selectedRows.remove(at: self.selectedRows.firstIndex(of: selectedIndexPath)!)
         }
+        else{
+          self.selectedRows.append(selectedIndexPath)
+        }
+        self.tblFriend.reloadData()
+    }
+
+    
+    
     
 }
 // MARK:- --------- Helper Functions

@@ -65,14 +65,21 @@ let IS_iPhone_XS = CScreenHeight == 812
 let IS_iPhone_XS_MAX = CScreenHeight == 896
 
 let IS_iPhone_12 = CScreenHeight == 844
-let IS_iPhone_12_MINI = CScreenHeight == 812
+let IS_iPhone_12_MINI = CScreenHeight == 780
 let IS_iPhone_12_PRO = CScreenHeight == 844
 let IS_iPhone_12_PROMAX = CScreenHeight == 926
+
+let IS_iPhone_13 = CScreenHeight == 844
+let IS_iPhone_13_MINI = CScreenHeight == 812
+let IS_iPhone_13_PRO = CScreenHeight == 844
+let IS_iPhone_13_PROMAX = CScreenHeight == 926
+
+
 
 
 //let IS_iPhone_X_Series = (IS_iPhone_X || IS_iPhone_XR || IS_iPhone_XS || IS_iPhone_XS_MAX)
 
-let IS_iPhone_X_Series = (IS_iPhone_X || IS_iPhone_XR || IS_iPhone_XS || IS_iPhone_XS_MAX || IS_iPhone_12 || IS_iPhone_12_MINI || IS_iPhone_12_PRO ||  IS_iPhone_12_PROMAX)
+let IS_iPhone_X_Series = (IS_iPhone_X || IS_iPhone_XR || IS_iPhone_XS || IS_iPhone_XS_MAX || IS_iPhone_12 || IS_iPhone_12_MINI || IS_iPhone_12_PRO ||  IS_iPhone_12_PROMAX || IS_iPhone_13 || IS_iPhone_13_MINI || IS_iPhone_13_PRO  || IS_iPhone_13_PROMAX )
 
 let CMainBundle = Bundle.main
 let CBundleIdentifier = CMainBundle.bundleIdentifier

@@ -25,7 +25,7 @@ class InviteFriendCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .none
+//        self.selectionStyle = .none
         GCDMainThread.async {
             self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
             self.imgUserType.layer.cornerRadius = self.imgUserType.frame.size.width/2

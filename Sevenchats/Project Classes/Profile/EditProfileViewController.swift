@@ -63,6 +63,8 @@ class EditProfileViewController: ParentViewController {
     var isSelectedprofile = false
     var isSelectedCover = false
     var prefs = UserDefaults.standard
+    var isProfileImg = false
+    var isCoverImg = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -189,6 +191,7 @@ class EditProfileViewController: ParentViewController {
             btnUploadImage.setImage(UIImage(), for: .normal)
             imgEditIcon.isHidden = false
         } else{
+            isProfileImg = true
             imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
             imgEditIcon.isHidden = true
         }
@@ -198,6 +201,7 @@ class EditProfileViewController: ParentViewController {
             btnUploadImage.setImage(UIImage(), for: .normal)
             imgEditIcon.isHidden = false
         } else{
+            isCoverImg = true
             imgCover.image = UIImage(named: "CoverImage.png")
 //            imgCover.loadImageFromUrl((appDelegate.loginUser?.cover_image ?? ""), true)
             imgEditIcon.isHidden = false
@@ -603,8 +607,240 @@ extension EditProfileViewController{
         }
         self.navigationController?.pushViewController(locationPicker, animated: true)
     }
-    
     @IBAction func btnUploadImageCLK(_ sender : UIButton){
+        if isProfileImg == true{
+            if self.imgUser.image == nil {
+                self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
+                    guard let self = self else { return }
+                    self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
+                        guard let self = self else { return }
+                        if image != nil{
+                            self.uploadedImg = true
+                            self.imgEditIcon.isHidden = false
+                            self.imgUser.image = image
+                            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil,userInfo: ["imagename":image ?? ""])
+                            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
+                            
+                            guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
+                                return
+                            }
+                            
+                            self.imgName = imageURL.absoluteString ?? ""
+                            guard let mobileNum = appDelegate.loginUser?.mobile else {return}
+                            MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                            
+                            MInioimageupload.shared().callback = { message in
+                                print("UploadImage::::::::::::::\(message)")
+                                self.profileImgUrl = message
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                    self.uploadProfilePic()
+                                })
+                            }
+                            
+                        }
+                        
+                    })
+                }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default) { [weak self](alert) in
+                    guard let _ = self else { return }
+                    self?.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
+                        guard let self = self else { return }
+                        if image != nil{
+                            self.uploadedImg = true
+                            self.imgEditIcon.isHidden = false
+                            self.imgUser.image = image
+                            self.uploadProfilePic()
+                        }
+                    })
+                }
+                
+                
+            }
+        }else{
+            if self.imgCover.image != nil {
+                self.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
+                    guard let self = self else { return }
+                    
+                    self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
+                        guard let self = self else { return }
+                        if image != nil{
+                            self.uploadedImg = true
+                            self.imgEditIcon.isHidden = false
+                            self.imgUser.image = image
+                            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil,userInfo: ["imagename":image ?? ""])
+                            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
+                            
+                            guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
+                                return
+                            }
+                            
+                            self.imgName = imageURL.absoluteString ?? ""
+                            guard let mobileNum = appDelegate.loginUser?.mobile else {return}
+                            MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                            
+                            MInioimageupload.shared().callback = { message in
+                                print("UploadImage::::::::::::::\(message)")
+                                self.profileImgUrl = message
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                    self.uploadProfilePic()
+                                })
+                            }
+                            
+                        }
+                        
+                    })
+                    
+                }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default, btnTwoTapped: { [weak self] (action) in
+                    guard let self = self else { return }
+                    self.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
+                        guard let self = self else { return }
+                        if image != nil{
+                            self.uploadedImg = true
+                            self.imgEditIcon.isHidden = false
+                            self.imgUser.image = image
+                            self.uploadProfilePic()
+                        }
+                    })
+                }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
+                    guard let self = self else { return }
+
+     //                self.coverImgUrl = "https://qa.sevenchats.com:3443/sevenchats/CoverImage/IOS1643088311733.png"
+                    self.imgUser.image = UIImage(named: "CoverImage.png")
+                    self.imgEditIcon.isHidden = true
+                    self.uploadProfilePic()
+                }
+                
+            } else {
+                self.presentImagePickerController(allowEditing: true) { [weak self](image, info) in
+                    guard let self = self else { return }
+                    if image != nil{
+                        self.uploadedImg = true
+                        self.imgEditIcon.isHidden = false
+                        self.imgUser.image = image
+                    }
+                }
+            }
+        }
+        
+    }
+    @IBAction func btnUploadCoverCLK (_ sender : UIButton) {
+        if isCoverImg == true{
+            if self.imgCover.image != nil {
+                self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
+                    guard let self = self else { return }
+                    self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
+                        guard let self = self else { return }
+                        if image != nil{
+                            self.coverImg = true
+                            self.CoverEditIcon.isHidden = false
+                            self.imgCover.image = image
+                            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil,userInfo: ["imagename":image ?? ""])
+                            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
+                            
+                            guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
+                                return
+                            }
+                            
+                            self.imgName = imageURL.absoluteString ?? ""
+                            guard let mobileNum = appDelegate.loginUser?.mobile else {return}
+                            MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                            
+                            MInioimageupload.shared().callback = { message in
+                                print("UploadImage::::::::::::::\(message)")
+                                self.coverImgUrl = message
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                    self.uploadCoverPic()
+                                })
+                            }
+                            
+                        }
+                        
+                    })
+                }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default) { [weak self](alert) in
+                    guard let _ = self else { return }
+                    self?.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
+                        guard let self = self else { return }
+                        if image != nil{
+                            self.coverImg = true
+                            self.CoverEditIcon.isHidden = false
+                            self.imgCover.image = image
+                            self.uploadCoverPic()
+                        }
+                    })
+                }
+                
+                
+            }
+        }else{
+            if self.imgCover.image != nil {
+                self.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
+                    guard let self = self else { return }
+                    
+                    self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
+                        guard let self = self else { return }
+                        if image != nil{
+                            self.coverImg = true
+                            self.CoverEditIcon.isHidden = false
+                            self.imgCover.image = image
+                            NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil,userInfo: ["imagename":image ?? ""])
+                            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
+                            
+                            guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
+                                return
+                            }
+                            
+                            self.imgName = imageURL.absoluteString ?? ""
+                            guard let mobileNum = appDelegate.loginUser?.mobile else {return}
+                            MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                            
+                            MInioimageupload.shared().callback = { message in
+                                print("UploadImage::::::::::::::\(message)")
+                                self.coverImgUrl = message
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                    self.uploadCoverPic()
+                                })
+                            }
+                            
+                        }
+                        
+                    })
+                    
+                }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default, btnTwoTapped: { [weak self] (action) in
+                    guard let self = self else { return }
+                    self.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
+                        guard let self = self else { return }
+                        if image != nil{
+                            self.coverImg = true
+                            self.CoverEditIcon.isHidden = false
+                            self.imgCover.image = image
+                            self.uploadCoverPic()
+                        }
+                    })
+                }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
+                    guard let self = self else { return }
+
+    //                self.coverImgUrl = "https://qa.sevenchats.com:3443/sevenchats/CoverImage/IOS1643088311733.png"
+                    self.imgCover.image = UIImage(named: "CoverImage.png")
+                    self.CoverEditIcon.isHidden = true
+                    self.uploadCoverPic()
+                }
+                
+            } else {
+                self.presentImagePickerController(allowEditing: true) { [weak self](image, info) in
+                    guard let self = self else { return }
+                    if image != nil{
+                        self.coverImg = true
+                        self.CoverEditIcon.isHidden = false
+                        self.imgCover.image = image
+                    }
+                }
+            }
+        }
+    }
+   /* @IBAction func btnUploadImageCLK(_ sender : UIButton){
         if self.imgUser.image != nil {
             let userdata:Int = CUserDefaults.value(forKey:"imageReplaced") as? Int ?? 0
             if userdata == 0  || userdata == 3 {
@@ -808,7 +1044,7 @@ extension EditProfileViewController{
                 }
             }
         }
-    }
+    }*/
     
     @IBAction func btnUpdateCLK(_ sender : UIButton)
     {

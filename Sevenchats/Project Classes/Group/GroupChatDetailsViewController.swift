@@ -387,7 +387,7 @@ extension GroupChatDetailsViewController {
             APIRequest.shared().groupDetail(group_id: groupInfo.valueForString(key: CGroupId),shouldShowLoader:false) { (response, error) in
                 if response != nil && error == nil{
                     DispatchQueue.main.async {
-                        if let groupInfo = response![CJsonData] as? [[String : Any]] {
+                        if let groupInfo = response?[CJsonData] as? [[String : Any]] {
                             self.iObject = groupInfo
                             self.setGroupDetails()
                             for groupDetails in groupInfo{

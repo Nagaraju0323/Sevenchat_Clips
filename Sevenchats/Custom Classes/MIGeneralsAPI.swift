@@ -1846,19 +1846,18 @@ extension MIGeneralsAPI {
                         var postPollInfo = obj
 //                        let resultKey = optionData?["results"] as? [String:String]
 //                        postPollInfo["is_selected"] = resultKey?.keys
-                        
 
 //                        print("this is calling first tile")
 //                        postPollInfo[CPollData] = optionData
 //                        postPollInfo[CUserVotedPoll] = pollAnsewrID
 //                      postPollInfo["is_selected"] = "Yes"
 //                        postPollInfo[CIsUserVoted] = 1
+                        
                         homeVC.arrPostList.remove(at: index)
                         homeVC.arrPostList.insert(postPollInfo, at: index)
                         UIView.performWithoutAnimation {
                             DispatchQueue.main.async {
                                 let indexPath = IndexPath(item: index, section: 1)
-                               
                                 if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
                                     homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
                                 }
@@ -1866,6 +1865,8 @@ extension MIGeneralsAPI {
                         }
                     }
                 }
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                
             }
             
             if viewController.isKind(of: MyProfileViewController.classForCoder()){
@@ -2281,16 +2282,16 @@ extension MIGeneralsAPI {
         let content:[String:Any]  = [
             "subject":subject as Any,
             "senderName": senderName,
-            //            "content":"<b>\(firstName) \(lastName)</b> &nbsp\(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
-            "content":"\(firstName)\(" ") \(lastName) \(" ") \(showDisplayContent ?? "")\(" ") \(MsgSent ?? "")",
+//                        "content":"<b>\(firstName) \(lastName)</b> &nbsp\(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
+            "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")\(" ") \(MsgSent ?? "")",
             "link":"http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
             "type":MsgType as Any,
         ]
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
             let jsonToString = String(data: jsonData, encoding: .utf8)
-            let trimmedString = jsonToString?.components(separatedBy: .whitespacesAndNewlines).joined()
-            let imgStr_Third = trimmedString?.replacingOccurrences(of: "\"", with: "\\\"")
+//            let trimmedString = jsonToString?.components(separatedBy: " ").joined()
+            let imgStr_Third = jsonToString?.replacingOccurrences(of: "\"", with: "\\\"")
             contentStr = imgStr_Third ?? ""
             
         } catch {
