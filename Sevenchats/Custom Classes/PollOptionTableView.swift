@@ -312,12 +312,9 @@ extension PollOptionTableView {
                         alertWindow.windowLevel = UIWindow.Level.alert + 1;
                         alertWindow.makeKeyAndVisible()
                         alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
-
-
                 }
             }
         }
-
     }
 }
 

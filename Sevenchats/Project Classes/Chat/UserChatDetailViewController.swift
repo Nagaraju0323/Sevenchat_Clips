@@ -1095,6 +1095,8 @@ extension UserChatDetailViewController {
     }
     
     @IBAction func btnSendCLK(_ sender : UIButton){
+        
+        ChatSocketIo.shared().SocketInitilized()
         if sessionTask != nil {
             //            if sessionTask.state == .running {
             //                print(" Api calling continue =========")
