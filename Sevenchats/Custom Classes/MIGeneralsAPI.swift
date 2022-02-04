@@ -1640,23 +1640,17 @@ extension MIGeneralsAPI {
                             break
                         case .polladded?:
                             
-//                            let resultKey = optionData?["results"] as? [String:String]
-//                             detailPost.pollInformation["is_selected"] = resultKey?.keys
-                            
                             let resultKey = optionData?["results"] as? [String:String]
-                            print(":::::::resultValues\(resultKey)")
                             var resultkeys = resultKey.map { $0.keys.first }
-                            print(":::::::resultafter\(resultkeys! as String?)")
-//                            postInfo.valueForString(key: "is_selected") = resultkeys? as String?
-                            
-                            
-                            detailPost.setPollDetails(postInfo)
+//                            detailPost.pollInformation["is_selected"] = resultkeys! as String?
 //                            detailPost.setPollDetails(detailPost.pollInformation)
-//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loading"), object: nil)
-//                            detailPost.setPostDetailData(postInfo)
+                            
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loading"), object: nil)
+                        
                             break
                         default: break
                         }
+                        
                     }
                     
                    

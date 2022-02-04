@@ -26,9 +26,6 @@ class PollOptionTableView: UITableView {
     var arrOptionsch : [MDLPollOption] = []
     var arrOptionNew : [MDLPollOptionsNew] = []
     
-    
-    
-    
     var isSelected = false
     var postID = 0
     var userID = 0

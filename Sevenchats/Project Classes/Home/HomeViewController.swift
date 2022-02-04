@@ -33,6 +33,7 @@ class HomeViewController: ParentViewController {
     
     var searchbtnNav = UIButton()
     var arrPostList = [[String : Any]]()
+    var arrPostListNew = [[String : Any]]()
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
@@ -379,22 +380,22 @@ extension HomeViewController {
                 if response != nil && error == nil {
                     let data = response!["post_listing"] as! [String:Any]
                     if let arrList = data["post"] as? [[String : Any]] {
-                        print(arrList)
+//                        print(arrList)
                         // Remove all data here when page number == 1
                         if self.pageNumber == 1 {
-                            self.arrPostList.removeAll()
+                            self.arrPostListNew.removeAll()
                             self.tblEvents.reloadData()
                         }
                         self.isLoadMoreCompleted = arrList.isEmpty
                         // Add Data here...
                         if arrList.count > 0 {
-                            self.arrPostList = self.arrPostList + arrList
+                            self.arrPostListNew = self.arrPostListNew + arrList
                             self.tblEvents.reloadData()
                             self.pageNumber += 1
                         }
                         self.tblEvents.reloadData()
                     }
-                    self.lblNoData.isHidden = self.arrPostList.count > 0
+                    self.lblNoData.isHidden = self.arrPostListNew.count > 0
                 }
             }
         }
@@ -444,7 +445,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         case 3:
             return 1
         default:
-            return arrPostList.count
+            return arrPostListNew.count
         }
     }
     
@@ -541,7 +542,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             
         }
         
-        let postInfo = arrPostList[indexPath.row]
+        let postInfo = arrPostListNew[indexPath.row]
         //        let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
         //        let isPostDeleted = postInfo.valueForInt(key: CIsPostDeleted)
         let isshared = 0
@@ -1687,10 +1688,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             return
         }
         
-        guard arrPostList[indexPath.row].count != 0 else { return}
+        let row = indexPath.row
+        print("selectdRow\(row),")
+        
+        guard arrPostListNew[indexPath.row].count != 0 else { return}
+        
         //        guard arrPostList[indexPath.row].count != 0 else { return}
-        let postInfo = arrPostList[indexPath.row]
-        // let postId = postInfo.valueForInt(key: CId)
+        let postInfo = arrPostListNew[row]
         let postId = postInfo.valueForString(key: "post_id")
         //        let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
         //        let isPostDeleted = postInfo.valueForInt(key: CIsPostDeleted)
