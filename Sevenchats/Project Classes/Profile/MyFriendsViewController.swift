@@ -467,7 +467,7 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
                 var frndStatus = 0
                 var alertMessage = ""
                 let user_id = appDelegate.loginUser?.user_id
-                if arrLst.valueForString(key: "request_status") == "5" && arrLst.valueForString(key: "friend_status") == "1" {
+                if arrLst.valueForString(key: "friend_status") == "1" {
                     self?.Friend_status = 5
                 }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
                     self?.Friend_status = 1

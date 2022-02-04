@@ -354,13 +354,15 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                 if let arrList = response!["data"] as? [[String:Any]]{
                                     for arrLst in arrList{
                                         let user_id = appDelegate.loginUser?.user_id
-                                        if arrLst.valueForString(key: "request_status") == "5"{
+                                        if arrLst.valueForString(key: "friend_status") == "1"{
                                             self?.Friend_status = 5
                                         }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
                                             self?.Friend_status = 1
-                                        }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description {
+                                        }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "0" && arrLst.valueForString(key: "cancel_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
                                             self?.Friend_status = 0
                                         }
+
+
                                         var frndStatus = 1
                                         var isShowAlert = true
                                         var alertMessage = ""

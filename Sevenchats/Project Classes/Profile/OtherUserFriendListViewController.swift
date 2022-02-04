@@ -252,6 +252,7 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForAcceptRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                     guard let self = self else { return }
                     self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 5)
+                    self.navigationController?.popViewController(animated: true)
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
@@ -259,6 +260,7 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
                     self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 3)
+                    self.navigationController?.popViewController(animated: true)
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
@@ -312,46 +314,67 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
 //            }
             cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-                var frndStatus = 0
-                var isShowAlert = false
-                var alertMessage = ""
-                
-                for arrLst in self.arrBlockList{
-                    let user_id = appDelegate.loginUser?.user_id
-                    if arrLst?.valueForString(key: "request_status") == "0" &&   arrLst?.valueForString(key: "friend_status") == "0" ||  arrLst?.valueForString(key: "request_status") == "5" &&   arrLst?.valueForString(key: "friend_status") == "2" {
-                        self.Friend_status = 0
-                        
-                    }else if  arrLst?.valueForString(key: "request_status")  == "1" &&  arrLst?.valueForString(key: "senders_id") != user_id?.description {
-                        self.Friend_status = 2
-                    }else if arrLst?.valueForString(key: "request_status")  == "5"  && arrLst?.valueForString(key: "friend_status") == "1"{
-                        self.Friend_status = 5
-                    }else if arrLst?.valueForString(key: "request_status") == "1" && arrLst?.valueForString(key: "senders_id")  == user_id?.description {
-                        self.Friend_status = 1
+//                var frndStatus = 0
+//                var isShowAlert = false
+//                var alertMessage = ""
+                let user_id = userInfo.valueForString(key: "id")
+                let dict :[String:Any]  =  [
+                    "user_id":  appDelegate.loginUser?.user_id ?? "",
+                    "friend_user_id": user_id
+                    
+                ]
+                APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
+                    if response != nil && error == nil{
+                        GCDMainThread.async {
+                            if let arrList = response!["data"] as? [[String:Any]]{
+                                for arrLst in arrList{
+                                    let user_id = appDelegate.loginUser?.user_id
+                                    if arrLst.valueForString(key: "friend_status") == "1"{
+                                        self?.Friend_status = 5
+                                    }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
+                                        self?.Friend_status = 1
+                                    }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "0" && arrLst.valueForString(key: "cancel_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
+                                        self?.Friend_status = 0
+                                    }
+
+
+                                    var frndStatus = 0
+                                    var isShowAlert = false
+                                    var alertMessage = ""
+                                    
+                                    switch self?.Friend_status {
+                                    case 0:
+                                        frndStatus = CFriendRequestSent
+                                        isShowAlert = true
+                                        alertMessage = CMessageAddfriend
+                                    case 1:
+                                        frndStatus = CFriendRequestCancel
+                                        isShowAlert = true
+                                        alertMessage = CMessageCancelRequest
+                                    case 5:
+                                        frndStatus = CFriendRequestUnfriend
+                                        isShowAlert = true
+                                        alertMessage = CMessageUnfriend
+                                    default:
+                                        break
+                                    }
+                                    if isShowAlert{
+                                        self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                                            guard let self = self else { return }
+                                            self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
+                                            self.navigationController?.popViewController(animated: true)
+                                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+                                    }else{
+                                        self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
+                                    }
+                                }
+                                
+                            }
+                            
+                        }
                     }
-                switch self.Friend_status {
-                case 0:
-                    frndStatus = CFriendRequestSent
-                    isShowAlert = true
-                    alertMessage = CMessageAddfriend
-                case 1:
-                    frndStatus = CFriendRequestCancel
-                    isShowAlert = true
-                    alertMessage = CMessageCancelRequest
-                case 5:
-                    frndStatus = CFriendRequestUnfriend
-                    isShowAlert = true
-                    alertMessage = CMessageUnfriend
-                default:
-                    break
-                }
-                if isShowAlert {
-                    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                        self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
-                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-                }else {
-                    self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
-                }
-            }
+                })
+
         }
             // Load More data..
             if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData{

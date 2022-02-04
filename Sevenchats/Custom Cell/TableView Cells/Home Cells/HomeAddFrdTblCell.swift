@@ -40,7 +40,8 @@ class HomeAddFrdTblCell: UITableViewCell {
         
         GCDMainThread.async {
             self.btnAddFrd.layer.cornerRadius = 5
-            
+            self.imgUser.layer.borderWidth = 2
+            self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.viewSubContainer.layer.cornerRadius = 8
             self.viewMainContainer.layer.cornerRadius = 8
             self.viewMainContainer.shadow(color: CRGB(r: 237, g: 236, b: 226), shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)
@@ -66,12 +67,12 @@ class HomeAddFrdTblCell: UITableViewCell {
                 GCDMainThread.async {
                     if let arrList = response!["data"] as? [[String:Any]]{
                         for arrLst in arrList{
-                           if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" || arrLst.valueForString(key: "request_status") == "5" &&  arrLst.valueForString(key: "friend_status") == "2"{
+                            if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
                                 Friend_status = 0
                                 
                             }else if arrLst.valueForString(key: "request_status")  == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description {
                                 Friend_status = 2
-                            }else if arrLst.valueForString(key: "request_status")  == "5"{
+                            }else if arrLst.valueForString(key: "friend_status") == "1"{
                                 Friend_status = 5
                             }else  if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id")  == user_id?.description {
                                 Friend_status = 1
