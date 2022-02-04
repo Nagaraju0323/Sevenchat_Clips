@@ -12,12 +12,14 @@
  * Changes :                                             *
  * Deisplay Article Details user can like and comments,  *
  * Delete forparticular post                             *
- ********************************************************/
+ ********/
 
-
+//this inew chagnes //
 import UIKit
 import ActiveLabel
 import Lightbox
+
+
 
 class ArticleDetailViewController: ParentViewController {
     
