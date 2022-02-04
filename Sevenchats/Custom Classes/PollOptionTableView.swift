@@ -40,7 +40,7 @@ class PollOptionTableView: UITableView {
     var totalVotes = 0
     var totalVotesNew = ""
     var updateVoteCount : ((Int) -> Void)?
-    var refreshOnVoteWithData : (([String:Any]) -> Void)?
+    var refreshOnVoteWithData : (([String:Any],Int) -> Void)?
     var parameters = [String: Any]()
     var dictArray = [String]()
     var arrPostList = [String : Any]()
@@ -63,18 +63,12 @@ class PollOptionTableView: UITableView {
         super.awakeFromNib()
         DispatchQueue.main.async {
             self.postIDNew = self.postinfo.valueForString(key: "post_id").toInt ?? 0
-            
-            
             let SelectedByUser = self.postinfo.valueForString(key: "is_selected")
-            
             let replaced2 = SelectedByUser.replacingOccurrences(of: "\"", with: "")
             let replaced3 = replaced2.replacingOccurrences(of: "[", with: "")
             let replaced4 = replaced3.replacingOccurrences(of: "]", with: "")
-            
             self.isSelectedByUser = replaced4
-           // print(":::::::::::::selectedItems\(self.isSelectedByUser)")
-            
-            
+            print(":::::::::::::selectedItems\(self.isSelectedByUser)")
 //            self.isSelectedByUser = self.postinfo.valueForString(key: "is_selected")
             // self.votedOption = self.postinfo.valueForString(key: "is_voted")
         }
@@ -371,8 +365,8 @@ extension PollOptionTableView{
                             self?.totalVotesNew = datas.valueForString(key: "total_count")
                             self?.refereshData = datas
                             GCDMainThread.async {
-                                self?.updateVoteCount?(self?.totalVotesNew.toInt ?? 0)
-                                self?.refreshOnVoteWithData?(datas)
+//                                self?.updateVoteCount?(self?.totalVotesNew.toInt ?? 0,datas)
+                                self?.refreshOnVoteWithData?(datas,self?.totalVotesNew.toInt ?? 0)
                                 
                                 
                             }

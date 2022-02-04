@@ -136,7 +136,7 @@ extension HomePollTblCell{
         
         
         lblPollCategory.text = postInfo.valueForString(key: CCategory).uppercased()
-        tblVAnswre.refreshOnVoteWithData = { [weak self] (optionData) in
+        tblVAnswre.refreshOnVoteWithData = { [weak self] (optionData,countuser) in
             let post_id = optionData["post_id"] as? String
             guard let self = self else {return}
             DispatchQueue.main.async {
@@ -144,14 +144,14 @@ extension HomePollTblCell{
             }
         }
         
-        tblVAnswre.updateVoteCountReload = { [weak self] (optionData) in
-            let post_id = optionData["post_id"] as? String
-            guard let self = self else {return}
-            DispatchQueue.main.async {
-                MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController,isSelected: false)
-            }
-            
-        }
+//        tblVAnswre.updateVoteCountReload = { [weak self] (optionData) in
+//            let post_id = optionData["post_id"] as? String
+//            guard let self = self else {return}
+//            DispatchQueue.main.async {
+//                MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController,isSelected: false)
+//            }
+//
+//        }
         let is_Liked = postInfo.valueForString(key: CIsLiked)
         if is_Liked == "Yes"{
             btnLike.isSelected = true

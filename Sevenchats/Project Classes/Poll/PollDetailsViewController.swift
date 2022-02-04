@@ -281,13 +281,13 @@ extension PollDetailsViewController {
             }
             let voteCount:Int =  self.totalVotesNew.toInt ?? 0
             self.updateVoteCount(count: voteCount )
-            tblVAnswre.updateVoteCount = { [weak self] (votesCount) in
-                guard let _ = self else {return}
-                DispatchQueue.main.async {
-                    self?.updateVoteCount(count: votesCount)
-                }
-            }
-            tblVAnswre.refreshOnVoteWithData = { [weak self] (optionData) in
+//            tblVAnswre.updateVoteCount = { [weak self] (votesCount) in
+//                guard let _ = self else {return}
+//                DispatchQueue.main.async {
+//                    self?.updateVoteCount(count: votesCount)
+//                }
+//            }
+            tblVAnswre.refreshOnVoteWithData = { [weak self] (optionData,countVoted) in
                 guard let self = self else {return}
                 DispatchQueue.main.async {
 //                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformation, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self, isSelected: true)

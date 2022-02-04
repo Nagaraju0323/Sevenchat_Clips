@@ -1600,7 +1600,7 @@ extension MIGeneralsAPI {
     
     
     
-    func refreshPostRelatedScreenss(_ postInfo : [String : Any]?,_ postId : Int?,_ pollAnsewrID:Int?, optionData:[String:Any]?, _ view : UIViewController, _ postAction : PostAction?,isSelected:Bool) {
+    func refreshPostRelatedScreenss(_ postInfo : [String : Any],_ postId : Int?,_ pollAnsewrID:Int?, optionData:[String:Any]?, _ view : UIViewController, _ postAction : PostAction?,isSelected:Bool) {
    
         
         // To refresh detail screens.....
@@ -1621,7 +1621,9 @@ extension MIGeneralsAPI {
                             homeVC.pageNumber = 1
                             homeVC.getPostListFromServer(showLoader: false)
                             homeVC.tblEvents.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-                       
+                     
+                    }
+                }
                 // Refresh Home search screen here....
                 // Refresh post detail screen here....
       
@@ -1630,28 +1632,37 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? PollDetailsViewController{
                         switch postAction {
                         case .likePost?:
-                            detailPost.pollInformation[CLikes] = postInfo?.valueForString(key: "likes")
-                            detailPost.pollInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            detailPost.pollInformation[CLikes] = postInfo.valueForString(key: "likes")
+                            detailPost.pollInformation[CIsLiked] = postInfo.valueForString(key: CIsLiked)
                             detailPost.setPollDetails(detailPost.pollInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                             
                             break
                         case .polladded?:
                             
+//                            let resultKey = optionData?["results"] as? [String:String]
+//                             detailPost.pollInformation["is_selected"] = resultKey?.keys
+                            
                             let resultKey = optionData?["results"] as? [String:String]
-                             detailPost.pollInformation["is_selected"] = resultKey?.keys
-                             detailPost.setPollDetails(detailPost.pollInformation)
-                            detailPost.setPollDetails(detailPost.pollInformation)
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            print(":::::::resultValues\(resultKey)")
+                            var resultkeys = resultKey.map { $0.keys.first }
+                            print(":::::::resultafter\(resultkeys! as String?)")
+//                            postInfo.valueForString(key: "is_selected") = resultkeys? as String?
+                            
+                            
+                            detailPost.setPollDetails(postInfo)
+//                            detailPost.setPollDetails(detailPost.pollInformation)
+//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loading"), object: nil)
 //                            detailPost.setPostDetailData(postInfo)
                             break
                         default: break
                         }
                     }
-                }
-                        }
-                    }
+                    
+                   
                 
+               }
+//                NotificationCenter.default.post(name: NSNotificatio.Name(rawValue: "loading"), object: nil)
             }
             
         }
@@ -1682,7 +1693,10 @@ extension MIGeneralsAPI {
 //                    postPollInfo[CIsUserVoted] = 1
 //                    postPollInfo["is_selected"] = "Yes"
                     let resultKey = optionData?["results"] as? [String:String]
-                    postPollInfo["is_selected"] = resultKey?.keys
+                    print(":::::::resultValues\(resultKey)")
+                    let resultkeys = resultKey.map { $0.keys.first }
+                    print(":::::::resultafter\(resultkeys! as String?)")
+                    postPollInfo["is_selected"] = resultkeys! as String?
 
                     homeVC.arrPostList.remove(at: index)
                     homeVC.arrPostList.insert(postPollInfo, at: index)
@@ -1694,9 +1708,10 @@ extension MIGeneralsAPI {
                             }
                         }
                     }
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
+//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
                 }
 
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
 //                      let arrPosts = homeVC.arrPostList
 //                for (index,obj) in arrPosts.enumerated(){
 //                    if obj["post_id"] as? String == postId?.toString{
