@@ -36,6 +36,8 @@ class OtherUserProfileViewController: ParentViewController {
         didSet {
             GCDMainThread.async {
                 self.imgUser.layer.cornerRadius = self.imgUser.frame.height / 2
+                self.imgUser.layer.borderWidth = 3
+                self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             }
         }
     }
@@ -197,7 +199,7 @@ extension OtherUserProfileViewController{
                         self.usersotherID = usrID
                         
                         for block in self.arrBlockList {
-                            if block?.valueForString(key: "friend_status") == "5"{
+                            if block?.valueForString(key: "block_status") == "1"{
                                 print("IS BLOCK")
                                 self.isBlock = true
                             }else{
@@ -213,7 +215,15 @@ extension OtherUserProfileViewController{
                             self.strUserImg = data.valueForString(key: CImage)
                             self.lblUserName.text = data.valueForString(key: CFirstname) + " " + data.valueForString(key: CLastname)
                             self.lblBlockText.text = CYouCannotSeeHisHerProfile
-                            self.btnUnblock.hide(byHeight: false)
+                            for friend in self.arrBlockList{
+                                let user_id =  appDelegate.loginUser?.user_id
+                                if friend?.valueForString(key: "blocked_id") == user_id?.description {
+                                    self.btnUnblock.hide(byHeight: false)
+                                }else {
+                                    self.btnUnblock.hide(byHeight: true)
+                                }
+                                
+                            }
                             
                         } else {
                             self.imgUser.loadImageFromUrl(data.valueForString(key: CImage), true)
@@ -232,7 +242,7 @@ extension OtherUserProfileViewController{
                             }
                             // If user not friend and his profile prefrenece is basic..
                             for friend in self.arrBlockList{
-                                if friend?.valueForString(key: "request_status") == "5"{
+                                if friend?.valueForString(key: "friend_status") == "1"{
                                     self.Friend_status = 5
                                 }
                                 
@@ -325,7 +335,9 @@ extension OtherUserProfileViewController{
                     // Unblock user
                     self.tblUser.isHidden = false
                     self.viewBlockContainer.isHidden = true
-                    self.pullToRefresh()
+//                    self.pullToRefresh()
+                    
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
         })
@@ -452,30 +464,18 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.btnAddFriend.isHidden = false
                         cell.viewAcceptReject.isHidden = true
                         
-                        do{
-                            //MARK:-FRIEND
-                            for data in arrBlockList{
-                                if data?.valueForString(key: "request_status") == "5"{
-                                    self.Friend_status = 5
-                                }
-                            }
-                            
-                            //MARK:- REQUEST
-                            for friend in self.arrBlockList{
-                                let user_id = appDelegate.loginUser?.user_id
-                                if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") == user_id?.description {
-                                    self.Friend_status = 1
-                                }
-                                
-                            }
-                            //MARK:- PENDING
-                            for friend in self.arrBlockList{
-                                let user_id = appDelegate.loginUser?.user_id
-                                if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") != user_id?.description {
-                                    self.Friend_status = 0
-                                }
+                        //MARK:-FRIEND
+                        for friend in arrBlockList{
+                            let user_id = appDelegate.loginUser?.user_id
+                            if friend?.valueForString(key: "friend_status") == "1"{
+                                self.Friend_status = 5
+                            }else if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") == user_id?.description {
+                                self.Friend_status = 1
+                            }else if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") != user_id?.description {
+                                self.Friend_status = 0
                             }
                         }
+                       
                         switch self.Friend_status {
                         case 0:
                             cell.btnAddFriend.setTitle(CBtnAddFriend, for: .normal)
@@ -493,28 +493,19 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         var frndStatus = 0
                         var isShowAlert = false
                         var alertMessage = ""
-                        do{
-                            //MARK:-FRIEND
-                            for data in self?.arrBlockList ?? []{
-                                if data?.valueForString(key: "request_status") == "5"{
-                                    self?.Friend_status = 5
-                                }
-                            }
-                            //MARK:- REQUEST
-                            for data in self?.arrBlockList ?? []{
-                                let user_id = appDelegate.loginUser?.user_id
-                                if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
-                                    self?.Friend_status = 1
-                                }
-                            }
-                            //MARK:- PENDING
-                            for friend in self?.arrBlockList ?? []{
-                                let user_id = appDelegate.loginUser?.user_id
-                                if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") != user_id?.description {
-                                    self?.Friend_status = 0
-                                }
+                        //MARK:-FRIEND
+                        for data in self?.arrBlockList ?? []{
+                            let user_id = appDelegate.loginUser?.user_id
+                            if data?.valueForString(key: "friend_status") == "1"{
+                                self?.Friend_status = 5
+                            }else if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
+                                self?.Friend_status = 1
+                            }else if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
+                                self?.Friend_status = 0
                             }
                         }
+                   
+                    
                         
                         switch self?.Friend_status {
                         case 0:
@@ -543,7 +534,11 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     }
                     
                     cell.btnRequestAccept.touchUpInside { [weak self](sender) in
-                        self?.friendStatusApi(userInfo, 5)
+                        self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForAcceptRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                            guard let self = self else { return }
+                            self.friendStatusApi(userInfo, 5)
+                            self.navigationController?.popViewController(animated: true)
+                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                     }
                     
                     cell.btnRequestReject.touchUpInside {[weak self] (sender) in
@@ -1497,7 +1492,7 @@ extension OtherUserProfileViewController {
     
     @IBAction func btnUnblockCLK(_ sender: UIButton) {
         self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageUnBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
-            self?.blockUnblockUserApi(0)
+            self?.blockUnblockUserApi(7)
         }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
     }
     
