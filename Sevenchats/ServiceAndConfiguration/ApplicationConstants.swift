@@ -235,6 +235,7 @@ let CFriendRequestReject              = 3
 let CFriendRequestUnfriend              = 4
 let CFriendRequestCancel              = 2
 let CFriendRequestAcceptReject              = 6
+let CFriendUnblock              = 7
 
 let CPublicToGroup      = 1
 let CPublicToContact    = 2
@@ -401,6 +402,7 @@ let CContent                     = "post_detail"
 let CMinAge                      = "min_age"
 let CIs_Like                      = "is_like"
 let CIs_Liked                      = "is_liked"
+let CIsFriend_Liked                 = "friend_liked"
 let CTitle                      = "post_title"
 let CImage  = "profile_image"
 let CProfileImage = "profile_image"

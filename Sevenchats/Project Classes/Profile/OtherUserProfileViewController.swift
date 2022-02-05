@@ -371,7 +371,7 @@ extension OtherUserProfileViewController{
             }else{
                 self.tblUser.tableFooterView = nil
             }
-            apiTask = APIRequest.shared().getUserPostList(page: self.pageNumber, user_id: userID.toInt, search_type: nil) { [weak self] (response, error) in
+            apiTask = APIRequest.shared().getUserFriendPostList(page: self.pageNumber, user_id: userID.toInt, search_type: nil) { [weak self] (response, error) in
                 guard let self = self else { return }
                 self.tblUser.tableFooterView = nil
                 self.refreshControl.endRefreshing()
@@ -705,6 +705,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 }
                 
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeArticleCell", for: indexPath) as? HomeArticleCell {
+                    cell.isMyProfile = false
                     cell.homeArticleDataSetup(postInfo!)
                     
                     cell.btnLikesCount.touchUpInside {[weak self] (sender) in
@@ -1188,11 +1189,13 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ArticleSharedDetailViewController") as? ArticleSharedDetailViewController else {
                     return
                 }
+                
                 viewcontroller.articleID = sharedPostId
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }
             if let viewArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
+                viewArticleVC.isMyProfile = false
                 viewArticleVC.articleID = postId?.toInt
                 viewArticleVC.articleInformation = postInfo ?? [:]
                 self.navigationController?.pushViewController(viewArticleVC, animated: true)

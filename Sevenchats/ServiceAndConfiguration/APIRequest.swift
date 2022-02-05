@@ -121,6 +121,8 @@ let CAPITagHomePostsNew = "postlisting/"
 let CAPITagUserPost = "user-post"
 let CAPITagUserPostNew = "mypost/post"
 let CAPITagUserPostFilter = "mypost/"
+let CAPITagUserFriendPostNew = "mypost/post"
+let CAPITagUserFriendPostFilter = "mypost/"
 let CAPITagUserMyfriendList = "friends/myfriends"
 let CAPITagFriendsList = "friends-list"
 let CAPITagBlockUsers = "friends/block"
@@ -2058,11 +2060,46 @@ extension APIRequest {
         
         let dict : [String:Any]  =  [
             "user_id":user_id?.description as Any,
-            "page" : page as Any,
-            "limit" : CLimit
+            "page" : 1,
+            "limit" : CLimitTT
             
         ]
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserPostNew, param: dict as [String : AnyObject], successBlock: { (task, response) in
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserPost) {
+                completion(response, nil)
+            }
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagUserPostNew, error: error)
+            }
+        })!
+    }
+    func getUserFriendPostList(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
+        
+        var para = [String : Any]()
+        para[CPage] = page
+        para[CPer_page] = CLimit
+        
+        if user_id != nil{
+            para[CUserId] = user_id
+        }
+        
+        if search_type != nil{
+            para[CSearchType] = search_type
+        }
+        
+        let dict : [String:Any]  =  [
+            "friend_id":appDelegate.loginUser?.user_id.description ?? "",
+            "user_id":user_id?.description as Any,
+            "page" : 1,
+            "limit" : CLimitTT
+           
+        ]
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserFriendPostNew, param: dict as [String : AnyObject], successBlock: { (task, response) in
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserPost) {
                 completion(response, nil)
             }
