@@ -49,6 +49,7 @@ class HomeArticleCell: UITableViewCell {
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
+    var isMyProfile = true
     
     
     override func awakeFromNib() {
@@ -104,11 +105,20 @@ extension HomeArticleCell{
         posted_ID = postInfo.valueForString(key: "user_id")
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        if postInfo.valueForString(key:CIs_Liked) == "Yes"{
-            btnLike.isSelected = true
-        }else {
-            btnLike.isSelected = false
+        if isMyProfile == true{
+            if postInfo.valueForString(key:CIs_Liked) == "Yes"{
+                btnLike.isSelected = true
+            }else {
+                btnLike.isSelected = false
+            }
+        }else{
+            if postInfo.valueForString(key:"friend_liked") == "Yes"{
+                btnLike.isSelected = true
+            }else {
+                btnLike.isSelected = false
+            }
         }
+        
         
         likeCount = postInfo.valueForString(key: CLikes).toInt ?? 0
         btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)

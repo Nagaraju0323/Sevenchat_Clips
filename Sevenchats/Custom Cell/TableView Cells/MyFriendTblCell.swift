@@ -46,7 +46,11 @@ class MyFriendTblCell: UITableViewCell {
                 GCDMainThread.async {
                     if let arrList = response!["data"] as? [[String:Any]]{
                         for arrLst in arrList{
-                            if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
+                            if arrLst.valueForString(key: "block_status") == "1" && arrLst.valueForString(key: "blocked_id") == appDelegate.loginUser?.user_id.description{
+                                Friend_status = 7
+                            }else if arrLst.valueForString(key: "block_status") == "1"  {
+                                Friend_status = 6
+                            }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
                                 Friend_status = 0
                                 
                             }else if arrLst.valueForString(key: "request_status")  == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description {
@@ -71,6 +75,10 @@ class MyFriendTblCell: UITableViewCell {
                                     self?.btnUnfriendCancelRequest.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
                                 case 5:
                                     self?.btnUnfriendCancelRequest.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+                                case 6:
+                                    self?.btnUnfriendCancelRequest.setTitle("  \(CBlockedUser)  ", for: .normal)
+                                case 7:
+                                    self?.btnUnfriendCancelRequest.setTitle("  \(CBtnUnblockUser)  ", for: .normal)
                                 default:
                                     break
                                 }

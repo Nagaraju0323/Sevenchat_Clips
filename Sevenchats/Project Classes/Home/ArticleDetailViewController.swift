@@ -95,6 +95,7 @@ class ArticleDetailViewController: ParentViewController {
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
+    var isMyProfile = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -242,10 +243,18 @@ extension ArticleDetailViewController{
             
             self.lblArticleCategory.text = artInfo.valueForString(key: CCategory).uppercased()
             let is_Liked = artInfo.valueForString(key: CIsLiked)
-            if is_Liked == "Yes"{
-                btnLike.isSelected = true
-            }else {
-                btnLike.isSelected = false
+            if isMyProfile == true{
+                if artInfo.valueForString(key:CIs_Liked) == "Yes"{
+                    btnLike.isSelected = true
+                }else {
+                    btnLike.isSelected = false
+                }
+            }else{
+                if artInfo.valueForString(key:"friend_liked") == "Yes"{
+                    btnLike.isSelected = true
+                }else {
+                    btnLike.isSelected = false
+                }
             }
             
             likeCount = artInfo.valueForString(key: CLikes).toInt ?? 0

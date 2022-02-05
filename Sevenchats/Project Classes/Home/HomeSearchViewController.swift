@@ -354,7 +354,11 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                 if let arrList = response!["data"] as? [[String:Any]]{
                                     for arrLst in arrList{
                                         let user_id = appDelegate.loginUser?.user_id
-                                        if arrLst.valueForString(key: "friend_status") == "1"{
+                                        if arrLst.valueForString(key: "block_status") == "1" && arrLst.valueForString(key: "blocked_id") == appDelegate.loginUser?.user_id.description {
+                                            self?.Friend_status = 7
+                                        }else if arrLst.valueForString(key: "block_status") == "1"  {
+                                            self?.Friend_status = 6
+                                        } else if arrLst.valueForString(key: "friend_status") == "1"{
                                             self?.Friend_status = 5
                                         }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
                                             self?.Friend_status = 1
@@ -380,6 +384,15 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                             frndStatus = CFriendRequestUnfriend
                                             isShowAlert = true
                                             alertMessage = CMessageUnfriend
+                                        case 6:
+//                                            cell.btnAddFrd.isEnabled = false
+                                            cell.btnAddFrd.isUserInteractionEnabled = false
+                                            isShowAlert = false
+                                        case 7:
+                                          frndStatus = CFriendUnblock
+                                            isShowAlert = true
+                                            alertMessage = CMessageUnBlockUser
+                                            
                                         default:
                                             break
                                         }

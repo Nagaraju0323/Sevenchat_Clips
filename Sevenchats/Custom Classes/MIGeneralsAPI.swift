@@ -534,6 +534,8 @@ extension MIGeneralsAPI {
                                 postLikeInfo[CLikes] = postInfo?.valueForString(key: "likes")
                                 //                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
                                 postLikeInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                                postLikeInfo[CIsFriend_Liked] = postInfo?.valueForString(key: "friend_liked")
+                                
                                 //                                    postLikeInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
                                 homeVC.arrPostList.remove(at: index)
                                 homeVC.arrPostList.insert(postLikeInfo, at: index)
