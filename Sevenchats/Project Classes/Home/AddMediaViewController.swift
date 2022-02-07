@@ -299,7 +299,7 @@ extension AddMediaViewController {
                 }
                 
                 if let imgInfo = response![CJsonData] as? [String : Any]{
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(imgInfo,self.imgPostId, self, self.imagePostType == .editImagePost ? .editPost : .addPost)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(imgInfo,self.imgPostId, self, self.imagePostType == .editImagePost ? .editPost : .addPost, rss_id: 0)
                     
                     APIRequest.shared().saveNewInterest(interestID: imgInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: imgInfo.valueForString(key: CCategory))
                 }

@@ -292,7 +292,7 @@ extension ImageDetailViewController{
                     guard let self = self else { return }
                     if response != nil && error == nil{
                         self.navigationController?.popViewController(animated: true)
-                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, imgID, self, .deletePost)
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, imgID, self, .deletePost, rss_id: 0)
                     }
                 })
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
@@ -718,7 +718,7 @@ extension ImageDetailViewController{
                                     let comment_data = comments["comments"] as? String
                                     self.commentCount = comment_data?.toInt ?? 0
                                     self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(self.commentinfo, imgId, self, .commentPost)
+                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(self.commentinfo, imgId, self, .commentPost, rss_id: 0)
                                 }else{
                                     // Edit comment in array
                                     if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
@@ -804,7 +804,7 @@ extension ImageDetailViewController{
                         return
                     }
                     self.tblCommentList.reloadData()
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil,self.imgPostIdNew?.toInt ?? 0 , self, .deleteComment)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil,self.imgPostIdNew?.toInt ?? 0 , self, .deleteComment, rss_id: 0)
                 }
             }
         }

@@ -1216,8 +1216,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeFourmTblCell", for: indexPath) as? HomeFourmTblCell {
-                cell.homeFourmDataSetup(postInfo)
                 
+                
+                cell.homeFourmDataSetup(postInfo)
+                cell.isLikesHomePage = true
                 cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)

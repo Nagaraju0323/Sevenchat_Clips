@@ -260,7 +260,7 @@ extension AddEventViewController{
             if response != nil && error == nil{
                 
                 if let eventInfo = response![CJsonData] as? [String : Any]{
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(eventInfo,self.eventID, self, self.eventType == .editEvent ? .editPost : .addPost)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(eventInfo,self.eventID, self, self.eventType == .editEvent ? .editPost : .addPost, rss_id: 0)
                     
                     APIRequest.shared().saveNewInterest(interestID: eventInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: eventInfo.valueForString(key: CCategory))
                     

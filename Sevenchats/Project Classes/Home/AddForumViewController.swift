@@ -229,7 +229,7 @@ extension AddForumViewController{
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.forumType == .editForum ? CMessageForumPostUpdated : CMessageForumPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 
                 if let forumInfo = response![CJsonData] as? [String : Any]{
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(forumInfo,self.forumID, self, self.forumType == .editForum ? .editPost : .addPost)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(forumInfo,self.forumID, self, self.forumType == .editForum ? .editPost : .addPost, rss_id: 0)
                     
                     APIRequest.shared().saveNewInterest(interestID: forumInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: forumInfo.valueForString(key: CCategory))
                 }

@@ -302,7 +302,7 @@ extension MIGeneralsAPI {
                     
                     if let likeInfo = response!["liked_users"] as? [String : Any]{
                         if type == 1{
-                            MIGeneralsAPI.shared().refreshPostRelatedScreens(likeInfo, post_id, viewController!, .likePost)
+                            MIGeneralsAPI.shared().refreshPostRelatedScreens(likeInfo, post_id, viewController!, .likePost, rss_id: 0)
                         }else{
                             MIGeneralsAPI.shared().refreshWebSiteScreens(likeInfo, rss_id, viewController!, .likePost)
                         }
@@ -315,7 +315,7 @@ extension MIGeneralsAPI {
     
     func likeUnlikePostWebsites(post_id : Int?, rss_id : Int?, type : Int?, likeStatus : Int,info:[String:Any], viewController : UIViewController?){
         
-        MIGeneralsAPI.shared().refreshPostRelatedScreens(info, post_id, viewController!, .likePost)
+        MIGeneralsAPI.shared().refreshPostRelatedScreens(info, post_id, viewController!, .likePost,rss_id:rss_id)
     }
     
     
@@ -328,7 +328,7 @@ extension MIGeneralsAPI {
                 let interInfo = response![CJsonData] as? [[String : Any]]
                 if let interInfo = response![CJsonData] as? [[String : Any]] {
                     let userChoice = interInfo.first ?? [:]
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(userChoice, post_id, viewController!, .interestPost)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(userChoice, post_id, viewController!, .interestPost,rss_id: 0)
                 }
             }else {
                 
@@ -458,7 +458,7 @@ extension MIGeneralsAPI {
         
     }
     
-    func refreshPostRelatedScreens(_ postInfo : [String : Any]?,_ postId : Int?, _ view : UIViewController, _ postAction : PostAction?) {
+    func refreshPostRelatedScreens(_ postInfo : [String : Any]?,_ postId : Int?, _ view : UIViewController, _ postAction : PostAction?,rss_id:Int?) {
         
         // To refresh detail screens.....
         if let blockHandler = view.block {
@@ -970,7 +970,6 @@ extension MIGeneralsAPI {
                             break
                         case .polladded?:
                             
-                            
 //                            detailPost.setPostDetailData(postInfo)
                             break
                         default: break
@@ -1440,10 +1439,19 @@ extension MIGeneralsAPI {
                                 //                            if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?.valueForInt(key: CId) == postId}) {
                                 var postLikeInfo = otherProfileVC.arrPostList[index]
                                 postLikeInfo?[CLikes] = postInfo?.valueForString(key: "likes")
-                                postLikeInfo?[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                                postLikeInfo?[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+
+                                if rss_id == 1{
+                                    postLikeInfo?["friend_liked"] = "Yes"
+                                    postLikeInfo?[CIsLiked] = "No"
+                                }else if rss_id == 2 {
+                                    postLikeInfo?[CIsLiked] = "No"
+                                    postLikeInfo?["friend_liked"] = "No"
+                                }
                                 
-                                //                                postLikeInfo?[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                                //                                postLikeInfo?[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                                if rss_id == 3 {
+                                    postLikeInfo?[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                                }
                                 otherProfileVC.arrPostList.remove(at: index)
                                 otherProfileVC.arrPostList.insert(postLikeInfo, at: index)
                                 UIView.performWithoutAnimation {

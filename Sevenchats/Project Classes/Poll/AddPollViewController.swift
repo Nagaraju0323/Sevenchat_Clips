@@ -309,7 +309,7 @@ extension AddPollViewController {
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePollPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 
                 if let pollInfo = response![CJsonData] as? [String : Any]{
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(pollInfo,self?.pollID, self!,  .addPost)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(pollInfo,self?.pollID, self!,  .addPost, rss_id: 0)
                     
                     APIRequest.shared().saveNewInterest(interestID: pollInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: pollInfo.valueForString(key: CCategory))
                 }

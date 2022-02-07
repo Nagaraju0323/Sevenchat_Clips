@@ -448,7 +448,7 @@ extension MyProfileViewController{
                 guard let self = self else { return }
                 if response != nil && error == nil{
                     self.arrPostList.remove(at: index)
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, postId, self, .deletePost)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, postId, self, .deletePost, rss_id: 0)
                     UIView.performWithoutAnimation {
                         self.tblUser.reloadData()
                     }
@@ -1244,6 +1244,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
             }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeFourmTblCell", for: indexPath) as? HomeFourmTblCell {
                 cell.homeFourmDataSetup(postInfo)
+                cell.isLikesMyprofilePage = true 
                 
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
                     //                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))

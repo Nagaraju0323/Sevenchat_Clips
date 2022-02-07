@@ -199,7 +199,7 @@ extension PostDeleteDetailViewController{
                        guard let self = self else { return }
                        if response != nil && error == nil{
                            self.navigationController?.popViewController(animated: true)
-                           MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, shoID, self, .deletePost)
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, shoID, self, .deletePost, rss_id: 0)
                        }
                    })
                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)

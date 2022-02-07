@@ -290,7 +290,7 @@ extension OtherUserProfileViewController{
                     frndInfo[CFriend_status] = data.valueForInt(key: CFriend_status)
                     self.arrUserDetail.removeAll()
                     self.arrUserDetail.append(frndInfo)
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(frndInfo, frndInfo.valueForInt(key: CUserId), self, .friendRequest)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(frndInfo, frndInfo.valueForInt(key: CUserId), self, .friendRequest, rss_id: 0)
                     UIView.performWithoutAnimation {
                         self.tblUser.reloadSections(IndexSet(integer: 0), with: .none)
                     }
@@ -705,7 +705,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 }
                 
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeArticleCell", for: indexPath) as? HomeArticleCell {
-                    cell.isMyProfile = false
+                    cell.isLikesOthers = true
                     cell.homeArticleDataSetup(postInfo!)
                     
                     cell.btnLikesCount.touchUpInside {[weak self] (sender) in
@@ -957,6 +957,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeFourmTblCell", for: indexPath) as? HomeFourmTblCell {
+                    cell.isLikesOthersPage = true
                     cell.homeFourmDataSetup(postInfo!)
                     
                     cell.btnLikesCount.touchUpInside {[weak self] (sender) in

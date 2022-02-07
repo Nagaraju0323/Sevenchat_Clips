@@ -234,7 +234,7 @@ extension AddChirpyViewController{
             if response != nil && error == nil{
                 
                 if let chirpyInfo = response![CJsonData] as? [String : Any]{
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(chirpyInfo,self.chirpyID, self,self.chirpyType == .editChirpy ? .editPost : .addPost)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(chirpyInfo,self.chirpyID, self,self.chirpyType == .editChirpy ? .editPost : .addPost, rss_id: 0)
                     
                     APIRequest.shared().saveNewInterest(interestID: chirpyInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: chirpyInfo.valueForString(key: CCategory))
                     

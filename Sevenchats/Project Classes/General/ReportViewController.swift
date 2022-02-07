@@ -239,13 +239,13 @@ extension ReportViewController{
             switch self.reportType {
             case .reportUser?:
                 // Remove all user related post from previous screen
-                MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, nil, self, .addPost)
+                MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, nil, self, .addPost, rss_id: 0)
             case .reportRss?:
                 // Remove website from previous screen
                 MIGeneralsAPI.shared().refreshWebSiteScreens(nil, nil, self,  .reportPost)
             default:
                 // Remove post from previous screen
-                MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.reportID, self, .reportPost)
+                MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.reportID, self, .reportPost, rss_id: 0)
             }
 
             // Notify to previous screen.

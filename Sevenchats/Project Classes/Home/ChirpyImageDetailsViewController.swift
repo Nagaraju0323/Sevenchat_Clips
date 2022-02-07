@@ -262,7 +262,7 @@ extension ChirpyImageDetailsViewController{
                     guard let self = self else { return }
                     if response != nil && error == nil{
                         self.navigationController?.popViewController(animated: true)
-                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, chirID, self, .deletePost)
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, chirID, self, .deletePost, rss_id: 0)
                         
                     }
                 })
@@ -513,7 +513,7 @@ extension ChirpyImageDetailsViewController{
                                     let comment_data = comments["comments"] as? String
                                     self.commentCount = comment_data?.toInt ?? 0
                                     self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(self.commentinfo, shoId, self, .commentPost)
+                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(self.commentinfo, shoId, self, .commentPost, rss_id: 0)
                                 }else{
                                     // Edit comment in array
                                     if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
@@ -651,7 +651,7 @@ extension ChirpyImageDetailsViewController{
                         return
                     }
                     self.tblCommentList.reloadData()
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil,self.chirpyIDNew?.toInt ?? 0 , self, .deleteComment)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil,self.chirpyIDNew?.toInt ?? 0 , self, .deleteComment, rss_id: 0)
                 }
             }
         }

@@ -991,7 +991,7 @@ extension EventDetailImageViewController{
                                     let comment_data = comments["comments"] as? String
                                     self.commentCount = comment_data?.toInt ?? 0
                                     self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(self.commentinfo, evntId, self, .commentPost)
+                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(self.commentinfo, evntId, self, .commentPost, rss_id: 0)
                                 }else{
                                     if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
                                         self.arrCommentList.remove(at: index)
@@ -1051,7 +1051,7 @@ extension EventDetailImageViewController{
                         return
                     }
                     self.tblCommentList.reloadData()
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil,self.postIDNew?.toInt ?? 0 , self, .deleteComment)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil,self.postIDNew?.toInt ?? 0 , self, .deleteComment, rss_id: 0)
                     
                     
                 }
