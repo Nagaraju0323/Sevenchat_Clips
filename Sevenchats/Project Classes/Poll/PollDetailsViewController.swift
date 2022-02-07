@@ -108,6 +108,14 @@ class PollDetailsViewController: ParentViewController {
     var profileImg = ""
     var notifcationIsSlected = false
     
+    var isLikesOthers:Bool?
+    var isLikeSelected = false
+    var isFinalLikeSelected = false
+    var isLikesOthersPage:Bool?
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -319,10 +327,33 @@ extension PollDetailsViewController {
             
             let is_Liked = pollInfo.valueForString(key: CIsLiked)
             
-            if is_Liked == "Yes"{
-                btnLike.isSelected = true
-            }else {
-                btnLike.isSelected = false
+//            if is_Liked == "Yes"{
+//                btnLike.isSelected = true
+//            }else {
+//                btnLike.isSelected = false
+//            }
+            
+            if isLikesOthersPage == true {
+                if pollInfo.valueForString(key:"friend_liked") == "Yes"  || pollInfo.valueForString(key:"is_liked") == "Yes" {
+                    btnLike.isSelected = true
+                    if pollInfo.valueForString(key:"is_liked") == "No"{
+                        isLikeSelected = false
+                    }
+                }else {
+                    if pollInfo.valueForString(key:"is_liked") == "No" || pollInfo.valueForString(key:"friend_liked") == "No" {
+                        isLikeSelected = true
+                    }
+                    btnLike.isSelected = false
+                }
+            }
+            
+            
+            if isLikesHomePage == true  || isLikesMyprofilePage == true {
+                if pollInfo.valueForString(key:CIs_Liked) == "Yes"{
+                    btnLike.isSelected = true
+                }else {
+                    btnLike.isSelected = false
+                }
             }
             
             likeCount = pollInfo.valueForString(key: CLikes).toInt ?? 0
@@ -406,14 +437,44 @@ extension PollDetailsViewController{
         
         self.btnLike.isSelected = !self.btnLike.isSelected
         
+//        if self.btnLike.isSelected == true{
+//            likeCount = 1
+//            like = 1
+//            notifcationIsSlected = true
+//        }else {
+//            likeCount = 2
+//            like = 0
+//        }
+        
+        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
             notifcationIsSlected = true
+            
+            if isLikesOthersPage  == true {
+                if isLikeSelected == true{
+                    self.isFinalLikeSelected = true
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }else {
             likeCount = 2
             like = 0
+            
+            if isLikesOthersPage == true {
+                if isLikeSelected == false{
+                    self.isFinalLikeSelected = false
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }
+        
+        
         guard let userID = appDelegate.loginUser?.user_id else {return}
         APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: (self.pollIDNew)?.toInt ?? 0 , isLike: likeCount){ [weak self](response, error) in
             guard let _ = self else { return }
@@ -450,7 +511,22 @@ extension PollDetailsViewController{
                         MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post Fourm", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Fourm ",senderName: firstName + lassName)
                         self?.notifcationIsSlected = false
                     }
-                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.pollIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.pollIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    
+                    if self?.isLikesOthersPage == true {
+                    if self?.isFinalLikeSelected == true{
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id:self?.pollIDNew?.toInt ?? 0, rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                        self?.isLikeSelected = false
+                    }else {
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.pollIDNew?.toInt ?? 0, rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+
+                    }
+                   }
+                    if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
+                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.pollIDNew?.toInt ?? 0, rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    }
+                    
+                    
                 }
             }
         }

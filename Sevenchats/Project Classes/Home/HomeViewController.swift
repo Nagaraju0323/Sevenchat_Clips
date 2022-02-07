@@ -656,6 +656,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeArticleCell", for: indexPath) as? HomeArticleCell {
+               
+                cell.isLikesHomePage = true
                 cell.homeArticleDataSetup(postInfo)
                 
                 cell.btnLikesCount.touchUpInside { [weak self] (sender) in
@@ -768,6 +770,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeGalleryCell", for: indexPath) as? HomeGalleryCell {
+                
+                cell.isLikesHomePage = true
                 cell.homeGalleryDataSetup(postInfo)
                 
                 cell.btnLikesCount.touchUpInside { [weak self] (sender) in
@@ -881,7 +885,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
-                    
+                    cell.isLikesHomePage = true
                     cell.homeChirpyImageDataSetup(postInfo)
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
@@ -991,6 +995,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
+                    cell.isLikesHomePage = true
                     cell.homeChirpyImageDataSetup(postInfo)
                     
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
@@ -1103,7 +1108,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeShoutsTblCell", for: indexPath) as? HomeShoutsTblCell {
-                
+                cell.isLikesHomePage = true
                 cell.homeShoutsDataSetup(postInfo)
                 cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
@@ -1338,6 +1343,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
+                    cell.isLikesHomePage = true
                     cell.homeEventDataSetup(postInfo)
                     
                     cell.onChangeEventStatus = { [weak self] (action) in
@@ -1456,7 +1462,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
-                    
+                    cell.isLikesHomePage = true
                     cell.homeEventDataSetup(postInfo)
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
@@ -1582,6 +1588,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomePollTblCell", for: indexPath) as? HomePollTblCell {
                 
+                cell.isLikesHomePage = true
                 cell.homePollDataSetup(postInfo, isSelected: false)
                 cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
@@ -1727,6 +1734,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let viewArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
+                viewArticleVC.isLikesHomePage = true
                 viewArticleVC.articleID = postId.toInt
                 viewArticleVC.articleInformation = postInfo
                 self.navigationController?.pushViewController(viewArticleVC, animated: true)
@@ -1746,6 +1754,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let imageDetailsVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
+                imageDetailsVC.isLikesHomePage = true
                 imageDetailsVC.galleryInfo = postInfo
                 imageDetailsVC.imgPostId = postId.toInt
                 self.navigationController?.pushViewController(imageDetailsVC, animated: true)
@@ -1767,6 +1776,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     break
                 }
                 if let chirpyDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController{
+                    chirpyDetailsVC.isLikesHomePage = true
                     chirpyDetailsVC.chirpyID = postId.toInt
                     chirpyDetailsVC.chirpyInformation = postInfo
                     self.navigationController?.pushViewController(chirpyDetailsVC, animated: true)
@@ -1784,6 +1794,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     break
                 }
                 if let chirpyImageVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController{
+                    chirpyImageVC.isLikesHomePage = true
                     chirpyImageVC.chirpyID = postId.toInt
                     chirpyImageVC.chirpyInformation = postInfo
                     self.navigationController?.pushViewController(chirpyImageVC, animated: true)
@@ -1804,7 +1815,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
-                
+                shoutsDetailsVC.isLikesHomePage = true
                 shoutsDetailsVC.shoutInformations = postInfo
                 shoutsDetailsVC.shoutID = postId.toInt
                 self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
@@ -1825,6 +1836,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let forumDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController{
+                forumDetailsVC.isLikesHomePage = true
                 forumDetailsVC.forumInformation = postInfo
                 forumDetailsVC.forumID = postId.toInt
                 self.navigationController?.pushViewController(forumDetailsVC, animated: true)
@@ -1847,7 +1859,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 
                 if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
-                    
+                    eventDetailsVC.isLikesHomePage = true
                     eventDetailsVC.eventInfo = postInfo
                     eventDetailsVC.postID = postId.toInt
                     self.navigationController?.pushViewController(eventDetailsVC, animated: true)
@@ -1866,6 +1878,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
                     // eventDetailsVC.postID = postInfo.valueForInt(key: CId)
+                    eventDetailsVC.isLikesHomePage = true
                     eventDetailsVC.eventInfo = postInfo
                     eventDetailsVC.postID = postId.toInt
                     self.navigationController?.pushViewController(eventDetailsVC, animated: true)
@@ -1887,6 +1900,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let viewArticleVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
+                viewArticleVC.isLikesHomePage = true
                 viewArticleVC.pollInformation = postInfo
                 
                 viewArticleVC.pollID = postId.toInt

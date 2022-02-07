@@ -95,7 +95,15 @@ class ArticleDetailViewController: ParentViewController {
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
-    var isMyProfile = true
+    
+    var isLikesOthers:Bool?
+    var isLikeSelected = false
+    var isFinalLikeSelected = false
+    var isLikesOthersPage:Bool?
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -243,19 +251,38 @@ extension ArticleDetailViewController{
             
             self.lblArticleCategory.text = artInfo.valueForString(key: CCategory).uppercased()
             let is_Liked = artInfo.valueForString(key: CIsLiked)
-            if isMyProfile == true{
+         
+            //            if is_Liked == "Yes"{
+            //                btnLike.isSelected = true
+            //            }else {
+            //                btnLike.isSelected = false
+            //            }
+                        
+                        if isLikesOthersPage == true {
+                            if artInfo.valueForString(key:"friend_liked") == "Yes"  || artInfo.valueForString(key:"is_liked") == "Yes" {
+                                btnLike.isSelected = true
+                                if artInfo.valueForString(key:"is_liked") == "No"{
+                                    isLikeSelected = false
+                                }
+                            }else {
+                                if artInfo.valueForString(key:"is_liked") == "No" || artInfo.valueForString(key:"friend_liked") == "No" {
+                                    isLikeSelected = true
+                                }
+                                btnLike.isSelected = false
+                            }
+                        }
+            
+            
+            
+            if isLikesHomePage == true  || isLikesMyprofilePage == true {
                 if artInfo.valueForString(key:CIs_Liked) == "Yes"{
                     btnLike.isSelected = true
                 }else {
                     btnLike.isSelected = false
                 }
-            }else{
-                if artInfo.valueForString(key:"friend_liked") == "Yes"{
-                    btnLike.isSelected = true
-                }else {
-                    btnLike.isSelected = false
-                }
             }
+            
+            
             
             likeCount = artInfo.valueForString(key: CLikes).toInt ?? 0
             self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
@@ -328,15 +355,44 @@ extension ArticleDetailViewController{
         
         self.btnLike.isSelected = !self.btnLike.isSelected
         
+//        if self.btnLike.isSelected == true{
+//            likeCount = 1
+//            like = 1
+//            notifcationIsSlected = true
+//        }else {
+//            likeCount = 2
+//            like = 0
+//
+//        }
+        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
             notifcationIsSlected = true
+            
+            if isLikesOthersPage  == true {
+                if isLikeSelected == true{
+                    self.isFinalLikeSelected = true
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }else {
             likeCount = 2
             like = 0
             
+            if isLikesOthersPage == true {
+                if isLikeSelected == false{
+                    self.isFinalLikeSelected = false
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }
+        
+        
         guard let userID = appDelegate.loginUser?.user_id else {
             return
         }
@@ -375,7 +431,25 @@ extension ArticleDetailViewController{
                         MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
                         self?.notifcationIsSlected = false
                     }
-                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.articleIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    
+                    
+                    
+                    
+                    if self?.isLikesOthersPage == true {
+                    if self?.isFinalLikeSelected == true{
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id:self?.articleIDNew?.toInt, rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                        self?.isLikeSelected = false
+                    }else {
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.articleIDNew?.toInt, rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+
+                    }
+                   }
+                    if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
+                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.articleIDNew?.toInt, rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    }
+                    
+                    
+//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.articleIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
                 }
             }
         }

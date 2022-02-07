@@ -81,6 +81,12 @@ class ForumDetailViewController: ParentViewController {
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
+    var isLikesOthers:Bool?
+    var isLikeSelected = false
+    var isFinalLikeSelected = false
+    var isLikesOthersPage:Bool?
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
     
     
     override func viewDidLoad() {
@@ -209,10 +215,33 @@ extension ForumDetailViewController{
             
             let is_Liked = forumInformation.valueForString(key: CIsLiked)
             
-            if is_Liked == "Yes"{
-                btnLike.isSelected = true
-            }else {
-                btnLike.isSelected = false
+//            if is_Liked == "Yes"{
+//                btnLike.isSelected = true
+//            }else {
+//                btnLike.isSelected = false
+//            }
+            
+            if isLikesOthersPage == true {
+                if forInfo.valueForString(key:"friend_liked") == "Yes"  || forInfo.valueForString(key:"is_liked") == "Yes" {
+                    btnLike.isSelected = true
+                    if forInfo.valueForString(key:"is_liked") == "No"{
+                        isLikeSelected = false
+                    }
+                }else {
+                    if forInfo.valueForString(key:"is_liked") == "No" || forInfo.valueForString(key:"friend_liked") == "No" {
+                        isLikeSelected = true
+                    }
+                    btnLike.isSelected = false
+                }
+            }
+            
+            
+            if isLikesHomePage == true  || isLikesMyprofilePage == true {
+                if forInfo.valueForString(key:CIs_Liked) == "Yes"{
+                    btnLike.isSelected = true
+                }else {
+                    btnLike.isSelected = false
+                }
             }
             
             likeCount = forumInformation.valueForString(key: CLikes).toInt ?? 0
@@ -550,14 +579,43 @@ extension ForumDetailViewController{
         
         self.btnLike.isSelected = !self.btnLike.isSelected
         
+//        if self.btnLike.isSelected == true{
+//            likeCount = 1
+//            like = 1
+//            notifcationIsSlected = true
+//        }else {
+//            likeCount = 2
+//            like = 0
+//        }
+        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
             notifcationIsSlected = true
+            
+            if isLikesOthersPage  == true {
+                if isLikeSelected == true{
+                    self.isFinalLikeSelected = true
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }else {
             likeCount = 2
             like = 0
+            
+            if isLikesOthersPage == true {
+                if isLikeSelected == false{
+                    self.isFinalLikeSelected = false
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }
+        
+        
         guard let userID = appDelegate.loginUser?.user_id else {
             return
         }
@@ -595,7 +653,21 @@ extension ForumDetailViewController{
                         self?.notifcationIsSlected = false
                     }
                     
-                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.forumIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    
+                    if self?.isLikesOthersPage == true {
+                    if self?.isFinalLikeSelected == true{
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id:self?.forumIDNew?.toInt, rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                        self?.isLikeSelected = false
+                    }else {
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.forumIDNew?.toInt, rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+
+                    }
+                   }
+                    if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
+                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.forumIDNew?.toInt, rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    }
+                    
+//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.forumIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
                 }
             }
         }

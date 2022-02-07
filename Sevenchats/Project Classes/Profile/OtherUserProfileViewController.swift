@@ -135,6 +135,7 @@ class OtherUserProfileViewController: ParentViewController {
         // To Get User detail from server.......
         self.getFriendStatus()
         self.otherUserDetails(isLoader:true)
+//        self.getPostListFromServer()
         
     }
     
@@ -705,7 +706,8 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 }
                 
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeArticleCell", for: indexPath) as? HomeArticleCell {
-                    cell.isLikesOthers = true
+                    
+                    cell.isLikesOthersPage = true
                     cell.homeArticleDataSetup(postInfo!)
                     
                     cell.btnLikesCount.touchUpInside {[weak self] (sender) in
@@ -756,6 +758,9 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeGalleryCell", for: indexPath) as? HomeGalleryCell {
+                    
+                    cell.isLikesOthersPage = true
+                    
                     cell.homeGalleryDataSetup(postInfo!)
                     
                     cell.btnLikesCount.touchUpInside {[weak self] (sender) in
@@ -856,6 +861,9 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         }
                     }
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
+                        
+                        cell.isLikesOthersPage = true
+                        
                         cell.homeChirpyImageDataSetup(postInfo!)
                         
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
@@ -907,6 +915,9 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeShoutsTblCell", for: indexPath) as? HomeShoutsTblCell {
+                    
+                    cell.isLikesOthersPage = true
+                    
                     cell.homeShoutsDataSetup(postInfo!)
                     
                     cell.btnLikesCount.touchUpInside {[weak self] (sender) in
@@ -1014,6 +1025,9 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         }
                     }
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
+                       
+                        cell.isLikesOthersPage = true
+                        
                         cell.homeEventDataSetup(postInfo!)
                         
                         cell.onChangeEventStatus = { [weak self] (action) in
@@ -1127,6 +1141,8 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomePollTblCell", for: indexPath) as? HomePollTblCell {
                     
+                    cell.isLikesOthersPage = true
+                    
                     cell.homePollDataSetup(postInfo!, isSelected: false)
                     
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
@@ -1196,7 +1212,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 break
             }
             if let viewArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
-                viewArticleVC.isMyProfile = false
+                viewArticleVC.isLikesOthersPage = true
                 viewArticleVC.articleID = postId?.toInt
                 viewArticleVC.articleInformation = postInfo ?? [:]
                 self.navigationController?.pushViewController(viewArticleVC, animated: true)
@@ -1217,6 +1233,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 break
             }
             if let imageDetailsVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
+                imageDetailsVC.isLikesOthersPage = true
                 imageDetailsVC.galleryInfo = postInfo ?? [:]
                 imageDetailsVC.imgPostId = postId?.toInt
                 self.navigationController?.pushViewController(imageDetailsVC, animated: true)
@@ -1257,6 +1274,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     break
                 }
                 if let chirpyImageVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController{
+                    chirpyImageVC.isLikesOthersPage = true
                     chirpyImageVC.chirpyInformation = postInfo ?? [:]
                     chirpyImageVC.chirpyID = postId?.toInt
                     self.navigationController?.pushViewController(chirpyImageVC, animated: true)
@@ -1276,6 +1294,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 break
             }
             if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
+                shoutsDetailsVC.isLikesOthersPage = true
                 shoutsDetailsVC.shoutInformations = postInfo ?? [:]
                 shoutsDetailsVC.shoutID = postId?.toInt
                 self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
@@ -1296,6 +1315,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 break
             }
             if let forumDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController{
+                forumDetailsVC.isLikesOthersPage = true
                 forumDetailsVC.forumInformation = postInfo ?? [:]
                 forumDetailsVC.forumID = postId?.toInt
                 self.navigationController?.pushViewController(forumDetailsVC, animated: true)
@@ -1335,6 +1355,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     break
                 }
                 if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
+                    eventDetailsVC.isLikesOthersPage = true
                     eventDetailsVC.eventInfo = postInfo ?? [:]
                     eventDetailsVC.postID =  postId?.toInt
                     self.navigationController?.pushViewController(eventDetailsVC, animated: true)
@@ -1356,6 +1377,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 break
             }
             if let viewArticleVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
+                viewArticleVC.isLikesOthersPage = true
                 viewArticleVC.pollInformation = postInfo ?? [:]
                 viewArticleVC.pollID =  postId?.toInt
                 self.navigationController?.pushViewController(viewArticleVC, animated: true)

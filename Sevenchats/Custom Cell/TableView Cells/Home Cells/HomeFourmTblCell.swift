@@ -106,6 +106,8 @@ extension HomeFourmTblCell{
         let commentCount = postInfo.valueForString(key: "comments").toInt
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount ?? 0), for: .normal)
         btnShare.setTitle(CBtnShare, for: .normal)
+       
+        //friends Like details
         
         if isLikesOthersPage == true {
             if postInfo.valueForString(key:"friend_liked") == "Yes"  || postInfo.valueForString(key:"is_liked") == "Yes" {
@@ -120,7 +122,6 @@ extension HomeFourmTblCell{
                 btnLike.isSelected = false
             }
         }
-        
         if isLikesHomePage == true  || isLikesMyprofilePage == true {
             if postInfo.valueForString(key:CIs_Liked) == "Yes"{
                 btnLike.isSelected = true
@@ -151,30 +152,29 @@ extension HomeFourmTblCell {
             like = 1
             notifcationIsSlected = true
             
-      if isLikesOthersPage  == true {
-            if isLikeSelected == true{
-                self.isFinalLikeSelected = true
-                isLikeSelected = false
-            }else {
-                self.isFinalLikeSelected = false
+            if isLikesOthersPage  == true {
+                if isLikeSelected == true{
+                    self.isFinalLikeSelected = true
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
             }
-        }
-            
         }else {
             likeCount = 2
             like = 0
             
             if isLikesOthersPage == true {
-            if isLikeSelected == false{
-                self.isFinalLikeSelected = false
-                isLikeSelected = false
-            }else {
-                self.isFinalLikeSelected = false
+                if isLikeSelected == false{
+                    self.isFinalLikeSelected = false
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
             }
-           }
-            
-            
         }
+        
+        
         guard let userID = appDelegate.loginUser?.user_id else {
             return
         }

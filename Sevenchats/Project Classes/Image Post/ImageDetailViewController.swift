@@ -105,6 +105,13 @@ class ImageDetailViewController: ParentViewController {
     var profileImg = ""
     var notifcationIsSlected = false
     
+    var isLikesOthers:Bool?
+    var isLikeSelected = false
+    var isFinalLikeSelected = false
+    var isLikesOthersPage:Bool?
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
@@ -248,11 +255,39 @@ extension ImageDetailViewController{
             
             self.vwCountImage.isHidden = (arrGalleryImage.count <= 1)
             let is_Liked = galleryInfo.valueForString(key: CIsLiked)
-            if is_Liked == "Yes"{
-                btnLike.isSelected = true
-            }else {
-                btnLike.isSelected = false
+//            if is_Liked == "Yes"{
+//                btnLike.isSelected = true
+//            }else {
+//                btnLike.isSelected = false
+//            }
+            
+            
+            
+            if isLikesOthersPage == true {
+                if galleryInfo.valueForString(key:"friend_liked") == "Yes"  || galleryInfo.valueForString(key:"is_liked") == "Yes" {
+                    btnLike.isSelected = true
+                    if galleryInfo.valueForString(key:"is_liked") == "No"{
+                        isLikeSelected = false
+                    }
+                }else {
+                    if galleryInfo.valueForString(key:"is_liked") == "No" || galleryInfo.valueForString(key:"friend_liked") == "No" {
+                        isLikeSelected = true
+                    }
+                    btnLike.isSelected = false
+                }
             }
+            
+            
+            if isLikesHomePage == true  || isLikesMyprofilePage == true {
+                if galleryInfo.valueForString(key:CIs_Liked) == "Yes"{
+                    btnLike.isSelected = true
+                }else {
+                    btnLike.isSelected = false
+                }
+            }
+            
+            
+            
             
             likeCount = galleryInfo.valueForString(key: CLikes).toInt ?? 0
             self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
@@ -612,13 +647,41 @@ extension ImageDetailViewController{
         
         self.btnLike.isSelected = !self.btnLike.isSelected
         
+//        if self.btnLike.isSelected == true{
+//            likeCount = 1
+//            like = 1
+//            notifcationIsSlected = true
+//        }else {
+//            likeCount = 2
+//            like = 0
+//        }
+        
+        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
             notifcationIsSlected = true
+            
+            if isLikesOthersPage  == true {
+                if isLikeSelected == true{
+                    self.isFinalLikeSelected = true
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }else {
             likeCount = 2
             like = 0
+            
+            if isLikesOthersPage == true {
+                if isLikeSelected == false{
+                    self.isFinalLikeSelected = false
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }
         guard let userID = appDelegate.loginUser?.user_id else {
             return
@@ -658,7 +721,23 @@ extension ImageDetailViewController{
                         self?.notifcationIsSlected = false
                     }
                     
-                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.imgPostIdNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.imgPostIdNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    
+                    if self?.isLikesOthersPage == true {
+                    if self?.isFinalLikeSelected == true{
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id:self?.imgPostIdNew?.toInt ?? 0, rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                        self?.isLikeSelected = false
+                    }else {
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.imgPostIdNew?.toInt ?? 0, rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+
+                    }
+                   }
+                    if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
+                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.imgPostIdNew?.toInt ?? 0, rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    }
+                    
+                    
+                    
                 }
                 
             }

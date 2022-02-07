@@ -43,10 +43,15 @@ class HomeChirpyImageTblCell: UITableViewCell {
     var likeTotalCount = 0
     var like =  0
     var info = [String:Any]()
-    
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
+    var isLikesOthers:Bool?
+    var isLikeSelected = false
+    var isFinalLikeSelected = false
+    var isLikesOthersPage:Bool?
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
     
     
     override func awakeFromNib() {
@@ -110,11 +115,36 @@ extension HomeChirpyImageTblCell{
         btnShare.setTitle(CBtnShare, for: .normal)
         
         
-        if postInfo.valueForString(key:CIs_Liked) == "Yes"{
-            btnLike.isSelected = true
-        }else {
-            btnLike.isSelected = false
+//        if postInfo.valueForString(key:CIs_Liked) == "Yes"{
+//            btnLike.isSelected = true
+//        }else {
+//            btnLike.isSelected = false
+//        }
+        
+        if isLikesOthersPage == true {
+            if postInfo.valueForString(key:"friend_liked") == "Yes"  || postInfo.valueForString(key:"is_liked") == "Yes" {
+                btnLike.isSelected = true
+                if postInfo.valueForString(key:"is_liked") == "No"{
+                    isLikeSelected = false
+                }
+            }else {
+                if postInfo.valueForString(key:"is_liked") == "No" || postInfo.valueForString(key:"friend_liked") == "No" {
+                    isLikeSelected = true
+                }
+                btnLike.isSelected = false
+            }
         }
+        if isLikesHomePage == true  || isLikesMyprofilePage == true {
+            if postInfo.valueForString(key:CIs_Liked) == "Yes"{
+                btnLike.isSelected = true
+            }else {
+                btnLike.isSelected = false
+            }
+        }
+        
+        
+        
+        
         
         likeCount = postInfo.valueForString(key: CLikes).toInt ?? 0
         btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
@@ -141,15 +171,48 @@ extension HomeChirpyImageTblCell{
     @IBAction func onLikePressed(_ sender:UIButton){
         
         self.btnLike.isSelected = !self.btnLike.isSelected
+//        if self.btnLike.isSelected == true{
+//            likeCount = 1
+//            like = 1
+//            notifcationIsSlected = true
+//        }else {
+//            likeCount = 2
+//            like = 0
+//
+//        }
+        
+        
+        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
             notifcationIsSlected = true
+            
+            if isLikesOthersPage  == true {
+                if isLikeSelected == true{
+                    self.isFinalLikeSelected = true
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }else {
             likeCount = 2
             like = 0
             
+            if isLikesOthersPage == true {
+                if isLikeSelected == false{
+                    self.isFinalLikeSelected = false
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }
+        
+        
+        
+        
         guard let userID = appDelegate.loginUser?.user_id else {
             return
         }
@@ -195,7 +258,21 @@ extension HomeChirpyImageTblCell{
                         }
                         self?.notifcationIsSlected = false
                     }
-                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+                    
+                    if self?.isLikesOthersPage == true {
+                    if self?.isFinalLikeSelected == true{
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+                        self?.isLikeSelected = false
+                    }else {
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+
+                    }
+                   }
+                    if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
+                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+                    }
+                    
                 }
             }
             

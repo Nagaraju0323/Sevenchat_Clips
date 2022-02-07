@@ -13,7 +13,6 @@
  *                                                       *
  ********************************************************/
 
-
 import UIKit
 
 class EventInviteesViewController: ParentViewController {
@@ -45,7 +44,6 @@ class EventInviteesViewController: ParentViewController {
             self.tblInvitees.pullToRefreshControl = self.refreshControl
             self.pageNumber = 1
             self.callAPI(true)
-
             self.tblInvitees.reloadData()
         }
     }

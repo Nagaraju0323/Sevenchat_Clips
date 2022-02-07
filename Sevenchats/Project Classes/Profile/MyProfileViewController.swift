@@ -950,8 +950,8 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeArticleCell", for: indexPath) as? HomeArticleCell {
+                cell.isLikesMyprofilePage = true
                 cell.homeArticleDataSetup(postInfo)
-                
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                 }
@@ -1007,6 +1007,9 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeGalleryCell", for: indexPath) as? HomeGalleryCell {
+                
+                cell.isLikesMyprofilePage = true
+                
                 cell.homeGalleryDataSetup(postInfo)
                 
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
@@ -1067,6 +1070,8 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
+                    
+                    cell.isLikesMyprofilePage = true
                     cell.homeChirpyImageDataSetup(postInfo)
                     
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
@@ -1184,6 +1189,9 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeShoutsTblCell", for: indexPath) as? HomeShoutsTblCell {
+                
+                cell.isLikesMyprofilePage = true
+                
                 cell.homeShoutsDataSetup(postInfo)
                 
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
@@ -1245,8 +1253,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeFourmTblCell", for: indexPath) as? HomeFourmTblCell {
                 cell.isLikesMyprofilePage = true
                 cell.homeFourmDataSetup(postInfo)
-//                cell.isLikesMyprofilePage = true
-                
+
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
                     //                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                     self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
@@ -1310,6 +1317,9 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
+                    
+                    cell.isLikesMyprofilePage = true
+                    
                     cell.homeEventDataSetup(postInfo)
                     
                     cell.onChangeEventStatus = { [weak self] (action) in
@@ -1452,6 +1462,8 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
             }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomePollTblCell", for: indexPath) as? HomePollTblCell {
                 
+                cell.isLikesMyprofilePage = true
+                
                 cell.homePollDataSetup(postInfo, isSelected: true)
                 
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
@@ -1536,6 +1548,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let viewArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
+                viewArticleVC.isLikesMyprofilePage = true
                 viewArticleVC.articleInformation = postInfo
                 viewArticleVC.articleID = postId.toInt
                 self.navigationController?.pushViewController(viewArticleVC, animated: true)
@@ -1556,6 +1569,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let imageDetailsVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
+                imageDetailsVC.isLikesMyprofilePage = true
                 //                imageDetailsVC.galleryInfoNew = postInfo
                 //                imageDetailsVC.imgPostId = postId.toInt
                 imageDetailsVC.galleryInfo = postInfo
@@ -1581,6 +1595,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     break
                 }
                 if let chirpyDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController{
+                    chirpyDetailsVC.isLikesMyprofilePage = true
                     chirpyDetailsVC.chirpyInformation = postInfo
                     chirpyDetailsVC.chirpyID = postId.toInt
                     
@@ -1621,6 +1636,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
+                shoutsDetailsVC.isLikesMyprofilePage = true
                 shoutsDetailsVC.shoutInformations = postInfo
                 shoutsDetailsVC.shoutID = postId.toInt
                 
@@ -1642,6 +1658,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let forumDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController{
+                forumDetailsVC.isLikesMyprofilePage = true
                 forumDetailsVC.forumInformation = postInfo
                 forumDetailsVC.forumID = postId.toInt
                 self.navigationController?.pushViewController(forumDetailsVC, animated: true)
@@ -1663,6 +1680,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     break
                 }
                 if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
+                    eventDetailsVC.isLikesMyprofilePage = true
                     eventDetailsVC.eventInfo = postInfo
                     eventDetailsVC.postID = postId.toInt
                     self.navigationController?.pushViewController(eventDetailsVC, animated: true)
@@ -1702,6 +1720,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 break
             }
             if let viewArticleVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
+                viewArticleVC.isLikesMyprofilePage = true
                 viewArticleVC.pollInformation = postInfo
                 viewArticleVC.isSelected = true
                 viewArticleVC.pollID = postId.toInt

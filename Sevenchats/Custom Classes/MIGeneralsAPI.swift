@@ -316,6 +316,7 @@ extension MIGeneralsAPI {
     func likeUnlikePostWebsites(post_id : Int?, rss_id : Int?, type : Int?, likeStatus : Int,info:[String:Any], viewController : UIViewController?){
         
         MIGeneralsAPI.shared().refreshPostRelatedScreens(info, post_id, viewController!, .likePost,rss_id:rss_id)
+        
     }
     
     
@@ -528,17 +529,12 @@ extension MIGeneralsAPI {
                             }
                             break
                         case .likePost?:
-                            if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
-                                var postLikeInfo = homeVC.arrPostList[index]
-                                //                                    postLikeInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+                            if let index = homeVC.arrPostListNew.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
+                                var postLikeInfo = homeVC.arrPostListNew[index]
                                 postLikeInfo[CLikes] = postInfo?.valueForString(key: "likes")
-                                //                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
                                 postLikeInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
-//                                postLikeInfo[CIsFriend_Liked] = postInfo?.valueForString(key: "friend_liked")
-                                
-                                //                                    postLikeInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-                                homeVC.arrPostList.remove(at: index)
-                                homeVC.arrPostList.insert(postLikeInfo, at: index)
+                                homeVC.arrPostListNew.remove(at: index)
+                                homeVC.arrPostListNew.insert(postLikeInfo, at: index)
                                 UIView.performWithoutAnimation {
                                     let indexPath = IndexPath(item: index, section: 1)
                                     if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
@@ -819,14 +815,32 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? ArticleDetailViewController{
                         switch postAction {
                         case .likePost?:
-                            //                            detailPost.articleInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                            //                            detailPost.articleInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-                            //                            detailPost.setArticleDetails(detailPost.articleInformation)
+
+//                            detailPost.articleInformation[CLikes] = postInfo?.valueForString(key: "likes")
+//                            detailPost.articleInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.setArticleDetails(detailPost.articleInformation)
+//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            
+                            
+                            if rss_id == 1{
+                              detailPost.articleInformation["friend_liked"] = "Yes"
+                              detailPost.articleInformation[CIsLiked] = "No"
+                            }else if rss_id == 2 {
+                                detailPost.articleInformation[CIsLiked] = "No"
+                                detailPost.articleInformation["friend_liked"]  = "No"
+                            }
+                            if rss_id == 3 {
+                                detailPost.articleInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            }
                             
                             detailPost.articleInformation[CLikes] = postInfo?.valueForString(key: "likes")
-                            detailPost.articleInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setArticleDetails(detailPost.articleInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+                            
+                            
+                            
                             
                             break
                         default: break
@@ -838,16 +852,27 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? ImageDetailViewController{
                         switch postAction {
                         case .likePost?:
-                            //                            detailPost.galleryInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                            //                            detailPost.galleryInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-                            //                            detailPost.setGalleryDetailData(detailPost.galleryInfo)
+//                            detailPost.galleryInfo[CLikes] = postInfo?.valueForString(key: "likes")
+//                            detailPost.galleryInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.setGalleryDetailData(detailPost.galleryInfo)
+//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            
+                            if rss_id == 1{
+                              detailPost.galleryInfo["friend_liked"] = "Yes"
+                              detailPost.galleryInfo[CIsLiked] = "No"
+                            }else if rss_id == 2 {
+                                detailPost.galleryInfo[CIsLiked] = "No"
+                                detailPost.galleryInfo["friend_liked"]  = "No"
+                            }
+                            if rss_id == 3 {
+                                detailPost.galleryInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            }
                             
                             detailPost.galleryInfo[CLikes] = postInfo?.valueForString(key: "likes")
-                            detailPost.galleryInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setGalleryDetailData(detailPost.galleryInfo)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-                            
-                            
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
                             break
                         default: break
                         }
@@ -871,14 +896,31 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? ChirpyImageDetailsViewController{
                         switch postAction {
                         case .likePost?:
-                            //                            detailPost.chirpyInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                            //                            detailPost.chirpyInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-                            //                            detailPost.setChirpyDetailData(detailPost.chirpyInformation)
+//                            detailPost.chirpyInformation[CLikes] = postInfo?.valueForString(key: "likes")
+//                            detailPost.chirpyInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.setChirpyDetailData(detailPost.chirpyInformation)
+//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            
+                            
+                            
+                            if rss_id == 1{
+                              detailPost.chirpyInformation["friend_liked"] = "Yes"
+                              detailPost.chirpyInformation[CIsLiked] = "No"
+                            }else if rss_id == 2 {
+                                detailPost.chirpyInformation[CIsLiked] = "No"
+                                detailPost.chirpyInformation["friend_liked"]  = "No"
+                            }
+                            if rss_id == 3 {
+                                detailPost.chirpyInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            }
+                            
                             detailPost.chirpyInformation[CLikes] = postInfo?.valueForString(key: "likes")
-                            //                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
-                            detailPost.chirpyInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setChirpyDetailData(detailPost.chirpyInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+                            
+                            
                             
                             break
                         default: break
@@ -890,13 +932,29 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? ShoutsDetailViewController{
                         switch postAction {
                         case .likePost?:
-                            //                            detailPost.shoutInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                            //                            detailPost.shoutInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            
+//                            detailPost.shoutInformation[CLikes] = postInfo?.valueForString(key: "likes")
+//                            detailPost.shoutInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.setShoutsDetailData(detailPost.shoutInformation)
+//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            
+                            if rss_id == 1{
+                              detailPost.shoutInformation["friend_liked"] = "Yes"
+                              detailPost.shoutInformation[CIsLiked] = "No"
+                            }else if rss_id == 2 {
+                                detailPost.shoutInformation[CIsLiked] = "No"
+                                detailPost.shoutInformation["friend_liked"]  = "No"
+                            }
+                            if rss_id == 3 {
+                                detailPost.shoutInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            }
+                            
                             detailPost.shoutInformation[CLikes] = postInfo?.valueForString(key: "likes")
-                            //                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
-                            detailPost.shoutInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setShoutsDetailData(detailPost.shoutInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+                            
                             break
                         default: break
                         }
@@ -907,15 +965,24 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? ForumDetailViewController{
                         switch postAction {
                         case .likePost?:
-                            //                            detailPost.forumInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                            //                            detailPost.forumInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-                            //                            detailPost.setForumDetailData(detailPost.forumInformation)
+
+                            if rss_id == 1{
+                              detailPost.forumInformation["friend_liked"] = "Yes"
+                              detailPost.forumInformation[CIsLiked] = "No"
+                            }else if rss_id == 2 {
+                                detailPost.forumInformation[CIsLiked] = "No"
+                                detailPost.forumInformation["friend_liked"]  = "No"
+                            }
+                            if rss_id == 3 {
+                                detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            }
                             
                             detailPost.forumInformation[CLikes] = postInfo?.valueForString(key: "likes")
-                            //                                    postLikeInfo[CLikes] = postInfo?.valueForString(key: CLikes)
-                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setForumDetailData(detailPost.forumInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+                            
                             break
                         default: break
                         }
@@ -926,10 +993,6 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? EventDetailViewController{
                         switch postAction {
                         case .likePost?:
-                            //                            detailPost.eventInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                            //                            detailPost.eventInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-                            //                            detailPost.setEventDetail(dict: detailPost.eventInfo)
-                            
                             detailPost.eventInfo[CLikes] = postInfo?.valueForString(key: "likes")
                             detailPost.eventInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setEventDetail(dict: detailPost.eventInfo)
@@ -945,13 +1008,30 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? EventDetailImageViewController{
                         switch postAction {
                         case .likePost?:
-                            //                            detailPost.eventInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                            //                            detailPost.eventInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-                            //                            detailPost.setEventDetail(dict: detailPost.eventInfo)
+//                            detailPost.eventInfo[CLikes] = postInfo?.valueForString(key: "likes")
+//                            detailPost.eventInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.setEventDetail(dict: detailPost.eventInfo)
+//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            
+                            if rss_id == 1{
+                              detailPost.eventInfo["friend_liked"] = "Yes"
+                              detailPost.eventInfo[CIsLiked] = "No"
+                            }else if rss_id == 2 {
+                                detailPost.eventInfo[CIsLiked] = "No"
+                                detailPost.eventInfo["friend_liked"]  = "No"
+                            }
+                            if rss_id == 3 {
+                                detailPost.eventInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            }
+                            
                             detailPost.eventInfo[CLikes] = postInfo?.valueForString(key: "likes")
-                            detailPost.eventInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setEventDetail(dict: detailPost.eventInfo)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+                            
+                            
+                            
                             break
                         default: break
                         }
@@ -962,10 +1042,31 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? PollDetailsViewController{
                         switch postAction {
                         case .likePost?:
+//                            detailPost.pollInformation[CLikes] = postInfo?.valueForString(key: "likes")
+//                            detailPost.pollInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.setPollDetails(detailPost.pollInformation)
+//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            
+                            
+                            
+                            if rss_id == 1{
+                              detailPost.pollInformation["friend_liked"] = "Yes"
+                              detailPost.pollInformation[CIsLiked] = "No"
+                            }else if rss_id == 2 {
+                                detailPost.pollInformation[CIsLiked] = "No"
+                                detailPost.pollInformation["friend_liked"]  = "No"
+                            }
+                            if rss_id == 3 {
+                                detailPost.pollInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            }
+                            
                             detailPost.pollInformation[CLikes] = postInfo?.valueForString(key: "likes")
-                            detailPost.pollInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setPollDetails(detailPost.pollInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+                            
+                            
                             
                             break
                         case .polladded?:
@@ -1146,6 +1247,38 @@ extension MIGeneralsAPI {
                             imageVC.galleryInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
                         }
                     }
+                    
+                    if viewController.isKind(of: ForumDetailViewController.classForCoder()){
+                        if let detailPost = viewController as? ForumDetailViewController{
+                            
+                            print("this is calling")
+//                            switch postAction {
+//                            case .likePost?:
+//
+//                                if rss_id == 1{
+//                                  detailPost.forumInformation["friend_liked"] = "Yes"
+//                                  detailPost.forumInformation[CIsLiked] = "No"
+//                                }else if rss_id == 2 {
+//                                    detailPost.forumInformation[CIsLiked] = "No"
+//                                    detailPost.forumInformation["friend_liked"]  = "No"
+//                                }
+//                                if rss_id == 3 {
+//                                    detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                                }
+//
+//                                detailPost.forumInformation[CLikes] = postInfo?.valueForString(key: "likes")
+//    //                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                                detailPost.setForumDetailData(detailPost.forumInformation)
+//                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+//                                break
+//                            default: break
+//                            }
+                        }
+                    }
+                    
+                    
+                    
+                    
                 }
                 
                 // UPDATE POST DETAILS SCREEN FOR COMMENT..
@@ -1255,21 +1388,6 @@ extension MIGeneralsAPI {
                             }
                             break
                         case .likePost?:
-                            
-                            //                            if let index = myProfileVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
-                            //                                var postLikeInfo = myProfileVC.arrPostList[index]
-                            //                                postLikeInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                            //                                postLikeInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
-                            //                                myProfileVC.arrPostList.remove(at: index)
-                            //                                myProfileVC.arrPostList.insert(postLikeInfo, at: index)
-                            //                                UIView.performWithoutAnimation {
-                            //                                    let indexPath = IndexPath(item: index, section: 1)
-                            //                                    if (myProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
-                            //                                        myProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
-                            //                                    }
-                            //                                }
-                            //                            }
-                            
                             if let index = myProfileVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = myProfileVC.arrPostList[index]
                                 postLikeInfo[CLikes] = postInfo?.valueForString(key: "likes")
@@ -1311,16 +1429,6 @@ extension MIGeneralsAPI {
                                     postLikeInfo[CIsInterested] = "2"
                                     postLikeInfo["selected_choice"] = "2"
                                 }
-                                
-                                
-                                //                            if let index = myProfileVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postId}) {
-                                //                                var postLikeInfo = myProfileVC.arrPostList[index]
-                                //
-                                //                                postLikeInfo[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
-                                //                                postLikeInfo[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
-                                //                                postLikeInfo[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
-                                //                                postLikeInfo[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
-                                
                                 myProfileVC.arrPostList.remove(at: index)
                                 myProfileVC.arrPostList.insert(postLikeInfo, at: index)
                                 UIView.performWithoutAnimation {
@@ -1436,11 +1544,9 @@ extension MIGeneralsAPI {
                             break
                         case .likePost?:
                             if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?["post_id"] as? String == postId?.toString}) {
-                                //                            if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?.valueForInt(key: CId) == postId}) {
                                 var postLikeInfo = otherProfileVC.arrPostList[index]
                                 postLikeInfo?[CLikes] = postInfo?.valueForString(key: "likes")
 //                                postLikeInfo?[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
-
                                 if rss_id == 1{
                                     postLikeInfo?["friend_liked"] = "Yes"
                                     postLikeInfo?[CIsLiked] = "No"
@@ -1448,7 +1554,6 @@ extension MIGeneralsAPI {
                                     postLikeInfo?[CIsLiked] = "No"
                                     postLikeInfo?["friend_liked"] = "No"
                                 }
-                                
                                 if rss_id == 3 {
                                     postLikeInfo?[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                                 }
@@ -1464,14 +1569,6 @@ extension MIGeneralsAPI {
                             }
                             break
                         case .interestPost?:
-                            //                            if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?.valueForInt(key: CId) == postId}) {
-                            //                                var postLikeInfo = otherProfileVC.arrPostList[index]
-                            //
-                            //                                postLikeInfo?[CIsInterested] = postInfo?.valueForInt(key: CIsInterested)
-                            //                                postLikeInfo?[CTotalInterestedUsers] = postInfo?.valueForInt(key: CTotalInterestedUsers)
-                            //                                postLikeInfo?[CTotalNotInterestedUsers] = postInfo?.valueForInt(key: CTotalNotInterestedUsers)
-                            //                                postLikeInfo?[CTotalMaybeInterestedUsers] = postInfo?.valueForInt(key: CTotalMaybeInterestedUsers)
-                            
                             if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?["post_id"] as? String == postId?.toString}) {
                                 var postLikeInfo = otherProfileVC.arrPostList[index]
                                 let choice =  postInfo?.valueForString(key: "choice")
