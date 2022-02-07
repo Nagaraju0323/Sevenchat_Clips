@@ -486,7 +486,9 @@ extension EditProfileViewController {
                             let profileVC = vwController as? MyProfileViewController
                             profileVC?.tblUser.reloadData()
                             self.navigationController?.popViewController(animated: true)
+                            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage:"Detials updated successfully", btnOneTitle: CBtnOk, btnOneTapped: nil)
                             break
+                           
                         }
                     }
                 }

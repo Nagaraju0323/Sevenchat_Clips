@@ -349,7 +349,7 @@ var CMessageArticleImage: String{ return appDelegate.langugaeText?.article_image
 var CMessageArticleCategory: String{ return appDelegate.langugaeText?.article_category_cant_blank ?? "Please select Article category" }
 var CMessageArticleContent: String{ return appDelegate.langugaeText?.targeted_content_cant_blank ?? "Please enter Article content" }
 var CMessageSelectContactGroupArticle: String{ return appDelegate.langugaeText?.article_targeted_audience_cant_blank ?? "Please select to whom you want to post this Article" }
-var CMessageArticlePostUpload : String{ return appDelegate.langugaeText?.article_created_successfully ?? "Your Article has been posted" }
+var CMessageArticlePostUpload : String{ return appDelegate.langugaeText?.article_created_successfully ?? "Article added Successfully" }
 var CMessageArticlePostUpdated : String{ return appDelegate.langugaeText?.article_edited_successfully ?? "Article has been updated" }
 
 //MARK:- Forum Screen
@@ -375,7 +375,7 @@ var CChirpyPlaceholderContent: String{ return appDelegate.langugaeText?.enter_ch
 var CMessageChirpyContent: String{ return appDelegate.langugaeText?.chirpy_message_cant_blank ?? "Please enter Chirpy message" }
 var CMessageChirpyCategory: String{ return appDelegate.langugaeText?.chirpy_category_cant_blank ?? "Please select Chirpy category" }
 var CMessageSelectContactGroupChirpy: String{ return appDelegate.langugaeText?.post_targeted_audience_cant_blank ?? "Please select to whom you want to post this Chirpy" }
-var CMessageChirpyPostUpload : String{ return appDelegate.langugaeText?.chirpy_created_successfully ?? "Your Chirpy has been posted" }
+var CMessageChirpyPostUpload : String{ return appDelegate.langugaeText?.chirpy_created_successfully ?? "Chirpy added Successfully" }
 var CMessageChirpyPostUpdated : String{ return appDelegate.langugaeText?.chirpy_edited_successfully ?? "Chirpy has been updated" }
 
 //MARK:- Event Screen
@@ -401,7 +401,7 @@ var CMessageEventLocation: String{ return appDelegate.langugaeText?.event_locati
 var CAlertEventEndMax: String{ return appDelegate.langugaeText?.event_end_date_must_be_greater ?? "Event end date and time must greater than start date and time" }
 var CMessageSelectContactGroupEvent: String{ return appDelegate.langugaeText?.event_targeted_audience_cant_blank ?? "Please select to whom you want to post this Event" }
 var CMessageInviteeAcceptedEvent: String{ return appDelegate.langugaeText?.invites_accepted_event ?? "Invitees accepted event" }
-var CMessageEventPostUpload : String{ return appDelegate.langugaeText?.event_created_successfully ?? "Your Event has been posted" }
+var CMessageEventPostUpload : String{ return appDelegate.langugaeText?.event_created_successfully ?? "Event added Successfully" }
 var CMessageEventPostUpdated : String{ return appDelegate.langugaeText?.event_edited_successfully ?? "Event has been updated" }
 var CMessageAboutEvent : String{ return appDelegate.langugaeText?.about_event ?? "About Event" }
 var CMessageNoEvent : String{ return appDelegate.langugaeText?.no_events_yet ?? "No events yet" }
@@ -419,7 +419,7 @@ var CShoutPlaceholderContent: String{ return appDelegate.langugaeText?.enter_sho
 
 var CShoutPlaceholderContents: String{ return appDelegate.langugaeText?.enter_shout_content ?? "Share Some What you are Thinking" }
 
-var CMessageShoutPostUpload : String{ return appDelegate.langugaeText?.shout_created_successfully ?? "Your Shout has been posted" }
+var CMessageShoutPostUpload : String{ return appDelegate.langugaeText?.shout_created_successfully ?? "Shout added Successfully" }
 var CMessageShoutPostUpdated : String{ return appDelegate.langugaeText?.shout_edited_successfully ?? "Shout has been updated" }
 
 //MARK:- Image Screen
@@ -431,7 +431,7 @@ var CMessageSelectContactGroupImage : String{ return appDelegate.langugaeText?.p
 var CMessageImagePostUpdated : String{ return appDelegate.langugaeText?.gallery_edited_successfully ?? "Gallery has been updated" }
 
 //MARK:- Group Chat Related messages
-var CgroupCreated: String{ return CLocalize(text: appDelegate.langugaeText?.group_is_added_successfully ?? "group is added successfully")}
+var CgroupCreated: String{ return CLocalize(text: appDelegate.langugaeText?.group_is_added_successfully ?? "Group Successfully added")}
 var CgroupRemoved: String{ return CLocalize(text: appDelegate.langugaeText?.group_deleted_successfully ?? "group deleted successfully")}
 
 var CNavMemberRequest: String{ return appDelegate.langugaeText?.member_request ?? "Member request" }
@@ -667,13 +667,13 @@ var COf : String{ return CLocalize(text: appDelegate.langugaeText?.of ?? "of") }
 var CBtnContinue : String{ return CLocalize(text: appDelegate.langugaeText?.continue_text ?? "Continue") }
 var CInviteOthers : String{ return CLocalize(text: appDelegate.langugaeText?.invite_others ?? "Invite Others") }
 var CSearchFriends : String{ return CLocalize(text: appDelegate.langugaeText?.search_friends ?? "Search friends") }
-var CMessagePollPostUpload : String{ return CLocalize(text: appDelegate.langugaeText?.polls_created_successfully ?? "Your Poll has been posted.") }
+var CMessagePollPostUpload : String{ return CLocalize(text: appDelegate.langugaeText?.polls_created_successfully ?? "Poll added Successfully") }
 var CEnterFolderName : String{ return CLocalize(text: appDelegate.langugaeText?.enter_folder_name ?? "Enter Folder Name") }
 var CAddFiles : String{ return CLocalize(text: appDelegate.langugaeText?.add_files ?? "Add Files") }
 var CMessageDeleteFolder: String{ return CLocalize(text: appDelegate.langugaeText?.confirmation_to_delete_folder ?? "Are you sure you want to delete this folder?") }
 var CNoFileYet: String{ return CLocalize(text: appDelegate.langugaeText?.no_files_yet ?? "No files yet") }
 var CSelectCategoryOfGallery: String{ return CLocalize(text: appDelegate.langugaeText?.select_category_of_gallery ?? "Select category of Gallery") }
-var CGalleryHasBeenPosted: String{ return CLocalize(text: appDelegate.langugaeText?.gallery_created_successfully ?? "Your Gallery has been posted") }
+var CGalleryHasBeenPosted: String{ return CLocalize(text: appDelegate.langugaeText?.gallery_created_successfully ?? "Gallery added Successfully") }
 var CRestrictedFile: String{ return CLocalize(text: appDelegate.langugaeText?.restricted_file ?? "Restricted File") }
 
 var CNoQuotesYet: String{ return CLocalize(text: appDelegate.langugaeText?.no_quotes_yet ?? "No quotes yet") }
@@ -1008,7 +1008,7 @@ var CContentIsNotAvailableDescription: String{
     return CLocalize(text: appDelegate.langugaeText?.this_content_is_not_available_text ?? "When this happens, it's usually because the owner only shared it with a small group of people, changed who can see it or it's been deleted.")
 }
 var CProductHasBeenCreated: String{
-    return CLocalize(text: appDelegate.langugaeText?.product_created_success ?? "Your product has been posted")
+    return CLocalize(text: appDelegate.langugaeText?.product_created_success ?? "Product added successfully")
 }
 var CProductHasBeenUpdate: String{
     return CLocalize(text: appDelegate.langugaeText?.product_updated_success ?? "Product has been updated")

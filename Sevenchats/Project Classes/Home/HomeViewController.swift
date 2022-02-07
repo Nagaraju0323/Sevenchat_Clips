@@ -2255,7 +2255,7 @@ extension HomeViewController{
 
 extension HomeViewController{
     func showAlertMessate(){
-        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageShoutContent, btnOneTitle: CBtnOk, btnOneTapped: nil)
+        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Detials updated successfully", btnOneTitle: CBtnOk, btnOneTapped: nil)
     }
     func showAlertMessageGroup(){
         self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupShout, btnOneTitle: CBtnOk, btnOneTapped: nil)
