@@ -2060,7 +2060,7 @@ extension APIRequest {
         
         let dict : [String:Any]  =  [
             "user_id":user_id?.description as Any,
-            "page" : 1,
+            "page" : page,
             "limit" : CLimitTT
             
         ]
@@ -2095,7 +2095,7 @@ extension APIRequest {
         let dict : [String:Any]  =  [
             "friend_id":appDelegate.loginUser?.user_id.description ?? "",
             "user_id":user_id?.description as Any,
-            "page" : 1,
+            "page" : page,
             "limit" : CLimitTT
            
         ]
