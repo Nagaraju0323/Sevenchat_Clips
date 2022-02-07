@@ -1243,8 +1243,9 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeFourmTblCell", for: indexPath) as? HomeFourmTblCell {
+                cell.isLikesMyprofilePage = true
                 cell.homeFourmDataSetup(postInfo)
-                cell.isLikesMyprofilePage = true 
+//                cell.isLikesMyprofilePage = true
                 
                 cell.btnLikesCount.touchUpInside { [weak self](sender) in
                     //                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
