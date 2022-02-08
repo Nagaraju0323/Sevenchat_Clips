@@ -1459,6 +1459,50 @@ extension APIRequest {
         })
     }
     
+    
+    
+    
+    func userDetailsMobileFotInvite(mobileNumber:String, completion : @escaping ClosureCompletion) {
+        
+//        print("mobilenumber\(mobileNumber)")
+        
+        let para:[String:Any] = [
+            CMobile : mobileNumber,
+        ]
+        
+        _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersMobileDetails, param: para  as [String : AnyObject], successBlock: { (task, response) in
+            
+            MILoader.shared.hideLoader()
+            guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {
+                completion(nil, nil)
+                return
+            }
+            guard let _response = response as? [String : AnyObject] else {
+                completion(nil, nil)
+                return
+            }
+
+            guard let responseData = _response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] else {
+                completion(_response as AnyObject, nil)
+                return
+            }
+            
+            completion(response, nil)
+            
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagUser, error: error)
+            }
+        })
+    }
+    
+    
+    
     func userDetailNew(userID : String, apiKeyCall: String, completion : @escaping ClosureCompletion) {
         
         var apiTag = ""

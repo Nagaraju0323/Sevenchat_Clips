@@ -1387,6 +1387,24 @@ extension InviteAndConnectViewController{
                     //self.activityIndicatorView.isHidden = false
                     //self.activityIndicatorView.startAnimating()
                     
+                    let fullNameArr = phoneNumber.components(separatedBy: ",")
+                    
+                    let strArr = fullNameArr.map { String($0)}
+                    strArr.forEach { mobileNumber in
+                        APIRequest.shared().userDetailsMobileFotInvite(mobileNumber: mobileNumber) { (response, error) in
+                            if response != nil && error == nil {
+                                DispatchQueue.main.async {
+                                    
+                                    print("response\(response)")
+                                    
+                                }
+                            }
+                        }
+                        
+                        
+                    }
+                    
+                  
                     
                     
 //                    self.apiTask = APIRequest.shared().syncUserForInviteConnect(common_id: phoneNumber, type: "3", completion: { (response, error) in
