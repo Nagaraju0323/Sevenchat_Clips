@@ -463,7 +463,8 @@ extension LoginViewController{
     
     func LoginWithToken(userEmailId:String){
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        let data : Data = "username=\(txtEmail.text!)&password=\(txtPWD.text!)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
+        let txtEmailid = txtEmail.text?.lowercased()
+        let data : Data = "username=\(txtEmailid?.description ?? "")&password=\(txtPWD.text!)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
         let url = URL(string: "\(BASEAUTH)auth/login")
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "POST"
@@ -478,8 +479,8 @@ extension LoginViewController{
             if let error = error{
                 print("somethis\(error)")
             }
-            else if let response = response {
-            }else if let data = data{
+            else if response != nil {
+            }else if data != nil{
             }
             DispatchQueue.main.async { [self] in
                 guard let responseData = data else {
