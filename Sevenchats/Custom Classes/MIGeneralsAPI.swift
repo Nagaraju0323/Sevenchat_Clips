@@ -1772,6 +1772,216 @@ extension MIGeneralsAPI {
     
     /////////
     
+//    func refreshPollPostRelatedScreens(_ postInfo : [String : Any]?,_ postId : Int?, _ pollAnsewrID:Int?, optionData:[String:Any]?, _ view : UIViewController?,isSelected:Bool) {
+//        guard let viewVC = view else {
+//            return
+//        }
+//        guard let arrViewControllers = viewVC.navigationController?.viewControllers else{
+//            return
+//        }
+//
+//        for viewController in arrViewControllers{
+//
+//            if viewController.isKind(of: HomeViewController.classForCoder()){
+//
+//                guard let homeVC = viewController as? HomeViewController else{
+//                    continue
+//                }
+//                if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
+//                    var postPollInfo = homeVC.arrPostList[index]
+////                    postPollInfo[CPollData] = optionData
+////                    postPollInfo[CUserVotedPoll] = pollAnsewrID
+////                    postPollInfo[CIsUserVoted] = 1
+////                    postPollInfo["is_selected"] = "Yes"
+//                    let resultKey = optionData?["results"] as? [String:String]
+//                    print(":::::::resultValues\(resultKey)")
+//                    let resultkeys = resultKey.map { $0.keys.first }
+//                    print(":::::::resultafter\(resultkeys! as String?)")
+//                    postPollInfo["is_selected"] = resultkeys! as String?
+//
+//                    homeVC.arrPostList.remove(at: index)
+//                    homeVC.arrPostList.insert(postPollInfo, at: index)
+//                    UIView.performWithoutAnimation {
+//                        DispatchQueue.main.async {
+//                            let indexPath = IndexPath(item: index, section: 1)
+//                            if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
+//                                homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
+//                            }
+//                        }
+//                    }
+////                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
+//                }
+//
+////                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
+////                      let arrPosts = homeVC.arrPostList
+////                for (index,obj) in arrPosts.enumerated(){
+////                    if obj["post_id"] as? String == postId?.toString{
+////                        var postPollInfo = obj
+//////                        let resultKey = optionData?["results"] as? [String:String]
+//////                        postPollInfo["is_selected"] = resultKey?.keys
+////
+//////                        print("this is calling first tile")
+//////                        postPollInfo[CPollData] = optionData
+//////                        postPollInfo[CUserVotedPoll] = pollAnsewrID
+//////                      postPollInfo["is_selected"] = "Yes"
+//////                        postPollInfo[CIsUserVoted] = 1
+////
+////                        if isSelected == true {
+////                            print("this is calling")
+////
+////                            let resultKey = optionData?["results"] as? [String:String]
+////                            postPollInfo["is_selected"] = resultKey?.keys
+//////                            homeVC.arrPostList.remove(at: index)
+//////                            homeVC.arrPostList.insert(postPollInfo, at: index)
+////                        }
+////
+////                        homeVC.arrPostList.remove(at: index)
+////                        homeVC.arrPostList.insert(postPollInfo, at: index)
+////                        UIView.performWithoutAnimation {
+////                            DispatchQueue.main.async {
+////                                let indexPath = IndexPath(item: index, section: 1)
+////                                if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
+////                                    homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
+////                                }
+////                            }
+////                        }
+////                    }
+////                }
+//////                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+////
+////                if isSelected == true {
+////                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+////                }
+//
+//
+//            }
+//
+//            if viewController.isKind(of: MyProfileViewController.classForCoder()){
+//
+//                guard let myProfile = viewController as? MyProfileViewController else{
+//                    continue
+//                }
+//                if let index = myProfile.arrPostList.firstIndex(where: { $0[CId] as? Int == postId}) {
+//                    var postPollInfo = myProfile.arrPostList[index]
+//                    postPollInfo[CPollData] = optionData
+//                    postPollInfo[CUserVotedPoll] = pollAnsewrID
+//                    postPollInfo[CIsUserVoted] = 1
+//                    myProfile.arrPostList.remove(at: index)
+//                    myProfile.arrPostList.insert(postPollInfo, at: index)
+//                    UIView.performWithoutAnimation {
+//                        DispatchQueue.main.async {
+//                            let indexPath = IndexPath(item: index, section: 1)
+//                            if (myProfile.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
+//                                myProfile.tblUser.reloadRows(at: [indexPath], with: .none)
+//                            }
+//                        }
+//                    }
+//                }
+//                let arrPosts = myProfile.arrPostList
+//                for (index,obj) in arrPosts.enumerated(){
+//                    if obj[COriginalPostId] as? Int == postId{
+//                        var postPollInfo = obj
+//                        postPollInfo[CPollData] = optionData
+//                        postPollInfo[CUserVotedPoll] = pollAnsewrID
+//                        postPollInfo[CIsUserVoted] = 1
+//                        myProfile.arrPostList.remove(at: index)
+//                        myProfile.arrPostList.insert(postPollInfo, at: index)
+//                        UIView.performWithoutAnimation {
+//                            DispatchQueue.main.async {
+//                                let indexPath = IndexPath(item: index, section: 1)
+//                                if (myProfile.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
+//                                    myProfile.tblUser.reloadRows(at: [indexPath], with: .none)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//            if viewController.isKind(of: HomeSearchViewController.classForCoder()){
+//                guard let homeSearchVC = viewController as? HomeSearchViewController else{
+//                    continue
+//                }
+//                if let index = homeSearchVC.arrHomeSearch.firstIndex(where: { $0[CId] as? Int == postId}) {
+//                    var postPollInfo = homeSearchVC.arrHomeSearch[index]
+//                    postPollInfo[CPollData] = optionData
+//                    postPollInfo[CUserVotedPoll] = pollAnsewrID
+//                    postPollInfo[CIsUserVoted] = 1
+//                    homeSearchVC.arrHomeSearch.remove(at: index)
+//                    homeSearchVC.arrHomeSearch.insert(postPollInfo, at: index)
+//                    UIView.performWithoutAnimation {
+//                        DispatchQueue.main.async {
+//                            let indexPath = IndexPath(item: index, section: 0)
+//                            if (homeSearchVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
+//                                homeSearchVC.tblEvents.reloadRows(at: [indexPath], with: .none)
+//                            }
+//                        }
+//                    }
+//                }
+//                let arrPosts = homeSearchVC.arrHomeSearch
+//                for (index,obj) in arrPosts.enumerated(){
+//                    if obj[COriginalPostId] as? Int == postId{
+//                        var postPollInfo = obj
+//                        postPollInfo[CPollData] = optionData
+//                        postPollInfo[CUserVotedPoll] = pollAnsewrID
+//                        postPollInfo[CIsUserVoted] = 1
+//                        homeSearchVC.arrHomeSearch.remove(at: index)
+//                        homeSearchVC.arrHomeSearch.insert(postPollInfo, at: index)
+//                        UIView.performWithoutAnimation {
+//                            DispatchQueue.main.async {
+//                                let indexPath = IndexPath(item: index, section: 1)
+//                                if (homeSearchVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
+//                                    homeSearchVC.tblEvents.reloadRows(at: [indexPath], with: .none)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            if viewController.isKind(of: OtherUserProfileViewController.classForCoder()){
+//                guard let otherProfileVC = viewController as? OtherUserProfileViewController else{
+//                    continue
+//                }
+//                if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?[CId] as? Int == postId}) {
+//                    var postPollInfo = otherProfileVC.arrPostList[index]
+//                    postPollInfo?[CPollData] = optionData
+//                    postPollInfo?[CUserVotedPoll] = pollAnsewrID
+//                    postPollInfo?[CIsUserVoted] = 1
+//                    otherProfileVC.arrPostList.remove(at: index)
+//                    otherProfileVC.arrPostList.insert(postPollInfo, at: index)
+//                    UIView.performWithoutAnimation {
+//                        DispatchQueue.main.async {
+//                            let indexPath = IndexPath(item: index, section: 1)
+//                            if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
+//                                otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
+//                            }
+//                        }
+//                    }
+//                }
+//                let arrPosts = otherProfileVC.arrPostList
+//                for (index,obj) in arrPosts.enumerated(){
+//                    if obj?[COriginalPostId] as? Int == postId{
+//                        var postPollInfo = obj
+//                        postPollInfo?[CPollData] = optionData
+//                        postPollInfo?[CUserVotedPoll] = pollAnsewrID
+//                        postPollInfo?[CIsUserVoted] = 1
+//                        otherProfileVC.arrPostList.remove(at: index)
+//                        otherProfileVC.arrPostList.insert(postPollInfo, at: index)
+//                        UIView.performWithoutAnimation {
+//                            DispatchQueue.main.async {
+//                                let indexPath = IndexPath(item: index, section: 1)
+//                                if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
+//                                    otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
+    
     func refreshPollPostRelatedScreens(_ postInfo : [String : Any]?,_ postId : Int?, _ pollAnsewrID:Int?, optionData:[String:Any]?, _ view : UIViewController?,isSelected:Bool) {
         guard let viewVC = view else {
             return
@@ -1789,15 +1999,12 @@ extension MIGeneralsAPI {
                 }
                 if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
                     var postPollInfo = homeVC.arrPostList[index]
-//                    postPollInfo[CPollData] = optionData
-//                    postPollInfo[CUserVotedPoll] = pollAnsewrID
-//                    postPollInfo[CIsUserVoted] = 1
-//                    postPollInfo["is_selected"] = "Yes"
                     let resultKey = optionData?["results"] as? [String:String]
                     print(":::::::resultValues\(resultKey)")
                     let resultkeys = resultKey.map { $0.keys.first }
                     print(":::::::resultafter\(resultkeys! as String?)")
                     postPollInfo["is_selected"] = resultkeys! as String?
+                    postPollInfo["results"] = optionData?["results"] as? [String:String]
 
                     homeVC.arrPostList.remove(at: index)
                     homeVC.arrPostList.insert(postPollInfo, at: index)
@@ -1809,51 +2016,32 @@ extension MIGeneralsAPI {
                             }
                         }
                     }
-//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
                 }
+                      let arrPosts = homeVC.arrPostList
+                for (index,obj) in arrPosts.enumerated(){
+                    if obj["post_id"] as? String == postId?.toString{
+                        var postPollInfo = obj
+                        let resultKey = optionData?["results"] as? [String:String]
+                        postPollInfo["is_selected"] = resultKey?.keys
+                        if isSelected == true {
+                            print("this is calling")
 
-//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
-//                      let arrPosts = homeVC.arrPostList
-//                for (index,obj) in arrPosts.enumerated(){
-//                    if obj["post_id"] as? String == postId?.toString{
-//                        var postPollInfo = obj
-////                        let resultKey = optionData?["results"] as? [String:String]
-////                        postPollInfo["is_selected"] = resultKey?.keys
-//
-////                        print("this is calling first tile")
-////                        postPollInfo[CPollData] = optionData
-////                        postPollInfo[CUserVotedPoll] = pollAnsewrID
-////                      postPollInfo["is_selected"] = "Yes"
-////                        postPollInfo[CIsUserVoted] = 1
-//
-//                        if isSelected == true {
-//                            print("this is calling")
-//
-//                            let resultKey = optionData?["results"] as? [String:String]
-//                            postPollInfo["is_selected"] = resultKey?.keys
-////                            homeVC.arrPostList.remove(at: index)
-////                            homeVC.arrPostList.insert(postPollInfo, at: index)
-//                        }
-//
-//                        homeVC.arrPostList.remove(at: index)
-//                        homeVC.arrPostList.insert(postPollInfo, at: index)
-//                        UIView.performWithoutAnimation {
-//                            DispatchQueue.main.async {
-//                                let indexPath = IndexPath(item: index, section: 1)
-//                                if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
-//                                    homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-////                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-//
-//                if isSelected == true {
-//                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-//                }
+                            let resultKey = optionData?["results"] as? [String:String]
+                            postPollInfo["is_selected"] = resultKey?.keys
+                        }
 
-                
+                        homeVC.arrPostList.remove(at: index)
+                        homeVC.arrPostList.insert(postPollInfo, at: index)
+                        UIView.performWithoutAnimation {
+                            DispatchQueue.main.async {
+                                let indexPath = IndexPath(item: index, section: 1)
+                                if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
+                                    homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
+                                }
+                            }
+                        }
+                    }
+                }
             }
             
             if viewController.isKind(of: MyProfileViewController.classForCoder()){
@@ -1980,6 +2168,8 @@ extension MIGeneralsAPI {
             }
         }
     }
+    
+    
     
     
     

@@ -23,6 +23,7 @@
 		1836482A26E1E33C000440FA /* ChatSocketIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1836482926E1E33C000440FA /* ChatSocketIO.swift */; };
 		1838BA6D275F302D00A9372C /* SocketIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838BA6C275F302D00A9372C /* SocketIO.swift */; };
 		1838BA71275F350D00A9372C /* SocketIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1838BA70275F350D00A9372C /* SocketIO.framework */; };
+		184110E027B37DD400EABF02 /* InviteConnect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184110DF27B37DD400EABF02 /* InviteConnect.swift */; };
 		184E030125F234DF00F80C78 /* CreateFileColls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E02FF25F234DF00F80C78 /* CreateFileColls.swift */; };
 		184E030225F234DF00F80C78 /* CreateFileColls.xib in Resources */ = {isa = PBXBuildFile; fileRef = 184E030025F234DF00F80C78 /* CreateFileColls.xib */; };
 		184E030725F237DF00F80C78 /* ClListviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E030625F237DF00F80C78 /* ClListviewCell.swift */; };
@@ -604,6 +605,7 @@
 		1838BA6C275F302D00A9372C /* SocketIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIO.swift; sourceTree = "<group>"; };
 		1838BA6E275F30FC00A9372C /* SocketIO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SocketIO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1838BA70275F350D00A9372C /* SocketIO.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SocketIO.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		184110DF27B37DD400EABF02 /* InviteConnect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteConnect.swift; sourceTree = "<group>"; };
 		184E02FF25F234DF00F80C78 /* CreateFileColls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateFileColls.swift; sourceTree = "<group>"; };
 		184E030025F234DF00F80C78 /* CreateFileColls.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateFileColls.xib; sourceTree = "<group>"; };
 		184E030625F237DF00F80C78 /* ClListviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClListviewCell.swift; sourceTree = "<group>"; };
@@ -2266,6 +2268,7 @@
 			isa = PBXGroup;
 			children = (
 				62E1A582240E2EC4001BD7A8 /* MDLProductDetail.swift */,
+				184110DF27B37DD400EABF02 /* InviteConnect.swift */,
 				1876AD9A2792F3CA00A24352 /* MDLSearchList.swift */,
 				1893E99E2785B7B8000CC072 /* MDLPslCategory.swift */,
 				18A7A6A6272BBFF700C43A1F /* StoredLstMsg.swift */,
@@ -2720,6 +2723,7 @@
 				62E1A770240E2EC5001BD7A8 /* ExtensionUISearchBar.swift in Sources */,
 				18BD809625F895BD00FE318A /* usersCollectionViewCell.swift in Sources */,
 				62E1A6A2240E2EC5001BD7A8 /* VideoViewCollViewCell.swift in Sources */,
+				184110E027B37DD400EABF02 /* InviteConnect.swift in Sources */,
 				1863D0DC2600C30600B5BDE8 /* SwiftyCamViewController.swift in Sources */,
 				62E1A5EC240E2EC5001BD7A8 /* SelectInterestsViewController.swift in Sources */,
 				62E1A5E0240E2EC5001BD7A8 /* AddForumViewController.swift in Sources */,

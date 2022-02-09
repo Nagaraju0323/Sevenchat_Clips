@@ -714,7 +714,31 @@ class APIRequest: NSObject {
             return false
         }
     }
-    
+    func inviteAndconnect(para:[String:AnyObject], completion : @escaping ClosureCompletion) {
+           
+           _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersMobileDetails, param: para , successBlock: { (task, response) in
+               MILoader.shared.hideLoader()
+               if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUsersMobileDetails) {
+                   completion (response, nil)
+               }
+   //            MILoader.shared.hideLoader()
+   //            let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
+   //            guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {
+   //                completion(nil, nil)
+   //                return
+   //            }
+      
+           }, failureBlock: { (task, message, error) in
+               MILoader.shared.hideLoader()
+               completion(nil, error)
+               if error?.code == CStatus405{
+                   appDelegate.logOut()
+               } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+               } else {
+                   self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagUser, error: error)
+               }
+           })
+       }
     
     func checkResponseStatusAndShowAlert(showAlert:Bool, responseobject: AnyObject?, strApiTag:String) -> Bool
     {
