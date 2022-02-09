@@ -63,46 +63,30 @@ class MDLUsers:NSObject{
     var visible_to_other : String?
 //    var friends : [Friends]?
     var status_id : String?
+    
+    var block_unblock_status:String?
+    var check_status:String?
+    var common_id:String?
+    var friend_block_unblock_status:String?
+    var friend_report_status:String?
+    var friend_status:String?
+    
     init(fromDictionary dictionary: [String:Any]){
         
         user_id =  dictionary["user_id"] as? String ?? ""
-        lang_name = dictionary["lang_name"] as? String ?? ""
         profile_image = dictionary["profile_image"] as? String ?? ""
-        cover_image = dictionary["cover_image"] as? String ?? ""
         email = dictionary["email"] as? String ?? ""
         first_name = dictionary["first_name"] as? String ?? ""
         last_name = dictionary["last_name"] as? String ?? ""
-        gender = dictionary["gender"] as? String ?? ""
         mobile = dictionary["mobile"] as? String ?? ""
-        dob = dictionary["dob"] as? String ?? ""
-        short_biography = dictionary["short_biography"] as? String ?? ""
-        relationship = dictionary["relationship"] as? String ?? ""
-        education_name = dictionary["education_name"] as? String ?? ""
-        religion = dictionary["religion"] as? String ?? ""
-        employment_status =  dictionary["employment_status"] as? String ?? ""
-        profession = dictionary["profession"] as? String ?? ""
-        annual_income = dictionary["annual_income"] as? String ?? ""
-        address = dictionary["address"] as? String ?? ""
-        latitude = dictionary["latitude"] as? String ?? ""
-        longitude = dictionary["longitude"] as? String ?? ""
-        user_type = dictionary["user_type"] as? String ?? ""
-        account_type = dictionary["account_type"] as? String ?? ""
-        city_name = dictionary["city_name"] as? String ?? ""
-        state_name = dictionary["state_name"] as? String ?? ""
-        country_name = dictionary["country_name"] as? String ?? ""
-        country_code = dictionary["country_code"] as? String ?? ""
-        articles = dictionary["articles"] as? String ?? ""
-        forums = dictionary["forums"] as? String ?? ""
-        tweets = dictionary["tweets"] as? String ?? ""
-        shouts = dictionary["shouts"] as? String ?? ""
-        gallery = dictionary["gallery"] as? String ?? ""
-        events = dictionary["events"] as? String ?? ""
-        polls = dictionary["polls"] as? String ?? ""
-        likes = dictionary["likes"] as? String ?? ""
-        push_notify = dictionary["push_notify"] as? String ?? ""
-        email_notify = dictionary["email_notify"] as? String ?? ""
-        visible_to_friend = dictionary["visible_to_friend"] as? String ?? ""
-        visible_to_other = dictionary["visible_to_other"] as? String ?? ""
+        block_unblock_status = dictionary["block_unblock_status"] as? String ?? "0"
+        check_status = dictionary["block_unblock_status"] as? String ?? "1"
+        common_id = dictionary["mobile"] as? String ?? ""
+        friend_block_unblock_status = dictionary["friend_block_unblock_status"] as? String ?? "0"
+        friend_report_status = dictionary["friend_block_unblock_status"] as? String ?? "0"
+        friend_status = dictionary["friend_block_unblock_status"] as? String ?? "0"
+        
+        
     }
     
 }
