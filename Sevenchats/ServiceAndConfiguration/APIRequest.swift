@@ -718,9 +718,10 @@ class APIRequest: NSObject {
            
            _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersMobileDetails, param: para , successBlock: { (task, response) in
                MILoader.shared.hideLoader()
-               if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUsersMobileDetails) {
-                   completion (response, nil)
-               }
+            completion (response, nil)
+//               if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUsersMobileDetails) {
+//                   completion (response, nil)
+//               }
    //            MILoader.shared.hideLoader()
    //            let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
    //            guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {

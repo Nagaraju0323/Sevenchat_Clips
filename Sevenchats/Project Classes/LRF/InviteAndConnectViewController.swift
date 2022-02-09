@@ -2334,39 +2334,38 @@ extension InviteAndConnectViewController{
                     APIRequest.shared().inviteAndconnect(para: dict as [String : AnyObject]) { (response, error) in
                         if response != nil && error == nil {
                             
-                            if let arrData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
-                                self.arrPhoneList =  arrData
-//                                self.arrTempList = arrData
-                                for arr in arrData{
-                                    self.arrListModel.append(MDLUsers(fromDictionary: arr))
-                                }
-                                
-//                                arrListModel.append(MDLUsers(fromDictionary: arrData))
-                                print("arrData\(arrData)")
-                                self.Check_status = 1
-//                                for dict in arrData {
-                                  self.arrphoneNo.append(MDLInivte(fromDictionary: dict))
-//                                }
-                            self.arrPhoneList += self.arrTempList
-                            self.btnSearch.isHidden = false
-                              self.arrSyncUser = arrData
-                            self.arrFriendList = results as [Any]
-                        self.tblFriend.reloadData()
-                             self.checkConnectAllFriendStatus()
-                            }else{
-                            self.Check_status = 0
-                            }
+                            
+                            if let metaInfo = response![CJsonMeta] as? [String:Any]{
+                                               let status =  metaInfo["status"] as? String ?? ""
+                                               if status == "0"{
+                                                self.Check_status = 1
+                                                //copy hear
+                                                if let arrData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
+                                                    self.arrPhoneList =  arrData
+                    //                                self.arrTempList = arrData
+                                                    for arr in arrData{
+                                                        self.arrListModel.append(MDLUsers(fromDictionary: arr))
+                                                    }
+                                                    
+                    //                                arrListModel.append(MDLUsers(fromDictionary: arrData))
+                                                    print("arrData\(arrData)")
+                                                    self.Check_status = 1
+                                                self.arrPhoneList += self.arrTempList
+                                                self.btnSearch.isHidden = false
+                                                  self.arrSyncUser = arrData
+                                                self.arrFriendList = results as [Any]
+                                            self.tblFriend.reloadData()
+                                                 self.checkConnectAllFriendStatus()
+                                                }
+                                               }else {
+                                                self.Check_status = 0
+                                                self.arrListModel.append(MDLUsers(fromDictionary: dict))
+                                               }
+                                           }
                          }else{
                        self.btnSearch.isHidden = true
                         }
                     }
-                        
-//                        self.arrPhoneList += self.arrTempList
-                        
-                        
-                        
-                        
-                        
 }
                       
 
@@ -2637,26 +2636,21 @@ extension InviteAndConnectViewController{
                 if (contactInfo?.phoneNumbers.count)! > 0 {
                     
                     cell.lblUserInfo.text = contactInfo?.phoneNumbers[0].value.stringValue
-                    cell.btnInviteConnect.isHidden = false
+                  cell.btnInviteConnect.isHidden = false
+                    cell.btnInviteContentMove.isHidden = true
+                
+                   
                     let phoneNumber = self.parseNumber(contactInfo?.phoneNumbers[0].value.stringValue ?? "")
 
                    // if let index = arrSyncUser.firstIndex(where: { $0["mobile"] as? String == phoneNumber}) {
                   // let mbleno = self.arrphoneNo[indexPath.row]
-                   
-//                    if mbleno.common_id == phoneNumber{
+                    for data in self.arrListModel {
+                   if data.mobile == phoneNumber{
                             let index = arrSyncUser.firstIndex(where: { $0["mobile"] as? String == phoneNumber}) ?? 0
                         let syncUserInfo = arrSyncUser[index]
                     
-                    print("self.arrPhoneList\(self.arrListModel)")
-//                    for data in self.arrPhoneList {
-//                        if data?.valueForString(key: "user_id") == appDelegate.loginUser?.user_id.description{
-//                            cell.btnInviteConnect.isHidden = true
-//                        }else{
-//                            cell.btnInviteConnect.isHidden = false
-//                        }
-//                    }
+         
                     
-                    for data in self.arrListModel {
                         print("UserDetails\(data.user_id)")
                         if data.user_id == appDelegate.loginUser?.user_id.description{
                             cell.btnInviteConnect.isHidden = true
@@ -2666,16 +2660,16 @@ extension InviteAndConnectViewController{
                             cell.btnInviteConnect.isHidden = false
                             print("this HideButton::::::")
                         }
-                    }
+                   // }
                     
                     
-//                    cell.btnInviteConnect.isHidden = user_id == appDelegate.loginUser?.user_id.description ? true : false
+                  // cell.btnInviteConnect.isHidden = data.user_id == appDelegate.loginUser?.user_id.description ? true : false
                         cell.btnInviteConnect.setImage(nil, for: .normal)
                         cell.btnInviteConnect.setTitle(nil, for: .normal)
                     
 //MARK:-
                     
-                    let friendID = ""
+                    let friendID = data.user_id
                     let dict :[String:Any]  =  [
                         "user_id":  appDelegate.loginUser?.user_id.description ?? "",
                         "friend_user_id": friendID
@@ -2704,10 +2698,11 @@ extension InviteAndConnectViewController{
                             }
                         }
                     })
+                   
 //MARK:-
                     
                        // let friendStatus = syncUserInfo.valueForInt(key: CCheck_status)
-                    let friendStatus =  self.Check_status
+                    let friendStatus = self.Check_status
                         if friendStatus == 0{
                             cell.btnInviteConnect.setTitle(CBtnInvite, for: .normal)
                         }else{
@@ -2730,12 +2725,14 @@ extension InviteAndConnectViewController{
                         cell.btnInviteConnect.touchUpInside { [weak self] (sender) in
                             
                             guard let self = self else { return }
-                            if syncUserInfo.valueForInt(key: CCheck_status) == 0 {
+//                            if syncUserInfo.valueForInt(key: CCheck_status) == 0 {
+                            if self.Check_status == 0 {
                                 let strInviteText = "Sevenchats app invitation.\n" + CAppStoreURI
                                 self.openMessageComposer(number: cell.lblUserInfo.text, body: strInviteText)
                             } else {
                                 // Friend request api...
-                                if  syncUserInfo.valueForInt(key: CFriend_status) == 0 {
+//                                if  syncUserInfo.valueForInt(key: CFriend_status) == 0 {
+                                if  self.Friend_status == 0 {
                                     if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
                                         if let index = self.arrConnectAllFriend.index(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}) {
                                             self.arrConnectAllFriend.remove(at: index)
@@ -2773,10 +2770,10 @@ extension InviteAndConnectViewController{
                                 }
                             }
                         }
-//                    }else{
-//                        cell.btnInviteConnect.isHidden = false
-//
-//                    }
+                }else{
+                    cell.btnInviteConnect.isHidden = true
+                }
+                    }
                 }else{
                     cell.lblUserInfo.text = ""
                     cell.btnInviteConnect.isHidden = true
