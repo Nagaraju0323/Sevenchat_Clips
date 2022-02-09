@@ -362,7 +362,7 @@ extension RegisterViewController {
             "user_acc_type":0,
             CFirstname:FirstName,
             CLastname:LastName,
-            "email":Emailtext,
+            "email":Emailtext.lowercased(),
             "password":Password,
             "city_name":CityName,
             "profile_image":self.profileImgUrlupdate,
