@@ -26,7 +26,7 @@ class InviteFriendCell: UITableViewCell {
     
     var callbacks : (([MDLUsers],String?) -> Void)?
     var callbacksInviteReturn : (([[String:Any]]) -> Void)?
-    
+    var Friend_status = 0
     override func awakeFromNib() {
         super.awakeFromNib()
         //        self.selectionStyle = .none
@@ -85,6 +85,35 @@ class InviteFriendCell: UITableViewCell {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
                     if let arrList = response!["data"] as? [[String:Any]]{
                         self.callbacksInviteReturn?(arrList)
+                        for arrLst in arrList{
+                        let user_id = appDelegate.loginUser?.user_id
+                        if arrLst.valueForString(key: "friend_status") == "1"{
+                            self.Friend_status = 5
+                        }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
+                            self.Friend_status = 1
+                        }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "0" && arrLst.valueForString(key: "cancel_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
+                            self.Friend_status = 0
+                                 }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description {
+                                    self.Friend_status = 2
+                                 }
+                        switch self.Friend_status {
+                        case 0, 4, 3:
+//                                if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
+//                                    cell.btnInviteConnect.setImage(UIImage(named: "ic_right"), for: .normal)
+//                                }else{
+                            self.btnInviteConnect.setTitle("  \(CBtnConnect)  ", for: .normal)
+                            //}
+                        case 1:
+                            self.btnInviteConnect.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+                        case 5:
+                            self.btnInviteConnect.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+                        case 2:
+                            self.btnInviteConnect.setTitle("  \(CBtnAccept)  ", for: .normal)
+                        default:
+                            break
+                        }
+                       
+                    }
                 
             }
                 
