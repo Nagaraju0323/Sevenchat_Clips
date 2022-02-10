@@ -221,7 +221,7 @@ extension AddForumViewController{
                     let stausLike = metaInfo["status"] as? String ?? "0"
                     if stausLike == "0" {
                         
-                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:"post_point",type:CPostcreate,title:"EvForum Add",name:name,icon:image)
+                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:"post_point",type:CPostcreate,title:"Forum Add",name:name,icon:image)
                     }
                 }
                 

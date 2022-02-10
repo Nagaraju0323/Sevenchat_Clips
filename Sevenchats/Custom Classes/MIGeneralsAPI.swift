@@ -529,12 +529,27 @@ extension MIGeneralsAPI {
                             }
                             break
                         case .likePost?:
-                            if let index = homeVC.arrPostListNew.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
-                                var postLikeInfo = homeVC.arrPostListNew[index]
+//                            if let index = homeVC.arrPostListNew.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
+//                                var postLikeInfo = homeVC.arrPostListNew[index]
+//                                postLikeInfo[CLikes] = postInfo?.valueForString(key: "likes")
+//                                postLikeInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                                homeVC.arrPostListNew.remove(at: index)
+//                                homeVC.arrPostListNew.insert(postLikeInfo, at: index)
+//                                UIView.performWithoutAnimation {
+//                                    let indexPath = IndexPath(item: index, section: 1)
+//                                    if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
+//                                        homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
+//                                    }
+//                                }
+//                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+//                            }
+                            
+                            if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
+                                var postLikeInfo = homeVC.arrPostList[index]
                                 postLikeInfo[CLikes] = postInfo?.valueForString(key: "likes")
                                 postLikeInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
-                                homeVC.arrPostListNew.remove(at: index)
-                                homeVC.arrPostListNew.insert(postLikeInfo, at: index)
+                                homeVC.arrPostList.remove(at: index)
+                                homeVC.arrPostList.insert(postLikeInfo, at: index)
                                 UIView.performWithoutAnimation {
                                     let indexPath = IndexPath(item: index, section: 1)
                                     if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
@@ -543,6 +558,8 @@ extension MIGeneralsAPI {
                                 }
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                             }
+                            
+                            
                             break
                         case .interestPost?:
                             

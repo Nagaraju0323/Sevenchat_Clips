@@ -33,7 +33,7 @@ class HomeViewController: ParentViewController {
     
     var searchbtnNav = UIButton()
     var arrPostList = [[String : Any]]()
-    var arrPostListNew = [[String : Any]]()
+//    var arrPostList = [[String : Any]]()
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
@@ -42,6 +42,7 @@ class HomeViewController: ParentViewController {
     var isSelected = false
     var issearchSelected = false
     var usersotherID = ""
+    var isSelectedFilter:Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -158,7 +159,7 @@ extension HomeViewController {
      - Parameter showLoader:- showLoader is for show loader.
      */
     //MARK:- New Filter API
-    func getPostListFromServerNew() {
+    func getPostListFromServerFilter() {
         
         if let userID = appDelegate.loginUser?.user_id {
             if apiTask?.state == URLSessionTask.State.running {
@@ -383,19 +384,19 @@ extension HomeViewController {
 //                        print(arrList)
                         // Remove all data here when page number == 1
                         if self.pageNumber == 1 {
-                            self.arrPostListNew.removeAll()
+                            self.arrPostList.removeAll()
                             self.tblEvents.reloadData()
                         }
                         self.isLoadMoreCompleted = arrList.isEmpty
                         // Add Data here...
                         if arrList.count > 0 {
-                            self.arrPostListNew = self.arrPostListNew + arrList
+                            self.arrPostList = self.arrPostList + arrList
                             self.tblEvents.reloadData()
                             self.pageNumber += 1
                         }
                         self.tblEvents.reloadData()
                     }
-                    self.lblNoData.isHidden = self.arrPostListNew.count > 0
+                    self.lblNoData.isHidden = self.arrPostList.count > 0
                 }
             }
         }
@@ -445,7 +446,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         case 3:
             return 1
         default:
-            return arrPostListNew.count
+            return arrPostList.count
         }
     }
     
@@ -542,7 +543,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             
         }
         
-        let postInfo = arrPostListNew[indexPath.row]
+        let postInfo = arrPostList[indexPath.row]
         //        let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
         //        let isPostDeleted = postInfo.valueForInt(key: CIsPostDeleted)
         let isshared = 0
@@ -581,7 +582,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 // .... LOAD MORE DATA HERE
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                    self.getPostListFromServer(showLoader: false)
+                    if isSelectedFilter == true{
+                        self.getPostListFromServerFilter()
+                    }else {
+                        self.getPostListFromServer(showLoader: false)
+                    }
+                    
                 }
                 
                 return cell
@@ -649,7 +655,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     // .... LOAD MORE DATA HERE
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                        self.getPostListFromServer(showLoader: false)
+                        
+                        if isSelectedFilter == true {
+                            self.getPostListFromServerFilter()
+                        }else {
+                            self.getPostListFromServer(showLoader: false)
+                        }
+//                        self.getPostListFromServer(showLoader: false)
                     }
                     return cell
                 }
@@ -697,7 +709,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 // .... LOAD MORE DATA HERE
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                    self.getPostListFromServer(showLoader: false)
+                    if isSelectedFilter == true {
+                        self.getPostListFromServerFilter()
+                    }else {
+                        self.getPostListFromServer(showLoader: false)
+                    }
+//                    self.getPostListFromServer(showLoader: false)
                 }
                 return cell
             }
@@ -763,7 +780,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     // .... LOAD MORE DATA HERE
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                        self.getPostListFromServer(showLoader: false)
+                        if isSelectedFilter == true {
+                            self.getPostListFromServerFilter()
+                        }else {
+                            self.getPostListFromServer(showLoader: false)
+                        }
+//                        self.getPostListFromServer(showLoader: false)
                     }
                     
                     return cell
@@ -812,6 +834,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 // .... LOAD MORE DATA HERE
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
+                    if isSelectedFilter == true {
+                        self.getPostListFromServerFilter()
+                    }else {
+                        self.getPostListFromServer(showLoader: false)
+                    }
+                    
                     self.getPostListFromServer(showLoader: false)
                 }
                 
@@ -878,6 +906,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         }
                         // .... LOAD MORE DATA HERE
                         if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
+                            if isSelectedFilter == true {
+                                self.getPostListFromServerFilter()
+                            }else {
+                                self.getPostListFromServer(showLoader: false)
+                            }
                             self.getPostListFromServer(showLoader: false)
                         }
                         
@@ -925,7 +958,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     // .... LOAD MORE DATA HERE
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                        self.getPostListFromServer(showLoader: false)
+                        
+                        if isSelectedFilter == true {
+                            self.getPostListFromServerFilter()
+                        }else {
+                            self.getPostListFromServer(showLoader: false)
+                        }
+//                        self.getPostListFromServer(showLoader: false)
                     }
                     
                     return cell
@@ -988,7 +1027,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         }
                         // .... LOAD MORE DATA HERE
                         if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                            self.getPostListFromServer(showLoader: false)
+                            
+                            if isSelectedFilter == true {
+                                self.getPostListFromServerFilter()
+                            }else {
+                                self.getPostListFromServer(showLoader: false)
+                            }
+//                            self.getPostListFromServer(showLoader: false)
                         }
                         
                         return cell
@@ -1035,7 +1080,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     // .... LOAD MORE DATA HERE
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                        self.getPostListFromServer(showLoader: false)
+                        
+                        if isSelectedFilter == true {
+                            self.getPostListFromServerFilter()
+                        }else {
+                            self.getPostListFromServer(showLoader: false)
+                        }
+//                        self.getPostListFromServer(showLoader: false)
                     }
                     
                     return cell
@@ -1101,7 +1152,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     // .... LOAD MORE DATA HERE
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                        self.getPostListFromServer(showLoader: false)
+                        
+                        if isSelectedFilter == true {
+                            self.getPostListFromServerFilter()
+                        }else {
+                            self.getPostListFromServer(showLoader: false)
+                        }
+//                        self.getPostListFromServer(showLoader: false)
                     }
                     
                     return cell
@@ -1148,7 +1205,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 // .... LOAD MORE DATA HERE
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                    self.getPostListFromServer(showLoader: false)
+                    
+                    if isSelectedFilter == true {
+                        self.getPostListFromServerFilter()
+                    }else {
+                        self.getPostListFromServer(showLoader: false)
+                    }
+//                    self.getPostListFromServer(showLoader: false)
                 }
                 
                 return cell
@@ -1214,7 +1277,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     // .... LOAD MORE DATA HERE
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                        self.getPostListFromServer(showLoader: false)
+                        
+                        if isSelectedFilter == true {
+                            self.getPostListFromServerFilter()
+                        }else {
+                            self.getPostListFromServer(showLoader: false)
+                        }
+//                        self.getPostListFromServer(showLoader: false)
                     }
                     
                     return cell
@@ -1263,7 +1332,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 // .... LOAD MORE DATA HERE
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                    self.getPostListFromServer(showLoader: false)
+                    
+                    if isSelectedFilter == true {
+                        self.getPostListFromServerFilter()
+                    }else {
+                        self.getPostListFromServer(showLoader: false)
+                    }
+//                    self.getPostListFromServer(showLoader: false)
                 }
                 
                 return cell
@@ -1335,7 +1410,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         }
                         // .... LOAD MORE DATA HERE
                         if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                            self.getPostListFromServer(showLoader: false)
+                            
+                            if isSelectedFilter == true {
+                                self.getPostListFromServerFilter()
+                            }else {
+                                self.getPostListFromServer(showLoader: false)
+                            }
+//                            self.getPostListFromServer(showLoader: false)
                         }
                         
                         return cell
@@ -1388,7 +1469,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     // .... LOAD MORE DATA HERE
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                        self.getPostListFromServer(showLoader: false)
+                        
+                        if isSelectedFilter == true {
+                            self.getPostListFromServerFilter()
+                        }else {
+                            self.getPostListFromServer(showLoader: false)
+                        }
+//                        self.getPostListFromServer(showLoader: false)
                     }
                     
                     return cell
@@ -1455,7 +1542,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         }
                         // .... LOAD MORE DATA HERE
                         if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                            self.getPostListFromServer(showLoader: false)
+                            
+                            if isSelectedFilter == true {
+                                self.getPostListFromServerFilter()
+                            }else {
+                                self.getPostListFromServer(showLoader: false)
+                            }
+//                            self.getPostListFromServer(showLoader: false)
                         }
                         
                         return cell
@@ -1505,7 +1598,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     // .... LOAD MORE DATA HERE
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                        self.getPostListFromServer(showLoader: false)
+                        
+                        if isSelectedFilter == true {
+                            self.getPostListFromServerFilter()
+                        }else {
+                            self.getPostListFromServer(showLoader: false)
+                        }
+//                        self.getPostListFromServer(showLoader: false)
                     }
                     
                     return cell
@@ -1579,7 +1678,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     // .... LOAD MORE DATA HERE
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                        self.getPostListFromServer(showLoader: false)
+                        
+                        if isSelectedFilter == true {
+                            self.getPostListFromServerFilter()
+                        }else {
+                            self.getPostListFromServer(showLoader: false)
+                        }
+//                        self.getPostListFromServer(showLoader: false)
                     }
                     
                     return cell
@@ -1632,7 +1737,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 // .... LOAD MORE DATA HERE
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
-                    self.getPostListFromServer(showLoader: false)
+                    if self.isSelectedFilter == true {
+                        
+                    }else {
+                        self.getPostListFromServer(showLoader: false)
+                    }
+                    
                 }
                 return cell
             }
@@ -1700,10 +1810,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         let row = indexPath.row
         print("selectdRow\(row),")
         
-        guard arrPostListNew[indexPath.row].count != 0 else { return}
+        guard arrPostList[indexPath.row].count != 0 else { return}
         
         //        guard arrPostList[indexPath.row].count != 0 else { return}
-        let postInfo = arrPostListNew[row]
+        let postInfo = arrPostList[row]
         let postId = postInfo.valueForString(key: "post_id")
         //        let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
         //        let isPostDeleted = postInfo.valueForInt(key: CIsPostDeleted)
@@ -2227,6 +2337,12 @@ extension HomeViewController{
         if let postFilterVC = CStoryboardProfile.instantiateViewController(withIdentifier: "ProfileFilterViewController") as? ProfileFilterViewController {
             
             postFilterVC.arrSelectedFilter = arrSelectedFilterOption
+            
+            postFilterVC.callbacks = { message in
+                print("message\(message)")
+                self.isSelectedFilter = message
+                print("self.selectedFilter\(self.isSelectedFilter)")
+            }
             postFilterVC.setBlock { [weak self](object, message) in
                 guard let _ = self else { return }
                 if let arrFitInfo = object as? [[String : Any]] {
@@ -2235,7 +2351,7 @@ extension HomeViewController{
                     }
                     self?.arrSelectedFilterOption = arrFitInfo
                     self?.pageNumber = 1
-                    self?.getPostListFromServerNew()
+                    self?.getPostListFromServerFilter()
                 }
             }
             self.navigationController?.pushViewController(postFilterVC, animated: true)

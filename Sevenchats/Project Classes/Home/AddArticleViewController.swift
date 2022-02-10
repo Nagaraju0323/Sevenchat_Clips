@@ -464,9 +464,28 @@ extension AddArticleViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupArticle, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
             // call api here......
-            self.addEditArticle()
+            
+            if txtViewArticleContent.text != ""{
+                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                if txtViewArticleContent.text.rangeOfCharacter(from: characterset.inverted) != nil {
+                   print("true")
+                    
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    
+                } else {
+                   print("false")
+                    self.addEditArticle()
+                }
+            }
+//            self.addEditArticle()
         }
         
+    }
+    
+    
+    func removeSpecialCharsFromString(text: String) -> String {
+        let okayChars = Set(SPECIALCHAR)
+        return text.filter {okayChars.contains($0) }
     }
     
 }
@@ -494,4 +513,13 @@ extension AddArticleViewController: GenericTextFieldDelegate {
         }
         return true
     }
+}
+
+
+extension String {
+   var containsSpecialCharacter: Bool {
+      let regex = SPECIALCHAR
+      let testString = NSPredicate(format:"SELF MATCHES %@", regex)
+      return testString.evaluate(with: self)
+   }
 }

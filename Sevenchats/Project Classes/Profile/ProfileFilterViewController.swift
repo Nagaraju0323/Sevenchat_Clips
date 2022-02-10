@@ -21,6 +21,8 @@ class ProfileFilterViewController: ParentViewController {
     @IBOutlet var tblFilter : UITableView!
     @IBOutlet fileprivate var btnAppyFilter : UIButton!
     
+    
+    
     var arrFilter = [
         [CCategoryType:CSelectAll,CCategoryId:CStaticSearchAllType],
         [CCategoryType:CTypeArticle,CCategoryId:CStaticArticleId],
@@ -33,6 +35,7 @@ class ProfileFilterViewController: ParentViewController {
     ]
     
     var arrSelectedFilter = [[String : Any]]()
+    var callbacks : ((Bool) -> Void)?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
@@ -117,8 +120,11 @@ extension ProfileFilterViewController{
             if let index = arrSelectedFilter.index(where: {$0.valueForString(key: CCategoryType) == CSelectAll}) {
                 arrSelectedFilter.remove(at: index)
             }
+            self.callbacks?(true)
+            
             if let blockHandler = self.block {
                 blockHandler(arrSelectedFilter, "success")
+                self.callbacks?(true)
             }
             self.navigationController?.popViewController(animated: true)
         }
@@ -128,6 +134,7 @@ extension ProfileFilterViewController{
         
         arrSelectedFilter.removeAll()
         if let blockHandler = self.block {
+            print("showFilter")
             blockHandler(arrSelectedFilter, "refresh screen")
         }
         self.navigationController?.popViewController(animated: true)

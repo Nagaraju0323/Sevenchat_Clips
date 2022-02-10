@@ -48,6 +48,9 @@
                         <state key="normal" title="Invite">
                             <color key="titleColor" red="0.61176470589999998" green="0.63529411759999999" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
+                        <connections>
+                            <action selector="btnInviteConnect:" destination="jqo-sD-3eC" eventType="touchUpInside" id="CSr-rQ-FIw"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dilly Bannett" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1Q-bA-G43">
                         <rect key="frame" x="75" y="13" width="74.5" height="17"/>
