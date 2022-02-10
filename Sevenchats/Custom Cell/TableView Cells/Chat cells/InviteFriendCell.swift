@@ -25,6 +25,7 @@ class InviteFriendCell: UITableViewCell {
     var arrListModel = [MDLUsers]()
     
     var callbacks : (([MDLUsers],String?) -> Void)?
+    var callbacksInviteReturn : (([[String:Any]]) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -68,4 +69,91 @@ class InviteFriendCell: UITableViewCell {
             }
         }
     }
+    
+    
+    
+    func setupCells(loan:String?) {
+
+        let user_id = appDelegate.loginUser?.user_id
+        let friendID = loan
+        let dict :[String:Any]  =  [
+            "user_id": user_id as Any,
+            "friend_user_id": friendID as Any
+        ]
+        APIRequest.shared().getFriendStatus(dict: dict as [String : AnyObject]) { (response, error) in
+            if response != nil && error == nil {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){
+                    if let arrList = response!["data"] as? [[String:Any]]{
+                        self.callbacksInviteReturn?(arrList)
+                
+            }
+                
+            }
+        }
+    }
+    
+    }
+    
+   
+//    func setupCellInvite(loan: String) {
+//        var Friend_status:Int?
+//        let user_id = appDelegate.loginUser?.user_id
+//        let friendID = loan
+//        let dict :[String:Any]  =  [
+//            "user_id":  appDelegate.loginUser?.user_id.description ?? "",
+//            "friend_user_id": friendID
+//        ]
+//
+//        APIRequest.shared().getFriendStatus(dict: dict, completion: { (response, error) in
+//            if response != nil && error == nil{
+////                GCDMainThread.async {
+//                    if let arrList = response!["data"] as? [[String:Any]]{
+//                        for arrLst in arrList{
+//                            if arrLst.valueForString(key: "block_status") == "1" && arrLst.valueForString(key: "blocked_id") == appDelegate.loginUser?.user_id.description{
+//                                Friend_status = 7
+//                            }else if arrLst.valueForString(key: "block_status") == "1"  {
+//                                Friend_status = 6
+//                            }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
+//                                Friend_status = 0
+//
+//                            }else if arrLst.valueForString(key: "request_status")  == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description {
+//                                Friend_status = 2
+//                            }else if arrLst.valueForString(key: "friend_status") == "1"{
+//                                Friend_status = 5
+//                            }else  if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id")  == user_id?.description {
+//                                Friend_status = 1
+//                            }
+//
+////                            if Friend_status == 2 {
+////                                self?.btnAddFrd.isHidden = true
+////                                self?.viewAcceptReject.isHidden = false
+////                            }else{
+////                                self?.btnAddFrd.isHidden = false
+////                                self?.viewAcceptReject.isHidden = true
+////
+////                                switch Friend_status{
+////                                case 0:
+////                                    self?.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
+////                                case 1:
+////                                    self?.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+////                                case 5:
+////                                    self?.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+////                                case 6:
+////                                    self?.btnAddFrd.setTitle("  \(CBlockedUser)  ", for: .normal)
+////                                case 7:
+////                                    self?.btnAddFrd.setTitle("  \(CBtnUnblockUser)  ", for: .normal)
+////                                default:
+////                                    break
+////                                }
+////                            }
+//                        }
+//
+//                    }
+//
+////                }
+//            }
+//        })
+//
+//    }
+    
 }

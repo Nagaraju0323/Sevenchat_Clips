@@ -714,8 +714,7 @@ extension InviteAndConnectViewController{
                     
                    if message.first?.mobile == phoneNumber{
                     let index = self.arrSyncUser.firstIndex(where: { $0["mobile"] as? String == phoneNumber}) ?? 0
-                 let syncUserInfo = self.arrSyncUser[index]
-                       
+                // let syncUserInfo = self.arrSyncUser[index]
                         if message.first?.user_id == appDelegate.loginUser?.user_id.description{
                             cell.btnInviteConnect.isHidden = true
                             
@@ -723,68 +722,87 @@ extension InviteAndConnectViewController{
                             cell.btnInviteConnect.isHidden = false
                             
                         }
-                   // }
-                    
-                    
                   // cell.btnInviteConnect.isHidden = data.user_id == appDelegate.loginUser?.user_id.description ? true : false
                         cell.btnInviteConnect.setImage(nil, for: .normal)
                         cell.btnInviteConnect.setTitle(nil, for: .normal)
                     
 //MARK:-
                     
+                    //Api call
                     let friendID = message.first?.user_id
-                    let dict :[String:Any]  =  [
-                        "user_id":  appDelegate.loginUser?.user_id.description ?? "",
-                        "friend_user_id": friendID
-                    ]
-                    APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
-                        if response != nil && error == nil{
-                            GCDMainThread.async {
-                                if let arrList = response!["data"] as? [[String:Any]]{
-                                    for arrLst in arrList{
-                                        let user_id = appDelegate.loginUser?.user_id
-                                        if arrLst.valueForString(key: "block_status") == "1" && arrLst.valueForString(key: "blocked_id") == appDelegate.loginUser?.user_id.description {
-                                            self?.Friend_status = 7
-                                        }else if arrLst.valueForString(key: "block_status") == "1"  {
-                                            self?.Friend_status = 6
-                                        } else if arrLst.valueForString(key: "friend_status") == "1"{
-                                            self?.Friend_status = 5
-                                        }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
-                                            self?.Friend_status = 1
-                                        }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "0" && arrLst.valueForString(key: "cancel_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
-                                            self?.Friend_status = 1
-                                        }
-                                    }
-                                    
-                                }
-                                
-                            }
-                        }
-                    })
-                   
-//MARK:-
                     
+                   cell.setupCells(loan: friendID ?? "")
+                 // cell.setupCellInvite(loan: message.first?.user_id ?? "" )
+                    cell.callbacksInviteReturn = { inviteStatus in
+                        
+                        print("inviteSTatus\(inviteStatus)")
+                        
+                    
+//
+//                    let dict :[String:Any]  =  [
+//                        "user_id":  appDelegate.loginUser?.user_id.description ?? "",
+//                        "friend_user_id": friendID
+//                    ]
+//                    APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
+//                        if response != nil && error == nil{
+//                            GCDMainThread.async {
+//                                if let arrList = response!["data"] as? [[String:Any]]{
+//                                    for arrLst in arrList{
+//                                        let user_id = appDelegate.loginUser?.user_id
+//                                         if arrLst.valueForString(key: "friend_status") == "1"{
+//                                            self?.Friend_status = 5
+//                                        }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
+//                                            self?.Friend_status = 1
+//                                        }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "0" && arrLst.valueForString(key: "cancel_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
+//                                            self?.Friend_status = 0
+//                                        }
+//
+//
+//                                                    }
+//
+//                                                }
+//
+//                                            }
+//                                        }
+//                                    })
+//MARK:-
+        for arrLst in inviteStatus{
+        let user_id = appDelegate.loginUser?.user_id
+        if arrLst.valueForString(key: "friend_status") == "1"{
+            self.Friend_status = 5
+        }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
+            self.Friend_status = 1
+        }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "0" && arrLst.valueForString(key: "cancel_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
+            self.Friend_status = 0
+                 }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description {
+                    self.Friend_status = 12
+                 }
+                    
+                    
+                                                                        }
                        // let friendStatus = syncUserInfo.valueForInt(key: CCheck_status)
-                    let friendStatus = self.Check_status
+                       let friendStatus = self.Check_status
                         if friendStatus == 0{
                             cell.btnInviteConnect.setTitle(CBtnInvite, for: .normal)
                         }else{
                             switch self.Friend_status {
                             case 0, 4, 3:
-                                if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
-                                    cell.btnInviteConnect.setImage(UIImage(named: "ic_right"), for: .normal)
-                                }else{
+//                                if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
+//                                    cell.btnInviteConnect.setImage(UIImage(named: "ic_right"), for: .normal)
+//                                }else{
                                     cell.btnInviteConnect.setTitle("  \(CBtnConnect)  ", for: .normal)
-                                }
+                                //}
                             case 1:
                                 cell.btnInviteConnect.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
                             case 5:
                                 cell.btnInviteConnect.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+                            case 2:
+                                cell.btnInviteConnect.setTitle("  \(CBtnAccept)  ", for: .normal)
                             default:
                                 break
                             }
                         }
-                        
+                    }
                         cell.btnInviteConnect.touchUpInside { [weak self] (sender) in
                             
                             guard let self = self else { return }
@@ -796,20 +814,21 @@ extension InviteAndConnectViewController{
                                 // Friend request api...
 //                                if  syncUserInfo.valueForInt(key: CFriend_status) == 0 {
                                 if  self.Friend_status == 0 {
-                                    if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
-                                        if let index = self.arrConnectAllFriend.index(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}) {
-                                            self.arrConnectAllFriend.remove(at: index)
-                                        }
-                                    }else{
-                                        self.arrConnectAllFriend.append(syncUserInfo)
-                                    }
-                                    self.tblFriend.reloadData()
-                                    self.checkConnectAllFriendStatus()
+//                                    if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
+//                                        if let index = self.arrConnectAllFriend.index(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}) {
+//                                            self.arrConnectAllFriend.remove(at: index)
+//                                        }
+//                                    }else{
+//                                        self.arrConnectAllFriend.append(syncUserInfo)
+//                                    }
+//                                    self.tblFriend.reloadData()
+//                                    self.checkConnectAllFriendStatus()
                                 }else{
                                     var frndStatus = 0
                                     var isShowAlert = false
                                     var alertMessage = ""
-                                    switch syncUserInfo.valueForInt(key: CFriend_status) {
+                                    switch self.Friend_status {
+                                   // switch syncUserInfo.valueForInt(key: CFriend_status) {
                                     case 0, 3, 4:
                                         frndStatus = CFriendRequestSent
                                     case 1:
@@ -824,11 +843,11 @@ extension InviteAndConnectViewController{
                                         break
                                     }
                                     if isShowAlert{
-                                        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                                            self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
-                                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//                                        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
+//                                            self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
+//                                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                                     }else{
-                                        self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
+                                       // self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
                                     }
                                 }
                             }
