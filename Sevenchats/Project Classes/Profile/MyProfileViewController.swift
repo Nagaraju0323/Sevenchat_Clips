@@ -49,7 +49,7 @@ class MyProfileViewController: ParentViewController {
         self.tblUser.reloadData()
     }
     
-    // MARK:- ---------- Initialization
+// MARK:- ---------- Initialization
     
     func Initialization(){
         self.title = CNavMyProfile
@@ -191,7 +191,7 @@ extension MyProfileViewController{
             }
         }
     }
-    //MARK:- NEW FILTER API
+ //MARK:- NEW FILTER API
     func getPostListFromServerNew() {
         
         if let userID = appDelegate.loginUser?.user_id {
@@ -1060,7 +1060,6 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                             sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                             sharePost.presentShareActivity()
                         }
-                        
                         // .... LOAD MORE DATA HERE
                         if indexPath == tblUser.lastIndexPath(){
                             self.getPostListFromServer()

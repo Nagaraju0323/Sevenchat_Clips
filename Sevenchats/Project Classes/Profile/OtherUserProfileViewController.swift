@@ -92,7 +92,7 @@ class OtherUserProfileViewController: ParentViewController {
         super.didReceiveMemoryWarning()
     }
     
-    // MARK:- ---------- Initialization
+// MARK:- ---------- Initialization
     func Initialization(){
         
         self.title = ""
