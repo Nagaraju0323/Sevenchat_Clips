@@ -92,7 +92,7 @@ class OtherUserProfileViewController: ParentViewController {
         super.didReceiveMemoryWarning()
     }
     
-    // MARK:- ---------- Initialization
+// MARK:- ---------- Initialization
     func Initialization(){
         
         self.title = ""
@@ -812,8 +812,10 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             return cell
                         }
                     }
-                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyTblCell", for: indexPath) as? HomeChirpyTblCell {
-                        cell.homeChirpyDataSetup(postInfo!)
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
+                        cell.isLikesOthersPage = true
+                        
+                        cell.homeChirpyImageDataSetup(postInfo!)
                         
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
                             self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
@@ -1084,7 +1086,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     }
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
                         cell.homeEventDataSetup(postInfo!)
-                        
+                        cell.isLikesOthersPage = true
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
                             self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
                         }
@@ -1255,8 +1257,9 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
-                if let chirpyDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyDetailsViewController") as? ChirpyDetailsViewController{
-                    
+                if let chirpyDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController{
+                    chirpyDetailsVC.isLikesOthersPage = true
+                    chirpyDetailsVC.chirpyInformation = postInfo ?? [:]
                     chirpyDetailsVC.chirpyID = postId?.toInt
                     self.navigationController?.pushViewController(chirpyDetailsVC, animated: true)
                 }
@@ -1336,7 +1339,8 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
-                if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? EventDetailViewController {
+                if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
+                    eventDetailsVC.isLikesOthersPage = true
                     eventDetailsVC.eventInfo = postInfo ?? [:]
                     eventDetailsVC.postID =  postId?.toInt
                     self.navigationController?.pushViewController(eventDetailsVC, animated: true)

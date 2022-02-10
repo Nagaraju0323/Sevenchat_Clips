@@ -49,7 +49,7 @@ class MyProfileViewController: ParentViewController {
         self.tblUser.reloadData()
     }
     
-    // MARK:- ---------- Initialization
+// MARK:- ---------- Initialization
     
     func Initialization(){
         self.title = CNavMyProfile
@@ -191,7 +191,7 @@ extension MyProfileViewController{
             }
         }
     }
-    //MARK:- NEW FILTER API
+ //MARK:- NEW FILTER API
     func getPostListFromServerNew() {
         
         if let userID = appDelegate.loginUser?.user_id {
@@ -1060,7 +1060,6 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                             sharePost.shareURL = postInfo.valueForString(key: CShare_url)
                             sharePost.presentShareActivity()
                         }
-                        
                         // .... LOAD MORE DATA HERE
                         if indexPath == tblUser.lastIndexPath(){
                             self.getPostListFromServer()
@@ -1130,7 +1129,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
                     cell.homeChirpyImageDataSetup(postInfo)
-                    
+                    cell.isLikesMyprofilePage = true
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
                         //                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
@@ -1387,7 +1386,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
                     cell.homeEventDataSetup(postInfo)
-                    
+                    cell.isLikesMyprofilePage = true
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
                         //                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
@@ -1618,6 +1617,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 if let chirpyImageVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController{
                     chirpyImageVC.chirpyInformation = postInfo
                     chirpyImageVC.chirpyID = postId.toInt
+                    chirpyImageVC.isLikesMyprofilePage = true
                     
                     self.navigationController?.pushViewController(chirpyImageVC, animated: true)
                 }
@@ -1701,6 +1701,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
                     eventDetailsVC.eventInfo = postInfo
                     eventDetailsVC.postID = postId.toInt
+                    eventDetailsVC.isLikesMyprofilePage = true
                     self.navigationController?.pushViewController(eventDetailsVC, animated: true)
                 }
             }
