@@ -1130,7 +1130,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
                     cell.homeChirpyImageDataSetup(postInfo)
-                    
+                    cell.isLikesMyprofilePage = true
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
                         //                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
@@ -1387,7 +1387,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
                     cell.homeEventDataSetup(postInfo)
-                    
+                    cell.isLikesMyprofilePage = true
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
                         //                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
@@ -1618,6 +1618,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 if let chirpyImageVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController{
                     chirpyImageVC.chirpyInformation = postInfo
                     chirpyImageVC.chirpyID = postId.toInt
+                    chirpyImageVC.isLikesMyprofilePage = true
                     
                     self.navigationController?.pushViewController(chirpyImageVC, animated: true)
                 }
@@ -1701,6 +1702,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
                     eventDetailsVC.eventInfo = postInfo
                     eventDetailsVC.postID = postId.toInt
+                    eventDetailsVC.isLikesMyprofilePage = true
                     self.navigationController?.pushViewController(eventDetailsVC, animated: true)
                 }
             }
