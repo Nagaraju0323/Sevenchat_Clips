@@ -250,7 +250,11 @@ class GenericTextView: UITextView, UITextViewDelegate {
                     return textView.text.count + (text.count - range.length) <= (textLimit?.toInt)!
                 }
                 return (text == filtered)
+//                let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
+//                let filtered = text.components(separatedBy: cs).joined(separator: "")
+//                return (text == filtered)
             }
+                
             
             // Check text limit here....
             if textLimit != nil {

@@ -467,7 +467,7 @@ extension AddArticleViewController{
             
             if txtViewArticleContent.text != ""{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                if txtViewArticleContent.text.rangeOfCharacter(from: characterset.inverted) != nil {
+                if txtViewArticleContent.text.rangeOfCharacter(from: characterset.inverted) != nil || txtArticleTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
                    print("true")
                     
                     self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
@@ -497,6 +497,7 @@ extension AddArticleViewController: GenericTextViewDelegate{
         if textView == txtViewArticleContent{
             lblTextCount.text = "\(textView.text.count)/5000"
         }
+       
     }
 }
 

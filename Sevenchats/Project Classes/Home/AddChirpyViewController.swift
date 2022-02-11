@@ -517,7 +517,20 @@ extension AddChirpyViewController{
         }else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupChirpy, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-            self.addEditChirpy()
+            if txtViewChirpyContent.text != ""{
+                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                if txtViewChirpyContent.text.rangeOfCharacter(from: characterset.inverted) != nil {
+                   print("true")
+                    
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    
+                } else {
+                   print("false")
+                    self.addEditChirpy()
+
+                }
+            }
+            //self.addEditChirpy()
         }
     }
 }

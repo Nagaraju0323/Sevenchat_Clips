@@ -2039,7 +2039,7 @@ extension APIRequest {
         
         var para = [String : Any]()
         para[CPage] = page
-        para[CPer_page] = CLimit
+        para[CPer_page] = CLimitTT
         
         if filter != nil{
             para[CFilterPost] = filter
@@ -2129,7 +2129,7 @@ extension APIRequest {
         
         let dict : [String:Any]  =  [
             "user_id":user_id?.description as Any,
-            "page" : page,
+            "page" : page as Any,
             "limit" : CLimitTT
             
         ]

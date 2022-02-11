@@ -1292,7 +1292,7 @@ extension PollDetailsViewController{
     }
     
     @IBAction func btnLikeCLK(_ sender : UIButton){
-        
+        if sender.tag == 0{
         self.btnLike.isSelected = !self.btnLike.isSelected
         
 //        if self.btnLike.isSelected == true{
@@ -1349,6 +1349,12 @@ extension PollDetailsViewController{
                         self?.likeCountfromSever(productId: self?.pollIDNew?.toInt ?? 0,likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
                     }
                 }
+            }
+        }
+        }else{
+            if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
+                likeVC.postIDNew = self.pollIDNew
+                self.navigationController?.pushViewController(likeVC, animated: true)
             }
         }
     }

@@ -462,7 +462,20 @@ extension AddEventViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEventLocation, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }
         else{
-            self.addEditEvent()
+            if txtViewContent.text != ""{
+                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                if txtViewContent.text.rangeOfCharacter(from: characterset.inverted) != nil {
+                   print("true")
+                    
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    
+                } else {
+                   print("false")
+                    self.addEditEvent()
+
+                }
+            }
+           // self.addEditEvent()
         }
         
     }

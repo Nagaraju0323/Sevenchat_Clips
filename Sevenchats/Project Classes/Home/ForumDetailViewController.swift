@@ -576,7 +576,7 @@ extension ForumDetailViewController{
     }
     
     @IBAction func btnLikeCLK(_ sender : UIButton){
-        
+        if sender.tag == 0{
         self.btnLike.isSelected = !self.btnLike.isSelected
         
 //        if self.btnLike.isSelected == true{
@@ -636,6 +636,13 @@ extension ForumDetailViewController{
                 }
             }
         }
+    }else{
+        if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
+            //likeVC.postID = self.shoutID
+            likeVC.postIDNew = self.forumIDNew
+            self.navigationController?.pushViewController(likeVC, animated: true)
+        }
+    }
     }
     
     func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){
