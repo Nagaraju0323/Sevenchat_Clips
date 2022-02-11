@@ -59,6 +59,7 @@ class ChirpyImageDetailsViewController: ParentViewController {
     var likeTotalCount = 0
     var totalComment = 0
     var posted_ID = ""
+    var chirpyId : String?
     var profileImg = ""
     var notifcationIsSlected = false
     var isLikesOthers:Bool?
@@ -211,6 +212,7 @@ extension ChirpyImageDetailsViewController{
             chirpyInformation = chirInfo
             self.chirpyIDNew = chirInfo.valueForString(key:CPostId)
             posted_ID = chirInfo.valueForString(key: "user_id")
+            chirpyId = chirInfo.valueForString(key: "post_id")
             self.lblUserName.text = chirInfo.valueForString(key: CFirstname) + " " + chirInfo.valueForString(key: CLastname)
             self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
             self.imgUser.loadImageFromUrl(chirInfo.valueForString(key: CUserProfileImage), true)
@@ -600,6 +602,7 @@ extension ChirpyImageDetailsViewController{
     }
     
     @IBAction func btnLikeCLK(_ sender : UIButton){
+        if sender.tag == 0{
         self.btnLike.isSelected = !self.btnLike.isSelected
         
 //        if self.btnLike.isSelected == true{
@@ -659,6 +662,13 @@ extension ChirpyImageDetailsViewController{
                 }
             }
         }
+    }else{
+        if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
+            //likeVC.postID = self.shoutID
+            likeVC.postIDNew = self.chirpyId
+            self.navigationController?.pushViewController(likeVC, animated: true)
+        }
+    }
     }
     
     func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){

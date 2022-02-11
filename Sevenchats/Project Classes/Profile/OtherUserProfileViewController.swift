@@ -711,7 +711,8 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     cell.homeArticleDataSetup(postInfo!)
                     
                     cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-                        self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
+//                        self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
+                        self?.btnLikesCountCLK(postInfo?.valueForString(key: CPostId).toInt)
                     }
                     
                     cell.btnMore.touchUpInside {[weak self] (sender) in
@@ -764,7 +765,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     cell.homeGalleryDataSetup(postInfo!)
                     
                     cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-                        self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
+                        self?.btnLikesCountCLK(postInfo?.valueForString(key: CPostId).toInt)
                     }
                     
                     cell.btnMore.touchUpInside { [weak self](sender) in
@@ -818,7 +819,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.homeChirpyImageDataSetup(postInfo!)
                         
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
-                            self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
+                            self?.btnLikesCountCLK(postInfo?.valueForString(key: CPostId).toInt)
                         }
                         
                         cell.btnMore.touchUpInside { [weak self](sender) in
@@ -869,7 +870,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.homeChirpyImageDataSetup(postInfo!)
                         
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
-                            self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
+                            self?.btnLikesCountCLK(postInfo?.valueForString(key: CPostId).toInt)
                         }
                         
                         cell.btnMore.touchUpInside { [weak self](sender) in
@@ -923,7 +924,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     cell.homeShoutsDataSetup(postInfo!)
                     
                     cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-                        self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
+                        self?.btnLikesCountCLK(postInfo?.valueForString(key: CPostId).toInt)
                     }
                     
                     cell.btnMore.touchUpInside {[weak self] (sender) in
@@ -974,7 +975,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     cell.homeFourmDataSetup(postInfo!)
                     
                     cell.btnLikesCount.touchUpInside {[weak self] (sender) in
-                        self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
+                        self?.btnLikesCountCLK(postInfo?.valueForString(key: CPostId).toInt)
                     }
                     
                     cell.btnMore.touchUpInside { [weak self](sender) in
@@ -1037,7 +1038,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         }
                         
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
-                            self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
+                            self?.btnLikesCountCLK(postInfo?.valueForString(key: CPostId).toInt)
                         }
                         
                         cell.btnMore.touchUpInside { [weak self](sender) in
@@ -1088,7 +1089,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.homeEventDataSetup(postInfo!)
                         cell.isLikesOthersPage = true
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
-                            self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
+                            self?.btnLikesCountCLK(postInfo?.valueForString(key: CPostId).toInt)
                         }
                         cell.onChangeEventStatus = { [weak self] (action) in
                             self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
@@ -1148,7 +1149,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     cell.homePollDataSetup(postInfo!, isSelected: false)
                     
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
-                        self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
+                        self?.btnLikesCountCLK(postInfo?.valueForString(key: CPostId).toInt)
                     }
                     
                     cell.btnMore.tag = indexPath.row
@@ -1441,7 +1442,7 @@ extension OtherUserProfileViewController {
     
     fileprivate func btnLikesCountCLK(_ postId : Int?){
         if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
-            likeVC.postID = postId
+            likeVC.postIDNew = postId?.description
             self.navigationController?.pushViewController(likeVC, animated: true)
         }
     }

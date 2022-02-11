@@ -416,7 +416,19 @@ extension CreateShoutsViewController{
         }else if (btnInviteGroup.isSelected || btnInviteContacts.isSelected) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupShout, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-            self.addEditShout()
+            if textViewMessage.text != ""{
+                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                if textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
+                   print("true")
+                    
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    
+                } else {
+                   print("false")
+                    self.addEditShout()
+                }
+            }
+//            self.addEditShout()
         }
     }
 }

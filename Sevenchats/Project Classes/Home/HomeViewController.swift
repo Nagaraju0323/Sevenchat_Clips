@@ -922,7 +922,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.homeChirpyImageDataSetup(postInfo)
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                        self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
                     }
                     
                     cell.btnMore.touchUpInside { [weak self] (sender) in
@@ -1697,7 +1697,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 cell.homePollDataSetup(postInfo, isSelected: false)
                 cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                    self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                 }
                 cell.btnMore.tag = indexPath.row
                 cell.onMorePressed = { [weak self] (index) in
