@@ -127,6 +127,7 @@ let ColorBlack          = CRGB(r: 0, g: 0, b: 0)
 let ColorWhite          = CRGB(r: 255, g: 255, b: 255)
 //let ColorAppTheme       = CRGB(r: 138, g: 181, b: 136)
 let ColorAppTheme       = CRGB(r: 239, g: 239, b: 239)
+let ColorAppThemeNew       = CRGB(r: 33, g: 191, b: 166)
 
 let ColorAppBackgorund  = CRGB(r: 244, g: 255, b: 247)
 let ColorAppBackground1 = CRGB(r: 6, g: 192, b: 166)
