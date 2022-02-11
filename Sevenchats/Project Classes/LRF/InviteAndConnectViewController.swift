@@ -120,6 +120,7 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
         //btnSelectAllFriend.isSelected = false
         self.btnSearch.isHidden = true
         
+        
         cnNavigationHeight.constant = IS_iPhone_X_Series ? 84 : 64
         GCDMainThread.async {
             self.viewSearchBar.layer.cornerRadius = self.viewSearchBar.frame.size.height/2
@@ -166,8 +167,34 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
 
 // MARK:- --------- Api Functions
 extension InviteAndConnectViewController{
-    func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?)
-    {
+    func friendStatusApi( _ userid : String?,  _ status : Int?){
+        let friend_ID = userid
+        guard let user_ID = appDelegate.loginUser?.user_id else { return }
+        
+        let dict :[String:Any]  =  [
+            "user_id":  user_ID.description,
+            "friend_user_id": friend_ID as Any,
+            "request_type": status?.toString as Any
+        ]
+        
+        APIRequest.shared().friendRquestStatus(dict: dict, completion: { [weak self] (response, error) in
+            guard let self = self else { return }
+            if response != nil{
+                
+                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+                    if  metaData.valueForString(key: "message") == "Request sent successfully"{
+                        guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
+                        guard let firstName = appDelegate.loginUser?.first_name else {return}
+                        guard let lastName = appDelegate.loginUser?.last_name else {return}
+                        MIGeneralsAPI.shared().sendNotification(userid ?? "", userID: user_ID.description, subject: "send you a Friends Request", MsgType: "FRIEND_REQUEST", MsgSent:"", showDisplayContent: "send you a Friends Request", senderName: firstName + lastName)
+                    }
+                }
+            }
+        })
+    }
+    
+    
+//func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?){
 //        APIRequest.shared().friendRquestStatus(userID: appDelegate.loginUser?.user_id.description, status: status, completion: { (response, error) in
 //            if response != nil{
 //                var frndInfo = userInfo
@@ -185,7 +212,7 @@ extension InviteAndConnectViewController{
 //                }
 //            }
 //        })
-    }
+ //   }
     
     func connectAllFriend(_ isSignup : Bool){
         
@@ -670,10 +697,10 @@ extension InviteAndConnectViewController{
                                 }
                                 if isShowAlert{
                                     self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                                        self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
+                                        //self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
                                     }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                                 }else{
-                                    self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
+                                    //self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
                                 }
                             }
                         }
@@ -707,15 +734,17 @@ extension InviteAndConnectViewController{
                     cell.btnInviteContentMove.isHidden = true
                     
                     
-                    cell.callBackInviteReturn = { Friendstatus,check_Status in
+                    cell.callBackInviteReturn = { Friendstatus,check_Status,arrListModel in
                         
+                        let User_Id = arrListModel.first?.user_id
+//                        print("arralist\(arrlist.user_id)")
                         if check_Status == 0 {
                             let strInviteText = "Sevenchats app invitation.\n" + CAppStoreURI
                             self.openMessageComposer(number: cell.lblUserInfo.text, body: strInviteText)
                         } else {
                             // Friend request api...
 //                                if  syncUserInfo.valueForInt(key: CFriend_status) == 0 {
-                            if Friendstatus == 0 {
+//                            if Friendstatus == 0 {
 //                                    if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
 //                                        if let index = self.arrConnectAllFriend.index(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}) {
 //                                            self.arrConnectAllFriend.remove(at: index)
@@ -725,7 +754,8 @@ extension InviteAndConnectViewController{
 //                                    }
 //                                    self.tblFriend.reloadData()
 //                                    self.checkConnectAllFriendStatus()
-                            }else {
+                         //   }else {
+                            
                                 
                                 print("this is calling")
                                 var frndStatus = 0
@@ -735,6 +765,8 @@ extension InviteAndConnectViewController{
                                // switch syncUserInfo.valueForInt(key: CFriend_status) {
                                 case 0, 3, 4:
                                     frndStatus = CFriendRequestSent
+                                    isShowAlert = true
+                                    alertMessage = CMessageAddfriend
                                 case 1:
                                     frndStatus = CFriendRequestCancel
                                     isShowAlert = true
@@ -743,17 +775,21 @@ extension InviteAndConnectViewController{
                                     frndStatus = CFriendRequestUnfriend
                                     isShowAlert = true
                                     alertMessage = CMessageUnfriend
+                                case 2:
+                                    frndStatus = CFriendRequestAccept
+                                    isShowAlert = true
+                                    alertMessage = CAlertMessageForAcceptRequest
                                 default:
                                     break
                                 }
                                 if isShowAlert{
                                         self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-//                                            self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
+                                           self.friendStatusApi(User_Id, frndStatus)
                                         }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                                 }else{
-                                   // self.friendStatusApi(syncUserInfo, syncUserInfo.valueForInt(key: CUserId), frndStatus)
+                                  self.friendStatusApi(User_Id, frndStatus)
                                 }
-                            }
+                           // }
                             
                         }
                     }

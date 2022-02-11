@@ -24,15 +24,17 @@ class InviteFriendCell: UITableViewCell {
     @IBOutlet var btnInviteContentMove : UIButton!
     var arrListModel = [MDLUsers]()
     
-    var callBackInviteReturn: ((Int,Int) -> Void)?
+    var callBackInviteReturn: ((Int,Int,[MDLUsers]) -> Void)?
     var check_Status:Int?
     var Friend_status = 0
     override func awakeFromNib() {
         super.awakeFromNib()
         //        self.selectionStyle = .none
+        
         GCDMainThread.async {
             self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
             self.imgUserType.layer.cornerRadius = self.imgUserType.frame.size.width/2
+
         }
         
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
@@ -162,7 +164,7 @@ class InviteFriendCell: UITableViewCell {
     
     @IBAction func btnInviteConnect(_ sender: UIButton) {
        //Call your closure here
-        self.callBackInviteReturn?(Friend_status, check_Status ?? 0)
+        self.callBackInviteReturn?(Friend_status, check_Status ?? 0,arrListModel)
        
     }
     

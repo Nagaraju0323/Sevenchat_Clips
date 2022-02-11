@@ -103,7 +103,7 @@ extension MILoader {
         
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = .whiteLarge
-        activityIndicator.color = ColorAppTheme
+        activityIndicator.color = ColorAppThemeNew
         activityIndicator.hidesWhenStopped = true
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
@@ -134,7 +134,7 @@ extension MILoader {
         
         let lblMessage = UILabel()
         lblMessage.textAlignment = .center
-        lblMessage.textColor = ColorAppTheme
+        lblMessage.textColor = ColorAppThemeNew
         lblMessage.backgroundColor = .clear
         lblMessage.numberOfLines = 0
         lblMessage.translatesAutoresizingMaskIntoConstraints = false
