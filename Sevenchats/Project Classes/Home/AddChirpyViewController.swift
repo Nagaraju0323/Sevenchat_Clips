@@ -521,7 +521,6 @@ extension AddChirpyViewController{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if txtViewChirpyContent.text.rangeOfCharacter(from: characterset.inverted) != nil {
                    print("true")
-                    
                     self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
                     
                 } else {

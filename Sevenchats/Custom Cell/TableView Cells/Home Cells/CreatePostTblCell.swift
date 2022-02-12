@@ -255,16 +255,21 @@ extension CreatePostTblCell{
             if textViewMessage.text != ""{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
-                   print("true")
-                    
-                   // self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
-                    
+                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                        alertWindow.rootViewController = UIViewController()
+                        let alertController = UIAlertController(title: "Error", message: "Avoid Special Chrectrests", preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+                            alertWindow.isHidden = true
+                            return
+                        }))
+
+                        alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                        alertWindow.makeKeyAndVisible()
+                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
                 } else {
-                   print("false")
                     self.addEditShout()
                 }
             }
-//            self.addEditShout()
         }
         
         

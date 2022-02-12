@@ -300,8 +300,6 @@ extension AddPollViewController {
                     let stausLike = metaInfo["status"] as? String ?? "0"
                     if stausLike == "0" {
                         
-//                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:"post_point",type:CPostcreate,title:"Poll Add",name:name,icon:image, detail_text: "post_point")
-                        
                         MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"poll",title: self?.categoryDropDownView.txtCategory.text ?? "",name:name,icon:image, detail_text: "post_point")
                     }
                 }

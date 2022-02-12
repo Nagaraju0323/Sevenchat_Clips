@@ -427,9 +427,7 @@ extension AddForumViewController{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if txtViewForumMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
                    print("true")
-                    
                     self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
-                    
                 } else {
                    print("false")
                     self.addEditForum()

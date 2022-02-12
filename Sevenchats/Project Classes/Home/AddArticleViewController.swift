@@ -223,9 +223,6 @@ extension AddArticleViewController{
                 //Add rewards Points
                 MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"article",title: self.txtArticleTitle.text!,name:name,icon:image, detail_text: "post_point")
                 
-                
-                
-                
                 self.navigationController?.popViewController(animated: true)
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.articleType == .editArticle ? CMessageArticlePostUpdated : CMessageArticlePostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
@@ -469,20 +466,14 @@ extension AddArticleViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupArticle, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
             // call api here......
-            
             if txtViewArticleContent.text != ""{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if txtViewArticleContent.text.rangeOfCharacter(from: characterset.inverted) != nil || txtArticleTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                   print("true")
-                    
                     self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
-                    
                 } else {
-                   print("false")
                     self.addEditArticle()
                 }
             }
-//            self.addEditArticle()
         }
         
     }
