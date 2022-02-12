@@ -243,25 +243,30 @@ class GenericTextView: UITextView, UITextViewDelegate {
 //        if JSON(rawValue: type!) ?? "0" == "1"{
             if type == "1"{
             if txtDelegate != nil {
-                _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
-                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                let filtered = text.components(separatedBy: cs).joined(separator: "")
+                if text.contains(UIPasteboard.general.string ?? "") {
+                   print("paste")
+                    _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
                 if textLimit?.toInt != 0 && !(textLimit?.isBlank)! {
                     return textView.text.count + (text.count - range.length) <= (textLimit?.toInt)!
                 }
-                return (text == filtered)
-//                let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
-//                let filtered = text.components(separatedBy: cs).joined(separator: "")
-//                return (text == filtered)
-            }
-                
-            
+                } else {
+                   print("normal typing")
+                    _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
+                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                    let filtered = text.components(separatedBy: cs).joined(separator: "")
+                  return (text == filtered)
+
+                }
+//            _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
+//               let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+//          let filtered = text.components(separatedBy: cs).joined(separator: "")
+//                          return (text == filtered)
             // Check text limit here....
             if textLimit != nil {
                 if textLimit?.toInt != 0 && !(textLimit?.isBlank)! {
                     return textView.text.count + (text.count - range.length) <= (textLimit?.toInt)!
                 }
-                
+            
             }
         }else{
         if txtDelegate != nil {
@@ -276,11 +281,13 @@ class GenericTextView: UITextView, UITextViewDelegate {
             if textLimit?.toInt != 0 && !(textLimit?.isBlank)! {
                 return textView.text.count + (text.count - range.length) <= (textLimit?.toInt)!
             }
-            
+        }
         }
         }
         return true
     }
+    
+
 }
 
 @IBDesignable extension GenericTextView {
