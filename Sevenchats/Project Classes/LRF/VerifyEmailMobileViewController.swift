@@ -198,7 +198,7 @@ extension VerifyEmailMobileViewController {
                 DispatchQueue.main.async {
                     let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                     guard let image = appDelegate.loginUser?.profile_img else { return }
-                    MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image)
+                    MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image, detail_text: "Register_profile")
                     
                     self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterSuccess, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                         self.dismiss(animated: true, completion: nil)

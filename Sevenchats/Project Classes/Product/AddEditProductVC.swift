@@ -755,7 +755,11 @@ extension AddEditProductVC {
                         guard let image = appDelegate.loginUser?.profile_img else { return }
                         let stausLike = metaInfo["status"] as? String ?? "0"
                         if stausLike == "0" {
-                            MIGeneralsAPI.shared().addRewardsPoints(CPostonstore,message:"Post_on_store",type:CPostonstore,title:"Post on store",name:name,icon:image)
+//                            MIGeneralsAPI.shared().addRewardsPoints(CPostonstore,message:"Post_on_store",type:CPostonstore,title:"Post on store",name:name,icon:image, detail_text: "Post_on_store")
+                            
+                            MIGeneralsAPI.shared().addRewardsPoints(CPostonstore,message:CPostonstore,type:"Post on store",title: self.txtProductTitle.text ?? "",name:name,icon:image, detail_text: "post_on_sell_point")
+                            
+                            
                         }
                     }
                     

@@ -45,6 +45,8 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
         }
     }
     
+    @IBOutlet var viewButtonView : UIView!
+    
     @IBOutlet var cnNavigationHeight : NSLayoutConstraint!
     @IBOutlet var btnSkip : UIButton!
     /*@IBOutlet var lblSelectAll : UILabel!
@@ -94,7 +96,7 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
         //self.title = CNavInviteContact
         if isFromSideMenu{
             btnSideMenu.isHidden = false
-            btnBigDone.isHidden = false
+            btnBigDone.isHidden = true
             btnSmallDone.isHidden = true
             btnSkip.isHidden = true
             viewButtonSeparator.isHidden = true
@@ -105,6 +107,7 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
             btnSkip.isHidden = false
             viewButtonSeparator.isHidden = false
         }
+        
         
         tblFriend.register(UINib(nibName: "ConnectAllHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "ConnectAllHeaderView")
         tblFriend.register(UINib(nibName: "InviteSectionCell", bundle: nil), forCellReuseIdentifier: "InviteSectionCell")
@@ -139,11 +142,11 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
             btnSearch.contentHorizontalAlignment = .right
         }
         
-        btnCancel.setTitle(CBtnCancel, for: .normal)
-        btnBigDone.setTitle(CBtnDone, for: .normal)
-        btnSmallDone.setTitle(CBtnDone, for: .normal)
-        btnSkip.setTitle(CBtnSkip, for: .normal)
-        lblTitle.text = CSideConnectInvite
+//        btnCancel.setTitle(CBtnCancel, for: .normal)
+//        btnBigDone.setTitle(CBtnDone, for: .normal)
+//        btnSmallDone.setTitle(CBtnDone, for: .normal)
+//        btnSkip.setTitle(CBtnSkip, for: .normal)
+//        lblTitle.text = CSideConnectInvite
         /*lblSelectAll.text = CConnectAll
         lblInviteFriend.text = CInviteConnectInviteFriend
         lblImportContact.text = CInviteConnectImportContact

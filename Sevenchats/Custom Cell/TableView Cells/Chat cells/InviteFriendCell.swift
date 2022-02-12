@@ -34,6 +34,7 @@ class InviteFriendCell: UITableViewCell {
         GCDMainThread.async {
             self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
             self.imgUserType.layer.cornerRadius = self.imgUserType.frame.size.width/2
+            self.btnInviteConnect.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
 
         }
         
@@ -128,6 +129,9 @@ class InviteFriendCell: UITableViewCell {
                                 let friendStatus = Check_status
                                 if friendStatus.toInt == 0{
                                     self.check_Status = 0
+                                    
+                                    
+                                    
                                     self.btnInviteConnect.setTitle(CBtnInvite, for: .normal)
                                 }else{
 //                                    self.check_Status = 1

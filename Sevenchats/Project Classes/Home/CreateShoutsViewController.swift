@@ -205,8 +205,7 @@ extension CreateShoutsViewController{
                     guard let image = appDelegate.loginUser?.profile_img else { return }
                     let stausLike = metaInfo["status"] as? String ?? "0"
                     if stausLike == "0" {
-                        
-                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:"post_point",type:CPostcreate,title:"Shout Add",name:name,icon:image)
+                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"shout",title: self?.textViewMessage.text! ?? "",name:name,icon:image, detail_text: "post_point")
                     }
                 }
                 

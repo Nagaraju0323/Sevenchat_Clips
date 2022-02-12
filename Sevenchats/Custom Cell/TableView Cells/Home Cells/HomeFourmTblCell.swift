@@ -215,8 +215,7 @@ extension HomeFourmTblCell {
                             guard let image = appDelegate.loginUser?.profile_img else { return }
                             let stausLike = metaInfo["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                
-                                MIGeneralsAPI.shared().addRewardsPoints(CPostlike,message:"post_point",type:CPostlike,title:"post Like",name:name,icon:image)
+
                             }
                         }
                         self?.notifcationIsSlected = false

@@ -220,7 +220,12 @@ extension AddArticleViewController{
             if response != nil && error == nil{
                 let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                 guard let image = appDelegate.loginUser?.profile_img else { return }
-                MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:"post_point",type:CPostcreate,title:"Article Add",name:name,icon:image)
+                //Add rewards Points
+                MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"article",title: self.txtArticleTitle.text!,name:name,icon:image, detail_text: "post_point")
+                
+                
+                
+                
                 self.navigationController?.popViewController(animated: true)
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.articleType == .editArticle ? CMessageArticlePostUpdated : CMessageArticlePostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }

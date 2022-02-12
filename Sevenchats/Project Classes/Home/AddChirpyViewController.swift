@@ -264,8 +264,8 @@ extension AddChirpyViewController{
                     guard let image = appDelegate.loginUser?.profile_img else { return }
                     let stausLike = metaInfo["status"] as? String ?? "0"
                     if stausLike == "0" {
+                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"chirpy",title: self.categoryDropDownView.txtCategory.text ?? "",name:name,icon:image, detail_text: "post_point")
                         
-                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:"post_point",type:CPostcreate,title:"Chirpy Add",name:name,icon:image)
                     }
                 }
                 

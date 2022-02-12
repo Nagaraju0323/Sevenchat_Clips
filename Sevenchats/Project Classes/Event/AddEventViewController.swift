@@ -271,8 +271,11 @@ extension AddEventViewController{
                     guard let image = appDelegate.loginUser?.profile_img else { return }
                     let stausLike = metaInfo["status"] as? String ?? "0"
                     if stausLike == "0" {
+
+                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"event",title: self.txtEventTitle.text ?? "",name:name,icon:image, detail_text: "post_point")
                         
-                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:"post_point",type:CPostcreate,title:"Event Add",name:name,icon:image)
+                        
+                        
                     }
                 }
                 self.navigationController?.popViewController(animated: true)

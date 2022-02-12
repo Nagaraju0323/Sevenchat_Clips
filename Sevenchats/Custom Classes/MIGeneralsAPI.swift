@@ -2509,7 +2509,7 @@ extension MIGeneralsAPI {
         }
     }
     
-    func addRewardsPoints(_ points_config_idName: String,message:String,type:String,title:String,name:String,icon:String) {
+    func addRewardsPoints(_ points_config_idName: String,message:String,type:String,title:String,name:String,icon:String,detail_text:String) {
         
         var points_config_id:String?
         var max_points:String?
@@ -2531,7 +2531,7 @@ extension MIGeneralsAPI {
             "target_id":0,
             "points":max_points ?? "",
             "message":message,
-            "detail_text":"",
+            "detail_text":detail_text,
             "type":type,
             "title":title,
             "name":name,

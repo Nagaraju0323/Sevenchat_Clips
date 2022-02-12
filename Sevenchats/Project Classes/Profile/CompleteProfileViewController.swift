@@ -75,6 +75,8 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
         viewAddInterest.isHidden = true
         lblPersonalInterest.isHidden = true
         viewAddInterest.backgroundColor = .clear
+        
+        rewardsCategory()
     }
     
     // MARK:- ---------- Initialization
@@ -489,7 +491,7 @@ extension CompleteProfileViewController{
                 let state_name = appDelegate.loginUser?.state ?? ""
                 let education = txtEducation.text ?? ""
                 
-                if !lastname.isEmpty && !firstName.isEmpty && !user_acc_type.isEmpty && !gender.isEmpty && !religion.isEmpty && !txtCity.isEmpty && !profile.isEmpty && !cover.isEmpty && !txtmobile.isEmpty && !txtemail.isEmpty && !dob.isEmpty && !bio.isEmpty && !reltionship.isEmpty && !professionText.isEmpty && !txtCity.isEmpty && !latitude.description.isEmpty && !lang.description.isEmpty && !user_type.isEmpty && !status_id.isEmpty && !langName.isEmpty && !emplymenntStatus.description.isEmpty && !income.isEmpty && !user_id.isEmpty && !country_name.isEmpty && !state_name.isEmpty  && !education.isEmpty{
+                if !lastname.isEmpty && !firstName.isEmpty && !user_acc_type.isEmpty && !gender.isEmpty && !religion.isEmpty && !txtCity.isEmpty && !profile.isEmpty && !txtmobile.isEmpty && !txtemail.isEmpty && !dob.isEmpty && !bio.isEmpty && !reltionship.isEmpty && !professionText.isEmpty && !txtCity.isEmpty && !latitude.description.isEmpty && !lang.description.isEmpty && !user_type.isEmpty && !status_id.isEmpty && !langName.isEmpty && !emplymenntStatus.description.isEmpty && !income.isEmpty && !user_id.isEmpty && !country_name.isEmpty && !state_name.isEmpty  && !education.isEmpty{
                     self.getRewardsDetail(isLoader:true)
                 }
                 self.navigationController?.popViewController(animated: true)
@@ -505,11 +507,11 @@ extension CompleteProfileViewController{
             return
         }
         
-        if BASEURL_Rew == "QA"{
-            category_id = "44953672"
-        }else {
-            category_id = "1007720"
-        }
+        //        if BASEURL_Rew == "QA"{
+        //            category_id = "44953672"
+        //        }else {
+        //            category_id = "1007720"
+        //        }
         var dict = [String:Any]()
         guard let userID = appDelegate.loginUser?.user_id.description else { return}
         dict["user_id"] = userID
@@ -531,13 +533,30 @@ extension CompleteProfileViewController{
                         }else {
                             let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                             guard let image = appDelegate.loginUser?.profile_img else { return }
-                            MIGeneralsAPI.shared().addRewardsPoints(CCompleteprofile,message:"Complete_profile",type:CCompleteprofile,title:"Complete profile",name:name,icon:image)
+                            MIGeneralsAPI.shared().addRewardsPoints(CCompleteprofile,message:"Complete profile",type:CCompleteprofile,title:"Complete profile",name:name,icon:image, detail_text: "complete_profile_point")
                         }
                     }
                 }
             }
         }
     }
+    
+    func rewardsCategory(){
+        let timestamp : TimeInterval = 0
+        APIRequest.shared().loadRewardsCategory(timestamp:timestamp as AnyObject) { (response, error) in
+            if response != nil && error == nil {
+                if let data = response![CJsonData] as? [[String : Any]]{
+                    for infora in data{
+                        if infora.valueForString(key: "category_name") == "Profile"{
+                            self.category_id = infora.valueForString(key: "category_id")
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     
 }
 

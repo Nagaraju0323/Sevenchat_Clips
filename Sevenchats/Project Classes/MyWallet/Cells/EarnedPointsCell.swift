@@ -34,23 +34,23 @@ class EarnedPointsCell: UITableViewCell {
             } else {
                 self.lblPointCount.textColor = UIColor(hexString: "06c0a6") // Green
             }
-            lblDescription.attributedText = htmlToAttributedString("Credited for " + rewardDetail.title, lblDescription.font)
+            lblDescription.attributedText = htmlToAttributedString("Credited for " + rewardDetail.postType, lblDescription.font)
             imgUserProfile.loadImageFromUrl(rewardDetail.friendImage, true)
 
-            switch rewardDetail.title {
-            case "Article Add": // Article
+            switch rewardDetail.postType {
+            case "article": // Article
                 self.imgUserProfile.image = #imageLiteral(resourceName: "ic_1_article")
-            case "Gallery Add": // Gallery
+            case "gallery": // Gallery
                 self.imgUserProfile.image = #imageLiteral(resourceName: "ic_4_gallery")
-            case "Chirpy Add": // Chirpy
+            case "chirpy": // Chirpy
                 self.imgUserProfile.image = #imageLiteral(resourceName: "ic_2_chipy")
-            case "Shout Add": // Shout
+            case "shout": // Shout
                 self.imgUserProfile.image = #imageLiteral(resourceName: "ic_7_shout")
-            case "Forum Add": // Forum
+            case "forum": // Forum
                 self.imgUserProfile.image = #imageLiteral(resourceName: "ic_4_forum")
-            case "Event Add": // Event
+            case "event": // Event
                 self.imgUserProfile.image = #imageLiteral(resourceName: "ic_5_events")
-            case "Poll Add": // Poll
+            case "poll": // Poll
                 self.imgUserProfile.image = #imageLiteral(resourceName: "ic_6_poll")
             default :break
             }

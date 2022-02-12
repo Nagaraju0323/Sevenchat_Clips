@@ -1739,6 +1739,7 @@
                         <outlet property="tblFriend" destination="1Wq-JM-DxM" id="j88-sZ-ydA"/>
                         <outlet property="txtSearch" destination="KkB-Gx-Ue2" id="4xc-s2-T6d"/>
                         <outlet property="viewButtonSeparator" destination="kuh-rA-qiC" id="Fqq-0A-wuc"/>
+                        <outlet property="viewButtonView" destination="WKF-ag-hZH" id="dDP-tr-TgW"/>
                         <outlet property="viewSearchBar" destination="B4X-5y-GpE" id="bet-ca-5Sw"/>
                     </connections>
                 </viewController>

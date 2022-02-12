@@ -164,7 +164,7 @@ extension MyRewardsHistoryVC {
         guard let userID = appDelegate.loginUser?.user_id.description else { return}
         dict["user_id"] = userID
         dict["category_id"] = categoryId.toString
-        dict["page"] = "1"
+        dict["page"] = currentPage
         dict["limit"] = "20"
         apiTask = APIRequest.shared().rewardsDetail(param:dict,showLoader: isLoader) { [weak self] (response, error) in
             guard let self = self else { return }

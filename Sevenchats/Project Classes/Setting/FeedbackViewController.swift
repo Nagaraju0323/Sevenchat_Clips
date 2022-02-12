@@ -173,22 +173,22 @@ extension FeedbackViewController{
                         let stausLike = metaInfo["status"] as? String ?? "0"
                         if stausLike == "0" {
                             if self.txtCategory.text == "Not User Friendly" || self.txtCategory.text == "ಬಳಕೆದಾರ ಸ್ನೇಹಿ ಅಲ್ಲ"{
-                                MIGeneralsAPI.shared().addRewardsPoints(CNotuserfriendlyfeedback,message:"Feedback",type:CNotuserfriendlyfeedback,title:"Feedback",name:name,icon:image)
+//                                MIGeneralsAPI.shared().addRewardsPoints(CNotuserfriendlyfeedback,message:"Feedback",type:CNotuserfriendlyfeedback,title:"Feedback",name:name,icon:image, detail_text: "Feedback")
                                 
                             }else if self.txtCategory.text == "Prompts not clear" || self.txtCategory.text == "ಪ್ರಾಂಪ್ಟ್‌ಗಳು ಸ್ಪಷ್ಟವಾಗಿಲ್ಲ"{
-                                MIGeneralsAPI.shared().addRewardsPoints(CPromptsnotclearfeedback,message:"Feedback",type:CPromptsnotclearfeedback,title:"Feedback",name:name,icon:image)
+//                                MIGeneralsAPI.shared().addRewardsPoints(CPromptsnotclearfeedback,message:"Feedback",type:CPromptsnotclearfeedback,title:"Feedback",name:name,icon:image, detail_text: "Feedback")
                             }else if self.txtCategory.text == "Improper language" || self.txtCategory.text == "ಅಸಮರ್ಪಕ ಭಾಷೆ"{
-                                MIGeneralsAPI.shared().addRewardsPoints(CImproperlanguagefeedback,message:"Feedback",type:CImproperlanguagefeedback,title:"Feedback",name:name,icon:image)
+//                                MIGeneralsAPI.shared().addRewardsPoints(CImproperlanguagefeedback,message:"Feedback",type:CImproperlanguagefeedback,title:"Feedback",name:name,icon:image, detail_text: "Feedback")
                             }else if self.txtCategory.text == "Incorrect language translation" || self.txtCategory.text == "ಸರಿಯಾದ ಭಾಷಾ ಅನುವಾದ"{
-                                MIGeneralsAPI.shared().addRewardsPoints(CIncorrectlanguage,message:"Feedback",type:CIncorrectlanguage,title:"Feedback",name:name,icon:image)
+//                                MIGeneralsAPI.shared().addRewardsPoints(CIncorrectlanguage,message:"Feedback",type:CIncorrectlanguage,title:"Feedback",name:name,icon:image, detail_text: "Feedback")
                             }else if self.txtCategory.text == "Need help screens" || self.txtCategory.text == "ಸಹಾಯ ಪರದೆಯ ಅಗತ್ಯವಿದೆ"{
-                                MIGeneralsAPI.shared().addRewardsPoints(CNeedhelpscreensfeedback,message:"Feedback",type:CNeedhelpscreensfeedback,title:"Feedback",name:name,icon:image)
+//                                MIGeneralsAPI.shared().addRewardsPoints(CNeedhelpscreensfeedback,message:"Feedback",type:CNeedhelpscreensfeedback,title:"Feedback",name:name,icon:image, detail_text: "Feedback")
                             }else if self.txtCategory.text == "Missing functionality" || self.txtCategory.text == "ಕ್ರಿಯಾತ್ಮಕತೆ ಕಾಣೆಯಾಗಿದೆ"{
-                                MIGeneralsAPI.shared().addRewardsPoints(CMissingfunctionalityfeedback,message:"Feedback",type:CMissingfunctionalityfeedback,title:"Feedback",name:name,icon:image)
+//                                MIGeneralsAPI.shared().addRewardsPoints(CMissingfunctionalityfeedback,message:"Feedback",type:CMissingfunctionalityfeedback,title:"Feedback",name:name,icon:image, detail_text: "Feedback")
                             }else if self.txtCategory.text == "Nice to have functionality" || self.txtCategory.text == "ಕ್ರಿಯಾತ್ಮಕತೆಯನ್ನು ಹೊಂದಲು ಸಂತೋಷವಾಗಿದೆ"{
-                                MIGeneralsAPI.shared().addRewardsPoints(Nicetohavefunctionalityfeedback,message:"Feedback",type:Nicetohavefunctionalityfeedback,title:"Feedback",name:name,icon:image)
+//                                MIGeneralsAPI.shared().addRewardsPoints(Nicetohavefunctionalityfeedback,message:"Feedback",type:Nicetohavefunctionalityfeedback,title:"Feedback",name:name,icon:image, detail_text: "Feedback")
                             }else if self.txtCategory.text == "Need help with" || self.txtCategory.text == "ಸಹಾಯದ ಅಗತ್ಯವಿದೆ"{
-                                MIGeneralsAPI.shared().addRewardsPoints(CNeedhelpwithfeedback,message:"Feedback",type:CNeedhelpwithfeedback,title:"Feedback",name:name,icon:image)
+//                                MIGeneralsAPI.shared().addRewardsPoints(CNeedhelpwithfeedback,message:"Feedback",type:CNeedhelpwithfeedback,title:"Feedback",name:name,icon:image, detail_text: "Feedback")
                             }
                         }
                         

@@ -173,8 +173,7 @@ extension ProductListCell {
                             guard let image = appDelegate.loginUser?.profile_img else { return }
                             let stausLike = metaInfo["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                
-                                MIGeneralsAPI.shared().addRewardsPoints(CPostonstorelike,message:"Sell_Posts",type:CPostonstorelike,title:"Post on Like",name:name,icon:image)
+
                             }
                         }
                         guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
