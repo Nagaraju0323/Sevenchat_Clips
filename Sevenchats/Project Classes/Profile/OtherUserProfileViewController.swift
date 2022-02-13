@@ -505,9 +505,6 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                                 self?.Friend_status = 0
                             }
                         }
-                   
-                    
-                        
                         switch self?.Friend_status {
                         case 0:
                             frndStatus = CFriendRequestSent
@@ -568,7 +565,6 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         
                         self?.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: blockUnBlock, btnOneStyle: .default, btnOneTapped: { [weak self](alert) in
                             // Block or Unblock
-                            
                             if self?.userBlock.valueForString(key: "friend_user_id") ==                        userInfo.valueForString(key: "user_id"){
                                 print("IS BLOCK")
                                 self?.isBlock = true
@@ -920,7 +916,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeShoutsTblCell", for: indexPath) as? HomeShoutsTblCell {
                     
                     cell.isLikesOthersPage = true
-                    
+                    cell.posted_IDOthers = userIDNew ?? ""
                     cell.homeShoutsDataSetup(postInfo!)
                     
                     cell.btnLikesCount.touchUpInside {[weak self] (sender) in

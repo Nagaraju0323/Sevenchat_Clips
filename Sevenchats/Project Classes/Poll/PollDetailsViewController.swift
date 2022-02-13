@@ -1372,7 +1372,7 @@ extension PollDetailsViewController{
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lassName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post Fourm", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post Fourm ",senderName: firstName + lassName)
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post",senderName: firstName + lassName)
                         self?.notifcationIsSlected = false
                     }
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.pollIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
@@ -1678,7 +1678,7 @@ extension PollDetailsViewController{
                             guard let lassName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Comment to Post Poll", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post Poll", senderName:firstName + lassName )
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Comment to Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post", senderName:firstName + lassName )
                             }
                             
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)

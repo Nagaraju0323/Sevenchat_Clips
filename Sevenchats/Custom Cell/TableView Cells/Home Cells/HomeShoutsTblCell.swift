@@ -39,6 +39,7 @@ class HomeShoutsTblCell: UITableViewCell {
     var like =  0
     var info = [String:Any]()
     var posted_ID = ""
+    var posted_IDOthers = ""
     var profileImg = ""
     var notifcationIsSlected = false
     var isLikesOthers:Bool?
@@ -92,6 +93,7 @@ extension HomeShoutsTblCell{
     func homeShoutsDataSetup(_ postInfo : [String : Any]){
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         posted_ID = postInfo.valueForString(key: "user_id")
+        
         lblShoutsType.text = CTypeShout
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         lblShoutsDescription.text = postInfo.valueForString(key: CContent)

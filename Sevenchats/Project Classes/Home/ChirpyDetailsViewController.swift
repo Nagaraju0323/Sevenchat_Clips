@@ -307,7 +307,7 @@ extension ChirpyDetailsViewController: UITableViewDelegate, UITableViewDataSourc
             
             // Load more data....
             if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
-                self.getCommentListFromServer()
+//                self.getCommentListFromServer()
             }
             
             return cell

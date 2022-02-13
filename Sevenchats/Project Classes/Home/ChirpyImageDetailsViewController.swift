@@ -104,6 +104,7 @@ class ChirpyImageDetailsViewController: ParentViewController {
         super.viewWillAppear(animated)
         setChirpyDetailData(chirpyInformation)
         self.updateUIAccordingToLanguage()
+        self.getCommentListFromServer()
     }
     
     // MARK:- --------- Initialization
@@ -190,7 +191,7 @@ extension ChirpyImageDetailsViewController{
                         }
                     }
                 }
-                self.getCommentListFromServer()
+//                self.getCommentListFromServer()
             }
         }
     }

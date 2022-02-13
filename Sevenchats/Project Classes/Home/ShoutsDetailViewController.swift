@@ -528,7 +528,7 @@ extension ShoutsDetailViewController{
                             guard let lastName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Pos", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Pos", senderName: firstName + lastName)
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName)
                             }
                             
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)

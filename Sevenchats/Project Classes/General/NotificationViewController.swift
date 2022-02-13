@@ -235,14 +235,12 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
             cell.imgUser.loadImageFromUrl(notificationInfo.valueForString(key: "icon"), true)
             cell.lblNotificationDetails.font = CFontPoppins(size: 14, type: .light).setUpAppropriateFont()
             cell.lblNotificationDetails.attributedText = self.htmlToAttributedString(notifcationContent, cell.lblNotificationDetails.font)
-            if indexPath == tblVNotification.lastIndexPath() && !self.isLoadMoreCompleted{
-                self.getNotificationListFromServer(isLoader: true)
-            }
-            
             return cell
         }
         
-       
+        if indexPath == tblVNotification.lastIndexPath() && !self.isLoadMoreCompleted{
+            self.getNotificationListFromServer(isLoader: true)
+        }
         
         return UITableViewCell()
         

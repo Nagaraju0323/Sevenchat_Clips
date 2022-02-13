@@ -362,6 +362,7 @@ extension LoginViewController{
         }else {
             CWebSiteLink = "https://dev.sevenchats.com:7443/forgot_password"
         }
+        
         if UIApplication.shared.canOpenURL(URL(string: CWebSiteLink)!){
             UIApplication.shared.open(URL(string: CWebSiteLink)!, options: [:], completionHandler: nil)
         }
