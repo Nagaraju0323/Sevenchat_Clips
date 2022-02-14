@@ -87,6 +87,7 @@ class ForumDetailViewController: ParentViewController {
     var isLikesOthersPage:Bool?
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
     
     
     override func viewDidLoad() {
@@ -201,7 +202,14 @@ extension ForumDetailViewController{
         if let forInfo = forumInfo{
             forumInformation = forInfo
             self.forumIDNew = forumInformation.valueForString(key:CPostId)
-            posted_ID = forumInformation.valueForString(key: "user_id")
+//            posted_ID = forumInformation.valueForString(key: "user_id")
+            
+            if isLikesOthersPage == true {
+                posted_ID = self.posted_IDOthers
+            }else {
+                posted_ID = forumInformation.valueForString(key: "user_id")
+            }
+            
             self.lblUserName.text = forInfo.valueForString(key: CFirstname) + " " + forInfo.valueForString(key: CLastname)
             
             let created_At = forumInformation.valueForString(key: CCreated_at)
@@ -221,17 +229,41 @@ extension ForumDetailViewController{
 //                btnLike.isSelected = false
 //            }
             
+//            if isLikesOthersPage == true {
+//                if forInfo.valueForString(key:"friend_liked") == "Yes"  || forInfo.valueForString(key:"is_liked") == "Yes" {
+//                    btnLike.isSelected = true
+//                    if forInfo.valueForString(key:"is_liked") == "No"{
+//                        isLikeSelected = false
+//                    }
+//                }else {
+//                    if forInfo.valueForString(key:"is_liked") == "No" || forInfo.valueForString(key:"friend_liked") == "No" {
+//                        isLikeSelected = true
+//                    }
+//                    btnLike.isSelected = false
+//                }
+//            }
+            
             if isLikesOthersPage == true {
-                if forInfo.valueForString(key:"friend_liked") == "Yes"  || forInfo.valueForString(key:"is_liked") == "Yes" {
+                if forInfo.valueForString(key:"friend_liked") == "Yes"  && forInfo.valueForString(key:"is_liked") == "Yes" {
                     btnLike.isSelected = true
                     if forInfo.valueForString(key:"is_liked") == "No"{
                         isLikeSelected = false
                     }
                 }else {
-                    if forInfo.valueForString(key:"is_liked") == "No" || forInfo.valueForString(key:"friend_liked") == "No" {
+                    if forInfo.valueForString(key:"is_liked") == "No" && forInfo.valueForString(key:"friend_liked") == "No" {
                         isLikeSelected = true
                     }
                     btnLike.isSelected = false
+                }
+                
+                if forInfo.valueForString(key:"is_liked") == "Yes" && forInfo.valueForString(key:"friend_liked") == "No" {
+                    isLikeSelected = true
+                    btnLike.isSelected = false
+                }else if forInfo.valueForString(key:"is_liked") == "No" && forInfo.valueForString(key:"friend_liked") == "Yes"{
+                    
+                    isLikeSelected = false
+                    btnLike.isSelected = true
+
                 }
             }
             

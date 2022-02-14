@@ -428,6 +428,7 @@ class HomePollTblCell: UITableViewCell {
     var isLikesOthersPage:Bool?
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
     
     
     override func awakeFromNib() {
@@ -460,7 +461,14 @@ extension HomePollTblCell{
         
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         pollIDNew = postInfo.valueForString(key: "post_id").toInt ?? 0
-        posted_ID = postInfo.valueForString(key: "user_id")
+//        posted_ID = postInfo.valueForString(key: "user_id")
+        
+        if isLikesOthersPage == true {
+            posted_ID = self.posted_IDOthers
+        }else {
+            posted_ID = postInfo.valueForString(key: "user_id")
+        }
+        
         tblVAnswre.isSelectedByUser = postInfo.valueForString(key: "is_selected")
         tblVAnswre.postinfo = postInfo
 //        tblVAnswre.postDetails(postID:pollIDNew?.toString ?? "")
@@ -543,19 +551,46 @@ extension HomePollTblCell{
 //        }
         
         
-                if isLikesOthersPage == true {
-                    if postInfo.valueForString(key:"friend_liked") == "Yes"  || postInfo.valueForString(key:"is_liked") == "Yes" {
-                        btnLike.isSelected = true
-                        if postInfo.valueForString(key:"is_liked") == "No"{
-                            isLikeSelected = false
-                        }
-                    }else {
-                        if postInfo.valueForString(key:"is_liked") == "No" || postInfo.valueForString(key:"friend_liked") == "No" {
-                            isLikeSelected = true
-                        }
-                        btnLike.isSelected = false
-                    }
+//                if isLikesOthersPage == true {
+//                    if postInfo.valueForString(key:"friend_liked") == "Yes"  || postInfo.valueForString(key:"is_liked") == "Yes" {
+//                        btnLike.isSelected = true
+//                        if postInfo.valueForString(key:"is_liked") == "No"{
+//                            isLikeSelected = false
+//                        }
+//                    }else {
+//                        if postInfo.valueForString(key:"is_liked") == "No" || postInfo.valueForString(key:"friend_liked") == "No" {
+//                            isLikeSelected = true
+//                        }
+//                        btnLike.isSelected = false
+//                    }
+//                }
+        
+        
+        if isLikesOthersPage == true {
+            if postInfo.valueForString(key:"friend_liked") == "Yes"  && postInfo.valueForString(key:"is_liked") == "Yes" {
+                btnLike.isSelected = true
+                if postInfo.valueForString(key:"is_liked") == "No"{
+                    isLikeSelected = false
                 }
+            }else {
+                if postInfo.valueForString(key:"is_liked") == "No" && postInfo.valueForString(key:"friend_liked") == "No" {
+                    isLikeSelected = true
+                }
+                btnLike.isSelected = false
+            }
+            
+            if postInfo.valueForString(key:"is_liked") == "Yes" && postInfo.valueForString(key:"friend_liked") == "No" {
+                isLikeSelected = true
+                btnLike.isSelected = false
+            }else if postInfo.valueForString(key:"is_liked") == "No" && postInfo.valueForString(key:"friend_liked") == "Yes"{
+                
+                isLikeSelected = false
+                btnLike.isSelected = true
+
+            }
+        }
+        
+        
                 if isLikesHomePage == true  || isLikesMyprofilePage == true {
                     if postInfo.valueForString(key:CIs_Liked) == "Yes"{
                         btnLike.isSelected = true

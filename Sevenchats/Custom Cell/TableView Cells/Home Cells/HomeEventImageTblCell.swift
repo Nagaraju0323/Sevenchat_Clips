@@ -65,6 +65,12 @@ class HomeEventImageTblCell: UITableViewCell {
     var isLikesOthersPage:Bool?
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
+    
+    var Interested = ""
+    var notInterested = ""
+    var mayBe = ""
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -146,7 +152,12 @@ extension HomeEventImageTblCell{
     func homeEventDataSetup(_ postInfo : [String : Any]){
         
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
-        posted_ID = postInfo.valueForString(key: "user_id")
+//        posted_ID = postInfo.valueForString(key: "user_id")
+        if isLikesOthersPage == true {
+            posted_ID = self.posted_IDOthers
+        }else {
+            posted_ID = postInfo.valueForString(key: "user_id")
+        }
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         lblEventTitle.text = postInfo.valueForString(key: CTitle)
@@ -170,29 +181,33 @@ extension HomeEventImageTblCell{
         
         lblEventType.text = CTypeEvent
         lblEventCategory.text = postInfo.valueForString(key: CCategory).uppercased()
-        let is_Liked = postInfo.valueForString(key: CIsLiked)
+//        let is_Liked = postInfo.valueForString(key: CIsLiked)
        
-//        if is_Liked == "Yes"{
-//            btnLike.isSelected = true
-//        }else {
-//            btnLike.isSelected = false
-//        }
-        
-        
         
         if isLikesOthersPage == true {
-            if postInfo.valueForString(key:"friend_liked") == "Yes"  || postInfo.valueForString(key:"is_liked") == "Yes" {
+            if postInfo.valueForString(key:"friend_liked") == "Yes"  && postInfo.valueForString(key:"is_liked") == "Yes" {
                 btnLike.isSelected = true
                 if postInfo.valueForString(key:"is_liked") == "No"{
                     isLikeSelected = false
                 }
             }else {
-                if postInfo.valueForString(key:"is_liked") == "No" || postInfo.valueForString(key:"friend_liked") == "No" {
+                if postInfo.valueForString(key:"is_liked") == "No" && postInfo.valueForString(key:"friend_liked") == "No" {
                     isLikeSelected = true
                 }
                 btnLike.isSelected = false
             }
+            
+            if postInfo.valueForString(key:"is_liked") == "Yes" && postInfo.valueForString(key:"friend_liked") == "No" {
+                isLikeSelected = true
+                btnLike.isSelected = false
+            }else if postInfo.valueForString(key:"is_liked") == "No" && postInfo.valueForString(key:"friend_liked") == "Yes"{
+                
+                isLikeSelected = false
+                btnLike.isSelected = true
+
+            }
         }
+        
         if isLikesHomePage == true  || isLikesMyprofilePage == true {
             if postInfo.valueForString(key:CIs_Liked) == "Yes"{
                 btnLike.isSelected = true
@@ -216,6 +231,11 @@ extension HomeEventImageTblCell{
         btnMaybe.setTitle("\(postInfo.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(postInfo.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
         btnInterested.setTitle("\(postInfo.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)
+        self.Interested = postInfo.valueForString(key: "yes_count")
+        self.notInterested = postInfo.valueForString(key: "no_count")
+        self.mayBe = postInfo.valueForString(key: "maybe_count")
+        
+        
         let currentDateTime = Date().timeIntervalSince1970
         if let endDateTime = postInfo.valueForDouble(key: CEvent_End_Date) {
             btnMaybe.isEnabled = Double(currentDateTime) <= endDateTime
@@ -437,8 +457,10 @@ extension HomeEventImageTblCell{
             guard let lastName = appDelegate.loginUser?.last_name else {return}
             print(self.posted_ID)
             
-            MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+            if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
             
+            MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+            }
            }
        }
        
@@ -455,8 +477,9 @@ extension HomeEventImageTblCell{
             guard let firstName = appDelegate.loginUser?.first_name else {return}
             guard let lastName = appDelegate.loginUser?.last_name else {return}
             
+            if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
             MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
-           
+            }
            }
        }
        
@@ -472,9 +495,9 @@ extension HomeEventImageTblCell{
             guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
             guard let firstName = appDelegate.loginUser?.first_name else {return}
             guard let lastName = appDelegate.loginUser?.last_name else {return}
-            
+            if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
              MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
-          
+             }
            }
        }
        

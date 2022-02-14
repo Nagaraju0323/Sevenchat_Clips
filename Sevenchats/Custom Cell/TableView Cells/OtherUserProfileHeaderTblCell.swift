@@ -324,6 +324,7 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
             if response != nil && error == nil {
                 let list = response!["friends_Of_friend"] as? [String:Any]
                 if let arrList = list![CJsonData] as? [[String:Any]] {
+                    print(":::::::::friendsofFreinds\(arrList)")
                     self.frdsofFrds = arrList
                 }
             }

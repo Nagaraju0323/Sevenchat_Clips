@@ -973,6 +973,8 @@ class PollDetailsViewController: ParentViewController {
     var isLikesOthersPage:Bool?
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
+    
     
     
     override func viewDidLoad() {
@@ -1109,8 +1111,16 @@ extension PollDetailsViewController {
             self.pollInformation = pollInfo
             
             self.pollIDNew = pollInfo.valueForString(key:CPostId)
-            posted_ID = pollInfo.valueForString(key: "user_id")
+//            posted_ID = pollInfo.valueForString(key: "user_id")
             print(":::::::::::::::is_selected::\(pollInfo.valueForString(key: "is_selected"))")
+            
+            
+            if isLikesOthersPage == true {
+                posted_ID = self.posted_IDOthers
+            }else {
+                posted_ID = pollInfo.valueForString(key: "user_id")
+            }
+            
       
             lblUserName.text = pollInfo.valueForString(key: CFirstname) + " " + pollInfo.valueForString(key: CLastname)
             lblPollTitle.text = pollInfo.valueForString(key: CTitle)
@@ -1190,17 +1200,41 @@ extension PollDetailsViewController {
 //                btnLike.isSelected = false
 //            }
             
+//            if isLikesOthersPage == true {
+//                if pollInfo.valueForString(key:"friend_liked") == "Yes"  || pollInfo.valueForString(key:"is_liked") == "Yes" {
+//                    btnLike.isSelected = true
+//                    if pollInfo.valueForString(key:"is_liked") == "No"{
+//                        isLikeSelected = false
+//                    }
+//                }else {
+//                    if pollInfo.valueForString(key:"is_liked") == "No" || pollInfo.valueForString(key:"friend_liked") == "No" {
+//                        isLikeSelected = true
+//                    }
+//                    btnLike.isSelected = false
+//                }
+//            }
+            
             if isLikesOthersPage == true {
-                if pollInfo.valueForString(key:"friend_liked") == "Yes"  || pollInfo.valueForString(key:"is_liked") == "Yes" {
+                if pollInfo.valueForString(key:"friend_liked") == "Yes"  && pollInfo.valueForString(key:"is_liked") == "Yes" {
                     btnLike.isSelected = true
                     if pollInfo.valueForString(key:"is_liked") == "No"{
                         isLikeSelected = false
                     }
                 }else {
-                    if pollInfo.valueForString(key:"is_liked") == "No" || pollInfo.valueForString(key:"friend_liked") == "No" {
+                    if pollInfo.valueForString(key:"is_liked") == "No" && pollInfo.valueForString(key:"friend_liked") == "No" {
                         isLikeSelected = true
                     }
                     btnLike.isSelected = false
+                }
+                
+                if pollInfo.valueForString(key:"is_liked") == "Yes" && pollInfo.valueForString(key:"friend_liked") == "No" {
+                    isLikeSelected = true
+                    btnLike.isSelected = false
+                }else if pollInfo.valueForString(key:"is_liked") == "No" && pollInfo.valueForString(key:"friend_liked") == "Yes"{
+                    
+                    isLikeSelected = false
+                    btnLike.isSelected = true
+
                 }
             }
             

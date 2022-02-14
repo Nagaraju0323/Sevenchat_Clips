@@ -2151,24 +2151,21 @@ extension APIRequest {
         
         var para = [String : Any]()
         para[CPage] = page
-        para[CPer_page] = CLimit
+        para["limit"] = CLimitTT
         
         if user_id != nil{
-            para[CUserId] = user_id
+            para["user_id"] = user_id?.description
         }
+        para["friend_id"] = appDelegate.loginUser?.user_id.description ?? ""
         
-        if search_type != nil{
-            para[CSearchType] = search_type
-        }
-        
-        let dict : [String:Any]  =  [
-            "friend_id":appDelegate.loginUser?.user_id.description ?? "",
-            "user_id":user_id?.description as Any,
-            "page" : 1,
-            "limit" : CLimitTT
-           
-        ]
-        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserFriendPostNew, param: dict as [String : AnyObject], successBlock: { (task, response) in
+//        let dict : [String:Any]  =  [
+//            "friend_id":appDelegate.loginUser?.user_id.description ?? "",
+//            "user_id":user_id?.description as Any,
+//            "page" : page?.description,
+//            "limit" : CLimitTT
+//
+//        ]
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserFriendPostNew, param: para as [String : AnyObject], successBlock: { (task, response) in
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserPost) {
                 completion(response, nil)
             }

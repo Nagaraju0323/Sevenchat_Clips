@@ -68,6 +68,7 @@ class ChirpyImageDetailsViewController: ParentViewController {
     var isLikesOthersPage:Bool?
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
     
     
     
@@ -212,7 +213,12 @@ extension ChirpyImageDetailsViewController{
         if let chirInfo = chirpyInfo{
             chirpyInformation = chirInfo
             self.chirpyIDNew = chirInfo.valueForString(key:CPostId)
-            posted_ID = chirInfo.valueForString(key: "user_id")
+//            posted_ID = chirInfo.valueForString(key: "user_id")
+            if isLikesOthersPage == true {
+                posted_ID = self.posted_IDOthers
+            }else {
+                posted_ID = chirInfo.valueForString(key: "user_id")
+            }
             chirpyId = chirInfo.valueForString(key: "post_id")
             self.lblUserName.text = chirInfo.valueForString(key: CFirstname) + " " + chirInfo.valueForString(key: CLastname)
             self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
@@ -240,17 +246,41 @@ extension ChirpyImageDetailsViewController{
             
             
             
+//            if isLikesOthersPage == true {
+//                if chirInfo.valueForString(key:"friend_liked") == "Yes"  || chirInfo.valueForString(key:"is_liked") == "Yes" {
+//                    btnLike.isSelected = true
+//                    if chirInfo.valueForString(key:"is_liked") == "No"{
+//                        isLikeSelected = false
+//                    }
+//                }else {
+//                    if chirInfo.valueForString(key:"is_liked") == "No" || chirInfo.valueForString(key:"friend_liked") == "No" {
+//                        isLikeSelected = true
+//                    }
+//                    btnLike.isSelected = false
+//                }
+//            }
+            
             if isLikesOthersPage == true {
-                if chirInfo.valueForString(key:"friend_liked") == "Yes"  || chirInfo.valueForString(key:"is_liked") == "Yes" {
+                if chirInfo.valueForString(key:"friend_liked") == "Yes"  && chirInfo.valueForString(key:"is_liked") == "Yes" {
                     btnLike.isSelected = true
                     if chirInfo.valueForString(key:"is_liked") == "No"{
                         isLikeSelected = false
                     }
                 }else {
-                    if chirInfo.valueForString(key:"is_liked") == "No" || chirInfo.valueForString(key:"friend_liked") == "No" {
+                    if chirInfo.valueForString(key:"is_liked") == "No" && chirInfo.valueForString(key:"friend_liked") == "No" {
                         isLikeSelected = true
                     }
                     btnLike.isSelected = false
+                }
+                
+                if chirInfo.valueForString(key:"is_liked") == "Yes" && chirInfo.valueForString(key:"friend_liked") == "No" {
+                    isLikeSelected = true
+                    btnLike.isSelected = false
+                }else if chirInfo.valueForString(key:"is_liked") == "No" && chirInfo.valueForString(key:"friend_liked") == "Yes"{
+                    
+                    isLikeSelected = false
+                    btnLike.isSelected = true
+
                 }
             }
             

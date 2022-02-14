@@ -120,6 +120,11 @@ class EventDetailImageViewController: ParentViewController {
     var isLikesOthersPage:Bool?
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
+    var Interested = ""
+    var notInterested = ""
+    var mayBe = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -292,7 +297,16 @@ extension EventDetailImageViewController {
         //...Set prefilled event detail here
         eventInfo = dict
         self.postIDNew = dict.valueForString(key:CPostId)
-        posted_ID = dict.valueForString(key: "user_id")
+        
+        
+//        posted_ID = dict.valueForString(key: "user_id")
+        
+        if isLikesOthersPage == true {
+            posted_ID = self.posted_IDOthers
+        }else {
+            posted_ID = dict.valueForString(key: "user_id")
+        }
+        
         self.parentView.isHidden = false
         self.lbluserName.text = "\(dict.valueForString(key: CFirstname)) \(dict.valueForString(key: CLastname))"
         let created_At = eventInfo.valueForString(key: CCreated_at)
@@ -315,6 +329,11 @@ extension EventDetailImageViewController {
         btnMaybe.setTitle("\(dict.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(dict.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
         btnInterested.setTitle("\(dict.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)
+        
+        self.Interested = dict.valueForString(key: "yes_count")
+        self.notInterested = dict.valueForString(key: "no_count")
+        self.mayBe = dict.valueForString(key: "maybe_count")
+        
         let image = dict.valueForString(key: "image")
         if image.isEmpty {
             blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
@@ -332,19 +351,45 @@ extension EventDetailImageViewController {
         
         
         
+//        if isLikesOthersPage == true {
+//            if dict.valueForString(key:"friend_liked") == "Yes"  || dict.valueForString(key:"is_liked") == "Yes" {
+//                btnLike.isSelected = true
+//                if dict.valueForString(key:"is_liked") == "No"{
+//                    isLikeSelected = false
+//                }
+//            }else {
+//                if dict.valueForString(key:"is_liked") == "No" || dict.valueForString(key:"friend_liked") == "No" {
+//                    isLikeSelected = true
+//                }
+//                btnLike.isSelected = false
+//            }
+//        }
+        
+        
         if isLikesOthersPage == true {
-            if dict.valueForString(key:"friend_liked") == "Yes"  || dict.valueForString(key:"is_liked") == "Yes" {
+            if dict.valueForString(key:"friend_liked") == "Yes"  && dict.valueForString(key:"is_liked") == "Yes" {
                 btnLike.isSelected = true
                 if dict.valueForString(key:"is_liked") == "No"{
                     isLikeSelected = false
                 }
             }else {
-                if dict.valueForString(key:"is_liked") == "No" || dict.valueForString(key:"friend_liked") == "No" {
+                if dict.valueForString(key:"is_liked") == "No" && dict.valueForString(key:"friend_liked") == "No" {
                     isLikeSelected = true
                 }
                 btnLike.isSelected = false
             }
+            
+            if dict.valueForString(key:"is_liked") == "Yes" && dict.valueForString(key:"friend_liked") == "No" {
+                isLikeSelected = true
+                btnLike.isSelected = false
+            }else if dict.valueForString(key:"is_liked") == "No" && dict.valueForString(key:"friend_liked") == "Yes"{
+                
+                isLikeSelected = false
+                btnLike.isSelected = true
+
+            }
         }
+        
         
         
         if isLikesHomePage == true  || isLikesMyprofilePage == true {
@@ -499,21 +544,21 @@ extension EventDetailImageViewController {
                 print(self.posted_ID)
             switch eventInfo.valueForInt(key: CIsInterested) {
             case CTypeInterested:
-               
+                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
-                
-                
+                }
                 eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
                 break
             case CTypeNotInterested:
+                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
-               
+                }
                 eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
                 break
             case CTypeMayBeInterested:
-               
+                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
-               
+                }
                 eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
                 break
             default:

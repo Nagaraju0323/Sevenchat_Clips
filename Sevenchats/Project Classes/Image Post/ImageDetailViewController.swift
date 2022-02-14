@@ -100,17 +100,16 @@ class ImageDetailViewController: ParentViewController {
     var info = [String:Any]()
     var commentinfo = [String:Any]()
     var likeTotalCount = 0
-    
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
-    
     var isLikesOthers:Bool?
     var isLikeSelected = false
     var isFinalLikeSelected = false
     var isLikesOthersPage:Bool?
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -231,7 +230,13 @@ extension ImageDetailViewController{
         if let galInfo = gallerInfo{
             galleryInfo = galInfo
             self.imgPostIdNew = galleryInfo.valueForString(key:CPostId)
-            posted_ID = galleryInfo.valueForString(key: "user_id")
+//            posted_ID = galleryInfo.valueForString(key: "user_id")
+            if isLikesOthersPage == true {
+                posted_ID = self.posted_IDOthers
+            }else {
+                posted_ID = galleryInfo.valueForString(key: "user_id")
+            }
+            
             
             self.lblUserName.text = galInfo.valueForString(key: CFirstname) + " " + galInfo.valueForString(key: CLastname)
             self.imgUser.loadImageFromUrl(galInfo.valueForString(key: CUserProfileImage), true)
@@ -263,19 +268,44 @@ extension ImageDetailViewController{
             
             
             
+//            if isLikesOthersPage == true {
+//                if galleryInfo.valueForString(key:"friend_liked") == "Yes"  || galleryInfo.valueForString(key:"is_liked") == "Yes" {
+//                    btnLike.isSelected = true
+//                    if galleryInfo.valueForString(key:"is_liked") == "No"{
+//                        isLikeSelected = false
+//                    }
+//                }else {
+//                    if galleryInfo.valueForString(key:"is_liked") == "No" || galleryInfo.valueForString(key:"friend_liked") == "No" {
+//                        isLikeSelected = true
+//                    }
+//                    btnLike.isSelected = false
+//                }
+//            }
+            
             if isLikesOthersPage == true {
-                if galleryInfo.valueForString(key:"friend_liked") == "Yes"  || galleryInfo.valueForString(key:"is_liked") == "Yes" {
+                if galleryInfo.valueForString(key:"friend_liked") == "Yes"  && galleryInfo.valueForString(key:"is_liked") == "Yes" {
                     btnLike.isSelected = true
                     if galleryInfo.valueForString(key:"is_liked") == "No"{
                         isLikeSelected = false
                     }
                 }else {
-                    if galleryInfo.valueForString(key:"is_liked") == "No" || galleryInfo.valueForString(key:"friend_liked") == "No" {
+                    if galleryInfo.valueForString(key:"is_liked") == "No" && galleryInfo.valueForString(key:"friend_liked") == "No" {
                         isLikeSelected = true
                     }
                     btnLike.isSelected = false
                 }
+                
+                if galleryInfo.valueForString(key:"is_liked") == "Yes" && galleryInfo.valueForString(key:"friend_liked") == "No" {
+                    isLikeSelected = true
+                    btnLike.isSelected = false
+                }else if galleryInfo.valueForString(key:"is_liked") == "No" && galleryInfo.valueForString(key:"friend_liked") == "Yes"{
+                    
+                    isLikeSelected = false
+                    btnLike.isSelected = true
+
+                }
             }
+            
             
             
             if isLikesHomePage == true  || isLikesMyprofilePage == true {

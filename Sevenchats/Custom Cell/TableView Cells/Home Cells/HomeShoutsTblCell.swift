@@ -92,7 +92,13 @@ extension HomeShoutsTblCell{
     
     func homeShoutsDataSetup(_ postInfo : [String : Any]){
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
-        posted_ID = postInfo.valueForString(key: "user_id")
+
+        if isLikesOthersPage == true {
+            posted_ID = self.posted_IDOthers
+        }else {
+            posted_ID = postInfo.valueForString(key: "user_id")
+        }
+//        posted_ID = postInfo.valueForString(key: "user_id")
         
         lblShoutsType.text = CTypeShout
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
@@ -108,16 +114,26 @@ extension HomeShoutsTblCell{
         
         
         if isLikesOthersPage == true {
-            if postInfo.valueForString(key:"friend_liked") == "Yes"  || postInfo.valueForString(key:"is_liked") == "Yes" {
+            if postInfo.valueForString(key:"friend_liked") == "Yes"  && postInfo.valueForString(key:"is_liked") == "Yes" {
                 btnLike.isSelected = true
                 if postInfo.valueForString(key:"is_liked") == "No"{
                     isLikeSelected = false
                 }
             }else {
-                if postInfo.valueForString(key:"is_liked") == "No" || postInfo.valueForString(key:"friend_liked") == "No" {
+                if postInfo.valueForString(key:"is_liked") == "No" && postInfo.valueForString(key:"friend_liked") == "No" {
                     isLikeSelected = true
                 }
                 btnLike.isSelected = false
+            }
+            
+            if postInfo.valueForString(key:"is_liked") == "Yes" && postInfo.valueForString(key:"friend_liked") == "No" {
+                isLikeSelected = true
+                btnLike.isSelected = false
+            }else if postInfo.valueForString(key:"is_liked") == "No" && postInfo.valueForString(key:"friend_liked") == "Yes"{
+                
+                isLikeSelected = false
+                btnLike.isSelected = true
+
             }
         }
         if isLikesHomePage == true  || isLikesMyprofilePage == true {

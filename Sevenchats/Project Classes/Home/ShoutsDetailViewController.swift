@@ -87,6 +87,7 @@ class ShoutsDetailViewController: ParentViewController {
     var isLikesOthersPage:Bool?
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -202,7 +203,15 @@ extension ShoutsDetailViewController{
         if let shoInfo = shoutInfo{
             shoutInformation = shoInfo
             self.shoutIDNew = shoInfo.valueForString(key:CPostId)
-            posted_ID = shoInfo.valueForString(key: "user_id")
+            
+            if isLikesOthersPage == true {
+                posted_ID = self.posted_IDOthers
+            }else {
+                posted_ID = shoInfo.valueForString(key: "user_id")
+            }
+            
+            
+//            posted_ID = shoInfo.valueForString(key: "user_id")
             
             self.lblUserName.text = shoInfo.valueForString(key: CFirstname) + " " + shoInfo.valueForString(key: CLastname)
             self.lblShoutsDescription.text = shoInfo.valueForString(key: CContent)
@@ -215,17 +224,41 @@ extension ShoutsDetailViewController{
 //                btnLike.isSelected = false
 //            }
             
+//            if isLikesOthersPage == true {
+//                if shoInfo.valueForString(key:"friend_liked") == "Yes"  || shoInfo.valueForString(key:"is_liked") == "Yes" {
+//                    btnLike.isSelected = true
+//                    if shoInfo.valueForString(key:"is_liked") == "No"{
+//                        isLikeSelected = false
+//                    }
+//                }else {
+//                    if shoInfo.valueForString(key:"is_liked") == "No" || shoInfo.valueForString(key:"friend_liked") == "No" {
+//                        isLikeSelected = true
+//                    }
+//                    btnLike.isSelected = false
+//                }
+//            }
+            
             if isLikesOthersPage == true {
-                if shoInfo.valueForString(key:"friend_liked") == "Yes"  || shoInfo.valueForString(key:"is_liked") == "Yes" {
+                if shoInfo.valueForString(key:"friend_liked") == "Yes"  && shoInfo.valueForString(key:"is_liked") == "Yes" {
                     btnLike.isSelected = true
                     if shoInfo.valueForString(key:"is_liked") == "No"{
                         isLikeSelected = false
                     }
                 }else {
-                    if shoInfo.valueForString(key:"is_liked") == "No" || shoInfo.valueForString(key:"friend_liked") == "No" {
+                    if shoInfo.valueForString(key:"is_liked") == "No" && shoInfo.valueForString(key:"friend_liked") == "No" {
                         isLikeSelected = true
                     }
                     btnLike.isSelected = false
+                }
+                
+                if shoInfo.valueForString(key:"is_liked") == "Yes" && shoInfo.valueForString(key:"friend_liked") == "No" {
+                    isLikeSelected = true
+                    btnLike.isSelected = false
+                }else if shoInfo.valueForString(key:"is_liked") == "No" && shoInfo.valueForString(key:"friend_liked") == "Yes"{
+                    
+                    isLikeSelected = false
+                    btnLike.isSelected = true
+
                 }
             }
             
