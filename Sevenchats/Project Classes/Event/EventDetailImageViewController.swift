@@ -297,16 +297,12 @@ extension EventDetailImageViewController {
         //...Set prefilled event detail here
         eventInfo = dict
         self.postIDNew = dict.valueForString(key:CPostId)
-        
-        
 //        posted_ID = dict.valueForString(key: "user_id")
-        
         if isLikesOthersPage == true {
             posted_ID = self.posted_IDOthers
         }else {
             posted_ID = dict.valueForString(key: "user_id")
         }
-        
         self.parentView.isHidden = false
         self.lbluserName.text = "\(dict.valueForString(key: CFirstname)) \(dict.valueForString(key: CLastname))"
         let created_At = eventInfo.valueForString(key: CCreated_at)
@@ -602,7 +598,6 @@ extension EventDetailImageViewController {
             
             let postTypeDelete = "post_event"
             let dict =
-                
                 [
                     "post_id": eventInfo?.valueForString(key: "post_id"),
                     "image": eventInfo?.valueForString(key: "image"),
@@ -623,7 +618,6 @@ extension EventDetailImageViewController {
                 if response != nil && error == nil{
                     self.navigationController?.popViewController(animated: true)
                     // MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, chirID, self, .deletePost)
-                    
                 }
             })
         }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)

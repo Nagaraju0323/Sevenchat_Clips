@@ -362,8 +362,6 @@ extension HomeEventImageTblCell{
             }
         }
     }
-    
-    
     func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){
         APIRequest.shared().likeUnlikeProductCount(productId: Int(self.postID) ){ [weak self](response, error) in
             guard let _ = self else { return }
@@ -382,13 +380,10 @@ extension HomeEventImageTblCell{
                             guard let image = appDelegate.loginUser?.profile_img else { return }
                             let stausLike = metaInfo["status"] as? String ?? "0"
                             if stausLike == "0" {
-
                             }
                         }
-                        
                         self?.notifcationIsSlected = false
                     }
-                   
                     if self?.isLikesOthersPage == true {
                     if self?.isFinalLikeSelected == true{
                         MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)

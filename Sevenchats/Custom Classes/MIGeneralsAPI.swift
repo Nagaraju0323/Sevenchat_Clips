@@ -2477,22 +2477,29 @@ extension MIGeneralsAPI {
             "subject":subject as Any,
             "senderName": senderName,
 //                        "content":"<b>\(firstName) \(lastName)</b> &nbsp\(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
-            "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")\(" ") \(MsgSent ?? "")",
-            "link":"http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+//            "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")\(" ") \(MsgSent ?? "")",
+            "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")\(" ")\(MsgSent ?? "")",
+            "link":"",
             "type":MsgType as Any,
         ]
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)
             let jsonToString = String(data: jsonData, encoding: .utf8)
 //            let trimmedString = jsonToString?.components(separatedBy: " ").joined()
+          
+            
             let imgStr_Third = jsonToString?.replacingOccurrences(of: "\"", with: "\\\"")
-            contentStr = imgStr_Third ?? ""
+            let imgStrConvert = imgStr_Third?.replacingOccurrences(of: "\n", with: "")
+//            let imgStrConverts = imgStrConvert?.replacingOccurrences(of: "{ ", with: "{")
+            contentStr = imgStrConvert ?? ""
             
         } catch {
             print(error.localizedDescription)
         }
         //        let image = "https:\\/\\/qa.sevenchats.com:3443\\/sevenchats\\/7736772922\\/1636189071050.jpg"
         //        let profileImgRlc = profileImg.replacingOccurrences(of: "/", with: "\\/")
+        
+        
         
         let dict:[String:Any] = [
             "receiver":receiverID ?? "",

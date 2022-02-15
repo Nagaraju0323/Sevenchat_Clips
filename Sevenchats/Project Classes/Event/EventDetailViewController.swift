@@ -397,11 +397,8 @@ extension EventDetailViewController {
             }
             MIGeneralsAPI.shared().interestNotInterestMayBe(postId, type!, viewController: self)
             self.setEventDetail(dict: eventInfo)
-            
         }
-        
     }
-    
     func deletePost() {
         
     }
