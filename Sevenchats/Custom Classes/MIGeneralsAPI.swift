@@ -1064,8 +1064,6 @@ extension MIGeneralsAPI {
 //                            detailPost.setPollDetails(detailPost.pollInformation)
 //                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                             
-                            
-                            
                             if rss_id == 1{
                               detailPost.pollInformation["friend_liked"] = "Yes"
                               detailPost.pollInformation[CIsLiked] = "No"
@@ -2147,11 +2145,21 @@ extension MIGeneralsAPI {
                 guard let otherProfileVC = viewController as? OtherUserProfileViewController else{
                     continue
                 }
-                if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?[CId] as? Int == postId}) {
+//                if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?[CId] as? Int == postId}) {
+                
+                if let index = otherProfileVC.arrPostList.firstIndex(where: { $0?["post_id"] as? String == postId?.toString}) {
                     var postPollInfo = otherProfileVC.arrPostList[index]
-                    postPollInfo?[CPollData] = optionData
-                    postPollInfo?[CUserVotedPoll] = pollAnsewrID
-                    postPollInfo?[CIsUserVoted] = 1
+//                    postPollInfo?[CPollData] = optionData
+//                    postPollInfo?[CUserVotedPoll] = pollAnsewrID
+//                    postPollInfo?[CIsUserVoted] = 1
+                    
+                    let resultKey = optionData?["results"] as? [String:String]
+                    print(":::::::resultValues\(resultKey)")
+                    let resultkeys = resultKey.map { $0.keys.first }
+                    print(":::::::resultafter\(resultkeys! as String?)")
+                    postPollInfo?["is_selected"] = resultkeys! as String?
+                    postPollInfo?["results"] = optionData?["results"] as? [String:String]
+                    
                     otherProfileVC.arrPostList.remove(at: index)
                     otherProfileVC.arrPostList.insert(postPollInfo, at: index)
                     UIView.performWithoutAnimation {
@@ -2163,33 +2171,42 @@ extension MIGeneralsAPI {
                         }
                     }
                 }
-                let arrPosts = otherProfileVC.arrPostList
-                for (index,obj) in arrPosts.enumerated(){
-                    if obj?[COriginalPostId] as? Int == postId{
-                        var postPollInfo = obj
-                        postPollInfo?[CPollData] = optionData
-                        postPollInfo?[CUserVotedPoll] = pollAnsewrID
-                        postPollInfo?[CIsUserVoted] = 1
-                        otherProfileVC.arrPostList.remove(at: index)
-                        otherProfileVC.arrPostList.insert(postPollInfo, at: index)
-                        UIView.performWithoutAnimation {
-                            DispatchQueue.main.async {
-                                let indexPath = IndexPath(item: index, section: 1)
-                                if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
-                                    otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
-                                }
-                            }
-                        }
-                    }
-                }
+//                let arrPosts = otherProfileVC.arrPostList
+//                for (index,obj) in arrPosts.enumerated(){
+////                    if obj?["post_id"] as? String == postId?.toString{
+//                    if obj?[COriginalPostId] as? Int == postId{
+//                        var postPollInfo = obj
+//                        postPollInfo?[CPollData] = optionData
+//                        postPollInfo?[CUserVotedPoll] = pollAnsewrID
+//                        postPollInfo?[CIsUserVoted] = 1
+//
+//
+////                        var postPollInfo = obj
+////                        let resultKey = optionData?["results"] as? [String:String]
+////                        postPollInfo?["is_selected"] = resultKey?.keys
+////                        if isSelected == true {
+////                            print("this is calling")
+////
+////                            let resultKey = optionData?["results"] as? [String:String]
+////                            postPollInfo?["is_selected"] = resultKey?.keys
+////                        }
+//
+//
+//                        otherProfileVC.arrPostList.remove(at: index)
+//                        otherProfileVC.arrPostList.insert(postPollInfo, at: index)
+//                        UIView.performWithoutAnimation {
+//                            DispatchQueue.main.async {
+//                                let indexPath = IndexPath(item: index, section: 1)
+//                                if (otherProfileVC.tblUser.indexPathsForVisibleRows?.contains(indexPath))!{
+//                                    otherProfileVC.tblUser.reloadRows(at: [indexPath], with: .none)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
             }
         }
     }
-    
-    
-    
-    
-    
 }
 
 //MARK:- ------ Category related Functions..
