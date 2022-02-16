@@ -1084,15 +1084,18 @@ extension EditProfileViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertDobBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
-        if (txtCountrys.text?.isEmpty ?? true) && JSON(rawValue: (countryName ?? "")) ?? "" == 0{
+        //if (txtCountrys.text?.isEmpty ?? true) && JSON(rawValue: (countryName ?? "")) ?? "" == 0{
+        if (txtCountrys.text?.isBlank)!{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankCountry, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
-        if !(txtStates.superview?.isHidden ?? true) && JSON(rawValue: (stateName ?? "")) ?? "" == 0{
+        //if !(txtStates.superview?.isHidden ?? true) && JSON(rawValue: (stateName ?? "")) ?? "" == 0{
+        if (txtStates.text?.isBlank)!{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankState, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
-        if !(txtCitys.superview?.isHidden ?? true) && JSON(rawValue: (cityName ?? "")) ?? "" == 0{
+        //if !(txtCitys.superview?.isHidden ?? true) && JSON(rawValue: (cityName ?? "")) ?? "" == 0{
+        if (txtCitys.text?.isBlank)!{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankCity, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }

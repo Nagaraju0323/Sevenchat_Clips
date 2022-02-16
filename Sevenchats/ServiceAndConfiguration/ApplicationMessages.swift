@@ -143,8 +143,8 @@ var CRegisterGenderOther: String{ return appDelegate.langugaeText?.register_othe
 var CRegisterChooseFromPhone: String{ return appDelegate.langugaeText?.register_choose_from_phone ?? "Choose from phone" }
 var CRegisterTakePhoto: String{ return appDelegate.langugaeText?.register_take_photo ?? "Take a photo" }
 var CRegisterRemovePhoto: String{ return appDelegate.langugaeText?.remove_photo ?? "Remove Photo" }
-var CRegisterAlertFirstNameBlank: String{ return appDelegate.langugaeText?.register_first_name_cant_blank ?? "Please enter First Name" }
-var CRegisterAlertLastNameBlank: String{ return appDelegate.langugaeText?.register_last_name_cant_blank ?? "Please enter Last Name" }
+var CRegisterAlertFirstNameBlank: String{ return appDelegate.langugaeText?.register_first_name_cant_blank ?? "First Name Cannot be Blank" }
+var CRegisterAlertLastNameBlank: String{ return appDelegate.langugaeText?.register_last_name_cant_blank ?? "Last Name Cannot be Blank" }
 var CRegisterAlertEmailBlank: String{ return appDelegate.langugaeText?.register_email_cant_blank ?? "Please enter email address" }
 var CRegisterAlertValidEmail: String{ return appDelegate.langugaeText?.register_enter_valid_email_address ?? "Please enter valid email address" }
 var CRegisterAlertPasswordBlank: String{ return appDelegate.langugaeText?.register_password_cant_blank ?? "Please enter Password" }
@@ -312,8 +312,11 @@ var CBlankFeedbackCategory: String{ return appDelegate.langugaeText?.feedback_ca
 var CBlockedUser: String{ return appDelegate.langugaeText?.blocked_user ?? "Blocked User" }
 var CUnblockUser: String{ return appDelegate.langugaeText?.unblock_user ?? "Unblock User" }
 var CUnblock: String{ return appDelegate.langugaeText?.unblock ?? "Unblock" }
+var CAlertblocked: String{ return appDelegate.langugaeText?.alert_message_blocked ?? "Blocked" }
+var CAlertUnblock: String{ return appDelegate.langugaeText?.alert_message_unblock ?? "Unblock" }
 var CBlockedUsersCount: String{ return appDelegate.langugaeText?.blocked_users_count ?? "You have" }
 var CPlaceholderWriteYourMessageHere: String{ return appDelegate.langugaeText?.write_your_message_here ?? "Write your message here.." }
+var CFeedBackMessage: String{ return appDelegate.langugaeText?.alert_message_feedback ?? "Feedback Submitted Successfully" }
 
 //MARK:- Home Screen
 var CMessageWhichTypesOfPostYouAreLooking: String{ return appDelegate.langugaeText?.which_types_of_post_you_are_looking ?? "Which types of post you are looking?" }
@@ -431,8 +434,10 @@ var CMessageSelectContactGroupImage : String{ return appDelegate.langugaeText?.p
 var CMessageImagePostUpdated : String{ return appDelegate.langugaeText?.gallery_edited_successfully ?? "Gallery has been updated" }
 
 //MARK:- Group Chat Related messages
-var CgroupCreated: String{ return CLocalize(text: appDelegate.langugaeText?.group_is_added_successfully ?? "Group Successfully added")}
+var CgroupCreated: String{ return CLocalize(text: appDelegate.langugaeText?.group_is_added_successfully ?? "Group added Successfully")}
 var CgroupRemoved: String{ return CLocalize(text: appDelegate.langugaeText?.group_deleted_successfully ?? "group deleted successfully")}
+var CgroupExitYes: String{ return CLocalize(text: appDelegate.langugaeText?.alert_message_exitgroup_yes ?? "You exited from this Group")}
+var CgroupExitNo: String{ return CLocalize(text: appDelegate.langugaeText?.alert_message_exitgroup_no ?? "You remain the member of this Group")}
 
 var CNavMemberRequest: String{ return appDelegate.langugaeText?.member_request ?? "Member request" }
 var CNavNewGroup: String{ return appDelegate.langugaeText?.new_group ?? "New group" }
@@ -481,7 +486,7 @@ var CSelectCountry: String{ return appDelegate.langugaeText?.select_country ?? "
 var CMessageConnectNoFriend: String{ return appDelegate.langugaeText?.there_is_no_friend_to_connect ?? "There is no friend to connect" }
 var CContactPermissionIsRequired: String{ return appDelegate.langugaeText?.contact_permission_is_required ?? "Contacts permission is required to send the invites" }
 var CMessageBlankGroupTitle: String{ return appDelegate.langugaeText?.group_title_cant_blank ?? "Please enter group name" }
-var CAlertGroupRemoveParticipant: String{ return appDelegate.langugaeText?.alert_remove_participant_message ?? "Are you sure you want to remove this user from the group?" }
+var CAlertGroupRemoveParticipant: String{ return appDelegate.langugaeText?.alert_remove_participant_message ?? "Are you sure? you want to remove " }
 var CAlertGroupDelete: String{ return appDelegate.langugaeText?.alert_delete_message ?? "Are you sure you want to delete this group?" }
 var CAlertGroupExit: String{ return appDelegate.langugaeText?.alert_exit_message ?? "Are you sure you want to exit from this group?" }
 var CNoParticipantsYet: String{ return appDelegate.langugaeText?.no_participant_yet ?? "No participants yet" }
@@ -507,11 +512,15 @@ var CMessageMaximumImage: String{ return appDelegate.langugaeText?.post_upload_i
 var CMessageDeleteImage: String{ return appDelegate.langugaeText?.alert_delete_message_image ?? "Are you sure you want to delete this image?" }
 var CMessageFilterMinSelection: String{ return appDelegate.langugaeText?.no_interests_select ?? "Please select at least one interest" }
 var CMessageDeletePost: String{ return appDelegate.langugaeText?.are_you_sure_you_want_to_delete_this_post ?? "Are you sure you want to delete this post?" }
-var CMessageCancelRequest: String{ return appDelegate.langugaeText?.alert_message_for_cancel ?? "Are you sure you want to cancel request?" }
-var CMessageUnfriend: String{ return appDelegate.langugaeText?.alert_message_for_unfriend ?? "Are you sure you want to unfriend?" }
+var CMessageCancelRequest: String{ return appDelegate.langugaeText?.alert_message_for_cancel ?? " You want to cancel this request!" }
+var CMessageUnfriend: String{ return appDelegate.langugaeText?.alert_message_for_unfriend ?? "Do you want to unfriend" }
 var CMessageAddfriend: String{ return appDelegate.langugaeText?.alert_message_addfriend ?? "Are you sure you want to addfriend?"}
+var CMessageAfterUnfriend : String{ return appDelegate.langugaeText?.alert_message_after_unfriend ?? "and you are no longer friends"}
+var CMessageAfterCancel : String{ return appDelegate.langugaeText?.alert_message_after_cancelrequest ?? "Sent request has been canceled"}
+var CMessageAfterReject : String{ return appDelegate.langugaeText?.alert_message_after_rejectrequest ?? "Friend Request rejected successfully!"}
+var CMessageAfterAccept : String{ return appDelegate.langugaeText?.alert_message_after_acceptrequest ?? "You got a new Friend!"}
 
-var CMessageLogout: String{ return appDelegate.langugaeText?.are_you_sure_you_want_to_logout ?? "Are you sure you want to logout?" }
+var CMessageLogout: String{ return appDelegate.langugaeText?.are_you_sure_you_want_to_logout ?? "Do you want to logout?" }
 
 var CMessageAddInterest: String{ return appDelegate.langugaeText?.add_interest ?? "Add Interest" }
 var CDeviceUnsupportedCamera: String{ return CLocalize(text: appDelegate.langugaeText?.your_device_does_not_support_camera ?? "Your device does not support camera.") }
@@ -1226,10 +1235,10 @@ var CCameraOrAudioPermission: String{
 }
 
 var CAlertMessageForRejectRequest: String{
-    return CLocalize(text: appDelegate.langugaeText?.alert_message_for_reject ?? "Are you sure you want to reject request?")
+    return CLocalize(text: appDelegate.langugaeText?.alert_message_for_reject ?? "Are you sure? You want to reject request!")
 }
 var CAlertMessageForAcceptRequest: String{
-    return CLocalize(text: appDelegate.langugaeText?.alert_message_for_accept ?? "Are you sure you want to accept request?")
+    return CLocalize(text: appDelegate.langugaeText?.alert_message_for_accept ?? "Are you sure? You want to accept friend request!")
 }
 
 var CToEnhanceFeed: String{

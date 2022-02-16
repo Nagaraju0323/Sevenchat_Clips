@@ -304,6 +304,7 @@ extension MyFriendsViewController{
                 }
                 
                 var frndInfo = userInfo
+               
                 if let index = self.arrFriendList.firstIndex(where: {$0["friend_user_id"] as? String == friend_ID}){
                     self.arrFriendList.remove(at: index)
                     self.isRefreshingUserData = true
@@ -323,9 +324,32 @@ extension MyFriendsViewController{
                 guard let lastName = appDelegate.loginUser?.last_name else {return}
                 let message = metaInfo["message"] as? String ?? "0"
                 if message == "0"{
+                    
                     MIGeneralsAPI.shared().sendNotification( friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent: "", showDisplayContent: "accepted your friend request", senderName: firstName + lastName)
                 }
-                
+                var isShowAlert = false
+                var alertMessage = ""
+                let first_name = userInfo.valueForString(key: "first_name")
+                let last_name = userInfo.valueForString(key: "last_name")
+                switch message {
+                case CancelRequest:
+                    isShowAlert = true
+                    alertMessage = CMessageAfterCancel
+                case RejectRequest:
+                    isShowAlert = true
+                    alertMessage = CMessageAfterReject
+                case UnFriendRequest:
+                    isShowAlert = true
+                    alertMessage = first_name + " " + last_name + " " + CMessageAfterUnfriend
+                case AcceptRequest:
+                    isShowAlert = true
+                    alertMessage = CMessageAfterAccept
+                default:
+                    break
+                }
+                if isShowAlert{
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                }
             }
         })
     }
@@ -465,6 +489,9 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
                 if let indexPath = tableView.indexPathForRow(at: buttonPostion) {
                     let rowIndex =  indexPath.row
                     let userinfos = self?.arrFriendList[rowIndex]
+                    let first_name = userinfos?.valueForString(key: "first_name") ?? ""
+                    let last_name = userinfos?.valueForString(key: "last_name") ?? ""
+                    
                     let friendID = userinfos?.valueForString(key: "friend_user_id")
                     let userID = userinfos?.valueForString(key: "user_id")
                     let dict :[String:Any]  =  [
@@ -490,7 +517,7 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
                     alertMessage = CMessageCancelRequest
                 case 5:
                     frndStatus = CFriendRequestUnfriend
-                    alertMessage = CMessageUnfriend
+                    alertMessage = CMessageUnfriend + " " + first_name + " " + last_name
                 default:
                     break
                 }

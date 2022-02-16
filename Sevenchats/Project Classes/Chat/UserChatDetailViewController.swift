@@ -544,6 +544,23 @@ extension UserChatDetailViewController {
                             MIGeneralsAPI.shared().sendNotification(userid.description, userID: user_ID.description, subject: "Blocked you", MsgType: "FRIEND_BLOCKED", MsgSent:"", showDisplayContent: "Blocked you", senderName: firstName + lastName)
                             self.txtViewMessage.isUserInteractionEnabled = false
                         }
+                        
+                        var isShowAlert = false
+                        var alertMessage = ""
+                        let message = metaData.valueForString(key: "message")
+                        switch message {
+                        case Blocked:
+                            isShowAlert = true
+                            alertMessage = CAlertblocked
+                        case UnBlock:
+                            isShowAlert = true
+                            alertMessage = CAlertUnblock
+                        default:
+                            break
+                        }
+                        if isShowAlert{
+                            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        }
                     }
                 }
             })
@@ -1072,7 +1089,11 @@ extension UserChatDetailViewController {
         let strBlockUnblock = self.isBlockedByLoginUser == 0 ? CBtnBlockUser : CBtnUnblockUser
         let blockAction = UIAlertAction(title: strBlockUnblock, style: .default) { [weak self] (_) in
             guard let _ = self else { return }
-            self?.blockUnblockUserApi()
+            self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
+                self?.blockUnblockUserApi()
+                //self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
+            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+           // self?.blockUnblockUserApi()
         }
         alertController.addAction(reportAction)
         if !self.viewMessageContainer.isHidden {

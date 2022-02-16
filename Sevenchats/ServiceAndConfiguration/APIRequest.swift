@@ -4509,6 +4509,16 @@ extension APIRequest {
             tblLanguageText.check_this_in_user = dict?.valueForString(key: "check_this_in_user")
             tblLanguageText.check_this_in_post = dict?.valueForString(key: "check_this_in_post")
             tblLanguageText.no_news_for_this_category = dict?.valueForString(key: "no_news_for_this_category")
+            tblLanguageText.alert_message_after_unfriend = dict?.valueForString(key: "alert_message_after_unfriend")
+            tblLanguageText.alert_message_after_acceptrequest = dict?.valueForString(key: "alert_message_after_acceptrequest")
+            tblLanguageText.alert_message_after_rejectrequest = dict?.valueForString(key: "alert_message_after_rejectrequest")
+            tblLanguageText.alert_message_after_cancelrequest = dict?.valueForString(key: "alert_message_after_cancelrequest")
+            tblLanguageText.alert_message_blocked = dict?.valueForString(key: "alert_message_blocked")
+            tblLanguageText.alert_message_unblock = dict?.valueForString(key: "alert_message_unblock")
+            tblLanguageText.alert_message_feedback = dict?.valueForString(key: "alert_message_feedback")
+            tblLanguageText.alert_message_exitgroup_no = dict?.valueForString(key: "alert_message_exitgroup_no")
+            tblLanguageText.alert_message_exitgroup_yes = dict?.valueForString(key: "alert_message_exitgroup_yes")
+            
             
             
             // Phase - 2

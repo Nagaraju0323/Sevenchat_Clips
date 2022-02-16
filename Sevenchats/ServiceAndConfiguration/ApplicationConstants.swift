@@ -250,6 +250,13 @@ let CStaticForumIdNew     = "post_forum"
 let CStaticEventIdNew     = "post_event"
 let CStaticPollIdNew      = "post_poll"
 
+let CancelRequest = "Request cancelled successfully"
+let AcceptRequest = "Request accepted successfully"
+let RejectRequest = "Request rejected successfully"
+let UnFriendRequest = "User unfriend successfully"
+let Blocked = "User Blocked successfully"
+let UnBlock = "User Un-Blocked successfully"
+
 
 let CStaticArticleId     = 1
 let CStaticGalleryId     = 5
