@@ -317,7 +317,27 @@ extension OtherUserProfileViewController{
         APIRequest.shared().blockUnblockUserNew(userID:userIDNew?.description, block_unblock_status: status.description, completion: { (response, error) in
             
             if response != nil{
+                
                 if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+                    
+                    var isShowAlert = false
+                    var alertMessage = ""
+                    let message = metaData.valueForString(key: "message")
+                    switch message {
+                    case Blocked:
+                        isShowAlert = true
+                        alertMessage = CAlertblocked
+                    case UnBlock:
+                        isShowAlert = true
+                        alertMessage = CAlertUnblock
+                    default:
+                        break
+                    }
+                    if isShowAlert{
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    }
+                    
+                    
                     if metaData.valueForString(key: "message") == "User Blocked successfully" {
                         guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
@@ -575,14 +595,14 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                                 print("IS NOT BLOCK")
                                 self?.isBlock = false
                             }
-                            if self?.isBlock == true {
+                           // if self?.isBlock == true {
                                 self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
                                     self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
                                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                                 
-                            }else {
-                                self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
-                            }
+//                            }else {
+//                                self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
+//                            }
                             
                         }, btnTwoTitle: CBtnReportUser, btnTwoStyle: .default, btnTwoTapped: {[weak self] (_) in
                             

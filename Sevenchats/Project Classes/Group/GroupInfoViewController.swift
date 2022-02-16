@@ -155,7 +155,8 @@ extension GroupInfoViewController : UITableViewDelegate, UITableViewDataSource{
             cell.btnDeleteMember.isHidden = Int64(iObject!.valueForString(key: "group_admin")) == appDelegate.loginUser?.user_id ? Int64(userInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id : true
             cell.btnDeleteMember.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-                self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertGroupRemoveParticipant, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
+                let name = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
+                self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertGroupRemoveParticipant + name, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
                     APIRequest.shared().removeMemberFromGroup(group_id: iObject?.valueForString(key: CGroupId).toInt, group_users_id: userInfo.valueForString(key: CUserId), completion: { [self] (response, error) in
                         if response != nil && error == nil{
                             
@@ -239,7 +240,8 @@ extension GroupInfoViewController{
                 APIRequest.shared().exitGroup(group_id: groupID,user_id:user_id,user_type:userSelectType) { (response, error) in
                     if response != nil {
                         if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-                            if  metaData.valueForString(key: CJsonStatus).toInt == 0 {
+                            
+                            if metaData.valueForString(key: CJsonStatus).toInt == 0 {
                                 if userSelectType == 2 {
                                     let strArr = self.arrMembers.map({$0.valueForString(key: CUserId) })
                                     guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
@@ -265,6 +267,18 @@ extension GroupInfoViewController{
                                     
                                 }
                             }
+                            var moveBack = true
+                            if moveBack {
+                                self.navigationController?.popViewController(animated: true)
+                                GCDMainThread.async {
+                                    if metaData.valueForString(key: "message") == "Group deleted successfully"{
+                                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CgroupRemoved, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                                    }else if metaData.valueForString(key: "message") == "User removed from group successfully"{
+                                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CgroupExitYes, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                                    }
+                                }
+                            }
+                            
                         }
                         if Int64(groupInfo.valueForString(key: CCreated_By)) == appDelegate.loginUser?.user_id {
                             // Publish for delete status..
@@ -284,12 +298,16 @@ extension GroupInfoViewController{
                         }
                         
                         //                        guard let groupID = appDelegate.loginUser?.user_id else { return }
-                        self.navigationController?.popToRootViewController(animated: true)
-                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CgroupRemoved, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                        self.navigationController?.popToRootViewController(animated: true)
+//                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CgroupRemoved, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                       
+                        
                     }
                 }
             }
-        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+        }, btnTwoTitle: CBtnNo, btnTwoTapped: { (alert) in
+            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CgroupExitNo, btnOneTitle: CBtnOk, btnOneTapped: nil)
+        })
     }
     
     
