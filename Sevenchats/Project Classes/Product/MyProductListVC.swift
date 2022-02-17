@@ -327,4 +327,66 @@ extension MyProductListVC {
     }
     
     
+    func myProductListSorting(isLoader:Bool = true,sort_type:Int) {
+        
+        if apiTask?.state == URLSessionTask.State.running {
+            return
+        }
+        
+        if isFromSearch && filterObj.search.count <= 2 {
+            self.noProductsFound = ""
+            self.refreshControl.endRefreshing()
+            self.pageNumber = 1
+            self.isLoadMoreCompleted = false
+            self.allMyProduct.removeAll()
+            self.tblProductList.reloadData()
+            return
+        }
+        var para = [String : Any]()
+        
+        para[CPer_limit] = "20"
+        para[CPage] = self.pageNumber.toString
+        para["sort_type"] = sort_type.toString
+        
+        guard let userID = appDelegate.loginUser?.user_id else {return}
+        let userIDstr = String(describing: userID)
+        
+        apiTask = APIRequest.shared().getmyProductList(param: para,showLoader: isLoader, userID:userIDstr, completion:{ [weak self](response, error) in
+            guard let _ = self else { return }
+            self?.refreshControl.endRefreshing()
+            //            self?.allMyProduct.removeAll()
+            if response != nil {
+                GCDMainThread.async {
+                    let arrDatass = response!["products"] as? [String : Any] ?? [:]
+                    let arrData = arrDatass["my_product"] as? [[String : Any]] ?? []
+                    if self?.pageNumber == 1{
+                        self?.allMyProduct.removeAll()
+                    }
+                    if arrData.count == 0{
+                        self?.isLoadMoreCompleted = true
+                        self?.noProductsFound = (self?.isFromSearch ?? false) ? CNoProductFound : CNoProductAddedInMyProductList
+                    }else{
+                        self?.pageNumber += 1
+                    }
+                    for obj in arrData{
+                        self?.allMyProduct.append(MDLProduct(fromDictionary: obj))
+                    }
+                    if self?.tblProductList != nil{
+                        self?.tblProductList.reloadData()
+                        if self?.pageNumber == 2 && !(self?.isLoadMoreCompleted ?? true){
+                            let indexPath = IndexPath(row: 0,section: 0)
+                            self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                        }
+                    }
+                }
+            }else{
+                MILoader.shared.hideLoader()
+                self?.noProductsFound = (self?.isFromSearch ?? false) ? CNoProductFound : CNoProductAddedInMyProductList
+                self?.tblProductList.reloadData()
+            }
+        })
+    }
+    
+    
+    
 }

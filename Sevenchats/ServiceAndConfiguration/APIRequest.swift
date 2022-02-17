@@ -3476,7 +3476,7 @@ extension APIRequest {
         
         var para = [String : Any]()
         para[CPage] = page.description
-        para[CPer_limit] = CLimit.description
+        para[CPer_limit] = CLimitTW
         let apiTag =  CProductCommentListAPINew + productId.description
         return Networking.sharedInstance.GETNEW(apiTag: apiTag, param: para as [String : AnyObject], successBlock: { (task, reponse) in
             MILoader.shared.hideLoader()
@@ -4518,8 +4518,6 @@ extension APIRequest {
             tblLanguageText.alert_message_feedback = dict?.valueForString(key: "alert_message_feedback")
             tblLanguageText.alert_message_exitgroup_no = dict?.valueForString(key: "alert_message_exitgroup_no")
             tblLanguageText.alert_message_exitgroup_yes = dict?.valueForString(key: "alert_message_exitgroup_yes")
-            
-            
             
             // Phase - 2
             

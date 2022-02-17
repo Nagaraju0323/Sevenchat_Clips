@@ -226,8 +226,10 @@ extension CreateShoutsViewController{
                 }
                 
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                if let shoutInfo = response![CJsonData] as? [String : Any]{
+                if let shoutInfo = response!["meta"] as? [String : Any]{
+                    if shoutInfo.valueForString(key: "status")  == "0" {
                     MIGeneralsAPI.shared().refreshPostRelatedScreens(shoutInfo,self?.shoutID, self!, self?.shoutsType == .editShouts ? .editPost : .addPost, rss_id: 0)
+                    }
                 }
             }
         }

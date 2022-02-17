@@ -100,6 +100,8 @@ class ShoutsDetailViewController: ParentViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.pageNumber == 1
         self.setShoutsDetailData(shoutInformations)
         self.updateUIAccordingToLanguage()
         self.getCommentListFromServer()
@@ -179,7 +181,7 @@ extension ShoutsDetailViewController{
                         }
                     }
                 }
-                self.getCommentListFromServer()
+//                self.getCommentListFromServer()
             }
         }
     }
@@ -438,9 +440,9 @@ extension ShoutsDetailViewController: UITableViewDelegate, UITableViewDataSource
                 appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
             }
             // Load more data....
-            //            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
-            //                self.getCommentListFromServer()
-            //            }
+            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
+//                self.getCommentListFromServer()
+            }
             return cell
         }
         
@@ -559,8 +561,9 @@ extension ShoutsDetailViewController{
                             let data = response![CJsonMeta] as? [String:Any] ?? [:]
                             guard let firstName = appDelegate.loginUser?.first_name else {return}
                             guard let lastName = appDelegate.loginUser?.last_name else {return}
+                            guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                             let stausLike = data["status"] as? String ?? "0"
-                            if stausLike == "0" {
+                            if stausLike == "0" && self.posted_ID != user_ID{
                                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName)
                             }
                             
@@ -677,7 +680,13 @@ extension ShoutsDetailViewController{
                         guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
+                        
+                        if self?.posted_ID == user_ID {
+                            
+                        }else {
+                            
+                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
+                        }
                         self?.notifcationIsSlected = false
                     }
                     

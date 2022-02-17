@@ -540,21 +540,21 @@ extension EventDetailImageViewController {
                 print(self.posted_ID)
             switch eventInfo.valueForInt(key: CIsInterested) {
             case CTypeInterested:
-                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
+//                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
-                }
+//                }
                 eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
                 break
             case CTypeNotInterested:
-                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
+//                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
-                }
+//                }
                 eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
                 break
             case CTypeMayBeInterested:
-                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
+//                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
-                }
+//                }
                 eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
                 break
             default:
@@ -1010,6 +1010,7 @@ extension EventDetailImageViewController{
                             self.pageNumber += 1
                         }
                     }
+//                    self.tblCommentList.reloadData()
                     print("arrCommentListCount : \(self.arrCommentList.count)")
                     //self.lblNoData.isHidden = self.arrCommentList.count != 0
                 }

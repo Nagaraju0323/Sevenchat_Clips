@@ -31,7 +31,7 @@ class CreatePostTblCell: UITableViewCell{
     var closure: ((Bool,[[String : Any]])-> Void)?
     var closureReload: ((Bool)-> Void)?
     var closureShowMessage: ((_ data :Int)-> ())?
-    var onDataAvailable : ((_ data: Bool) -> ())?
+    var onDataAvailable : ((_ data: Bool,_ result:[String:Any]) -> ())?
     @IBOutlet weak var topContainer : UIView!
     
     @IBOutlet weak var emjButton: UIButton!
@@ -334,12 +334,11 @@ extension CreatePostTblCell{
                         let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                         guard let image = appDelegate.loginUser?.profile_img else { return }
 //                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:"post_point",type:CPostcreate,title:"Shout Add",name:name,icon:image, detail_text: "post_point")
+                      
                         
                         MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"shout",title: self.textViewMessage.text ?? "",name:name,icon:image, detail_text: "post_point")
-                        
-                        
                         self.textViewMessage.text = ""
-                        self.onDataAvailable?(true)
+                        self.onDataAvailable?(true,metaInfo)
                     }
                 }
             }

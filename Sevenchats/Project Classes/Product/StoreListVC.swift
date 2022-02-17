@@ -32,6 +32,7 @@ class StoreListVC: ParentViewController {
     weak var myProductVC :  MyProductListVC?
     
     var filterObj = MDLStoreAppliedFilter()
+    var IsSelectedSort:Int?
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -177,6 +178,7 @@ extension StoreListVC : PageViewControllerDelegate {
     /// Display list of products with user selected filters and search option.
     func appliedFilterAndSearch(){
         
+        
         if self.pageVC?.currentIndex == 0{ /// for All Products
             
             var isChangeFiler = false /// Used for check, Is there any property update
@@ -202,6 +204,7 @@ extension StoreListVC : PageViewControllerDelegate {
             /// Change the sort option : Old to New, New to Old
             if self.allProductVC?.filterObj.sort != self.filterObj.sort{
                 self.allProductVC?.filterObj.sort = self.filterObj.sort
+                self.IsSelectedSort = (self.filterObj.sort)?.rawValue ?? 0
                 isChangeFiler = true
             }
             
@@ -210,8 +213,13 @@ extension StoreListVC : PageViewControllerDelegate {
                 self.allProductVC?.isLoadMoreCompleted = false
                 self.allProductVC?.pageNumber = 1
                 self.allProductVC?.apiTask?.cancel()
-//                self.allProductVC?.allProductList(isLoader: true)
-                self.allProductVC?.allProductListFilter(isLoader: true, category:self.filterObj.categoryName)
+                if self.IsSelectedSort == 0{
+                    self.allProductVC?.allProductListSort(isLoader:true,sort_type:self.IsSelectedSort ?? 0)
+                }else if self.IsSelectedSort == 1{
+                    self.allProductVC?.allProductListSort(isLoader:true,sort_type:self.IsSelectedSort ?? 0)
+                }else {
+                    self.allProductVC?.allProductListFilter(isLoader: true, category:self.filterObj.categoryName)
+                }
             }
             
         }else { /// for My Product
@@ -244,6 +252,7 @@ extension StoreListVC : PageViewControllerDelegate {
             /// Change the sort option : Old to New, New to Old
             if self.myProductVC?.filterObj.sort != self.filterObj.sort{
                 self.myProductVC?.filterObj.sort = self.filterObj.sort
+                self.IsSelectedSort = (self.filterObj.sort)?.rawValue ?? 0
                 isChangeFiler = true
             }
             
@@ -251,11 +260,32 @@ extension StoreListVC : PageViewControllerDelegate {
             if isChangeFiler{
                 self.myProductVC?.isLoadMoreCompleted = false
                 self.myProductVC?.pageNumber = 1
-                self.myProductVC?.allProductListFilter(isLoader: true, category:self.filterObj.categoryName)
+//                self.myProductVC?.allProductListFilter(isLoader: true, category:self.filterObj.categoryName)
+                
+                //sorting method
+                if self.IsSelectedSort == 0{
+                    self.myProductVC?.myProductListSorting(isLoader:true,sort_type:self.IsSelectedSort ?? 0)
+                }else if self.IsSelectedSort == 1{
+                    self.myProductVC?.myProductListSorting(isLoader:true,sort_type:self.IsSelectedSort ?? 0)
+                }else {
+                    self.myProductVC?.allProductListFilter(isLoader: true, category:self.filterObj.categoryName)
+                }
+                
+                
             }else {
                 self.myProductVC?.isLoadMoreCompleted = false
                 self.myProductVC?.pageNumber = 1
-                self.myProductVC?.allProductListFilter(isLoader: true, category:self.filterObj.categoryName)
+                //sorting  Method
+                
+                if self.IsSelectedSort == 0{
+                    self.myProductVC?.myProductListSorting(isLoader:true,sort_type:self.IsSelectedSort ?? 0)
+                }else if self.IsSelectedSort == 1{
+                    self.myProductVC?.myProductListSorting(isLoader:true,sort_type:self.IsSelectedSort ?? 0)
+                }else {
+                    self.myProductVC?.allProductListFilter(isLoader: true, category:self.filterObj.categoryName)
+                }
+                
+//                self.myProductVC?.allProductListFilter(isLoader: true, category:self.filterObj.categoryName)
             }
         }
     }

@@ -169,7 +169,7 @@ extension AllProductListVC {
         }
         let userID = String(userid)
         
-        para["limit"] = "10"
+        para["limit"] = "20"
         para["user_id"] = userID
         para["page"] = self.pageNumber
         
@@ -285,7 +285,7 @@ extension AllProductListVC {
             return
         }
         var para = [String : Any]()
-        para["limit"] = "10"
+        para["limit"] = "20"
         para["page"] = self.pageNumber
         
         apiTask = APIRequest.shared().getProductListCategory(param:para ,category:category, showLoader: isLoader, completion:{ [weak self](response, error) in
@@ -319,6 +319,72 @@ extension AllProductListVC {
                         if self?.pageNumber == 2 && !(self?.isLoadMoreCompleted ?? false){
                             _ = IndexPath(row: 0,section: 0)
                             // self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                        }
+                    }
+                }
+            }else{
+                self?.noProductsFound = CNoProductFound
+                MILoader.shared.hideLoader()
+                self?.tblProductList.reloadData()
+            }
+        })
+    }
+    
+    
+    func allProductListSort(isLoader:Bool = true,sort_type:Int) {
+        
+        if apiTask?.state == URLSessionTask.State.running {
+            return
+        }
+        
+        if isFromSearch && filterObj.search.count <= 2 {
+            self.noProductsFound = ""
+            self.refreshControl.endRefreshing()
+            self.pageNumber = 1
+            self.isLoadMoreCompleted = false
+            self.allProduct.removeAll()
+            self.tblProductList.reloadData()
+            return
+        }
+        var para = [String : Any]()
+        
+        guard let userid = appDelegate.loginUser?.user_id else {
+            return
+        }
+        let userID = String(userid)
+        
+        para["limit"] = "20"
+        para["user_id"] = userID
+        para["page"] = self.pageNumber
+        para["sort_type"] = sort_type.toString
+        
+        apiTask = APIRequest.shared().getProductList(param:para ,userID:userID, showLoader: isLoader, completion:{ [weak self](response, error) in
+            guard let _ = self else { return }
+            self?.refreshControl.endRefreshing()
+            if response != nil {
+                GCDMainThread.async {
+                    let arrDatass = response!["products"] as? [String : Any] ?? [:]
+                    let arrData = arrDatass["products"] as? [[String : Any]] ?? []
+                    
+                    self?.isLoadMoreCompleted = (arrData.count == 0)
+                    if self?.pageNumber == 1{
+                        self?.allProduct.removeAll()
+                    }
+                    if arrData.count == 0{
+                        self?.noProductsFound = CNoProductFound
+                        self?.isLoadMoreCompleted = true
+                    }else{
+                        self?.pageNumber += 1
+                    }
+                    print(arrData)
+                    for obj in arrData{
+                        self?.allProduct.append(MDLProduct(fromDictionary: obj))
+                    }
+                    if self?.tblProductList != nil{
+                        self?.tblProductList.reloadData()
+                        if self?.pageNumber == 2 && !(self?.isLoadMoreCompleted ?? false){
+                            let indexPath = IndexPath(row: 0,section: 0)
+                            self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
                         }
                     }
                 }
