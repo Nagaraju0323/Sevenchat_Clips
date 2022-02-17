@@ -45,7 +45,8 @@ class HomeViewController: ParentViewController {
     var isSelectedFilter:Bool?
     var postTypeDelete = ""
     var dict = [String:Any]()
-    
+    var shoutsType : ShoutsType!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
@@ -508,19 +509,24 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         tableView.endUpdates()
                     }
                 }
-                
-                cell.onDataAvailable = { (data) in
+           
+                //post update
+                //latest update for new code
+                cell.onDataAvailable = { (data,result) in
                     if data == true {
                         DispatchQueue.main.async {
+//                        DispatchQueue.main.async {
                             let cell0FromSection0 = IndexPath(row: 0, section: 2)
                             self.tblEvents.reloadRows(at:[cell0FromSection0], with: .automatic)
                             self.isSelected = false
+                            let shoutID = 0
+                            MIGeneralsAPI.shared().refreshPostRelatedScreens(result,shoutID, self, self.shoutsType == .editShouts ? .editPost : .addPost, rss_id: 0)
                             tableView.beginUpdates()
                             tableView.endUpdates()
                         }
                     }
                 }
-                
+
                 cell.btnimgUser.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
                     let myProfileVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyProfileViewController")
