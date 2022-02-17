@@ -517,6 +517,8 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         var frndStatus = 0
                         var isShowAlert = false
                         var alertMessage = ""
+                        let first_name = userInfo.valueForString(key: "first_name")
+                        let last_name = userInfo.valueForString(key: "last_name")
                         //MARK:-FRIEND
                         for data in self?.arrBlockList ?? []{
                             let user_id = appDelegate.loginUser?.user_id
@@ -538,7 +540,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         case 5:
                             frndStatus = CFriendRequestUnfriend
                             isShowAlert = true
-                            alertMessage = CMessageUnfriend
+                            alertMessage = CMessageUnfriend + " " + first_name + " " + last_name
                         default:
                             break
                         }

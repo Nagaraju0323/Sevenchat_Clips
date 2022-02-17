@@ -370,7 +370,8 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                         var frndStatus = 1
                                         var isShowAlert = true
                                         var alertMessage = ""
-                                        
+                                        let first_name = searchInfos.valueForString(key: "first_name")
+                                        let last_name = searchInfos.valueForString(key: "last_name")
                                         switch self?.Friend_status {
                                         case 0:
                                             frndStatus = CFriendRequestSent
@@ -383,7 +384,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                         case 5:
                                             frndStatus = CFriendRequestUnfriend
                                             isShowAlert = true
-                                            alertMessage = CMessageUnfriend
+                                            alertMessage =  CMessageUnfriend + " " + first_name + " " + last_name
                                         case 6:
 //                                            cell.btnAddFrd.isEnabled = false
                                             cell.btnAddFrd.isUserInteractionEnabled = false

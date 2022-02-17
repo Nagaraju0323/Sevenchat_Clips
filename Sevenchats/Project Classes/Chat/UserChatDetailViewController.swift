@@ -1082,6 +1082,7 @@ extension UserChatDetailViewController {
                     reportVC.reportType = .reportUser
                     reportVC.userID = userid
                     reportVC.reportIDNEW = userid.toString
+                    
                     self?.navigationController?.pushViewController(reportVC, animated: true)
                 }
             }

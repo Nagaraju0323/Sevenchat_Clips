@@ -114,6 +114,8 @@ var CLoginBtnForgot: String{ return appDelegate.langugaeText?.login_forgot_passw
 var CLoginBtnSignIn: String{ return appDelegate.langugaeText?.login_signin ?? "Sign In" }
 var CLoginWithSocial: String{ return appDelegate.langugaeText?.login_with_social ?? "Or login with social media" }
 var CLoginAlertEmailMobileBlank: String{ return appDelegate.langugaeText?.login_email_or_mobile_cant_blank ?? "Please enter registered mobile number or email address" }
+var CLoginAlertUserExist: String{ return appDelegate.langugaeText?.login_invalid_credentials_email ?? "Email address and password is not registered with us" }
+
 var CLoginAlertValidEmail: String{ return appDelegate.langugaeText?.login_enter_valid_email_address ?? "Please enter valid email address" }
 
 var CLoginAlertMessage: String{ return appDelegate.langugaeText?.login_password_cant_blank ?? "Please check email and password" }
@@ -352,8 +354,9 @@ var CMessageArticleImage: String{ return appDelegate.langugaeText?.article_image
 var CMessageArticleCategory: String{ return appDelegate.langugaeText?.article_category_cant_blank ?? "Please select Article category" }
 var CMessageArticleContent: String{ return appDelegate.langugaeText?.targeted_content_cant_blank ?? "Please enter Article content" }
 var CMessageSelectContactGroupArticle: String{ return appDelegate.langugaeText?.article_targeted_audience_cant_blank ?? "Please select to whom you want to post this Article" }
-var CMessageArticlePostUpload : String{ return appDelegate.langugaeText?.article_created_successfully ?? "Article added Successfully" }
+var CMessageArticlePostUpload : String{ return appDelegate.langugaeText?.article_created_successfully ?? "Article posted Successfully" }
 var CMessageArticlePostUpdated : String{ return appDelegate.langugaeText?.article_edited_successfully ?? "Article has been updated" }
+var CMessagePostDeleted : String{ return appDelegate.langugaeText?.alert_message_delete ?? "Article has been updated" }
 
 //MARK:- Forum Screen
 var CNavFavAddForum: String{ return appDelegate.langugaeText?.add_forum ?? "Add Forum" }
@@ -431,7 +434,7 @@ var CNavSelectImage: String{ return appDelegate.langugaeText?.select_image ?? "S
 var CNavAddImage: String{ return appDelegate.langugaeText?.add_image ?? "Add Image" }
 var CNavImageDetails: String{ return appDelegate.langugaeText?.view_image ?? "Gallery details" }
 var CMessageSelectContactGroupImage : String{ return appDelegate.langugaeText?.please_select_to_whom_you_want_to_post_this_image ?? "Please select to whom you want to post this image" }
-var CMessageImagePostUpdated : String{ return appDelegate.langugaeText?.gallery_edited_successfully ?? "Gallery has been updated" }
+var CMessageImagePostUpdated : String{ return appDelegate.langugaeText?.gallery_edited_successfully ?? "Gallery  posted Successfully" }
 
 //MARK:- Group Chat Related messages
 var CgroupCreated: String{ return CLocalize(text: appDelegate.langugaeText?.group_is_added_successfully ?? "Group added Successfully")}
@@ -497,6 +500,8 @@ var CMessageNoCommentFound: String{ return appDelegate.langugaeText?.no_comment_
 
 //MARK:- Messages
 
+var CMessageReport: String{ return appDelegate.langugaeText?.alert_message_editprofile ?? "Your Request is on the way. We will investigate and take an action soon" }
+var CMessageUpdatedprofile: String{ return appDelegate.langugaeText?.alert_message_report ?? "Thank You for updating your information" }
 var CMessageReportSubmitted: String{ return appDelegate.langugaeText?.group_report_submitted_success ?? "User report has been submitted" }
 var CMessagePleaseWait: String{ return appDelegate.langugaeText?.please_wait ?? "Please Wait..." }
 var CMessageBlockUser: String{ return appDelegate.langugaeText?.block_user_alert ?? "Are you sure you want to block this user?" }
@@ -676,7 +681,7 @@ var COf : String{ return CLocalize(text: appDelegate.langugaeText?.of ?? "of") }
 var CBtnContinue : String{ return CLocalize(text: appDelegate.langugaeText?.continue_text ?? "Continue") }
 var CInviteOthers : String{ return CLocalize(text: appDelegate.langugaeText?.invite_others ?? "Invite Others") }
 var CSearchFriends : String{ return CLocalize(text: appDelegate.langugaeText?.search_friends ?? "Search friends") }
-var CMessagePollPostUpload : String{ return CLocalize(text: appDelegate.langugaeText?.polls_created_successfully ?? "Poll added Successfully") }
+var CMessagePollPostUpload : String{ return CLocalize(text: appDelegate.langugaeText?.polls_created_successfully ?? "Poll posted Successfully") }
 var CEnterFolderName : String{ return CLocalize(text: appDelegate.langugaeText?.enter_folder_name ?? "Enter Folder Name") }
 var CAddFiles : String{ return CLocalize(text: appDelegate.langugaeText?.add_files ?? "Add Files") }
 var CMessageDeleteFolder: String{ return CLocalize(text: appDelegate.langugaeText?.confirmation_to_delete_folder ?? "Are you sure you want to delete this folder?") }

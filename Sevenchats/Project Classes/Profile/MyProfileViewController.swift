@@ -451,7 +451,7 @@ extension MyProfileViewController{
                     MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, postId, self, .deletePost, rss_id: 0)
                     UIView.performWithoutAnimation {
                         self.tblUser.reloadData()
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Shout Post deleted successfully ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePostDeleted, btnOneTitle: CBtnOk, btnOneTapped: nil)
                     }
                 }
             })

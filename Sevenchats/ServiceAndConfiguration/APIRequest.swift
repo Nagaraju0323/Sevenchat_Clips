@@ -4840,7 +4840,9 @@ extension APIRequest {
             tblLanguageText.missing_functionality = dict?.valueForString(key: "missing_functionality")
             tblLanguageText.nice_to_have_functionality = dict?.valueForString(key: "nice_to_have_functionality")
             tblLanguageText.need_help_with = dict?.valueForString(key: "need_help_with")
-           
+            tblLanguageText.alert_message_report = dict?.valueForString(key: "alert_message_report")
+            tblLanguageText.alert_message_editprofile = dict?.valueForString(key: "alert_message_editprofile")
+            tblLanguageText.alert_message_delete = dict?.valueForString(key: "alert_message_delete")
             
             
             

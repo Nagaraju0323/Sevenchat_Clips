@@ -234,6 +234,11 @@ extension ReportViewController{
             dict["element_id"] = post_id ?? ""
         }
         APIRequest.shared().reportPostUserRSS(para: dict, image: imgArticle.image) { (response, error) in
+            guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+            let errorMsg = errorUserinfo.stringAfter(":")
+            if errorMsg != nil{
+                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+            }
         if response != nil {
 
             switch self.reportType {
@@ -255,8 +260,15 @@ extension ReportViewController{
 
             self.redirectToPreviousScreen()
             if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaInfo.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: nil)
+                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageReport, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
+            
+           
+            
+            
+            
+            
+            
         }
     }
         
