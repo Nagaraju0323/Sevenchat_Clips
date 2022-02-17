@@ -593,6 +593,7 @@ extension ShoutsDetailViewController{
                 reportVC.reportType = .reportShout
                 reportVC.userID = shoutInformation.valueForInt(key: CUserId)
                 reportVC.reportID = self.shoutID
+                reportVC.post_id = shoutInformation.valueForString(key: "post_id")
                 reportVC.reportIDNEW = shoutInformation.valueForString(key: "user_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }

@@ -684,6 +684,8 @@ extension InviteAndConnectViewController{
                                 var frndStatus = 0
                                 var isShowAlert = false
                                 var alertMessage = ""
+                                let first_name = syncUserInfo.valueForString(key: "first_name")
+                                let last_name = syncUserInfo.valueForString(key: "last_name")
                                 switch friendStatus {
                                 case 0:
                                     frndStatus = CFriendRequestSent
@@ -694,7 +696,7 @@ extension InviteAndConnectViewController{
                                 case 5:
                                     frndStatus = CFriendRequestUnfriend
                                     isShowAlert = true
-                                    alertMessage = CMessageUnfriend
+                                    alertMessage = CMessageUnfriend + " " + first_name + " " + last_name
                                 default:
                                     break
                                 }

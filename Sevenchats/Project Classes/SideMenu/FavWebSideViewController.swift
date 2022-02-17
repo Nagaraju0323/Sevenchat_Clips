@@ -216,6 +216,8 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
                 if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController{
                     reportVC.reportType = .reportRss
                     reportVC.reportedURL = dicFavWeSite.valueForString(key: "favourite_website_url")
+                    let user_id = appDelegate.loginUser?.user_id
+                    reportVC.reportIDNEW = user_id?.description
                     self?.navigationController?.pushViewController(reportVC, animated: true)
                 }
             }

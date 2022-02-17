@@ -626,6 +626,7 @@ extension ChirpyImageDetailsViewController{
                 reportVC.userID = chirpyInformation.valueForInt(key: CUserId)
                 reportVC.reportID = self.chirpyID
                 reportVC.reportIDNEW = chirpyInformation.valueForString(key: "user_id")
+                reportVC.post_id = chirpyInformation.valueForString(key: "post_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

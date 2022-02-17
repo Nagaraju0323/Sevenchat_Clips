@@ -494,8 +494,17 @@ extension CompleteProfileViewController{
                 if !lastname.isEmpty && !firstName.isEmpty && !user_acc_type.isEmpty && !gender.isEmpty && !religion.isEmpty && !txtCity.isEmpty && !profile.isEmpty && !txtmobile.isEmpty && !txtemail.isEmpty && !dob.isEmpty && !bio.isEmpty && !reltionship.isEmpty && !professionText.isEmpty && !txtCity.isEmpty && !latitude.description.isEmpty && !lang.description.isEmpty && !user_type.isEmpty && !status_id.isEmpty && !langName.isEmpty && !emplymenntStatus.description.isEmpty && !income.isEmpty && !user_id.isEmpty && !country_name.isEmpty && !state_name.isEmpty  && !education.isEmpty{
                     self.getRewardsDetail(isLoader:true)
                 }
-                self.navigationController?.popViewController(animated: true)
+               
+                let metaInfo = response![CJsonMeta] as? [String:Any] ?? [:]
+                let message = metaInfo["status"] as? String ?? "0"
+                if message == "0"{
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageUpdatedprofile, btnOneTitle: CBtnOk, btnOneTapped: { [weak self] (alert) in
+                        self?.navigationController?.popViewController(animated: true)
+                    })
+                }
+                
             }
+            
         }
     }
     

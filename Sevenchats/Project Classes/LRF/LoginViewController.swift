@@ -519,7 +519,7 @@ extension LoginViewController{
                 let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
                 return json
             } catch {
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CLoginAlertEmailMobileBlank , btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CLoginAlertUserExist , btnOneTitle: CBtnOk, btnOneTapped: nil)
                 MILoader.shared.hideLoader()
                 
             }

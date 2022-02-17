@@ -345,6 +345,8 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                                     var frndStatus = 0
                                     var isShowAlert = false
                                     var alertMessage = ""
+                                    let first_name = userInfo.valueForString(key: "first_name") 
+                                    let last_name = userInfo.valueForString(key: "last_name") 
                                     
                                     switch self?.Friend_status {
                                     case 0:
@@ -358,7 +360,7 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                                     case 5:
                                         frndStatus = CFriendRequestUnfriend
                                         isShowAlert = true
-                                        alertMessage = CMessageUnfriend
+                                        alertMessage = CMessageUnfriend + " " + first_name + " " + last_name
                                     case 6:
 //                                            cell.btnAddFrd.isEnabled = false
                                         cell.btnUnfriendCancelRequest.isUserInteractionEnabled = false

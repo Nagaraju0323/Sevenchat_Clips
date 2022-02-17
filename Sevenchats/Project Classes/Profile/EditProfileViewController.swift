@@ -578,13 +578,19 @@ extension EditProfileViewController {
                 for vwController in (self.navigationController?.viewControllers)! {
                     if vwController.isKind(of: SettingViewController .classForCoder()){
                         MILoader.shared.hideLoader()
-                        self.navigationController?.popViewController(animated: true)
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageUpdatedprofile, btnOneTitle: CBtnOk, btnOneTapped: { [weak self] (alert) in
+                            self?.navigationController?.popViewController(animated: true)
+                        })
+                        //self.navigationController?.popViewController(animated: true)
                         break
                     } else if vwController.isKind(of: MyProfileViewController .classForCoder()){
                         MILoader.shared.hideLoader()
                         let profileVC = vwController as? MyProfileViewController
                         profileVC?.tblUser.reloadData()
-                        self.navigationController?.popViewController(animated: true)
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageUpdatedprofile, btnOneTitle: CBtnOk, btnOneTapped: { [weak self] (alert) in
+                            self?.navigationController?.popViewController(animated: true)
+                        })
+                        //self.navigationController?.popViewController(animated: true)
                         break
                     }
                 }

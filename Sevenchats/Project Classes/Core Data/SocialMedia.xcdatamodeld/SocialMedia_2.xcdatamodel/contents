@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G415" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="TblAdvertise" representedClassName="TblAdvertise" syncable="YES" codeGenerationType="class">
         <attribute name="ads_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="ads_image" optional="YES" attributeType="String"/>
@@ -152,6 +152,8 @@
         <attribute name="alert_message_after_rejectrequest" optional="YES" attributeType="String"/>
         <attribute name="alert_message_after_unfriend" optional="YES" attributeType="String"/>
         <attribute name="alert_message_blocked" optional="YES" attributeType="String"/>
+        <attribute name="alert_message_delete" optional="YES" attributeType="String"/>
+        <attribute name="alert_message_editprofile" optional="YES" attributeType="String"/>
         <attribute name="alert_message_exitgroup_no" optional="YES" attributeType="String"/>
         <attribute name="alert_message_exitgroup_yes" optional="YES" attributeType="String"/>
         <attribute name="alert_message_feedback" optional="YES" attributeType="String"/>
@@ -160,6 +162,7 @@
         <attribute name="alert_message_for_files_not_uploaded" optional="YES" attributeType="String"/>
         <attribute name="alert_message_for_reject" optional="YES" attributeType="String"/>
         <attribute name="alert_message_for_unfriend" optional="YES" attributeType="String"/>
+        <attribute name="alert_message_report" optional="YES" attributeType="String"/>
         <attribute name="alert_message_to_remove_share_folder" optional="YES" attributeType="String"/>
         <attribute name="alert_message_unblock" optional="YES" attributeType="String"/>
         <attribute name="alert_remove_participant_message" optional="YES" attributeType="String"/>
@@ -398,6 +401,7 @@
         <attribute name="lang_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="last_date_of_product_selling" optional="YES" attributeType="String"/>
         <attribute name="later" optional="YES" attributeType="String"/>
+        <attribute name="lert_message_editprofile" optional="YES" attributeType="String"/>
         <attribute name="lets_chat" optional="YES" attributeType="String"/>
         <attribute name="like" optional="YES" attributeType="String"/>
         <attribute name="likes" optional="YES" attributeType="String"/>
@@ -1008,7 +1012,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10784"/>
+        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10844"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>
