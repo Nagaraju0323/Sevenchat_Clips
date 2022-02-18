@@ -157,7 +157,17 @@ extension AddPollViewController {
             self?.resignKeyboard()
             if self?.isValidForAddPost() ?? false{
                 print("Ready for post")
-                self?.addEditPoll()
+                if self?.txtQuestion.text != "" && self?.pollOptionLst != "" {
+                    let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                    if self?.txtQuestion.text.rangeOfCharacter(from: characterset.inverted) != nil || self?.pollOptionLst?.rangeOfCharacter(from: characterset.inverted) != nil  {
+                       print("true")
+                        self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    } else {
+                       print("false")
+                        self?.addEditPoll()
+                    }
+                }
+               // self?.addEditPoll()
             }
         }
         self.navigationItem.rightBarButtonItems = [addMediaBarButtion]

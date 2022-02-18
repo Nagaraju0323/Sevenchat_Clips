@@ -537,7 +537,17 @@ extension RegisterViewController{
         self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
             
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-            self.signup()
+            if self.txtFirstName.text != "" || self.txtLastName.text != ""{
+                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                if self.txtFirstName.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtLastName.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+                   print("true")
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                } else {
+                   print("false")
+                    self.signup()
+                }
+            }
+//            self.signup()
             //            self.redirectToVerificationScreen()
         }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
     }
@@ -558,6 +568,10 @@ extension RegisterViewController: GenericTextFieldDelegate {
                 return false
             }
             let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
+        }else if textField == txtFirstName || textField == txtLastName {
+            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
             let filtered = string.components(separatedBy: cs).joined(separator: "")
             return (string == filtered)
         }

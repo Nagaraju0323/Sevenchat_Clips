@@ -4843,6 +4843,7 @@ extension APIRequest {
             tblLanguageText.alert_message_report = dict?.valueForString(key: "alert_message_report")
             tblLanguageText.alert_message_editprofile = dict?.valueForString(key: "alert_message_editprofile")
             tblLanguageText.alert_message_delete = dict?.valueForString(key: "alert_message_delete")
+            tblLanguageText.alert_message_special_character = dict?.valueForString(key: "alert_message_special_character")
             
             
             

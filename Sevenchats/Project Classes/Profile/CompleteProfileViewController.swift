@@ -573,7 +573,17 @@ extension CompleteProfileViewController{
 extension CompleteProfileViewController{
     
     @objc fileprivate func btnCompleteClicked(_ sender : UIBarButtonItem) {
-        self.completeProfile()
+        if self.txtProfession.text != "" || self.txtViewBiography.text != "" || self.txtReligion.text != ""{
+            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+            if self.txtProfession.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtViewBiography.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtReligion.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+               print("true")
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+            } else {
+               print("false")
+                self.completeProfile()
+            }
+        }
+//        self.completeProfile()
     }
     
     @IBAction func btnAddInterestCLK(_ sender : UIButton){

@@ -275,7 +275,7 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
      
         
         for data in frdList{
-            if data?.valueForString(key: "request_status") == "5"{
+            if data?.valueForString(key: "friend_status") == "1"{
                 self.Friend_status = 5
             }
         }

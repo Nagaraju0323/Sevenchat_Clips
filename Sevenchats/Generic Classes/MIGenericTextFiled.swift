@@ -279,30 +279,73 @@ extension MIGenericTextFiled {
             _ = txtDelegate?.genericTextFieldDidEndEditing?(textField)
         }
     }
-    
     override func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        if string.isEmpty {
-            if txtDelegate != nil{
+            
+            if string.isEmpty {
+                if txtDelegate != nil{
+                    return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersInForEmpty: range, replacementString: string)) ??  true
+                }
+                return true
+            }
+            
+            if string.contains(UIPasteboard.general.string ?? ""){
+                print("print this copy paste")
+               
                 return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersInForEmpty: range, replacementString: string)) ??  true
+                
+            }else {
+                print("prin normatl test")
+               
+                if let limit = self.textLimit, let text = textField.text,
+                    let textRange = Range(range, in: text){
+                    let updatedText = text.replacingCharacters(in: textRange,with: string)
+                    if limit < updatedText.count {
+                        return false
+                    }
+                }
+                
+            }
+
+            
+            
+    //
+    //        if let limit = self.textLimit, let text = textField.text,
+    //            let textRange = Range(range, in: text){
+    //            let updatedText = text.replacingCharacters(in: textRange,with: string)
+    //            if limit < updatedText.count {
+    //                return false
+    //            }
+    //        }
+            
+            if txtDelegate != nil{
+                return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersIn: range, replacementString: string))!
+               
             }
             return true
         }
-        
-        if let limit = self.textLimit, let text = textField.text,
-            let textRange = Range(range, in: text){
-            let updatedText = text.replacingCharacters(in: textRange,with: string)
-            if limit < updatedText.count {
-                return false
-            }
-        }
-        
-        if txtDelegate != nil{
-            return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersIn: range, replacementString: string))!
-           
-        }
-        return true
-    }
+//    override func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//
+//        if string.isEmpty {
+//            if txtDelegate != nil{
+//                return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersInForEmpty: range, replacementString: string)) ??  true
+//            }
+//            return true
+//        }
+//
+//        if let limit = self.textLimit, let text = textField.text,
+//            let textRange = Range(range, in: text){
+//            let updatedText = text.replacingCharacters(in: textRange,with: string)
+//            if limit < updatedText.count {
+//                return false
+//            }
+//        }
+//
+//        if txtDelegate != nil{
+//            return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersIn: range, replacementString: string))!
+//
+//        }
+//        return true
+//    }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         

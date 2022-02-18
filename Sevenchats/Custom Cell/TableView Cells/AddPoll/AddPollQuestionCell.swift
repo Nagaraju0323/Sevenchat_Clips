@@ -28,6 +28,8 @@ class AddPollQuestionCell: UITableViewCell {
         self.btnAdd.setImage(UIImage(named:"ic_minus"), for: .normal)
         txtOption.placeholderColor = UIColor.lightGray
         txtOption.delegate = self
+        
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -49,14 +51,31 @@ extension AddPollQuestionCell : UITextFieldDelegate{
         if string.isEmpty{
             return true
         }
+        
+        if textField == txtOption{
         if (textField.text?.count ?? 0) > 100{
             return false
         }
         
-        if textField == textField{
-        let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-        let filtered = string.components(separatedBy: cs).joined(separator: "")
-        return (string == filtered)
+            
+            if string.contains(UIPasteboard.general.string ?? ""){
+
+                let text: NSString = (textField.text ?? "") as NSString
+                 let resultString = text.replacingCharacters(in: range, with: string)
+                return (string == resultString)
+                
+                
+            }else {
+                //Normat type
+                if textField == textField{
+                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                let filtered = string.components(separatedBy: cs).joined(separator: "")
+                return (string == filtered)
+                }
+            }
+            
+       
+        
         }
         return true
     }

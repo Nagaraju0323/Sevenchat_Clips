@@ -465,12 +465,12 @@ extension AddEventViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEventLocation, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }
         else{
-            if txtViewContent.text != ""{
+            if txtViewContent.text != "" && txtEventTitle.text != ""{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                if txtViewContent.text.rangeOfCharacter(from: characterset.inverted) != nil {
+                if txtViewContent.text.rangeOfCharacter(from: characterset.inverted) != nil || txtEventTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil{
                    print("true")
                     
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
                     
                 } else {
                    print("false")

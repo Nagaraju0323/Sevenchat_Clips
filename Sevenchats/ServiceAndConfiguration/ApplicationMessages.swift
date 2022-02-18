@@ -427,6 +427,8 @@ var CShoutPlaceholderContents: String{ return appDelegate.langugaeText?.enter_sh
 
 var CMessageShoutPostUpload : String{ return appDelegate.langugaeText?.shout_created_successfully ?? "Shout added Successfully" }
 var CMessageShoutPostUpdated : String{ return appDelegate.langugaeText?.shout_edited_successfully ?? "Shout has been updated" }
+var CMessageSpecial : String{ return appDelegate.langugaeText?.alert_message_special_character ?? "Avoid special character" }
+
 
 //MARK:- Image Screen
 var CNavEditImage: String{ return appDelegate.langugaeText?.edit_image ?? "Edit Image" }
@@ -501,7 +503,7 @@ var CMessageNoCommentFound: String{ return appDelegate.langugaeText?.no_comment_
 //MARK:- Messages
 
 var CMessageReport: String{ return appDelegate.langugaeText?.alert_message_editprofile ?? "Your Request is on the way. We will investigate and take an action soon" }
-var CMessageUpdatedprofile: String{ return appDelegate.langugaeText?.alert_message_report ?? "Thank You for updating your information" }
+var CMessageUpdatedprofile: String{ return appDelegate.langugaeText?.alert_message_editprofile ?? "Thank You for updating your information" }
 var CMessageReportSubmitted: String{ return appDelegate.langugaeText?.group_report_submitted_success ?? "User report has been submitted" }
 var CMessagePleaseWait: String{ return appDelegate.langugaeText?.please_wait ?? "Please Wait..." }
 var CMessageBlockUser: String{ return appDelegate.langugaeText?.block_user_alert ?? "Are you sure you want to block this user?" }

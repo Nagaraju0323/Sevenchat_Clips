@@ -122,7 +122,13 @@ extension FeedbackViewController{
         }else if(imgFeedback.image == nil) {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CNavAddImage, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-            
+            if self.txtViewFeedbackContent.text != ""{
+                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                if self.txtViewFeedbackContent.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+                   print("true")
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                } else {
+                   print("false")
             guard let statusId = appDelegate.loginUser?.status_id else {return}
             guard let userId = appDelegate.loginUser?.user_id else {return}
             
@@ -206,6 +212,9 @@ extension FeedbackViewController{
                     }
                 }
             }
+        }
+    }
+    
         }
     }
     

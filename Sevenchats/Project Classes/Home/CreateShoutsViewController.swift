@@ -422,7 +422,7 @@ extension CreateShoutsViewController{
                 if textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
                    print("true")
                     
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
                     
                 } else {
                    print("false")

@@ -118,7 +118,16 @@ extension ProductReportVC {
     @IBAction func onSubmitPressed(_ sender: UIButton) {
         
         DispatchQueue.main.async {
-            self.reportProductApi()
+            if self.txtProblem.text != ""{
+            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                if self.txtProblem.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+                  print("contains Special charecter")
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                  } else {
+                    self.reportProductApi()
+                    }
+           }
+//            self.reportProductApi()
         }
     }
 }

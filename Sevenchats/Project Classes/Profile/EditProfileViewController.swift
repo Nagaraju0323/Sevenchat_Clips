@@ -83,6 +83,8 @@ class EditProfileViewController: ParentViewController {
     // MARK:- ---------- Initialization
     
     func Initialization(){
+        txtFirstName.txtDelegate = self
+        txtLastName.txtDelegate = self
         btnUpdate.layer.cornerRadius = 5
         btnUpdateComplete.layer.cornerRadius = 5
         btnUpdateComplete.layer.borderWidth = 1
@@ -137,8 +139,8 @@ class EditProfileViewController: ParentViewController {
         txtEmail.isEnabled = false
         txtEmail.isUserInteractionEnabled = false
         
-        txtMobileNumber.isEnabled = true
-        txtMobileNumber.isUserInteractionEnabled = true
+        txtMobileNumber.isEnabled = false
+        txtMobileNumber.isUserInteractionEnabled = false
         
         txtCountryCode.isEnabled = false
         txtCountryCode.isUserInteractionEnabled = false
@@ -486,7 +488,7 @@ extension EditProfileViewController {
                             let profileVC = vwController as? MyProfileViewController
                             profileVC?.tblUser.reloadData()
                             self.navigationController?.popViewController(animated: true)
-                            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage:"Detials updated successfully", btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage:"Detials updated successfully", btnOneTitle: CBtnOk, btnOneTapped: nil)
                             break
                            
                         }
@@ -530,6 +532,7 @@ extension EditProfileViewController {
         APIRequest.shared().uploadUserCover(dict: dict as [String : AnyObject], coverImage: coverImgUrl) { [weak self] (response, error) in
             guard let self = self else { return }
             if let _response = response as? [String : AnyObject], error == nil {
+                
                 guard let dict = _response.valueForJSON(key: CJsonMeta) as? [String : AnyObject] else{
                     return
                 }
@@ -1105,7 +1108,17 @@ extension EditProfileViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankCity, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
-        self.editProfile()
+        if self.txtFirstName.text != "" && self.txtLastName.text != "" {
+            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+            if self.txtFirstName.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtLastName.text?.rangeOfCharacter(from: characterset.inverted) != nil  {
+               print("true")
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+            } else {
+               print("false")
+                self.editProfile()
+            }
+        }
+//        self.editProfile()
     }
     
     @IBAction func btnUpdateCompleteCLK(_ sender : UIButton) {
@@ -1118,5 +1131,16 @@ extension EditProfileViewController{
             completeProfileVC.isSelected = true
             self.navigationController?.pushViewController(completeProfileVC, animated: true)
         }
+    }
+}
+extension EditProfileViewController: GenericTextFieldDelegate {
+    
+    @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtFirstName || textField == txtLastName {
+            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
+        }
+        return true
     }
 }
