@@ -423,11 +423,11 @@ extension AddForumViewController{
         else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupForum, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-            if txtViewForumMessage.text != ""{
+            if txtViewForumMessage.text != "" && txtForumTitle.text != ""{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                if txtViewForumMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
+                if txtViewForumMessage.text.rangeOfCharacter(from: characterset.inverted) != nil || txtForumTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
                    print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 } else {
                    print("false")
                     self.addEditForum()

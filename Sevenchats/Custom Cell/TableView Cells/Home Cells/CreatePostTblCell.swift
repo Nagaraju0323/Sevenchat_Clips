@@ -257,7 +257,7 @@ extension CreatePostTblCell{
                 if textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
                     let alertWindow = UIWindow(frame: UIScreen.main.bounds)
                         alertWindow.rootViewController = UIViewController()
-                        let alertController = UIAlertController(title: "Error", message: "Avoid Special Chrectrests", preferredStyle: UIAlertController.Style.alert)
+                        let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
                         alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
                             alertWindow.isHidden = true
                             return

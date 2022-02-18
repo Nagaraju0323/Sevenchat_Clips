@@ -225,6 +225,7 @@ extension AddArticleViewController{
                 
                 self.navigationController?.popViewController(animated: true)
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.articleType == .editArticle ? CMessageArticlePostUpdated : CMessageArticlePostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
+
             }
         }
     }
@@ -466,14 +467,24 @@ extension AddArticleViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupArticle, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
             // call api here......
-            if txtViewArticleContent.text != ""{
-                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                if txtViewArticleContent.text.rangeOfCharacter(from: characterset.inverted) != nil || txtArticleTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
-                } else {
+//            if txtViewArticleContent.text != "" {
+//                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+//                if txtViewArticleContent.text.rangeOfCharacter(from: characterset.inverted) != nil || txtArticleTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Avoid Special Chrectrests", btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                } else {
+//                    self.addEditArticle()
+//                }
+//            }
+            if txtViewArticleContent.text != "" && txtArticleTitle.text != ""{
+            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+            if txtViewArticleContent.text.rangeOfCharacter(from: characterset.inverted) != nil || txtArticleTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+                  print("contains Special charecter")
+                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                  } else {
                     self.addEditArticle()
-                }
-            }
+                    }
+           }
+
         }
         
     }

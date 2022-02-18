@@ -187,7 +187,16 @@ extension AddEditProductVC {
             self?.resignKeyboard()
             if self?.isValideAllFileds() ?? false{
                 print("Ready for post")
-                self?.addEditProduct()
+                if self?.txtProductTitle.text != "" && self?.txtProductDesc.text != ""{
+                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                    if self?.txtProductTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil || self?.txtProductDesc.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+                      print("contains Special charecter")
+                    self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                      } else {
+                        self?.addEditProduct()
+                        }
+               }
+               // self?.addEditProduct()
             }
         }
         self.navigationItem.rightBarButtonItems = [addMediaBarButtion]

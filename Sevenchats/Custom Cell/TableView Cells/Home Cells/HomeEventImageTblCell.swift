@@ -248,7 +248,11 @@ extension HomeEventImageTblCell{
         btnInterested.isSelected = false
         selectedChoice = postInfo.valueForString(key: "selected_choice")
         
-        switch postInfo.valueForString(key: "selected_choice").toInt ?? 0 {
+        
+    
+        
+        
+        switch postInfo.valueForString(key: "selected_choice").toInt ?? 0  {
    
                 case 3:
                     btnMaybe.isSelected = true

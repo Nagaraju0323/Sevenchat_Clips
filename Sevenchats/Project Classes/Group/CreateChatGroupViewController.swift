@@ -81,6 +81,7 @@ class CreateChatGroupViewController: ParentViewController {
     // MARK:- --------- Initialization
     
     func Initialization(){
+        txtGroupTitle.txtDelegate = self
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_apply_filter"), style: .plain, target: self, action: #selector(btnDoneCLK(_:)))
         viewUploadedImageContainer.isHidden = true
         txtGroupTitle.addTarget(self, action: #selector(self.textFieldDidChange(_:)), for: .editingChanged)
@@ -513,7 +514,19 @@ extension CreateChatGroupViewController : UITableViewDelegate, UITableViewDataSo
 extension CreateChatGroupViewController{
     
     @objc fileprivate func btnDoneCLK(_ sender : UIBarButtonItem) {
-            self.addEditGroup(true)
+        if txtGroupTitle.text != "" {
+            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+            if txtGroupTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+               print("true")
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                
+            } else {
+               print("false")
+                self.addEditGroup(true)
+
+            }
+        }
+            //self.addEditGroup(true)
     }
     
     @IBAction func btnAddParticipantsCLK(_ sender : UIButton){
@@ -635,3 +648,18 @@ extension CreateChatGroupViewController{
     }
     
 }
+extension CreateChatGroupViewController: GenericTextFieldDelegate {
+    
+    @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtGroupTitle{
+            if txtGroupTitle.text?.count ?? 0 > 20{
+                return false
+            }
+            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
+        }
+        return true
+    }
+}
+

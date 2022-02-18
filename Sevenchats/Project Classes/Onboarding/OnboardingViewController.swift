@@ -16,6 +16,7 @@ class OnboardingViewController: ParentViewController {
     @IBOutlet var btnSkip: MIGenericButton! {
         didSet {
             btnSkip.layer.cornerRadius = 5.0
+            btnSkip.setTitle(CBtnSkip, for: .normal)
         }
     }
     

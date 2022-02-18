@@ -377,7 +377,17 @@ extension ReportViewController{
             }
             
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: strMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                self.reportApi()
+                if self.textViewReportMessage.text != ""{
+                    let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                    if self.textViewReportMessage.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+                       print("true")
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    } else {
+                       print("false")
+                        self.reportApi()
+                    }
+                }
+//                self.reportApi()
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
         }
     }
