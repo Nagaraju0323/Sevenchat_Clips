@@ -409,17 +409,47 @@ extension EventDetailImageViewController {
         }
         //Confirm the Selcted Option
         
-        
-        switch dict.valueForString(key: "selected_choice").toInt ?? 0 {
-        case 3:
-            btnMaybe.isSelected = true
-        case 1:
-            btnInterested.isSelected = true
-        case 2:
-            btnNotInterested.isSelected = true
-        default:
-            break
+        if isLikesOthersPage == true {
+            
+            switch dict.valueForString(key: "friend_selected_choice").toInt ?? 0 {
+            case 3:
+                btnMaybe.isSelected = true
+            case 1:
+                btnInterested.isSelected = true
+            case 2:
+                btnNotInterested.isSelected = true
+            default:
+                break
+            }
+            
+            
+        }else {
+            
+            switch dict.valueForString(key: "selected_choice").toInt ?? 0 {
+            case 3:
+                btnMaybe.isSelected = true
+            case 1:
+                btnInterested.isSelected = true
+            case 2:
+                btnNotInterested.isSelected = true
+            default:
+                break
+            }
+            
         }
+        
+        
+        
+//        switch dict.valueForString(key: "selected_choice").toInt ?? 0 {
+//        case 3:
+//            btnMaybe.isSelected = true
+//        case 1:
+//            btnInterested.isSelected = true
+//        case 2:
+//            btnNotInterested.isSelected = true
+//        default:
+//            break
+//        }
         setSelectedButtonStyle(dict)
         setSelectedButtonStyle()
         
@@ -449,7 +479,14 @@ extension EventDetailImageViewController {
     }
     
     func setSelectedButtonStyle(_ dict : [String : Any]?){
-        selectedChoice = dict?.valueForString(key:"selected_choice") ?? ""
+       
+        if isLikesOthersPage == true {
+            selectedChoice = dict?.valueForString(key:"friend_selected_choice") ?? ""
+        }else {
+            selectedChoice = dict?.valueForString(key:"selected_choice") ?? ""
+        }
+//        selectedChoice = dict?.valueForString(key:"selected_choice") ?? ""
+        
         btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
         btnInterested.layer.borderWidth = 2
         btnInterested.backgroundColor =  .clear
@@ -462,16 +499,44 @@ extension EventDetailImageViewController {
         btnNotInterested.layer.borderWidth = 2
         btnNotInterested.backgroundColor =  .clear
         
-        if dict?.valueForString(key:"selected_choice") == "3"{
-            btnMaybe.isSelected = true
-            btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
-        }else if dict?.valueForString(key:"selected_choice") == "2"{
-            btnNotInterested.isSelected = true
-            btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
-        }else if dict?.valueForString(key:"selected_choice") == "1"{
-            btnInterested.isSelected = true
-            btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+        if isLikesOthersPage == true {
+//            selectedChoice = dict?.valueForString(key:"friend_selected_choice") ?? ""
+            if dict?.valueForString(key:"friend_selected_choice") == "3"{
+                btnMaybe.isSelected = true
+                btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+            }else if dict?.valueForString(key:"friend_selected_choice") == "2"{
+                btnNotInterested.isSelected = true
+                btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+            }else if dict?.valueForString(key:"friend_selected_choice") == "1"{
+                btnInterested.isSelected = true
+                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+            }
+        }else {
+//            selectedChoice = dict?.valueForString(key:"selected_choice") ?? ""
+            if dict?.valueForString(key:"selected_choice") == "3"{
+                btnMaybe.isSelected = true
+                btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+            }else if dict?.valueForString(key:"selected_choice") == "2"{
+                btnNotInterested.isSelected = true
+                btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+            }else if dict?.valueForString(key:"selected_choice") == "1"{
+                btnInterested.isSelected = true
+                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+            }
         }
+        
+        
+        
+//        if dict?.valueForString(key:"selected_choice") == "3"{
+//            btnMaybe.isSelected = true
+//            btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+//        }else if dict?.valueForString(key:"selected_choice") == "2"{
+//            btnNotInterested.isSelected = true
+//            btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+//        }else if dict?.valueForString(key:"selected_choice") == "1"{
+//            btnInterested.isSelected = true
+//            btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+//        }
     }
     
     func setSelectedButtonStyle(){
@@ -509,7 +574,91 @@ extension EventDetailImageViewController {
         
         if type != eventInfo.valueForInt(key: CIsInterested){
             
-            if eventInfo.valueForInt(key: "selected_choice") == 1 || eventInfo.valueForInt(key: "selected_choice") == 2  || eventInfo.valueForInt(key: "selected_choice") == 3  {
+//            if eventInfo.valueForInt(key: "selected_choice") == 1 || eventInfo.valueForInt(key: "selected_choice") == 2  || eventInfo.valueForInt(key: "selected_choice") == 3  {
+//                if selectedChoice.toInt == 1 {
+//                    btnMaybe.isEnabled = false
+//                    btnMaybe.isSelected = false
+//                    btnNotInterested.isSelected = false
+//                    btnInterested.isSelected = true
+//                   // onChangeEventStatus?(CTypeInterested)
+//                }else if selectedChoice.toInt == 3 {
+//                    btnMaybe.isSelected = true
+//                    btnNotInterested.isSelected = false
+//                    btnInterested.isSelected = false
+//                   // onChangeEventStatus?(CTypeMayBeInterested)
+//                }else if selectedChoice.toInt == 2 {
+//                    btnMaybe.isSelected = false
+//                    btnNotInterested.isSelected = true
+//                    btnInterested.isSelected = false
+//                   // onChangeEventStatus?(CTypeNotInterested)
+//                }
+//                return
+//            }else {
+//
+//            //MARK:- NEW
+//            let totalIntersted = eventInfo.valueForString(key: "yes_count")
+//            let totalNotIntersted = eventInfo.valueForString(key:"no_count")
+//            let totalMaybe = eventInfo.valueForString(key: "maybe_count")
+//                guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+//                guard let firstName = appDelegate.loginUser?.first_name else {return}
+//                guard let lastName = appDelegate.loginUser?.last_name else {return}
+//                print(self.posted_ID)
+//            switch eventInfo.valueForInt(key: CIsInterested) {
+//            case CTypeInterested:
+////                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
+//                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+////                }
+//                eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+//                break
+//            case CTypeNotInterested:
+////                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
+//                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+////                }
+//                eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+//                break
+//            case CTypeMayBeInterested:
+////                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
+//                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+////                }
+//                eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+//                break
+//            default:
+//                break
+//            }
+//            eventInfo[CIsInterested] = type
+//
+//            switch type {
+//            case CTypeInterested:
+//               // selectedoption()
+//                let yesCount = totalIntersted.toInt ?? 0
+//                let totalCnt = (yesCount + 1).toString
+//                eventInfo["yes_count"] = totalCnt.toInt ?? 0 - 1
+//                break
+//            case CTypeNotInterested:
+//               // selectedoption()
+//                let yesCount = totalNotIntersted.toInt ?? 0
+//                let totalCnt = (yesCount + 1).toString
+//                eventInfo["no_count"] = totalCnt.toInt ?? 0 - 1
+//                break
+//            case CTypeMayBeInterested:
+//               // selectedoption()
+//                let yesCount = totalMaybe.toInt ?? 0
+//                let totalCnt = (yesCount + 1).toString
+//                eventInfo["maybe_count"] = totalCnt.toInt ?? 0 - 1
+//                break
+//            default:
+//                break
+//            }
+//            //var postId = postInfo.valueForInt(key: CId)
+//            let postId = eventInfo.valueForString(key: "post_id")
+//            _ = eventInfo.valueForInt(key: CIsSharedPost)
+//            self.setEventDetail(dict: eventInfo)
+//            MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
+//            }
+            
+            
+            
+            if eventInfo.valueForInt(key: "selected_choice") == 1 || eventInfo.valueForInt(key: "selected_choice") == 2  || eventInfo.valueForInt(key: "selected_choice") == 3 || eventInfo.valueForInt(key: "friend_selected_choice") == 1  || eventInfo.valueForInt(key: "friend_selected_choice") == 2  ||  eventInfo.valueForInt(key: "friend_selected_choice") == 3 {
                 if selectedChoice.toInt == 1 {
                     btnMaybe.isEnabled = false
                     btnMaybe.isSelected = false
@@ -590,6 +739,10 @@ extension EventDetailImageViewController {
             self.setEventDetail(dict: eventInfo)
             MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
             }
+            
+            
+            
+            
     }
     }
     func deletePost(_ eventInfo : [String : Any]?) {

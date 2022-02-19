@@ -1592,21 +1592,21 @@ extension MIGeneralsAPI {
                                     let totalCnt = (yesCount + 1).toString
                                     postLikeInfo?["yes_count"] = totalCnt
                                     postLikeInfo?[CIsInterested] = "1"
-                                    postLikeInfo?["selected_choice"] = "1"
+                                    postLikeInfo?["friend_selected_choice"] = "1"
                                 }
                                 if choice == "maybe"{
                                     let mayCount = postLikeInfo?.valueForString(key:"maybe_count").toInt ?? 0
                                     let totalCnt = (mayCount + 1).toString
                                     postLikeInfo?["maybe_count"] = totalCnt
                                     postLikeInfo?[CIsInterested] = "3"
-                                    postLikeInfo?["selected_choice"] = "3"
+                                    postLikeInfo?["friend_selected_choice"] = "3"
                                 }
                                 if choice == "no"{
                                     let noCount = postLikeInfo?.valueForString(key:"no_count").toInt ?? 0
                                     let totalCnt = (noCount + 1).toString
                                     postLikeInfo?["no_count"] = totalCnt
                                     postLikeInfo?[CIsInterested] = "2"
-                                    postLikeInfo?["selected_choice"] = "2"
+                                    postLikeInfo?["friend_selected_choice"] = "2"
                                 }
                                 otherProfileVC.arrPostList.remove(at: index)
                                 otherProfileVC.arrPostList.insert(postLikeInfo, at: index)
@@ -2157,7 +2157,7 @@ extension MIGeneralsAPI {
                     print(":::::::resultValues\(resultKey)")
                     let resultkeys = resultKey.map { $0.keys.first }
                     print(":::::::resultafter\(resultkeys! as String?)")
-                    postPollInfo?["is_selected"] = resultkeys! as String?
+                    postPollInfo?["friend_selected"] = resultkeys! as String?
                     postPollInfo?["results"] = optionData?["results"] as? [String:String]
                     
                     otherProfileVC.arrPostList.remove(at: index)
