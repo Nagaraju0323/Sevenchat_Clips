@@ -18,6 +18,10 @@ import UIKit
 enum ArticleType : Int {
     case editArticle = 0
     case addArticle = 1
+    
+//    case addShouts = 0
+//    case editShouts = 1
+//    case shareQuote = 3
 }
 
 class AddArticleViewController: ParentViewController {
@@ -67,6 +71,7 @@ class AddArticleViewController: ParentViewController {
     var quoteDesc = ""
     var arrSubCategory =  [[String : Any]]()
     var arrsubCategorys : [MDLProductSubCategory] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -225,6 +230,13 @@ extension AddArticleViewController{
                 
                 self.navigationController?.popViewController(animated: true)
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.articleType == .editArticle ? CMessageArticlePostUpdated : CMessageArticlePostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                
+             
+                if let shoutInfo = response!["meta"] as? [String : Any]{
+                    if shoutInfo.valueForString(key: "status")  == "0" {
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(shoutInfo,self.articleID, self,.addPost, rss_id: 0)
+                    }
+                }
 
             }
         }

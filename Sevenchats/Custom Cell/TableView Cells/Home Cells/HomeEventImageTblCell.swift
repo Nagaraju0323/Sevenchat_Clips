@@ -247,9 +247,6 @@ extension HomeEventImageTblCell{
         btnNotInterested.isSelected = false
         btnInterested.isSelected = false
 
-        
-
-        
         switch postInfo.valueForString(key: "selected_choice").toInt ?? 0  {
    
                 case 3:
@@ -278,11 +275,6 @@ extension HomeEventImageTblCell{
                     }
         }else {
             selectedChoice = postInfo.valueForString(key: "selected_choice")
-        
-        
-    
-        
-        
             switch postInfo.valueForString(key: "selected_choice").toInt ?? 0 {
        
                     case 3:
@@ -295,6 +287,23 @@ extension HomeEventImageTblCell{
                     default:
                         break
                     }
+            
+        }
+//        selectedChoice = postInfo.valueForString(key: "selected_choice")
+////        selectedChoice = postInfo.valueForString(key: "selected_choice")
+//        switch postInfo.valueForString(key: "selected_choice").toInt ?? 0 {
+//
+//                case 3:
+//                    btnMaybe.isSelected = true
+//                case 1:
+//                    btnInterested.isSelected = true
+//
+//                case 2:
+//                    btnNotInterested.isSelected = true
+//                default:
+//                    break
+//                }
+
         setSelectedButtonStyle(postInfo)
     }
     func setSelectedButtonStyle(_ postInfo : [String : Any]?){
@@ -310,9 +319,23 @@ extension HomeEventImageTblCell{
            btnNotInterested.layer.borderWidth = 2
            btnNotInterested.backgroundColor =  .clear
            
+        if isLikesOthersPage == true {
+         
+            if postInfo?.valueForString(key:"friend_selected_choice") == "3"{
+                btnMaybe.isSelected = true
+                btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+            }else if postInfo?.valueForString(key:"friend_selected_choice") == "2"{
+                btnNotInterested.isSelected = true
+                btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+            }else if postInfo?.valueForString(key:"friend_selected_choice") == "1"{
+                btnInterested.isSelected = true
+                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+            }
+         
+            
+        }else {
+            
             if postInfo?.valueForString(key:"selected_choice") == "3"{
-            
-            
                 btnMaybe.isSelected = true
                 btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
             }else if postInfo?.valueForString(key:"selected_choice") == "2"{

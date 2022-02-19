@@ -11,7 +11,6 @@
  * Model   : ChirpyImageDetailsViewController            *
  * Changes :                                             *
  * Show chiripy Details,Like and comments to post        *
- *                                                       *
  ********************************************************/
 
 

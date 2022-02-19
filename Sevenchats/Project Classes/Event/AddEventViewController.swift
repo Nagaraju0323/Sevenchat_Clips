@@ -19,6 +19,7 @@ import CoreLocation
 enum EventType : Int {
     case addEvent = 0
     case editEvent = 1
+    
 }
 
 let CDateFormat =  "dd MMM yyyy, hh:mm a"
@@ -274,7 +275,7 @@ extension AddEventViewController{
 
                         MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"event",title: self.txtEventTitle.text ?? "",name:name,icon:image, detail_text: "post_point")
                         
-                        
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self.eventID, self,.addPost, rss_id: 0)
                         
                     }
                 }

@@ -20,6 +20,7 @@ import UIKit
 enum ChirpyType : Int {
     case addChirpy = 0
     case editChirpy = 1
+    
 }
 
 class AddChirpyViewController: ParentViewController {
@@ -265,6 +266,7 @@ extension AddChirpyViewController{
                     let stausLike = metaInfo["status"] as? String ?? "0"
                     if stausLike == "0" {
                         MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"chirpy",title: self.categoryDropDownView.txtCategory.text ?? "",name:name,icon:image, detail_text: "post_point")
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self.chirpyID, self,.addPost, rss_id: 0)
                         
                     }
                 }

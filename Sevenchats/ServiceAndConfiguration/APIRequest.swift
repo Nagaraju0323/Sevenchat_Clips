@@ -549,6 +549,8 @@ extension Networking {
     }
     
     
+    
+    
     func PUTJSONNOTF(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
         
         let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
@@ -2912,6 +2914,29 @@ extension APIRequest {
             }
         })
     }
+    
+    
+    func sendNotificationStautsUpdate(notifications:[String:Any], completion: @escaping ClosureCompletion) {
+        
+        _ = Networking.sharedInstance.PUTJSONNOTF(apiTag: CAPITagNotification, param: notifications as [String:Any], successBlock: { (task, response) in
+            completion(response, nil)
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNotifier){
+                completion(response, nil)
+            }
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagNotification, error: error)
+            }
+        })
+    }
+    
+    
+    
+    
     
     // MARK: ----------- Poll Detail ----------------
     func voteForPoll(para : [String : Any], completion : @escaping ClosureCompletion) {

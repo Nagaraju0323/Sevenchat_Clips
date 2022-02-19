@@ -296,11 +296,13 @@ extension AddMediaViewController {
                         
                         MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"gallery",title: self.categoryDropDownView.txtCategory.text!,name:name,icon:image, detail_text: "post_point")
                         
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self.imgPostId, self,.addPost, rss_id: 0)
+                        
                     }
                 }
                 
                 if let imgInfo = response![CJsonData] as? [String : Any]{
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(imgInfo,self.imgPostId, self, self.imagePostType == .editImagePost ? .editPost : .addPost, rss_id: 0)
+//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(imgInfo,self.imgPostId, self, self.imagePostType == .editImagePost ? .editPost : .addPost, rss_id: 0)
                     
                     APIRequest.shared().saveNewInterest(interestID: imgInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: imgInfo.valueForString(key: CCategory))
                 }

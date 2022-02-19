@@ -18,6 +18,7 @@ import UIKit
 enum ForumType : Int {
     case addForum = 0
     case editForum = 1
+    
 }
 
 class AddForumViewController: ParentViewController {
@@ -223,6 +224,7 @@ extension AddForumViewController{
  
                         MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"forum",title: self.txtForumTitle.text! ,name:name,icon:image, detail_text: "post_point")
 
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self.forumID, self,.addPost, rss_id: 0)
                         
                     }
                 }
@@ -231,7 +233,7 @@ extension AddForumViewController{
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.forumType == .editForum ? CMessageForumPostUpdated : CMessageForumPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 
                 if let forumInfo = response![CJsonData] as? [String : Any]{
-                    MIGeneralsAPI.shared().refreshPostRelatedScreens(forumInfo,self.forumID, self, self.forumType == .editForum ? .editPost : .addPost, rss_id: 0)
+//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(forumInfo,self.forumID, self, self.forumType == .editForum ? .editPost : .addPost, rss_id: 0)
                     
                     APIRequest.shared().saveNewInterest(interestID: forumInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: forumInfo.valueForString(key: CCategory))
                 }

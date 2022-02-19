@@ -8,7 +8,7 @@
 
 /*********************************************************
  * Author  : Chandrika.R                                 *
- * Model   : SharePostViewController                   *
+ * Model   : SharePostViewController                     *
  * Changes :                                             *
  * Deisplay Share Details user can like and comments,    *
  * Delete forparticular post                             *
