@@ -242,6 +242,7 @@ let CAPITagforums = "forums/add"
 let CAPITagshouts = "shouts/add"
 let CAPITagsgallery = "galleries/add"
 let CAPITagpolls = "polls/add"
+let CAPITagshared = "internalsharing"
 let CProductListNew = "products"
 let CPollUsers = "polls/users"
 let CProductListusers = "products/user/"
@@ -2305,6 +2306,27 @@ extension APIRequest {
             } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
             } else {
                 self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagurl, error: error)
+            }
+        })
+    }
+//MARK:- SHARED POST
+    func addSharedPost(para : [String : Any], image : UIImage?, completion : @escaping ClosureCompletion) {
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        print("print\(para)")
+    
+        _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagshared, param: para, successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            
+            self.saveUserDetail(response: response as! [String : AnyObject])
+            completion(response, nil)
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagshared, error: error)
             }
         })
     }

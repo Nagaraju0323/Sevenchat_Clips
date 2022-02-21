@@ -339,8 +339,14 @@ extension SharePostViewController {
         let apiPara = getPostGeneralData()
         //apiPara[CCategory_Id] = postData[CCategory_Id]
         print(apiPara)
+        guard let userID = appDelegate.loginUser?.user_id else {return}
+        let dict :[String:Any]  =  [
+            "user_id":userID,
+            "element_id":postData[COriginalPostId]!,
+            "message":textViewMessage.text ?? ""
+        ]
         
-        APIRequest.shared().addEditPost(para: apiPara, image: nil, apiKeyCall: CAPITagshouts) { [weak self] (response, error) in
+        APIRequest.shared().addSharedPost(para: dict, image: nil) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil && error == nil{
                 self.navigationController?.popViewController(animated: true)

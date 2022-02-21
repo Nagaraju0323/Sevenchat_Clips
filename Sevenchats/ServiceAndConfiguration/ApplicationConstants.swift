@@ -501,7 +501,7 @@ let CreatedAtPostConvert = "dd/MM"
 let CIsSharedPost         = "is_shared_post"
 let CIsPostDeleted        = "is_deleted_post"
 let CSharedPost           = "shared_post"
-let COriginalPostId       = "original_post_id"
+let COriginalPostId       = "post_id"
 
 let CBindingId = "bindingId"
 //NEW CODE 
