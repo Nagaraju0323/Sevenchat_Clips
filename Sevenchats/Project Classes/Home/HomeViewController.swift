@@ -405,9 +405,135 @@ extension HomeViewController {
         }
     }
     
-    func deletePost(_ postId : Int, _ index : Int) {
+//    func deletePost(_ postId : Int, _ index : Int) {
+//    }
+    func deletePostNew(_ postId : Int, _ index : Int, _ postType : [String : Any]) {
+        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: {_ in
+            
+            switch postType.valueForString(key: CPostTypeNew){
+                
+            case CStaticArticleIdNew:
+                self.postTypeDelete = postType.valueForString(key: "type")
+                self.dict = [
+                    "post_id": postType.valueForString(key: "post_id"),
+                    "image":postType.valueForString(key: "image"),
+                    "post_title": postType.valueForString(key: "post_title"),
+                    "post_category": postType.valueForString(key: "post_category"),
+                    "post_content": postType.valueForString(key: "post_title"),
+                    "age_limit": postType.valueForString(key: "age_limit"),
+                    "targeted_audience": postType.valueForString(key: "targeted_audience"),
+                    "selected_persons": postType.valueForString(key: "selected_persons"),
+                    "status_id": "3"
+                ]
+                
+            case CStaticGalleryIdNew:
+                
+                self.postTypeDelete = postType.valueForString(key: "type")
+                self.dict = [
+                    "post_id": postType.valueForString(key: "post_id"),
+                    "post_category": postType.valueForString(key: "post_category"),
+                    "images":postType.valueForString(key: "image"),
+                    "targeted_audience": postType.valueForString(key: "targeted_audience"),
+                    "selected_persons": postType.valueForString(key: "selected_persons"),
+                    "status_id": "3"
+                ]
+            case CStaticChirpyIdNew:
+                
+                self.postTypeDelete = postType.valueForString(key: "type")
+                self.dict =
+                [
+                    "post_id": postType.valueForString(key: "post_id"),
+                    "image": postType.valueForString(key: "image"),
+                    "post_title": postType.valueForString(key: "post_title"),
+                    "post_category": postType.valueForString(key: "post_category"),
+                    "post_content": postType.valueForString(key: "post_content"),
+                    "targeted_audience": postType.valueForString(key: "targeted_audience"),
+                    "selected_persons": postType.valueForString(key: "selected_persons"),
+                    "status_id": "3"
+                ]
+                
+            case CStaticShoutIdNew:
+                self.postTypeDelete = postType.valueForString(key: "type")
+                self.dict =
+                [
+                    "post_id": postType.valueForString(key: "post_id"),
+                    "image": "",
+                    "post_title": "",
+                    "post_content": postType.valueForString(key: "post_content"),
+                    "age_limit": "",
+                    "targeted_audience": postType.valueForString(key: "targeted_audience"),
+                    "selected_persons": postType.valueForString(key: "selected_persons"),
+                    "status_id": "3"
+                ]
+                
+            case CStaticForumIdNew:
+                self.postTypeDelete = postType.valueForString(key: "type")
+                self.dict =
+                [
+                    "post_id": postType.valueForString(key: "post_id"),
+                    "image": "",
+                    "post_title":  postType.valueForString(key: "post_title"),
+                    "post_category":  postType.valueForString(key: "post_category"),
+                    "post_content":  postType.valueForString(key: "post_content"),
+                    "age_limit":  postType.valueForString(key: "age_limit"),
+                    "targeted_audience": postType.valueForString(key: "targeted_audience"),
+                    "selected_persons": postType.valueForString(key: "selected_persons"),
+                    "status_id": "3"
+                ]
+                
+                
+            case CStaticEventIdNew:
+                self.postTypeDelete = postType.valueForString(key: "type")
+                self.dict =
+                [
+                    "post_id": postType.valueForString(key: "post_id"),
+                    "image": postType.valueForString(key: "image"),
+                    "post_title": postType.valueForString(key: "post_title"),
+                    "post_category": postType.valueForString(key: "post_category"),
+                    "post_content": postType.valueForString(key: "post_content"),
+                    "age_limit": postType.valueForString(key: "age_limit"),
+                    "latitude": postType.valueForString(key: "latitude"),
+                    "longitude": postType.valueForString(key: "longitude"),
+                    "start_date": postType.valueForString(key: "start_date"),
+                    "end_date": postType.valueForString(key: "end_date"),
+                    "targeted_audience": postType.valueForString(key: "targeted_audience"),
+                    "selected_persons": postType.valueForString(key: "selected_persons"),
+                    "status_id": "3",
+                    "address_line1":""
+                ]
+            case CStaticPollIdNew: // Poll Cell....
+                self.postTypeDelete = postType.valueForString(key: "type")
+                self.dict =
+                [
+                    "post_id":postType.valueForString(key: "post_id"),
+                    "post_category": postType.valueForString(key: "post_category"),
+                    "post_title": postType.valueForString(key: "post_title"),
+                    "options": postType.valueForString(key: "options"),
+                    "targeted_audience": postType.valueForString(key: "targeted_audience"),
+                    "selected_persons": postType.valueForString(key: "selected_persons"),
+                    "status_id": "3"
+                ]
+                
+            default:
+                break
+                
+                
+            }
+            APIRequest.shared().deletePostNew(postDetials: self.dict, apiKeyCall: self.postTypeDelete, completion: { [weak self](response, error) in
+                guard let self = self else { return }
+                if response != nil && error == nil{
+                    self.arrPostList.remove(at: index)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, postId, self, .deletePost, rss_id: 0)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, postId, self, .addPost, rss_id: 0)
+                    UIView.performWithoutAnimation {
+//                        self.tblUser.reloadData()
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePostDeleted, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    }
+                }
+            })
+            
+        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
     }
-    
 }
 
 // MARK:- --------- UITableView Datasources/Delegate
@@ -1640,7 +1766,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                             self?.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (alert) in
                                 guard let _ = self else { return }
                                 let postID = sharePostData[CId] as? Int ?? 0
-                                self?.deletePost(postID, index)
+                                self?.deletePostNew(postID, index, sharePostData)
                             }
                         }else{
                             //self?.btnReportCLK(postInfo)
@@ -1715,7 +1841,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         self?.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (alert) in
                             guard let _ = self else { return }
                             let postId = postData.valueForInt(key: CId) ?? 0
-                            self?.deletePost(postId, index)
+                            self?.deletePostNew(postId, index, postData)
                         }
                     }else{
                         self?.btnReportCLK(postData)
@@ -2139,7 +2265,7 @@ extension HomeViewController {
             self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
                 
                 guard let `self` = self else { return }
-                self.deletePost(postId, index ?? 0)
+                self.deletePostNew(postId, index ?? 0, postInfo)
             }
         } else {
             
@@ -2152,7 +2278,7 @@ extension HomeViewController {
                 }
             }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](alert) in
                 guard let _ = self else { return }
-                self?.deletePost(postId, index!)
+                self?.deletePostNew(postId, index ?? 0, postInfo)
             }
         }
     }
@@ -2190,8 +2316,90 @@ extension HomeViewController {
             }
         }
     }
-    
     fileprivate func btnMoreCLK(_ index : Int?, _ postInfo : [String : Any]){
+        let postId = postInfo.valueForInt(key: CId)
+        
+        let postType = postInfo.valueForInt(key: CPostType)
+        let currentDateTime = Date().timeIntervalSince1970
+        
+        let userID = appDelegate.loginUser?.user_id.description
+        
+        if userID == postInfo.valueForString(key: "user_id"){
+            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (alert) in
+                guard let _ = self else { return }
+                let postID = postInfo.valueForString(key: "user_id")
+                // self?.deletePost(postID, index, postType as! String)
+                self?.deletePostNew(postID.toInt ?? 0, index ?? 0 , postInfo)
+            }
+        }
+        
+//        if let endDateTime = postInfo.valueForDouble(key: CEvent_End_Date), (postType == CStaticEventId), (Double(currentDateTime) > endDateTime) {
+//
+//            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
+//
+//                guard let `self` = self else { return }
+//                self.deletePost(postId ?? 0, index ?? 0)
+//            }
+//        } else {
+//
+//            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self](alert) in
+//                guard let _ = self else { return }
+//                switch postInfo.valueForInt(key: CPostType){
+//                case CStaticArticleId:
+//                    if let addArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddArticleViewController") as? AddArticleViewController{
+//                        addArticleVC.articleType = .editArticle
+//                        addArticleVC.articleID = postId
+//                        self?.navigationController?.pushViewController(addArticleVC, animated: true)
+//                    }
+//                case CStaticGalleryId:
+//                    /*if let galleyVC = CStoryboardImage.instantiateViewController(withIdentifier: "GalleryPreviewViewController") as? GalleryPreviewViewController{
+//                     galleyVC.imagePostType = .editImagePost
+//                     galleyVC.imgPostId = postId
+//                     self.navigationController?.pushViewController(galleyVC, animated: true)
+//                     }*/
+//                    if let galleryListVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddMediaViewController") as? AddMediaViewController{
+//                        galleryListVC.imagePostType = .editImagePost
+//                        galleryListVC.imgPostId = postId
+//                        self?.navigationController?.pushViewController(galleryListVC, animated: true)
+//                    }
+//
+//                case CStaticChirpyId:
+//                    if let addChirpyVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddChirpyViewController") as? AddChirpyViewController{
+//                        addChirpyVC.chirpyType = .editChirpy
+//                        addChirpyVC.chirpyID = postId
+//                        self?.navigationController?.pushViewController(addChirpyVC, animated: true)
+//                    }
+//                case CStaticShoutId:
+//                    if let createShoutsVC = CStoryboardHome.instantiateViewController(withIdentifier: "CreateShoutsViewController") as? CreateShoutsViewController{
+//                        createShoutsVC.shoutsType = .editShouts
+//                        createShoutsVC.shoutID = postId
+//                        self?.navigationController?.pushViewController(createShoutsVC, animated: true)
+//                    }
+//
+//                case CStaticForumId:
+//                    if let addForumVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddForumViewController") as? AddForumViewController{
+//                        addForumVC.forumType = .editForum
+//                        addForumVC.forumID = postId
+//                        self?.navigationController?.pushViewController(addForumVC, animated: true)
+//                    }
+//
+//                case CStaticEventId:
+//                    if let addEventVC = CStoryboardEvent.instantiateViewController(withIdentifier: "AddEventViewController") as? AddEventViewController{
+//                        addEventVC.eventType = .editEvent
+//                        addEventVC.eventID = postId
+//                        self?.navigationController?.pushViewController(addEventVC, animated: true)
+//                    }
+//                default:
+//                    break
+//                }
+//
+//            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](alert) in
+//                guard let _ = self else { return }
+//                self?.deletePost(postId!, index!)
+//            }
+//        }
+    }
+    /*fileprivate func btnMoreCLK(_ index : Int?, _ postInfo : [String : Any]){
         let postId = postInfo.valueForInt(key: CId)
         
         //let postType = postInfo.valueForInt(key: CPostType)
@@ -2387,7 +2595,7 @@ extension HomeViewController {
 //                guard let _ = self else { return }
 //                self?.deletePost(postId!, index!)
         //}
-    }
+    }*/
 }
 
 // MARK:- -------- Add post
