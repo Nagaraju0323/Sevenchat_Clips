@@ -57,6 +57,7 @@ class HomeGalleryCell: UITableViewCell {
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
+    var notificationInfo = [String:Any]()
     
     
     
@@ -111,9 +112,8 @@ extension HomeGalleryCell {
     
     func homeGalleryDataSetup(_ postInfo : [String : Any]) {
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
-        
-//        posted_ID = postInfo.valueForString(key: "user_id")
-        
+
+        notificationInfo = postInfo
         if isLikesOthersPage == true {
             posted_ID = self.posted_IDOthers
         }else {
@@ -140,26 +140,6 @@ extension HomeGalleryCell {
             self.lblGalleryCategory.text = postInfo.valueForString(key: CCategory).uppercased()
         }
         let is_Liked = postInfo.valueForString(key: CIsLiked)
-        
-//        if is_Liked == "Yes"{
-//            btnLike.isSelected = true
-//        }else {
-//            btnLike.isSelected = false
-//        }
-        
-//        if isLikesOthersPage == true {
-//            if postInfo.valueForString(key:"friend_liked") == "Yes"  || postInfo.valueForString(key:"is_liked") == "Yes" {
-//                btnLike.isSelected = true
-//                if postInfo.valueForString(key:"is_liked") == "No"{
-//                    isLikeSelected = false
-//                }
-//            }else {
-//                if postInfo.valueForString(key:"is_liked") == "No" || postInfo.valueForString(key:"friend_liked") == "No" {
-//                    isLikeSelected = true
-//                }
-//                btnLike.isSelected = false
-//            }
-//        }
         
         if isLikesOthersPage == true {
             if postInfo.valueForString(key:"friend_liked") == "Yes"  && postInfo.valueForString(key:"is_liked") == "Yes" {
@@ -245,7 +225,7 @@ extension HomeGalleryCell: UICollectionViewDelegate, UICollectionViewDataSource,
         }else{
             print(" imageInfo.valueForString(key: CImage)  \(imageInfo.valueForString(key: "image_path"))")
             cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
-            cell.imgVideoIcon.isHidden =  true 
+            cell.imgVideoIcon.isHidden =  true
         }
         return cell
     }
@@ -288,16 +268,7 @@ extension HomeGalleryCell {
     @IBAction func onLikePressed(_ sender:UIButton){
         
         self.btnLike.isSelected = !self.btnLike.isSelected
-        
-//        if self.btnLike.isSelected == true{
-//            likeCount = 1
-//            like = 1
-//            notifcationIsSlected = true
-//        }else {
-//            likeCount = 2
-//            like = 0
-//
-//        }
+
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
@@ -360,19 +331,27 @@ extension HomeGalleryCell {
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
+                        if self?.posted_ID == user_ID {
+                            
+                        }else {
                         
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
+                        }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                        }
+                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                            let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-                            guard let image = appDelegate.loginUser?.profile_img else { return }
                             let stausLike = metaInfo["status"] as? String ?? "0"
                             if stausLike == "0" {
                                 
 
                             }
                         }
+                    }
                         self?.notifcationIsSlected = false
-                        
                     }
                     
                     if self?.isLikesOthersPage == true {

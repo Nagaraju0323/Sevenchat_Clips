@@ -202,7 +202,7 @@ extension ProductDetailCell {
                         guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(self?.modelData.productUserID, userID: user_ID, subject: "liked your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Product", senderName: firstName + lastName)
+                        MIGeneralsAPI.shared().sendNotification(self?.modelData.productUserID, userID: user_ID, subject: "liked your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Product", senderName: firstName + lastName, post_ID: [:])
                         self?.notifcationIsSlected = false
                     }
                     self?.btnLikesCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)

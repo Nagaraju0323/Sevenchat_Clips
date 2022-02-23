@@ -564,7 +564,7 @@ extension ShoutsDetailViewController{
                             guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" && self.posted_ID != user_ID{
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName)
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: [:])
                             }
                             
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
@@ -686,7 +686,7 @@ extension ShoutsDetailViewController{
                             
                         }else {
                             
-                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
+                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:])
                         }
                         self?.notifcationIsSlected = false
                     }

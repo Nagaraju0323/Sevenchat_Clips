@@ -249,7 +249,7 @@ extension GroupInfoViewController{
                                         if friends_ID == user_ID.description{
                                             
                                         }else{
-                                            MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "has left from the group\(self.strGroupName)", MsgType: "GROUP_REMOVE", MsgSent:"", showDisplayContent: "has left from the group\(self.strGroupName)", senderName: self.strGroupName)
+                                            MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "has left from the group\(self.strGroupName)", MsgType: "GROUP_REMOVE", MsgSent:"", showDisplayContent: "has left from the group\(self.strGroupName)", senderName: self.strGroupName, post_ID: [:])
                                         }
                                     }
                                 }
@@ -261,7 +261,7 @@ extension GroupInfoViewController{
                                         if friends_ID == user_ID.description{
                                             
                                         }else{
-                                            MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "has deleted the group \(self.strGroupName)", MsgType: "GROUP_REMOVE", MsgSent:"", showDisplayContent: "has deleted the group\(self.strGroupName)", senderName: self.strGroupName)
+                                            MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "has deleted the group \(self.strGroupName)", MsgType: "GROUP_REMOVE", MsgSent:"", showDisplayContent: "has deleted the group\(self.strGroupName)", senderName: self.strGroupName, post_ID: [:])
                                         }
                                     }
                                     

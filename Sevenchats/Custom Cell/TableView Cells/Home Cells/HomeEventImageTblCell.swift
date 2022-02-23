@@ -70,6 +70,7 @@ class HomeEventImageTblCell: UITableViewCell {
     var Interested = ""
     var notInterested = ""
     var mayBe = ""
+    var notificationInfo = [String:Any]()
     
     
     override func awakeFromNib() {
@@ -152,7 +153,9 @@ extension HomeEventImageTblCell{
     func homeEventDataSetup(_ postInfo : [String : Any]){
         
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
-//        posted_ID = postInfo.valueForString(key: "user_id")
+
+        notificationInfo = postInfo
+        
         if isLikesOthersPage == true {
             posted_ID = self.posted_IDOthers
         }else {
@@ -375,17 +378,7 @@ extension HomeEventImageTblCell{
     
     @IBAction func onLikePressed(_ sender:UIButton){
         self.btnLike.isSelected = !self.btnLike.isSelected
-        
-//        if self.btnLike.isSelected == true{
-//            likeCount = 1
-//            like = 1
-//            notifcationIsSlected = true
-//        }else {
-//            likeCount = 2
-//            like = 0
-//
-//        }
-        
+
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
@@ -448,14 +441,24 @@ extension HomeEventImageTblCell{
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
+                        
+                        if self?.posted_ID == user_ID {
+                            
+                        }else {
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
+                        }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                        }
+                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName,  post_ID: self?.notificationInfo ?? [:])
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                            let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-                            guard let image = appDelegate.loginUser?.profile_img else { return }
                             let stausLike = metaInfo["status"] as? String ?? "0"
                             if stausLike == "0" {
                             }
                         }
+                    }
                         self?.notifcationIsSlected = false
                     }
                     if self?.isLikesOthersPage == true {
@@ -528,7 +531,7 @@ extension HomeEventImageTblCell{
             
             if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
             
-            MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
             }
            }
        }
@@ -547,7 +550,7 @@ extension HomeEventImageTblCell{
             guard let lastName = appDelegate.loginUser?.last_name else {return}
             
             if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-            MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
             }
            }
        }
@@ -565,7 +568,7 @@ extension HomeEventImageTblCell{
             guard let firstName = appDelegate.loginUser?.first_name else {return}
             guard let lastName = appDelegate.loginUser?.last_name else {return}
             if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-             MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+             MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
              }
            }
        }

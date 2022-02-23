@@ -245,14 +245,17 @@ extension PollDetailsViewController {
 //            posted_ID = pollInfo.valueForString(key: "user_id")
             print(":::::::::::::::is_selected::\(pollInfo.valueForString(key: "is_selected"))")
             
+            if self.isLikesOthersPage == true {
+                self.SelectedByUser = self.pollInfo.valueForString(key: "friend_selected")
+            }else {
+                self.SelectedByUser = self.pollInfo.valueForString(key: "is_selected")
+            }
             
             if isLikesOthersPage == true {
                 posted_ID = self.posted_IDOthers
             }else {
                 posted_ID = pollInfo.valueForString(key: "user_id")
             }
-            
-      
             lblUserName.text = pollInfo.valueForString(key: CFirstname) + " " + pollInfo.valueForString(key: CLastname)
             lblPollTitle.text = pollInfo.valueForString(key: CTitle)
             
@@ -324,26 +327,6 @@ extension PollDetailsViewController {
             lblPollCategory.text = pollInfo.valueForString(key: CCategory).uppercased()
             
             let is_Liked = pollInfo.valueForString(key: CIsLiked)
-            
-//            if is_Liked == "Yes"{
-//                btnLike.isSelected = true
-//            }else {
-//                btnLike.isSelected = false
-//            }
-            
-//            if isLikesOthersPage == true {
-//                if pollInfo.valueForString(key:"friend_liked") == "Yes"  || pollInfo.valueForString(key:"is_liked") == "Yes" {
-//                    btnLike.isSelected = true
-//                    if pollInfo.valueForString(key:"is_liked") == "No"{
-//                        isLikeSelected = false
-//                    }
-//                }else {
-//                    if pollInfo.valueForString(key:"is_liked") == "No" || pollInfo.valueForString(key:"friend_liked") == "No" {
-//                        isLikeSelected = true
-//                    }
-//                    btnLike.isSelected = false
-//                }
-//            }
             
             if isLikesOthersPage == true {
                 if pollInfo.valueForString(key:"friend_liked") == "Yes"  && pollInfo.valueForString(key:"is_liked") == "Yes" {
@@ -537,7 +520,7 @@ extension PollDetailsViewController{
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lassName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post",senderName: firstName + lassName)
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post",senderName: firstName + lassName, post_ID: [:])
                         self?.notifcationIsSlected = false
                     }
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.pollIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
@@ -843,7 +826,7 @@ extension PollDetailsViewController{
                             guard let lassName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Comment to Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post", senderName:firstName + lassName )
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Comment to Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post", senderName:firstName + lassName, post_ID: [:] )
                             }
                             
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)

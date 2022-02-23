@@ -2229,6 +2229,33 @@ extension APIRequest {
             }
         })
     }
+    
+    func PollDetailNews(postID : Int, completion : @escaping ClosureCompletion) {
+        var para = [String:Any]()
+        para["id"] =  postID.toString
+        para["user_id"] =  appDelegate.loginUser?.user_id.description
+        
+        _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagpollsDetials, param: para as [String : AnyObject], successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            completion(response, nil)
+        },failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagViewPost, error: error)
+            }
+        })
+    }
+    
+    
+    
+    
+    
+    
+    
     func viewPollDetailNew(postID : Int, completion : @escaping ClosureCompletion) {
         var para = [String:Any]()
         para["id"] =  postID.toString
@@ -2876,14 +2903,8 @@ extension APIRequest {
         })
         
     }
-    
-    func getNotificationList(receiver : String?,pageNumber:String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-        
-        var param = [String:Any]()
-        param["receiver"] = receiver
-        param["type"] = "1"
-        param[CPage] = pageNumber
-        param["limit"] = CLimitTW
+    func getNotificationList(param:[String:Any], completion : @escaping ClosureCompletion) -> URLSessionTask {
+//    func getNotificationList(receiver : String?,pageNumber:String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
         return Networking.sharedInstance.GETNEWPRNOTF(apiTag: CAPITagNotifications, param: param as [String : AnyObject], successBlock: { (task, response) in
             

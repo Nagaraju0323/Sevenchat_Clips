@@ -358,7 +358,7 @@ extension CreateChatGroupViewController{
                             guard let groupID = appDelegate.loginUser?.user_id else { return }
                             if friends_ID == groupID.description{
                             }else {
-                                MIGeneralsAPI.shared().sendNotification(friends_ID, userID: groupID.description, subject: "you were added in group \(self.txtGroupTitle.text ?? "" ) by", MsgType: "GROUP_ADD", MsgSent: "", showDisplayContent: "you were added in group \(self.txtGroupTitle.text ?? "" ) by", senderName: self.txtGroupTitle.text ?? "" )
+                                MIGeneralsAPI.shared().sendNotification(friends_ID, userID: groupID.description, subject: "you were added in group \(self.txtGroupTitle.text ?? "" ) by", MsgType: "GROUP_ADD", MsgSent: "", showDisplayContent: "you were added in group \(self.txtGroupTitle.text ?? "" ) by", senderName: self.txtGroupTitle.text ?? "", post_ID: [:] )
                             }
                         }
                       
@@ -463,7 +463,7 @@ extension CreateChatGroupViewController : UITableViewDelegate, UITableViewDataSo
                                     guard let userID = appDelegate.loginUser?.user_id.description else { return }
                                     let stausLike = data["status"] as? String ?? "0"
                                     if stausLike == "0" {
-                                        MIGeneralsAPI.shared().sendNotification(userInfo.valueForString(key: CUserId), userID: userID, subject: "Remove group Member", MsgType: "GROUP_CHAT", MsgSent: "", showDisplayContent: "Remove group Member", senderName: "")
+                                        MIGeneralsAPI.shared().sendNotification(userInfo.valueForString(key: CUserId), userID: userID, subject: "Remove group Member", MsgType: "GROUP_CHAT", MsgSent: "", showDisplayContent: "Remove group Member", senderName: "", post_ID: [:])
                                     }
                                 }
                             })

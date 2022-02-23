@@ -44,6 +44,7 @@ class HomePollTblCell: UITableViewCell {
     var likeTotalCount = 0
     var like =  0
     var info = [String:Any]()
+    
     var chngString:String?
     var posted_ID = ""
     var profileImg = ""
@@ -58,10 +59,14 @@ class HomePollTblCell: UITableViewCell {
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
-    
+    var  is_Selected: String = ""
+    var notificationInfo = [String:Any]()
+    var voteCount:Int?
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         
         selectionStyle = .none
         self.viewSubContainer.layer.cornerRadius = 8
@@ -87,27 +92,28 @@ class HomePollTblCell: UITableViewCell {
 extension HomePollTblCell{
     
     func homePollDataSetup(_ postInfo : [String : Any],isSelected:Bool){
-        
+        self.info  = postInfo
+        notificationInfo = postInfo
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         pollIDNew = postInfo.valueForString(key: "post_id").toInt ?? 0
-//        posted_ID = postInfo.valueForString(key: "user_id")
-        
         if isLikesOthersPage == true {
             posted_ID = self.posted_IDOthers
             tblVAnswre.isSelectedByUser = postInfo.valueForString(key: "friend_selected")
+            self.is_Selected = postInfo.valueForString(key: "friend_selected")
+            voteCount = postInfo.valueForString(key: "total_count").toInt ?? 0
             tblVAnswre.isLikesOthersPage = true
         }else {
             posted_ID = postInfo.valueForString(key: "user_id")
             tblVAnswre.isSelectedByUser = postInfo.valueForString(key: "is_selected")
-            tblVAnswre.isLikesOthersPage = false 
+            self.is_Selected = postInfo.valueForString(key: "is_selected")
+            voteCount = postInfo.valueForString(key: "total_count").toInt ?? 0
+            tblVAnswre.isLikesOthersPage = false
         }
+//        getDetailsFromServiers()
         
-        
-        
-//        tblVAnswre.isSelectedByUser = postInfo.valueForString(key: "is_selected")
+        //        tblVAnswre.isSelectedByUser = postInfo.valueForString(key: "is_selected")
         tblVAnswre.postinfo = postInfo
-//        tblVAnswre.postDetails(postID:pollIDNew?.toString ?? "")
-        
+        //        tblVAnswre.postDetails(postID:pollIDNew?.toString ?? "")
         postData = postInfo
         lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         lblPollTitle.text = postInfo.valueForString(key: CTitle)
@@ -137,18 +143,20 @@ extension HomePollTblCell{
             polls.append(MDLPollOption(fromDictionary: dictionary))
         }
         self.getPollDetailsFromServer()
-        let voteCount:Int =  self.totalVotesNew.toInt ?? 0
-        self.updateVoteCount(count: voteCount)
+        voteCount =  self.totalVotesNew.toInt ?? 0
+        self.updateVoteCount(count: voteCount ?? 0)
+        self.tblVAnswre.SelectedByUser = is_Selected
+        
         
         tblVAnswre.updateVoteCount = { [weak self] (votesCount) in
             guard let _ = self else {return}
             self?.updateVoteCount(count: votesCount)
         }
-        tblVAnswre.totalVotes = voteCount
+        tblVAnswre.totalVotes = voteCount ?? 0
         tblVAnswre.arrOption = polls
         
-        if postInfo.valueForString(key:"is_selected") == "Yes" ||  postInfo.valueForString(key:"friend_selected") == "Yes"{
-            tblVAnswre.isSelected = true
+        if postInfo.valueForString(key:"is_selected") == "N/A" ||  postInfo.valueForString(key:"friend_selected") == "N/A"{
+            tblVAnswre.isSelected = false
         }else {
             tblVAnswre.isSelected = false
         }
@@ -157,49 +165,35 @@ extension HomePollTblCell{
         
         lblPollType.text = CTypePoll
         
-        
         lblPollCategory.text = postInfo.valueForString(key: CCategory).uppercased()
         tblVAnswre.refreshOnVoteWithData = { [weak self] (optionData,countuser) in
             let post_id = optionData["post_id"] as? String
             guard let self = self else {return}
             DispatchQueue.main.async {
-                MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, isSelected: false)
+                if self.isLikesOthersPage == true {
+//                 print("this is calling")
+                    self.getDetailsFromServiers()
+                }else {
+                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, isSelected: false)
+                    
+                }
                 
-//              MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: post_id?.toInt ?? 0, rss_id: 0, type: 2, likeStatus: self.like ,info:optionData, viewController: self.viewController)
+                
+                //              MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: post_id?.toInt ?? 0, rss_id: 0, type: 2, likeStatus: self.like ,info:optionData, viewController: self.viewController)
             }
         }
         
-//        tblVAnswre.updateVoteCountReload = { [weak self] (optionData) in
-//            let post_id = optionData["post_id"] as? String
-//            guard let self = self else {return}
-//            DispatchQueue.main.async {
-//                MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController,isSelected: false)
-//            }
-//
-//        }
-//        let is_Liked = postInfo.valueForString(key: CIsLiked)
-//        if is_Liked == "Yes"{
-//            btnLike.isSelected = true
-//        }else {
-//            btnLike.isSelected = false
-//        }
+        //        tblVAnswre.updateVoteCountReload = { [weak self] (optionData) in
+        //            let post_id = optionData["post_id"] as? String
+        //            guard let self = self else {return}
+        //            DispatchQueue.main.async {
+        //                MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController,isSelected: false)
+        //            }
+        //
+        //        }
+
         
-        
-//                if isLikesOthersPage == true {
-//                    if postInfo.valueForString(key:"friend_liked") == "Yes"  || postInfo.valueForString(key:"is_liked") == "Yes" {
-//                        btnLike.isSelected = true
-//                        if postInfo.valueForString(key:"is_liked") == "No"{
-//                            isLikeSelected = false
-//                        }
-//                    }else {
-//                        if postInfo.valueForString(key:"is_liked") == "No" || postInfo.valueForString(key:"friend_liked") == "No" {
-//                            isLikeSelected = true
-//                        }
-//                        btnLike.isSelected = false
-//                    }
-//                }
-        
-        
+        //Other Profiel  Like Button update
         if isLikesOthersPage == true {
             if postInfo.valueForString(key:"friend_liked") == "Yes"  && postInfo.valueForString(key:"is_liked") == "Yes" {
                 btnLike.isSelected = true
@@ -220,24 +214,19 @@ extension HomePollTblCell{
                 
                 isLikeSelected = false
                 btnLike.isSelected = true
-
+                
             }
         }
-        
-        
-                if isLikesHomePage == true  || isLikesMyprofilePage == true {
-                    if postInfo.valueForString(key:CIs_Liked) == "Yes"{
-                        btnLike.isSelected = true
-                    }else {
-                        btnLike.isSelected = false
-                    }
-                }
-        
-        
-        
-        
+        //Home Profile & My profile Like Button update
+        if isLikesHomePage == true  || isLikesMyprofilePage == true {
+            if postInfo.valueForString(key:CIs_Liked) == "Yes"{
+                btnLike.isSelected = true
+            }else {
+                btnLike.isSelected = false
+            }
+        }
+
         likeCount = postInfo.valueForString(key: CLikes).toInt ?? 0
-        
         btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
         let commentCount = postInfo.valueForString(key: "comments").toInt
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount ?? 0), for: .normal)
@@ -265,54 +254,37 @@ extension HomePollTblCell {
     
     @IBAction func onLikePressed(_ sender:UIButton){
         self.btnLike.isSelected = !self.btnLike.isSelected
-//        if self.btnLike.isSelected == true{
-//            likeCount = 1
-//            like = 1
-//            notifcationIsSlected = true
-//        }else {
-//            likeCount = 2
-//            like = 0
-//
-//        }
-        
-                if self.btnLike.isSelected == true{
-                    likeCount = 1
-                    like = 1
-                    notifcationIsSlected = true
-        
-                    if isLikesOthersPage  == true {
-                        if isLikeSelected == true{
-                            self.isFinalLikeSelected = true
-                            isLikeSelected = false
-                        }else {
-                            self.isFinalLikeSelected = false
-                        }
-                    }
+        if self.btnLike.isSelected == true{
+            likeCount = 1
+            like = 1
+            notifcationIsSlected = true
+            
+            if isLikesOthersPage  == true {
+                if isLikeSelected == true{
+                    self.isFinalLikeSelected = true
+                    isLikeSelected = false
                 }else {
-                    likeCount = 2
-                    like = 0
-        
-                    if isLikesOthersPage == true {
-                        if isLikeSelected == false{
-                            self.isFinalLikeSelected = false
-                            isLikeSelected = false
-                        }else {
-                            self.isFinalLikeSelected = false
-                        }
-                    }
+                    self.isFinalLikeSelected = false
                 }
-        
-        
-        
-        
-        guard let userID = appDelegate.loginUser?.user_id else {
-            return
+            }
+        }else {
+            likeCount = 2
+            like = 0
+            if isLikesOthersPage == true {
+                if isLikeSelected == false{
+                    self.isFinalLikeSelected = false
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }
+        
+        guard let userID = appDelegate.loginUser?.user_id else {return}
         APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: Int(self.postID) , isLike: likeCount){ [weak self](response, error) in
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async {
-                    
                     let infodatass = response![CJsonData] as? [[String:Any]] ?? [[:]]
                     for infora in infodatass{
                         self?.info = infora
@@ -340,21 +312,28 @@ extension HomePollTblCell {
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
                         
+                        if self?.posted_ID == user_ID {
+                            
+                        }else {
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
+                        }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                        }
+                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                            let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-                            guard let image = appDelegate.loginUser?.profile_img else { return }
                             let stausLike = metaInfo["status"] as? String ?? "0"
                             if stausLike == "0" {
- 
+                                
                             }
                         }
+                    }
                         
                         self?.notifcationIsSlected = false
                     }
-                    
-                    
                     if self?.isLikesOthersPage == true {
                         if self?.isFinalLikeSelected == true{
                             MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
@@ -369,8 +348,8 @@ extension HomePollTblCell {
                     }
                     
                     //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
-
-//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+                    
+                    //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
                 }
             }
         }
@@ -379,6 +358,32 @@ extension HomePollTblCell {
     @IBAction func onMorePressed(_ sender:UIButton){
         onMorePressed?(sender.tag)
     }
+    
+    func getDetailsFromServiers(){
+
+        if let artID = self.pollIDNew {
+            APIRequest.shared().PollDetailNews(postID: artID){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    //self.parentView.isHidden = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                            //call any function
+                        if let Info = response!["data"] as? [[String:Any]]{
+                            let postInfo = Info.first ?? [:]
+                            print("postinf::::::::;\(postInfo)")
+                            MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, self.pollIDNew, self.tblVAnswre.userVotedPollId, optionData: postInfo, self.viewController, isSelected: false)
+                            
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+    }
+    
+    
+    
     
     func getPollDetailsFromServer() {
         //        self.parentView.isHidden = true
@@ -391,7 +396,8 @@ extension HomePollTblCell {
                         if let Info = response!["data"] as? [[String:Any]]{
                             for articleInfo in Info {
                                 self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
-                                print("self.totalVotes\(self.totalVotesNew)")
+                                print("articleInfoas? String\(articleInfo["is_selected"] as? String)")
+                                self.is_Selected = articleInfo["is_selected"] as? String ?? ""
                             }
                         }
                     }

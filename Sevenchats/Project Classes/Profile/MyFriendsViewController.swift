@@ -287,7 +287,7 @@ extension MyFriendsViewController{
                         guard let image = appDelegate.loginUser?.profile_img else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName)
+                        MIGeneralsAPI.shared().sendNotification(friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:])
                         
                         MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:"Friends request accept",type:CFriendsrequestaccept,title:"",name:name,icon:image, detail_text: "friend_point")
                         
@@ -298,7 +298,7 @@ extension MyFriendsViewController{
                         guard let image = appDelegate.loginUser?.profile_img else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName)
+                        MIGeneralsAPI.shared().sendNotification(friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:])
                         
                     }
                 }
@@ -325,7 +325,7 @@ extension MyFriendsViewController{
                 let message = metaInfo["message"] as? String ?? "0"
                 if message == "0"{
                     
-                    MIGeneralsAPI.shared().sendNotification( friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent: "", showDisplayContent: "accepted your friend request", senderName: firstName + lastName)
+                    MIGeneralsAPI.shared().sendNotification( friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent: "", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:])
                 }
                 var isShowAlert = false
                 var alertMessage = ""

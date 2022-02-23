@@ -73,9 +73,6 @@ class PollOptionTableView: UITableView {
             }else {
                 self.SelectedByUser = self.postinfo.valueForString(key: "is_selected")
             }
-            
-//            let SelectedByUser = self.postinfo.valueForString(key: "is_selected")
-            
             let replaced2 = self.SelectedByUser.replacingOccurrences(of: "\"", with: "")
             let replaced3 = replaced2.replacingOccurrences(of: "[", with: "")
             let replaced4 = replaced3.replacingOccurrences(of: "]", with: "")
@@ -100,6 +97,8 @@ class PollOptionTableView: UITableView {
     }
     
     fileprivate func initialize(){
+        
+       
         self.backgroundColor =  .clear
         self.register(UINib(nibName: "PollProgressTblCell", bundle: nil), forCellReuseIdentifier: "PollProgressTblCell")
         self.separatorStyle = .none
@@ -175,10 +174,6 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                         cell.lblPercentage.text = "\(Int((percentag * 100).rounded()))%"
               //  }
                 }
-                
-//                print("self.isSelectedByUser\(self.isSelectedByUser)")
-//                print("option.pollText\(option.pollText)")
-                
                 
                 if option.pollText == self.isSelectedByUser{
                     cell.btnCheckAnwer.isHidden = false
@@ -387,6 +382,7 @@ extension PollOptionTableView{
                             self?.refereshData = datas
                             GCDMainThread.async {
                                 self?.updateVoteCount?(self?.totalVotesNew.toInt ?? 0)
+                                
                                 self?.refreshOnVoteWithData?(datas,self?.totalVotesNew.toInt ?? 0)
                                 
                                 

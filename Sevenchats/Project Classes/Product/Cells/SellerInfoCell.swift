@@ -57,7 +57,7 @@ class SellerInfoCell: UITableViewCell, ProductDetailBaseCell  {
             guard let firstName = appDelegate.loginUser?.first_name else {return}
             guard let lastName = appDelegate.loginUser?.last_name else {return}
             let userName = "\(firstName) \(lastName)"
-            MIGeneralsAPI.shared().sendNotification(self.modelData.userId ?? "", userID: user_ID.description, subject: "Viewed your product \(self.modelData.productDescription ?? "") please click to view \(userName)", MsgType: "CHAT_MESSAGE", MsgSent:"", showDisplayContent: "Product", senderName: firstName + lastName)
+            MIGeneralsAPI.shared().sendNotification(self.modelData.userId ?? "", userID: user_ID.description, subject: "Viewed your product \(self.modelData.productDescription ?? "") please click to view \(userName)", MsgType: "CHAT_MESSAGE", MsgSent:"", showDisplayContent: "Product", senderName: firstName + lastName, post_ID: [:])
             contactInfo.productIDs = self.modelData.productID
             contactInfo.productEmailid = self.modelData.pemail
             contactInfo.productUserName = self.modelData.firstName + " " + self.modelData.lastName

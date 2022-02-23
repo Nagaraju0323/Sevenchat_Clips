@@ -690,19 +690,19 @@ extension EventDetailImageViewController {
             switch eventInfo.valueForInt(key: CIsInterested) {
             case CTypeInterested:
 //                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
 //                }
                 eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
                 break
             case CTypeNotInterested:
 //                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
 //                }
                 eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
                 break
             case CTypeMayBeInterested:
 //                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
+                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
 //                }
                 eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
                 break
@@ -1057,7 +1057,7 @@ extension EventDetailImageViewController{
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:])
                         self?.notifcationIsSlected = false
                     }
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.postIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
@@ -1282,7 +1282,7 @@ extension EventDetailImageViewController{
                             guard let lastName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName)
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: [:])
                             }
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }

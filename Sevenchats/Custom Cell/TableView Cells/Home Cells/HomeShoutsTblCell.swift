@@ -48,6 +48,8 @@ class HomeShoutsTblCell: UITableViewCell {
     var isLikesOthersPage:Bool?
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
+    var notificationInfo = [String:Any]()
+    var notfAfterUpdate = [String:Any]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -92,26 +94,20 @@ extension HomeShoutsTblCell{
     
     func homeShoutsDataSetup(_ postInfo : [String : Any]){
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
+      
+        notificationInfo = postInfo
 
         if isLikesOthersPage == true {
             posted_ID = self.posted_IDOthers
         }else {
             posted_ID = postInfo.valueForString(key: "user_id")
         }
-//        posted_ID = postInfo.valueForString(key: "user_id")
-        
         lblShoutsType.text = CTypeShout
+
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         lblShoutsDescription.text = postInfo.valueForString(key: CContent)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         _ = postInfo.valueForString(key: CIsLiked)
-        
-//        if is_Liked == "Yes"{
-//            btnLike.isSelected = true
-//        }else {
-//            btnLike.isSelected = false
-//        }
-        
         
         if isLikesOthersPage == true {
             if postInfo.valueForString(key:"friend_liked") == "Yes"  && postInfo.valueForString(key:"is_liked") == "Yes" {
@@ -166,16 +162,6 @@ extension HomeShoutsTblCell {
     @IBAction func onLikePressed(_ sender:UIButton){
         self.btnLike.isSelected = !self.btnLike.isSelected
         
-//        if self.btnLike.isSelected == true{
-//            likeCount = 1
-//            like = 1
-//            notifcationIsSlected = true
-//        }else {
-//            likeCount = 2
-//            like = 0
-//
-//        }
-        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
@@ -202,10 +188,6 @@ extension HomeShoutsTblCell {
                 }
             }
         }
-        
-        
-        
-        
         guard let userID = appDelegate.loginUser?.user_id else {
             return
         }
@@ -232,12 +214,15 @@ extension HomeShoutsTblCell {
     
     
     func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){
+        
         APIRequest.shared().likeUnlikeProductCount(productId: Int(self.postID) ){ [weak self](response, error) in
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async { [self] in
                     
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
+                    
+                   
                     self?.btnLikesCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
                     guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
@@ -247,16 +232,27 @@ extension HomeShoutsTblCell {
                         if self?.posted_ID == user_ID {
                             
                         }else {
-                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName)
+                          
+                            if self?.posted_ID == user_ID {
+                                
+                            }else {
+                            self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                            if self?.isLikesOthersPage == true {
+                                self?.notificationInfo["friend_liked"] = "Yes"
+                            }
+                            if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                                self?.notificationInfo["is_liked"] = "Yes"
+                            }
+                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
                         }
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                            let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-                            guard let image = appDelegate.loginUser?.profile_img else { return }
+                            _ = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                             let stausLike = metaInfo["status"] as? String ?? "0"
                             if stausLike == "0" {
                                 
                             }
                         }
+                    }
                         self?.notifcationIsSlected = false
                     }
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)

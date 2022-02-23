@@ -41,6 +41,9 @@ class NotificationViewController: ParentViewController {
     var subjectCat = ""
     var userID = ""
     var isLoadMoreCompleted = false
+    var postInfo = [String:Any]()
+    var post_type = ""
+    var post_id = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,7 +103,13 @@ extension NotificationViewController {
             self.tblVNotification.tableFooterView = nil
         }
         
-        apiTask = APIRequest.shared().getNotificationList(receiver: user_ID.description,pageNumber: pageNumber.description, completion: { [weak self] (response, error) in
+        var param = [String:Any]()
+        param["receiver"] = user_ID.description
+        param["type"] = "1"
+        param[CPage] = pageNumber
+        param["limit"] = "100"
+        
+        apiTask = APIRequest.shared().getNotificationList(param:param, completion: { [weak self] (response, error) in
             guard let self = self else { return }
             MILoader.shared.hideLoader()
             self.refreshControl.endRefreshing()
@@ -108,7 +117,7 @@ extension NotificationViewController {
             self.tblVNotification.tableFooterView = nil
             
             if response != nil && error == nil {
-                if let responseData = response![CJsonData] as? [[String : Any]] {
+                if let responseData = response![CJsonData] as? [[String : Any]]     {
                     //...Remove all data
                     if self.apiTimeStamp < 1 || self.pageNumber == 1 {
                         self.arrNotiificationList.removeAll()
@@ -236,7 +245,6 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         let dict = notificationInfo.valueForString(key: "content")
         let notificationDict = convertToDictionary(from: dict)
         let notifcationContent = notificationDict.valueForString(key:"content")
-        //        let notifcationReadStatus = notificationDict.valueForString(key:"read_status")
         let created_At = notificationInfo.valueForString(key: "timestamp")
         let cnvStr = created_At.stringBefore("G")
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
@@ -244,6 +252,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
             cell.lblDate.text = startCreated
             cell.imgUser.loadImageFromUrl(notificationInfo.valueForString(key: "icon"), true)
             cell.lblNotificationDetails.font = CFontPoppins(size: 14, type: .light).setUpAppropriateFont()
+            print("notifcationContent\(notifcationContent)")
             cell.lblNotificationDetails.attributedText = self.htmlToAttributedString(notifcationContent, cell.lblNotificationDetails.font)
             let readStatus = notificationInfo.valueForString(key:"read_status")
             //            print("readSTatus\(readStatus)")
@@ -254,6 +263,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                 
                 cell.contentView.backgroundColor = .lightGray
             }
+            
             
             return cell
         }
@@ -274,20 +284,110 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         let notfiContent = notificationInfo.valueForString(key: "content")
         userID = notificationInfo.valueForString(key: "sender")
         let nib = notificationInfo.valueForString(key: "nid")
-        
         do {
             let dict = try convertToDictionary(from: notfiContent ?? "")
             guard let userMsg = dict["type"] else { return }
             guard let subject = dict["subject"] else { return }
-            subjectCat = subject
-            notifKey = userMsg
+            let postinfo = dict["postInfo"] as? [String:Any] ?? [:]
+            if let post_types = postinfo.valueForString(key: "type") as? String{
+                post_type = post_types
+            }
+            
+            if let post_ids = postinfo.valueForString(key: "typost_idpe") as? String{
+                post_id = post_ids
+            }
+            postInfo = postinfo
+            subjectCat = subject as! String
+            notifKey = userMsg as! String
         } catch let error  {
             print("error trying to convert data to \(error)")
         }
         
         let notifReadStatus = notificationInfo.valueForString(key: "read_status")
         if notifReadStatus.toInt == 1{
-            return
+            switch notifKey {
+            case kNotTypeChatUser:
+                if self.subjectCat == "Product viewed"{
+                    appDelegate.moveOnProfileScreenNew(self.userID.description, self.userID.description, self)
+                }else {
+                    if let groupChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController") as? ChatListViewController {
+                        self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+                    }
+                }
+                break
+            case kNotTypeGroup,kNotTypeGroupADD,kNotTypeGroupRemove:
+                if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupsViewController") as? GroupsViewController {
+                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+                }
+                break
+            case kNotTypeFriendReqAccept,kNotTypeFriendBlocked,kNotTypeFriendReqSentNew:
+                if let MyFriendsVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyFriendsViewController") as? MyFriendsViewController {
+                    self.navigationController?.pushViewController(MyFriendsVC, animated: true)
+                }
+            case kNotTypeCommnet ,kNotTypeEventType:
+                
+                
+                switch post_type {
+                case "post_shout":
+                    if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
+                        shoutsDetailsVC.shoutInformations = postInfo
+                        print(postInfo.valueForString(key: "post_id"))
+                        shoutsDetailsVC.shoutID = postInfo.valueForString(key: "post_id").toInt
+                        self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
+                    }
+                case "post_article":
+                    if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
+                        articleDetailVC.articleInformation = postInfo
+                        articleDetailVC.articleID = postInfo.valueForString(key: "post_id").toInt
+                        self.navigationController?.pushViewController(articleDetailVC, animated: true)
+                    }
+                case "post_gallery":
+                    if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
+                        imageDetailVC.galleryInfo = postInfo
+                        imageDetailVC.imgPostId = postInfo.valueForString(key: "post_id").toInt
+                        self.navigationController?.pushViewController(imageDetailVC, animated: true)
+                    }
+                    
+                case "post_chirpy":
+                    if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
+                        chirpyDetailVC.chirpyInformation = postInfo
+                        chirpyDetailVC.chirpyID = postInfo.valueForString(key: "post_id").toInt
+                        self.navigationController?.pushViewController(chirpyDetailVC, animated: true)
+                    }
+                case "post_forum":
+                    if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
+                        forumDetailVC.forumID = postInfo.valueForString(key: "post_id").toInt
+                        forumDetailVC.forumInformation = postInfo
+                        self.navigationController?.pushViewController(forumDetailVC, animated: true)
+                    }
+                case "post_event":
+                    if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
+                        eventDetailVC.postID = postInfo.valueForString(key: "post_id").toInt
+                        eventDetailVC.eventInfo = postInfo
+                        self.navigationController?.pushViewController(eventDetailVC, animated: true)
+                    }
+                case "post_poll":
+                    if let pollDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? PollDetailsViewController {
+                        pollDetailVC.pollInformation = postInfo
+                        pollDetailVC.posted_ID = postInfo.valueForString(key: "post_id")
+                        
+                        self.navigationController?.pushViewController(pollDetailVC, animated: true)
+                    }
+                default:
+                    break
+                    
+                }
+                break
+            case kNotTypeCommnet:
+                
+                
+                if let HomeVC = CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
+                    self.navigationController?.pushViewController(HomeVC, animated: true)
+                }
+                break
+            default:
+                break
+            }
         }else {
             var para = [String:Any]()
             para["nid"] = nib
@@ -320,11 +420,64 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                     self.navigationController?.pushViewController(MyFriendsVC, animated: true)
                                 }
                             case kNotTypeCommnet ,kNotTypeEventType:
-                                if let HomeVC = CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
-                                    self.navigationController?.pushViewController(HomeVC, animated: true)
+                                //                                if let HomeVC = CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
+                                //                                    self.navigationController?.pushViewController(HomeVC, animated: true)
+                                //                                }
+                                
+                                switch self.post_type {
+                                case "post_shout":
+                                    if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
+                                        shoutsDetailsVC.shoutInformations = self.postInfo
+                                        print(self.postInfo.valueForString(key: "post_id"))
+                                        shoutsDetailsVC.shoutID = self.postInfo.valueForString(key: "post_id").toInt
+                                        self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
+                                    }
+                                case "post_article":
+                                    if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
+                                        articleDetailVC.articleInformation = self.postInfo
+                                        articleDetailVC.articleID = self.postInfo.valueForString(key: "post_id").toInt
+                                        self.navigationController?.pushViewController(articleDetailVC, animated: true)
+                                    }
+                                case "post_gallery":
+                                    if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
+                                        imageDetailVC.galleryInfo = self.postInfo
+                                        imageDetailVC.imgPostId = self.postInfo.valueForString(key: "post_id").toInt
+                                        self.navigationController?.pushViewController(imageDetailVC, animated: true)
+                                    }
+                                    
+                                case "post_chirpy":
+                                    if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
+                                        chirpyDetailVC.chirpyInformation = self.postInfo
+                                        chirpyDetailVC.chirpyID = self.postInfo.valueForString(key: "post_id").toInt
+                                        self.navigationController?.pushViewController(chirpyDetailVC, animated: true)
+                                    }
+                                case "post_forum":
+                                    if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
+                                        forumDetailVC.forumID = self.postInfo.valueForString(key: "post_id").toInt
+                                        forumDetailVC.forumInformation = self.postInfo
+                                        self.navigationController?.pushViewController(forumDetailVC, animated: true)
+                                    }
+                                case "post_event":
+                                    if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
+                                        eventDetailVC.postID = self.postInfo.valueForString(key: "post_id").toInt
+                                        eventDetailVC.eventInfo = self.postInfo
+                                        self.navigationController?.pushViewController(eventDetailVC, animated: true)
+                                    }
+                                case "post_poll":
+                                    if let pollDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? PollDetailsViewController {
+                                        pollDetailVC.pollInformation = self.postInfo
+                                        pollDetailVC.posted_ID = self.postInfo.valueForString(key: "post_id")
+                                        
+                                        self.navigationController?.pushViewController(pollDetailVC, animated: true)
+                                    }
+                                default:
+                                    break
+                                    
                                 }
                                 break
                             case kNotTypeCommnet:
+                                
+                                
                                 if let HomeVC = CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
                                     self.navigationController?.pushViewController(HomeVC, animated: true)
                                 }
@@ -342,10 +495,11 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
 
 extension NotificationViewController{
     
-    func convertToDictionary(from text: String) -> [String: String] {
+    func convertToDictionary(from text: String) -> [String: Any] {
+        print("text from the valies\(text)")
         guard let data = text.data(using: .utf8) else { return [:] }
         let anyResult: Any? = try? JSONSerialization.jsonObject(with: data, options: [])
-        return anyResult as? [String: String] ?? [:]
+        return anyResult as? [String: Any] ?? [:]
     }
 }
 
