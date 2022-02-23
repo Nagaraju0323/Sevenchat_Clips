@@ -245,11 +245,11 @@ extension PollDetailsViewController {
 //            posted_ID = pollInfo.valueForString(key: "user_id")
             print(":::::::::::::::is_selected::\(pollInfo.valueForString(key: "is_selected"))")
             
-            if self.isLikesOthersPage == true {
-                self.SelectedByUser = self.pollInfo.valueForString(key: "friend_selected")
-            }else {
-                self.SelectedByUser = self.pollInfo.valueForString(key: "is_selected")
-            }
+//            if self.isLikesOthersPage == true {
+//                self.SelectedByUser = self.pollInfo.valueForString(key: "friend_selected")
+//            }else {
+//                self.SelectedByUser = self.pollInfo.valueForString(key: "is_selected")
+//            }
             
             if isLikesOthersPage == true {
                 posted_ID = self.posted_IDOthers
