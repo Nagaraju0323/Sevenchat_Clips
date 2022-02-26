@@ -89,13 +89,13 @@ extension SelectMediaCollectionView: UICollectionViewDelegate, UICollectionViewD
                 if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
                     self.content = [
                         "mime": "video",
-                        "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                        "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                         "image_path":media.serverImgURL ?? ""
                     ]
                 }else {
                     self.content = [
                         "mime": "image",
-                        "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                        "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                         "image_path":media.serverImgURL ?? ""
                     ]
                     
@@ -131,13 +131,13 @@ extension SelectMediaCollectionView: UICollectionViewDelegate, UICollectionViewD
                             if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
                                 self?.content = [
                                     "mime": "video",
-                                    "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                    "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                     "image_path":mediafile.serverImgURL ?? ""
                                 ]
                             }else {
                                 self?.content = [
                                     "mime": "image",
-                                    "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                    "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                     "image_path":mediafile.serverImgURL ?? ""
                                 ]
                                 
@@ -284,7 +284,7 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
                         self.imgName = imgUrls
                         let content:[String:Any]  = [
                             "mime": "image",
-                            "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                            "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                             "image_path":imgUrls
                         ]
                         
@@ -342,7 +342,7 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
                             self.imgName = imgUrls
                             let content:[String:Any]  = [
                                 "mime": "video",
-                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                 "image_path":imgUrls
                             ]
                             
@@ -523,13 +523,13 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                         if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
                             content = [
                                 "mime": "video",
-                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                 "image_path":imgUrls
                             ]
                         }else {
                             content = [
                                 "mime": "image",
-                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                 "image_path":imgUrls
                             ]
                         }
@@ -596,7 +596,7 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                             self?.imgName = imgUrls
                             let content:[String:Any]  = [
                                 "mime": "video",
-                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                 "image_path":imgUrls
                             ]
                             
@@ -670,13 +670,13 @@ extension SelectMediaCollectionView : TLPhotosPickerViewControllerDelegate,TLPho
                             if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
                                 content = [
                                     "mime": "video",
-                                    "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                    "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                     "image_path":imgUrls
                                 ]
                             }else {
                                 content = [
                                     "mime": "image",
-                                    "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                    "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                     "image_path":imgUrls
                                 ]
                             }

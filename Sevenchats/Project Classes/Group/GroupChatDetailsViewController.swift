@@ -146,6 +146,7 @@ class GroupChatDetailsViewController: ParentViewController,MIAudioPlayerDelegate
     var group_Name = ""
     var uploadImgUrl:String?
     var groupInfo = [String:Any]()
+    var groupInfoLatest = [String:Any]()
     
     var socketClient = StompClientLib()
     var timeClient: TrueTimeClient?
@@ -987,9 +988,10 @@ extension GroupChatDetailsViewController {
                                 strArr.forEach { friends_ID in
                                     if friends_ID == user_ID.description{
                                     }else {
+//                                        let groupInfos = self.iObject as? [String : Any]
                                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "send a text Message to you \(self.group_Name)", MsgType: "GROUP_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a text Message to you \(self.group_Name)", senderName: firstName + lastName, post_ID: [:])
+                                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "send a text Message to you \(self.group_Name)", MsgType: "GROUP_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a text Message to you \(self.group_Name)", senderName: firstName + lastName, post_ID: self.groupInfoLatest )
                                     }
                                 }
                             }
@@ -1606,7 +1608,7 @@ extension GroupChatDetailsViewController {
                     }else {
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "send a text Message to you \(self.group_Name)", MsgType: "GROUP_MESSAGE", MsgSent: "send Attachment", showDisplayContent: "send a text Message to you \(self.group_Name)", senderName: firstName + lastName, post_ID: [:])
+                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "send a text Message to you \(self.group_Name)", MsgType: "GROUP_MESSAGE", MsgSent: "send Attachment", showDisplayContent: "send a text Message to you \(self.group_Name)", senderName: firstName + lastName, post_ID: self.groupInfoLatest)
                     }
                 }
             }

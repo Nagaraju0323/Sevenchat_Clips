@@ -140,7 +140,6 @@ class ChatSocketIo: NSObject {
     func retrieveTheAnswer(completion: (_ answer:String) -> ()) {
         completion(namemsg)
     }
-    
 }
 
 extension ChatSocketIo: StompClientLibDelegate{
@@ -566,7 +565,6 @@ extension ChatSocketIo {
             objMessageInfo.message_actual_timestamp = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestampChat(timestamp: messageInfo.valueForDouble(key: CCreated_at) ?? 0.0) ?? 0.0
             objMessageInfo.created_at = objMessageInfo.message_actual_timestamp
             
-            
             if isfrom == 2{
 //                objMessageInfo.msg_time = Double(Int(objMessageInfo.created_at / 1000))
                 print(Double(String(objMessageInfo.created_at)) ?? 0.0)
@@ -574,7 +572,6 @@ extension ChatSocketIo {
             }else {
                 objMessageInfo.msg_time = objMessageInfo.created_at / 1000
             }
-            
             objMessageInfo.msgdateTimestamp = messageInfo.valueForString(key: "msgdateTimestamp")
             let formate = "dd MMM, yyyy"
             objMessageInfo.msgdate = DateFormatter.dateStringFrom(timestamp: objMessageInfo.msg_time, withFormate: formate)
@@ -588,7 +585,6 @@ extension ChatSocketIo {
             
             if lastMsg == 2{
 //                objMessageInfo.msgdate = "\(messageInfo.valueForInt(key: CCreated_at) ?? 0)"
-              
                 objMessageInfo.msgdate = "\(temTimestamp ?? 0.0)"
                 
             }else {
@@ -596,7 +592,6 @@ extension ChatSocketIo {
             }
 //            print("objecMessainfo\(objMessageInfo)")
 //            objMessageInfo.msgdate = "\(temTimestamp ?? 0.0)"
-
             CoreData.saveContext()
         }
     }

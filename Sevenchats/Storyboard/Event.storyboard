@@ -2015,7 +2015,7 @@ Declined</string>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fht-ay-fHN" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                        <rect key="frame" x="20" y="109.5" width="335" height="20"/>
+                                                                        <rect key="frame" x="20" y="109.5" width="276.5" height="16.5"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="Fht-ay-fHN" secondAttribute="height" multiplier="67:4" id="bvt-ub-QZs"/>
                                                                         </constraints>
@@ -2466,7 +2466,7 @@ Declined</string>
         <image name="ic_thumps_up_selected" width="18.5" height="15"/>
         <image name="user_placeholder.png" width="300" height="300"/>
         <namedColor name="AppDefault">
-            <color red="0.0" green="0.75294119119644165" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.75294117647058822" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

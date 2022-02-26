@@ -243,34 +243,39 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         
         let notificationInfo = arrNotiificationList[indexPath.row]
         let dict = notificationInfo.valueForString(key: "content")
-        let notificationDict = convertToDictionary(from: dict)
+        let stringCovt = dict.replace(string: "\\", replacement: "\"")
+//        let stringCovts = stringCovt.replace(string: "[{", replacement: "[")
+//        let stringCovtss = stringCovts.replace(string: "}]", replacement: "]")
+//        let stringCovttest = stringCovts.replace(string: "\"[", replacement: "")
+    
+
+        let notificationDict = convertToDictionary(from: stringCovt)
         let notifcationContent = notificationDict.valueForString(key:"content")
+        print(":::::::::::::Notifciaton\(notificationInfo)")
         let created_At = notificationInfo.valueForString(key: "timestamp")
         let cnvStr = created_At.stringBefore("G")
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+        //Notification Type with show Details
         if let cell = tblVNotification.dequeueReusableCell(withIdentifier: "NotificationGeneralTblCell") as? NotificationGeneralTblCell{
             cell.lblDate.text = startCreated
             cell.imgUser.loadImageFromUrl(notificationInfo.valueForString(key: "icon"), true)
             cell.lblNotificationDetails.font = CFontPoppins(size: 14, type: .light).setUpAppropriateFont()
-            print("notifcationContent\(notifcationContent)")
             cell.lblNotificationDetails.attributedText = self.htmlToAttributedString(notifcationContent, cell.lblNotificationDetails.font)
             let readStatus = notificationInfo.valueForString(key:"read_status")
-            //            print("readSTatus\(readStatus)")
             if readStatus.toInt == 1 {
                 cell.contentView.backgroundColor = .white
-                //                    cell.lblNotificationInvitation.backgroundColor = .gray
             } else {
                 
                 cell.contentView.backgroundColor = .lightGray
             }
-            
+            if indexPath == tblVNotification.lastIndexPath() && !self.isLoadMoreCompleted{
+                self.getNotificationListFromServer(isLoader: true)
+            }
             
             return cell
         }
         
-        if indexPath == tblVNotification.lastIndexPath() && !self.isLoadMoreCompleted{
-            self.getNotificationListFromServer(isLoader: true)
-        }
+       
         
         return UITableViewCell()
         
@@ -282,10 +287,14 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         
         let notificationInfo = arrNotiificationList[indexPath.row]
         let notfiContent = notificationInfo.valueForString(key: "content")
+     
+//        let stringCovt = notfiContent.replace(string: "\\", replacement: "")
+//        print("notfication::::::::::\(stringCovt)")
+        
         userID = notificationInfo.valueForString(key: "sender")
         let nib = notificationInfo.valueForString(key: "nid")
         do {
-            let dict = try convertToDictionary(from: notfiContent ?? "")
+            let dict = try convertToDictionary(from: notfiContent)
             guard let userMsg = dict["type"] else { return }
             guard let subject = dict["subject"] else { return }
             let postinfo = dict["postInfo"] as? [String:Any] ?? [:]
@@ -310,21 +319,59 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                 if self.subjectCat == "Product viewed"{
                     appDelegate.moveOnProfileScreenNew(self.userID.description, self.userID.description, self)
                 }else {
-                    if let groupChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController") as? ChatListViewController {
-                        self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+                    if let userChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
+                        userChatDetailVC.iObject =  self.postInfo
+                        userChatDetailVC.self.userID = userID.toInt
+                        userChatDetailVC.isCreateNewChat = true
+                        self.navigationController?.pushViewController(userChatDetailVC, animated: true)
                     }
                 }
                 break
-            case kNotTypeGroup,kNotTypeGroupADD,kNotTypeGroupRemove:
+            case kNotTypeGroupRemove:
                 if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupsViewController") as? GroupsViewController {
                     self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
                 }
                 break
-            case kNotTypeFriendReqAccept,kNotTypeFriendBlocked,kNotTypeFriendReqSentNew:
-                if let MyFriendsVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyFriendsViewController") as? MyFriendsViewController {
-                    self.navigationController?.pushViewController(MyFriendsVC, animated: true)
+                
+            case kNotTypeGroup:
+                if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
+                    groupChatDetailVC.iObject =  self.postInfo
+                    groupChatDetailVC.isCreateNewChat = false
+                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
                 }
-            case kNotTypeCommnet ,kNotTypeEventType:
+                
+                    break
+                
+            case kNotTypeGroupADD:
+                //Group chat detail screen
+                if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
+                    groupChatDetailVC.iObject =  self.postInfo
+                    groupChatDetailVC.isCreateNewChat = false
+                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+                }
+                break
+                
+            case kNotTypeFriendReqAccept,
+                 kNotTypeFriendReqSentNew:
+                appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
+            break
+            case kNotTypeFriendBlocked:
+               
+                self.presentAlertViewWithOneButton(alertTitle: CAlertblocked, alertMessage: CMessageNoLongerFriend, btnOneTitle: CBtnOk, btnOneTapped: nil)
+            
+            break
+            case  kNotTypeEventType:
+             
+                if let eventInviteesVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController{
+                    let postID = postInfo.valueForString(key: CPostId)
+                    eventInviteesVC.postIDNew = postID
+                    eventInviteesVC.postID = postID.toInt
+                    eventInviteesVC.eventInfo = postInfo
+                    self.navigationController?.pushViewController(eventInviteesVC, animated: true)
+                }
+            break
+                
+            case kNotTypeCommnet,kNotTypeCommnet:
                 
                 
                 switch post_type {
@@ -343,6 +390,17 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                     }
                 case "post_gallery":
                     if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
+                        
+//                        var arr1 = [NSArray]()
+                        let image = self.postInfo.valueForString(key: "image")
+                        let convert = image.replace(string: "\n", replacement: "")
+                        let converts = convert.replace(string: "\"", replacement: "")
+                        let convertss = converts.replace(string: "}) ", replacement: "}]")
+                        
+                        
+                        let returnval = convertDic(from: convert)
+                        print("image:::::\(returnval)")
+                        postInfo["image"] = convertss
                         imageDetailVC.galleryInfo = postInfo
                         imageDetailVC.imgPostId = postInfo.valueForString(key: "post_id").toInt
                         self.navigationController?.pushViewController(imageDetailVC, animated: true)
@@ -378,13 +436,6 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                     
                 }
                 break
-            case kNotTypeCommnet:
-                
-                
-                if let HomeVC = CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
-                    self.navigationController?.pushViewController(HomeVC, animated: true)
-                }
-                break
             default:
                 break
             }
@@ -405,21 +456,61 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                 if self.subjectCat == "Product viewed"{
                                     appDelegate.moveOnProfileScreenNew(self.userID.description, self.userID.description, self)
                                 }else {
-                                    if let groupChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController") as? ChatListViewController {
-                                        self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+                                    if let userChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
+                                        userChatDetailVC.iObject =  self.postInfo
+                                        userChatDetailVC.self.userID = self.userID.toInt
+                                        userChatDetailVC.isCreateNewChat = true
+                                        self.navigationController?.pushViewController(userChatDetailVC, animated: true)
                                     }
                                 }
                                 break
-                            case kNotTypeGroup,kNotTypeGroupADD,kNotTypeGroupRemove:
+                            case kNotTypeGroupRemove:
                                 if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupsViewController") as? GroupsViewController {
                                     self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
                                 }
                                 break
-                            case kNotTypeFriendReqAccept,kNotTypeFriendBlocked,kNotTypeFriendReqSentNew:
-                                if let MyFriendsVC = CStoryboardProfile.instantiateViewController(withIdentifier: "MyFriendsViewController") as? MyFriendsViewController {
-                                    self.navigationController?.pushViewController(MyFriendsVC, animated: true)
+                      
+                        case kNotTypeGroup:
+                            if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
+                                groupChatDetailVC.iObject =  self.postInfo
+                                groupChatDetailVC.isCreateNewChat = false
+                                self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+                            }
+                            
+                                break
+                            case kNotTypeGroupADD:
+                                //Group chat detail screen
+                                if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
+                                    groupChatDetailVC.iObject =  self.postInfo
+                                    groupChatDetailVC.isCreateNewChat = false
+                                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
                                 }
-                            case kNotTypeCommnet ,kNotTypeEventType:
+                                break
+                                
+                                
+                            case kNotTypeFriendReqAccept,kNotTypeFriendReqSentNew:
+                                appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
+                               break
+                            case kNotTypeFriendBlocked:
+                               
+                                self.presentAlertViewWithOneButton(alertTitle: CAlertblocked, alertMessage: CMessageNoLongerFriend, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                            
+                            break
+                            case  kNotTypeEventType:
+                                
+                                if let eventInviteesVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController{
+                                    let postID = self.postInfo.valueForString(key: CPostId)
+                                    eventInviteesVC.postID = postID.toInt
+                                    eventInviteesVC.postIDNew = postID
+                                    eventInviteesVC.eventInfo = self.postInfo
+                                    self.navigationController?.pushViewController(eventInviteesVC, animated: true)
+                                }
+                                
+                                
+                                
+                            break
+                                
+                            case kNotTypeCommnet,kNotTypeCommnet:
                                 //                                if let HomeVC = CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
                                 //                                    self.navigationController?.pushViewController(HomeVC, animated: true)
                                 //                                }
@@ -440,7 +531,11 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                     }
                                 case "post_gallery":
                                     if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
+                                        
                                         imageDetailVC.galleryInfo = self.postInfo
+                                        let image = self.postInfo.valueForString(key: "image")
+                                        let images = self.convertToDictionarys(from: image)
+                                        print("image:::::\(images)")
                                         imageDetailVC.imgPostId = self.postInfo.valueForString(key: "post_id").toInt
                                         self.navigationController?.pushViewController(imageDetailVC, animated: true)
                                     }
@@ -496,10 +591,33 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
 extension NotificationViewController{
     
     func convertToDictionary(from text: String) -> [String: Any] {
-        print("text from the valies\(text)")
+      //  print("text from the valies\(text)")
         guard let data = text.data(using: .utf8) else { return [:] }
-        let anyResult: Any? = try? JSONSerialization.jsonObject(with: data, options: [])
+        let anyResult: Any? = try? JSONSerialization.jsonObject(with: data, options:[])
         return anyResult as? [String: Any] ?? [:]
     }
+    
+    func convertToDictionarys(from text: String) -> [[String: Any]] {
+        guard let data = text.data(using: .utf8) else { return [[:]] }
+        let anyResult: Any? = try? JSONSerialization.jsonObject(with: data, options:[[]])
+        return anyResult as? [[String: Any]] ?? [[:]]
+    }
+    
+    
+    func convertDic(from text:String) -> [[String:Any]]{
+        var strConvert = [[String:Any]]()
+        let data = text.data(using: String.Encoding.utf8, allowLossyConversion: false)!
+
+        do {
+            let json = try JSONSerialization.jsonObject(with: data, options: [[]]) as! [[String: AnyObject]]
+            strConvert = json
+            print("strConvert\(strConvert)")
+         
+        } catch let error as NSError {
+            print("Failed to load: \(error.localizedDescription)")
+        }
+        return strConvert
+    }
 }
+
 

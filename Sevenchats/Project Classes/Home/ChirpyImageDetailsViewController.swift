@@ -68,6 +68,7 @@ class ChirpyImageDetailsViewController: ParentViewController {
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
+    var notificationInfo = [String:Any]()
     
     
     
@@ -138,9 +139,6 @@ class ChirpyImageDetailsViewController: ParentViewController {
             let lightBoxHelper = LightBoxControllerHelper()
             lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self)
         })
-        
-        
-        
     }
     
     func updateUIAccordingToLanguage(){
@@ -210,7 +208,9 @@ extension ChirpyImageDetailsViewController{
     
     func setChirpyDetailData(_ chirpyInfo : [String : Any]?){
         if let chirInfo = chirpyInfo{
+            
             chirpyInformation = chirInfo
+            notificationInfo = chirInfo
             self.chirpyIDNew = chirInfo.valueForString(key:CPostId)
 //            posted_ID = chirInfo.valueForString(key: "user_id")
             if isLikesOthersPage == true {
@@ -235,30 +235,7 @@ extension ChirpyImageDetailsViewController{
             btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
             self.tblCommentList.updateHeaderViewHeight(extxtraSpace: 0)
             let is_Liked = chirInfo.valueForString(key: CIsLiked)
-            
-//            if is_Liked == "Yes"{
-//                btnLike.isSelected = true
-//            }else {
-//                btnLike.isSelected = false
-//            }
-            
-            
-            
-            
-//            if isLikesOthersPage == true {
-//                if chirInfo.valueForString(key:"friend_liked") == "Yes"  || chirInfo.valueForString(key:"is_liked") == "Yes" {
-//                    btnLike.isSelected = true
-//                    if chirInfo.valueForString(key:"is_liked") == "No"{
-//                        isLikeSelected = false
-//                    }
-//                }else {
-//                    if chirInfo.valueForString(key:"is_liked") == "No" || chirInfo.valueForString(key:"friend_liked") == "No" {
-//                        isLikeSelected = true
-//                    }
-//                    btnLike.isSelected = false
-//                }
-//            }
-            
+
             if isLikesOthersPage == true {
                 if chirInfo.valueForString(key:"friend_liked") == "Yes"  && chirInfo.valueForString(key:"is_liked") == "Yes" {
                     btnLike.isSelected = true
@@ -276,14 +253,11 @@ extension ChirpyImageDetailsViewController{
                     isLikeSelected = true
                     btnLike.isSelected = false
                 }else if chirInfo.valueForString(key:"is_liked") == "No" && chirInfo.valueForString(key:"friend_liked") == "Yes"{
-                    
                     isLikeSelected = false
                     btnLike.isSelected = true
-
                 }
             }
-            
-            
+
             if isLikesHomePage == true  || isLikesMyprofilePage == true {
                 if chirInfo.valueForString(key:CIs_Liked) == "Yes"{
                     btnLike.isSelected = true
@@ -329,7 +303,6 @@ extension ChirpyImageDetailsViewController{
                     if response != nil && error == nil{
                         self.navigationController?.popViewController(animated: true)
                         MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, chirID, self, .deletePost, rss_id: 0)
-                        
                     }
                 })
                 
@@ -593,9 +566,16 @@ extension ChirpyImageDetailsViewController{
                             let data = response![CJsonMeta] as? [String:Any] ?? [:]
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" {
+                                
                                 guard let firstName = appDelegate.loginUser?.first_name else {return}
                                 guard let lastName = appDelegate.loginUser?.last_name else {return}
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: [:])
+                                
+//                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: [:])
+//
+                                self.notificationInfo["comments"] = self.commentCount
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
+                                
+                                
                             }
                             
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
@@ -713,7 +693,24 @@ extension ChirpyImageDetailsViewController{
                     if self?.notifcationIsSlected == true{
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:])
+//                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:])
+                        
+                        if self?.posted_ID == user_ID {
+                        }else {
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
+                        }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                        }
+                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                        if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                            let stausLike = metaInfo["status"] as? String ?? "0"
+                            if stausLike == "0" {
+                            }
+                        }
+                    }
                         self?.notifcationIsSlected = false
                     }
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.chirpyIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
@@ -730,9 +727,6 @@ extension ChirpyImageDetailsViewController{
                     if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
                     MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.chirpyIDNew?.toInt ?? 0, rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
                     }
-                    
-                    
-                    
                 }
             }
         }

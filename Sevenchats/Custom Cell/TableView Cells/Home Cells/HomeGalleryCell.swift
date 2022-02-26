@@ -112,7 +112,7 @@ extension HomeGalleryCell {
     
     func homeGalleryDataSetup(_ postInfo : [String : Any]) {
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
-
+        
         notificationInfo = postInfo
         if isLikesOthersPage == true {
             posted_ID = self.posted_IDOthers
@@ -161,7 +161,7 @@ extension HomeGalleryCell {
                 
                 isLikeSelected = false
                 btnLike.isSelected = true
-
+                
             }
         }
         
@@ -268,7 +268,7 @@ extension HomeGalleryCell {
     @IBAction func onLikePressed(_ sender:UIButton){
         
         self.btnLike.isSelected = !self.btnLike.isSelected
-
+        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
@@ -320,7 +320,16 @@ extension HomeGalleryCell {
         }
     }
     
+    func convertToDictionarys(from text: String) -> [[String: Any]] {
+        //  print("text from the valies\(text)")
+        guard let data = text.data(using: .utf8) else { return [[:]] }
+        let anyResult: Any? = try? JSONSerialization.jsonObject(with: data, options:[[]])
+        return anyResult as? [[String: Any]] ?? [[:]]
+    }
+    
     func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){
+        
+        
         APIRequest.shared().likeUnlikeProductCount(productId: Int(self.postID) ){ [weak self](response, error) in
             guard let _ = self else { return }
             if response != nil {
@@ -334,39 +343,46 @@ extension HomeGalleryCell {
                         if self?.posted_ID == user_ID {
                             
                         }else {
-                        
-                        if self?.isLikesOthersPage == true {
-                            self?.notificationInfo["friend_liked"] = "Yes"
-                        }
-                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
-                            self?.notificationInfo["is_liked"] = "Yes"
-                        }
-                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
-                        if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                            let stausLike = metaInfo["status"] as? String ?? "0"
-                            if stausLike == "0" {
+                            
+                            if self?.isLikesOthersPage == true {
+                                self?.notificationInfo["friend_liked"] = "Yes"
+                            }
+                            if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                                self?.notificationInfo["is_liked"] = "Yes"
                                 
-
+                            }
+                            
+                            print(":::::::::::postInfo\(self?.notificationInfo.valueForString(key: "image"))")
+                            let img = self?.notificationInfo.valueForString(key: "image")
+                            let convert = self?.convertToDictionarys(from:img ?? "")
+                            
+                            self?.notificationInfo["image"] = convert
+                            self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                            if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                                let stausLike = metaInfo["status"] as? String ?? "0"
+                                if stausLike == "0" {
+                                    
+                                    
+                                }
                             }
                         }
-                    }
                         self?.notifcationIsSlected = false
                     }
                     
                     if self?.isLikesOthersPage == true {
-                    if self?.isFinalLikeSelected == true{
-                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
-                        self?.isLikeSelected = false
-                    }else {
-                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
-
+                        if self?.isFinalLikeSelected == true{
+                            MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+                            self?.isLikeSelected = false
+                        }else {
+                            MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+                            
+                        }
                     }
-                   }
                     if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
-                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
                     }
-//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+                    //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
                 }
             }
         }
@@ -388,5 +404,11 @@ extension HomeGalleryCell{
         
         return nil
     }
+    
+}
+
+
+extension HomeGalleryCell{
+    
     
 }

@@ -282,7 +282,6 @@ extension MyFriendsViewController{
 //                    if  metaData.valueForString(key: "message") == "Request accepted successfully"{\\
                     let totalPoints = metaData.valueForString(key: "total_points")
                     if  totalPoints == "" && metaData.valueForString(key: "message") == "Request accepted successfully" {
-//                        guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
                         let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                         guard let image = appDelegate.loginUser?.profile_img else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
@@ -290,12 +289,8 @@ extension MyFriendsViewController{
                         MIGeneralsAPI.shared().sendNotification(friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:])
                         
                         MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:"Friends request accept",type:CFriendsrequestaccept,title:"",name:name,icon:image, detail_text: "friend_point")
-                        
-//                        MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:CPostonstore,type:"Connections",title: self.categoryDropDownView.txtCategory.text ?? "",name:name,icon:image, detail_text: "Connections")
                     }else if totalPoints != "" && metaData.valueForString(key: "message") == "Request accepted successfully" {
                         
-                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-                        guard let image = appDelegate.loginUser?.profile_img else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
                         MIGeneralsAPI.shared().sendNotification(friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:])
@@ -303,8 +298,6 @@ extension MyFriendsViewController{
                     }
                 }
                 
-                var frndInfo = userInfo
-               
                 if let index = self.arrFriendList.firstIndex(where: {$0["friend_user_id"] as? String == friend_ID}){
                     self.arrFriendList.remove(at: index)
                     self.isRefreshingUserData = true
@@ -318,14 +311,11 @@ extension MyFriendsViewController{
                         }
                     }
                 }
-                
                 let metaInfo = response![CJsonMeta] as? [String:Any] ?? [:]
-                guard let firstName = appDelegate.loginUser?.first_name else {return}
-                guard let lastName = appDelegate.loginUser?.last_name else {return}
                 let message = metaInfo["message"] as? String ?? "0"
                 if message == "0"{
                     
-                    MIGeneralsAPI.shared().sendNotification( friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent: "", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:])
+//                    MIGeneralsAPI.shared().sendNotification( friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent: "", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:])
                 }
                 var isShowAlert = false
                 var alertMessage = ""

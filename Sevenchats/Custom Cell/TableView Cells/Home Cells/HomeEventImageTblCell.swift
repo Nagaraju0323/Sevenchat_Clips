@@ -71,6 +71,7 @@ class HomeEventImageTblCell: UITableViewCell {
     var notInterested = ""
     var mayBe = ""
     var notificationInfo = [String:Any]()
+    var isSelectedChoice = ""
     
     
     override func awakeFromNib() {
@@ -237,6 +238,7 @@ extension HomeEventImageTblCell{
         self.Interested = postInfo.valueForString(key: "yes_count")
         self.notInterested = postInfo.valueForString(key: "no_count")
         self.mayBe = postInfo.valueForString(key: "maybe_count")
+        self.isSelectedChoice = postInfo.valueForString(key: "selected_choice")
         
         
         let currentDateTime = Date().timeIntervalSince1970
@@ -529,9 +531,17 @@ extension HomeEventImageTblCell{
             guard let lastName = appDelegate.loginUser?.last_name else {return}
             print(self.posted_ID)
             
-            if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-            
-                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
+            if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 || isSelectedChoice == "null"{
+
+                if self.posted_ID == user_ID {
+                    
+                }else {
+                    var intrestCount = self.Interested.toInt
+                    intrestCount = +1
+                    notificationInfo["yes_count"] = intrestCount?.toString
+                    notificationInfo["selected_choice"] = "1"
+                    MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo)
+                }
             }
            }
        }
@@ -549,9 +559,20 @@ extension HomeEventImageTblCell{
             guard let firstName = appDelegate.loginUser?.first_name else {return}
             guard let lastName = appDelegate.loginUser?.last_name else {return}
             
-            if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
-            }
+            if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 || selectedChoice == "null"{
+               
+                if self.posted_ID == user_ID {
+                    
+                }else {
+                    
+                    var maybeCount = self.mayBe.toInt ?? 0
+                    maybeCount = +1
+                    notificationInfo["maybe_count"] = maybeCount.toString
+                    notificationInfo["selected_choice"] = "3"
+                    MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID:notificationInfo)
+                    
+                }
+              }
            }
        }
        
@@ -563,13 +584,25 @@ extension HomeEventImageTblCell{
                btnNotInterested.isSelected = true
                btnInterested.isSelected = false
                onChangeEventStatus?(CTypeNotInterested)
-            
+           
+       
             guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
             guard let firstName = appDelegate.loginUser?.first_name else {return}
             guard let lastName = appDelegate.loginUser?.last_name else {return}
-            if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-             MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
-             }
+            if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 ||  selectedChoice == "null"{
+                if self.posted_ID == user_ID {
+                    
+                }else {
+                    
+                    var notIntrestCount = self.notInterested.toInt ?? 0
+                    notIntrestCount = +1
+                    notificationInfo["no_count"] = notIntrestCount.toString
+                    notificationInfo["selected_choice"] = "2"
+                    
+                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo)
+                    
+                }
+              }
            }
        }
        

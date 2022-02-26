@@ -105,6 +105,7 @@ class PollDetailsViewController: ParentViewController {
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
+    var notificationInfo = [String:Any]()
     
     
     
@@ -240,6 +241,7 @@ extension PollDetailsViewController {
         if let pollInfo = pollInformation{
             
             self.pollInformation = pollInfo
+            notificationInfo = pollInfo
             
             self.pollIDNew = pollInfo.valueForString(key:CPostId)
 //            posted_ID = pollInfo.valueForString(key: "user_id")
@@ -520,7 +522,25 @@ extension PollDetailsViewController{
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lassName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post",senderName: firstName + lassName, post_ID: [:])
+                        
+                        if self?.posted_ID == user_ID {
+                        }else {
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
+                        }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                        }
+                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lassName, post_ID: self?.notificationInfo ?? [:])
+                        if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                            let stausLike = metaInfo["status"] as? String ?? "0"
+                            if stausLike == "0" {
+                            }
+                        }
+                    }
+                        
+//                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post",senderName: firstName + lassName, post_ID: [:])
                         self?.notifcationIsSlected = false
                     }
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.pollIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
@@ -826,7 +846,12 @@ extension PollDetailsViewController{
                             guard let lassName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Comment to Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post", senderName:firstName + lassName, post_ID: [:] )
+//                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Comment to Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post", senderName:firstName + lassName, post_ID: [:] )
+//                                
+                                guard let firstName = appDelegate.loginUser?.first_name else {return}
+                                guard let lassName = appDelegate.loginUser?.last_name else {return}
+                                self.notificationInfo["comments"] = self.commentCount
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lassName, post_ID: self.notificationInfo)
                             }
                             
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)

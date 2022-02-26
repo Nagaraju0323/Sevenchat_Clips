@@ -88,6 +88,8 @@ class ShoutsDetailViewController: ParentViewController {
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
+    var notificationInfo = [String:Any]()
+    var commentCnt = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,7 +103,7 @@ class ShoutsDetailViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.pageNumber == 1
+        self.pageNumber = 1
         self.setShoutsDetailData(shoutInformations)
         self.updateUIAccordingToLanguage()
         self.getCommentListFromServer()
@@ -204,6 +206,7 @@ extension ShoutsDetailViewController{
     func setShoutsDetailData(_ shoutInfo : [String : Any]?){
         if let shoInfo = shoutInfo{
             shoutInformation = shoInfo
+            notificationInfo = shoInfo
             self.shoutIDNew = shoInfo.valueForString(key:CPostId)
             
             if isLikesOthersPage == true {
@@ -211,35 +214,11 @@ extension ShoutsDetailViewController{
             }else {
                 posted_ID = shoInfo.valueForString(key: "user_id")
             }
-            
-            
-//            posted_ID = shoInfo.valueForString(key: "user_id")
-            
             self.lblUserName.text = shoInfo.valueForString(key: CFirstname) + " " + shoInfo.valueForString(key: CLastname)
             self.lblShoutsDescription.text = shoInfo.valueForString(key: CContent)
             self.imgUser.loadImageFromUrl(shoInfo.valueForString(key: CUserProfileImage), true)
             let is_Liked = shoInfo.valueForString(key: CIsLiked)
-            
-//            if is_Liked == "Yes"{
-//                btnLike.isSelected = true
-//            }else {
-//                btnLike.isSelected = false
-//            }
-            
-//            if isLikesOthersPage == true {
-//                if shoInfo.valueForString(key:"friend_liked") == "Yes"  || shoInfo.valueForString(key:"is_liked") == "Yes" {
-//                    btnLike.isSelected = true
-//                    if shoInfo.valueForString(key:"is_liked") == "No"{
-//                        isLikeSelected = false
-//                    }
-//                }else {
-//                    if shoInfo.valueForString(key:"is_liked") == "No" || shoInfo.valueForString(key:"friend_liked") == "No" {
-//                        isLikeSelected = true
-//                    }
-//                    btnLike.isSelected = false
-//                }
-//            }
-            
+
             if isLikesOthersPage == true {
                 if shoInfo.valueForString(key:"friend_liked") == "Yes"  && shoInfo.valueForString(key:"is_liked") == "Yes" {
                     btnLike.isSelected = true
@@ -263,8 +242,6 @@ extension ShoutsDetailViewController{
 
                 }
             }
-            
-            
             if isLikesHomePage == true  || isLikesMyprofilePage == true {
                 if shoInfo.valueForString(key:CIs_Liked) == "Yes"{
                     btnLike.isSelected = true
@@ -272,9 +249,6 @@ extension ShoutsDetailViewController{
                     btnLike.isSelected = false
                 }
             }
-            
-            
-            
             likeCount = shoInfo.valueForString(key: CLikes).toInt ?? 0
             self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
             commentCount = shoInfo.valueForString(key: "comments").toInt ?? 0
@@ -564,7 +538,8 @@ extension ShoutsDetailViewController{
                             guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" && self.posted_ID != user_ID{
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: [:])
+                                self.notificationInfo["comments"] = self.commentCount
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
                             }
                             
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
@@ -681,16 +656,34 @@ extension ShoutsDetailViewController{
                         guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        
+//
+//                        if self?.posted_ID == user_ID {
+//
+//                        }else {
+//                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:] )
+//                        }
                         if self?.posted_ID == user_ID {
-                            
                         }else {
-                            
-                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:])
+                        
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
                         }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                            
+                        }
+                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                        if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                            let stausLike = metaInfo["status"] as? String ?? "0"
+                            if stausLike == "0" {
+                                
+
+                            }
+                        }
+                    }
                         self?.notifcationIsSlected = false
                     }
-                    
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.shoutIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
                     
                     

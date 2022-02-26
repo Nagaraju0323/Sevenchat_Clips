@@ -2327,6 +2327,10 @@ extension MIGeneralsAPI {
         guard let lastName = appDelegate.loginUser?.last_name else {return}
         guard let profileImg = appDelegate.loginUser?.profile_img else {return}
         
+        
+        let post_Type = post_ID.valueForString(key: "type")
+        
+        
         let userName = "\(firstName)\(lastName)"
         var contentStr = ""
         let content:[String:Any]  = [
@@ -2345,13 +2349,29 @@ extension MIGeneralsAPI {
             let jsonToString = String(data: jsonData, encoding: .utf8)
 //            let trimmedString = jsonToString?.components(separatedBy: " ").joined()
           
+            var imgStr_Fourth = ""
+
             
-            let imgStr_Third = jsonToString?.replacingOccurrences(of: "\"", with: "\\\"")
-            let imgStrConvert = imgStr_Third?.replacingOccurrences(of: "\n", with: "")
+            if post_Type == "post_gallery"{
+                        let imagConv_first = jsonToString?.replacingOccurrences(of: "\\\"", with:  "\"") ?? ""
+        //                let imgStr_First = jsonToString?.replacingOccurrences(of: "\\\"", with: "\"")
+                        let imagConv_sec = imagConv_first.replacingOccurrences(of: "\"", with: "\\\"")
+                        let imagConv_Third = imagConv_sec.replacingOccurrences(of: "\n", with: "")
+//                        let imgStr_Fourths = imgStrConvert?.replacingOccurrences(of: "\\\\\"", with:  "\\\"") ?? ""
+                        imgStr_Fourth = imagConv_Third
+                        print("imgStr_Fourth\(imgStr_Fourth)")
+                        
+                    }else {
+                   
+                        let imgStr_Third = jsonToString?.replacingOccurrences(of: "\"", with: "\\\"")
+                        let imgStrConvert = imgStr_Third?.replacingOccurrences(of: "\n", with: "")
+                        imgStr_Fourth = imgStrConvert ?? ""
+                    }
+           
 //            let imgStr_Fourth = imgStr_Third?.replacingOccurrences(of: "\\\\\"", with:  "\\\"")
 //            let imgStrConvert = imgStr_Fourth?.replacingOccurrences(of: "\n", with: "")
 //            let imgStrConverts = imgStrConvert?.replacingOccurrences(of: "{ ", with: "{")
-            contentStr = imgStrConvert ?? ""
+            contentStr = imgStr_Fourth
             
         } catch {
             print(error.localizedDescription)

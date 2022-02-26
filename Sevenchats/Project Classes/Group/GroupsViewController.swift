@@ -238,6 +238,7 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
             }
             groupChatDetailsVC.iObject = grpInfo
             groupChatDetailsVC.groupInfo = grpInfo
+            groupChatDetailsVC.groupInfoLatest = grpInfo
             
             groupChatDetailsVC.isCreateNewChat = false
             self.navigationController?.pushViewController(groupChatDetailsVC, animated: true)

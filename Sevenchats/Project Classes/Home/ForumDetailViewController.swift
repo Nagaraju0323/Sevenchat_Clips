@@ -88,6 +88,8 @@ class ForumDetailViewController: ParentViewController {
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
+    var notificationInfo = [String:Any]()
+    
     
     
     override func viewDidLoad() {
@@ -201,6 +203,7 @@ extension ForumDetailViewController{
     func setForumDetailData(_ forumInfo : [String : Any]?){
         if let forInfo = forumInfo{
             forumInformation = forInfo
+            notificationInfo = forInfo
             self.forumIDNew = forumInformation.valueForString(key:CPostId)
 //            posted_ID = forumInformation.valueForString(key: "user_id")
             
@@ -222,27 +225,7 @@ extension ForumDetailViewController{
             self.lblForumCategory.text = forInfo.valueForString(key: CCategory).uppercased()
             
             let is_Liked = forumInformation.valueForString(key: CIsLiked)
-            
-//            if is_Liked == "Yes"{
-//                btnLike.isSelected = true
-//            }else {
-//                btnLike.isSelected = false
-//            }
-            
-//            if isLikesOthersPage == true {
-//                if forInfo.valueForString(key:"friend_liked") == "Yes"  || forInfo.valueForString(key:"is_liked") == "Yes" {
-//                    btnLike.isSelected = true
-//                    if forInfo.valueForString(key:"is_liked") == "No"{
-//                        isLikeSelected = false
-//                    }
-//                }else {
-//                    if forInfo.valueForString(key:"is_liked") == "No" || forInfo.valueForString(key:"friend_liked") == "No" {
-//                        isLikeSelected = true
-//                    }
-//                    btnLike.isSelected = false
-//                }
-//            }
-            
+
             if isLikesOthersPage == true {
                 if forInfo.valueForString(key:"friend_liked") == "Yes"  && forInfo.valueForString(key:"is_liked") == "Yes" {
                     btnLike.isSelected = true
@@ -573,7 +556,16 @@ extension ForumDetailViewController{
                             guard let lastName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post ", senderName: firstName + lastName, post_ID: [:])
+                              
+                                
+//                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post ", senderName: firstName + lastName, post_ID: [:])
+                                
+                                self.notificationInfo["comments"] = self.commentCount
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
+                                
+                                
+                                
+                                
                             }
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }
@@ -689,7 +681,24 @@ extension ForumDetailViewController{
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:])
+//                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:])
+                        
+                        if self?.posted_ID == user_ID {
+                        }else {
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
+                        }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                        }
+                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                        if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                            let stausLike = metaInfo["status"] as? String ?? "0"
+                            if stausLike == "0" {
+                            }
+                        }
+                    }
                         self?.notifcationIsSlected = false
                     }
                     

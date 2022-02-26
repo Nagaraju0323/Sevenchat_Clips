@@ -173,13 +173,10 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
     var ChatListPage:Bool!
     let session = AVAudioSession.sharedInstance()
     let synthesizer = AVSpeechSynthesizer()
-    var jsonChatMsg = [String]()
-    var jsonChatdict = [String:Any]()
-    var myArray = [[String: String]]()
-    var chatMsgImg = [[String:Any]]()
     var chatMsg = [MDLChatLastMSG]()
     var socketClient = StompClientLib()
     var timeClient: TrueTimeClient?
+    var chatInfoNot = [String:Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -445,6 +442,7 @@ extension UserChatDetailViewController {
             self.lblTitle.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
             self.imgUser.loadImageFromUrl(userInfo.valueForString(key: Cimages), true)
             self.imgOnline.isHidden = !userInfo.valueForBool(key: "isOnline")
+//            self.userID = userInfo.valueForString(key: "user_id").toInt
             self.checkForBlockUser(userInfo)
         }
     }
@@ -578,7 +576,6 @@ extension UserChatDetailViewController {
                         guard let mobileNum = appDelegate.loginUser?.mobile else { return }
                         MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: img,isFrom:"",uploadFrom:"")
                         MInioimageupload.shared().callback = { message in
-                            print("UploadImage::::::::::::::\(message)")
                             self.uploadImgUrl = message
                             self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"image", thumbLine: img)
                             
@@ -600,7 +597,6 @@ extension UserChatDetailViewController {
                         guard let mobileNum = appDelegate.loginUser?.mobile else { return }
                         MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: urlVidoes,isFrom:"videos",uploadFrom:videoURL)
                         MInioimageupload.shared().callback = { message in
-                            print("UploadImage::::::::::::::\(message)")
                             self.uploadImgUrl = message
                             self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"video", thumbLine: urlVidoes)
                         }
@@ -622,8 +618,7 @@ extension UserChatDetailViewController {
                         guard let mobileNum = appDelegate.loginUser?.mobile else { return }
                         MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: urlVidoes,isFrom:"audio",uploadFrom:audioURL)
                         MInioimageupload.shared().callback = { message in
-                            print("UploadImage::::::::::::::\(message)")
-                            self.uploadImgUrl = message
+                           self.uploadImgUrl = message
                             self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"audio", thumbLine: urlVidoes)
                         }
                         
@@ -635,7 +630,6 @@ extension UserChatDetailViewController {
                     guard let mobileNum = appDelegate.loginUser?.mobile else { return }
                     MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: img,isFrom:"",uploadFrom:"")
                     MInioimageupload.shared().callback = { message in
-                        print("UploadImage::::::::::::::\(message)")
                         self.uploadImgUrl = message
                         self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"image", thumbLine: img)
                         
@@ -681,7 +675,7 @@ extension UserChatDetailViewController {
         fetchHome = nil;
         if let userid = self.userID {
             print("topicname\(topcName)")
-            strChannelId = topcName
+            strChannelId = topcName ?? ""
         }
         fetchHome = self.fetchController(listView: tblChat,
                                          entity: "TblMessages",
@@ -1158,11 +1152,10 @@ extension UserChatDetailViewController {
                             guard let arrList = response as? [String:Any] else { return }
                             self.fetchHome.loadData()
                             if let arrStatus = arrList["message"] as? String{
-                                print("arrStatus,\(arrStatus)")
                                 guard let userid = appDelegate.loginUser?.user_id else { return}
                                 guard let firstName = appDelegate.loginUser?.first_name else {return}
                                 guard let lastName = appDelegate.loginUser?.last_name else {return}
-                                MIGeneralsAPI.shared().sendNotification(self.userID?.description, userID:userid.description , subject: "send a text message to you", MsgType: "CHAT_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a text message to you", senderName: firstName + lastName, post_ID: [:])
+                                MIGeneralsAPI.shared().sendNotification(self.userID?.description, userID:userid.description , subject: "send a text message to you", MsgType: "CHAT_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a text message to you", senderName: firstName + lastName, post_ID: self.chatInfoNot)
                                 self.fetchHome.loadData()
                             }
                         }
@@ -1241,7 +1234,6 @@ extension UserChatDetailViewController {
             if let songVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "SongListViewController") as? SongListViewController {
                 songVC.setBlock(block: { (songName, message) in
                     if let audioName = songName as? String {
-                        print("selecctedfilename\(songVC.selectedFileName)")
                         let message = CAudioSendConfirmation + " " + songVC.selectedFileName
                         let alertController = UIAlertController(title:message, message:CAutodelete_change, preferredStyle: UIAlertController.Style.alert);
                         alertController.addAction(UIAlertAction(title: CBtnYes, style: UIAlertAction.Style.default, handler: {(action:UIAlertAction!) in
@@ -1291,7 +1283,6 @@ extension UserChatDetailViewController {
         alertController.addAction(videoAction)
         
         let shareLocationAction = UIAlertAction(title: CLocation, style: .default, handler: { (alert) in
-            print(CLocation)
             self.locationPicker?.showCurrentLocationButton = true
             self.locationPicker?.getImageLocation = true
             
@@ -1426,7 +1417,6 @@ extension UserChatDetailViewController{
             audioRecorder.stop()
             audioRecorder = nil
             meterTimer.invalidate()
-            print("recorded successfully.")
             prepare_play()
         }else{
             display_alert(msg_title: "Error", msg_desc: "Recording failed.", action_title: "OK")
@@ -1654,7 +1644,7 @@ extension UserChatDetailViewController{
                 guard let arrList = response as? [String:Any] else { return }
                 self.fetchHome.loadData()
                 if let arrStatus = arrList["message"] as? String{
-                    print("arrStatus,\(arrStatus)")
+                    print("#######arrStatus\(arrStatus)")
                 }
             }
         }
@@ -1739,7 +1729,7 @@ extension UserChatDetailViewController{
                         guard let userid = appDelegate.loginUser?.user_id else { return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(self.userID?.description, userID:userid.description , subject: "send a text message to you", MsgType: "CHAT_MESSAGE", MsgSent: type, showDisplayContent: "send a text message to you", senderName: firstName + lastName, post_ID: [:])
+                        MIGeneralsAPI.shared().sendNotification(self.userID?.description, userID:userid.description , subject: "send a text message to you", MsgType: "CHAT_MESSAGE", MsgSent: type, showDisplayContent: "send a text message to you", senderName: firstName + lastName, post_ID: self.chatInfoNot)
                         if let arrStatus = arrList["message"] as? String{
                             print("arrStatus,\(arrStatus)")
                         }

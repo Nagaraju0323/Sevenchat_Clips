@@ -504,7 +504,7 @@ extension AddMediaViewController  {
                         self.imgName = imgUrls
                         let content:[String:Any]  = [
                             "mime": "image",
-                            "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                            "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                             "image_path":imgUrls
                         ]
                         do {
@@ -556,7 +556,7 @@ extension AddMediaViewController  {
                             self.imgName = imgUrls
                             let content:[String:Any]  = [
                                 "mime": "video",
-                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                 "image_path":imgUrls
                             ]
                             
@@ -737,7 +737,7 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                         self?.imgName = imgUrls
                         let content:[String:Any]  = [
                             "mime": "video",
-                            "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                            "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                             "image_path":imgUrls
                         ]
                         
@@ -803,7 +803,7 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                             self?.imgName = imgUrls
                             let content:[String:Any]  = [
                                 "mime": "video",
-                                "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                 "image_path":imgUrls
                             ]
                             
@@ -874,13 +874,13 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
                             if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
                                 content = [
                                     "mime": "video",
-                                    "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                    "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                     "image_path":imgUrls
                                 ]
                             }else {
                                 content = [
                                     "mime": "image",
-                                    "media": "blob:http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                    "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
                                     "image_path":imgUrls
                                 ]
                             }

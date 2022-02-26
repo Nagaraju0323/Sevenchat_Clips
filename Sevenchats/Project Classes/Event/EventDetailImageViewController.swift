@@ -124,7 +124,8 @@ class EventDetailImageViewController: ParentViewController {
     var Interested = ""
     var notInterested = ""
     var mayBe = ""
-    
+    var notificationInfo = [String:Any]()
+    var isSelectedChoice = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -266,7 +267,7 @@ extension EventDetailImageViewController {
     func loadEventDetailFromServer() {
         self.parentView.isHidden = true
         
-        APIRequest.shared().viewPostDetailNew(postID: self.postID!, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in
+        APIRequest.shared().viewPostDetailNew(postID: self.postID ?? 0, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil {
                 self.parentView.isHidden = false
@@ -296,7 +297,9 @@ extension EventDetailImageViewController {
         
         //...Set prefilled event detail here
         eventInfo = dict
+        notificationInfo = eventInfo
         self.postIDNew = dict.valueForString(key:CPostId)
+        self.postID = dict.valueForString(key:CPostId).toInt
 //        posted_ID = dict.valueForString(key: "user_id")
         if isLikesOthersPage == true {
             posted_ID = self.posted_IDOthers
@@ -329,6 +332,7 @@ extension EventDetailImageViewController {
         self.Interested = dict.valueForString(key: "yes_count")
         self.notInterested = dict.valueForString(key: "no_count")
         self.mayBe = dict.valueForString(key: "maybe_count")
+        self.isSelectedChoice = dict.valueForString(key: "selected_choice")
         
         let image = dict.valueForString(key: "image")
         if image.isEmpty {
@@ -338,29 +342,6 @@ extension EventDetailImageViewController {
         }
         self.eventImgURL = dict.valueForString(key: "image")
         let is_Liked = dict.valueForString(key: CIsLiked)
-        
-//        if is_Liked == "Yes"{
-//            btnLike.isSelected = true
-//        }else {
-//            btnLike.isSelected = false
-//        }
-        
-        
-        
-//        if isLikesOthersPage == true {
-//            if dict.valueForString(key:"friend_liked") == "Yes"  || dict.valueForString(key:"is_liked") == "Yes" {
-//                btnLike.isSelected = true
-//                if dict.valueForString(key:"is_liked") == "No"{
-//                    isLikeSelected = false
-//                }
-//            }else {
-//                if dict.valueForString(key:"is_liked") == "No" || dict.valueForString(key:"friend_liked") == "No" {
-//                    isLikeSelected = true
-//                }
-//                btnLike.isSelected = false
-//            }
-//        }
-        
         
         if isLikesOthersPage == true {
             if dict.valueForString(key:"friend_liked") == "Yes"  && dict.valueForString(key:"is_liked") == "Yes" {
@@ -385,9 +366,6 @@ extension EventDetailImageViewController {
 
             }
         }
-        
-        
-        
         if isLikesHomePage == true  || isLikesMyprofilePage == true {
             if dict.valueForString(key:CIs_Liked) == "Yes"{
                 btnLike.isSelected = true
@@ -437,19 +415,7 @@ extension EventDetailImageViewController {
             }
             
         }
-        
-        
-        
-//        switch dict.valueForString(key: "selected_choice").toInt ?? 0 {
-//        case 3:
-//            btnMaybe.isSelected = true
-//        case 1:
-//            btnInterested.isSelected = true
-//        case 2:
-//            btnNotInterested.isSelected = true
-//        default:
-//            break
-//        }
+
         setSelectedButtonStyle(dict)
         setSelectedButtonStyle()
         
@@ -689,22 +655,50 @@ extension EventDetailImageViewController {
                 print(self.posted_ID)
             switch eventInfo.valueForInt(key: CIsInterested) {
             case CTypeInterested:
-//                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
-//                }
-                eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+                
+                if self.posted_ID == user_ID {
+                    eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+                }else {
+                    if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 || isSelectedChoice == "null"{
+                        var intrestCount = self.Interested.toInt ?? 0
+                        intrestCount = +1
+                        notificationInfo["yes_count"] = intrestCount.toString
+                        notificationInfo["selected_choice"] = "1"
+                      MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo)
+                    }
+                    eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+                }
                 break
             case CTypeNotInterested:
-//                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
-//                }
-                eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+                    if self.posted_ID == user_ID {
+                        eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+                    }else {
+                        
+                        if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 || isSelectedChoice == "null"{
+                            var notIntrestCount = self.notInterested.toInt ?? 0
+                            notIntrestCount = +1
+                            notificationInfo["no_count"] = notIntrestCount
+                            notificationInfo["selected_choice"] = "2"
+
+                        MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo)
+                        }
+                        eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+                    }
                 break
             case CTypeMayBeInterested:
-//                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
-//                }
-                eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+                
+                if self.posted_ID == user_ID {
+                    eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+                }else {
+                    if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 || isSelectedChoice == "null"{
+                        var maybeCount = self.mayBe.toInt ?? 0
+                        maybeCount = +1
+                        notificationInfo["maybe_count"] = maybeCount
+                        notificationInfo["selected_choice"] = "3"
+                        MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
+                    }
+                    eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+                }
                 break
             default:
                 break
@@ -739,11 +733,7 @@ extension EventDetailImageViewController {
             self.setEventDetail(dict: eventInfo)
             MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
             }
-            
-            
-            
-            
-    }
+        }
     }
     func deletePost(_ eventInfo : [String : Any]?) {
         
@@ -1057,7 +1047,27 @@ extension EventDetailImageViewController{
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:])
+
+                        
+                        //                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:])
+                        
+                        if self?.posted_ID == user_ID {
+                        }else {
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
+                        }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                        }
+                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                        if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                            let stausLike = metaInfo["status"] as? String ?? "0"
+                            if stausLike == "0" {
+                            }
+                        }
+                    }
+                        
                         self?.notifcationIsSlected = false
                     }
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.postIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
@@ -1282,7 +1292,10 @@ extension EventDetailImageViewController{
                             guard let lastName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: [:])
+                                self.notificationInfo["comments"] = self.commentCount
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
+
+                                //                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: [:])
                             }
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }

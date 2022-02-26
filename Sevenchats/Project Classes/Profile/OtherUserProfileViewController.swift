@@ -637,6 +637,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
                             userDetailVC.isCreateNewChat = false
                             userDetailVC.iObject = userInfo
+                            userDetailVC.chatInfoNot = userInfo
                             userDetailVC.userID = userInfo.valueForInt(key: CUserId)
                             userDetailVC.userIDuser = userInfo.valueForString(key: "user_id")
                             userDetailVC.isCreateNewChat = true

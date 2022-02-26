@@ -9,7 +9,7 @@
 /*********************************************************
  * Author  : Chandrika.R                                 *
  * Model   : BlockUserListViewController                 *
- * Changes :                                             *
+ * Changes : List Blocker Users & UnBlock Users          *
  *                                                       *
  ********************************************************/
 
@@ -175,7 +175,8 @@ extension BlockUserListViewController : UITableViewDataSource, UITableViewDelega
         if let cell = tableView.dequeueReusableCell(withIdentifier: "BlockUserListTblCell", for: indexPath) as? BlockUserListTblCell {
             let userInfo = arrBlockUserList[indexPath.row]
             cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-            cell.imgUser.image=UIImage(named: "ic_sidemenu_normal_profile")
+            cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+//            cell.imgUser.image = UIImage(named: "profile_image")
             cell.btnUnblock.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageUnBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
