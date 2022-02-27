@@ -110,6 +110,7 @@ class ImageDetailViewController: ParentViewController {
     var isLikesHomePage:Bool?
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
+    var notificationInfo = [String:Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -229,6 +230,7 @@ extension ImageDetailViewController{
         arrGalleryImageLatest.removeAll()
         if let galInfo = gallerInfo{
             galleryInfo = galInfo
+            notificationInfo = galInfo
             self.imgPostIdNew = galleryInfo.valueForString(key:CPostId)
 //            posted_ID = galleryInfo.valueForString(key: "user_id")
             if isLikesOthersPage == true {
@@ -260,28 +262,7 @@ extension ImageDetailViewController{
             
             self.vwCountImage.isHidden = (arrGalleryImage.count <= 1)
             let is_Liked = galleryInfo.valueForString(key: CIsLiked)
-//            if is_Liked == "Yes"{
-//                btnLike.isSelected = true
-//            }else {
-//                btnLike.isSelected = false
-//            }
-            
-            
-            
-//            if isLikesOthersPage == true {
-//                if galleryInfo.valueForString(key:"friend_liked") == "Yes"  || galleryInfo.valueForString(key:"is_liked") == "Yes" {
-//                    btnLike.isSelected = true
-//                    if galleryInfo.valueForString(key:"is_liked") == "No"{
-//                        isLikeSelected = false
-//                    }
-//                }else {
-//                    if galleryInfo.valueForString(key:"is_liked") == "No" || galleryInfo.valueForString(key:"friend_liked") == "No" {
-//                        isLikeSelected = true
-//                    }
-//                    btnLike.isSelected = false
-//                }
-//            }
-            
+
             if isLikesOthersPage == true {
                 if galleryInfo.valueForString(key:"friend_liked") == "Yes"  && galleryInfo.valueForString(key:"is_liked") == "Yes" {
                     btnLike.isSelected = true
@@ -305,9 +286,6 @@ extension ImageDetailViewController{
 
                 }
             }
-            
-            
-            
             if isLikesHomePage == true  || isLikesMyprofilePage == true {
                 if galleryInfo.valueForString(key:CIs_Liked) == "Yes"{
                     btnLike.isSelected = true
@@ -315,10 +293,6 @@ extension ImageDetailViewController{
                     btnLike.isSelected = false
                 }
             }
-            
-            
-            
-            
             likeCount = galleryInfo.valueForString(key: CLikes).toInt ?? 0
             self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
             commentCount = galleryInfo.valueForString(key: "comments").toInt ?? 0
@@ -677,16 +651,6 @@ extension ImageDetailViewController{
         if sender.tag == 0{
         self.btnLike.isSelected = !self.btnLike.isSelected
         
-//        if self.btnLike.isSelected == true{
-//            likeCount = 1
-//            like = 1
-//            notifcationIsSlected = true
-//        }else {
-//            likeCount = 2
-//            like = 0
-//        }
-        
-        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
@@ -727,7 +691,7 @@ extension ImageDetailViewController{
                     }
                     let data = response![CJsonMeta] as? [String:Any] ?? [:]
                     let stausLike = data["status"] as? String ?? "0"
-                    if stausLike == "0"{
+                    if stausLike == "0" {
                         self?.likeCountfromSever(productId: self?.imgPostIdNew?.toInt ?? 0,likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
                     }
                 }
@@ -754,7 +718,16 @@ extension ImageDetailViewController{
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:])
+                        if self?.posted_ID != user_ID {
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
+                        }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                        }
+                            self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                        }
                         self?.notifcationIsSlected = false
                     }
                     
@@ -808,9 +781,7 @@ extension ImageDetailViewController{
                 // Get Mention user's Ids..
                 let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
                 
-                guard let userID = appDelegate.loginUser?.user_id else{
-                    return
-                }
+                guard let userID = appDelegate.loginUser?.user_id else{return}
                 let userId = userID.description
                 APIRequest.shared().sendProductCommentnew(productId:imgId.description, commentId : self.editCommentId, comment: strComment, include_user_id: userId)  { [weak self] (response, error) in
                     
@@ -849,8 +820,8 @@ extension ImageDetailViewController{
                             guard let firstName = appDelegate.loginUser?.first_name else {return}
                             guard let lastName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
-                            if stausLike == "0" {
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: [:])
+                            if self.posted_ID != userID.description{
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo ?? [:])
                             }
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }

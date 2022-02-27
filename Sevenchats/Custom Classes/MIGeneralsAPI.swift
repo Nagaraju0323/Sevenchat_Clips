@@ -2352,12 +2352,10 @@ extension MIGeneralsAPI {
             var imgStr_Fourth = ""
 
             
-            if post_Type == "post_gallery"{
+            if post_Type == "post_gallery" || post_Type == "post_poll" {
                         let imagConv_first = jsonToString?.replacingOccurrences(of: "\\\"", with:  "\"") ?? ""
-        //                let imgStr_First = jsonToString?.replacingOccurrences(of: "\\\"", with: "\"")
                         let imagConv_sec = imagConv_first.replacingOccurrences(of: "\"", with: "\\\"")
                         let imagConv_Third = imagConv_sec.replacingOccurrences(of: "\n", with: "")
-//                        let imgStr_Fourths = imgStrConvert?.replacingOccurrences(of: "\\\\\"", with:  "\\\"") ?? ""
                         imgStr_Fourth = imagConv_Third
                         print("imgStr_Fourth\(imgStr_Fourth)")
                         
@@ -2368,9 +2366,6 @@ extension MIGeneralsAPI {
                         imgStr_Fourth = imgStrConvert ?? ""
                     }
            
-//            let imgStr_Fourth = imgStr_Third?.replacingOccurrences(of: "\\\\\"", with:  "\\\"")
-//            let imgStrConvert = imgStr_Fourth?.replacingOccurrences(of: "\n", with: "")
-//            let imgStrConverts = imgStrConvert?.replacingOccurrences(of: "{ ", with: "{")
             contentStr = imgStr_Fourth
             
         } catch {

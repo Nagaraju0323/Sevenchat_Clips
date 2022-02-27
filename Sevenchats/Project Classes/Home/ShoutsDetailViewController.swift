@@ -541,6 +541,11 @@ extension ShoutsDetailViewController{
                                 self.notificationInfo["comments"] = self.commentCount
                                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
                             }
+                            if self.posted_ID != user_ID{
+                            self.notificationInfo["comments"] = self.commentCount
+                            MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
+                            }
+                            
                             
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }
@@ -578,16 +583,7 @@ extension ShoutsDetailViewController{
     @IBAction func btnLikeCLK(_ sender : UIButton){
         if sender.tag == 0{
         self.btnLike.isSelected = !self.btnLike.isSelected
-        
-//        if self.btnLike.isSelected == true{
-//            likeCount = 1
-//            like = 1
-//            notifcationIsSlected = true
-//        }else {
-//            likeCount = 2
-//            like = 0
-//        }
-        
+
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
@@ -656,12 +652,7 @@ extension ShoutsDetailViewController{
                         guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-//
-//                        if self?.posted_ID == user_ID {
-//
-//                        }else {
-//                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:] )
-//                        }
+
                         if self?.posted_ID == user_ID {
                         }else {
                         

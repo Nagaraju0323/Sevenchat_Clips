@@ -244,15 +244,7 @@ extension PollDetailsViewController {
             notificationInfo = pollInfo
             
             self.pollIDNew = pollInfo.valueForString(key:CPostId)
-//            posted_ID = pollInfo.valueForString(key: "user_id")
-            print(":::::::::::::::is_selected::\(pollInfo.valueForString(key: "is_selected"))")
-            
-//            if self.isLikesOthersPage == true {
-//                self.SelectedByUser = self.pollInfo.valueForString(key: "friend_selected")
-//            }else {
-//                self.SelectedByUser = self.pollInfo.valueForString(key: "is_selected")
-//            }
-            
+
             if isLikesOthersPage == true {
                 posted_ID = self.posted_IDOthers
             }else {
@@ -445,16 +437,6 @@ extension PollDetailsViewController{
         if sender.tag == 0{
         self.btnLike.isSelected = !self.btnLike.isSelected
         
-//        if self.btnLike.isSelected == true{
-//            likeCount = 1
-//            like = 1
-//            notifcationIsSlected = true
-//        }else {
-//            likeCount = 2
-//            like = 0
-//        }
-        
-        
                 if self.btnLike.isSelected == true{
                     likeCount = 1
                     like = 1
@@ -532,6 +514,7 @@ extension PollDetailsViewController{
                             self?.notificationInfo["is_liked"] = "Yes"
                         }
                         self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        self?.notificationInfo["options"] = ""
                         MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lassName, post_ID: self?.notificationInfo ?? [:])
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
                             let stausLike = metaInfo["status"] as? String ?? "0"
@@ -540,20 +523,15 @@ extension PollDetailsViewController{
                         }
                     }
                         
-//                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post",senderName: firstName + lassName, post_ID: [:])
+
                         self?.notifcationIsSlected = false
                     }
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.pollIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
-                    
-                    
                     
                 }
             }
         }
     }
-    
-    
-    
     
     @IBAction func btnShareReportCLK(_ sender : UIButton){
         //self.presentActivityViewController(mediaData: pollInformation.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
@@ -842,18 +820,18 @@ extension PollDetailsViewController{
                             }
                             
                             let data = response![CJsonMeta] as? [String:Any] ?? [:]
-                            guard let firstName = appDelegate.loginUser?.first_name else {return}
-                            guard let lassName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
-                            if stausLike == "0" {
-//                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Comment to Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Comment to Post", senderName:firstName + lassName, post_ID: [:] )
-//                                
+                            if stausLike == "0"  {
+
+                            }
+                            if self.posted_ID != userId.description{
                                 guard let firstName = appDelegate.loginUser?.first_name else {return}
                                 guard let lassName = appDelegate.loginUser?.last_name else {return}
                                 self.notificationInfo["comments"] = self.commentCount
+                                self.notificationInfo["options"] = ""
                                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lassName, post_ID: self.notificationInfo)
+                                
                             }
-                            
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }
                         self.editCommentId =  nil

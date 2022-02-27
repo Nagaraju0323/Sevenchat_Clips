@@ -341,29 +341,20 @@ extension HomeGalleryCell {
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
                         if self?.posted_ID == user_ID {
-                            
                         }else {
-                            
                             if self?.isLikesOthersPage == true {
                                 self?.notificationInfo["friend_liked"] = "Yes"
                             }
                             if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
                                 self?.notificationInfo["is_liked"] = "Yes"
-                                
                             }
                             
-                            print(":::::::::::postInfo\(self?.notificationInfo.valueForString(key: "image"))")
-                            let img = self?.notificationInfo.valueForString(key: "image")
-                            let convert = self?.convertToDictionarys(from:img ?? "")
-                            
-                            self?.notificationInfo["image"] = convert
+                            self?.notificationInfo["image"] = ""
                             self?.notificationInfo["likes"] = self?.likeTotalCount.toString
                             MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
                             if let metaInfo = response![CJsonMeta] as? [String : Any] {
                                 let stausLike = metaInfo["status"] as? String ?? "0"
                                 if stausLike == "0" {
-                                    
-                                    
                                 }
                             }
                         }
@@ -401,7 +392,6 @@ extension HomeGalleryCell{
         } catch let error {
             print(error)
         }
-        
         return nil
     }
     

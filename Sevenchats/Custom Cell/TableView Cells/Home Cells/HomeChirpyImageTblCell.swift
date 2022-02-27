@@ -156,8 +156,6 @@ extension HomeChirpyImageTblCell{
         let cnvStr = created_At.stringBefore("G")
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblChirpyPostDate.text = startCreated
-        
-        
     }
     
 }

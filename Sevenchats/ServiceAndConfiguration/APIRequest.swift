@@ -2904,8 +2904,7 @@ extension APIRequest {
         
     }
     func getNotificationList(param:[String:Any], completion : @escaping ClosureCompletion) -> URLSessionTask {
-//    func getNotificationList(receiver : String?,pageNumber:String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-        
+
         return Networking.sharedInstance.GETNEWPRNOTF(apiTag: CAPITagNotifications, param: param as [String : AnyObject], successBlock: { (task, response) in
             
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNotificationList){

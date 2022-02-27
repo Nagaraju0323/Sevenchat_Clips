@@ -802,16 +802,15 @@ extension ArticleDetailViewController{
                             let data = response![CJsonMeta] as? [String:Any] ?? [:]
                             let stausLike = data["status"] as? String ?? "0"
                             if stausLike == "0" {
-                                
+                            
+                            }
+                            if self.posted_ID != userID.description {
                                 
                                 self.notificationInfo["comments"] = self.commentCount
+                                self.notificationInfo["comments"] = self.commentCount
                                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
-                                
-//                                self.notificationInfo["comments"] = self.commentCount
-//                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
-                                
-//                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: [:])
                             }
+                            
                             
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }

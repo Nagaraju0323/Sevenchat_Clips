@@ -46,6 +46,7 @@ class ProductListCell: UITableViewCell {
     var likeTotalCount = 0
     var arrMedia : [MDLAddMedia] = []
     var notifcationIsSlected = false
+    var productDetails = [String:Any]()
     
     
     var product : MDLProduct!{
@@ -169,17 +170,20 @@ extension ProductListCell {
                     self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
                     if self?.notifcationIsSlected == true{
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                            let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-                            guard let image = appDelegate.loginUser?.profile_img else { return }
                             let stausLike = metaInfo["status"] as? String ?? "0"
                             if stausLike == "0" {
-
+                                
                             }
                         }
+                        
                         guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(self?.product.productUserID, userID: user_ID, subject: "liked your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Product", senderName: firstName + lastName, post_ID: [:])
+                     
+                        self?.productDetails["type"] = "productDetails"
+                        self?.productDetails["product_id"] = self?.product.productID
+                        self?.productDetails["productUserID"] = self?.product.productUserID
+                        MIGeneralsAPI.shared().sendNotification(self?.product.productUserID, userID: user_ID, subject: "liked your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Product", senderName: firstName + lastName, post_ID: self?.productDetails ?? [:])
                         self?.notifcationIsSlected = false
                     }
                     

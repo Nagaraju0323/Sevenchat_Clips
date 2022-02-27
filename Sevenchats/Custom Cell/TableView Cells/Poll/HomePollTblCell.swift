@@ -62,7 +62,9 @@ class HomePollTblCell: UITableViewCell {
     var  is_Selected: String = ""
     var notificationInfo = [String:Any]()
     var voteCount:Int?
-
+    
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -323,6 +325,7 @@ extension HomePollTblCell {
                             self?.notificationInfo["is_liked"] = "Yes"
                         }
                         self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        self?.notificationInfo["options"] = ""
                         MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
                             let stausLike = metaInfo["status"] as? String ?? "0"
@@ -396,7 +399,6 @@ extension HomePollTblCell {
                         if let Info = response!["data"] as? [[String:Any]]{
                             for articleInfo in Info {
                                 self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
-                                print("articleInfoas? String\(articleInfo["is_selected"] as? String)")
                                 self.is_Selected = articleInfo["is_selected"] as? String ?? ""
                             }
                         }

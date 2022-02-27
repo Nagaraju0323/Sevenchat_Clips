@@ -244,14 +244,8 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         let notificationInfo = arrNotiificationList[indexPath.row]
         let dict = notificationInfo.valueForString(key: "content")
         let stringCovt = dict.replace(string: "\\", replacement: "\"")
-//        let stringCovts = stringCovt.replace(string: "[{", replacement: "[")
-//        let stringCovtss = stringCovts.replace(string: "}]", replacement: "]")
-//        let stringCovttest = stringCovts.replace(string: "\"[", replacement: "")
-    
-
         let notificationDict = convertToDictionary(from: stringCovt)
         let notifcationContent = notificationDict.valueForString(key:"content")
-        print(":::::::::::::Notifciaton\(notificationInfo)")
         let created_At = notificationInfo.valueForString(key: "timestamp")
         let cnvStr = created_At.stringBefore("G")
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
@@ -274,9 +268,6 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
             
             return cell
         }
-        
-       
-        
         return UITableViewCell()
         
     }
@@ -284,13 +275,8 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         var notifKey = ""
-        
         let notificationInfo = arrNotiificationList[indexPath.row]
         let notfiContent = notificationInfo.valueForString(key: "content")
-     
-//        let stringCovt = notfiContent.replace(string: "\\", replacement: "")
-//        print("notfication::::::::::\(stringCovt)")
-        
         userID = notificationInfo.valueForString(key: "sender")
         let nib = notificationInfo.valueForString(key: "nid")
         do {
@@ -340,7 +326,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                     self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
                 }
                 
-                    break
+                break
                 
             case kNotTypeGroupADD:
                 //Group chat detail screen
@@ -354,14 +340,14 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
             case kNotTypeFriendReqAccept,
                  kNotTypeFriendReqSentNew:
                 appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
-            break
+                break
             case kNotTypeFriendBlocked:
-               
+                
                 self.presentAlertViewWithOneButton(alertTitle: CAlertblocked, alertMessage: CMessageNoLongerFriend, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            
-            break
+                
+                break
             case  kNotTypeEventType:
-             
+                
                 if let eventInviteesVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController{
                     let postID = postInfo.valueForString(key: CPostId)
                     eventInviteesVC.postIDNew = postID
@@ -369,11 +355,9 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                     eventInviteesVC.eventInfo = postInfo
                     self.navigationController?.pushViewController(eventInviteesVC, animated: true)
                 }
-            break
+                break
                 
             case kNotTypeCommnet,kNotTypeCommnet:
-                
-                
                 switch post_type {
                 case "post_shout":
                     if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
@@ -389,22 +373,9 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                         self.navigationController?.pushViewController(articleDetailVC, animated: true)
                     }
                 case "post_gallery":
-                    if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
-                        
-//                        var arr1 = [NSArray]()
-                        let image = self.postInfo.valueForString(key: "image")
-                        let convert = image.replace(string: "\n", replacement: "")
-                        let converts = convert.replace(string: "\"", replacement: "")
-                        let convertss = converts.replace(string: "}) ", replacement: "}]")
-                        
-                        
-                        let returnval = convertDic(from: convert)
-                        print("image:::::\(returnval)")
-                        postInfo["image"] = convertss
-                        imageDetailVC.galleryInfo = postInfo
-                        imageDetailVC.imgPostId = postInfo.valueForString(key: "post_id").toInt
-                        self.navigationController?.pushViewController(imageDetailVC, animated: true)
-                    }
+                    let postID = postInfo.valueForString(key: "post_id")
+                    self.getGalleryDetailsFromServer(imgPostId: postID.toInt,postInfo:self.postInfo)
+                    
                     
                 case "post_chirpy":
                     if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
@@ -425,12 +396,15 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                         self.navigationController?.pushViewController(eventDetailVC, animated: true)
                     }
                 case "post_poll":
-                    if let pollDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? PollDetailsViewController {
-                        pollDetailVC.pollInformation = postInfo
-                        pollDetailVC.posted_ID = postInfo.valueForString(key: "post_id")
-                        
-                        self.navigationController?.pushViewController(pollDetailVC, animated: true)
+                    let productID = self.postInfo.valueForString(key: "post_id")
+                    self.getPollDetailsFromServer(pollID: productID.toInt, postInfo: self.postInfo)
+                case "productDetails":
+                    let productID = self.postInfo.valueForString(key: "product_id")
+                    if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
+                        ProductDetailVC.productIds = productID
+                        self.navigationController?.pushViewController(ProductDetailVC, animated: true)
                     }
+                    
                 default:
                     break
                     
@@ -469,14 +443,13 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                     self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
                                 }
                                 break
-                      
-                        case kNotTypeGroup:
-                            if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
-                                groupChatDetailVC.iObject =  self.postInfo
-                                groupChatDetailVC.isCreateNewChat = false
-                                self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
-                            }
-                            
+                            case kNotTypeGroup:
+                                if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
+                                    groupChatDetailVC.iObject =  self.postInfo
+                                    groupChatDetailVC.isCreateNewChat = false
+                                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+                                }
+                                
                                 break
                             case kNotTypeGroupADD:
                                 //Group chat detail screen
@@ -490,14 +463,13 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                 
                             case kNotTypeFriendReqAccept,kNotTypeFriendReqSentNew:
                                 appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
-                               break
+                                break
                             case kNotTypeFriendBlocked:
-                               
-                                self.presentAlertViewWithOneButton(alertTitle: CAlertblocked, alertMessage: CMessageNoLongerFriend, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                            
-                            break
-                            case  kNotTypeEventType:
                                 
+                                self.presentAlertViewWithOneButton(alertTitle: CAlertblocked, alertMessage: CMessageNoLongerFriend, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                                
+                                break
+                            case  kNotTypeEventType:
                                 if let eventInviteesVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController{
                                     let postID = self.postInfo.valueForString(key: CPostId)
                                     eventInviteesVC.postID = postID.toInt
@@ -505,15 +477,9 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                     eventInviteesVC.eventInfo = self.postInfo
                                     self.navigationController?.pushViewController(eventInviteesVC, animated: true)
                                 }
-                                
-                                
-                                
-                            break
+                                break
                                 
                             case kNotTypeCommnet,kNotTypeCommnet:
-                                //                                if let HomeVC = CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
-                                //                                    self.navigationController?.pushViewController(HomeVC, animated: true)
-                                //                                }
                                 
                                 switch self.post_type {
                                 case "post_shout":
@@ -530,15 +496,8 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                         self.navigationController?.pushViewController(articleDetailVC, animated: true)
                                     }
                                 case "post_gallery":
-                                    if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
-                                        
-                                        imageDetailVC.galleryInfo = self.postInfo
-                                        let image = self.postInfo.valueForString(key: "image")
-                                        let images = self.convertToDictionarys(from: image)
-                                        print("image:::::\(images)")
-                                        imageDetailVC.imgPostId = self.postInfo.valueForString(key: "post_id").toInt
-                                        self.navigationController?.pushViewController(imageDetailVC, animated: true)
-                                    }
+                                    let postID = self.postInfo.valueForString(key: "post_id")
+                                    self.getGalleryDetailsFromServer(imgPostId: postID.toInt,postInfo:self.postInfo)
                                     
                                 case "post_chirpy":
                                     if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
@@ -558,23 +517,18 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                         eventDetailVC.eventInfo = self.postInfo
                                         self.navigationController?.pushViewController(eventDetailVC, animated: true)
                                     }
-                                case "post_poll":
-                                    if let pollDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? PollDetailsViewController {
-                                        pollDetailVC.pollInformation = self.postInfo
-                                        pollDetailVC.posted_ID = self.postInfo.valueForString(key: "post_id")
-                                        
-                                        self.navigationController?.pushViewController(pollDetailVC, animated: true)
+                                case "productDetails":
+                                    let productID = self.postInfo.valueForString(key: "product_id")
+                                    if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
+                                        ProductDetailVC.productIds = productID
+                                        self.navigationController?.pushViewController(ProductDetailVC, animated: true)
                                     }
+                                case "post_poll":
+                                    let productID = self.postInfo.valueForString(key: "post_id")
+                                    self.getPollDetailsFromServer(pollID: productID.toInt, postInfo: self.postInfo)
                                 default:
                                     break
                                     
-                                }
-                                break
-                            case kNotTypeCommnet:
-                                
-                                
-                                if let HomeVC = CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController {
-                                    self.navigationController?.pushViewController(HomeVC, animated: true)
                                 }
                                 break
                             default:
@@ -586,38 +540,66 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
             })
         }
     }
+    
+    func getGalleryDetailsFromServer(imgPostId:Int?,postInfo:[String:Any]) {
+        var imagesUpload = ""
+        if let imgID = imgPostId {
+            APIRequest.shared().viewPostDetailNew(postID: imgID, apiKeyCall: CAPITagsgalleryDetials){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    if let Info = response!["data"] as? [[String:Any]]{
+                        for galleryInfo in Info {
+                            imagesUpload = galleryInfo["image"] as? String ?? ""
+                        }
+                        if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
+                            self.postInfo["image"] = imagesUpload
+                            imageDetailVC.galleryInfo = self.postInfo
+                            imageDetailVC.imgPostId = postInfo.valueForString(key: "post_id").toInt
+                            self.navigationController?.pushViewController(imageDetailVC, animated: true)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func getPollDetailsFromServer(pollID:Int?,postInfo:[String:Any]) {
+        var options = ""
+        if let artID = pollID {
+            APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    //self.parentView.isHidden = false
+                    DispatchQueue.main.async {
+                        if let Info = response!["data"] as? [[String:Any]]{
+                            for articleInfo in Info {
+                                options = articleInfo["options"] as? String ?? ""
+                            }
+                            if let pollDetailVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
+                                self.postInfo["options"] = options
+                                pollDetailVC.pollInformation = self.postInfo
+                                pollDetailVC.posted_ID = postInfo.valueForString(key: "post_id")
+                                
+                                self.navigationController?.pushViewController(pollDetailVC, animated: true)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension NotificationViewController{
     
     func convertToDictionary(from text: String) -> [String: Any] {
-      //  print("text from the valies\(text)")
+        //  print("text from the valies\(text)")
         guard let data = text.data(using: .utf8) else { return [:] }
         let anyResult: Any? = try? JSONSerialization.jsonObject(with: data, options:[])
         return anyResult as? [String: Any] ?? [:]
     }
     
-    func convertToDictionarys(from text: String) -> [[String: Any]] {
-        guard let data = text.data(using: .utf8) else { return [[:]] }
-        let anyResult: Any? = try? JSONSerialization.jsonObject(with: data, options:[[]])
-        return anyResult as? [[String: Any]] ?? [[:]]
-    }
-    
-    
-    func convertDic(from text:String) -> [[String:Any]]{
-        var strConvert = [[String:Any]]()
-        let data = text.data(using: String.Encoding.utf8, allowLossyConversion: false)!
-
-        do {
-            let json = try JSONSerialization.jsonObject(with: data, options: [[]]) as! [[String: AnyObject]]
-            strConvert = json
-            print("strConvert\(strConvert)")
-         
-        } catch let error as NSError {
-            print("Failed to load: \(error.localizedDescription)")
-        }
-        return strConvert
-    }
 }
 
 

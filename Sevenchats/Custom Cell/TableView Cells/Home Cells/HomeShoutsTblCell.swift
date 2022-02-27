@@ -229,30 +229,22 @@ extension HomeShoutsTblCell {
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     
                     if self?.notifcationIsSlected == true{
-                        if self?.posted_ID == user_ID {
-                            
-                        }else {
-                          
-                            if self?.posted_ID == user_ID {
-                                
-                            }else {
-                            self?.notificationInfo["likes"] = self?.likeTotalCount.toString
-                            if self?.isLikesOthersPage == true {
-                                self?.notificationInfo["friend_liked"] = "Yes"
-                            }
-                            if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
-                                self?.notificationInfo["is_liked"] = "Yes"
-                            }
-                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
-                        }
+                      
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
                             _ = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                             let stausLike = metaInfo["status"] as? String ?? "0"
-                            if stausLike == "0" {
-                                
+                            if  self?.posted_ID != user_ID  {
+                                self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                                if self?.isLikesOthersPage == true {
+                                    self?.notificationInfo["friend_liked"] = "Yes"
+                                }
+                                if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                                    self?.notificationInfo["is_liked"] = "Yes"
+                                }
+                                MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
                             }
                         }
-                    }
+                    
                         self?.notifcationIsSlected = false
                     }
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)

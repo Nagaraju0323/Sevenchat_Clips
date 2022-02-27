@@ -1048,9 +1048,6 @@ extension EventDetailImageViewController{
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     if self?.notifcationIsSlected == true{
 
-                        
-                        //                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:])
-                        
                         if self?.posted_ID == user_ID {
                         }else {
                         if self?.isLikesOthersPage == true {
@@ -1291,11 +1288,10 @@ extension EventDetailImageViewController{
                             guard let firstName = appDelegate.loginUser?.first_name else {return}
                             guard let lastName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
-                            if stausLike == "0" {
+                            if self.postID ?? 0 != userID{
                                 self.notificationInfo["comments"] = self.commentCount
                                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
 
-                                //                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: [:])
                             }
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }

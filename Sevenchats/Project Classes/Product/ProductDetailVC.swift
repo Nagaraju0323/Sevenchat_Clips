@@ -80,6 +80,7 @@ class ProductDetailVC: ParentViewController {
     var productVC:Int?
     var productUserID = ""
     var ImgName = ""
+    var productNotfi = [String:Any]()
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -591,25 +592,27 @@ extension ProductDetailVC {
                                 self.product?.totalComments = productCount.toString
                                 self.getCommentListFromServer(showLoader: true)
                                 ProductHelper<UIViewController>.updateProductDatacomments(product: self.product!,totalComment:productCount.toString, controller: self, refreshCnt: [StoreListVC.self, ProductSearchVC.self])
-                                
                                 self.isEditBtnCLK = false
                             }
-                            
                         }
                         self.genericTextViewDidChange(self.txtViewComment, height: 10)
                     }
-                    
                     let data = response![CJsonMeta] as? [String:Any] ?? [:]
                     guard let userID = appDelegate.loginUser?.user_id else{return}
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     let stausLike = data["status"] as? String ?? "0"
                     if stausLike == "0" {
-                        MIGeneralsAPI.shared().sendNotification(self.productUserID, userID: userID.description, subject: "Commented on your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Product", senderName: firstName + lastName, post_ID: [:])
+                       
                     }
                     
+                    self.productNotfi["type"] = "productDetails"
+                    self.productNotfi["product_id"] = self.product?.productID
+                    self.productNotfi["productUserID"] = self.product?.productUserID
+                    
+                    MIGeneralsAPI.shared().sendNotification(self.productUserID, userID: userID.description, subject: "Commented on your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Product", senderName: firstName + lastName, post_ID: self.productNotfi)
                     self.editCommentId =  nil
-                    //                    self.tblProduct.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: false)
+                    //self.tblProduct.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: false)
                     //self.lblNoData.isHidden = self.arrCommentList.count != 0
                 }
             }
