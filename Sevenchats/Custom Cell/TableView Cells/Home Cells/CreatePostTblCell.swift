@@ -41,7 +41,7 @@ class CreatePostTblCell: UITableViewCell{
         didSet{
         self.textViewMessage.txtDelegate = self
         self.textViewMessage.textLimit = "150"
-        self.textViewMessage.type = "1"
+        self.textViewMessage.type = "3"
         }
     }
     @IBOutlet weak var viewMainContainer : UIView!

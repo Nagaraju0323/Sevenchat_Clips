@@ -193,14 +193,25 @@ extension SelectLanguageViewController{
                 if let langID = CUserDefaults.value(forKey: UserDefaultSelectedLangID) as? Int {
                     if let arrLang  = TblLanguage.fetch(predicate: NSPredicate(format: "lang_id==%d",langID)) as? [TblLanguage] {
                         if arrLang.count > 0 {
-                            self.selectedLanguage = arrLang.last
+                            if BASEURL_Rew == "QA"{
+                                self.selectedLanguage = arrLang.first
+                            }else if BASEURL_Rew == "Dev"{
+                                self.selectedLanguage = arrLang.last
+                            }
+                            
                         }
                     }
                 }else {
                     //...Get English language if not selected anyone
                     if let arrLang  = TblLanguage.fetch(predicate: nil, orderBy: "lang_id", ascending: true) as? [TblLanguage] {
                         if arrLang.count > 0 {
-                            self.selectedLanguage = arrLang.last
+                            
+                            if BASEURL_Rew == "QA"{
+                                self.selectedLanguage = arrLang.first
+                            }else if BASEURL_Rew == "Dev"{
+                                self.selectedLanguage = arrLang.last
+                            }
+//                            self.selectedLanguage = arrLang.last
                         }
                     }
                 }
@@ -216,14 +227,26 @@ extension SelectLanguageViewController{
                 if let langID = CUserDefaults.value(forKey: UserDefaultSelectedLangID) as? Int {
                     if let arrLang  = TblLanguage.fetch(predicate: NSPredicate(format: "lang_id==%d",langID)) as? [TblLanguage] {
                         if arrLang.count > 0 {
-                            self.selectedLanguage = arrLang.last
+                            
+                            if BASEURL_Rew == "QA"{
+                                self.selectedLanguage = arrLang.first
+                            }else if BASEURL_Rew == "Dev"{
+                                self.selectedLanguage = arrLang.last
+                            }
+//                            self.selectedLanguage = arrLang.last
                         }
                     }
                 }else {
                     //...Get English language if not selected anyone
                     if let arrLang  = TblLanguage.fetch(predicate: nil, orderBy: "lang_id", ascending: true) as? [TblLanguage] {
                         if arrLang.count > 0 {
-                            self.selectedLanguage = arrLang.last
+                            
+                            if BASEURL_Rew == "QA"{
+                                self.selectedLanguage = arrLang.first
+                            }else if BASEURL_Rew == "Dev"{
+                                self.selectedLanguage = arrLang.last
+                            }
+//                            self.selectedLanguage = arrLang.last
                         }
                     }
                 }

@@ -172,7 +172,7 @@
                                                             <rect key="frame" x="20" y="0.0" width="335" height="110"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Stories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVZ-sd-9yL">
-                                                                    <rect key="frame" x="5" y="2" width="107.5" height="21"/>
+                                                                    <rect key="frame" x="5" y="2" width="99" height="20"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="yvM-V6-YX2"/>
                                                                     </constraints>
@@ -181,14 +181,14 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cc0-0k-4JK">
-                                                                    <rect key="frame" x="5" y="28" width="315" height="1"/>
+                                                                    <rect key="frame" x="5" y="27" width="315" height="1"/>
                                                                     <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="1" id="jDn-Ti-nPn"/>
                                                                     </constraints>
                                                                 </view>
                                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="36o-Ji-1ik">
-                                                                    <rect key="frame" x="5" y="34" width="325" height="77"/>
+                                                                    <rect key="frame" x="5" y="33" width="325" height="78"/>
                                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="1" minimumInteritemSpacing="1" id="IEM-pD-H2E">
                                                                         <size key="itemSize" width="82" height="90"/>
@@ -553,7 +553,7 @@
                                         <color key="color" red="0.0" green="0.75294119119644165" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </activityIndicatorView>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJW-Nu-zvg" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="166.5" y="428.5" width="42.5" height="22.5"/>
+                                        <rect key="frame" x="168" y="430" width="39.5" height="19"/>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -4067,7 +4067,7 @@
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Lily Morie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFO-rm-aTP" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="51" y="8" width="176" height="54"/>
+                                                                            <rect key="frame" x="51" y="8" width="184" height="54"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="54" id="Yz3-M3-tjI"/>
                                                                             </constraints>
@@ -4076,7 +4076,7 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gpg-be-BEO">
-                                                                            <rect key="frame" x="235" y="20" width="90" height="30"/>
+                                                                            <rect key="frame" x="243" y="20" width="82" height="30"/>
                                                                             <color key="backgroundColor" red="0.12941177189350128" green="0.74901962280273438" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="30" id="Z8Q-X4-whN"/>

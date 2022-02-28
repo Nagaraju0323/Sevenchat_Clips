@@ -57,13 +57,20 @@ class SellerInfoCell: UITableViewCell, ProductDetailBaseCell  {
             guard let firstName = appDelegate.loginUser?.first_name else {return}
             guard let lastName = appDelegate.loginUser?.last_name else {return}
             let userName = "\(firstName) \(lastName)"
-            MIGeneralsAPI.shared().sendNotification(self.modelData.userId ?? "", userID: user_ID.description, subject: "Viewed your product \(self.modelData.productDescription ?? "") please click to view \(userName)", MsgType: "CHAT_MESSAGE", MsgSent:"", showDisplayContent: "Product", senderName: firstName + lastName, post_ID: [:])
+            var para  = [String:Any]()
+            para = [
+                "user_id"  : user_ID,
+//                "userName" : userName,
+                "reciver_userID"  : self.modelData.userId ?? "",
+                "type_Details" : "productDetails"
+                ]
+            MIGeneralsAPI.shared().sendNotification(self.modelData.userId ?? "", userID: user_ID.description, subject: "Viewed your product \(self.modelData.productDescription ?? "") please click to view \(userName)", MsgType: "CHAT_MESSAGE", MsgSent:"", showDisplayContent: "Product Viewed", senderName: firstName + lastName, post_ID: para)
             contactInfo.productIDs = self.modelData.productID
             contactInfo.productEmailid = self.modelData.pemail
             contactInfo.productUserName = self.modelData.firstName + " " + self.modelData.lastName
             contactInfo.productMobile = self.modelData.pmobileNum
             
-            self.viewController?.navigationController?.pushViewController(contactInfo, animated: true)
+//            self.viewController?.navigationController?.pushViewController(contactInfo, animated: true)
             
         }
     }

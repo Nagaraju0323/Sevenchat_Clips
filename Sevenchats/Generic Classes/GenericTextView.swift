@@ -251,6 +251,9 @@ class GenericTextView: UITextView, UITextViewDelegate {
                 }
                 } else {
                    print("normal typing")
+                    
+                    
+                    
                     _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
                     let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
                     let filtered = text.components(separatedBy: cs).joined(separator: "")
@@ -284,6 +287,48 @@ class GenericTextView: UITextView, UITextViewDelegate {
         }
         }
         }
+        
+        
+        if type == "3"{
+        if txtDelegate != nil {
+            if text.contains(UIPasteboard.general.string ?? "") {
+               print("paste")
+                _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
+            if textLimit?.toInt != 0 && !(textLimit?.isBlank)! {
+                return textView.text.count + (text.count - range.length) <= (textLimit?.toInt)!
+            }
+            } else {
+               print("normal typing")
+                let str = (textView.text + text)
+                if str.count <= 150 {
+                    _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
+                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                    let filtered = text.components(separatedBy: cs).joined(separator: "")
+                  return (text == filtered)
+                }
+            }
+        // Check text limit here....
+        if textLimit != nil {
+            if textLimit?.toInt != 0 && !(textLimit?.isBlank)! {
+                return textView.text.count + (text.count - range.length) <= (textLimit?.toInt)!
+            }
+        
+        }
+    }else{
+    if txtDelegate != nil {
+        _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
+    }
+    
+    // Check text limit here....
+    if textLimit != nil {
+        if textLimit?.toInt != 0 && !(textLimit?.isBlank)! {
+            return textView.text.count + (text.count - range.length) <= (textLimit?.toInt)!
+        }
+    }
+    }
+    }
+        
+        
         return true
     }
     

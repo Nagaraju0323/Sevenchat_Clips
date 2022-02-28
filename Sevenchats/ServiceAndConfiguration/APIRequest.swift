@@ -41,7 +41,6 @@ let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
 let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
 let BASEURL_Rew: String = "Dev"
 
-
 //////MARK:- MINIO
 let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 
@@ -2022,9 +2021,9 @@ extension APIRequest {
         
         let dict : [String:Any]  =  [
             "user_id":user_id?.description as Any,
-            "post_type" : search_type as Any
-            
-            
+            "post_type" : search_type as Any,
+            "page" : page?.description as Any,
+            "limit" : CLimitTT
         ]
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagHomePostsNew, param: dict as [String : AnyObject], successBlock: { (task, response) in
             completion(response, nil)

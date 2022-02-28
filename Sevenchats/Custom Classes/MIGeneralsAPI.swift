@@ -1897,11 +1897,11 @@ extension MIGeneralsAPI {
                 }
             }
             
-            if viewController.isKind(of: PollDetailsViewController.classForCoder()){
-                
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
-            }
+//            if viewController.isKind(of: PollDetailsViewController.classForCoder()){
+//
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+//                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+//            }
             
             if viewController.isKind(of: MyProfileViewController.classForCoder()){
                 
@@ -2322,11 +2322,9 @@ extension MIGeneralsAPI {
         guard let lastName = appDelegate.loginUser?.last_name else {return}
         guard let profileImg = appDelegate.loginUser?.profile_img else {return}
         
-        
         let post_Type = post_ID.valueForString(key: "type")
         
-        
-        let userName = "\(firstName)\(lastName)"
+        let userName = "\(firstName)\(" ")\(lastName)"
         var contentStr = ""
         let content:[String:Any]  = [
             "subject":subject as Any,
@@ -2346,7 +2344,6 @@ extension MIGeneralsAPI {
           
             var imgStr_Fourth = ""
 
-            
             if post_Type == "post_gallery" || post_Type == "post_poll" {
                         let imagConv_first = jsonToString?.replacingOccurrences(of: "\\\"", with:  "\"") ?? ""
                         let imagConv_sec = imagConv_first.replacingOccurrences(of: "\"", with: "\\\"")
@@ -2368,9 +2365,7 @@ extension MIGeneralsAPI {
         }
         //        let image = "https:\\/\\/qa.sevenchats.com:3443\\/sevenchats\\/7736772922\\/1636189071050.jpg"
         //        let profileImgRlc = profileImg.replacingOccurrences(of: "/", with: "\\/")
-        
-        
-        
+
         let dict:[String:Any] = [
             "receiver":receiverID ?? "",
             "sender":userID ?? "",

@@ -99,7 +99,10 @@ class HomeViewController: ParentViewController {
         searchbtnNav.addTarget(self, action: #selector(btnSearchClicked(_:)), for: .touchUpInside)
         let navSearchbtn = UIBarButtonItem(customView: searchbtnNav)
         
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_filter"), style: .plain, target: self, action: #selector(btnFilterClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
+//        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_filter"), style: .plain, target: self, action: #selector(btnFilterClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
+        
+        
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
         tblEvents.estimatedRowHeight = 250;
         tblEvents.rowHeight = UITableView.automaticDimension;
         tblEvents.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 85, right: 0)
@@ -191,6 +194,7 @@ extension HomeViewController {
                             self.arrPostList.removeAll()
                             self.tblEvents.reloadData()
                         }
+                        self.isLoadMoreCompleted = arrArticleList.isEmpty
                         // Add Data here...
                         if arrArticleList.count > 0 {
                             self.arrPostList = self.arrPostList + arrArticleList
@@ -716,6 +720,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                     if isSelectedFilter == true{
                         self.getPostListFromServerFilter()
+                        print(":::::::::;Filter is calling::::::::")
                     }else {
                         self.getPostListFromServer(showLoader: false)
                     }
@@ -851,6 +856,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                     if isSelectedFilter == true {
                         self.getPostListFromServerFilter()
+                        print(":::::::::;Filter is calling::::::::")
                     }else {
                         self.getPostListFromServer(showLoader: false)
                     }
@@ -883,6 +889,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
                         if userID == appDelegate.loginUser?.user_id{
                             self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                            print(":::::::::;Filter is calling::::::::")
                         }else{
                             self?.btnSharedReportCLK(postInfo: postInfo)
                         }
@@ -927,6 +934,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
+                            print(":::::::::;Filter is calling::::::::")
                         }else {
                             self.getPostListFromServer(showLoader: false)
                         }
@@ -981,8 +989,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                     if isSelectedFilter == true {
                         self.getPostListFromServerFilter()
+                        print(":::::::::;Filter is calling::::::::")
                     }else {
                         self.getPostListFromServer(showLoader: false)
+                        
                     }
                     
                     self.getPostListFromServer(showLoader: false)
@@ -1058,6 +1068,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                             if isSelectedFilter == true {
                                 self.getPostListFromServerFilter()
+                                print(":::::::::;Filter is calling::::::::")
                             }else {
                                 self.getPostListFromServer(showLoader: false)
                             }
@@ -1111,6 +1122,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
+                            print(":::::::::;Filter is calling::::::::")
                         }else {
                             self.getPostListFromServer(showLoader: false)
                         }
@@ -1180,6 +1192,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                             
                             if isSelectedFilter == true {
                                 self.getPostListFromServerFilter()
+                                print(":::::::::;Filter is calling::::::::")
                             }else {
                                 self.getPostListFromServer(showLoader: false)
                             }
@@ -1233,6 +1246,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
+                            print(":::::::::;Filter is calling::::::::")
                         }else {
                             self.getPostListFromServer(showLoader: false)
                         }
@@ -1310,6 +1324,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
+                            print(":::::::::;Filter is calling::::::::")
                         }else {
                             self.getPostListFromServer(showLoader: false)
                         }
@@ -1363,6 +1378,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     if isSelectedFilter == true {
                         self.getPostListFromServerFilter()
+                        print(":::::::::;Filter is calling::::::::")
                     }else {
                         self.getPostListFromServer(showLoader: false)
                     }
@@ -1440,6 +1456,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
+                            print(":::::::::;Filter is calling::::::::")
                         }else {
                             self.getPostListFromServer(showLoader: false)
                         }
@@ -1495,6 +1512,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     if isSelectedFilter == true {
                         self.getPostListFromServerFilter()
+                        print(":::::::::;Filter is calling::::::::")
                     }else {
                         self.getPostListFromServer(showLoader: false)
                     }
@@ -1578,6 +1596,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                             
                             if isSelectedFilter == true {
                                 self.getPostListFromServerFilter()
+                                print(":::::::::;Filter is calling::::::::")
                             }else {
                                 self.getPostListFromServer(showLoader: false)
                             }
@@ -1637,6 +1656,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
+                            print(":::::::::;Filter is calling::::::::")
                         }else {
                             self.getPostListFromServer(showLoader: false)
                         }
@@ -1715,6 +1735,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                             
                             if isSelectedFilter == true {
                                 self.getPostListFromServerFilter()
+                                print(":::::::::;Filter is calling::::::::")
                             }else {
                                 self.getPostListFromServer(showLoader: false)
                             }
@@ -1771,6 +1792,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
+                            print(":::::::::;Filter is calling::::::::")
                         }else {
                             self.getPostListFromServer(showLoader: false)
                         }
@@ -1856,6 +1878,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
+                            print(":::::::::;Filter is calling::::::::")
                         }else {
                             self.getPostListFromServer(showLoader: false)
                         }
@@ -1914,6 +1937,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                     if self.isSelectedFilter == true {
                         self.getPostListFromServerFilter()
+                        print(":::::::::;Filter is calling::::::::")
                     }else {
                         self.getPostListFromServer(showLoader: false)
                     }

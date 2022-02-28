@@ -39,7 +39,7 @@ class CreateShoutsViewController: ParentViewController {
         didSet{
             self.textViewMessage.txtDelegate = self
             self.textViewMessage.textLimit = "150"
-            self.textViewMessage.type = "1"
+            self.textViewMessage.type = "3"
         }
     }
     
@@ -76,7 +76,7 @@ class CreateShoutsViewController: ParentViewController {
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnCreateShoutsClicked(_:)))]
         btnInviteTypeCLK(btnInviteAllFriend)
         
-        if shoutsType == .shareQuote{
+        if shoutsType == .addShouts{
             self.setQuoteText()
         }
     }
@@ -355,6 +355,8 @@ extension CreateShoutsViewController: UICollectionViewDelegate, UICollectionView
 extension CreateShoutsViewController: GenericTextViewDelegate{
     
     func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
+        
+        
         lblTextCount.text = "\(textView.text.count)/150"
     }
     

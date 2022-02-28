@@ -81,9 +81,11 @@ class SocketIOManager: NSObject {
                 for notifi in notifications{
                     let content = notifi["content"] as? String
                     let contentConvert = content?.replace(string: "\\", replacement: "")
-                    let dictNot =  self.convertToDictionarywithtry(from: contentConvert ?? "")
-                    let  senderName = dictNot?["senderName"]
-                    self.scheduleNotification(notificationType: notifi["subject"] as? String ?? "",senderName:senderName ?? "")
+                    let dictNot =  self.convertToDictionaryToConent(from: contentConvert ?? "")
+                    let  senderName = dictNot["senderName"] as? String ?? ""
+                    self.scheduleNotification(notificationType: notifi["subject"] as? String ?? "",senderName:senderName)
+                
+                    
                     dict["subject"] = notifi["subject"] as? String
                     dict["sender"] = notifi["sender"] as? String
                 }
@@ -114,6 +116,20 @@ class SocketIOManager: NSObject {
         guard let data = text.data(using: .utf8) else { return nil }
         let anyResult = try? JSONSerialization.jsonObject(with: data, options: [])
         return anyResult as? [String: String]
+    }
+    
+    func convertToDictionary(from text: String) -> [String: Any] {
+        //  print("text from the valies\(text)")
+        guard let data = text.data(using: .utf8) else { return [:] }
+        let anyResult: Any? = try? JSONSerialization.jsonObject(with: data, options:[])
+        return anyResult as? [String: Any] ?? [:]
+    }
+    
+    func convertToDictionaryToConent(from text: String) -> [String: Any] {
+        //  print("text from the valies\(text)")
+        guard let data = text.data(using: .utf8) else { return [:] }
+        let anyResult: Any? = try? JSONSerialization.jsonObject(with: data, options:[])
+        return anyResult as? [String: Any] ?? [:]
     }
     
 }

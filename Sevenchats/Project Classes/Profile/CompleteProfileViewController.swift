@@ -492,7 +492,7 @@ extension CompleteProfileViewController{
                 let education = txtEducation.text ?? ""
                 
                 if !lastname.isEmpty && !firstName.isEmpty && !user_acc_type.isEmpty && !gender.isEmpty && !religion.isEmpty && !txtCity.isEmpty && !profile.isEmpty && !txtmobile.isEmpty && !txtemail.isEmpty && !dob.isEmpty && !bio.isEmpty && !reltionship.isEmpty && !professionText.isEmpty && !txtCity.isEmpty && !latitude.description.isEmpty && !lang.description.isEmpty && !user_type.isEmpty && !status_id.isEmpty && !langName.isEmpty && !emplymenntStatus.description.isEmpty && !income.isEmpty && !user_id.isEmpty && !country_name.isEmpty && !state_name.isEmpty  && !education.isEmpty{
-                    self.getRewardsDetail(isLoader:true)
+//                    self.getRewardsDetail(isLoader:true)
                 }
                
                 let metaInfo = response![CJsonMeta] as? [String:Any] ?? [:]

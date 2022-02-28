@@ -41,6 +41,7 @@ class HomeSearchViewController: ParentViewController {
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
     var param = [String:Any]()
+    var notificationInfo = [String:Any]()
     
     var pageNumber = 1
     
@@ -164,8 +165,10 @@ extension HomeSearchViewController  {
         
         let serchTextStr = searchText?.firstCharacterUpperCase()
         param[CName] = serchTextStr
-        param[CPage] = "1"
+        //        param[CPage] = "1"
+        param[CPage] = pageNumber
         param[CLimitS] = CLimitTW
+        param["user_id"] = appDelegate.loginUser?.user_id.description
         APIRequest.shared().userSearchDetail(Param: param){ [weak self] (response, error) in
             guard let self = self else { return }
             self.tblEvents.tableFooterView = nil
@@ -209,12 +212,18 @@ extension HomeSearchViewController  {
             guard let self = self else { return }
             if response != nil{
                 
+                let dict :[String:Any]  =  [
+                    "user_id":  user_ID.description,
+                    "friend_user_id": friend_ID,
+                ]
+                
                 if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
                     if  metaData.valueForString(key: "message") == "Request sent successfully"{
                         guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "send you a Friends Request", MsgType: "FRIEND_REQUEST", MsgSent:"", showDisplayContent: "send you a Friends Request", senderName: firstName + lastName, post_ID: [:])
+                      
+                        MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "send you a Friends Request", MsgType: "FRIEND_REQUEST", MsgSent:"", showDisplayContent: "send you a Friends Request", senderName: firstName + " " + lastName, post_ID: dict)
                     }
                 }
                 
@@ -365,8 +374,8 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                         }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "0" && arrLst.valueForString(key: "cancel_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
                                             self?.Friend_status = 0
                                         }
-
-
+                                        
+                                        
                                         var frndStatus = 1
                                         var isShowAlert = true
                                         var alertMessage = ""
@@ -386,11 +395,11 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                             isShowAlert = true
                                             alertMessage =  CMessageUnfriend + " " + first_name + " " + last_name
                                         case 6:
-//                                            cell.btnAddFrd.isEnabled = false
+                                            //                                            cell.btnAddFrd.isEnabled = false
                                             cell.btnAddFrd.isUserInteractionEnabled = false
                                             isShowAlert = false
                                         case 7:
-                                          frndStatus = CFriendUnblock
+                                            frndStatus = CFriendUnblock
                                             isShowAlert = true
                                             alertMessage = CMessageUnBlockUser
                                             
