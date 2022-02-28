@@ -522,8 +522,6 @@ extension PollDetailsViewController{
                             }
                         }
                     }
-                        
-
                         self?.notifcationIsSlected = false
                     }
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.pollIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)

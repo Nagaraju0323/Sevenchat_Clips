@@ -726,6 +726,7 @@ extension ImageDetailViewController{
                             self?.notificationInfo["is_liked"] = "Yes"
                         }
                             self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                            self?.notificationInfo["image"] = ""
                             MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
                         }
                         self?.notifcationIsSlected = false
@@ -820,8 +821,9 @@ extension ImageDetailViewController{
                             guard let firstName = appDelegate.loginUser?.first_name else {return}
                             guard let lastName = appDelegate.loginUser?.last_name else {return}
                             let stausLike = data["status"] as? String ?? "0"
+                            self.notificationInfo["image"] = ""
                             if self.posted_ID != userID.description{
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo ?? [:])
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post" ,senderName: firstName + lastName, post_ID: self.notificationInfo )
                             }
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }

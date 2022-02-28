@@ -563,7 +563,6 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
     
-    
     func getPollDetailsFromServer(pollID:Int?,postInfo:[String:Any]) {
         var options = ""
         if let artID = pollID {

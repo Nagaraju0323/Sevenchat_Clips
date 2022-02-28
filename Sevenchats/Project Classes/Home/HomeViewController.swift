@@ -33,7 +33,6 @@ class HomeViewController: ParentViewController {
     
     var searchbtnNav = UIButton()
     var arrPostList = [[String : Any]]()
-//    var arrPostList = [[String : Any]]()
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
@@ -61,8 +60,6 @@ class HomeViewController: ParentViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-//        self.getPostListFromServer(showLoader: true)
         
         NotificationCenter.default.addObserver(self, selector: #selector(loading), name: NSNotification.Name(rawValue: "loading"), object: nil)
         lblNoData.text = CToEnhanceFeed
@@ -792,8 +789,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
+                            print(":::::::::;Filter is calling::::::::")
                         }else {
                             self.getPostListFromServer(showLoader: false)
+                            print(":::::::::;Normalclling is calling::::::::")
                         }
 //                        self.getPostListFromServer(showLoader: false)
                     }
@@ -1872,7 +1871,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 // .... LOAD MORE DATA HERE
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                     if self.isSelectedFilter == true {
-                        
+                        self.getPostListFromServerFilter()
                     }else {
                         self.getPostListFromServer(showLoader: false)
                     }

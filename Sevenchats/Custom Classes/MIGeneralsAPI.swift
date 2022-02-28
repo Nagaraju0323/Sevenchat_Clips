@@ -1898,12 +1898,7 @@ extension MIGeneralsAPI {
             }
             
             if viewController.isKind(of: PollDetailsViewController.classForCoder()){
-
                 
-                
-                
-
-
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
             }
