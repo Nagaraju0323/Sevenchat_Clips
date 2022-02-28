@@ -81,17 +81,25 @@ extension HomeSharedPollTblCell{
     
     func homePollDataSetup(_ postInfo : [String : Any]){
         
-        postID = postInfo.valueForInt(key: CId) ?? 0
-        if let sharedData = postInfo[CSharedPost] as? [String:Any]{
-            self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
-            self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-            lblMessage.text = sharedData.valueForString(key: CMessage)
-        }
+        postID = postInfo.valueForString(key: "post_id").toInt ?? 0
+       // if let sharedData = postInfo[CSharedPost] as? [String:Any]{
+            self.lblSharedUserName.text = postInfo.valueForString(key: CFullName)
+        let shared_created_at = postInfo.valueForString(key: CCreated_at)
+                let shared_cnvStr = shared_created_at.stringBefore("G")
+                let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
+                lblSharedPostDate.text = shared_Date
+           // self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+            lblMessage.text = postInfo.valueForString(key: CMessage)
+       // }
 
         postData = postInfo
         lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        lblPollPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+        let created_at = postInfo.valueForString(key: CCreated_at)
+                let cnvStr = created_at.stringBefore("G")
+                let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+        lblPollPostDate.text = Created_Date
+        //lblPollPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
         lblPollTitle.text = postInfo.valueForString(key: CTitle)
         
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
