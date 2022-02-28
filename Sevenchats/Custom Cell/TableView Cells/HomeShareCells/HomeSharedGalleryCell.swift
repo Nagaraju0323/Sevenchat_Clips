@@ -79,6 +79,8 @@ class HomeSharedGalleryCell: UITableViewCell {
             self.lblGalleryType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
             self.vwCountImage.layer.cornerRadius = 4
+            
+            
         }
         
         clGallery.register(UINib(nibName: "HomeEventGalleryCell", bundle: nil), forCellWithReuseIdentifier: "HomeEventGalleryCell")
@@ -122,17 +124,23 @@ class HomeSharedGalleryCell: UITableViewCell {
 extension HomeSharedGalleryCell {
     func homeGalleryDataSetup(_ postInfo : [String : Any]) {
         
-        postID = postInfo.valueForInt(key: CId) ?? 0
+        postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         
-        if let sharedData = postInfo[CSharedPost] as? [String:Any]{
-            self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
-            self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-            lblMessage.text = sharedData.valueForString(key: CMessage)
-        }
+      //  if let sharedData = postInfo[CSharedPost] as? [String:Any]{
+            self.lblSharedUserName.text = postInfo.valueForString(key: CFullName)
+        let shared_created_at = postInfo.valueForString(key: CCreated_at)
+                let shared_cnvStr = shared_created_at.stringBefore("G")
+                let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
+                lblSharedPostDate.text = shared_Date
+           // self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+            lblMessage.text = postInfo.valueForString(key: CMessage)
+       // }
         
-        if let arrImg = postInfo[CGalleryImages] as? [[String : Any]] {
-            arrGalleryImage = arrImg
+        if let arrImg = postInfo["image"] as? String {
+            let dict = arrImg.convertToDictionary()
+            let arrDictGallery = dict ?? []
+            arrGalleryImage = arrDictGallery
             clGallery.reloadData()
             setCurrentImageCount()
         }
@@ -140,7 +148,11 @@ extension HomeSharedGalleryCell {
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         //"\(CPostedOn) " + DateFormatte
-        self.lblGalleryPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+        let created_at = postInfo.valueForString(key: CCreated_at)
+                let cnvStr = created_at.stringBefore("G")
+                let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+        lblGalleryPostDate.text = Created_Date
+       // self.lblGalleryPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         lblGalleryType.text = CTypeGallery
         if postInfo.valueForString(key: CCategory) == "0"{
@@ -179,21 +191,38 @@ extension HomeSharedGalleryCell: UICollectionViewDelegate, UICollectionViewDataS
         //return CGSize(width:clGallery.frame.size.width, height: clGallery.frame.size.width)
         return CGSize(width:clGallery.bounds.width, height: clGallery.bounds.height)
     }
+    
+    
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeEventGalleryCell", for: indexPath) as! HomeEventGalleryCell
         cell.vwBackgroundImg.backgroundColor = UIColor(hex: "DEDDE5")
         let imageInfo = arrGalleryImage[indexPath.row]
-        let mediaType = imageInfo.valueForInt(key: CType) ?? 1
-        if (mediaType == 2){
-            //cell.imgGalleryEvent.loadImageFromUrl(imageInfo.valueForString(key: CThumbNail), false)
-            cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: CThumbNail), false)
+        let mediaType = imageInfo.valueForString(key: "mime")
+        if (mediaType == "video") || (mediaType == "vidoe"){
+            if let url = URL(string: imageInfo.valueForString(key: "image_path")) {
+                if let thumbnailImage = getThumbnailImage(forUrl: url) {
+                    cell.blurImgView.image = thumbnailImage
+                }
+            }
             cell.imgVideoIcon.isHidden =  false
         }else{
-            //cell.imgGalleryEvent.loadImageFromUrl(imageInfo.valueForString(key: CImage), false)
-            cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: CImage), false)
+            print(" imageInfo.valueForString(key: CImage)  \(imageInfo.valueForString(key: "image_path"))")
+            cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
             cell.imgVideoIcon.isHidden =  true
         }
+//        let mediaType = imageInfo.valueForInt(key: CType) ?? 1
+//        if (mediaType == 2){
+//            //cell.imgGalleryEvent.loadImageFromUrl(imageInfo.valueForString(key: CThumbNail), false)
+//            cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: CThumbNail), false)
+//            cell.imgVideoIcon.isHidden =  false
+//        }else{
+//            //cell.imgGalleryEvent.loadImageFromUrl(imageInfo.valueForString(key: CImage), false)
+//            cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: CImage), false)
+//            cell.imgVideoIcon.isHidden =  true
+//        }
         return cell
     }
     
@@ -204,9 +233,21 @@ extension HomeSharedGalleryCell: UICollectionViewDelegate, UICollectionViewDataS
         lightBoxHelper.openMultipleImagesWithVideo(arrGalleryImage: arrGalleryImage, controller: weakSelf,selectedIndex: indexPath.row)
     }
     
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 6
+//    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 6
+        return 2
+        
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 2
+    }
+    
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setCurrentImageCount()
@@ -234,4 +275,19 @@ extension HomeSharedGalleryCell {
         self.btnLikesCount.setTitle(appDelegate.getLikeString(like: self.likeCount), for: .normal)
         MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.postID, rss_id: nil, type: 1, likeStatus: self.btnLike.isSelected ? 1 : 0, viewController: self.viewController)
     }
+}
+extension HomeSharedGalleryCell{
+    func getThumbnailImage(forUrl url: URL) -> UIImage? {
+        let asset: AVAsset = AVAsset(url: url)
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        
+        do {
+            let thumbnailImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 1, timescale: 60), actualTime: nil)
+            return UIImage(cgImage: thumbnailImage)
+        } catch let error {
+            print(error)
+        }
+        return nil
+    }
+    
 }

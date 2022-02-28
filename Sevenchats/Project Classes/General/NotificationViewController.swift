@@ -339,7 +339,9 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                 
             case kNotTypeFriendReqAccept,
                  kNotTypeFriendReqSentNew:
-                appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
+                
+                appDelegate.moveOnProfileScreenNew(notificationInfo.valueForString(key: "sender"),notificationInfo.valueForString(key: CUsermailID), self)
+              //  appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
                 break
             case kNotTypeFriendBlocked:
                 

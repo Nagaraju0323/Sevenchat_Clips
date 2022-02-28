@@ -148,12 +148,12 @@ extension HomeSharedEventImageTblCell{
     func homeEventDataSetup(_ postInfo : [String : Any]){
         
         postID = postInfo.valueForInt(key: CId) ?? 0
-        if let sharedData = postInfo[CSharedPost] as? [String:Any]{
-            self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
-            self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-            lblMessage.text = sharedData.valueForString(key: CMessage)
-        }
+       // if let sharedData = postInfo[CSharedPost] as? [String:Any]{
+            self.lblSharedUserName.text = postInfo.valueForString(key: CFullName)
+            self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+            lblMessage.text = postInfo.valueForString(key: CMessage)
+       // }
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         self.lblEventPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
         
