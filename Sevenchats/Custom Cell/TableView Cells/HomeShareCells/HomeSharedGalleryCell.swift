@@ -127,8 +127,8 @@ extension HomeSharedGalleryCell {
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         
       //  if let sharedData = postInfo[CSharedPost] as? [String:Any]{
-            self.lblSharedUserName.text = postInfo.valueForString(key: CFullName)
-        let shared_created_at = postInfo.valueForString(key: CCreated_at)
+            self.lblSharedUserName.text = postInfo.valueForString(key: CFullName) + " "  + postInfo.valueForString(key: CLastName)
+        let shared_created_at = postInfo.valueForString(key: CShared_Created_at)
                 let shared_cnvStr = shared_created_at.stringBefore("G")
                 let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
                 lblSharedPostDate.text = shared_Date
@@ -165,6 +165,7 @@ extension HomeSharedGalleryCell {
         likeCount = postInfo.valueForInt(key: CTotal_like) ?? 0
         
         let commentCount = postInfo.valueForInt(key: CTotalComment) ?? 0
+        
         
         btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)

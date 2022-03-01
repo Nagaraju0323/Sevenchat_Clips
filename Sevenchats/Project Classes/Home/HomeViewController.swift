@@ -45,7 +45,7 @@ class HomeViewController: ParentViewController {
     var postTypeDelete = ""
     var dict = [String:Any]()
     var shoutsType : ShoutsType!
-    var isShared = 0
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -733,15 +733,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         switch postInfo.valueForString(key: CPostTypeNew) {
         case CStaticArticleIdNew:
             //            1-article
-            let isshared = (postInfo.valueForString(key: "shared_by") != "N/A") ? 1 : 0
-            if postInfo.valueForString(key: "shared_by") != "N/A" {
-                isShared = 1
-            }else{
-                isShared = 0
-            }
+            let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
            // let isshared = 0
             let isdelete = 1
-            if isshared == 1 && isdelete == 1{
+            if isShared == 1 && isdelete == 1{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedArticleCell", for: indexPath) as? HomeSharedArticleCell {
                     cell.homeArticleDataSetup(postInfo)
                     
@@ -869,11 +864,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             //            2-gallery
             //let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
           //  let isshared = 0
-            if postInfo.valueForString(key: "shared_by") != "N/A" {
-                isShared = 1
-            }else{
-                isShared = 0
-            }
+            let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
             if isShared == 1{
                 
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedGalleryCell", for: indexPath) as? HomeSharedGalleryCell {
@@ -1004,11 +995,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         case CStaticChirpyIdNew:
             //            3-chripy
             if postInfo.valueForString(key: CImage).isBlank{
-                if postInfo.valueForString(key: "shared_by") != "N/A" {
-                    isShared = 1
-                }else{
-                    isShared = 0
-                }
+                let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 //let isshared = 0
                 if isShared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyTblCell", for: indexPath) as? HomeSharedChirpyTblCell {
@@ -1260,11 +1247,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         case CStaticShoutIdNew:
             //            4-shout
             // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
-            if postInfo.valueForString(key: "shared_by") != "N/A" {
-                isShared = 1
-            }else{
-                isShared = 0
-            }
+            let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
            // let isshared = 0
             if isShared == 1{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedShoutsTblCell", for: indexPath) as? HomeSharedShoutsTblCell {
@@ -1391,11 +1374,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         case CStaticForumIdNew:
             //            5-forum
             // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
-            if postInfo.valueForString(key: "shared_by") != "N/A" {
-                isShared = 1
-            } else{
-                isShared = 0
-            }
+            let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
            // let isshared = 0
             if isShared == 1{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedFourmTblCell", for: indexPath) as? HomeSharedFourmTblCell {
@@ -1527,12 +1506,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             if postInfo.valueForString(key: CImage).isBlank{
                 
                 // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
-                if postInfo.valueForString(key: "shared_by") != "N/A" {
-                    isShared = 1
-                } else{
-                    isShared = 0
-                }
-                let isshared = 0
+                let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+                
                 if isShared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventsCell", for: indexPath) as? HomeSharedEventsCell {
                         cell.homeEventDataSetup(postInfo)
@@ -1666,12 +1641,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     return cell
                 }
             }else{
-                if postInfo.valueForString(key: "shared_by") != "N/A" {
-                    isShared = 1
-                }else{
-                    isShared = 0
-                }
-               // let isshared = 0
+                let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 if isShared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell", for: indexPath) as? HomeSharedEventImageTblCell {
                         cell.homeEventDataSetup(postInfo)
@@ -1805,11 +1775,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
             
         case CStaticPollIdNew: // Poll Cell....
-            if postInfo.valueForString(key: "shared_by") != "N/A" {
-                isShared = 1
-            }else{
-                isShared = 0
-            }
+            let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
            // let isshared = 0
             if isShared == 1{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedPollTblCell", for: indexPath) as? HomeSharedPollTblCell {

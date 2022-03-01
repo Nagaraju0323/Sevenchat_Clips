@@ -108,8 +108,8 @@ extension HomeSharedArticleCell{
         
         
        // if let sharedData = postInfo[CSharedPost] as? [String:Any]{
-            self.lblSharedUserName.text = postInfo.valueForString(key: CFullName)
-        let shared_created_at = postInfo.valueForString(key: CCreated_at)
+            self.lblSharedUserName.text = postInfo.valueForString(key: CFullName) + " " + postInfo.valueForString(key: CLastName)
+        let shared_created_at = postInfo.valueForString(key: CShared_Created_at)
         let shared_cnvStr = shared_created_at.stringBefore("G")
         let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
         lblSharedPostDate.text = shared_Date
@@ -124,7 +124,14 @@ extension HomeSharedArticleCell{
         let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblArticlePostDate.text = Created_Date
       //  self.lblArticlePostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-        blurImgView.loadImageFromUrl(postInfo.valueForString(key: CImage), false)
+//        blurImgView.loadImageFromUrl(postInfo.valueForString(key: CImage), false)
+//        imgURL = postInfo.valueForString(key: CImage)
+        let image = postInfo.valueForString(key: "image")
+        if image.isEmpty {
+            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+        }else{
+            blurImgView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
+        }
         imgURL = postInfo.valueForString(key: CImage)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         
