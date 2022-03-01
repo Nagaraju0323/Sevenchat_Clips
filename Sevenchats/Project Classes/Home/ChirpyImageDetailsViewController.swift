@@ -106,6 +106,7 @@ class ChirpyImageDetailsViewController: ParentViewController {
         setChirpyDetailData(chirpyInformation)
         self.updateUIAccordingToLanguage()
         self.getCommentListFromServer()
+        self.setChirpyDetailData(chirpyInformation)
     }
     
     // MARK:- --------- Initialization

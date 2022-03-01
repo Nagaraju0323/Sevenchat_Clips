@@ -157,7 +157,7 @@ extension HomeSharedEventsCell{
                 let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
                 lblSharedPostDate.text = shared_Date
 
-            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
             lblMessage.text = postInfo.valueForString(key: CMessage)
        // }
 

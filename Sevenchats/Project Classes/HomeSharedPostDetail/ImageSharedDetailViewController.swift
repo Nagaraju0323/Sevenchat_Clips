@@ -100,6 +100,8 @@ class ImageSharedDetailViewController: ParentViewController {
     var likeCount = 0
     var commentCount = 0
     var editCommentId : Int? = nil
+    var arrGalleryImageLatest : [String] = []
+    var arrGalleryImagetype : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,6 +111,8 @@ class ImageSharedDetailViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateUIAccordingToLanguage()
+        self.setGalleryDetailData(galleryInfo)
+        self.openUserProfileScreen()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -144,6 +148,7 @@ class ImageSharedDetailViewController: ParentViewController {
         self.pageNumber = 1
         
         self.vwCountImage.layer.cornerRadius = 4
+        self.vwCountImage.isHidden = true
         
         self.getGalleryDetailsFromServer()
     }
@@ -212,26 +217,22 @@ extension ImageSharedDetailViewController{
         
         self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.galleryInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.galleryInfo.valueForString(key: CSharedUserID), self.galleryInfo.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnSharedUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.galleryInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.galleryInfo.valueForString(key: CSharedUserID), self.galleryInfo.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.galleryInfo.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.galleryInfo.valueForString(key: CUserId), self.galleryInfo.valueForString(key: CUsermailID), self)
         }
         
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.galleryInfo.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.galleryInfo.valueForString(key: CUserId), self.galleryInfo.valueForString(key: CUsermailID), self)
         }
     }
     
@@ -239,12 +240,16 @@ extension ImageSharedDetailViewController{
         if let galInfo = gallerInfo{
             galleryInfo = galInfo
             
-            if let sharedData = galInfo[CSharedPost] as? [String:Any]{
-                self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
-                self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-                imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-                lblMessage.text = sharedData.valueForString(key: CMessage)
-            }
+            //if let sharedData = galInfo[CSharedPost] as? [String:Any]{
+                self.lblSharedUserName.text = galInfo.valueForString(key: CFullName) + " " + galInfo.valueForString(key: CLastName)
+                //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: galInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let shared_created_at = galInfo.valueForString(key: CShared_Created_at)
+                        let shared_cnv_date = shared_created_at.stringBefore("G")
+                        let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
+                        lblSharedPostDate.text = sharedCreated
+            imgSharedUser.loadImageFromUrl(galInfo.valueForString(key: CUserSharedProfileImage), true)
+                lblMessage.text = galInfo.valueForString(key: CMessage)
+            //}
             
             if galInfo.valueForString(key: CCategory) == "0"{
                 self.lblGalleryCategory.text = ""
@@ -253,19 +258,34 @@ extension ImageSharedDetailViewController{
             }
             
             self.lblUserName.text = galInfo.valueForString(key: CFirstname) + " " + galInfo.valueForString(key: CLastname)
-            self.lblGalleryPostDate.text = DateFormatter.dateStringFrom(timestamp: galInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            self.imgUser.loadImageFromUrl(galInfo.valueForString(key: CUserProfileImage), true)
+           // self.lblGalleryPostDate.text = DateFormatter.dateStringFrom(timestamp: galInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let created_At = galInfo.valueForString(key: CCreated_at)
+              let cnvStr = created_At.stringBefore("G")
+            let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+            lblGalleryPostDate.text = startCreated
+
+            imgUser.loadImageFromUrl(galInfo.valueForString(key: CUserProfileImage), true)
             
             self.lblGalleryType.text = CTypeGallery
-            if let arrImg = galInfo[CGalleryImages] as? [[String : Any]]{
-                self.arrGalleryImage = arrImg
-                GCDMainThread.async {
-                    self.clGallery.reloadData()
-                    self.setCurrentImageCount()
+//            if let arrImg = galInfo[CGalleryImages] as? [[String : Any]]{
+//                self.arrGalleryImage = arrImg
+//                GCDMainThread.async {
+//                    self.clGallery.reloadData()
+//                    self.setCurrentImageCount()
+//                }
+//            }
+            if let arrImg = galInfo["image"] as? String {
+                let dict = arrImg.convertToDictionary()
+                let arrDictGallery = dict ?? []
+                arrGalleryImage = arrDictGallery
+                for imgData in arrDictGallery{
+                    let imagepath = imgData.valueForString(key: "image_path")
+                    let imagepathtype = imgData.valueForString(key: "mime")
+                    arrGalleryImageLatest.append(imagepath)
+                    arrGalleryImagetype.append(imagepathtype)
                 }
             }
-            
-            self.vwCountImage.isHidden = (arrGalleryImage.count <= 1)
+           // self.vwCountImage.isHidden = (arrGalleryImage.count <= 1)
             
             self.btnLike.isSelected = galInfo.valueForInt(key: CIs_Like) == 1
             
@@ -395,17 +415,33 @@ extension ImageSharedDetailViewController: UICollectionViewDelegate, UICollectio
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeEventGalleryCell", for: indexPath) as! HomeEventGalleryCell
-        let imgInfo = arrGalleryImage[indexPath.item]
+        //let imgInfo = arrGalleryImage[indexPath.item]
         cell.vwBackgroundImg.backgroundColor = UIColor(hex: "DEDDE5")
         //cell.imgGalleryEvent.loadImageFromUrl(imgInfo.valueForString(key: CImage), false)
-        let mediaType = imgInfo.valueForInt(key: CType) ?? 1
-        if (mediaType == 2){
-            //cell.imgGalleryEvent.loadImageFromUrl(imgInfo.valueForString(key: CThumbNail), false)
-            cell.blurImgView.loadImageFromUrl(imgInfo.valueForString(key: CThumbNail), false)
+//        let mediaType = imgInfo.valueForInt(key: CType) ?? 1
+//        if (mediaType == 2){
+//            //cell.imgGalleryEvent.loadImageFromUrl(imgInfo.valueForString(key: CThumbNail), false)
+//            cell.blurImgView.loadImageFromUrl(imgInfo.valueForString(key: CThumbNail), false)
+//            cell.imgVideoIcon.isHidden =  false
+//        }else{
+//            //cell.imgGalleryEvent.loadImageFromUrl(imgInfo.valueForString(key: CImage), false)
+//            cell.blurImgView.loadImageFromUrl(imgInfo.valueForString(key: CImage), false)
+//            cell.imgVideoIcon.isHidden =  true
+//        }
+        let imgInfo = arrGalleryImageLatest[indexPath.item]
+        let imgInfotype = arrGalleryImagetype[indexPath.item]
+        cell.vwBackgroundImg.backgroundColor = UIColor(hex: "DEDDE5")
+        let mediaType = imgInfotype
+        if (mediaType == "video") || (mediaType == "vidoe"){
+            if let url = URL(string: imgInfo) {
+                if let thumbnailImage = getThumbnailImage(forUrl: url) {
+                    cell.blurImgView.image = thumbnailImage
+                }
+            }
             cell.imgVideoIcon.isHidden =  false
-        }else{
-            //cell.imgGalleryEvent.loadImageFromUrl(imgInfo.valueForString(key: CImage), false)
-            cell.blurImgView.loadImageFromUrl(imgInfo.valueForString(key: CImage), false)
+        }else {
+            cell.blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+            cell.blurImgView.loadImageFromUrl(imgInfo, false)
             cell.imgVideoIcon.isHidden =  true
         }
         return cell
@@ -594,6 +630,19 @@ extension ImageSharedDetailViewController: GenericTextViewDelegate{
         }
         
         return true
+    }
+    func getThumbnailImage(forUrl url: URL) -> UIImage? {
+        let asset: AVAsset = AVAsset(url: url)
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        
+        do {
+            let thumbnailImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 1, timescale: 60), actualTime: nil)
+            return UIImage(cgImage: thumbnailImage)
+        } catch let error {
+            print(error)
+        }
+        
+        return nil
     }
 }
 
