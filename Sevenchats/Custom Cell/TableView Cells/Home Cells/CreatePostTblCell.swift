@@ -67,6 +67,7 @@ class CreatePostTblCell: UITableViewCell{
  //   CShoutPlaceholderContents
     override func awakeFromNib() {
         super.awakeFromNib()
+        setQuoteText()
         textViewMessage.genericDelegate = self
         lblTextCount.isHidden = true
         lblCreateShout.text = CCreateshout

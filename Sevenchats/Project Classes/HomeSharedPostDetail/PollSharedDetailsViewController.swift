@@ -235,7 +235,9 @@ extension PollSharedDetailsViewController {
             
             self.pollInformation = pollInfo
             if let sharedData = pollInfo[CSharedPost] as? [String:Any]{
+                
                 self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
+                
                 self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
                 imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
                 lblMessage.text = sharedData.valueForString(key: CMessage)

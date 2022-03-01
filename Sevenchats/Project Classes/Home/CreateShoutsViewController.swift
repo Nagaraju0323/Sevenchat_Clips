@@ -50,7 +50,6 @@ class CreateShoutsViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
-        
         topContainer.isHidden = true
         viewSelectGroup.isHidden = true
         
@@ -69,8 +68,9 @@ class CreateShoutsViewController: ParentViewController {
     func Initialization(){
         if shoutsType == .editShouts{
             self.loadShoutDetailFromServer()
+            self.setQuoteText()
         }
-        
+       
         textViewMessage.textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 20, right: 0)
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnCreateShoutsClicked(_:)))]
@@ -79,6 +79,7 @@ class CreateShoutsViewController: ParentViewController {
         if shoutsType == .addShouts{
             self.setQuoteText()
         }
+        
     }
     
     func updateUIAccordingToLanguage(){
@@ -358,6 +359,7 @@ extension CreateShoutsViewController: GenericTextViewDelegate{
         
         
         lblTextCount.text = "\(textView.text.count)/150"
+        
     }
     
 }

@@ -149,26 +149,50 @@ extension HomeSharedEventImageTblCell{
         
         postID = postInfo.valueForInt(key: CId) ?? 0
        // if let sharedData = postInfo[CSharedPost] as? [String:Any]{
-            self.lblSharedUserName.text = postInfo.valueForString(key: CFullName)
-            self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            self.lblSharedUserName.text = postInfo.valueForString(key: CFullName) + " " + postInfo.valueForString(key: CLastName)
+           // self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+        let shared_created_at = postInfo.valueForString(key: CShared_Created_at)
+                let shared_cnvStr = shared_created_at.stringBefore("G")
+                let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
+                lblSharedPostDate.text = shared_Date
             imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
             lblMessage.text = postInfo.valueForString(key: CMessage)
        // }
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        self.lblEventPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+        let created_at = postInfo.valueForString(key: CCreated_at)
+        let cnvStr = created_at.stringBefore("G")
+        let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+        lblEventPostDate.text = Created_Date
+       // self.lblEventPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
         
         lblEventTitle.text = postInfo.valueForString(key: CTitle)
         lblEventDescription.text = postInfo.valueForString(key: CContent)
         lblStartDate.text = "\(CStartDate)"
         lblEndDate.text = "\(CEndDate)"
         
-        lblEventStartDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
-        lblEventEndDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
-        
-        blurImgView.loadImageFromUrl(postInfo.valueForString(key: CImage), false)
-        //imgEvent.loadImageFromUrl(postInfo.valueForString(key: CImage), false)
-        
+        let created_At1 = postInfo.valueForString(key: "start_date")
+        let cnvStr1 = created_At1.stringBefore("G")
+        guard let startCreated1 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr1)  else { return}
+        let created_At2 = postInfo.valueForString(key: "end_date")
+        let cnvStr2 = created_At2.stringBefore("G")
+        guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
+        self.lblEndDate.text = CEndDate + startCreated2
+        self.lblStartDate.text = CStartDate + startCreated1
+        let image = postInfo.valueForString(key: Cimages)
+        if image.isEmpty {
+            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+        }else{
+            blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+        }
         imgURL = postInfo.valueForString(key: CImage)
+        
+//        lblEventStartDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
+//        lblEventEndDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
+//
+//        blurImgView.loadImageFromUrl(postInfo.valueForString(key: CImage), false)
+//        //imgEvent.loadImageFromUrl(postInfo.valueForString(key: CImage), false)
+//
+//        imgURL = postInfo.valueForString(key: CImage)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         
         lblEventType.text = CTypeEvent
