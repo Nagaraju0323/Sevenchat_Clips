@@ -126,6 +126,8 @@ class EventSharedDetailImageViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
+        self.setEventDetail(dict: eventInfo)
+        self.openUserProfileScreen()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -274,42 +276,42 @@ extension EventSharedDetailImageViewController {
     }
     
     func loadEventDetailFromServer() {
-//        self.parentView.isHidden = true
-//        APIRequest.shared().viewPostDetail(postID: self.postID) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil {
-//                self.parentView.isHidden = false
-//                self.setEventDetail(dict: response?.value(forKey: CJsonData) as! [String : AnyObject])
-//                self.openUserProfileScreen()
-//            }
-//            self.getCommentListFromServer(showLoader: false)
-//        }
+        self.parentView.isHidden = true
+        
+        APIRequest.shared().viewPostDetailNew(postID: self.postID ?? 0, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in
+            guard let self = self else { return }
+            if response != nil {
+                self.parentView.isHidden = false
+                if let shoInfo = response!["data"] as? [[String:Any]]{
+                    for _ in shoInfo {
+                        self.openUserProfileScreen()
+                    }
+                }
+            }
+            self.getCommentListFromServer(showLoader: true)
+        }
     }
     
     fileprivate func openUserProfileScreen(){
         
         self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.eventInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CSharedUserID), self.eventInfo.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnSharedUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.eventInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CSharedUserID), self.eventInfo.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.eventInfo.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CUserId), self.eventInfo.valueForString(key: CUsermailID), self)
         }
         
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.eventInfo.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CUserId), self.eventInfo.valueForString(key: CUsermailID), self)
         }
     }
     
@@ -317,33 +319,56 @@ extension EventSharedDetailImageViewController {
         
         //...Set prefilled event detail here
         eventInfo = dict
-        if let sharedData = dict[CSharedPost] as? [String:Any]{
-            self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
-            self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-            lblMessage.text = sharedData.valueForString(key: CMessage)
-        }
+        //if let sharedData = dict[CSharedPost] as? [String:Any]{
+            self.lblSharedUserName.text = dict.valueForString(key: CFullName) + " " + dict.valueForString(key: CLastName)
+        let shared_created_at = dict.valueForString(key: CShared_Created_at)
+                    let shared_cnv_date = shared_created_at.stringBefore("G")
+                    let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
+                    lblSharedPostDate.text = sharedCreated
+            //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            imgSharedUser.loadImageFromUrl(dict.valueForString(key: CUserSharedProfileImage), true)
+            lblMessage.text = dict.valueForString(key: CMessage)
+       // }
         self.parentView.isHidden = false
         self.lbluserName.text = "\(dict.valueForString(key: CFirstname)) \(dict.valueForString(key: CLastname))"
-        self.lblEventPostDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+       // self.lblEventPostDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+        let created_At = dict.valueForString(key: CCreated_at)
+                    let cnvStr = created_At.stringBefore("G")
+                    let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+        lblEventPostDate.text = startCreated
         self.lblEventCategory.text = dict.valueForString(key: CCategory).uppercased()
         self.lblEventType.text = CTypeEvent
         self.lblEventTitle.text = dict.valueForString(key: CTitle)
         self.lblEventDescription.text = dict.valueForString(key: CContent)
         self.lblStartDate.text = "\(CStartDate)"
         self.lblEndDate.text = "\(CEndDate)"
-        self.lblEventStartDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
-        self.lblEventEndDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
+        let created_At1 = eventInfo.valueForString(key: "start_date")
+        let cnvStr1 = created_At1.stringBefore("G")
+        guard let startCreated1 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr1)  else { return}
+        self.lblStartDate.text = CStartDate + startCreated1
+        let created_At2 = eventInfo.valueForString(key: "end_date")
+        let cnvStr2 = created_At2.stringBefore("G")
+        guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
+        self.lblEndDate.text = CEndDate + startCreated2
+//        self.lblEventStartDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
+//        self.lblEventEndDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
         
         self.lblEventAddress.text = dict.valueForString(key: CEvent_Location)
         self.btnInterested.setTitle("\(dict.valueForString(key: CTotalInterestedUsers))\n" + CConfirmed, for: .normal)
         self.btnMaybe.setTitle("\(dict.valueForString(key: CTotalMaybeInterestedUsers))\n" + CMaybe, for: .normal)
         self.btnNotInterested.setTitle("\(dict.valueForString(key: CTotalNotInterestedUsers))\n" + CDeclined, for: .normal)
         
-        self.blurImgView.loadImageFromUrl(dict.valueForString(key: CImage), false)
-        //self.imgVEvent.loadImageFromUrl(dict.valueForString(key: CImage), false)
-        
-        self.eventImgURL = dict.valueForString(key: CImage)
+        let image = dict.valueForString(key: "image")
+        if image.isEmpty {
+            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+        }else{
+            blurImgView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
+        }
+        self.eventImgURL = dict.valueForString(key: "image")
+//        self.blurImgView.loadImageFromUrl(dict.valueForString(key: CImage), false)
+//        //self.imgVEvent.loadImageFromUrl(dict.valueForString(key: CImage), false)
+//
+//        self.eventImgURL = dict.valueForString(key: CImage)
         self.btnLike.isSelected = dict.valueForBool(key: CIs_Like)
         
         likeCount = dict.valueForInt(key: CTotal_like) ?? 0

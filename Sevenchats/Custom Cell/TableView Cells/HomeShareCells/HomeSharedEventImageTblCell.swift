@@ -155,7 +155,7 @@ extension HomeSharedEventImageTblCell{
                 let shared_cnvStr = shared_created_at.stringBefore("G")
                 let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
                 lblSharedPostDate.text = shared_Date
-            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
             lblMessage.text = postInfo.valueForString(key: CMessage)
        // }
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
@@ -184,7 +184,7 @@ extension HomeSharedEventImageTblCell{
         }else{
             blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
         }
-        imgURL = postInfo.valueForString(key: CImage)
+        imgURL = postInfo.valueForString(key: CPostImage)
         
 //        lblEventStartDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
 //        lblEventEndDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)

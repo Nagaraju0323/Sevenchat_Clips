@@ -705,16 +705,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                        appDelegate.moveOnProfileScreen(userID.description, self)
-                    }
+                    appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                 }
                 
                 cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                        appDelegate.moveOnProfileScreen(userID.description, self)
-                    }
+                    appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                 }
                 // .... LOAD MORE DATA HERE
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
@@ -757,16 +753,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                            appDelegate.moveOnProfileScreen(userID.description, self)
-                        }
+                        appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                     }
                     
                     cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                            appDelegate.moveOnProfileScreen(userID.description, self)
-                        }
+                        appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                     }
                     
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
@@ -888,16 +880,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                        }
+                        appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                     }
                     
                     cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                        }
+                        appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                     }
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
@@ -994,12 +982,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
         case CStaticChirpyIdNew:
             //            3-chripy
-            if postInfo.valueForString(key: CImage).isBlank{
+            if postInfo.valueForString(key: CPostImage).isBlank{
                 let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 //let isshared = 0
                 if isShared == 1{
-                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyTblCell", for: indexPath) as? HomeSharedChirpyTblCell {
-                        cell.homeChirpyDataSetup(postInfo)
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
+                        cell.homeChirpyImageDataSetup(postInfo)
                         
                         cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
@@ -1018,16 +1006,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                                appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                            }
+                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                         }
                         
                         cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                                appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                            }
+                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                         }
                         cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
@@ -1119,8 +1103,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     return cell
                 }
             }else{
-                let isshared = 0
-                if isshared == 1{
+                //let isshared = 0
+                let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+                if isShared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
                         cell.homeChirpyImageDataSetup(postInfo)
                         
@@ -1141,16 +1126,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                                appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                            }
+                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                         }
                         
                         cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                                appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                            }
+                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                         }
                         cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
@@ -1268,16 +1249,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                        }
+                        appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                     }
                     
                     cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                        }
+                        appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                     }
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
@@ -1397,16 +1374,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                        }
+                        appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                     }
                     
                     cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                        }
+                        appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                     }
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
@@ -1503,13 +1476,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
         case CStaticEventIdNew:
             //            6-event
-            if postInfo.valueForString(key: CImage).isBlank{
+            if postInfo.valueForString(key: CPostImage).isBlank{
                 
                 // let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
                 let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 
                 if isShared == 1{
-                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventsCell", for: indexPath) as? HomeSharedEventsCell {
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell", for: indexPath) as? HomeSharedEventImageTblCell {
                         cell.homeEventDataSetup(postInfo)
                         
                         cell.onChangeEventStatus = { [weak self] (action) in
@@ -1533,16 +1506,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                                appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                            }
+                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                         }
                         
                         cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                                appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                            }
+                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                         }
                         cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
@@ -1666,16 +1635,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                                appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                            }
+                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                         }
                         
                         cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                                appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                            }
+                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                         }
                         
                         cell.btnProfileImg.touchUpInside { [weak self] (sender) in
@@ -1805,16 +1770,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                        }
+                        appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                     }
                     
                     cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        if let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                            appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
-                        }
+                        appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CSharedUserID), postInfo.valueForString(key: CSharedEmailID), self)
                     }
                     
                     cell.btnProfileImg.touchUpInside { [weak self] (sender) in
@@ -1997,14 +1958,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         switch postInfo.valueForString(key: CPostTypeNew) {
         
         case CStaticArticleIdNew:
-            
-            if isshared == 1{
+            let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+            if isShared == 1{
                 let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
                 let sharedPostId = sharePostData[CId] as? Int ?? 0
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ArticleSharedDetailViewController") as? ArticleSharedDetailViewController else {
                     return
                 }
                 viewcontroller.articleID = sharedPostId
+                viewcontroller.articleInformation = postInfo
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }
@@ -2017,14 +1979,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
             
         case CStaticGalleryIdNew:
-            let isshared = 0
-            if isshared == 1{
+           // let isshared = 0
+            let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+            if isShared == 1{
                 let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
                 let sharedPostId = sharePostData[CId] as? Int ?? 0
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ImageSharedDetailViewController") as? ImageSharedDetailViewController else {
                     return
                 }
                 viewcontroller.imgPostId = sharedPostId
+                viewcontroller.galleryInfo = postInfo
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }
@@ -2038,15 +2002,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             
         case CStaticChirpyIdNew:
             
-            if postInfo.valueForString(key: CImage).isBlank{
-                let isshared = 0
-                if isshared == 1{
+            if postInfo.valueForString(key: CPostImage).isBlank{
+                //let isshared = 0
+                let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+                if isShared == 1{
                     let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
-                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedDetailsViewController") as? ChirpySharedDetailsViewController else {
+                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedImageDetailsViewController") as? ChirpySharedImageDetailsViewController else {
                         return
                     }
                     viewcontroller.chirpyID = sharedPostId
+                    viewcontroller.chirpyInformation = postInfo
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
@@ -2057,14 +2023,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     self.navigationController?.pushViewController(chirpyDetailsVC, animated: true)
                 }
             }else{
-                let isshared = 0
-                if isshared == 1{
+               // let isshared = 0
+                let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+                if isShared == 1{
                     let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
                     guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedImageDetailsViewController") as? ChirpySharedImageDetailsViewController else {
                         return
                     }
                     viewcontroller.chirpyID = sharedPostId
+                    viewcontroller.chirpyInformation = postInfo
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
@@ -2077,15 +2045,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             }
         case CStaticShoutIdNew:
             
-            let isshared = 0
+           // let isshared = 0
+            let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
             let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
-            if isshared == 1{
+            if isShared == 1{
                 let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
                 let sharedPostId = sharePostData[CId] as? Int ?? 0
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ShoutsSharedDetailViewController") as? ShoutsSharedDetailViewController else {
                     return
                 }
                 viewcontroller.shoutID = sharedPostId
+                viewcontroller.shoutInformation = postInfo
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }
@@ -2099,14 +2069,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             
         case CStaticForumIdNew:
             
-            let isshared = 0
-            if isshared == 1{
+           // let isshared = 0
+            let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+            if isShared == 1{
                 let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
                 let sharedPostId = sharePostData[CId] as? Int ?? 0
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ForumSharedDetailViewController") as? ForumSharedDetailViewController else {
                     return
                 }
                 viewcontroller.forumID = sharedPostId
+                viewcontroller.forumInformation = postInfo
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }
@@ -2119,16 +2091,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
             
         case CStaticEventIdNew:
-            if postInfo.valueForString(key: CImage).isBlank{
-                
-                let isshared = 0
-                if isshared == 1{
+            if postInfo.valueForString(key: CPostImage).isBlank{
+                let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+               // let isshared = 0
+                if isShared == 1{
                     let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
-                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailViewController") as? EventSharedDetailViewController else {
+                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailImageViewController") as? EventSharedDetailImageViewController else {
                         return
                     }
                     viewcontroller.postID = sharedPostId
+                    viewcontroller.eventInfo = postInfo
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
@@ -2141,13 +2114,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }else{
                 let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
-                if isSharedPost == 1{
+                let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+                if isShared == 1{
                     let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
                     guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailImageViewController") as? EventSharedDetailImageViewController else {
                         return
                     }
                     viewcontroller.postID = sharedPostId
+                    viewcontroller.eventInfo = postInfo
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
@@ -2163,14 +2138,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
         case CStaticPollIdNew: // Poll Cell....
             
-            let isshared = 0
-            if isshared == 1{
+           // let isshared = 0
+            let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+            if isShared == 1{
+                
                 let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
                 let sharedPostId = sharePostData[CId] as? Int ?? 0
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "PollSharedDetailsViewController") as? PollSharedDetailsViewController else {
                     return
                 }
                 viewcontroller.pollID = sharedPostId
+                viewcontroller.pollInformation = postInfo
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }

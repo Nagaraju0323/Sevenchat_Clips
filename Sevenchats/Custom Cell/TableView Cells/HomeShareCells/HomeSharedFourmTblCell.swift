@@ -104,7 +104,7 @@ extension HomeSharedFourmTblCell{
                 let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
          lblSharedPostDate.text = shared_Date
             //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
             lblMessage.text = postInfo.valueForString(key: CMessage)
        // }
 

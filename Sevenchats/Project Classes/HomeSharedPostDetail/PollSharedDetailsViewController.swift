@@ -82,7 +82,8 @@ class PollSharedDetailsViewController: ParentViewController {
     var apiTask : URLSessionTask?
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
-    
+    var totalVotesNew = ""
+
     var arrCommentList = [[String:Any]]()
     var arrUserForMention = [[String:Any]]()
     var arrFilterUser = [[String:Any]]()
@@ -104,6 +105,8 @@ class PollSharedDetailsViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
+        self.setPollDetails(pollInformation)
+        self.openUserProfileScreen()
     }
     
     override func viewDidLayoutSubviews() {
@@ -183,49 +186,47 @@ class PollSharedDetailsViewController: ParentViewController {
 extension PollSharedDetailsViewController {
     
     func getPollDetailsFromServer() {
-        
-//        self.parentView.isHidden = true
-//        if let artID = self.pollID {
-//            APIRequest.shared().viewPostDetail(postID: artID) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                if response != nil {
-//                    self.parentView.isHidden = false
-//                    if let articleInfo = response![CJsonData] as? [String : Any]{
-//                        DispatchQueue.main.async {
-//                            self.setPollDetails(articleInfo)
-//                            self.openUserProfileScreen()
-//                        }
-//                    }
-//                }
-//                self.getCommentListFromServer(showLoader: true)
-//            }
-//        }
+        if let artID = self.pollID {
+            APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    //self.parentView.isHidden = false
+                    DispatchQueue.main.async {
+                    if let Info = response!["data"] as? [[String:Any]]{
+                        for articleInfo in Info {
+                            self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
+                            print("self.totalVotes\(self.totalVotesNew)")
+                        }
+                        self.openUserProfileScreen()
+                       
+                    }
+                }
+            }
+//            self.getCommentListFromServer(showLoader: true)
+        }
     }
+}
     
     fileprivate func openUserProfileScreen(){
         
         self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.pollInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.pollInformation.valueForString(key: CSharedUserID), self.pollInformation.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnSharedUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.pollInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.pollInformation.valueForString(key: CSharedUserID), self.pollInformation.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.pollInformation.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.pollInformation.valueForString(key: CUserId), self.pollInformation.valueForString(key: CUsermailID), self)
         }
         
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.pollInformation.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.pollInformation.valueForString(key: CUserId), self.pollInformation.valueForString(key: CUsermailID), self)
         }
     }
     
@@ -234,16 +235,24 @@ extension PollSharedDetailsViewController {
         if let pollInfo = pollInformation{
             
             self.pollInformation = pollInfo
-            if let sharedData = pollInfo[CSharedPost] as? [String:Any]{
+           // if let sharedData = pollInfo[CSharedPost] as? [String:Any]{
                 
-                self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
+                self.lblSharedUserName.text = pollInfo.valueForString(key: CFullName) + " " + pollInfo.valueForString(key: CLastName)
                 
-                self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-                imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-                lblMessage.text = sharedData.valueForString(key: CMessage)
-            }
+               // self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: pollInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let shared_created_at = pollInfo.valueForString(key: CShared_Created_at)
+                        let shared_cnv_date = shared_created_at.stringBefore("G")
+                        let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
+                        lblSharedPostDate.text = sharedCreated
+                imgSharedUser.loadImageFromUrl(pollInfo.valueForString(key: CUserSharedProfileImage), true)
+                lblMessage.text = pollInfo.valueForString(key: CMessage)
+           // }
             lblUserName.text = pollInfo.valueForString(key: CFirstname) + " " + pollInfo.valueForString(key: CLastname)
-            lblPollPostDate.text = DateFormatter.dateStringFrom(timestamp: pollInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let created_At = pollInfo.valueForString(key: CCreated_at)
+                        let cnvStr = created_At.stringBefore("G")
+                        let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+            lblPollPostDate.text = startCreated
+           // lblPollPostDate.text = DateFormatter.dateStringFrom(timestamp: pollInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
             lblPollTitle.text = pollInfo.valueForString(key: CTitle)
             
             imgUser.loadImageFromUrl(pollInfo.valueForString(key: CUserProfileImage), true)

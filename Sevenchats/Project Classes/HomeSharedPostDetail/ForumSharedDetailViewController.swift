@@ -90,6 +90,8 @@ class ForumSharedDetailViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
+        self.setForumDetailData(forumInformation)
+        self.openUserProfileScreen()
     }
     
     // MARK:- --------- Initialization
@@ -179,40 +181,44 @@ extension ForumSharedDetailViewController{
         
         self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.forumInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CSharedUserID), self.forumInformation.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnSharedUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.forumInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CSharedUserID), self.forumInformation.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.forumInformation.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CUserId), self.forumInformation.valueForString(key: CUsermailID), self)
         }
         
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.forumInformation.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CUserId), self.forumInformation.valueForString(key: CUsermailID), self)
         }
     }
     
     func setForumDetailData(_ forumInfo : [String : Any]?){
         if let forInfo = forumInfo{
             forumInformation = forInfo
-            if let sharedData = forInfo[CSharedPost] as? [String:Any]{
-                self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
-                self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-                imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-                lblMessage.text = sharedData.valueForString(key: CMessage)
-            }
+            //if let sharedData = forInfo[CSharedPost] as? [String:Any]{
+                self.lblSharedUserName.text = forInfo.valueForString(key: CFullName) + " " + forInfo.valueForString(key: CFullName)
+                //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: forInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let shared_created_at = forInfo.valueForString(key: CShared_Created_at)
+                       let shared_cnv_date = shared_created_at.stringBefore("G")
+                       let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
+                       lblSharedPostDate.text = sharedCreated
+                imgSharedUser.loadImageFromUrl(forInfo.valueForString(key: CUserSharedProfileImage), true)
+                lblMessage.text = forInfo.valueForString(key: CMessage)
+            //}
             self.lblUserName.text = forInfo.valueForString(key: CFirstname) + " " + forInfo.valueForString(key: CLastname)
-            self.lblForumPostDate.text = DateFormatter.dateStringFrom(timestamp: forInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            //self.lblForumPostDate.text = DateFormatter.dateStringFrom(timestamp: forInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let created_At = forInfo.valueForString(key: CCreated_at)
+                        let cnvStr = created_At.stringBefore("G")
+                        let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+            lblForumPostDate.text = startCreated
             self.lblForumDescription.text = forInfo.valueForString(key: CContent)
             self.imgUser.loadImageFromUrl(forInfo.valueForString(key: CUserProfileImage), true)
             self.lblForumTitle.text = forInfo.valueForString(key: CTitle)

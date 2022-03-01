@@ -107,24 +107,32 @@ extension HomeSharedChirpyImageTblCell{
             self.lblSharedUserName.text = postInfo.valueForString(key: CFullName) + " " + postInfo.valueForString(key: CLastName)
             //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
         let shared_created_at = postInfo.valueForString(key: CShared_Created_at)
-                let shared_cnvStr = shared_created_at.stringBefore("G")
-                let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
-                lblSharedPostDate.text = shared_Date
-            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                   let shared_cnv_date = shared_created_at.stringBefore("G")
+                   let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
+        lblSharedPostDate.text = sharedCreated
+            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
             lblMessage.text = postInfo.valueForString(key: CMessage)
         //}
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
        // self.lblChirpyPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-        let created_at = postInfo.valueForString(key: CCreated_at)
-                let cnvStr = created_at.stringBefore("G")
-                let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
-        lblChirpyPostDate.text = Created_Date
+        let created_At = postInfo.valueForString(key: CCreated_at)
+        let cnvStr = created_At.stringBefore("G")
+        let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+       
+        lblChirpyPostDate.text = startCreated
         lblChirpyDescription.text = postInfo.valueForString(key: CContent)
         
-        blurImgView.loadImageFromUrl(postInfo.valueForString(key: CImage), false)
-        
-        chirpyImgURL = postInfo.valueForString(key: CImage)
+//        blurImgView.loadImageFromUrl(postInfo.valueForString(key: CImage), false)
+//
+//        chirpyImgURL = postInfo.valueForString(key: CImage)
+        let image = postInfo.valueForString(key: Cimages)
+        if image.isEmpty {
+            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+        }else{
+            blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+        }
+        chirpyImgURL = postInfo.valueForString(key: CPostImage)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         
         lblChirpyType.text = CTypeChirpy

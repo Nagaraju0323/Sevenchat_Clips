@@ -91,12 +91,13 @@ class ArticleSharedDetailViewController: ParentViewController {
     var arrCommentList = [[String:Any]]()
     var arrUserForMention = [[String:Any]]()
     var arrFilterUser = [[String:Any]]()
+    var articleInformation = [String : Any]()
     var likeCount = 0
     var commentCount = 0
     var rssId : Int?
     var articleImgURL = ""
     var editCommentId : Int? = nil
-    var articleInformation = [String : Any]()
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,6 +111,8 @@ class ArticleSharedDetailViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
+        self.setArticleDetails(articleInformation)
+        self.openUserProfileScreen()
     }
     
     override func viewDidLayoutSubviews() {
@@ -209,52 +212,63 @@ extension ArticleSharedDetailViewController{
     }
     
     fileprivate func openUserProfileScreen(){
-        
-        self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            if let userID = (self.articleInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
+            
+            self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.articleInformation.valueForString(key: CSharedUserID), self.articleInformation.valueForString(key: CSharedEmailID), self)
+            }
+            
+            self.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.articleInformation.valueForString(key: CSharedUserID), self.articleInformation.valueForString(key: CSharedEmailID), self)
+            }
+            
+            self.btnProfileImg.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.articleInformation.valueForString(key: CUserId), self.articleInformation.valueForString(key: CUsermailID), self)
+            }
+            
+            self.btnUserName.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.articleInformation.valueForString(key: CUserId), self.articleInformation.valueForString(key: CUsermailID), self)
             }
         }
-        
-        self.btnSharedUserName.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            if let userID = (self.articleInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
-        }
-        
-        self.btnProfileImg.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.articleInformation.valueForString(key: CUserId), self)
-        }
-        
-        self.btnUserName.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.articleInformation.valueForString(key: CUserId), self)
-        }
-    }
     
     func setArticleDetails(_ articleInfo : [String : Any]?){
         if let artInfo = articleInfo{
             articleInformation = artInfo
             
-            if let sharedData = artInfo[CSharedPost] as? [String:Any]{
-                self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
-                self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-                imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-                lblMessage.text = sharedData.valueForString(key: CMessage)
-            }
+           // if let sharedData = artInfo[CSharedPost] as? [String:Any]{
+                self.lblSharedUserName.text = artInfo.valueForString(key: CFullName) + " " + artInfo.valueForString(key: CLastName)
+                //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: artInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let shared_created_at = artInfo.valueForString(key: CShared_Created_at)
+            let shared_cnv_date = shared_created_at.stringBefore("G")
+            let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
+            lblSharedPostDate.text = sharedCreated
+                imgSharedUser.loadImageFromUrl(artInfo.valueForString(key: CUserSharedProfileImage), true)
+                lblMessage.text = artInfo.valueForString(key: CMessage)
+           // }
             
             self.lblUserName.text = artInfo.valueForString(key: CFirstname) + " " + artInfo.valueForString(key: CLastname)
-            self.lblArticlePostDate.text = DateFormatter.dateStringFrom(timestamp: artInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+           // self.lblArticlePostDate.text = DateFormatter.dateStringFrom(timestamp: artInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let created_At = artInfo.valueForString(key: CCreated_at)
+            let cnvStr = created_At.stringBefore("G")
+            let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+            lblArticlePostDate.text = startCreated
             self.lblArticleTitle.text = artInfo.valueForString(key: CTitle)
             self.lblArticleDescription.text = artInfo.valueForString(key: CContent)
             
             //self.imgArticle.loadImageFromUrl(artInfo.valueForString(key: CImage), false)
-            self.blurImgView.loadImageFromUrl(artInfo.valueForString(key: CImage), false)
-            
-            self.articleImgURL = artInfo.valueForString(key: CImage)
+            let image = artInfo.valueForString(key: "image")
+            if image.isEmpty {
+                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+            }else{
+                blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+            }
+            self.articleImgURL = artInfo.valueForString(key: Cimages)
+//            self.blurImgView.loadImageFromUrl(artInfo.valueForString(key: CImage), false)
+//
+//            self.articleImgURL = artInfo.valueForString(key: CImage)
             self.imgUser.loadImageFromUrl(artInfo.valueForString(key: CUserProfileImage), true)
             
             self.lblArticleCategory.text = artInfo.valueForString(key: CCategory).uppercased()

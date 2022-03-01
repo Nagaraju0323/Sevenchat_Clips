@@ -91,6 +91,8 @@ class ChirpySharedImageDetailsViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
+        self.setChirpyDetailData(chirpyInformation)
+        self.openUserProfileScreen()
     }
     
     // MARK:- --------- Initialization
@@ -188,49 +190,59 @@ extension ChirpySharedImageDetailsViewController{
     }
     
     fileprivate func openUserProfileScreen(){
-        
-        self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            if let userID = (self.chirpyInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
+            
+            self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CSharedUserID), self.chirpyInformation.valueForString(key: CSharedEmailID), self)
+            }
+            
+            self.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CSharedUserID), self.chirpyInformation.valueForString(key: CSharedEmailID), self)
+            }
+            
+            self.btnProfileImg.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
+            }
+            
+            self.btnUserName.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
             }
         }
-        
-        self.btnSharedUserName.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            if let userID = (self.chirpyInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
-        }
-        
-        self.btnProfileImg.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.chirpyInformation.valueForString(key: CUserId), self)
-        }
-        
-        self.btnUserName.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.chirpyInformation.valueForString(key: CUserId), self)
-        }
-    }
     
     func setChirpyDetailData(_ chirpyInfo : [String : Any]?){
         if let chirInfo = chirpyInfo{
             chirpyInformation = chirInfo
-            if let sharedData = chirInfo[CSharedPost] as? [String:Any]{
-                self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
-                self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-                imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-                lblMessage.text = sharedData.valueForString(key: CMessage)
-            }
+           // if let sharedData = chirInfo[CSharedPost] as? [String:Any]{
+                self.lblSharedUserName.text = chirInfo.valueForString(key: CFullName) + " " + chirInfo.valueForString(key: CLastName)
+                //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: chirInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let shared_created_at = chirInfo.valueForString(key: CShared_Created_at)
+                       let shared_cnv_date = shared_created_at.stringBefore("G")
+                       let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
+                       lblSharedPostDate.text = sharedCreated
+                imgSharedUser.loadImageFromUrl(chirInfo.valueForString(key: CUserSharedProfileImage), true)
+                lblMessage.text = chirInfo.valueForString(key: CMessage)
+            //}
             self.lblUserName.text = chirInfo.valueForString(key: CFirstname) + " " + chirInfo.valueForString(key: CLastname)
-            self.lblChirpyPostDate.text = DateFormatter.dateStringFrom(timestamp: chirInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            //self.lblChirpyPostDate.text = DateFormatter.dateStringFrom(timestamp: chirInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let created_At = chirInfo.valueForString(key: CCreated_at)
+                        let cnvStr = created_At.stringBefore("G")
+                        let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+            lblChirpyPostDate.text = startCreated
             self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
-            
-            self.imgUser.loadImageFromUrl(chirInfo.valueForString(key: CUserProfileImage), true)
-            
-            //self.imgChirpy.loadImageFromUrl(chirInfo.valueForString(key: CImage), false)
-            self.blurImgView.loadImageFromUrl(chirInfo.valueForString(key: CImage), false)
+            let image = chirInfo.valueForString(key: "image")
+            if image.isEmpty {
+                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+            }else{
+                blurImgView.loadImageFromUrl(chirInfo.valueForString(key: Cimages), false)
+            }
+            self.chirpyImgURL = chirInfo.valueForString(key: "image")
+           self.imgUser.loadImageFromUrl(chirInfo.valueForString(key: CUserProfileImage), true)
+//
+//            //self.imgChirpy.loadImageFromUrl(chirInfo.valueForString(key: CImage), false)
+//            self.blurImgView.loadImageFromUrl(chirInfo.valueForString(key: CImage), false)
             
             self.chirpyImgURL = chirInfo.valueForString(key: CImage)
             self.lblChirpyCategory.text = chirInfo.valueForString(key: CCategory)

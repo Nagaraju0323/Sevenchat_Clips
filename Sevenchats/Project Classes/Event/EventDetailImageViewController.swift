@@ -319,11 +319,11 @@ extension EventDetailImageViewController {
         let created_At1 = eventInfo.valueForString(key: "start_date")
         let cnvStr1 = created_At1.stringBefore("G")
         guard let startCreated1 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr1)  else { return}
-        self.lblEndDate.text = CStartDate + startCreated1
+        self.lblStartDate.text = CStartDate + startCreated1
         let created_At2 = eventInfo.valueForString(key: "end_date")
         let cnvStr2 = created_At2.stringBefore("G")
         guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
-        self.lblStartDate.text = CEndDate + startCreated2
+        self.lblEndDate.text = CEndDate + startCreated2
         self.lblEventAddress.text = dict.valueForString(key: CEvent_Location)
         btnMaybe.setTitle("\(dict.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(dict.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)

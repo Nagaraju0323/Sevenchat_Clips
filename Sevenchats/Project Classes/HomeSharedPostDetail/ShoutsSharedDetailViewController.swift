@@ -90,6 +90,8 @@ class ShoutsSharedDetailViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
+        self.setShoutsDetailData(shoutInformation)
+        self.openUserProfileScreen()
     }
     
     // MARK:- --------- Initialization
@@ -176,43 +178,47 @@ extension ShoutsSharedDetailViewController{
     }
     
     fileprivate func openUserProfileScreen(){
-        
-        self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            if let userID = (self.shoutInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
+            
+            self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CSharedUserID), self.shoutInformation.valueForString(key: CSharedEmailID), self)
+            }
+            
+            self.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CSharedUserID), self.shoutInformation.valueForString(key: CSharedEmailID), self)
+            }
+            
+            self.btnProfileImg.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
+            }
+            
+            self.btnUserName.touchUpInside { [weak self] (sender) in
+                guard let self = self else { return }
+                appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
             }
         }
-        
-        self.btnSharedUserName.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            if let userID = (self.shoutInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
-        }
-        
-        self.btnProfileImg.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.shoutInformation.valueForString(key: CUserId), self)
-        }
-        
-        self.btnUserName.touchUpInside { [weak self] (sender) in
-            guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.shoutInformation.valueForString(key: CUserId), self)
-        }
-    }
     
     func setShoutsDetailData(_ shoutInfo : [String : Any]?){
         if let shoInfo = shoutInfo{
             shoutInformation = shoInfo
-            if let sharedData = shoInfo[CSharedPost] as? [String:Any]{
-                self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
-                self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-                imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-                lblMessage.text = sharedData.valueForString(key: CMessage)
-            }
+            //if let sharedData = shoInfo[CSharedPost] as? [String:Any]{
+                self.lblSharedUserName.text = shoInfo.valueForString(key: CFullName) + " " + shoInfo.valueForString(key: CLastName)
+                //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: shoInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let shared_created_at = shoInfo.valueForString(key: CShared_Created_at)
+                        let shared_cnv_date = shared_created_at.stringBefore("G")
+                        let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
+                        lblSharedPostDate.text = sharedCreated
+                imgSharedUser.loadImageFromUrl(shoInfo.valueForString(key: CUserSharedProfileImage), true)
+                lblMessage.text = shoInfo.valueForString(key: CMessage)
+           // }
             self.lblUserName.text = shoInfo.valueForString(key: CFirstname) + " " + shoInfo.valueForString(key: CLastname)
-            self.lblShoutsPostDate.text = DateFormatter.dateStringFrom(timestamp: shoInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+           // self.lblShoutsPostDate.text = DateFormatter.dateStringFrom(timestamp: shoInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let created_At = shoInfo.valueForString(key: CCreated_at)
+             let cnvStr = created_At.stringBefore("G")
+             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+            lblShoutsPostDate.text = startCreated
             self.lblShoutsDescription.text = shoInfo.valueForString(key: CContent)
             self.imgUser.loadImageFromUrl(shoInfo.valueForString(key: CUserProfileImage), true)
             //  self.lblShoutCategory.text = shoInfo.valueForString(key: CCategory)

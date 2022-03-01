@@ -79,6 +79,8 @@ class HomeSharedGalleryCell: UITableViewCell {
             self.lblGalleryType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
             self.vwCountImage.layer.cornerRadius = 4
+            self.vwCountImage.isHidden = true
+            
             
             
         }
@@ -133,7 +135,7 @@ extension HomeSharedGalleryCell {
                 let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
                 lblSharedPostDate.text = shared_Date
            // self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
             lblMessage.text = postInfo.valueForString(key: CMessage)
        // }
         
@@ -144,7 +146,7 @@ extension HomeSharedGalleryCell {
             clGallery.reloadData()
             setCurrentImageCount()
         }
-        self.vwCountImage.isHidden = (arrGalleryImage.count <= 1)
+       // self.vwCountImage.isHidden = (arrGalleryImage.count <= 1)
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         //"\(CPostedOn) " + DateFormatte
