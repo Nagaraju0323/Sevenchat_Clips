@@ -200,7 +200,7 @@ extension VerifyEmailMobileViewController {
                     guard let image = appDelegate.loginUser?.profile_img else { return }
                     MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image, detail_text: "Register_profile")
                     
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterSuccess, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "RegisterSuccess", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                         self.dismiss(animated: true, completion: nil)
                         self.isverify_Success = true
                         self.navigationController?.popToRootViewController(animated: true)
@@ -357,6 +357,21 @@ extension VerifyEmailMobileViewController{
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
                 guard let userMsg = dict?["message"] as? String else { return }
                 DispatchQueue.main.async {
+                    
+//                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+//                        alertWindow.rootViewController = UIViewController()
+//                        let errorMsg = "SuccessFully Register"
+//                        let alertController = UIAlertController(title: "", message: errorMsg, preferredStyle: UIAlertController.Style.alert)
+//                        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { _ in
+//                            alertWindow.isHidden = true
+//                            return
+//                        }))
+//
+//                        alertWindow.windowLevel = UIWindow.Level.alert + 1;
+//                        alertWindow.makeKeyAndVisible()
+//                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+//
+                    
                 }
             } catch let error  {
                 print("error trying to convert data to \(error)")

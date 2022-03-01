@@ -58,6 +58,7 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
     var dob_edit:String?
     var isSelected:Bool?
     var category_id = ""
+    var addRewardCategory = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -477,7 +478,7 @@ extension CompleteProfileViewController{
                 let gender = gender.toString
                 let religion = self.txtReligion.text ?? ""
                 let profile = appDelegate.loginUser?.profile_img ?? ""
-                let cover = appDelegate.loginUser?.cover_image ?? ""
+//                let cover = appDelegate.loginUser?.cover_image ?? ""
                 let dob = self.dob_edit ?? ""
                 let bio = self.txtViewBiography.text ?? ""
                 let reltionship  = self.txtStatus.text ?? ""
@@ -492,7 +493,7 @@ extension CompleteProfileViewController{
                 let education = txtEducation.text ?? ""
                 
                 if !lastname.isEmpty && !firstName.isEmpty && !user_acc_type.isEmpty && !gender.isEmpty && !religion.isEmpty && !txtCity.isEmpty && !profile.isEmpty && !txtmobile.isEmpty && !txtemail.isEmpty && !dob.isEmpty && !bio.isEmpty && !reltionship.isEmpty && !professionText.isEmpty && !txtCity.isEmpty && !latitude.description.isEmpty && !lang.description.isEmpty && !user_type.isEmpty && !status_id.isEmpty && !langName.isEmpty && !emplymenntStatus.description.isEmpty && !income.isEmpty && !user_id.isEmpty && !country_name.isEmpty && !state_name.isEmpty  && !education.isEmpty{
-//                    self.getRewardsDetail(isLoader:true)
+                    self.getRewardsDetail(isLoader:true)
                 }
                
                 let metaInfo = response![CJsonMeta] as? [String:Any] ?? [:]
@@ -527,6 +528,7 @@ extension CompleteProfileViewController{
         dict["category_id"] = category_id
         dict["page"] = "1"
         dict["limit"] = "20"
+        addRewardCategory.removeAll()
         apiTask = APIRequest.shared().rewardsDetail(param:dict,showLoader: isLoader) { [weak self] (response, error) in
             guard let self = self else { return }
             
@@ -538,12 +540,17 @@ extension CompleteProfileViewController{
                     let arrData = response!["rewards_history"] as? [String : Any] ?? [:]
                     let arrDatas = arrData["rewards_history"] as? [[String : Any]] ?? [[:]]
                     for arrDataPoint in arrDatas{
-                        if arrDataPoint["type"] as? String == "Complete profile" || arrDataPoint["type"] as? String == "Register profile"{
-                        }else {
-                            let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-                            guard let image = appDelegate.loginUser?.profile_img else { return }
-                            MIGeneralsAPI.shared().addRewardsPoints(CCompleteprofile,message:"Complete profile",type:CCompleteprofile,title:"Complete profile",name:name,icon:image, detail_text: "complete_profile_point")
-                        }
+                        let rewardCatg = arrDataPoint["type"] as? String
+                        self.addRewardCategory.append(rewardCatg ?? "")
+                    }
+                    if self.addRewardCategory.contains("Complete profile") {
+                        return
+                    }
+                    else{
+                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                        guard let image = appDelegate.loginUser?.profile_img else { return }
+                        MIGeneralsAPI.shared().addRewardsPoints(CCompleteprofile,message:"Complete profile",type:CCompleteprofile,title:"Complete profile",name:name,icon:image, detail_text: "complete_profile_point")
+                       
                     }
                 }
             }

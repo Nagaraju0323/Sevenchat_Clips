@@ -189,7 +189,6 @@ class EditProfileViewController: ParentViewController {
         txtDOB.text = DateFormatter.shared().dateConvertUTC(fromDate: Dob)
         if appDelegate.loginUser?.profile_url != "" {
             imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
-            
             btnUploadImage.setImage(UIImage(), for: .normal)
             imgEditIcon.isHidden = false
         } else{
@@ -620,7 +619,7 @@ extension EditProfileViewController{
     }
     @IBAction func btnUploadImageCLK(_ sender : UIButton){
         if isProfileImg == true{
-            if self.imgUser.image == nil {
+            if self.imgUser.image != nil || self.imgUser.image == nil {
                 self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
                     guard let self = self else { return }
                     self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in

@@ -196,27 +196,6 @@ extension InviteAndConnectViewController{
         })
     }
     
-    
-//func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?){
-//        APIRequest.shared().friendRquestStatus(userID: appDelegate.loginUser?.user_id.description, status: status, completion: { (response, error) in
-//            if response != nil{
-//                var frndInfo = userInfo
-//                if let data = response![CJsonData] as? [String : Any]{
-//                    frndInfo[CFriend_status] = data.valueForInt(key: CFriend_status)
-//
-//                    if let index = self.arrSyncUser.index(where: {$0[CUserId] as? Int == userid}){
-//                        self.arrSyncUser.remove(at: index)
-//                        self.arrSyncUser.insert(frndInfo, at: index)
-//                    }
-//
-//                    UIView.performWithoutAnimation {
-//                        self.tblFriend.reloadData()
-//                    }
-//                }
-//            }
-//        })
- //   }
-    
     func connectAllFriend(_ isSignup : Bool){
         
         var arrSocialID = arrConnectAllFriend.map({$0.valueForString(key: CUserId) })
@@ -449,8 +428,7 @@ extension InviteAndConnectViewController{
                                                  self.checkConnectAllFriendStatus()
                                                 }
                                                }else {
-//                                                self.Check_status = 0
-//                                                self.arrListModel.append(MDLUsers(fromDictionary: dict))
+//
                                                }
                                            }
                          }else{
