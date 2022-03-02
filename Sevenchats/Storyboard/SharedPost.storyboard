@@ -6206,6 +6206,7 @@ Declined</string>
                         <outlet property="btnSelectGroupFriend" destination="3r6-VS-Ibl" id="7ER-zg-Sqn"/>
                         <outlet property="clGroupFriend" destination="8is-2w-Dax" id="lsX-AV-s5c"/>
                         <outlet property="parentView" destination="Y8S-pb-za5" id="aIv-8V-1jv"/>
+                        <outlet property="selectImage" destination="tYy-Lb-p5b" id="9EI-oB-BAm"/>
                         <outlet property="textViewMessage" destination="MFS-Ue-c18" id="F6z-DV-77b"/>
                         <outlet property="txtInviteType" destination="5Dt-rF-ZDD" id="oBL-Fi-0Jf"/>
                         <outlet property="viewSelectGroup" destination="L1e-Ts-8Ql" id="r76-lb-gO0"/>
