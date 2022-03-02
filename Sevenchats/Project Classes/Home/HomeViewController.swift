@@ -2298,29 +2298,28 @@ extension HomeViewController {
         self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CReport, btnOneStyle: .default) { [weak self] (alert) in
             guard let _ = self else { return }
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
-                switch postInfo!.valueForInt(key: CPostType) {
-                case CStaticArticleId:
+                switch postInfo!.valueForString(key: CPostTypeNew) {
+                case CStaticArticleIdNew:
                     reportVC.reportType = .reportArticle
-                case CStaticGalleryId:
+                case CStaticGalleryIdNew:
                     reportVC.reportType = .reportGallery
-                case CStaticChirpyId:
+                case CStaticChirpyIdNew:
                     reportVC.reportType = .reportChirpy
-                case CStaticShoutId:
+                case CStaticShoutIdNew:
                     reportVC.reportType = .reportShout
-                case CStaticForumId:
+                case CStaticForumIdNew:
                     reportVC.reportType = .reportForum
-                case CStaticEventId:
+                case CStaticEventIdNew:
                     reportVC.reportType = .reportEvent
-                case CStaticPollId:
+                case CStaticPollIdNew:
                     reportVC.reportType = .reportPoll
                 default:
-                    reportVC.reportType = .reportSharedPost
                     break
                 }
-                reportVC.isSharedPost = true
-                reportVC.userID = sharePostData.valueForInt(key: CUserId)
-                reportVC.reportID = sharePostData.valueForInt(key: CId)
-                reportVC.reportIDNEW = sharePostData.valueForString(key: "email")
+                reportVC.userID = postInfo?.valueForInt(key: CUserId)
+                reportVC.reportID = postInfo?.valueForInt(key: CId)
+                reportVC.post_id = postInfo?.valueForString(key: "post_id")
+                reportVC.reportIDNEW = postInfo?.valueForString(key: "user_id")
                 self?.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

@@ -236,40 +236,40 @@ extension ReportViewController{
         APIRequest.shared().reportPostUserRSS(para: dict, image: imgArticle.image) { (response, error) in
             guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
             let errorMsg = errorUserinfo.stringAfter(":")
-            if errorMsg != nil{
-                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            }
         if response != nil {
 
-            switch self.reportType {
-            case .reportUser?:
-                // Remove all user related post from previous screen
-                MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, nil, self, .addPost, rss_id: 0)
-            case .reportRss?:
-                // Remove website from previous screen
-                MIGeneralsAPI.shared().refreshWebSiteScreens(nil, nil, self,  .reportPost)
-            default:
-                // Remove post from previous screen
-                MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.reportID, self, .reportPost, rss_id: 0)
-            }
+            DispatchQueue.main.async {
+                
+                switch self.reportType {
+                case .reportUser?:
+                    // Remove all user related post from previous screen
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, nil, self, .addPost, rss_id: 0)
+                case .reportRss?:
+                    // Remove website from previous screen
+                    MIGeneralsAPI.shared().refreshWebSiteScreens(nil, nil, self,  .reportPost)
+                default:
+                    // Remove post from previous screen
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.reportID, self, .reportPost, rss_id: 0)
+                }
 
-            // Notify to previous screen.
-            if let completionBlock = self.block {
-                completionBlock(nil, "")
-            }
+                // Notify to previous screen.
+                if let completionBlock = self.block {
+                    completionBlock(nil, "")
+                }
 
-            self.redirectToPreviousScreen()
-            if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageReport, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.redirectToPreviousScreen()
+                 let metaInfo = response![CJsonMeta] as? [String : Any]
+                print("::::::::::::::::metaInfo\(metaInfo)")
+                if metaInfo?.valueForString(key: "status") == "0"{
+                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageReport, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                }
             }
-            
-           
-            
-            
-            
-            
-            
+          
+  
         }
+            if error != nil{
+                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+            }
     }
         
         

@@ -127,6 +127,7 @@ class EventDetailImageViewController: ParentViewController {
     var notificationInfo = [String:Any]()
     var isSelectedChoice = ""
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
