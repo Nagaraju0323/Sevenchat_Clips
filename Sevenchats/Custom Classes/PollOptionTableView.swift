@@ -70,15 +70,18 @@ class PollOptionTableView: UITableView {
             self.postIDNew = self.postinfo.valueForString(key: "post_id").toInt ?? 0
             if self.isLikesOthersPage == true {
                 self.SelectedByUser = self.postinfo.valueForString(key: "friend_selected")
+                let replaced2 = self.SelectedByUser.replacingOccurrences(of: "\"", with: "")
+                let replaced3 = replaced2.replacingOccurrences(of: "[", with: "")
+                let replaced4 = replaced3.replacingOccurrences(of: "]", with: "")
+                self.isSelectedByUser = replaced4
             }else {
+               
                 self.SelectedByUser = self.postinfo.valueForString(key: "is_selected")
+                let replaced2 = self.SelectedByUser.replacingOccurrences(of: "\"", with: "")
+                let replaced3 = replaced2.replacingOccurrences(of: "[", with: "")
+                let replaced4 = replaced3.replacingOccurrences(of: "]", with: "")
+                self.isSelectedByUser = replaced4
             }
-            let replaced2 = self.SelectedByUser.replacingOccurrences(of: "\"", with: "")
-            let replaced3 = replaced2.replacingOccurrences(of: "[", with: "")
-            let replaced4 = replaced3.replacingOccurrences(of: "]", with: "")
-            self.isSelectedByUser = replaced4
-          
-
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.10) {
             self.postDetails(postID: self.postIDNew.toString)
@@ -145,7 +148,7 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                     
                     let left = Double(Int(percentagecorrect))
                    // print("leftvalues:::::::\(left)")
-                    self.optionPoll.append(left)
+                    self.optionPoll.append(left )
                     cell.btnCheckAnwer.isHidden = true
                     cell.btnSelectAnwer.isHidden = true
                     let percentag = (self.optionPoll[indexPath.row] / 100.0)
@@ -261,30 +264,6 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
         })
     }
 }
-//MARK:- API's Calling
-//extension PollOptionTableView {
-//
-//    func apiForVoteForPoll(_ optiontext:String){
-//        var apiPara = [String : Any]()
-//        apiPara[CPostId] = self.postIDNew
-//        apiPara["option"] = optiontext
-//        apiPara["user_id"] = appDelegate.loginUser?.user_id.description
-//        APIRequest.shared().voteForPoll(para: apiPara) { [weak self] (response, error) in
-//            guard let _ = self else {return}
-//            if response != nil{
-//                if let metaData = response?[CJsonMeta] as? [String : AnyObject] {
-//                    if metaData.valueForString(key: "status") == "0" {
-//                        self?.postDetails(postID:self?.postIDNew.toString ?? "")
-//                        //                        self?.reloadData()
-//
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
-
-
 ////MARK:- API's Calling
 extension PollOptionTableView {
 //    (completion: (success: Bool) -> Void)
@@ -335,6 +314,7 @@ extension PollOptionTableView{
         
         var para = [String:Any]()
         para["id"] = postID
+        para["user_id"] = appDelegate.loginUser?.user_id.description
         
         APIRequest.shared().votePollDetails(para: para) { [weak self] (response, error) in
             guard let _ = self else {return}

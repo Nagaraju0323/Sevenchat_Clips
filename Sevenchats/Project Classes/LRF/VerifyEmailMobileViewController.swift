@@ -187,6 +187,29 @@ extension VerifyEmailMobileViewController {
         }
     }
     
+//    func UserDetailsfeath(userEmailId:String,accessToken:String) {
+//
+//        let dict:[String:Any] = [
+//            CEmail_Mobile : userEmailId,
+//        ]
+//
+//        APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
+//            if response != nil && error == nil {
+//                DispatchQueue.main.async {
+//                    let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+//                    guard let image = appDelegate.loginUser?.profile_img else { return }
+//                    MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image, detail_text: "Register_profile")
+//
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "RegisterSuccess", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+//                        self.dismiss(animated: true, completion: nil)
+//                        self.isverify_Success = true
+//                        self.navigationController?.popToRootViewController(animated: true)
+//                    })
+//                }
+//            }
+//        }
+//    }
+    
     func UserDetailsfeath(userEmailId:String,accessToken:String) {
         
         let dict:[String:Any] = [
@@ -199,12 +222,27 @@ extension VerifyEmailMobileViewController {
                     let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                     guard let image = appDelegate.loginUser?.profile_img else { return }
                     MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image, detail_text: "Register_profile")
-                    
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "RegisterSuccess", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                
+                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                    alertWindow.rootViewController = UIViewController()
+                    let errorMsg = "SuccessFully Register"
+                    let alertController = UIAlertController(title: "", message: "Success", preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { _ in
+                        alertWindow.isHidden = true
                         self.dismiss(animated: true, completion: nil)
                         self.isverify_Success = true
                         self.navigationController?.popToRootViewController(animated: true)
-                    })
+                        return
+                    }))
+                    
+                    alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                    alertWindow.makeKeyAndVisible()
+                    alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "RegisterSuccess", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+//                        self.dismiss(animated: true, completion: nil)
+//                        self.isverify_Success = true
+//                        self.navigationController?.popToRootViewController(animated: true)
+//                    })
                 }
             }
         }

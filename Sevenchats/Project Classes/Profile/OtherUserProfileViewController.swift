@@ -86,6 +86,7 @@ class OtherUserProfileViewController: ParentViewController {
         super.viewDidLoad()
         Initialization()
         NotificationCenter.default.addObserver(self, selector: #selector(loadOtherProfile), name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(polls_others), name: NSNotification.Name(rawValue: "polls_others"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -146,11 +147,23 @@ class OtherUserProfileViewController: ParentViewController {
             self.otherUserDetails(isLoader:true)
         }
         NotificationCenter.default.addObserver(self, selector: #selector(loadOtherProfile), name: NSNotification.Name(rawValue: "loadOtherIntrest"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(polls_others), name: NSNotification.Name(rawValue: "polls_others"), object: nil)
     }
     
     @objc func loadOtherProfile(){
         //load data here
         self.tblUser.reloadData()
+    }
+    
+    @objc func polls_others(){
+//        self.tblEvents.reloadData()
+        
+        if apiTask?.state == URLSessionTask.State.running {
+            apiTask?.cancel()
+        }
+        self.pageNumber = 1
+        refreshControl.beginRefreshing()
+        self.getPostListFromServer()
     }
 }
 // MARK:- --------- Api Functions

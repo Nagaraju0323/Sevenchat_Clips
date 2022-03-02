@@ -121,6 +121,9 @@ class PollDetailsViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tblVAnswre.postinfo = self.pollInformation
+        if isLikesOthersPage == true {
+            tblVAnswre.isLikesOthersPage = true
+        }
         print("Pollinformation::::::::::\(self.pollInformation)")
         self.getPollDetailsFromServer()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -295,7 +298,8 @@ extension PollDetailsViewController {
             tblVAnswre.refreshOnVoteWithData = { [weak self] (optionData,countVoted) in
                 guard let self = self else {return}
                 DispatchQueue.main.async {
-                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformationNew, self.pollIDNew?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self, isSelected: true)
+//                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformationNew, self.pollIDNew?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self, isSelected: true)
+                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformationNew, self.pollIDNew?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self, .polladded, isSelected: true)
                     
                 }
             }

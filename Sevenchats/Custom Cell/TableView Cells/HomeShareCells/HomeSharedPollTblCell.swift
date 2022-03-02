@@ -114,8 +114,11 @@ extension HomeSharedPollTblCell{
             
             tblVAnswre.refreshOnVoteWithData = { [weak self] (optionData,countVoted) in
                 guard let self = self else {return}
+//                DispatchQueue.main.async {
+//                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController,isSelected: false)
+//                }
                 DispatchQueue.main.async {
-                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController,isSelected: false)
+                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController!,.polladded, isSelected: false)
                 }
             }
             

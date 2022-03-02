@@ -2258,6 +2258,7 @@ extension APIRequest {
     func viewPollDetailNew(postID : Int, completion : @escaping ClosureCompletion) {
         var para = [String:Any]()
         para["id"] =  postID.toString
+        para["user_id"] = appDelegate.loginUser?.user_id.description
         
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagpollsDetials, param: para as [String : AnyObject], successBlock: { (task, response) in
             MILoader.shared.hideLoader()
@@ -3024,7 +3025,7 @@ extension APIRequest {
     }
     func votePollDetails(para : [String:Any], completion : @escaping ClosureCompletion) {
         
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagVoteDetailsPolls, param: para as [String : AnyObject], successBlock: { (task, response) in
             

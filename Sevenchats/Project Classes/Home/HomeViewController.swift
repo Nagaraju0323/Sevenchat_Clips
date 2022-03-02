@@ -55,6 +55,8 @@ class HomeViewController: ParentViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loading), name: NSNotification.Name(rawValue: "loading"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(loadListval), name: NSNotification.Name(rawValue: "loadder"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pollloadder), name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(pollloadder), name: NSNotification.Name(rawValue: "polls"), object: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -63,6 +65,10 @@ class HomeViewController: ParentViewController {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(loading), name: NSNotification.Name(rawValue: "loading"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(pollloadder), name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
+     
+        NotificationCenter.default.addObserver(self, selector: #selector(polls), name: NSNotification.Name(rawValue: "polls"), object: nil)
+
         lblNoData.text = CToEnhanceFeed
     }
     deinit {
@@ -80,6 +86,17 @@ class HomeViewController: ParentViewController {
     }
     @objc func loading(){
         self.tblEvents.reloadData()
+    }
+    
+    @objc func polls(){
+//        self.tblEvents.reloadData()
+        
+        if apiTask?.state == URLSessionTask.State.running {
+            apiTask?.cancel()
+        }
+        self.pageNumber = 1
+        refreshControl.beginRefreshing()
+        self.getPostListFromServer(showLoader: false)
     }
     
     //MARK:- ----------- Initialization

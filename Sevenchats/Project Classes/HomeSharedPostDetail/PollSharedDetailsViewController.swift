@@ -268,9 +268,14 @@ extension PollSharedDetailsViewController {
                 }
                 tblVAnswre.refreshOnVoteWithData = { [weak self] (optionData,countVoted) in
                     guard let self = self else {return}
+//                    DispatchQueue.main.async {
+//                        MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformation, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self, isSelected: false)
+//                    }
+                    
                     DispatchQueue.main.async {
-                        MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformation, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self, isSelected: false)
+                        MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformation, self.tblVAnswre.postID, self.tblVAnswre.userVotedPollId, optionData: optionData, self, .polladded, isSelected: false)
                     }
+                    
                 }
                 
                 
