@@ -29,8 +29,14 @@ class SharePostViewController: ParentViewController {
     @IBOutlet weak var btnAddMoreFriends : UIButton!
     @IBOutlet weak var btnSelectGroupFriend : UIButton!
     @IBOutlet weak var viewSelectGroup : UIView!
-    @IBOutlet weak var textViewMessage : GenericTextView!
-    
+    @IBOutlet weak var selectImage : UIImageView!
+    @IBOutlet weak var textViewMessage : GenericTextView!{
+    didSet{
+        self.textViewMessage.txtDelegate = self
+        self.textViewMessage.textLimit = "150"
+        self.textViewMessage.type = "3"
+    }
+    }
     @IBOutlet weak var txtInviteType : MIGenericTextFiled!
     var selectedInviteType : Int = 3 {
         didSet{
@@ -46,6 +52,8 @@ class SharePostViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
+        self.txtInviteType.isHidden = true
+        self.selectImage.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +76,19 @@ extension SharePostViewController {
             self?.resignKeyboard()
             if self?.isValidForAddPost() ?? false{
                 print("Ready for post")
-                self?.apiForSharePost()
+                if self?.textViewMessage.text != ""{
+                    let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                    if self?.textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
+                       print("true")
+                        
+                        self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        
+                    } else {
+                       print("false")
+                        self?.apiForSharePost()
+                    }
+                }
+//                self?.apiForSharePost()
             }
         }
         self.navigationItem.rightBarButtonItem = sendButtonItem

@@ -379,7 +379,12 @@ extension ArticleDetailViewController{
             }
         }
     }
-    
+    @IBAction func btnShareReportCLK(_ sender : UIButton){
+        //self.presentActivityViewController(mediaData: shoutInformation.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        let sharePost = SharePostHelper(controller: self, dataSet: articleInformation)
+        sharePost.shareURL = articleInformation.valueForString(key: CShare_url)
+        sharePost.presentShareActivity()
+    }
     @IBAction func btnLikeCLK(_ sender : UIButton){
         if sender.tag == 0{
         self.btnLike.isSelected = !self.btnLike.isSelected

@@ -66,6 +66,16 @@ class HomeSharedEventImageTblCell: UITableViewCell {
     var imgURL = ""
     var postID = 0
     var onChangeEventStatus : ((Int) -> Void)? = nil
+    var isLikesOthersPage:Bool?
+    var Interested = ""
+    var notInterested = ""
+    var mayBe = ""
+    var isSelectedChoice = ""
+    var isLikeSelected = false
+    var selectedChoice = ""
+    var notificationInfo = [String:Any]()
+    var posted_ID = ""
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -197,6 +207,29 @@ extension HomeSharedEventImageTblCell{
         
         lblEventType.text = CTypeEvent
         lblEventCategory.text = postInfo.valueForString(key: CCategory).uppercased()
+        if isLikesOthersPage == true {
+            if postInfo.valueForString(key:"friend_liked") == "Yes"  && postInfo.valueForString(key:"is_liked") == "Yes" {
+                btnLike.isSelected = true
+                if postInfo.valueForString(key:"is_liked") == "No"{
+                    isLikeSelected = false
+                }
+            }else {
+                if postInfo.valueForString(key:"is_liked") == "No" && postInfo.valueForString(key:"friend_liked") == "No" {
+                    isLikeSelected = true
+                }
+                btnLike.isSelected = false
+            }
+            
+            if postInfo.valueForString(key:"is_liked") == "Yes" && postInfo.valueForString(key:"friend_liked") == "No" {
+                isLikeSelected = true
+                btnLike.isSelected = false
+            }else if postInfo.valueForString(key:"is_liked") == "No" && postInfo.valueForString(key:"friend_liked") == "Yes"{
+                
+                isLikeSelected = false
+                btnLike.isSelected = true
+
+            }
+        }
         btnLike.isSelected = postInfo.valueForInt(key: CIs_Like) == 1
         
         likeCount = postInfo.valueForInt(key: CTotal_like) ?? 0
@@ -209,9 +242,16 @@ extension HomeSharedEventImageTblCell{
         
         lblEventLocation.text = postInfo.valueForString(key: CEvent_Location)
         
-        btnMaybe.setTitle("\(postInfo.valueForString(key: CTotalMaybeInterestedUsers))\n" + CMaybe, for: .normal)
-        btnNotInterested.setTitle("\(postInfo.valueForString(key: CTotalNotInterestedUsers))\n" + CDeclined, for: .normal)
-        btnInterested.setTitle("\(postInfo.valueForString(key: CTotalInterestedUsers))\n" + CConfirmed, for: .normal)
+//        btnMaybe.setTitle("\(postInfo.valueForString(key: CTotalMaybeInterestedUsers))\n" + CMaybe, for: .normal)
+//        btnNotInterested.setTitle("\(postInfo.valueForString(key: CTotalNotInterestedUsers))\n" + CDeclined, for: .normal)
+//        btnInterested.setTitle("\(postInfo.valueForString(key: CTotalInterestedUsers))\n" + CConfirmed, for: .normal)
+        btnMaybe.setTitle("\(postInfo.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
+        btnNotInterested.setTitle("\(postInfo.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
+        btnInterested.setTitle("\(postInfo.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)
+        self.Interested = postInfo.valueForString(key: "yes_count")
+        self.notInterested = postInfo.valueForString(key: "no_count")
+        self.mayBe = postInfo.valueForString(key: "maybe_count")
+        self.isSelectedChoice = postInfo.valueForString(key: "selected_choice")
         
         btnMaybe.isSelected = false
         btnNotInterested.isSelected = false
@@ -226,21 +266,53 @@ extension HomeSharedEventImageTblCell{
             btnInterested.isEnabled = Double(currentDateTime) <= endDateTime
         }
         
-        switch postInfo.valueForInt(key: CIsInterested) {
-        case 1:
-            btnMaybe.isSelected = true
-        case 2:
-            btnInterested.isSelected = true
-        case 3:
-            btnNotInterested.isSelected = true
-        default:
-            break
+        switch postInfo.valueForString(key: "selected_choice").toInt ?? 0  {
+   
+                case 3:
+                    btnMaybe.isSelected = true
+                case 1:
+                    btnInterested.isSelected = true
+ 
+                case 2:
+                    btnNotInterested.isSelected = true
+                default:
+                    break
+                }
+
+        if isLikesOthersPage == true {
+            
+            selectedChoice = postInfo.valueForString(key: "friend_selected_choice")
+            switch postInfo.valueForString(key: "friend_selected_choice").toInt ?? 0 {
+                    case 3:
+                        btnMaybe.isSelected = true
+                    case 1:
+                        btnInterested.isSelected = true
+                    case 2:
+                        btnNotInterested.isSelected = true
+                    default:
+                        break
+                    }
+        }else {
+            selectedChoice = postInfo.valueForString(key: "selected_choice")
+            switch postInfo.valueForString(key: "selected_choice").toInt ?? 0 {
+       
+                    case 3:
+                        btnMaybe.isSelected = true
+                    case 1:
+                        btnInterested.isSelected = true
+     
+                    case 2:
+                        btnNotInterested.isSelected = true
+                    default:
+                        break
+                    }
+            
         }
-        
-        setSelectedButtonStyle()
+//        selectedChoic
+        setSelectedButtonStyle(postInfo)
     }
     
-    func setSelectedButtonStyle(){
+    func setSelectedButtonStyle(_ postInfo : [String : Any]?){
         btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
         btnInterested.layer.borderWidth = 2
         btnInterested.backgroundColor =  .clear
@@ -253,16 +325,45 @@ extension HomeSharedEventImageTblCell{
         btnNotInterested.layer.borderWidth = 2
         btnNotInterested.backgroundColor =  .clear
         
-        let arrButton = [btnInterested,btnMaybe,btnNotInterested]
-        if let sender = arrButton.filter({$0?.isSelected ?? false}).first{
-            if sender == btnInterested{
-                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
-            }else if sender == btnMaybe{
+        if isLikesOthersPage == true {
+         
+            if postInfo?.valueForString(key:"friend_selected_choice") == "3"{
+                btnMaybe.isSelected = true
                 btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
-            }else if sender == btnNotInterested{
+            }else if postInfo?.valueForString(key:"friend_selected_choice") == "2"{
+                btnNotInterested.isSelected = true
                 btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+            }else if postInfo?.valueForString(key:"friend_selected_choice") == "1"{
+                btnInterested.isSelected = true
+                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
             }
+         
+            
+        }else {
+            
+            if postInfo?.valueForString(key:"selected_choice") == "3"{
+                btnMaybe.isSelected = true
+                btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+            }else if postInfo?.valueForString(key:"selected_choice") == "2"{
+                btnNotInterested.isSelected = true
+                btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+            }else if postInfo?.valueForString(key:"selected_choice") == "1"{
+                btnInterested.isSelected = true
+                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+            }
+         
+            
         }
+//        let arrButton = [btnInterested,btnMaybe,btnNotInterested]
+//        if let sender = arrButton.filter({$0?.isSelected ?? false}).first{
+//            if sender == btnInterested{
+//                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+//            }else if sender == btnMaybe{
+//                btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+//            }else if sender == btnNotInterested{
+//                btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+//            }
+//        }
     }
 }
 
@@ -282,25 +383,112 @@ extension HomeSharedEventImageTblCell{
         self.btnLikesCount.setTitle(appDelegate.getLikeString(like: self.likeCount), for: .normal)
         MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.postID, rss_id: nil, type: 1, likeStatus: self.btnLike.isSelected ? 1 : 0, viewController: self.viewController)
     }
-    
+    func selectedoption(){
+        if selectedChoice.toInt == 1 {
+            btnMaybe.isSelected = false
+            btnNotInterested.isSelected = false
+            btnInterested.isSelected = true
+            onChangeEventStatus?(CTypeInterested)
+        }else if selectedChoice.toInt == 3 {
+            btnMaybe.isSelected = true
+            btnNotInterested.isSelected = false
+            btnInterested.isSelected = false
+            onChangeEventStatus?(CTypeMayBeInterested)
+        }else if selectedChoice.toInt == 2 {
+            btnMaybe.isSelected = false
+            btnNotInterested.isSelected = true
+            btnInterested.isSelected = false
+            onChangeEventStatus?(CTypeNotInterested)
+        }
+    }
     @IBAction func onConfirmedPressed(_ sender:UIButton){
+        if selectedChoice.toInt == 1 || selectedChoice.toInt == 2 || selectedChoice.toInt == 3 {
+            selectedoption()
+        }else{
         btnMaybe.isSelected = false
         btnNotInterested.isSelected = false
         btnInterested.isSelected = true
         onChangeEventStatus?(CTypeInterested)
+         
+         guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+         guard let firstName = appDelegate.loginUser?.first_name else {return}
+         guard let lastName = appDelegate.loginUser?.last_name else {return}
+         print(self.posted_ID)
+         
+         if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 || isSelectedChoice == "null"{
+
+             if self.posted_ID == user_ID {
+                 
+             }else {
+                 var intrestCount = self.Interested.toInt
+                 intrestCount = +1
+                 notificationInfo["yes_count"] = intrestCount?.toString
+                 notificationInfo["selected_choice"] = "1"
+                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo)
+             }
+         }
+        }
     }
     
     @IBAction func onMayBePressed(_ sender:UIButton){
+        if selectedChoice.toInt == 1 || selectedChoice.toInt == 2 || selectedChoice.toInt == 3 {
+            selectedoption()
+        }else{
         btnMaybe.isSelected = true
         btnNotInterested.isSelected = false
         btnInterested.isSelected = false
         onChangeEventStatus?(CTypeMayBeInterested)
+         
+         guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+         guard let firstName = appDelegate.loginUser?.first_name else {return}
+         guard let lastName = appDelegate.loginUser?.last_name else {return}
+         
+         if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 || selectedChoice == "null"{
+            
+             if self.posted_ID == user_ID {
+                 
+             }else {
+                 
+                 var maybeCount = self.mayBe.toInt ?? 0
+                 maybeCount = +1
+                 notificationInfo["maybe_count"] = maybeCount.toString
+                 notificationInfo["selected_choice"] = "3"
+                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID:notificationInfo)
+                 
+             }
+           }
+        }
     }
     
     @IBAction func onDeclinedPressed(_ sender:UIButton){
-        btnMaybe.isSelected = false
-        btnNotInterested.isSelected = true
-        btnInterested.isSelected = false
-        onChangeEventStatus?(CTypeNotInterested)
+        if selectedChoice.toInt == 1 || selectedChoice.toInt == 2 || selectedChoice.toInt == 3 {
+            selectedoption()
+        }else{
+            btnMaybe.isSelected = false
+            btnNotInterested.isSelected = true
+            btnInterested.isSelected = false
+            onChangeEventStatus?(CTypeNotInterested)
+        
+    
+         guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+         guard let firstName = appDelegate.loginUser?.first_name else {return}
+         guard let lastName = appDelegate.loginUser?.last_name else {return}
+         if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 ||  selectedChoice == "null"{
+             if self.posted_ID == user_ID {
+                 
+             }else {
+                 
+                 var notIntrestCount = self.notInterested.toInt ?? 0
+                 notIntrestCount = +1
+                 notificationInfo["no_count"] = notIntrestCount.toString
+                 notificationInfo["selected_choice"] = "2"
+                 
+              MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo)
+                 
+             }
+           }
+        }
     }
+    
+    
 }
