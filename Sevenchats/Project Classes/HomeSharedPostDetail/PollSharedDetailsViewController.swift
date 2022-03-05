@@ -621,6 +621,23 @@ extension PollSharedDetailsViewController{
                     }
                         self?.notifcationIsSlected = false
                     }
+                    
+                    if self?.isLikesOthersPage == true {
+                        if self?.isFinalLikeSelected == true{
+                            MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.pollID ?? 0), rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                            self?.isLikeSelected = false
+                        }else {
+                            MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.pollID ?? 0), rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                            
+                        }
+                    }
+                    if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.pollID ?? 0), rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    }
+                    
+                    
+                    
+                    
 //                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.pollIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
                     
                 }

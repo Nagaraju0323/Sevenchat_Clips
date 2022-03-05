@@ -356,14 +356,14 @@ extension EventSharedDetailImageViewController {
         }
         
         //if let sharedData = dict[CSharedPost] as? [String:Any]{
-            self.lblSharedUserName.text = dict.valueForString(key: CFullName) + " " + dict.valueForString(key: CLastName)
+        self.lblSharedUserName.text = dict.valueForString(key: CFullName) + " " + dict.valueForString(key: CLastName)
         let shared_created_at = dict.valueForString(key: CShared_Created_at)
                     let shared_cnv_date = shared_created_at.stringBefore("G")
                     let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
                     lblSharedPostDate.text = sharedCreated
             //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            imgSharedUser.loadImageFromUrl(dict.valueForString(key: CUserSharedProfileImage), true)
-            lblMessage.text = dict.valueForString(key: CMessage)
+        imgSharedUser.loadImageFromUrl(dict.valueForString(key: CUserSharedProfileImage), true)
+        lblMessage.text = dict.valueForString(key: CMessage)
        // }
         self.parentView.isHidden = false
         self.lbluserName.text = "\(dict.valueForString(key: CFirstname)) \(dict.valueForString(key: CLastname))"
@@ -402,7 +402,6 @@ extension EventSharedDetailImageViewController {
             blurImgView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
         }
         self.eventImgURL = dict.valueForString(key: "image")
-
       
         if isLikesOthersPage == true {
             if dict.valueForString(key:"friend_liked") == "Yes"  && dict.valueForString(key:"is_liked") == "Yes" {
@@ -428,6 +427,13 @@ extension EventSharedDetailImageViewController {
             }
         }
         
+        if isLikesHomePage == true  || isLikesMyprofilePage == true {
+            if dict.valueForString(key:CIs_Liked) == "Yes"{
+                btnLike.isSelected = true
+            }else {
+                btnLike.isSelected = false
+            }
+        }
         
         likeCount = dict.valueForString(key: CLikes).toInt ?? 0
         self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)

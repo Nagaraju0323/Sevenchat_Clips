@@ -1644,6 +1644,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 if isShared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell", for: indexPath) as? HomeSharedEventImageTblCell {
+                        cell.isLikesHomePage = true
                         cell.homeEventDataSetup(postInfo)
                         
                         cell.btnLikesCount.touchUpInside { [weak self] (sender) in
