@@ -164,6 +164,9 @@ extension AddPollViewController {
                         self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
                     } else {
                        print("false")
+//                        let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+//                        let filtered = pollOptionLst?.components(separatedBy: cs).joined(separator: "")
+                        
                         self?.addEditPoll()
                     }
                 }
@@ -252,81 +255,96 @@ extension AddPollViewController {
                 arrOptions.append(obj.option)
             }
         }
-        let arrOptToString:String = "\(arrOptions)"
+        let _:String = "\(arrOptions)"
         apiPara[COptions] = arrOptions
         let strConvertJson = arrJson(arrString:arrOptions)
         let pollOption = strConvertJson.components(separatedBy: .whitespacesAndNewlines).joined()
         print("jsonconv:::\(pollOption)")
         
-        guard let userID = appDelegate.loginUser?.user_id else { return}
         
-        do {
-                    let data = try JSONEncoder().encode(arrOptions)
-                    let string = String(data: data, encoding: .utf8)!
-                    let replaced4 = string.replacingOccurrences(of: "\"", with: "\\\"")
-                    print(replaced4)
-                    pollOptionLst  = replaced4
-                    print(replaced4)
+        
+            let characterset = CharacterSet(charactersIn:SPECIALCHARPOLL)
+        if pollOption.rangeOfCharacter(from: characterset.inverted) != nil {
+               print("true")
+            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped:{_ in
                     
-                } catch { print(error) }
-                
-        var dict :[String:Any]  =  [
-                    "image" : "",
-                    "age_limit":"13",
-                    "token" : "1234567890abcdefghijklmnoupqrstuvwxyz",
-                    "user_id":userID,
-                    "post_category":categoryDropDownView.txtCategory.text!,
-                    "post_title":txtQuestion.text!,
-                    "options":pollOptionLst as Any,
-                  ]
-        
-        if self.selectedInviteType == 1{
-            let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
-            apiParaGroups = groupIDS.components(separatedBy: ",")
+            })
+        }else {
             
-        }else if self.selectedInviteType == 2{
-            let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
-            apiParaFriends = userIDS.components(separatedBy: ",")
-        }
-        
-        if apiParaGroups.isEmpty == false {
-            dict[CTargetAudiance] = apiParaGroups
-        }else {
-            dict[CTargetAudiance] = "none"
-        }
-        
-        if apiParaFriends.isEmpty == false {
-            dict[CSelectedPerson] = apiParaFriends
-        }else {
-            dict[CSelectedPerson] = "none"
-        }
-        
-        APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagpolls) { [weak self] (response, error) in
-            if response != nil && error == nil{
-                
-                if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                    let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-                    guard let image = appDelegate.loginUser?.profile_img else { return }
-                    let stausLike = metaInfo["status"] as? String ?? "0"
-                    if stausLike == "0" {
+            
+            guard let userID = appDelegate.loginUser?.user_id else { return}
+            
+            do {
+                        let data = try JSONEncoder().encode(arrOptions)
+                        let string = String(data: data, encoding: .utf8)!
+                        let replaced4 = string.replacingOccurrences(of: "\"", with: "\\\"")
+                        print(replaced4)
+                        pollOptionLst  = replaced4
+                        print(replaced4)
                         
-                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"poll",title: self?.categoryDropDownView.txtCategory.text ?? "",name:name,icon:image, detail_text: "post_point")
-                        
-                        MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self?.pollID, self!,.addPost, rss_id: 0)
-                    }
-                }
-                
-                self?.navigationController?.popViewController(animated: true)
-                
-                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePollPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                
-                if let pollInfo = response![CJsonData] as? [String : Any]{
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(pollInfo,self?.pollID, self!,  .addPost, rss_id: 0)
+                    } catch { print(error) }
                     
-                    APIRequest.shared().saveNewInterest(interestID: pollInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: pollInfo.valueForString(key: CCategory))
+            var dict :[String:Any]  =  [
+                        "image" : "",
+                        "age_limit":"13",
+                        "token" : "1234567890abcdefghijklmnoupqrstuvwxyz",
+                        "user_id":userID,
+                        "post_category":categoryDropDownView.txtCategory.text!,
+                        "post_title":txtQuestion.text!,
+                        "options":pollOptionLst as Any,
+                      ]
+            
+            if self.selectedInviteType == 1{
+                let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
+                apiParaGroups = groupIDS.components(separatedBy: ",")
+                
+            }else if self.selectedInviteType == 2{
+                let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
+                apiParaFriends = userIDS.components(separatedBy: ",")
+            }
+            
+            if apiParaGroups.isEmpty == false {
+                dict[CTargetAudiance] = apiParaGroups
+            }else {
+                dict[CTargetAudiance] = "none"
+            }
+            
+            if apiParaFriends.isEmpty == false {
+                dict[CSelectedPerson] = apiParaFriends
+            }else {
+                dict[CSelectedPerson] = "none"
+            }
+            
+            APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagpolls) { [weak self] (response, error) in
+                if response != nil && error == nil{
+                    
+                    if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                        guard let image = appDelegate.loginUser?.profile_img else { return }
+                        let stausLike = metaInfo["status"] as? String ?? "0"
+                        if stausLike == "0" {
+                            
+                            MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"poll",title: self?.categoryDropDownView.txtCategory.text ?? "",name:name,icon:image, detail_text: "post_point")
+                            
+                            MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self?.pollID, self!,.addPost, rss_id: 0)
+                        }
+                    }
+                    
+                    self?.navigationController?.popViewController(animated: true)
+                    
+                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePollPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    
+                    if let pollInfo = response![CJsonData] as? [String : Any]{
+    //                    MIGeneralsAPI.shared().refreshPostRelatedScreens(pollInfo,self?.pollID, self!,  .addPost, rss_id: 0)
+                        
+                        APIRequest.shared().saveNewInterest(interestID: pollInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: pollInfo.valueForString(key: CCategory))
+                    }
                 }
             }
         }
+        
+        
+
         
     }
 }

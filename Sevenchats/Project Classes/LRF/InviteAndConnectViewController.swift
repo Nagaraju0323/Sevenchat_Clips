@@ -411,7 +411,7 @@ extension InviteAndConnectViewController{
                         if response != nil && error == nil {
                             if let metaInfo = response![CJsonMeta] as? [String:Any]{
                                                let status =  metaInfo["status"] as? String ?? ""
-                                               if status == "0"{
+                                               if status == "1"{
 //                                                self.Check_status = 1
                                                 if let arrData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
                                                     self.arrPhoneList =  arrData

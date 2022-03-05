@@ -260,7 +260,6 @@ extension ForumDetailViewController{
             }
             
             likeCount = forumInformation.valueForString(key: CLikes).toInt ?? 0
-            
             self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
             commentCount = forumInformation.valueForString(key: "comments").toInt ?? 0
             self.totalComment = commentCount
@@ -596,16 +595,7 @@ extension ForumDetailViewController{
     @IBAction func btnLikeCLK(_ sender : UIButton){
         if sender.tag == 0{
         self.btnLike.isSelected = !self.btnLike.isSelected
-        
-//        if self.btnLike.isSelected == true{
-//            likeCount = 1
-//            like = 1
-//            notifcationIsSlected = true
-//        }else {
-//            likeCount = 2
-//            like = 0
-//        }
-        
+
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1

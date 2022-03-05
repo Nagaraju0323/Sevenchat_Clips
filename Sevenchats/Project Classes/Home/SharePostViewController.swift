@@ -358,7 +358,8 @@ extension SharePostViewController {
         
         let apiPara = getPostGeneralData()
         //apiPara[CCategory_Id] = postData[CCategory_Id]
-        print(apiPara)
+//        print(apiPara)
+        let post_ID = 0
         guard let userID = appDelegate.loginUser?.user_id else {return}
         let dict :[String:Any]  =  [
             "user_id":userID,
@@ -375,14 +376,25 @@ extension SharePostViewController {
                     message = CSharedPostHasBeenUpdated
                 }
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                if let postInfo = response![CJsonData] as? [String : Any]{
-                    let postID = postInfo[CPostId] as? Int
-                    if self.isFromEdit{
-                        MIGeneralsAPI.shared().refreshPostRelatedScreens(postInfo,postID, self, .editPost, rss_id: 0)
-                    }else{
-                        MIGeneralsAPI.shared().refreshPostRelatedScreens(postInfo,postID, self, .addPost, rss_id: 0)
-                    }
+                
+                if let shoutInfo = response!["meta"] as? [String : Any]{
+                    if shoutInfo.valueForString(key: "status")  == "0" {
+                        if self.isFromEdit{
+                            MIGeneralsAPI.shared().refreshPostRelatedScreens(shoutInfo,post_ID, self, .editPost, rss_id: 0)
+                        }else{
+                            MIGeneralsAPI.shared().refreshPostRelatedScreens(shoutInfo,post_ID, self, .addPost, rss_id: 0)
+                        }
+                   }
                 }
+                
+//                if let postInfo = response![CJsonData] as? [String : Any]{
+//                    let postID = postInfo[CPostId] as? Int
+//                    if self.isFromEdit{
+//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(postInfo,postID, self, .editPost, rss_id: 0)
+//                    }else{
+//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(postInfo,postID, self, .addPost, rss_id: 0)
+//                    }
+//                }
             }
         }
     }

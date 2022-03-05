@@ -541,90 +541,6 @@ extension EventDetailImageViewController {
         
         if type != eventInfo.valueForInt(key: CIsInterested){
             
-//            if eventInfo.valueForInt(key: "selected_choice") == 1 || eventInfo.valueForInt(key: "selected_choice") == 2  || eventInfo.valueForInt(key: "selected_choice") == 3  {
-//                if selectedChoice.toInt == 1 {
-//                    btnMaybe.isEnabled = false
-//                    btnMaybe.isSelected = false
-//                    btnNotInterested.isSelected = false
-//                    btnInterested.isSelected = true
-//                   // onChangeEventStatus?(CTypeInterested)
-//                }else if selectedChoice.toInt == 3 {
-//                    btnMaybe.isSelected = true
-//                    btnNotInterested.isSelected = false
-//                    btnInterested.isSelected = false
-//                   // onChangeEventStatus?(CTypeMayBeInterested)
-//                }else if selectedChoice.toInt == 2 {
-//                    btnMaybe.isSelected = false
-//                    btnNotInterested.isSelected = true
-//                    btnInterested.isSelected = false
-//                   // onChangeEventStatus?(CTypeNotInterested)
-//                }
-//                return
-//            }else {
-//
-//            //MARK:- NEW
-//            let totalIntersted = eventInfo.valueForString(key: "yes_count")
-//            let totalNotIntersted = eventInfo.valueForString(key:"no_count")
-//            let totalMaybe = eventInfo.valueForString(key: "maybe_count")
-//                guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
-//                guard let firstName = appDelegate.loginUser?.first_name else {return}
-//                guard let lastName = appDelegate.loginUser?.last_name else {return}
-//                print(self.posted_ID)
-//            switch eventInfo.valueForInt(key: CIsInterested) {
-//            case CTypeInterested:
-////                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-//                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
-////                }
-//                eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
-//                break
-//            case CTypeNotInterested:
-////                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-//                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
-////                }
-//                eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
-//                break
-//            case CTypeMayBeInterested:
-////                if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0{
-//                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName)
-////                }
-//                eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
-//                break
-//            default:
-//                break
-//            }
-//            eventInfo[CIsInterested] = type
-//
-//            switch type {
-//            case CTypeInterested:
-//               // selectedoption()
-//                let yesCount = totalIntersted.toInt ?? 0
-//                let totalCnt = (yesCount + 1).toString
-//                eventInfo["yes_count"] = totalCnt.toInt ?? 0 - 1
-//                break
-//            case CTypeNotInterested:
-//               // selectedoption()
-//                let yesCount = totalNotIntersted.toInt ?? 0
-//                let totalCnt = (yesCount + 1).toString
-//                eventInfo["no_count"] = totalCnt.toInt ?? 0 - 1
-//                break
-//            case CTypeMayBeInterested:
-//               // selectedoption()
-//                let yesCount = totalMaybe.toInt ?? 0
-//                let totalCnt = (yesCount + 1).toString
-//                eventInfo["maybe_count"] = totalCnt.toInt ?? 0 - 1
-//                break
-//            default:
-//                break
-//            }
-//            //var postId = postInfo.valueForInt(key: CId)
-//            let postId = eventInfo.valueForString(key: "post_id")
-//            _ = eventInfo.valueForInt(key: CIsSharedPost)
-//            self.setEventDetail(dict: eventInfo)
-//            MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
-//            }
-            
-            
-            
             if eventInfo.valueForInt(key: "selected_choice") == 1 || eventInfo.valueForInt(key: "selected_choice") == 2  || eventInfo.valueForInt(key: "selected_choice") == 3 || eventInfo.valueForInt(key: "friend_selected_choice") == 1  || eventInfo.valueForInt(key: "friend_selected_choice") == 2  ||  eventInfo.valueForInt(key: "friend_selected_choice") == 3 {
                 if selectedChoice.toInt == 1 {
                     btnMaybe.isEnabled = false
@@ -971,16 +887,6 @@ extension EventDetailImageViewController{
     @IBAction func btnLikeCLK(_ sender : UIButton){
         if sender.tag == 0{
         self.btnLike.isSelected = !self.btnLike.isSelected
-//        if self.btnLike.isSelected == true{
-//            likeCount = 1
-//            like = 1
-//            notifcationIsSlected = true
-//        }else {
-//            likeCount = 2
-//            like = 0
-//        }
-        
-        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1

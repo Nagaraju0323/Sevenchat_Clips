@@ -751,11 +751,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             let isdelete = 1
             if isShared == 1 && isdelete == 1{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedArticleCell", for: indexPath) as? HomeSharedArticleCell {
+                    cell.isLikesHomePage = true
                     cell.homeArticleDataSetup(postInfo)
                     
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+//                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                        self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                     }
                     
                     cell.btnMore.touchUpInside { [weak self] (sender) in
@@ -805,10 +807,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
-                            print(":::::::::;Filter is calling::::::::")
+
                         }else {
                             self.getPostListFromServer(showLoader: false)
-                            print(":::::::::;Normalclling is calling::::::::")
+
                         }
 //                        self.getPostListFromServer(showLoader: false)
                     }
@@ -860,7 +862,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                     if isSelectedFilter == true {
                         self.getPostListFromServerFilter()
-                        print(":::::::::;Filter is calling::::::::")
+                       
                     }else {
                         self.getPostListFromServer(showLoader: false)
                     }
@@ -877,11 +879,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             if isShared == 1{
                 
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedGalleryCell", for: indexPath) as? HomeSharedGalleryCell {
+                   
+                    cell.isLikesHomePage = true
                     cell.homeGalleryDataSetup(postInfo)
                     
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+//
+//                        self?.btnLikesCountCLK(postInfo.valueForString(key: "user_id").toInt)
+                        self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                     }
                     
                     cell.btnMore.touchUpInside { [weak self] (sender) in
@@ -889,7 +895,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
                         if userID == appDelegate.loginUser?.user_id{
                             self?.btnSharedMoreCLK(indexPath.row, postInfo)
-                            print(":::::::::;Filter is calling::::::::")
                         }else{
                             self?.btnSharedReportCLK(postInfo: postInfo)
                         }
@@ -930,7 +935,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
-                            print(":::::::::;Filter is calling::::::::")
                         }else {
                             self.getPostListFromServer(showLoader: false)
                         }
@@ -985,7 +989,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                     if isSelectedFilter == true {
                         self.getPostListFromServerFilter()
-                        print(":::::::::;Filter is calling::::::::")
                     }else {
                         self.getPostListFromServer(showLoader: false)
                         
@@ -1004,11 +1007,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 //let isshared = 0
                 if isShared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
-                        cell.homeChirpyImageDataSetup(postInfo)
                         
+                        cell.isLikesHomePage = true
+                        cell.homeChirpyImageDataSetup(postInfo)
                         cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+//                            self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                            self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                         }
                         
                         cell.btnMore.touchUpInside { [weak self] (sender) in
@@ -1056,7 +1061,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                             if isSelectedFilter == true {
                                 self.getPostListFromServerFilter()
-                                print(":::::::::;Filter is calling::::::::")
+                             
                             }else {
                                 self.getPostListFromServer(showLoader: false)
                             }
@@ -1124,11 +1129,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 let isShared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 if isShared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
+                        cell.isLikesHomePage = true
                         cell.homeChirpyImageDataSetup(postInfo)
                         
                         cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                            self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                         }
                         
                         cell.btnMore.touchUpInside { [weak self] (sender) in
@@ -1177,7 +1183,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                             
                             if isSelectedFilter == true {
                                 self.getPostListFromServerFilter()
-                                print(":::::::::;Filter is calling::::::::")
+                               
                             }else {
                                 self.getPostListFromServer(showLoader: false)
                             }
@@ -1250,10 +1256,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             if isShared == 1{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedShoutsTblCell", for: indexPath) as? HomeSharedShoutsTblCell {
                     
+                    cell.isLikesHomePage = true
                     cell.homeShoutsDataSetup(postInfo)
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+//                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                        self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                     }
                     cell.btnMore.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
@@ -1372,11 +1380,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
            // let isshared = 0
             if isShared == 1{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedFourmTblCell", for: indexPath) as? HomeSharedFourmTblCell {
-                    
+
+                    cell.isLikesHomePage = true
                     cell.homeFourmDataSetup(postInfo)
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
+//                        self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
+                        self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                     }
                     
                     cell.btnMore.touchUpInside { [weak self] (sender) in
@@ -1500,10 +1510,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 
                 if isShared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell", for: indexPath) as? HomeSharedEventImageTblCell {
+                       
+                        cell.isLikesHomePage = true
+                        
                         cell.homeEventDataSetup(postInfo)
                         
                         cell.onChangeEventStatus = { [weak self] (action) in
-                            self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
+//                            self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
+                            self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                         }
                         
                         cell.btnLikesCount.touchUpInside { [weak self] (sender) in
@@ -1634,7 +1648,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+//                            self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                            self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                         }
                         cell.onChangeEventStatus = { [weak self] (action) in
                             self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
@@ -1744,7 +1759,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         if isSelectedFilter == true {
                             self.getPostListFromServerFilter()
-                            print(":::::::::;Filter is calling::::::::")
+                           
                         }else {
                             self.getPostListFromServer(showLoader: false)
                         }
@@ -1762,11 +1777,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             if isShared == 1{
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedPollTblCell", for: indexPath) as? HomeSharedPollTblCell {
                     
+                    cell.isLikesHomePage = true
                     cell.homePollDataSetup(postInfo)
                     
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+//                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                        self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                     }
                     cell.btnMore.tag = indexPath.row
                     cell.onMorePressed = { [weak self] (index) in
@@ -1982,7 +1999,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ArticleSharedDetailViewController") as? ArticleSharedDetailViewController else {
                     return
                 }
-                viewcontroller.articleID = sharedPostId
+                viewcontroller.isLikesHomePage = true
+                viewcontroller.articleID = postId.toInt
                 viewcontroller.articleInformation = postInfo
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
@@ -2004,7 +2022,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ImageSharedDetailViewController") as? ImageSharedDetailViewController else {
                     return
                 }
-                viewcontroller.imgPostId = sharedPostId
+                viewcontroller.isLikesHomePage = true
+                viewcontroller.imgPostId = postId.toInt
                 viewcontroller.galleryInfo = postInfo
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
@@ -2028,7 +2047,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedImageDetailsViewController") as? ChirpySharedImageDetailsViewController else {
                         return
                     }
-                    viewcontroller.chirpyID = sharedPostId
+                    viewcontroller.isLikesHomePage = true
+                    viewcontroller.chirpyID = postId.toInt
                     viewcontroller.chirpyInformation = postInfo
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
@@ -2048,8 +2068,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedImageDetailsViewController") as? ChirpySharedImageDetailsViewController else {
                         return
                     }
-                    viewcontroller.chirpyID = sharedPostId
+//                    viewcontroller.chirpyID = sharedPostId
+//                    viewcontroller.chirpyInformation = postInfo
+                    viewcontroller.isLikesHomePage = true
+                    viewcontroller.chirpyID = postId.toInt
                     viewcontroller.chirpyInformation = postInfo
+                    
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
@@ -2067,12 +2091,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
             if isShared == 1{
                 let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
-                let sharedPostId = sharePostData[CId] as? Int ?? 0
+                let sharedPostId = sharePostData["user_id"] as? Int ?? 0
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ShoutsSharedDetailViewController") as? ShoutsSharedDetailViewController else {
                     return
                 }
-                viewcontroller.shoutID = sharedPostId
+                viewcontroller.isLikesHomePage = true
+                viewcontroller.shoutID = postId.toInt
                 viewcontroller.shoutInformation = postInfo
+               
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }
@@ -2094,7 +2120,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ForumSharedDetailViewController") as? ForumSharedDetailViewController else {
                     return
                 }
-                viewcontroller.forumID = sharedPostId
+                viewcontroller.isLikesHomePage = true
+                viewcontroller.forumID = postId.toInt
                 viewcontroller.forumInformation = postInfo
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
@@ -2117,7 +2144,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailImageViewController") as? EventSharedDetailImageViewController else {
                         return
                     }
-                    viewcontroller.postID = sharedPostId
+                    viewcontroller.isLikesHomePage = true
+                    viewcontroller.postID = postId.toInt
                     viewcontroller.eventInfo = postInfo
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
@@ -2138,7 +2166,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailImageViewController") as? EventSharedDetailImageViewController else {
                         return
                     }
-                    viewcontroller.postID = sharedPostId
+                    viewcontroller.isLikesHomePage = true
+                    viewcontroller.postID = postId.toInt
                     viewcontroller.eventInfo = postInfo
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
@@ -2164,7 +2193,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "PollSharedDetailsViewController") as? PollSharedDetailsViewController else {
                     return
                 }
-                viewcontroller.pollID = sharedPostId
+                viewcontroller.isLikesHomePage = true
+                viewcontroller.pollID = postId.toInt
                 viewcontroller.pollInformation = postInfo
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break

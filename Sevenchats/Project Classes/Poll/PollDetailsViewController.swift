@@ -128,7 +128,6 @@ class PollDetailsViewController: ParentViewController {
         self.getPollDetailsFromServer()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.setPollDetails(self.pollInformation)
-            
             self.updateUIAccordingToLanguage()
             self.getCommentListFromServer(showLoader: true)
         }
@@ -249,7 +248,9 @@ extension PollDetailsViewController {
             notificationInfo = pollInfo
             
             self.pollIDNew = pollInfo.valueForString(key:CPostId)
-
+            pollID = pollInfo.valueForString(key:CPostId).toInt
+            
+//            postID = pollIDNew?.toInt
             if isLikesOthersPage == true {
                 posted_ID = self.posted_IDOthers
             }else {
@@ -530,7 +531,18 @@ extension PollDetailsViewController{
                     }
                         self?.notifcationIsSlected = false
                     }
-//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.pollIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    if self?.isLikesOthersPage == true {
+                        if self?.isFinalLikeSelected == true{
+                            MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.pollID ?? 0), rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                            self?.isLikeSelected = false
+                        }else {
+                            MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.pollID ?? 0), rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                            
+                        }
+                    }
+                    if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.pollID ?? 0), rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    }
                     
                 }
             }

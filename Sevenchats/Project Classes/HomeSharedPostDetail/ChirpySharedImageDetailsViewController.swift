@@ -76,8 +76,28 @@ class ChirpySharedImageDetailsViewController: ParentViewController {
     var apiTask : URLSessionTask?
     var arrCommentList = [[String:Any]]()
     var chirpyInformation = [String:Any]()
+    
     var chirpyID : Int?
     var pageNumber = 1
+    var like =  0
+    var info = [String:Any]()
+    var commentinfo = [String:Any]()
+    var likeTotalCount = 0
+    var totalComment = 0
+    var posted_ID = ""
+    var chirpyId : String?
+    var profileImg = ""
+    var notifcationIsSlected = false
+    var isLikesOthers:Bool?
+    var isLikeSelected = false
+    var isFinalLikeSelected = false
+    var isLikesOthersPage:Bool?
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
+    var notificationInfo = [String:Any]()
+    var chirpyIDNew :String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +112,7 @@ class ChirpySharedImageDetailsViewController: ParentViewController {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
         self.setChirpyDetailData(chirpyInformation)
+        self.getCommentListFromServer()
         self.openUserProfileScreen()
     }
     
@@ -169,24 +190,28 @@ extension ChirpySharedImageDetailsViewController{
         self.pageNumber = 1
         refreshControl.beginRefreshing()
         self.getChirpyDetailsFromServer()
+        self.getCommentListFromServer()
     }
     
     fileprivate func getChirpyDetailsFromServer() {
         
-//        self.parentView.isHidden = true
-//        if let chirID = self.chirpyID {
-//            APIRequest.shared().viewPostDetail(postID: chirID) { [weak self](response, error) in
-//                guard let self = self else { return }
-//                if response != nil {
-//                    self.parentView.isHidden = false
-//                    if let chirpInfo = response![CJsonData] as? [String : Any]{
-//                        self.setChirpyDetailData(chirpInfo)
-//                        self.openUserProfileScreen()
-//                    }
-//                }
+        
+        self.parentView.isHidden = true
+        
+        if let chirID = self.chirpyID {
+            APIRequest.shared().viewPostDetailNew(postID: chirID, apiKeyCall: CAPITagchirpiesDetials){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    self.parentView.isHidden = false
+                    if let Info = response!["data"] as? [[String:Any]]{
+                        for chirpInfo in Info {
+                            self.openUserProfileScreen()
+                        }
+                    }
+                }
 //                self.getCommentListFromServer()
-//            }
-//        }
+            }
+        }
     }
     
     fileprivate func openUserProfileScreen(){
@@ -214,7 +239,18 @@ extension ChirpySharedImageDetailsViewController{
     
     func setChirpyDetailData(_ chirpyInfo : [String : Any]?){
         if let chirInfo = chirpyInfo{
+            
             chirpyInformation = chirInfo
+            notificationInfo = chirInfo
+            self.chirpyIDNew = chirInfo.valueForString(key:CPostId)
+//            posted_ID = chirInfo.valueForString(key: "user_id")
+            if isLikesOthersPage == true {
+                posted_ID = self.posted_IDOthers
+            }else {
+                posted_ID = chirInfo.valueForString(key: "user_id")
+            }
+            chirpyId = chirInfo.valueForString(key: "post_id")
+            
            // if let sharedData = chirInfo[CSharedPost] as? [String:Any]{
                 self.lblSharedUserName.text = chirInfo.valueForString(key: CFullName) + " " + chirInfo.valueForString(key: CLastName)
                 //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: chirInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
@@ -246,36 +282,86 @@ extension ChirpySharedImageDetailsViewController{
             
             self.chirpyImgURL = chirInfo.valueForString(key: CImage)
             self.lblChirpyCategory.text = chirInfo.valueForString(key: CCategory)
-            self.btnLike.isSelected = chirInfo.valueForInt(key: CIs_Like) == 1
+
+//            self.btnLike.isSelected = chirInfo.valueForInt(key: CIs_Like) == 1
+//            likeCount = chirInfo.valueForInt(key: CTotal_like) ?? 0
+//            self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
+            if isLikesOthersPage == true {
+                if chirInfo.valueForString(key:"friend_liked") == "Yes"  && chirInfo.valueForString(key:"is_liked") == "Yes" {
+                    btnLike.isSelected = true
+                    if chirInfo.valueForString(key:"is_liked") == "No"{
+                        isLikeSelected = false
+                    }
+                }else {
+                    if chirInfo.valueForString(key:"is_liked") == "No" && chirInfo.valueForString(key:"friend_liked") == "No" {
+                        isLikeSelected = true
+                    }
+                    btnLike.isSelected = false
+                }
+                
+                if chirInfo.valueForString(key:"is_liked") == "Yes" && chirInfo.valueForString(key:"friend_liked") == "No" {
+                    isLikeSelected = true
+                    btnLike.isSelected = false
+                }else if chirInfo.valueForString(key:"is_liked") == "No" && chirInfo.valueForString(key:"friend_liked") == "Yes"{
+                    isLikeSelected = false
+                    btnLike.isSelected = true
+                }
+            }
+
+            if isLikesHomePage == true  || isLikesMyprofilePage == true {
+                if chirInfo.valueForString(key:CIs_Liked) == "Yes"{
+                    btnLike.isSelected = true
+                }else {
+                    btnLike.isSelected = false
+                }
+            }
             
-            likeCount = chirInfo.valueForInt(key: CTotal_like) ?? 0
-            self.commentCount = chirInfo.valueForInt(key: CTotalComment) ?? 0
-            btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
-            
+            likeCount = chirInfo.valueForString(key: CLikes).toInt ?? 0
             self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
+//            self.commentCount = chirInfo.valueForInt(key: CTotalComment) ?? 0
+//            btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
             
+            commentCount = chirInfo.valueForString(key: "comments").toInt ?? 0
+            self.totalComment = commentCount
+            btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
             self.tblCommentList.updateHeaderViewHeight(extxtraSpace: 0)
         }
     }
     
-    fileprivate func deleteChirpyPost(){
+    fileprivate func deleteChirpyPost(_ chirpyInfo : [String : Any]?){
         
-//        if let chirID = self.chirpyID{
-//            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
-//                guard let self = self else { return }
-//                APIRequest.shared().deletePost(postID: chirID, completion: { [weak self](response, error) in
-//                    guard let self = self else { return }
-//                    if response != nil && error == nil{
-//                        self.navigationController?.popViewController(animated: true)
-//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, chirID, self, .deletePost)
-//                    }
-//                })
-//                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-//        }
+        if let chirID = self.chirpyID{
+            
+            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                
+                let postTypeDelete = "post_chirpy"
+                let dict = [
+                    "post_id": chirpyInfo?.valueForString(key: "post_id"),
+                    "image":chirpyInfo?.valueForString(key: "image"),
+                    "post_title": chirpyInfo?.valueForString(key: "post_title"),
+                    "post_category": chirpyInfo?.valueForString(key: "post_category"),
+                    "post_content": chirpyInfo?.valueForString(key: "post_title"),
+                    "age_limit": chirpyInfo?.valueForString(key: "age_limit"),
+                    "targeted_audience": chirpyInfo?.valueForString(key: "targeted_audience"),
+                    "selected_persons": chirpyInfo?.valueForString(key: "selected_persons"),
+                    "status_id": "3"
+                ]
+                
+                guard let self = self else { return }
+                APIRequest.shared().deletePostNew(postDetials: dict as [String : Any], apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
+                    guard let self = self else { return }
+                    if response != nil && error == nil{
+                        self.navigationController?.popViewController(animated: true)
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, chirID, self, .deletePost, rss_id: 0)
+                    }
+                })
+                
+            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+        }
     }
     
     fileprivate func getCommentListFromServer(){
-        if let chirID = self.chirpyID{
+        if let chirID = self.chirpyIDNew{
             
             if apiTask?.state == URLSessionTask.State.running {
                 self.refreshControl.endRefreshing()
@@ -285,33 +371,32 @@ extension ChirpySharedImageDetailsViewController{
             // Add load more indicator here...
             self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
             
-//            apiTask  = APIRequest.shared().getCommentList(page: pageNumber, showLoader: false, post_id: chirID, rss_id: nil) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                self.tblCommentList.tableFooterView = UIView()
-//                self.apiTask?.cancel()
-//                self.refreshControl.endRefreshing()
-//
-//                if response != nil {
-//
-//                    if let arrList = response![CJsonData] as? [[String:Any]] {
-//
-//                        // Remove all data here when page number == 1
-//                        if self.pageNumber == 1 {
-//                            self.arrCommentList.removeAll()
-//                            self.tblCommentList.reloadData()
-//                        }
-//
-//                        // Add Data here...
-//                        if arrList.count > 0{
-//                            self.arrCommentList = self.arrCommentList + arrList
-//                            self.tblCommentList.reloadData()
-//                            self.pageNumber += 1
-//                        }
-//                    }
-//
-//                    print("arrCommentListCount : \(self.arrCommentList.count)")
-//                }
-//            }
+            apiTask = APIRequest.shared().getProductCommentLists(page: pageNumber, showLoader: false, productId:chirID) { [weak self] (response, error) in
+                guard let self = self else { return }
+                self.tblCommentList.tableFooterView = UIView()
+                self.apiTask?.cancel()
+                self.refreshControl.endRefreshing()
+                
+                if response != nil {
+                    
+                    if let arrList = response!["comments"] as? [[String:Any]] {
+                        
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrCommentList.removeAll()
+                            self.tblCommentList.reloadData()
+                        }
+                        
+                        // Add Data here...
+                        if arrList.count > 0{
+                            self.arrCommentList = self.arrCommentList + arrList
+                            self.tblCommentList.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+                    print("arrCommentListCount : \(self.arrCommentList.count)")
+                }
+            }
         }
     }
     
@@ -356,18 +441,16 @@ extension ChirpySharedImageDetailsViewController: UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTblCell", for: indexPath) as? CommentTblCell
-        {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTblCell", for: indexPath) as? CommentTblCell {
+            weak var weakCell = cell
             let commentInfo = arrCommentList[indexPath.row]
-            cell.lblCommentPostDate.text = DateFormatter.shared().durationString(duration: commentInfo.valueForString(key: CCreated_at))
-            
+            let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
+            cell.lblCommentPostDate.text = timeStamp
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
-            
             var commentText = commentInfo.valueForString(key: "comment")
             cell.lblCommentText.enabledTypes.removeAll()
             cell.viewDevider.isHidden = ((arrCommentList.count - 1) == indexPath.row)
-            
             if Int64(commentInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
                 cell.btnMoreOption.isHidden = false
             }else{
@@ -376,7 +459,6 @@ extension ChirpySharedImageDetailsViewController: UITableViewDelegate, UITableVi
             cell.btnMoreOption.touchUpInside { [weak self] (_) in
                 self?.btnMoreOptionOfComment(index: indexPath.row)
             }
-            
             if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
                 for userInfo in arrIncludedUsers {
                     let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
@@ -390,8 +472,8 @@ extension ChirpySharedImageDetailsViewController: UITableViewDelegate, UITableVi
                         let arrSelectedUser = arrIncludedUsers.filter({$0[CFullName] as? String == name})
                         
                         if arrSelectedUser.count > 0 {
-                            let userSelectedInfo = arrSelectedUser[0]
-                            appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
+                            _ = arrSelectedUser[0]
+                            appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
                         }
                     })
                     
@@ -403,29 +485,27 @@ extension ChirpySharedImageDetailsViewController: UITableViewDelegate, UITableVi
                 guard let self = self else { return }
                 label.text = commentText
                 label.minimumLineHeight = 0.0
-                
                 label.configureLinkAttribute = { [weak self] (type, attributes, isSelected) in
                     guard let _ = self else { return attributes}
                     var atts = attributes
-                    atts[NSAttributedString.Key.font] = CFontPoppins(size: cell.lblCommentText.font.pointSize, type: .meduim)
+                    atts[NSAttributedString.Key.font] = CFontPoppins(size: weakCell?.lblCommentText.font.pointSize ?? 0, type: .meduim)
                     return atts
                 }
             }
             
             cell.btnUserName.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
+                appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
             }
             
             cell.btnUserImage.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
+                appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
             }
-            
             // Load more data....
-            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
-                self.getCommentListFromServer()
-            }
+            //            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
+            //                self.getCommentListFromServer()
+            //            }
             
             return cell
         }
@@ -507,50 +587,69 @@ extension ChirpySharedImageDetailsViewController{
         if (txtViewComment.text?.isBlank)!{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageCommentBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-            if let chirId = self.chirpyID{
+            
+            if let shoId = self.chirpyID{
                 // Get Final text for comment..
                 let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
                 
                 // Get Mention user's Ids..
-                let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
+                _ = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
                 
-//                APIRequest.shared().sendComment(post_id: chirId, commentId: self.editCommentId, rss_id: nil, type: 1, comment: strComment, include_user_id: includedUser) { [weak self] (response, error) in
-//                    guard let self = self else { return }
-//                    if response != nil && error == nil {
-//                        
-//                        self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
-//                        self.txtViewComment.text = ""
-//                        self.btnSend.isUserInteractionEnabled = false
-//                        self.btnSend.alpha = 0.5
-//                        self.txtViewComment.updatePlaceholderFrame(false)
-//                        
-//                        if let comment = response![CJsonData] as? [String : Any] {
-//                            if (self.editCommentId ?? 0) == 0{
-//                                self.arrCommentList.insert(comment, at: 0)
-//                                self.commentCount += 1
-//                                
-//                                self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-//                                
-//                                self.tblCommentList.reloadData()
-//                                if let responsInfo = response as? [String : Any]{
-//                                    // To udpate previous screen data....
-//                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(responsInfo, chirId, self, .commentPost)
-//                                }
-//                            }else{
-//                                // Edit comment in array
-//                                if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
-//                                    self.arrCommentList.remove(at: index)
-//                                    self.arrCommentList.insert(comment, at: 0)
-//                                    self.tblCommentList.reloadData()
-//                                }
-//                            }
-//                            self.genericTextViewDidChange(self.txtViewComment, height: 10)
-//                        }
-//                        self.editCommentId =  nil
-//                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-//                        //self.lblNoData.isHidden = self.arrCommentList.count != 0
-//                    }
-//                }
+                guard let userID = appDelegate.loginUser?.user_id else{return}
+                let userId = userID.description
+                APIRequest.shared().sendProductCommentnew(productId:shoId.description, commentId : self.editCommentId, comment: strComment, include_user_id: userId)  { [weak self] (response, error) in
+                    
+                    guard let self = self else { return }
+                    if response != nil && error == nil  {
+                        
+                        self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
+                        self.txtViewComment.text = ""
+                        self.btnSend.isUserInteractionEnabled = false
+                        self.btnSend.alpha = 0.5
+                        self.txtViewComment.updatePlaceholderFrame(false)
+                        
+                        if let comment = response![CJsonData] as? [[String : Any]] {
+                            
+                            for comments in comment {
+                                
+                                self.commentinfo = comments
+                                if (self.editCommentId ?? 0) == 0{
+                                    self.getCommentListFromServer()
+                                    let comment_data = comments["comments"] as? String
+                                    self.commentCount = comment_data?.toInt ?? 0
+                                    self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
+                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(self.commentinfo, shoId, self, .commentPost, rss_id: 0)
+                                }else{
+                                    // Edit comment in array
+                                    if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
+                                        self.arrCommentList.remove(at: index)
+                                        self.arrCommentList.insert(comments, at: 0)
+                                        self.tblCommentList.reloadData()
+                                    }
+                                }
+                            }
+                            
+                            let data = response![CJsonMeta] as? [String:Any] ?? [:]
+                            let stausLike = data["status"] as? String ?? "0"
+                            if self.posted_ID != userID.description{
+                                
+                                guard let firstName = appDelegate.loginUser?.first_name else {return}
+                                guard let lastName = appDelegate.loginUser?.last_name else {return}
+
+                                self.notificationInfo["comments"] = self.commentCount
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
+                                
+                                
+                            }
+                            
+                            self.genericTextViewDidChange(self.txtViewComment, height: 10)
+                        }
+                        self.editCommentId =  nil
+                        //self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                        
+                        //self.lblNoData.isHidden = self.arrCommentList.count != 0
+                    }
+                }
             }
         }
     }
@@ -569,8 +668,9 @@ extension ChirpySharedImageDetailsViewController{
                 }
             }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
                 guard let self = self else { return }
-                self.deleteChirpyPost()
-            }
+                DispatchQueue.main.async {
+                    self.deleteChirpyPost(self.chirpyInformation)
+                }   }
         }else {
             let sharePostData = chirpyInformation[CSharedPost] as? [String:Any] ?? [:]
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
@@ -585,17 +685,125 @@ extension ChirpySharedImageDetailsViewController{
     }
     
     @IBAction func btnLikeCLK(_ sender : UIButton){
+//        if sender.tag == 0{
+//            // LIKE CLK
+//            btnLike.isSelected = !btnLike.isSelected
+//            likeCount = btnLike.isSelected ? likeCount + 1 : likeCount - 1
+//            btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
+//            MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.chirpyID, rss_id: nil, type: 1, likeStatus: btnLike.isSelected ? 1 : 0, viewController: self)
+//        }else{
+//            // LIKE COUNT CLK
+//            if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
+//                likeVC.postID = self.chirpyID
+//                self.navigationController?.pushViewController(likeVC, animated: true)
+//            }
+//        }
+        
         if sender.tag == 0{
-            // LIKE CLK
-            btnLike.isSelected = !btnLike.isSelected
-            likeCount = btnLike.isSelected ? likeCount + 1 : likeCount - 1
-            btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-            MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.chirpyID, rss_id: nil, type: 1, likeStatus: btnLike.isSelected ? 1 : 0, viewController: self)
-        }else{
-            // LIKE COUNT CLK
-            if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
-                likeVC.postID = self.chirpyID
-                self.navigationController?.pushViewController(likeVC, animated: true)
+        self.btnLike.isSelected = !self.btnLike.isSelected
+
+        
+        if self.btnLike.isSelected == true{
+            likeCount = 1
+            like = 1
+            notifcationIsSlected = true
+            
+            if isLikesOthersPage  == true {
+                if isLikeSelected == true{
+                    self.isFinalLikeSelected = true
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
+        }else {
+            likeCount = 2
+            like = 0
+            
+            if isLikesOthersPage == true {
+                if isLikeSelected == false{
+                    self.isFinalLikeSelected = false
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
+        }
+        
+        
+        guard let userID = appDelegate.loginUser?.user_id else {
+            return
+        }
+        APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: (self.chirpyIDNew)?.toInt ?? 0 , isLike: likeCount){ [weak self](response, error) in
+            guard let _ = self else { return }
+            if response != nil {
+                GCDMainThread.async {
+                    let infodatass = response![CJsonData] as? [[String:Any]] ?? [[:]]
+                    for infora in infodatass{
+                        self?.info = infora
+                    }
+                    let data = response![CJsonMeta] as? [String:Any] ?? [:]
+                    let stausLike = data["status"] as? String ?? "0"
+                    if stausLike == "0"{
+                        self?.likeCountfromSever(productId: self?.chirpyIDNew?.toInt ?? 0,likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
+                    }
+                }
+            }
+        }
+    }else{
+        if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
+            //likeVC.postID = self.shoutID
+            likeVC.postIDNew = self.chirpyId
+            self.navigationController?.pushViewController(likeVC, animated: true)
+        }
+    }
+    }
+    
+    func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){
+        APIRequest.shared().likeUnlikeProductCount(productId: self.chirpyIDNew?.toInt ?? 0 ){ [weak self](response, error) in
+            guard let _ = self else { return }
+            if response != nil {
+                GCDMainThread.async { [self] in
+                    self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
+                    self?.btnLikeCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
+                    guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+                    if self?.notifcationIsSlected == true{
+                        guard let firstName = appDelegate.loginUser?.first_name else {return}
+                        guard let lastName = appDelegate.loginUser?.last_name else {return}
+
+                        if self?.posted_ID == user_ID {
+                        }else {
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
+                        }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                        }
+                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                        if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                            let stausLike = metaInfo["status"] as? String ?? "0"
+                            if stausLike == "0" {
+                            }
+                        }
+                    }
+                        self?.notifcationIsSlected = false
+                    }
+//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.chirpyIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    
+                    if self?.isLikesOthersPage == true {
+                    if self?.isFinalLikeSelected == true{
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id:self?.chirpyIDNew?.toInt ?? 0, rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                        self?.isLikeSelected = false
+                    }else {
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.chirpyIDNew?.toInt ?? 0, rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+
+                    }
+                   }
+                    if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
+                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.chirpyIDNew?.toInt ?? 0, rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    }
+                }
             }
         }
     }
@@ -608,30 +816,7 @@ extension ChirpySharedImageDetailsViewController{
     }
     
     func btnMoreOptionOfComment(index:Int){
-        self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
-            
-            guard let self = self else {return}
-            let commentInfo = self.arrCommentList[index]
-            var commentText = commentInfo.valueForString(key: "comment")
-            DispatchQueue.main.async {
-                self.viewUserSuggestion.resetData()
-                self.editCommentId = commentInfo.valueForInt(key: CId)
-                if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
-                    for userInfo in arrIncludedUsers {
-                        let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-                        commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
-                        self.viewUserSuggestion.addSelectedUser(user: userInfo)
-                    }
-                }
-                self.txtViewComment.text = commentText
-                self.viewUserSuggestion.setAttributeStringInTextView(self.txtViewComment)
-                self.txtViewComment.updatePlaceholderFrame(true)
-                let constraintRect = CGSize(width: self.txtViewComment.frame.size.width, height: .greatestFiniteMagnitude)
-                let boundingBox = self.txtViewComment.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.txtViewComment.font!], context: nil)
-                self.genericTextViewDidChange(self.txtViewComment, height: ceil(boundingBox.height))
-            }
-            
-        }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](_) in
+        self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
             guard let _ = self else {return}
             DispatchQueue.main.async {
                 self?.deleteComment(index)
@@ -640,20 +825,27 @@ extension ChirpySharedImageDetailsViewController{
     }
     
     func deleteComment(_ index:Int){
-//        let commentInfo = self.arrCommentList[index]
-//        let commentId = commentInfo.valueForInt(key: CId) ?? 0
-//        APIRequest.shared().deleteComment(commentId: commentId) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil && error == nil {
-//                DispatchQueue.main.async {
-//                    self.commentCount -= 1
-//                    self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
-//                    self.arrCommentList.remove(at: index)
-//                    self.tblCommentList.reloadData()
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.chirpyID, self, .deleteComment)
-//                }
-//            }
-//        }
+        
+        let commentInfo = self.arrCommentList[index]
+        let commentId = commentInfo.valueForString(key: "updated_at")
+        let strComment = commentInfo.valueForString(key: "comment")
+        guard let userID = appDelegate.loginUser?.user_id else{return}
+        APIRequest.shared().deleteProductCommentNew(productId:chirpyIDNew ?? "", commentId : commentId, comment: strComment, include_user_id: userID.description)  { [weak self] (response, error) in
+            guard let self = self else { return }
+            if response != nil && error == nil {
+                DispatchQueue.main.async {
+                    self.arrCommentList.remove(at: index)
+                    self.commentCount -= 1
+                    if self.commentCount >= 0{
+                        self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
+                    }else {
+                        return
+                    }
+                    self.tblCommentList.reloadData()
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil,self.chirpyIDNew?.toInt ?? 0 , self, .deleteComment, rss_id: 0)
+                }
+            }
+        }
     }
 }
 

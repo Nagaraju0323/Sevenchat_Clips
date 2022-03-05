@@ -718,6 +718,8 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 let isshared = 0
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedArticleCell", for: indexPath) as? HomeSharedArticleCell {
+                        cell.isLikesOthersPage = true
+                        cell.posted_IDOthers = userIDNew ?? ""
                         cell.homeArticleDataSetup(postInfo!)
                         
                         cell.btnLikesCount.touchUpInside {[weak self] (sender) in
@@ -773,6 +775,9 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 let isshared = 0
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedGalleryCell", for: indexPath) as? HomeSharedGalleryCell {
+                        
+                        cell.isLikesOthersPage = true
+                        cell.posted_IDOthers = userIDNew ?? ""
                         cell.homeGalleryDataSetup(postInfo!)
                         
                         cell.btnLikesCount.touchUpInside {[weak self] (sender) in
@@ -879,6 +884,8 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     let isshared = 0
                     if isshared == 1{
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
+                            cell.isLikesOthersPage = true
+                            cell.posted_IDOthers = userIDNew ?? ""
                             cell.homeChirpyImageDataSetup(postInfo!)
                             
                             cell.btnLikesCount.touchUpInside { [weak self](sender) in
@@ -933,6 +940,9 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 let isSharedPost = postInfo?.valueForInt(key: CIsSharedPost)
                 if isSharedPost == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedShoutsTblCell", for: indexPath) as? HomeSharedShoutsTblCell {
+                        
+                        cell.isLikesOthersPage = true
+                        cell.posted_IDOthers = userIDNew ?? ""
                         cell.homeShoutsDataSetup(postInfo!)
                         
                         cell.btnLikesCount.touchUpInside {[weak self] (sender) in
@@ -987,6 +997,9 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 let isshared = 0
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedFourmTblCell", for: indexPath) as? HomeSharedFourmTblCell {
+                        
+                        cell.isLikesOthersPage = true
+                        cell.posted_IDOthers = userIDNew ?? ""
                         cell.homeFourmDataSetup(postInfo!)
                         
                         cell.btnLikesCount.touchUpInside {[weak self] (sender) in
@@ -1100,7 +1113,10 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 }else{
                     let isshared = 0
                     if isshared == 1{
-                        if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell", for: indexPath) as? HomeSharedEventImageTblCell {
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell",for: indexPath) as? HomeSharedEventImageTblCell {
+                          
+                            cell.posted_IDOthers = userIDNew ?? ""
+                            cell.isLikesOthersPage = true
                             cell.homeEventDataSetup(postInfo!)
                             
                             cell.btnLikesCount.touchUpInside { [weak self](sender) in
@@ -1161,7 +1177,9 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 let isshared = 0
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedPollTblCell", for: indexPath) as? HomeSharedPollTblCell {
-                        
+                       
+                        cell.isLikesOthersPage = true
+                        cell.posted_IDOthers = userIDNew ?? ""
                         cell.homePollDataSetup(postInfo!)
                         
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
@@ -1253,8 +1271,10 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ArticleSharedDetailViewController") as? ArticleSharedDetailViewController else {
                     return
                 }
-                
-                viewcontroller.articleID = sharedPostId
+                viewcontroller.isLikesOthersPage = true
+                viewcontroller.posted_IDOthers = userIDNew ?? ""
+                viewcontroller.articleID = postId?.toInt
+                viewcontroller.articleInformation = postInfo ?? [:]
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }
@@ -1276,7 +1296,10 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ImageSharedDetailViewController") as? ImageSharedDetailViewController else {
                     return
                 }
-                viewcontroller.imgPostId = sharedPostId
+                viewcontroller.posted_IDOthers = userIDNew ?? ""
+                viewcontroller.isLikesOthersPage = true
+                viewcontroller.galleryInfo = postInfo ?? [:]
+                viewcontroller.imgPostId = postId?.toInt
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }
@@ -1300,7 +1323,10 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedDetailsViewController") as? ChirpySharedDetailsViewController else {
                         return
                     }
-                    viewcontroller.chirpyID = sharedPostId
+//                    viewcontroller.isLikesOthersPage = true
+//                    viewcontroller.posted_IDOthers = userIDNew ?? ""
+                    viewcontroller.chirpyInformation = postInfo ?? [:]
+                    viewcontroller.chirpyID = postId?.toInt
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
@@ -1320,7 +1346,15 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedImageDetailsViewController") as? ChirpySharedImageDetailsViewController else {
                         return
                     }
-                    viewcontroller.chirpyID = sharedPostId
+//                    viewcontroller.isLikesOthersPage = true
+//                    viewcontroller.posted_IDOthers = userIDNew ?? ""
+//                    viewcontroller.chirpyID = postId?.toInt
+                    
+                    viewcontroller.isLikesOthersPage = true
+                    viewcontroller.posted_IDOthers = userIDNew ?? ""
+                    viewcontroller.chirpyInformation = postInfo ?? [:]
+                    viewcontroller.chirpyID = postId?.toInt
+                    
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
@@ -1341,7 +1375,14 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ShoutsSharedDetailViewController") as? ShoutsSharedDetailViewController else {
                     return
                 }
-                viewcontroller.shoutID = sharedPostId
+               
+//                viewcontroller.isLikesOthersPage = true
+//                viewcontroller.shoutID = postId?.toInt
+                
+                viewcontroller.isLikesOthersPage = true
+                viewcontroller.posted_IDOthers = userIDNew ?? ""
+                viewcontroller.shoutInformations = postInfo ?? [:]
+                viewcontroller.shoutID = postId?.toInt
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }
@@ -1363,7 +1404,12 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ForumSharedDetailViewController") as? ForumSharedDetailViewController else {
                     return
                 }
-                viewcontroller.forumID = sharedPostId
+//                viewcontroller.forumID = sharedPostId
+                viewcontroller.isLikesOthersPage = true
+                viewcontroller.posted_IDOthers = userIDNew ?? ""
+                viewcontroller.forumInformation = postInfo ?? [:]
+                viewcontroller.forumID = postId?.toInt
+                
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }
@@ -1386,7 +1432,12 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailViewController") as? EventSharedDetailViewController else {
                         return
                     }
-                    viewcontroller.postID = sharedPostId
+//                    viewcontroller.isLikesOthersPage = true
+//                    viewcontroller.postID = sharedPostId
+                    
+//                    viewcontroller.isLikesOthersPage = true
+                    viewcontroller.eventInfo = postInfo ?? [:]
+                    viewcontroller.postID =  postId?.toInt
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
@@ -1405,7 +1456,11 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailImageViewController") as? EventSharedDetailImageViewController else {
                         return
                     }
-                    viewcontroller.postID = sharedPostId
+                    
+                    viewcontroller.isLikesOthersPage = true
+                    viewcontroller.posted_IDOthers = userIDNew ?? ""
+                    viewcontroller.eventInfo = postInfo ?? [:]
+                    viewcontroller.postID =  postId?.toInt
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
@@ -1428,7 +1483,12 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "PollSharedDetailsViewController") as? PollSharedDetailsViewController else {
                     return
                 }
-                viewcontroller.pollID = sharedPostId
+//                viewcontroller.pollID = sharedPostId
+                
+                viewcontroller.isLikesOthersPage = true
+                viewcontroller.posted_IDOthers = userIDNew ?? ""
+                viewcontroller.pollInformation = postInfo ?? [:]
+                viewcontroller.pollID =  postId?.toInt
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
             }

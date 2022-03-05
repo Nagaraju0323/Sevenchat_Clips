@@ -68,7 +68,7 @@ extension AddPollQuestionCell : UITextFieldDelegate{
             }else {
                 //Normat type
                 if textField == textField{
-                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                let cs = NSCharacterSet(charactersIn: SPECIALCHARPOLL).inverted
                 let filtered = string.components(separatedBy: cs).joined(separator: "")
                 return (string == filtered)
                 }

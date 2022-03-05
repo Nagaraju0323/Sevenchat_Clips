@@ -124,8 +124,24 @@ class EventSharedDetailImageViewController: ParentViewController {
     var isLikeSelected = false
     var selectedChoice = ""
     var posted_ID = ""
-    
+    var postIDNew : String?
+    var shoutInformations = [String:Any]()
+    var totalComment = 0
+    var like =  0
+    var info = [String:Any]()
+    var commentinfo = [String:Any]()
+    var likeTotalCount = 0
+    var eventActCount = ""
+    var profileImg = ""
+    var notifcationIsSlected = false
     let currentDateTime = Date().timeIntervalSince1970
+    var isLikesOthers:Bool?
+    var isFinalLikeSelected = false
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,6 +153,7 @@ class EventSharedDetailImageViewController: ParentViewController {
         self.updateUIAccordingToLanguage()
         self.setEventDetail(dict: eventInfo)
         self.openUserProfileScreen()
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -328,6 +345,16 @@ extension EventSharedDetailImageViewController {
         
         //...Set prefilled event detail here
         eventInfo = dict
+        notificationInfo = eventInfo
+        self.postIDNew = dict.valueForString(key:CPostId)
+        self.postID = dict.valueForString(key:CPostId).toInt
+//        posted_ID = dict.valueForString(key: "user_id")
+        if isLikesOthersPage == true {
+            posted_ID = self.posted_IDOthers
+        }else {
+            posted_ID = dict.valueForString(key: "user_id")
+        }
+        
         //if let sharedData = dict[CSharedPost] as? [String:Any]{
             self.lblSharedUserName.text = dict.valueForString(key: CFullName) + " " + dict.valueForString(key: CLastName)
         let shared_created_at = dict.valueForString(key: CShared_Created_at)
@@ -359,22 +386,15 @@ extension EventSharedDetailImageViewController {
         let cnvStr2 = created_At2.stringBefore("G")
         guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
         self.lblEndDate.text = CEndDate + startCreated2
-//        self.lblEventStartDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
-//        self.lblEventEndDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
-        
         self.lblEventAddress.text = dict.valueForString(key: CEvent_Location)
         btnMaybe.setTitle("\(dict.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(dict.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
         btnInterested.setTitle("\(dict.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)
-        
         self.Interested = dict.valueForString(key: "yes_count")
         self.notInterested = dict.valueForString(key: "no_count")
         self.mayBe = dict.valueForString(key: "maybe_count")
         self.isSelectedChoice = dict.valueForString(key: "selected_choice")
-//        self.btnInterested.setTitle("\(dict.valueForString(key: CTotalInterestedUsers))\n" + CConfirmed, for: .normal)
-//        self.btnMaybe.setTitle("\(dict.valueForString(key: CTotalMaybeInterestedUsers))\n" + CMaybe, for: .normal)
-//        self.btnNotInterested.setTitle("\(dict.valueForString(key: CTotalNotInterestedUsers))\n" + CDeclined, for: .normal)
-        
+
         let image = dict.valueForString(key: "image")
         if image.isEmpty {
             blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
@@ -382,11 +402,8 @@ extension EventSharedDetailImageViewController {
             blurImgView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
         }
         self.eventImgURL = dict.valueForString(key: "image")
-//        self.blurImgView.loadImageFromUrl(dict.valueForString(key: CImage), false)
-//        //self.imgVEvent.loadImageFromUrl(dict.valueForString(key: CImage), false)
-//
-//        self.eventImgURL = dict.valueForString(key: CImage)
-        self.btnLike.isSelected = dict.valueForBool(key: CIs_Like)
+
+      
         if isLikesOthersPage == true {
             if dict.valueForString(key:"friend_liked") == "Yes"  && dict.valueForString(key:"is_liked") == "Yes" {
                 btnLike.isSelected = true
@@ -410,13 +427,13 @@ extension EventSharedDetailImageViewController {
 
             }
         }
-        likeCount = dict.valueForInt(key: CTotal_like) ?? 0
         
-        self.commentCount = dict.valueForInt(key: CTotalComment) ?? 0
-        btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
         
+        likeCount = dict.valueForString(key: CLikes).toInt ?? 0
         self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-        
+        commentCount = dict.valueForString(key: "comments").toInt ?? 0
+        self.totalComment = commentCount
+        btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
         if let endDateTime = dict.valueForDouble(key: CEvent_End_Date) {
             
             btnMaybe.isEnabled = Double(currentDateTime) <= endDateTime
@@ -892,9 +909,10 @@ extension EventSharedDetailImageViewController: UITableViewDelegate, UITableView
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTblCell", for: indexPath) as? CommentTblCell
         {
+            weak var weakCell = cell
             let commentInfo = arrCommentList[indexPath.row]
-            cell.lblCommentPostDate.text = DateFormatter.shared().durationString(duration: commentInfo.valueForString(key: CCreated_at))
-            
+            let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
+            cell.lblCommentPostDate.text = timeStamp
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
             
@@ -910,7 +928,6 @@ extension EventSharedDetailImageViewController: UITableViewDelegate, UITableView
             cell.btnMoreOption.touchUpInside { [weak self] (_) in
                 self?.btnMoreOptionOfComment(index: indexPath.row)
             }
-            
             if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
                 for userInfo in arrIncludedUsers {
                     let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
@@ -926,6 +943,8 @@ extension EventSharedDetailImageViewController: UITableViewDelegate, UITableView
                         if arrSelectedUser.count > 0 {
                             let userSelectedInfo = arrSelectedUser[0]
                             appDelegate.moveOnProfileScreen(userSelectedInfo.valueForString(key: CUserId), self)
+                            
+                            appDelegate.moveOnProfileScreenNew(userSelectedInfo.valueForString(key: CUserId), userSelectedInfo.valueForString(key: CUsermailID), self)
                         }
                     })
                     
@@ -933,32 +952,30 @@ extension EventSharedDetailImageViewController: UITableViewDelegate, UITableView
                 }
             }
             
-            cell.lblCommentText.customize { [weak self] label in
-                guard let self = self else { return }
+            cell.lblCommentText.customize { label in
                 label.text = commentText
                 label.minimumLineHeight = 0
                 label.configureLinkAttribute = { [weak self] (type, attributes, isSelected) in
                     guard let _ = self else { return attributes}
                     var atts = attributes
-                    atts[NSAttributedString.Key.font] = CFontPoppins(size: cell.lblCommentText.font.pointSize, type: .meduim)
+                    atts[NSAttributedString.Key.font] = CFontPoppins(size: weakCell?.lblCommentText.font.pointSize ?? 0, type: .meduim)
                     return atts
                 }
             }
             
             cell.btnUserName.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
+                appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
-            
             cell.btnUserImage.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-                appDelegate.moveOnProfileScreen(commentInfo.valueForString(key: CUserId), self)
+                appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             
             // Load more data....
-            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
-                self.getCommentListFromServer(showLoader: false)
-            }
+            //            if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
+            //                self.getCommentListFromServer(showLoader: false)
+            //            }
             
             return cell
         }
@@ -995,20 +1012,129 @@ extension EventSharedDetailImageViewController{
     }
     
     @IBAction func btnLikeCLK(_ sender : UIButton){
+//        if sender.tag == 0{
+//            // LIKE CLK
+//            
+//            btnLike.isSelected = !btnLike.isSelected
+//            
+//            likeCount = btnLike.isSelected ? likeCount + 1 : likeCount - 1
+//            
+//            btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
+//            MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.postID, rss_id: nil, type: 1, likeStatus: btnLike.isSelected ? 1 : 0, viewController: self)
+//        }else{
+//            // LIKE COUNT CLK
+//            if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController {
+//                likeVC.postID = self.postID
+//                self.navigationController?.pushViewController(likeVC, animated: true)
+//            }
+//        }
+        
         if sender.tag == 0{
-            // LIKE CLK
+        self.btnLike.isSelected = !self.btnLike.isSelected
+        if self.btnLike.isSelected == true{
+            likeCount = 1
+            like = 1
+            notifcationIsSlected = true
             
-            btnLike.isSelected = !btnLike.isSelected
+            if isLikesOthersPage  == true {
+                if isLikeSelected == true{
+                    self.isFinalLikeSelected = true
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
+        }else {
+            likeCount = 2
+            like = 0
             
-            likeCount = btnLike.isSelected ? likeCount + 1 : likeCount - 1
-            
-            btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
-            MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.postID, rss_id: nil, type: 1, likeStatus: btnLike.isSelected ? 1 : 0, viewController: self)
+            if isLikesOthersPage == true {
+                if isLikeSelected == false{
+                    self.isFinalLikeSelected = false
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
+        }
+        
+        guard let userID = appDelegate.loginUser?.user_id else {
+            return
+        }
+        APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: (self.postIDNew)?.toInt ?? 0 , isLike: likeCount){ [weak self](response, error) in
+            guard let _ = self else { return }
+            if response != nil {
+                GCDMainThread.async {
+                    let infodatass = response![CJsonData] as? [[String:Any]] ?? [[:]]
+                    for infora in infodatass{
+                        self?.info = infora
+                    }
+                    let data = response![CJsonMeta] as? [String:Any] ?? [:]
+                    let stausLike = data["status"] as? String ?? "0"
+                    if stausLike == "0"{
+                        self?.likeCountfromSever(productId: self?.postIDNew?.toInt ?? 0,likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
+                    }
+                }
+            }
+        }
         }else{
-            // LIKE COUNT CLK
-            if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController {
-                likeVC.postID = self.postID
+            if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
+                //likeVC.postID = self.shoutID
+                likeVC.postIDNew = self.postIDNew
                 self.navigationController?.pushViewController(likeVC, animated: true)
+            }
+        }
+        
+    }
+    
+    func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){
+        APIRequest.shared().likeUnlikeProductCount(productId: self.postIDNew?.toInt ?? 0 ){ [weak self](response, error) in
+            guard let _ = self else { return }
+            if response != nil {
+                GCDMainThread.async { [self] in
+                    //                    info = response!["liked_users"] as? [String:Any] ?? [:]
+                    self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
+                    self?.btnLikeCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
+                    guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+                    guard let firstName = appDelegate.loginUser?.first_name else {return}
+                    guard let lastName = appDelegate.loginUser?.last_name else {return}
+                    if self?.notifcationIsSlected == true{
+
+                        if self?.posted_ID == user_ID {
+                        }else {
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
+                        }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                        }
+                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                        if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                            let stausLike = metaInfo["status"] as? String ?? "0"
+                            if stausLike == "0" {
+                            }
+                        }
+                    }
+                        
+                        self?.notifcationIsSlected = false
+                    }
+//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.postIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    
+                    if self?.isLikesOthersPage == true {
+                    if self?.isFinalLikeSelected == true{
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id:self?.postIDNew?.toInt ?? 0, rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                        self?.isLikeSelected = false
+                    }else {
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.postIDNew?.toInt ?? 0, rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+
+                    }
+                   }
+                    if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
+                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.postIDNew?.toInt ?? 0, rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                    }
+                    
+                }
             }
         }
     }
@@ -1087,43 +1213,39 @@ extension EventSharedDetailImageViewController{
 extension EventSharedDetailImageViewController{
     
     fileprivate func getCommentListFromServer(showLoader: Bool){
-        
-        if apiTask?.state == URLSessionTask.State.running {
-            self.refreshControl.endRefreshing()
-            return
+        if let evntID = self.postIDNew{
+            if apiTask?.state == URLSessionTask.State.running {
+                self.refreshControl.endRefreshing()
+                return
+            }
+            // Add load more indicator here...
+            self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
+            self.arrCommentList.removeAll()
+            apiTask = APIRequest.shared().getProductCommentLists(page: pageNumber, showLoader: false, productId:evntID) { [weak self] (response, error) in
+                guard let self = self else { return }
+                self.tblCommentList.tableFooterView = UIView()
+                self.refreshControl.endRefreshing()
+                self.apiTask?.cancel()
+                if response != nil {
+                    if let arrList = response!["comments"] as? [[String:Any]] {
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrCommentList.removeAll()
+                            self.tblCommentList.reloadData()
+                        }
+                        // Add Data here...
+                        if arrList.count > 0{
+                            self.arrCommentList = self.arrCommentList + arrList
+                            self.tblCommentList.reloadData()
+                            self.pageNumber += 1
+                        }
+                    }
+//                    self.tblCommentList.reloadData()
+                    print("arrCommentListCount : \(self.arrCommentList.count)")
+                    //self.lblNoData.isHidden = self.arrCommentList.count != 0
+                }
+            }
         }
-        
-        // Add load more indicator here...
-        self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
-        
-//        apiTask = APIRequest.shared().getCommentList(page: pageNumber, showLoader: showLoader, post_id: self.postID, rss_id: self.rssId) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            self.tblCommentList.tableFooterView = UIView()
-//            self.refreshControl.endRefreshing()
-//            self.apiTask?.cancel()
-//
-//            if response != nil {
-//
-//                if let arrList = response![CJsonData] as? [[String:Any]] {
-//
-//                    // Remove all data here when page number == 1
-//                    if self.pageNumber == 1 {
-//                        self.arrCommentList.removeAll()
-//                        self.tblCommentList.reloadData()
-//                    }
-//
-//                    // Add Data here...
-//                    if arrList.count > 0{
-//                        self.arrCommentList = self.arrCommentList + arrList
-//                        self.tblCommentList.reloadData()
-//                        self.pageNumber += 1
-//                    }
-//                }
-//
-//                print("arrCommentListCount : \(self.arrCommentList.count)")
-//                //self.lblNoData.isHidden = self.arrCommentList.count != 0
-//            }
-//        }
     }
 }
 
@@ -1191,83 +1313,68 @@ extension EventSharedDetailImageViewController: UserSuggestionDelegate{
 extension EventSharedDetailImageViewController{
     @IBAction func btnSendCommentCLK(_ sender : UIButton){
         self.resignKeyboard()
-        
-        if (txtViewComment.text?.isBlank)! {
+        if (txtViewComment.text?.isBlank)!{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageCommentBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
-        } else {
-            
-            // Get Final text for comment..
-            let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
-            
-            // Get Mention user's Ids..
-            let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
-            
-//            APIRequest.shared().sendComment(post_id: self.postID, commentId: self.editCommentId, rss_id: rssId, type: rssId != nil ? 2 : 1, comment: strComment, include_user_id: includedUser) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                if response != nil && error == nil {
-//                    
-//                    self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
-//                    self.txtViewComment.text = ""
-//                    self.btnSend.isUserInteractionEnabled = false
-//                    self.btnSend.alpha = 0.5
-//                    self.txtViewComment.updatePlaceholderFrame(false)
-//                    
-//                    if let comment = response![CJsonData] as? [String : Any] {
-//                        if (self.editCommentId ?? 0) == 0{
-//                            self.arrCommentList.insert(comment, at: 0)
-//                            self.commentCount += 1
-//                            
-//                            self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
-//                            
-//                            self.tblCommentList.reloadData()
-//                            if let responsInfo = response as? [String : Any]{
-//                                // To udpate previous screen data....
-//                                MIGeneralsAPI.shared().refreshPostRelatedScreens(responsInfo, self.postID, self, .commentPost)
-//                            }
-//                        }else{
-//                            // Edit comment in array
-//                            if let index = self.arrCommentList.firstIndex(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
-//                                self.arrCommentList.remove(at: index)
-//                                self.arrCommentList.insert(comment, at: 0)
-//                                self.tblCommentList.reloadData()
-//                            }
-//                        }
-//                        self.genericTextViewDidChange(self.txtViewComment, height: 10)
-//                    }
-//                    self.editCommentId =  nil
-//                    self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-//                    //self.lblNoData.isHidden = self.arrCommentList.count != 0
-//                }
-//            }
-            
+        }else{
+            if let evntId = self.postID{
+                // Get Final text for comment..
+                let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
+                // Get Mention user's Ids..
+                let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
+                
+                guard let userID = appDelegate.loginUser?.user_id else{
+                    return
+                }
+                let userId = userID.description
+                APIRequest.shared().sendProductCommentnew(productId:evntId.description, commentId : self.editCommentId, comment: strComment, include_user_id: userId)  { [weak self] (response, error) in
+                    guard let self = self else { return }
+                    if response != nil && error == nil  {
+                        self.viewUserSuggestion.hideSuggestionView(self.txtViewComment)
+                        self.txtViewComment.text = ""
+                        self.btnSend.isUserInteractionEnabled = false
+                        self.btnSend.alpha = 0.5
+                        self.txtViewComment.updatePlaceholderFrame(false)
+                        if let comment = response![CJsonData] as? [[String : Any]] {
+                            for comments in comment {
+                                self.commentinfo = comments
+                                if (self.editCommentId ?? 0) == 0{
+                                    self.getCommentListFromServer(showLoader: true)
+                                    let comment_data = comments["comments"] as? String
+                                    self.commentCount = comment_data?.toInt ?? 0
+                                    self.btnComment.setNormalTitle(normalTitle: appDelegate.getCommentCountString(comment: self.commentCount))
+                                    MIGeneralsAPI.shared().refreshPostRelatedScreens(self.commentinfo, evntId, self, .commentPost, rss_id: 0)
+                                }else{
+                                    if let index = self.arrCommentList.index(where: { $0[CId] as? Int ==  (self.editCommentId ?? 0)}) {
+                                        self.arrCommentList.remove(at: index)
+                                        self.arrCommentList.insert(comments, at: 0)
+                                        self.tblCommentList.reloadData()
+                                    }
+                                }
+                            }
+                            
+                            let data = response![CJsonMeta] as? [String:Any] ?? [:]
+                            guard let firstName = appDelegate.loginUser?.first_name else {return}
+                            guard let lastName = appDelegate.loginUser?.last_name else {return}
+                            let stausLike = data["status"] as? String ?? "0"
+                            if self.postID ?? 0 != userID{
+                                self.notificationInfo["comments"] = self.commentCount
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
+
+                            }
+                            self.genericTextViewDidChange(self.txtViewComment, height: 10)
+                        }
+                        self.editCommentId =  nil
+                        //                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                        //self.lblNoData.isHidden = self.arrCommentList.count != 0
+                    }
+                }
+            }
         }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadder"), object: nil)
     }
     
     func btnMoreOptionOfComment(index:Int){
-        self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
-            
-            guard let self = self else {return}
-            let commentInfo = self.arrCommentList[index]
-            var commentText = commentInfo.valueForString(key: "comment")
-            DispatchQueue.main.async {
-                self.viewUserSuggestion.resetData()
-                self.editCommentId = commentInfo.valueForInt(key: CId)
-                if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
-                    for userInfo in arrIncludedUsers {
-                        let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-                        commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
-                        self.viewUserSuggestion.addSelectedUser(user: userInfo)
-                    }
-                }
-                self.txtViewComment.text = commentText
-                self.viewUserSuggestion.setAttributeStringInTextView(self.txtViewComment)
-                self.txtViewComment.updatePlaceholderFrame(true)
-                let constraintRect = CGSize(width: self.txtViewComment.frame.size.width, height: .greatestFiniteMagnitude)
-                let boundingBox = self.txtViewComment.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.txtViewComment.font!], context: nil)
-                self.genericTextViewDidChange(self.txtViewComment, height: ceil(boundingBox.height))
-            }
-            
-        }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](_) in
+        self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
             guard let _ = self else {return}
             DispatchQueue.main.async {
                 self?.deleteComment(index)
@@ -1276,19 +1383,33 @@ extension EventSharedDetailImageViewController{
     }
     
     func deleteComment(_ index:Int){
+        
         let commentInfo = self.arrCommentList[index]
-        let commentId = commentInfo.valueForInt(key: CId) ?? 0
-//        APIRequest.shared().deleteComment(commentId: commentId) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil && error == nil {
-//                DispatchQueue.main.async {
-//                    self.commentCount -= 1
-//                    self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
-//                    self.arrCommentList.remove(at: index)
-//                    self.tblCommentList.reloadData()
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.postID, self, .deleteComment)
-//                }
-//            }
-//        }
+        let commentId = commentInfo.valueForString(key: "updated_at")
+        let strComment = commentInfo.valueForString(key: "comment")
+        
+        guard let userID = appDelegate.loginUser?.user_id else{
+            return
+        }
+        let userId = userID.description
+        
+        APIRequest.shared().deleteProductCommentNew(productId:postIDNew ?? "", commentId : commentId, comment: strComment, include_user_id: userId)  { [weak self] (response, error) in
+            guard let self = self else { return }
+            if response != nil && error == nil {
+                DispatchQueue.main.async {
+                    self.arrCommentList.remove(at: index)
+                    self.commentCount -= 1
+                    if self.commentCount >= 0{
+                        self.btnComment.setTitle(appDelegate.getCommentCountString(comment: self.commentCount), for: .normal)
+                    }else {
+                        return
+                    }
+                    self.tblCommentList.reloadData()
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil,self.postIDNew?.toInt ?? 0 , self, .deleteComment, rss_id: 0)
+                    
+                    
+                }
+            }
+        }
     }
 }
