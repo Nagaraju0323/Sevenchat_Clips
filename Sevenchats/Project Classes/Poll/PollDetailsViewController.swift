@@ -302,8 +302,12 @@ extension PollDetailsViewController {
                 guard let self = self else {return}
                 DispatchQueue.main.async {
 //                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformationNew, self.pollIDNew?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self, isSelected: true)
-                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformationNew, self.pollIDNew?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self, .polladded, isSelected: true)
                     
+                    if self.isLikesOthersPage == true {
+                        MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformationNew, self.pollIDNew?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self, .polladded, isSelected: true)
+                    }else {
+                        MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.pollInformationNew, self.pollIDNew?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self, .polladded, isSelected: false)
+                    }
                 }
             }
             

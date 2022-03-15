@@ -14,14 +14,8 @@ import PhoneNumberKit
 class InviteAndConnectViewController: ParentViewController, UITableViewDelegate, UITableViewDataSource {
     
     private let phoneNumberKit = PhoneNumberKit()
-    //@IBOutlet var viewFriendList : UIView!
-    //@IBOutlet var viewFriendInfo : UIView!
     @IBOutlet var viewButtonSeparator : UIView!
     @IBOutlet var tblFriend : UITableView!
-    /*@IBOutlet var activityIndicatorView : UIActivityIndicatorView!
-    @IBOutlet var imgSelectAllFriend : UIImageView!
-    @IBOutlet var btnSelectAllFriend : UIButton!*/
-    
     @IBOutlet var viewSearchBar : UIView!
     @IBOutlet var btnSearch : UIButton!
     @IBOutlet var btnCancel : UIButton!
@@ -49,12 +43,6 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
     
     @IBOutlet var cnNavigationHeight : NSLayoutConstraint!
     @IBOutlet var btnSkip : UIButton!
-    /*@IBOutlet var lblSelectAll : UILabel!
-    @IBOutlet var lblInviteFriend : UILabel!
-    @IBOutlet var lblImportContact : UILabel!
-    @IBOutlet var lblNoFriend : UILabel!
-    @IBOutlet var lblNoDataFound : UILabel!*/
-    
     var isFromSideMenu : Bool!
     var arrFriendList : [Any] = [] {
         didSet{
@@ -117,10 +105,6 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
         tblFriend.delegate = self
         tblFriend.dataSource = self
         tblFriend.reloadData()
-        //lblNoDataFound.isHidden = true
-        //activityIndicatorView.isHidden = true
-        //viewFriendInfo.isHidden = false
-        //btnSelectAllFriend.isSelected = false
         self.btnSearch.isHidden = true
         
         
@@ -141,18 +125,6 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
             btnSideMenu.isSelected = false
             btnSearch.contentHorizontalAlignment = .right
         }
-        
-//        btnCancel.setTitle(CBtnCancel, for: .normal)
-//        btnBigDone.setTitle(CBtnDone, for: .normal)
-//        btnSmallDone.setTitle(CBtnDone, for: .normal)
-//        btnSkip.setTitle(CBtnSkip, for: .normal)
-//        lblTitle.text = CSideConnectInvite
-        /*lblSelectAll.text = CConnectAll
-        lblInviteFriend.text = CInviteConnectInviteFriend
-        lblImportContact.text = CInviteConnectImportContact
-        lblNoFriend.text = CInviteConnectNoFriend
-        lblNoDataFound.text = CMessageNoDataFound*/
-        
     }
     
     func manageSorting() {
@@ -203,39 +175,7 @@ extension InviteAndConnectViewController{
         let socialIDS = arrSocialID.joined(separator: ",")
         
         if !socialIDS.isBlank{
-//            APIRequest.shared().connectAllFriend(user_id: socialIDS) { (response, error) in
-//
-//                if response != nil && error == nil{
-//                    if let arrConnect = response![CJsonData] as? [[String : Any]]{
-//                        if isSignup{
-//                            // Move on next screen here.......
-//                            let objInterest : SelectInterestsViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "SelectInterestsViewController") as! SelectInterestsViewController
-//                            objInterest.isBackButtomHide = true
-//                            self.navigationController?.pushViewController(objInterest, animated: true)
-//                        }else{
-//
-//                            // update current data with api data.....
-//                            for userInfo in arrConnect{
-//                                if let index = self.arrSyncUser.index(where: { $0[CUserId] as? Int == userInfo.valueForInt(key: CUserId)}) {
-//                                    var userData = self.arrSyncUser[index]
-//                                    userData[CFriend_status] = userInfo[CFriend_status]
-//                                    self.arrSyncUser.remove(at: index)
-//                                    self.arrSyncUser.insert(userData, at: index)
-//                                }
-//                            }
-//
-//                            self.arrConnectAllFriend.removeAll()
-//                            UIView.performWithoutAnimation {
-//                                self.tblFriend.reloadData()
-//                            }
-//                            self.checkConnectAllFriendStatus()
-//
-//                            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSentInvitation, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                        }
-//                    }
-//                }
-//            }
-
+            
         }
     }
     
@@ -254,91 +194,10 @@ extension InviteAndConnectViewController{
         }
         
         return
-        /*
-         
-         let params = ["fields": "id, first_name, last_name, name, email, picture"]
-         
-         let graphRequest = GraphRequest(graphPath: "/me/friends", parameters: params)
-         let connection = GraphRequestConnection()
-         connection.add(graphRequest, completionHandler: { (connection, result, error) in
-         if error == nil {
-         if let userData = result as? [String:Any] {
-         print(userData)
-         self.btnSearch.isHidden = false
-         }else{
-         self.btnSearch.isHidden = true
-         }
-         } else {
-         print("Error Getting Friends \(error ?? "" as! Error)");
-         self.btnSearch.isHidden = true
-         }
-         
-         })
-         
-         connection.start()*/
     }
     
     // Fetch contact from local......
     func fetchTwitterList() {
-        
-        //activityIndicatorView.isHidden = false
-        //activityIndicatorView.startAnimating()
-        /*
-        MISocial.shared().twitterFriendList(cursor : twitterCursor, fromVC: self) { (result, error) in
-            //self.activityIndicatorView.isHidden = true
-            //self.activityIndicatorView.stopAnimating()
-            
-            if result != nil{
-                if let twitterInfo = result as? [String : Any]{
-                    
-                    print("Twitter json === \(twitterInfo)")
-                    if self.selectedType == 2{
-                        if self.twitterCursor == "-1"{
-                            self.arrSyncUser.removeAll()
-                            self.arrFriendList.removeAll()
-                            self.tblFriend.reloadData()
-                        }
-                        
-                        let arrData = (twitterInfo["users"] as? [Any])!
-                        if arrData.count > 0{
-                            self.btnSearch.isHidden = false
-                            // sync user on our server....
-                            var arrSocial = [[String : Any]]()
-                            arrSocial = (arrData as? [[String : Any]])!
-                            let socialIDS = (arrSocial.map({$0["id_str"] as? String}) as? Array)!.joined(separator: ",")
-                            print(socialIDS)
-                            var syncPara = [String : Any]()
-                            syncPara["common_id"] = socialIDS
-                            syncPara["type"] = 2
-                            //self.activityIndicatorView.isHidden = false
-                            //self.activityIndicatorView.startAnimating()
-                            
-                            self.apiTask = APIRequest.shared().syncUserForInviteConnect(common_id: socialIDS, type: "2", completion: { (response, error) in
-                                //self.activityIndicatorView.isHidden = true
-                                //self.activityIndicatorView.stopAnimating()
-                                if response != nil && error == nil{
-                                    if let arrSyncData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
-                                        self.arrSyncUser = self.arrSyncUser + arrSyncData
-                                        self.twitterCursor = twitterInfo.valueForString(key: "next_cursor")
-                                        self.arrFriendList = self.arrFriendList + arrData
-                                        self.tblFriend.reloadData()
-                                        self.checkConnectAllFriendStatus()
-                                    }
-                                }
-                            })
-                        }else{
-                            self.btnSearch.isHidden = true
-                        }
-                    }else{
-                        self.btnSearch.isHidden = true
-                    }
-                }else{
-                    self.btnSearch.isHidden = true
-                }
-            }else{
-                self.btnSearch.isHidden = true
-            }
-        } */
     }
     
     func parseNumber(_ number: String) ->String? {
@@ -375,7 +234,7 @@ extension InviteAndConnectViewController{
                             //                        arrPhoneNumbers.append(contactInfo?.phoneNumbers[0].value.stringValue)
                             
                             if let number = contactInfo?.phoneNumbers[0].value.stringValue,
-                                let finalNumber = self.parseNumber(number) {
+                               let finalNumber = self.parseNumber(number) {
                                 arrPhoneNumbers.append(finalNumber)
                             }
                             
@@ -396,67 +255,56 @@ extension InviteAndConnectViewController{
                     //self.activityIndicatorView.isHidden = false
                     //self.activityIndicatorView.startAnimating()
                     let fullNameArr = phoneNumber.components(separatedBy: ",")
-                                       
-                     let strArr = fullNameArr.map { String($0)}
-                       strArr.forEach { mobileNumber in
-                              print(mobileNumber)
-  
-                    let dict:[String:Any] = [
-                        CMobile : mobileNumber
-                    ]
-//                    self.arrFriendList = results as [Any]
+                    
+                    let strArr = fullNameArr.map { String($0)}
+                    strArr.forEach { mobileNumber in
+                        print(mobileNumber)
                         
-//                        self.tblFriend.reloadData()
-                    APIRequest.shared().inviteAndconnect(para: dict as [String : AnyObject]) { (response, error) in
-                        if response != nil && error == nil {
-                            if let metaInfo = response![CJsonMeta] as? [String:Any]{
-                                               let status =  metaInfo["status"] as? String ?? ""
-                                               if status == "1"{
-//                                                self.Check_status = 1
-                                                if let arrData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
-                                                    self.arrPhoneList =  arrData
-                                                    for arr in arrData{
-//                                                        self.arrListModel.append(MDLUsers(fromDictionary: arr))
-                                                    }
-                                                    print("arrData\(arrData)")
-//                                                    self.Check_status = 1
-                                                self.arrPhoneList += self.arrTempList
-                                                self.btnSearch.isHidden = false
-                                                  self.arrSyncUser = arrData
-                                                self.arrFriendList = results as [Any]
-                                                 self.tblFriend.reloadData()
-                                                 self.checkConnectAllFriendStatus()
-                                                }
-                                               }else {
-//
-                                               }
-                                           }
-                         }else{
-                       self.btnSearch.isHidden = true
+                        let dict:[String:Any] = [
+                            CMobile : mobileNumber
+                        ]
+                        
+                        APIRequest.shared().inviteAndconnect(para: dict as [String : AnyObject]) { (response, error) in
+                            if response != nil && error == nil {
+                                if let metaInfo = response![CJsonMeta] as? [String:Any]{
+                                    let status =  metaInfo["status"] as? String ?? ""
+                                    if status == "1"{
+                                        //                                                self.Check_status = 1
+                                        if let arrData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
+                                            self.arrPhoneList =  arrData
+                                            for arr in arrData{
+                                                //                                                        self.arrListModel.append(MDLUsers(fromDictionary: arr))
+                                            }
+                                            print("arrData\(arrData)")
+                                            //                                                    self.Check_status = 1
+                                            self.arrPhoneList += self.arrTempList
+                                            self.btnSearch.isHidden = false
+                                            self.arrSyncUser = arrData
+                                            self.arrFriendList = results as [Any]
+                                            self.tblFriend.reloadData()
+                                            self.checkConnectAllFriendStatus()
+                                        }else {
+                                            self.arrPhoneList += self.arrTempList
+                                            self.btnSearch.isHidden = false
+                                            //                                                      self.arrSyncUser = arrData
+                                            self.arrFriendList = results as [Any]
+                                            self.tblFriend.reloadData()
+                                            self.checkConnectAllFriendStatus()
+                                        }
+                                    }else {
+                                        self.arrPhoneList += self.arrTempList
+                                        self.btnSearch.isHidden = false
+                                        //                                                      self.arrSyncUser = arrData
+                                        self.arrFriendList = results as [Any]
+                                        self.tblFriend.reloadData()
+                                        self.checkConnectAllFriendStatus()
+                                    }
+                                }
+                            }else{
+                                self.btnSearch.isHidden = true
+                            }
                         }
                     }
-}
-                      
-
-                    
- //MARK:-
-//                    self.apiTask = APIRequest.shared().syncUserForInviteConnect(common_id: phoneNumber, type: "3", completion: { (response, error) in
-//                        //self.activityIndicatorView.isHidden = true
-//                        //self.activityIndicatorView.stopAnimating()
-//                        MILoader.shared.hideLoader()
-//                        if response != nil{
-//                            if let arrData = response?.value(forKey: CJsonData) as? [[String : AnyObject]] {
-//                                self.btnSearch.isHidden = false
-//                                self.arrSyncUser = arrData
-//                                self.arrFriendList = results as [Any]
-//                                self.tblFriend.reloadData()
-//                                self.checkConnectAllFriendStatus()
-//                            }
-//                        }else{
-//                            self.btnSearch.isHidden = true
-//                        }
-//                    })
-//MARK:-
                 }
             }else{
                 self.checkConnectAllFriendStatus()
@@ -485,11 +333,11 @@ extension InviteAndConnectViewController: UITextFieldDelegate {
             switch(selectedType){
             case 1,2: //Facebook, Twitter
                 arrSearchFriendList =  (arrFriendList as? [[String: AnyObject]])?.filter({($0["name"] as? String)?.range(of: textField.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
-//                manageSorting()
-
+            //                manageSorting()
+            
             case 3: // PhoneBook
                 arrSearchFriendList = (arrFriendList as? [CNContact])?.filter({
-                    ($0.givenName.trim).range(of: textField.text ?? "", options: [.caseInsensitive]) != nil || ($0.familyName.trim).range(of:  textField.text ?? "", options: [.caseInsensitive]) != nil}) ?? []
+                                                                                ($0.givenName.trim).range(of: textField.text ?? "", options: [.caseInsensitive]) != nil || ($0.familyName.trim).range(of:  textField.text ?? "", options: [.caseInsensitive]) != nil}) ?? []
                 
                 // Now sorting Only for Phone Contact
                 manageSorting()
@@ -527,7 +375,7 @@ extension InviteAndConnectViewController{
         if arrSearchFriendList.isEmpty { return 0.0 }
         return UITableView.automaticDimension
     }
-
+    
     func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         if arrSearchFriendList.isEmpty { return 0.0 }
         return 50.0
@@ -538,8 +386,8 @@ extension InviteAndConnectViewController{
     }
     
     /*func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 63.0
-    }*/
+     return 63.0
+     }*/
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //return isSearch ? arrSearchFriendList.count : arrFriendList.count
@@ -561,19 +409,19 @@ extension InviteAndConnectViewController{
             cell.onPhoneBook = { [weak self] (sender) in
                 self?.btnFriendTypeCLK(sender)
             }
-
+            
             cell.btnShareSocialMedia.touchUpInside { [weak self](sender) in
-
+                
                 self?.presentActivityViewController(mediaData: CAppStoreURI, contentTitle: "Sevenchats app invitation.\n" )
             }
-
-
+            
+            
             let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.hide(_: )))
             recognizer.numberOfTapsRequired = 1
             cell.contentView.addGestureRecognizer(recognizer)
-
-
-
+            
+            
+            
             return cell
         }
         
@@ -635,16 +483,16 @@ extension InviteAndConnectViewController{
                         // Remove all selected friend....
                         if syncUserInfo.valueForInt(key: CCheck_status) == 0 {
                             /*
-                            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
-                            MISocial.shared().sendDirectMessage(userID: twitterInfo?.valueForString(key: "id"), fromVC: self, friendListBlock: { (response, error) in
-                                MILoader.shared.hideLoader()
-                                print("Response :",response as Any)
-                                if response != nil{
-                                    MIToastAlert.shared.showToastAlert(position: .bottom, message: CInviteSentSuccess)
-                                }else{
-                                    MIToastAlert.shared.showToastAlert(position: .bottom, message: CInviteSentUnSuccess)
-                                }
-                            })*/
+                             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
+                             MISocial.shared().sendDirectMessage(userID: twitterInfo?.valueForString(key: "id"), fromVC: self, friendListBlock: { (response, error) in
+                             MILoader.shared.hideLoader()
+                             print("Response :",response as Any)
+                             if response != nil{
+                             MIToastAlert.shared.showToastAlert(position: .bottom, message: CInviteSentSuccess)
+                             }else{
+                             MIToastAlert.shared.showToastAlert(position: .bottom, message: CInviteSentUnSuccess)
+                             }
+                             })*/
                         }else{
                             let friendStatus = syncUserInfo.valueForInt(key: CFriend_status)
                             if  friendStatus == 0 {
@@ -696,7 +544,7 @@ extension InviteAndConnectViewController{
                 let contactInfo = arrSearchFriendList[indexPath.row] as? CNContact
                 cell.lblUserName.text = (contactInfo?.givenName.trim)! + " " + (contactInfo?.familyName.trim)!
                 cell.imgUserType.image = UIImage(named: "ic_btn_phonebook")
-            
+                
                 if let imgData = contactInfo!.thumbnailImageData {
                     let image = UIImage(data: imgData)
                     cell.imgUser.image = image
@@ -708,71 +556,71 @@ extension InviteAndConnectViewController{
                     
                     cell.lblUserInfo.text = contactInfo?.phoneNumbers[0].value.stringValue
                     cell.btnInviteConnect.isHidden = false
-//                    cell.btnInviteContentMove.isHidden = true
-
+                    //                    cell.btnInviteContentMove.isHidden = true
+                    
                     let phoneNumber = self.parseNumber(contactInfo?.phoneNumbers[0].value.stringValue ?? "")
-                  
+                    
                     cell.setupCell(loan: phoneNumber,arrSyncUser: self.arrSyncUser)
-
+                    
                     cell.btnInviteContentMove.isHidden = true
                     
                     
                     cell.callBackInviteReturn = { Friendstatus,check_Status,arrListModel in
                         
                         let User_Id = arrListModel.first?.user_id
-//                        print("arralist\(arrlist.user_id)")
+                        //                        print("arralist\(arrlist.user_id)")
                         if check_Status == 0 {
                             let strInviteText = "Sevenchats app invitation.\n" + CAppStoreURI
                             self.openMessageComposer(number: cell.lblUserInfo.text, body: strInviteText)
                         } else {
                             // Friend request api...
-//                                if  syncUserInfo.valueForInt(key: CFriend_status) == 0 {
-//                            if Friendstatus == 0 {
-//                                    if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
-//                                        if let index = self.arrConnectAllFriend.index(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}) {
-//                                            self.arrConnectAllFriend.remove(at: index)
-//                                        }
-//                                    }else{
-//                                        self.arrConnectAllFriend.append(syncUserInfo)
-//                                    }
-//                                    self.tblFriend.reloadData()
-//                                    self.checkConnectAllFriendStatus()
-                         //   }else {
+                            //                                if  syncUserInfo.valueForInt(key: CFriend_status) == 0 {
+                            //                            if Friendstatus == 0 {
+                            //                                    if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
+                            //                                        if let index = self.arrConnectAllFriend.index(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}) {
+                            //                                            self.arrConnectAllFriend.remove(at: index)
+                            //                                        }
+                            //                                    }else{
+                            //                                        self.arrConnectAllFriend.append(syncUserInfo)
+                            //                                    }
+                            //                                    self.tblFriend.reloadData()
+                            //                                    self.checkConnectAllFriendStatus()
+                            //   }else {
                             
-                                
-                                print("this is calling")
-                                var frndStatus = 0
-                                var isShowAlert = false
-                                var alertMessage = ""
-                                switch Friendstatus {
-                               // switch syncUserInfo.valueForInt(key: CFriend_status) {
-                                case 0, 3, 4:
-                                    frndStatus = CFriendRequestSent
-                                    isShowAlert = true
-                                    alertMessage = CMessageAddfriend
-                                case 1:
-                                    frndStatus = CFriendRequestCancel
-                                    isShowAlert = true
-                                    alertMessage = CMessageCancelRequest
-                                case 5:
-                                    frndStatus = CFriendRequestUnfriend
-                                    isShowAlert = true
-                                    alertMessage = CMessageUnfriend
-                                case 2:
-                                    frndStatus = CFriendRequestAccept
-                                    isShowAlert = true
-                                    alertMessage = CAlertMessageForAcceptRequest
-                                default:
-                                    break
-                                }
-                                if isShowAlert{
-                                        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                                           self.friendStatusApi(User_Id, frndStatus)
-                                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-                                }else{
-                                  self.friendStatusApi(User_Id, frndStatus)
-                                }
-                           // }
+                            
+                            print("this is calling")
+                            var frndStatus = 0
+                            var isShowAlert = false
+                            var alertMessage = ""
+                            switch Friendstatus {
+                            // switch syncUserInfo.valueForInt(key: CFriend_status) {
+                            case 0, 3, 4:
+                                frndStatus = CFriendRequestSent
+                                isShowAlert = true
+                                alertMessage = CMessageAddfriend
+                            case 1:
+                                frndStatus = CFriendRequestCancel
+                                isShowAlert = true
+                                alertMessage = CMessageCancelRequest
+                            case 5:
+                                frndStatus = CFriendRequestUnfriend
+                                isShowAlert = true
+                                alertMessage = CMessageUnfriend
+                            case 2:
+                                frndStatus = CFriendRequestAccept
+                                isShowAlert = true
+                                alertMessage = CAlertMessageForAcceptRequest
+                            default:
+                                break
+                            }
+                            if isShowAlert{
+                                self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
+                                    self.friendStatusApi(User_Id, frndStatus)
+                                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+                            }else{
+                                self.friendStatusApi(User_Id, frndStatus)
+                            }
+                            // }
                             
                         }
                     }
@@ -794,10 +642,10 @@ extension InviteAndConnectViewController{
     
     
     @objc func hide(_ recognizer: UITapGestureRecognizer){
-          print("this is calling    ")
-
-
-        }
+        print("this is calling    ")
+        
+        
+    }
     
 }
 // MARK:- --------- Helper Functions
@@ -845,10 +693,10 @@ extension InviteAndConnectViewController{
         }
         self.btnSearch.isHidden = true
         /*btnSelectAllFriend.isSelected = false
-        imgSelectAllFriend.isHidden = true
-        lblNoDataFound.isHidden = true
-        activityIndicatorView.isHidden = true
-        */
+         imgSelectAllFriend.isHidden = true
+         lblNoDataFound.isHidden = true
+         activityIndicatorView.isHidden = true
+         */
         arrConnectAllFriend.removeAll()
         arrSearchFriendList.removeAll()
         arrSyncUser.removeAll()

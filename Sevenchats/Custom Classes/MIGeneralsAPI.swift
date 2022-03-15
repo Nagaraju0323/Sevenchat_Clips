@@ -1883,8 +1883,14 @@ extension MIGeneralsAPI {
                     continue
                 }
                 if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
+                    
                     var postPollInfo = homeVC.arrPostList[index]
-                    postPollInfo["is_selected"] = optionData?.valueForString(key: "is_selected")
+                    if isSelected == true {
+                        postPollInfo["friend_selected"] = optionData?.valueForString(key: "friend_selected")
+                        
+                    }else {
+                        postPollInfo["is_selected"] = optionData?.valueForString(key: "is_selected")
+                    }
                     postPollInfo["results"] = optionData?["results"] as? [String:String]
                     homeVC.arrPostList.remove(at: index)
                     homeVC.arrPostList.insert(postPollInfo, at: index)
@@ -1904,50 +1910,25 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? PollDetailsViewController{
                         switch postAction {
                         case .likePost?:
-                            
-                            
-                            
-                            
                             break
                         case .polladded?:
-                            
-                            detailPost.pollInformation["is_selected"] = optionData?.valueForString(key: "is_selected")
+                            if isSelected == true {
+                                detailPost.pollInformation["friend_selected"] = optionData?.valueForString(key: "friend_selected")
+                            }else {
+                                detailPost.pollInformation["is_selected"] = optionData?.valueForString(key: "is_selected")
+                            }
                             detailPost.pollInformation["results"] = optionData?["results"] as? [String:String]
                             detailPost.pollInformation[CLikes] = postInfo?.valueForString(key: "likes")
                             //                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setPollDetails(detailPost.pollInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
-                            
-                            
-                            //                            detailPost.setPostDetailData(postInfo)
+                            //  detailPost.setPostDetailData(postInfo)
                             break
                         default: break
                         }
                     }
                 }
-                
-                
-                //                let arrPosts = homeVC.arrPostList
-                //                for (index,obj) in arrPosts.enumerated(){
-                //                    if obj["post_id"] as? String == postId?.toString{
-                //                        var postPollInfo = obj
-                //
-                //                        postPollInfo["is_selected"] = optionData?.valueForString(key: "is_selected")
-                //                        postPollInfo["results"] = optionData?["results"] as? [String:String]
-                //                        homeVC.arrPostList.remove(at: index)
-                //                        homeVC.arrPostList.insert(postPollInfo, at: index)
-                //                        UIView.performWithoutAnimation {
-                //                            DispatchQueue.main.async {
-                //                                let indexPath = IndexPath(item: index, section: 1)
-                //
-                //                                if (homeVC.tblEvents.indexPathsForVisibleRows?.contains(indexPath))!{
-                //                                    homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
-                //                                }
-                //                            }
-                //                        }
-                //                    }
-                //                }
             }
             
             if viewController.isKind(of: MyProfileViewController.classForCoder()){
@@ -2432,7 +2413,7 @@ extension MIGeneralsAPI {
             }
         }
         let dict:[String:Any] = [
-            "user_id":userID,
+            "user_id":userID.description,
             "points_config_id":points_config_id ?? "" ,
             "target_id":0,
             "points":max_points ?? "",

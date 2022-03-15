@@ -104,12 +104,14 @@ extension HomePollTblCell{
             tblVAnswre.isSelectedByUser = postInfo.valueForString(key: "friend_selected")
             self.is_Selected = postInfo.valueForString(key: "friend_selected")
             voteCount = postInfo.valueForString(key: "total_count").toInt ?? 0
+            tblVAnswre.totalVotes = voteCount ?? 0
             tblVAnswre.isLikesOthersPage = true
         }else {
             posted_ID = postInfo.valueForString(key: "user_id")
             tblVAnswre.isSelectedByUser = postInfo.valueForString(key: "is_selected")
             self.is_Selected = postInfo.valueForString(key: "is_selected")
             voteCount = postInfo.valueForString(key: "total_count").toInt ?? 0
+            tblVAnswre.totalVotes = voteCount ?? 0
             tblVAnswre.isLikesOthersPage = false
         }
         postData = postInfo
@@ -147,7 +149,7 @@ extension HomePollTblCell{
             guard let _ = self else {return}
             self?.updateVoteCount(count: votesCount)
         }
-        tblVAnswre.totalVotes = voteCount ?? 0
+        //        tblVAnswre.totalVotes = voteCount ?? 0
         tblVAnswre.arrOption = polls
         
         if postInfo.valueForString(key:"is_selected") == "N/A" ||  postInfo.valueForString(key:"friend_selected") == "N/A"{
@@ -160,15 +162,21 @@ extension HomePollTblCell{
         
         lblPollType.text = CTypePoll
         tblVAnswre.dictArray = self.dictArray
-        tblVAnswre.totalVotesNew = totalVotes
+        //        tblVAnswre.totalVotesNew = totalVotes
+        tblVAnswre.totalVotesNew = postInfo.valueForString(key: "total_count")
         
         lblPollCategory.text = postInfo.valueForString(key: CCategory).uppercased()
         tblVAnswre.refreshOnVoteWithData = { [weak self] (optionData,countuser) in
             let post_id = optionData["post_id"] as? String
             guard let self = self else {return}
             DispatchQueue.main.async {
-                MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, .polladded, isSelected: false)
-//                self.tblVAnswre.reloadData()
+                
+                if self.isLikesOthersPage == true {
+                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, .polladded, isSelected: true)
+                }else {
+                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, .polladded, isSelected: false)
+                }
+                //                self.tblVAnswre.reloadData()
             }
         }
         
@@ -204,7 +212,7 @@ extension HomePollTblCell{
                 btnLike.isSelected = false
             }
         }
-
+        
         likeCount = postInfo.valueForString(key: CLikes).toInt ?? 0
         btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
         let commentCount = postInfo.valueForString(key: "comments").toInt
@@ -295,22 +303,22 @@ extension HomePollTblCell {
                         if self?.posted_ID == user_ID {
                             
                         }else {
-                        if self?.isLikesOthersPage == true {
-                            self?.notificationInfo["friend_liked"] = "Yes"
-                        }
-                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
-                            self?.notificationInfo["is_liked"] = "Yes"
-                        }
-                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
-                        self?.notificationInfo["options"] = ""
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
-                        if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                            let stausLike = metaInfo["status"] as? String ?? "0"
-                            if stausLike == "0" {
-                                
+                            if self?.isLikesOthersPage == true {
+                                self?.notificationInfo["friend_liked"] = "Yes"
+                            }
+                            if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                                self?.notificationInfo["is_liked"] = "Yes"
+                            }
+                            self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                            self?.notificationInfo["options"] = ""
+                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                            if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                                let stausLike = metaInfo["status"] as? String ?? "0"
+                                if stausLike == "0" {
+                                    
+                                }
                             }
                         }
-                    }
                         
                         self?.notifcationIsSlected = false
                     }
@@ -335,7 +343,6 @@ extension HomePollTblCell {
         onMorePressed?(sender.tag)
     }
     
-    
     func getPollDetailsFromServer() {
         //        self.parentView.isHidden = true
         if let artID = self.pollIDNew {
@@ -343,31 +350,31 @@ extension HomePollTblCell {
                 guard let self = self else { return }
                 if response != nil {
                     //self.parentView.isHidden = false
-//                    DispatchQueue.main.async {
-                        if let Info = response!["data"] as? [[String:Any]]{
-                            for articleInfo in Info {
-                                self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
-//                                self.is_Selected = articleInfo["is_selected"] as? String ?? ""
-                                    self.is_Selected = articleInfo["is_selected"] as? String ?? ""
-//                                   self.totalVotes = articleInfo["total_count"] as? String ?? ""
-//                                var polls : [MDLPollOption] = []
-                                let pollstring = articleInfo["options"] as? String
-                                    let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
-                                    let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
-                                    let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
-                                self.chngString = rplstr_Three
-                                
-                                let fullNameArr:[String] = self.chngString?.components(separatedBy:",") ?? []
-                                var dictionary = [String: String]()
-                                for player in fullNameArr {
-                                    dictionary["poll_text"] = player
-                                    self.polls.append(MDLPollOption(fromDictionary: dictionary))
-                                }
-                               let postID = articleInfo["post_id"] as? String ?? ""
-                                
-                                self.postDetails(postID: postID)
+                    //                    DispatchQueue.main.async {
+                    if let Info = response!["data"] as? [[String:Any]]{
+                        for articleInfo in Info {
+                            self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
+                            // self.is_Selected = articleInfo["is_selected"] as? String ?? ""
+                            self.is_Selected = articleInfo["is_selected"] as? String ?? ""
+                            //  self.totalVotes = articleInfo["total_count"] as? String ?? ""
+                            //  var polls : [MDLPollOption] = []
+                            let pollstring = articleInfo["options"] as? String
+                            let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
+                            let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
+                            let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
+                            self.chngString = rplstr_Three
+                            
+                            let fullNameArr:[String] = self.chngString?.components(separatedBy:",") ?? []
+                            var dictionary = [String: String]()
+                            for player in fullNameArr {
+                                dictionary["poll_text"] = player
+                                self.polls.append(MDLPollOption(fromDictionary: dictionary))
                             }
-//                        }
+                            let postID = articleInfo["post_id"] as? String ?? ""
+                            
+                            self.postDetails(postID: postID)
+                        }
+                        //                        }
                     }
                 }
             }
@@ -395,28 +402,28 @@ extension HomePollTblCell {
                             if obj.count == 1 {
                                 self?.arrPostList =  obj
                                 for (key, value) in obj {
-                                let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
+                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
                                     if indexOfA == 0{
                                         self?.arr = ["\(value)","0","0","0"]
-                                 }else if indexOfA == 1{
-                                    self?.arr = ["0","\(value)","0","0"]
+                                    }else if indexOfA == 1{
+                                        self?.arr = ["0","\(value)","0","0"]
                                     }else if indexOfA == 2{
-                                    self?.arr = ["0","0","\(value)","0"]
+                                        self?.arr = ["0","0","\(value)","0"]
                                     }else if indexOfA == 3{
-                                    self?.arr = ["0","0","0","\(value)",]
+                                        self?.arr = ["0","0","0","\(value)",]
                                     }
                                 }
                             }else {
                                 self?.arrPostList =  obj
                                 for (key, value) in obj {
-                                let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
+                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
                                     arrayData.remove(at: indexOfA ?? 0)
                                     arrayData.insert("\(value)", at: indexOfA ?? 0)
                                 }
                                 self?.arr += arrayData
                             }
                             self?.dictArray = self?.arr ?? []
-                            self?.totalVotes = datas.valueForString(key: "total_count")
+                            //                            self?.totalVotes = datas.valueForString(key: "total_count")
                             
                         }
                     }

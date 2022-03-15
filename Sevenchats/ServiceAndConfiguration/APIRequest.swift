@@ -26,7 +26,8 @@ import LGSideMenuController
 var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
 let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
 //////MARK: - CHAT
-var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
+//var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
+var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
 //////MARK: - OTP
 var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
 var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
@@ -36,7 +37,8 @@ var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
 var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
 var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
 //////MARK:- SockeIO key
-let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
+//let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
+let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
 //////MARK:- NotificationSocket
 let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
 let BASEURL_Rew: String = "Dev"
@@ -2323,7 +2325,7 @@ extension APIRequest {
         _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagurl, param: para, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             
-            self.saveUserDetail(response: response as! [String : AnyObject])
+//            self.saveUserDetail(response: response as! [String : AnyObject])
             completion(response, nil)
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
@@ -4994,3 +4996,6 @@ struct JSONStringArrayEncodings: ParameterEncoding {
         return nil
     }
 }
+
+
+

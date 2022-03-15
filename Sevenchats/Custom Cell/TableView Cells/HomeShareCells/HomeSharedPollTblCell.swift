@@ -261,7 +261,14 @@ extension HomeSharedPollTblCell{
             let post_id = optionData["post_id"] as? String
             guard let self = self else {return}
             DispatchQueue.main.async {
-                MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, .polladded, isSelected: false)
+                
+                if self.isLikesOthersPage == true{
+                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, .polladded, isSelected: true)
+                    
+                }else {
+                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, .polladded, isSelected: false)
+                }
+             
 //                self.tblVAnswre.reloadData()
             }
         }

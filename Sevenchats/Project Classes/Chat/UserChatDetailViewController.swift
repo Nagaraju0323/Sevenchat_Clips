@@ -493,8 +493,11 @@ extension UserChatDetailViewController {
                         txtmsg = dictcontent?["message"] ?? ""
                     }
                     let timstmamp = dict?["timestamp"]?.replace(string: "T", replacement: " ")
-                    let chatTimeStamp = DateFormatter.shared().timestampGMTFromDateNew(date: timstmamp)
-                    let create  = chatTimeStamp?.toString
+                    //todo chagnes futures
+//                    let chatTimeStamp = DateFormatter.shared().timestampGMTFromDateNew(date: timstmamp)
+                    let chatTimeStamp = ""
+                    //todo chagnes futures
+                    let create  = chatTimeStamp
                     if let sender = dict?["sender"]{
                         senders = sender
                     }
@@ -1112,7 +1115,7 @@ extension UserChatDetailViewController {
     
     @IBAction func btnSendCLK(_ sender : UIButton){
         
-        ChatSocketIo.shared().SocketInitilized()
+//        ChatSocketIo.shared().SocketInitilized()
         if sessionTask != nil {
             //            if sessionTask.state == .running {
             //                print(" Api calling continue =========")
@@ -1120,7 +1123,7 @@ extension UserChatDetailViewController {
             //            }
         }
         if isCreateNewChat == true {
-            createTopictoChat()
+//            createTopictoChat()
         }
         if isCopySeleted == true{
             self.lblDeleteCount.text = ""
@@ -1150,7 +1153,7 @@ extension UserChatDetailViewController {
                     if response != nil && error == nil {
                         DispatchQueue.main.async{
                             guard let arrList = response as? [String:Any] else { return }
-                            self.fetchHome.loadData()
+//                            self.fetchHome.loadData()
                             if let arrStatus = arrList["message"] as? String{
                                 guard let userid = appDelegate.loginUser?.user_id else { return}
                                 guard let firstName = appDelegate.loginUser?.first_name else {return}
@@ -1161,7 +1164,7 @@ extension UserChatDetailViewController {
                         }
                     }
                 }
-                self.fetchHome.loadData()
+//                self.fetchHome.loadData()
                 txtViewMessage.text = nil
                 txtViewMessage.updatePlaceholderFrame(false)
                 cnTextViewHeightHeight.constant = 34
