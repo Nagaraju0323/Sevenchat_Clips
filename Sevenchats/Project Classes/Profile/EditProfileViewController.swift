@@ -65,6 +65,8 @@ class EditProfileViewController: ParentViewController {
     var prefs = UserDefaults.standard
     var isProfileImg = false
     var isCoverImg = false
+    var postFirstName = ""
+    var postLastName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -402,8 +404,8 @@ extension EditProfileViewController {
         
         let dict :[String:Any]  =  [
             "user_acc_type":"1",
-            "first_name":txtFirstName.text ?? "",
-            "last_name":txtLastName.text ?? "",
+            "first_name":postFirstName,
+            "last_name":postLastName,
             "gender":String(appDelegate.loginUser!.gender),
             "religion":appDelegate.loginUser?.religion ?? "",
             "city_name":txtCitys.text ?? "",
@@ -1110,8 +1112,13 @@ extension EditProfileViewController{
         if self.txtFirstName.text != "" && self.txtLastName.text != "" {
             let characterset = CharacterSet(charactersIn:SPECIALCHAR)
             if self.txtFirstName.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtLastName.text?.rangeOfCharacter(from: characterset.inverted) != nil  {
-               print("true")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                print("contains Special charecter")
+                if txtFirstName.text != "" || txtLastName.text != "" {
+                postFirstName = removeSpecialCharacters(from: txtFirstName.text!)
+                postLastName = removeSpecialCharacters(from: txtLastName.text!)
+                  
+              }
+              self.editProfile()
             } else {
                print("false")
                 self.editProfile()
@@ -1142,4 +1149,10 @@ extension EditProfileViewController: GenericTextFieldDelegate {
         }
         return true
     }
+}
+extension EditProfileViewController {
+func removeSpecialCharacters(from text: String) -> String {
+    let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+    return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+}
 }

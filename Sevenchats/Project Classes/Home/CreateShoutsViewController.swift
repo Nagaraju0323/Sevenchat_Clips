@@ -46,6 +46,7 @@ class CreateShoutsViewController: ParentViewController {
     var arrSelectedGroupFriends = [[String : Any]]()
     var shoutID : Int?
     var quoteDesc = ""
+    var postContent = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -424,9 +425,9 @@ extension CreateShoutsViewController{
             if textViewMessage.text != ""{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
-                   print("true")
-                    
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    print("contains Special charecter")
+                     postContent = removeSpecialCharacters(from: textViewMessage.text)
+                     self.addEditShout()
                     
                 } else {
                    print("false")
@@ -436,4 +437,10 @@ extension CreateShoutsViewController{
 //            self.addEditShout()
         }
     }
+}
+extension CreateShoutsViewController{
+func removeSpecialCharacters(from text: String) -> String {
+    let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+    return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+}
 }

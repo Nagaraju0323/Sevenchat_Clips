@@ -250,14 +250,24 @@ class GenericTextView: UITextView, UITextViewDelegate {
                     return textView.text.count + (text.count - range.length) <= (textLimit?.toInt)!
                 }
                 } else {
-                   print("normal typing")
-                    
-                    
-                    
-                    _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
-                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                    let filtered = text.components(separatedBy: cs).joined(separator: "")
-                  return (text == filtered)
+                    print("normal typing")
+                     _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
+                     let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                     if text.isSingleEmoji{
+ //                        let filtered = text.components(separatedBy: cs).joined(separator: "")
+                       return (text == text)
+                     }else {
+                         let filtered = text.components(separatedBy: cs).joined(separator: "")
+                       return (text == filtered)
+                     }
+//                   print("normal typing")
+//
+//
+//
+//                    _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
+//                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+//                    let filtered = text.components(separatedBy: cs).joined(separator: "")
+//                  return (text == filtered)
 
                 }
 //            _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
@@ -302,9 +312,17 @@ class GenericTextView: UITextView, UITextViewDelegate {
                 let str = (textView.text + text)
                 if str.count <= 150 {
                     _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
-                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                    let filtered = text.components(separatedBy: cs).joined(separator: "")
-                  return (text == filtered)
+                     let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                     if text.isSingleEmoji{
+ //                        let filtered = text.components(separatedBy: cs).joined(separator: "")
+                       return (text == text)
+                     }else {
+                         let filtered = text.components(separatedBy: cs).joined(separator: "")
+                       return (text == filtered)
+                     }
+//                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+//                    let filtered = text.components(separatedBy: cs).joined(separator: "")
+//                  return (text == filtered)
                 }
             }
         // Check text limit here....
@@ -365,3 +383,29 @@ class GenericTextView: UITextView, UITextViewDelegate {
             }
         }
     }
+extension Character {
+    /// A simple emoji is one scalar and presented to the user as an Emoji
+    var isSimpleEmoji: Bool {
+        guard let firstScalar = unicodeScalars.first else { return false }
+        return firstScalar.properties.isEmoji && firstScalar.value > 0x238C
+    }
+
+    /// Checks if the scalars will be merged into an emoji
+    var isCombinedIntoEmoji: Bool { unicodeScalars.count > 1 && unicodeScalars.first?.properties.isEmoji ?? false }
+
+    var isEmoji: Bool { isSimpleEmoji || isCombinedIntoEmoji }
+}
+
+extension String {
+    var isSingleEmoji: Bool { count == 1 && containsEmoji }
+
+    var containsEmoji: Bool { contains { $0.isEmoji } }
+
+    var containsOnlyEmoji: Bool { !isEmpty && !contains { !$0.isEmoji } }
+
+    var emojiString: String { emojis.map { String($0) }.reduce("", +) }
+
+    var emojis: [Character] { filter { $0.isEmoji } }
+
+    var emojiScalars: [UnicodeScalar] { filter { $0.isEmoji }.flatMap { $0.unicodeScalars } }
+}

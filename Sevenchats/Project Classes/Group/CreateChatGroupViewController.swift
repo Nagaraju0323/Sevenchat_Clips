@@ -52,6 +52,7 @@ class CreateChatGroupViewController: ParentViewController {
     var userIdNot = ""
     var defaultImgUrl = ""
     var notificationPara = [String:Any]()
+    var postContent = ""
     
     
     override func viewDidLoad() {
@@ -238,7 +239,7 @@ extension CreateChatGroupViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageChatGroupType, btnOneTitle: CBtnOk, btnOneTapped: nil)
         } else if editGroup == true{
             var apiPara = [String : Any]()
-            apiPara[CGroupTitle] = txtGroupTitle.text
+            apiPara[CGroupTitle] = postContent
             if imgGroupIcon.image != nil {
                 if self.isSelected == true {
                     apiPara[CGroupImage] = self.imgName
@@ -519,8 +520,10 @@ extension CreateChatGroupViewController{
         if txtGroupTitle.text != "" {
             let characterset = CharacterSet(charactersIn:SPECIALCHAR)
             if txtGroupTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-               print("true")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                print("contains Special charecter")
+                self.postContent = self.removeSpecialCharacters(from: self.txtGroupTitle.text ?? "") ?? ""
+                self.addEditGroup(true)
+
                 
             } else {
                print("false")
@@ -665,3 +668,9 @@ extension CreateChatGroupViewController: GenericTextFieldDelegate {
     }
 }
 
+extension CreateChatGroupViewController {
+func removeSpecialCharacters(from text: String) -> String {
+    let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+    return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+}
+}

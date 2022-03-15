@@ -95,6 +95,8 @@ class AddEditProductVC: ParentViewController {
     var isEdit = ""
     var categorysubName : String?
     var isedits = ""
+    var postContent = ""
+    var postTitle = ""
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -190,8 +192,13 @@ extension AddEditProductVC {
                 if self?.txtProductTitle.text != "" && self?.txtProductDesc.text != ""{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                     if self?.txtProductTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil || self?.txtProductDesc.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                      print("contains Special charecter")
-                    self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        print("contains Special charecter")
+                        self?.postContent = self?.removeSpecialCharacters(from: self?.txtProductDesc.text ?? "") ?? ""
+                        if self?.txtProductTitle.text != ""{
+                            self?.postTitle = self?.removeSpecialCharacters(from: self?.txtProductTitle.text! ?? "") ?? <#default value#>
+                            print("specialcCharecte\(self?.postTitle)")
+                      }
+                        self?.addEditProduct()
                       } else {
                         self?.addEditProduct()
                         }
@@ -582,9 +589,14 @@ extension AddEditProductVC : GenericTextFieldDelegate{
             if txtProductTitle.text?.count ?? 0 > 20{
                 return false
             }
-            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-            let filtered = string.components(separatedBy: cs).joined(separator: "")
-            return (string == filtered)
+            if string.isSingleEmoji {
+                return (string == string)
+            }else {
+                
+                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                let filtered = string.components(separatedBy: cs).joined(separator: "")
+                return (string == filtered)
+            }
         }
         return true
     }
@@ -721,7 +733,7 @@ extension AddEditProductVC {
             }else{
                 currencyName = txtCurrencyList.text ?? ""
             }
-            let txtproductDesc = self.txtProductDesc.text.replace(string: "\n", replacement: "\\n")
+            let txtproductDesc = postContent.replace(string: "\n", replacement: "\\n")
             apiTag = CAddProductNew
             dict = [
                 "user_first_name": firstName,
@@ -730,7 +742,7 @@ extension AddEditProductVC {
                 "category_name":categoryDropDownView.txtCategory.text ?? "",
                 "category_level1":subcategoryDropDownView.txtCategory.text ?? "",
                 "product_image":ImgName,
-                "product_title":self.txtProductTitle.text?.trim ?? "",
+                "product_title":postTitle.trim ,
                 "description":txtproductDesc,
                 "available_status":"1",
                 "cost":self.txtProductPrice.text ?? "0",
@@ -874,4 +886,13 @@ extension AddEditProductVC{
         self.navigationController?.pushViewController(locationPicker, animated: true)
         
     }
+}
+extension AddEditProductVC{
+    
+    func removeSpecialCharacters(from text: String) -> String {
+        let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+        return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+    }
+    
+    
 }

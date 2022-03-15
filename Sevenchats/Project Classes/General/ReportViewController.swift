@@ -65,6 +65,7 @@ class ReportViewController: ParentViewController {
     var isSharedPost = false
     var imgName = ""
     var uploadImgUrl = ""
+    var postContent = ""
     
     
     override func viewDidLoad() {
@@ -217,7 +218,7 @@ extension ReportViewController{
         let userID = user_id.description
 
         let reportedurl = reportedURL ?? ""
-        let reportTxt = textViewReportMessage.text.replace(string: "\n", replacement: " ")
+        let reportTxt = postContent.replace(string: "\n", replacement: " ")
         var dict :[String:Any]  =  [
                "image":uploadImgUrl,
                "reason":reportTxt,
@@ -380,8 +381,9 @@ extension ReportViewController{
                 if self.textViewReportMessage.text != ""{
                     let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                     if self.textViewReportMessage.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                       print("true")
-                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        print("contains Special charecter")
+                        self.postContent = self.removeSpecialCharacters(from: self.textViewReportMessage.text ?? "")
+                        self.reportApi()
                     } else {
                        print("false")
                         self.reportApi()
@@ -428,4 +430,13 @@ extension ReportViewController: GenericTextViewDelegate{
         }
     }
 
+}
+extension ReportViewController{
+    
+    func removeSpecialCharacters(from text: String) -> String {
+        let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+        return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+    }
+    
+    
 }

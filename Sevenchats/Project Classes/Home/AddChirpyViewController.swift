@@ -73,6 +73,7 @@ class AddChirpyViewController: ParentViewController {
     var imageString = ""
     var ImguploadStr = ""
     var quoteDesc = ""
+    var postContent = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -522,8 +523,9 @@ extension AddChirpyViewController{
             if txtViewChirpyContent.text != "" {
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if txtViewChirpyContent.text.rangeOfCharacter(from: characterset.inverted) != nil {
-                   print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    print("contains Special charecter")
+                     postContent = removeSpecialCharacters(from: txtViewChirpyContent.text)
+                     self.addEditChirpy()
                     
                 } else {
                    print("false")
@@ -535,4 +537,12 @@ extension AddChirpyViewController{
         }
     }
 }
-
+extension AddChirpyViewController{
+    
+    func removeSpecialCharacters(from text: String) -> String {
+        let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+        return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+    }
+    
+    
+}

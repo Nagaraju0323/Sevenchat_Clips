@@ -41,7 +41,7 @@ class ProductReportVC: ParentViewController {
     
     var reportType : Int = 0
     var productId : Int = 0
-    
+    var postContent = ""
     //MARK: - View life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,8 +121,9 @@ extension ProductReportVC {
             if self.txtProblem.text != ""{
             let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if self.txtProblem.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                  print("contains Special charecter")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    print("contains Special charecter")
+                    self.postContent = self.removeSpecialCharacters(from: self.txtProblem.text ?? "") 
+                    self.reportProductApi()
                   } else {
                     self.reportProductApi()
                     }
@@ -140,7 +141,7 @@ extension ProductReportVC {
         para["user_id"] = appDelegate.loginUser?.user_id.description
         para["product_id"] = productId.toString
         para["reported_reason"] = "nice quality"
-        para["report_note"] = txtProblem.text ?? ""
+        para["report_note"] = postContent
         para["status_id"] = "1"
         
         APIRequest.shared().reportProduct(para: para) { [weak self](response, error) in
@@ -171,4 +172,10 @@ extension ProductReportVC : GenericTextViewDelegate{
             lblTextCount.text = "\(textView.text.count)/\(txtProblem.textLimit ?? "0")"
         }
     }
+}
+extension ProductReportVC {
+func removeSpecialCharacters(from text: String) -> String {
+    let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+    return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+}
 }

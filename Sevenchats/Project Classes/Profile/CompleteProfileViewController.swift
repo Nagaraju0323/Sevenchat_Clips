@@ -59,6 +59,9 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
     var isSelected:Bool?
     var category_id = ""
     var addRewardCategory = [String]()
+    var postProfession = ""
+    var postBiography = ""
+    var postReligion = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -380,7 +383,7 @@ extension CompleteProfileViewController{
         var professionText = ""
         if btnEmployed.isSelected{
             emplymenntStatus = 1
-            professionText = txtProfession.text!
+            professionText = postProfession
         }else if btnUnEmployed.isSelected{
             emplymenntStatus = 2
             professionText = CBtnUnemployed
@@ -395,7 +398,7 @@ extension CompleteProfileViewController{
             CFirstname : appDelegate.loginUser?.first_name ?? "",
             CLastname : appDelegate.loginUser?.last_name ?? "",
             CDob : dob_edit ?? "" ,
-            CShort_biography : txtViewBiography.text ?? "",
+            CShort_biography : postBiography,
             CGender : gender,
             CRelationship_id : relationshipID,
             CAnnual_income_id : incomeID,
@@ -417,7 +420,7 @@ extension CompleteProfileViewController{
             "first_name":firstName_edit ?? "",
             "last_name":lastName_edit ?? "",
             "gender":gender.toString,
-            "religion":txtReligion.text ?? "",
+            "religion":postReligion,
             "city_name":txtCity,
             "profile_image":appDelegate.loginUser?.profile_img ?? "",
             "cover_image":appDelegate.loginUser?.cover_image ?? "",
@@ -583,8 +586,14 @@ extension CompleteProfileViewController{
         if self.txtProfession.text != "" || self.txtViewBiography.text != "" || self.txtReligion.text != ""{
             let characterset = CharacterSet(charactersIn:SPECIALCHAR)
             if self.txtProfession.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtViewBiography.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtReligion.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-               print("true")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                print("contains Special charecter")
+              postBiography = removeSpecialCharacters(from: txtViewBiography.text)
+                if txtReligion.text != "" || txtProfession.text != "" {
+                  postReligion = removeSpecialCharacters(from: txtReligion.text!)
+                postProfession = removeSpecialCharacters(from: txtProfession.text!)
+                  print("specialcCharecte\(postProfession)")
+              }
+              self.completeProfile()
             } else {
                print("false")
                 self.completeProfile()
@@ -666,4 +675,10 @@ extension CompleteProfileViewController : GenericTextFieldDelegate{
         }
         return true
     }
+}
+extension CompleteProfileViewController {
+func removeSpecialCharacters(from text: String) -> String {
+    let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+    return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+}
 }

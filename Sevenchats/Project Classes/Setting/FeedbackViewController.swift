@@ -36,6 +36,7 @@ class FeedbackViewController: ParentViewController {
     var feedbackImgUrl = ""
     var selectCategory = ""
     var success = ""
+    var postContent = ""
     
     var CategoryName = [ CNotuserFriendlye,
                          CPromptsnotclear,
@@ -125,8 +126,10 @@ extension FeedbackViewController{
             if self.txtViewFeedbackContent.text != ""{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if self.txtViewFeedbackContent.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                   print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    print("contains Special charecter")
+                    self.postContent = self.removeSpecialCharacters(from: self.txtViewFeedbackContent.text ?? "")
+//                   print("true")
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 } else {
                    print("false")
             guard let statusId = appDelegate.loginUser?.status_id else {return}
@@ -158,7 +161,7 @@ extension FeedbackViewController{
             }
             
             
-            let txtFeedBack = txtViewFeedbackContent.text.replace(string: "\n", replacement: " ")
+            let txtFeedBack = postContent.replace(string: "\n", replacement: " ")
             let feedback : [String :Any] = [
                 "image":feedbackImgUrl,
                 "user_id" : userId.description,
@@ -245,4 +248,10 @@ extension FeedbackViewController: GenericTextViewDelegate{
         }
     }
     
+}
+extension FeedbackViewController {
+func removeSpecialCharacters(from text: String) -> String {
+    let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+    return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+}
 }

@@ -71,6 +71,8 @@ class AddArticleViewController: ParentViewController {
     var quoteDesc = ""
     var arrSubCategory =  [[String : Any]]()
     var arrsubCategorys : [MDLProductSubCategory] = []
+    var postContent = ""
+    var postTxtFieldContent = ""
     
     
     override func viewDidLoad() {
@@ -190,12 +192,12 @@ extension AddArticleViewController{
         }
         guard let userID = appDelegate.loginUser?.user_id else {return}
         
-        let postcont = txtViewArticleContent.text.replace(string: "\n", replacement: "\\n")
+        let postcont = postContent.replace(string: "\n", replacement: "\\n")
         
         var dict :[String:Any] = [
             CUserId:userID.description,
             "image":profileImgUrl,
-            "post_title":txtArticleTitle.text ?? "",
+            "post_title":postTxtFieldContent,
             "post_category": categoryDropDownView.txtCategory.text ?? "" ,
             "post_content":postcont,
             "age_limit":"16",
@@ -490,8 +492,13 @@ extension AddArticleViewController{
             if txtViewArticleContent.text != "" && txtArticleTitle.text != ""{
             let characterset = CharacterSet(charactersIn:SPECIALCHAR)
             if txtViewArticleContent.text.rangeOfCharacter(from: characterset.inverted) != nil || txtArticleTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                  print("contains Special charecter")
-                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                print("contains Special charecter")
+              postContent = removeSpecialCharacters(from: txtViewArticleContent.text)
+              if txtArticleTitle.text != ""{
+                  postTxtFieldContent = removeSpecialCharacters(from: txtArticleTitle.text!)
+                  print("specialcCharecte\(postTxtFieldContent)")
+              }
+              self.addEditArticle()
                   } else {
                     self.addEditArticle()
                     }
@@ -500,8 +507,7 @@ extension AddArticleViewController{
         }
         
     }
-    
-    
+
     func removeSpecialCharsFromString(text: String) -> String {
         let okayChars = Set(SPECIALCHAR)
         return text.filter {okayChars.contains($0) }
@@ -527,15 +533,28 @@ extension AddArticleViewController: GenericTextFieldDelegate {
             if txtArticleTitle.text?.count ?? 0 > 20{
                 return false
             }
-            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-            let filtered = string.components(separatedBy: cs).joined(separator: "")
-            return (string == filtered)
+            if string.isSingleEmoji {
+                return (string == string)
+            }else {
+                
+                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                let filtered = string.components(separatedBy: cs).joined(separator: "")
+                return (string == filtered)
+            }
         }
         return true
     }
 }
 
-
+extension AddArticleViewController{
+    
+    func removeSpecialCharacters(from text: String) -> String {
+        let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+        return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+    }
+    
+    
+}
 extension String {
    var containsSpecialCharacter: Bool {
       let regex = SPECIALCHAR

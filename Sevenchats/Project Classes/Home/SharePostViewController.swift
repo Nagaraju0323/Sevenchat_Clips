@@ -47,6 +47,7 @@ class SharePostViewController: ParentViewController {
     var arrSelectedGroupFriends = [[String : Any]]()
     var postData : [String:Any] = [:]
     var isFromEdit = false
+    var postContent = ""
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -79,9 +80,9 @@ extension SharePostViewController {
                 if self?.textViewMessage.text != ""{
                     let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                     if self?.textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
-                       print("true")
-                        
-                        self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        print("contains Special charecter")
+                        self?.postContent = self?.removeSpecialCharacters(from: self?.textViewMessage.text ?? "") ?? ""
+                        self?.apiForSharePost()
                         
                     } else {
                        print("false")
@@ -364,7 +365,7 @@ extension SharePostViewController {
         let dict :[String:Any]  =  [
             "user_id":userID,
             "element_id":postData[COriginalPostId]!,
-            "message":textViewMessage.text ?? ""
+            "message":postContent
         ]
         
         APIRequest.shared().addSharedPost(para: dict, image: nil) { [weak self] (response, error) in
@@ -398,4 +399,13 @@ extension SharePostViewController {
             }
         }
     }
+}
+extension SharePostViewController{
+    
+    func removeSpecialCharacters(from text: String) -> String {
+        let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+        return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+    }
+    
+    
 }

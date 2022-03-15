@@ -62,6 +62,8 @@ class RegisterViewController: ParentViewController {
     var profileImage = UIImage()
     var apiTask : URLSessionTask?
     var isSelected = false
+    var postFirstName = ""
+    var postLastName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -347,8 +349,8 @@ extension RegisterViewController {
         }
         
         let dobconvert = DateFormatter.shared().convertDatereversSinup(strDate: self.txtDob.text)
-        let FirstName = self.txtFirstName.text ?? ""
-        let LastName = self.txtLastName.text ?? ""
+        let FirstName = postFirstName
+        let LastName = postLastName
         let Emailtext = self.txtEmail.text ?? ""
         let Password = self.txtPWD.text ?? ""
         let CityName = self.txtCitys.text ?? ""
@@ -540,8 +542,11 @@ extension RegisterViewController{
             if self.txtFirstName.text != "" || self.txtLastName.text != ""{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if self.txtFirstName.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtLastName.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                   print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    print("contains Special charecter")
+                    self.postFirstName = self.removeSpecialCharacters(from: self.txtFirstName.text ?? "")
+                    self.postLastName = self.removeSpecialCharacters(from: self.txtLastName.text ?? "")
+                     self.signup()
+                   
                 } else {
                    print("false")
                     self.signup()
@@ -645,4 +650,12 @@ extension RegisterViewController{
     
 }
 
-
+extension RegisterViewController{
+    
+    func removeSpecialCharacters(from text: String) -> String {
+        let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+        return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+    }
+    
+    
+}

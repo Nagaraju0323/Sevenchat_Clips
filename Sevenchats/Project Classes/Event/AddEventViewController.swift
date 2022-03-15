@@ -71,6 +71,8 @@ class AddEventViewController: ParentViewController {
     var currentPage : Int = 1
     var categoryName : String?
     var arrsubCategorys : [MDLIntrestSubCategory] = []
+    var postContent = ""
+    var postTxtFieldContent = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -469,10 +471,13 @@ extension AddEventViewController{
             if txtViewContent.text != "" && txtEventTitle.text != ""{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if txtViewContent.text.rangeOfCharacter(from: characterset.inverted) != nil || txtEventTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil{
-                   print("true")
-                    
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                    
+                    print("contains Special charecter")
+                  postContent = removeSpecialCharacters(from: txtViewContent.text)
+                  if txtEventTitle.text != ""{
+                      postTxtFieldContent = removeSpecialCharacters(from: txtEventTitle.text!)
+                      print("specialcCharecte\(postTxtFieldContent)")
+                  }
+                    self.addEditEvent()
                 } else {
                    print("false")
                     self.addEditEvent()
@@ -504,10 +509,21 @@ extension AddEventViewController: GenericTextFieldDelegate {
             if txtEventTitle.text?.count ?? 0 > 20{
                 return false
             }
-            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-            let filtered = string.components(separatedBy: cs).joined(separator: "")
-            return (string == filtered)
+            if string.isSingleEmoji {
+                return (string == string)
+            }else {
+                
+                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                let filtered = string.components(separatedBy: cs).joined(separator: "")
+                return (string == filtered)
+            }
         }
         return true
     }
+}
+extension AddEventViewController{
+func removeSpecialCharacters(from text: String) -> String {
+    let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+    return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+}
 }

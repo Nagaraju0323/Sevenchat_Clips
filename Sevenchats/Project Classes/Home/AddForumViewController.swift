@@ -63,6 +63,8 @@ class AddForumViewController: ParentViewController {
     var categoryName : String?
     var arrsubCategorys : [MDLIntrestSubCategory] = []
     var quoteDesc = ""
+    var postContent = ""
+    var postTxtFieldContent = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -428,8 +430,13 @@ extension AddForumViewController{
             if txtViewForumMessage.text != "" && txtForumTitle.text != ""{
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if txtViewForumMessage.text.rangeOfCharacter(from: characterset.inverted) != nil || txtForumTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                   print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    print("contains Special charecter")
+                  postContent = removeSpecialCharacters(from: txtViewForumMessage.text)
+                  if txtForumTitle.text != ""{
+                      postTxtFieldContent = removeSpecialCharacters(from: txtForumTitle.text!)
+                      print("specialcCharecte\(postTxtFieldContent)")
+                  }
+                  self.addEditForum()
                 } else {
                    print("false")
                     self.addEditForum()
@@ -486,10 +493,21 @@ extension AddForumViewController: GenericTextFieldDelegate {
             if txtForumTitle.text?.count ?? 0 > 20{
                 return false
             }
-            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-            let filtered = string.components(separatedBy: cs).joined(separator: "")
-            return (string == filtered)
+            if string.isSingleEmoji {
+                return (string == string)
+            }else {
+                
+                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                let filtered = string.components(separatedBy: cs).joined(separator: "")
+                return (string == filtered)
+            }
         }
         return true
     }
+}
+extension AddForumViewController {
+func removeSpecialCharacters(from text: String) -> String {
+    let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+    return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+}
 }
