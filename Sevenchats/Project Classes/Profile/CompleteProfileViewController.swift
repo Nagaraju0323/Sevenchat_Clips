@@ -552,7 +552,7 @@ extension CompleteProfileViewController{
                     else{
                         let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                         guard let image = appDelegate.loginUser?.profile_img else { return }
-                        MIGeneralsAPI.shared().addRewardsPoints(CCompleteprofile,message:"Complete profile",type:CCompleteprofile,title:"Complete profile",name:name,icon:image, detail_text: "complete_profile_point")
+                        MIGeneralsAPI.shared().addRewardsPoints(CCompleteprofile,message:"Complete profile",type:CCompleteprofile,title:"Complete profile",name:name,icon:image, detail_text: "complete_profile_point",target_id:0)
                        
                     }
                 }

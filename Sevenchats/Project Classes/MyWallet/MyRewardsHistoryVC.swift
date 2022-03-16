@@ -24,7 +24,7 @@ class MyRewardsHistoryVC: ParentViewController {
     @IBOutlet weak var tblHistory: UITableView!
     var refreshControl = UIRefreshControl()
     var isLoadMoreCompleted = false
-    var currentPage : Int = 0
+    var currentPage : Int = 1
     var apiTask : URLSessionTask?
     var arrRewards : [MDLRewardDetail] = []
     var type : RewardCategory = RewardCategory.Posts
@@ -122,23 +122,159 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
         guard indexPath.section != 0 else { return }
         
         let rewardObj = self.arrRewards[indexPath.row]
-        switch self.type {
         
-        case .Connections, .UsageTime:
-            appDelegate.moveOnProfileScreen(rewardObj.friendId.description, self)
-            break
-            
-        case .Posts:
-            //            self.redirectOnPostDetailScreen(rewardObj)
-            break
-            
-        case .SellPosts:
-            self.redirectOnProductDetail(rewardObj)
-            break
-            
-        default: break
+        let row = indexPath.row
+        print("rewardObj\(rewardObj)")
+        
+        let postID = rewardObj.pointsConfigId ?? 0
+        let postType = rewardObj.postType ?? ""
+        redirectOnPostDetailScreen(postID,postType:postType,indexPow:row)
+//        switch self.type {
+//
+//        case .Connections, .UsageTime:
+//            appDelegate.moveOnProfileScreen(rewardObj.friendId.description, self)
+//            break
+//
+//        case .Posts:
+//            //            self.redirectOnPostDetailScreen(rewardObj)
+//            break
+//
+//        case .SellPosts:
+//            self.redirectOnProductDetail(rewardObj)
+//            break
+//
+//        default: break
+//        }
+    }
+   
+    func redirectOnPostDetailScreen(_ post_ID : Int,postType:String,indexPow:Int){
+
+        var options = ""
+        var post_id = ""
+        APIRequest.shared().viewPostDetailNew(postID: post_ID,apiKeyCall:CAPITagshoutsDetials){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    DispatchQueue.main.async {
+                        if let Info = response!["data"] as? [[String:Any]]{
+                            let postInfo = Info[0]
+                            for articleInfo in Info {
+                                options = articleInfo["options"] as? String ?? ""
+                                post_id = articleInfo["post_id"] as? String ?? ""
+                            }
+                            
+                            print("info\(Info)==============")
+                            switch postType {
+                            case "shout":
+                                if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
+                                    shoutsDetailsVC.shoutInformations = postInfo
+                                    print(postInfo.valueForString(key: "post_id"))
+                                    shoutsDetailsVC.shoutID = postInfo.valueForString(key: "post_id").toInt
+                                    self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
+                                }
+                            case "article":
+                                if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
+                                    articleDetailVC.articleInformation = postInfo
+                                    articleDetailVC.articleID = postInfo.valueForString(key: "post_id").toInt
+                                    self.navigationController?.pushViewController(articleDetailVC, animated: true)
+                                }
+                            case "gallery":
+                                let postID = postInfo.valueForString(key: "post_id")
+                                self.getGalleryDetailsFromServer(imgPostId: postID.toInt)
+                                
+                                
+                            case "chirpy":
+                                if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
+                                    chirpyDetailVC.chirpyInformation = postInfo
+                                    chirpyDetailVC.chirpyID = postInfo.valueForString(key: "post_id").toInt
+                                    self.navigationController?.pushViewController(chirpyDetailVC, animated: true)
+                                }
+                            case "forum":
+                                if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
+                                    forumDetailVC.forumID = postInfo.valueForString(key: "post_id").toInt
+                                    forumDetailVC.forumInformation = postInfo
+                                    self.navigationController?.pushViewController(forumDetailVC, animated: true)
+                                }
+                            case "event":
+                                if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
+                                    eventDetailVC.postID = postInfo.valueForString(key: "post_id").toInt
+                                    eventDetailVC.eventInfo = postInfo
+                                    self.navigationController?.pushViewController(eventDetailVC, animated: true)
+                                }
+                            case "poll":
+                                
+                                let postID = postInfo.valueForString(key: "post_id")
+                                self.getGalleryDetailsFromServer(imgPostId: postID.toInt)
+//                                let productID = self.postInfo.valueForString(key: "post_id")
+//                                self.getPollDetailsFromServer(pollID: post_ID.toInt, postInfo: self.postInfo)
+                            case "productDetails":
+//                                let productID = self.postInfo.valueForString(key: "product_id")
+                                if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
+                                    ProductDetailVC.productIds = post_ID.toString
+                                    self.navigationController?.pushViewController(ProductDetailVC, animated: true)
+                                }
+                                
+                            default:
+                                break
+                                
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    
+    
+    func getGalleryDetailsFromServer(imgPostId:Int?) {
+        var imagesUpload = ""
+        if let imgID = imgPostId {
+            APIRequest.shared().viewPostDetailNew(postID: imgID, apiKeyCall: CAPITagsgalleryDetials){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    if let Info = response!["data"] as? [[String:Any]]{
+                        for galleryInfo in Info {
+                            imagesUpload = galleryInfo["image"] as? String ?? ""
+                        }
+                        if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
+//                            self.postInfo["image"] = imagesUpload
+//                            imageDetailVC.galleryInfo = self.postInfo
+//                            imageDetailVC.imgPostId = postInfo.valueForString(key: "post_id").toInt
+                            self.navigationController?.pushViewController(imageDetailVC, animated: true)
+                        }
+                    }
+                }
+            }
         }
     }
+    
+    
+    func getPollDetailsFromServer(pollID:Int?,postInfo:[String:Any]) {
+        var options = ""
+        if let artID = pollID {
+            APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    //self.parentView.isHidden = false
+                    DispatchQueue.main.async {
+                        if let Info = response!["data"] as? [[String:Any]]{
+                            for articleInfo in Info {
+                                options = articleInfo["options"] as? String ?? ""
+                            }
+                            if let pollDetailVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
+//                                self.postInfo["options"] = options
+//                                pollDetailVC.pollInformation = self.postInfo
+                                pollDetailVC.posted_ID = postInfo.valueForString(key: "post_id")
+                                
+                                self.navigationController?.pushViewController(pollDetailVC, animated: true)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
 }
 
 // MARK:- API's Calling
@@ -149,17 +285,14 @@ extension MyRewardsHistoryVC {
         self.refreshControl.beginRefreshing()
         self.currentPage = 1
         self.isLoadMoreCompleted = false
-        
         self.getRewardsDetail(isLoader: false)
     }
     
     
     fileprivate func getRewardsDetail(isLoader: Bool) {
         
-        self.currentPage = 1
-        if apiTask?.state == URLSessionTask.State.running {
-            return
-        }
+//        self.currentPage = 1
+        if apiTask?.state == URLSessionTask.State.running {return}
         var dict = [String:Any]()
         guard let userID = appDelegate.loginUser?.user_id.description else { return}
         dict["user_id"] = userID
@@ -174,16 +307,40 @@ extension MyRewardsHistoryVC {
             if response != nil {
                 GCDMainThread.async {
                     
-                    if self.currentPage == 1 {
-                        self.arrRewards.removeAll()
-                    }
-                    self.currentPage += 1
                     let arrData = response!["rewards_history"] as? [String : Any] ?? [:]
-                    let arrDatas = arrData["rewards_history"] as? [[String : Any]] ?? [[:]]
-                    _ = arrDatas.map({self.arrRewards.append(MDLRewardDetail(fromDictionary: $0))})
-                    let points = arrData.valueForString(key: "total_points").toInt
-                    self.rewards = MDLRewards(name: self.categoryName, level: "", points: points ?? 0)
-                    self.tblHistory.reloadData()
+                    if  let arrDatas = arrData["rewards_history"] as? [[String : Any]]{
+                        
+                        if self.currentPage == 1 {
+                            self.arrRewards.removeAll()
+                        }
+                       
+                        if arrDatas.count > 0{
+                            _ = arrDatas.map({self.arrRewards.append(MDLRewardDetail(fromDictionary: $0))})
+                            let points = arrData.valueForString(key: "total_points").toInt
+                            self.rewards = MDLRewards(name: self.categoryName, level: "", points: points ?? 0)
+                            self.tblHistory.reloadData()
+                            self.currentPage += 1
+                            
+                        }
+                        
+                    }
+                    
+                    
+                    
+                    // Add Data here...
+//                    if arrList.count > 0{
+//                        self.arrCommentList = self.arrCommentList + arrList
+//                        self.tblCommentList.reloadData()
+//                        self.pageNumber += 1
+//                    }
+//                }
+//
+//
+//
+//
+////                    let arrData = response!["rewards_history"] as? [String : Any] ?? [:]
+////                    let arrDatas = arrData["rewards_history"] as? [[String : Any]] ?? [[:]]
+               
                 }
             }
         }

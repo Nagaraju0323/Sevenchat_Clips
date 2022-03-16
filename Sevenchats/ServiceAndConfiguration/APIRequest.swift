@@ -2908,10 +2908,11 @@ extension APIRequest {
     func getNotificationList(param:[String:Any], completion : @escaping ClosureCompletion) -> URLSessionTask {
 
         return Networking.sharedInstance.GETNEWPRNOTF(apiTag: CAPITagNotifications, param: param as [String : AnyObject], successBlock: { (task, response) in
-            
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNotificationList){
-                completion(response, nil)
-            }
+            MILoader.shared.hideLoader()
+            completion(response, nil)
+//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNotificationList){
+//                completion(response, nil)
+//            }
         }, failureBlock: { (task, message, error) in
             completion(nil, error)
             if error?.code == CStatus405{

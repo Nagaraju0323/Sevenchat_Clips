@@ -221,7 +221,7 @@ extension VerifyEmailMobileViewController {
                 DispatchQueue.main.async {
                     let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                     guard let image = appDelegate.loginUser?.profile_img else { return }
-                    MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image, detail_text: "Register_profile")
+                    MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image, detail_text: "Register_profile",target_id: 0)
                 
                     let alertWindow = UIWindow(frame: UIScreen.main.bounds)
                     alertWindow.rootViewController = UIViewController()

@@ -107,7 +107,7 @@ extension NotificationViewController {
         param["receiver"] = user_ID.description
         param["type"] = "1"
         param[CPage] = pageNumber
-        param["limit"] = "100"
+        param["limit"] = "20"
         
         apiTask = APIRequest.shared().getNotificationList(param:param, completion: { [weak self] (response, error) in
             guard let self = self else { return }
@@ -119,11 +119,12 @@ extension NotificationViewController {
             if response != nil && error == nil {
                 if let responseData = response![CJsonData] as? [[String : Any]]     {
                     //...Remove all data
-                    if self.apiTimeStamp < 1 || self.pageNumber == 1 {
+                    if self.pageNumber == 1 {
                         self.arrNotiificationList.removeAll()
-                        MIGeneralsAPI.shared().readNotification("-1")
+                        self.tblVNotification.reloadData()
+//                        MIGeneralsAPI.shared().readNotification("-1")
                     }
-                    self.isLoadMoreCompleted = responseData.isEmpty
+//                    self.isLoadMoreCompleted = responseData.isEmpty
                     
                     //...Add Data here...
                     if (responseData.count > 0) {
@@ -272,6 +273,278 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         
     }
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//
+//        var notifKey = ""
+//        let notificationInfo = arrNotiificationList[indexPath.row]
+//        let notfiContent = notificationInfo.valueForString(key: "content")
+//        userID = notificationInfo.valueForString(key: "sender")
+//        let nib = notificationInfo.valueForString(key: "nid")
+//        do {
+//            let dict = try convertToDictionary(from: notfiContent)
+//            guard let userMsg = dict["type"] else { return }
+//            guard let subject = dict["subject"] else { return }
+//            let postinfo = dict["postInfo"] as? [String:Any] ?? [:]
+//            if let post_types = postinfo.valueForString(key: "type") as? String{
+//                post_type = post_types
+//            }
+//
+//            if let post_ids = postinfo.valueForString(key: "typost_idpe") as? String{
+//                post_id = post_ids
+//            }
+//            postInfo = postinfo
+//            subjectCat = subject as! String
+//            notifKey = userMsg as! String
+//        } catch let error  {
+//            print("error trying to convert data to \(error)")
+//        }
+//
+//        let notifReadStatus = notificationInfo.valueForString(key: "read_status")
+//        if notifReadStatus.toInt == 1{
+//            switch notifKey {
+//            case kNotTypeChatUser:
+//                if self.subjectCat == "Product viewed"{
+//                    appDelegate.moveOnProfileScreenNew(self.userID.description, self.userID.description, self)
+//                }else {
+//                    if let userChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
+//                        userChatDetailVC.iObject =  self.postInfo
+//                        userChatDetailVC.self.userID = userID.toInt
+//                        userChatDetailVC.isCreateNewChat = true
+//                        self.navigationController?.pushViewController(userChatDetailVC, animated: true)
+//                    }
+//                }
+//                break
+//            case kNotTypeGroupRemove:
+//                if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupsViewController") as? GroupsViewController {
+//                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+//                }
+//                break
+//
+//            case kNotTypeGroup:
+//                if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
+//                    groupChatDetailVC.iObject =  self.postInfo
+//                    groupChatDetailVC.isCreateNewChat = false
+//                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+//                }
+//
+//                break
+//
+//            case kNotTypeGroupADD:
+//                //Group chat detail screen
+//                if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
+//                    groupChatDetailVC.iObject =  self.postInfo
+//                    groupChatDetailVC.isCreateNewChat = false
+//                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+//                }
+//                break
+//
+//            case kNotTypeFriendReqAccept,
+//                 kNotTypeFriendReqSentNew:
+//
+//                appDelegate.moveOnProfileScreenNew(notificationInfo.valueForString(key: "sender"),notificationInfo.valueForString(key: CUsermailID), self)
+//              //  appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
+//                break
+//            case kNotTypeFriendBlocked:
+//
+//                self.presentAlertViewWithOneButton(alertTitle: CAlertblocked, alertMessage: CMessageNoLongerFriend, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//
+//                break
+//            case  kNotTypeEventType:
+//
+//                if let eventInviteesVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController{
+//                    let postID = postInfo.valueForString(key: CPostId)
+//                    eventInviteesVC.postIDNew = postID
+//                    eventInviteesVC.postID = postID.toInt
+//                    eventInviteesVC.eventInfo = postInfo
+//                    self.navigationController?.pushViewController(eventInviteesVC, animated: true)
+//                }
+//                break
+//
+//            case kNotTypeCommnet,kNotTypeCommnet:
+//                switch post_type {
+//                case "post_shout":
+//                    if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
+//                        shoutsDetailsVC.shoutInformations = postInfo
+//                        print(postInfo.valueForString(key: "post_id"))
+//                        shoutsDetailsVC.shoutID = postInfo.valueForString(key: "post_id").toInt
+//                        self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
+//                    }
+//                case "post_article":
+//                    if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
+//                        articleDetailVC.articleInformation = postInfo
+//                        articleDetailVC.articleID = postInfo.valueForString(key: "post_id").toInt
+//                        self.navigationController?.pushViewController(articleDetailVC, animated: true)
+//                    }
+//                case "post_gallery":
+//                    let postID = postInfo.valueForString(key: "post_id")
+//                    self.getGalleryDetailsFromServer(imgPostId: postID.toInt,postInfo:self.postInfo)
+//
+//
+//                case "post_chirpy":
+//                    if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
+//                        chirpyDetailVC.chirpyInformation = postInfo
+//                        chirpyDetailVC.chirpyID = postInfo.valueForString(key: "post_id").toInt
+//                        self.navigationController?.pushViewController(chirpyDetailVC, animated: true)
+//                    }
+//                case "post_forum":
+//                    if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
+//                        forumDetailVC.forumID = postInfo.valueForString(key: "post_id").toInt
+//                        forumDetailVC.forumInformation = postInfo
+//                        self.navigationController?.pushViewController(forumDetailVC, animated: true)
+//                    }
+//                case "post_event":
+//                    if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
+//                        eventDetailVC.postID = postInfo.valueForString(key: "post_id").toInt
+//                        eventDetailVC.eventInfo = postInfo
+//                        self.navigationController?.pushViewController(eventDetailVC, animated: true)
+//                    }
+//                case "post_poll":
+//                    let productID = self.postInfo.valueForString(key: "post_id")
+//                    self.getPollDetailsFromServer(pollID: productID.toInt, postInfo: self.postInfo)
+//                case "productDetails":
+//                    let productID = self.postInfo.valueForString(key: "product_id")
+//                    if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
+//                        ProductDetailVC.productIds = productID
+//                        self.navigationController?.pushViewController(ProductDetailVC, animated: true)
+//                    }
+//
+//                default:
+//                    break
+//
+//                }
+//                break
+//            default:
+//                break
+//            }
+//        }else {
+//            var para = [String:Any]()
+//            para["nid"] = nib
+//            para["status_id"] = "1"
+//            para["read_status"] = "1"
+//            APIRequest.shared().sendNotificationStautsUpdate(notifications: para, completion: { [weak self] (response, error) in
+//                guard let self = self else { return }
+//                self.apiTask?.cancel()
+//                if response != nil && error == nil {
+//                    if let responseData = response as? [String: Any] {
+//                        let response_Status = responseData["status"] as? Int
+//                        if response_Status == 0{
+//                            switch notifKey {
+//                            case kNotTypeChatUser:
+//                                if self.subjectCat == "Product viewed"{
+//                                    appDelegate.moveOnProfileScreenNew(self.userID.description, self.userID.description, self)
+//                                }else {
+//                                    if let userChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
+//                                        userChatDetailVC.iObject =  self.postInfo
+//                                        userChatDetailVC.self.userID = self.userID.toInt
+//                                        userChatDetailVC.isCreateNewChat = true
+//                                        self.navigationController?.pushViewController(userChatDetailVC, animated: true)
+//                                    }
+//                                }
+//                                break
+//                            case kNotTypeGroupRemove:
+//                                if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupsViewController") as? GroupsViewController {
+//                                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+//                                }
+//                                break
+//                            case kNotTypeGroup:
+//                                if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
+//                                    groupChatDetailVC.iObject =  self.postInfo
+//                                    groupChatDetailVC.isCreateNewChat = false
+//                                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+//                                }
+//
+//                                break
+//                            case kNotTypeGroupADD:
+//                                //Group chat detail screen
+//                                if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
+//                                    groupChatDetailVC.iObject =  self.postInfo
+//                                    groupChatDetailVC.isCreateNewChat = false
+//                                    self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+//                                }
+//                                break
+//
+//
+//                            case kNotTypeFriendReqAccept,kNotTypeFriendReqSentNew:
+//                                appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
+//                                break
+//                            case kNotTypeFriendBlocked:
+//
+//                                self.presentAlertViewWithOneButton(alertTitle: CAlertblocked, alertMessage: CMessageNoLongerFriend, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//
+//                                break
+//                            case  kNotTypeEventType:
+//                                if let eventInviteesVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController{
+//                                    let postID = self.postInfo.valueForString(key: CPostId)
+//                                    eventInviteesVC.postID = postID.toInt
+//                                    eventInviteesVC.postIDNew = postID
+//                                    eventInviteesVC.eventInfo = self.postInfo
+//                                    self.navigationController?.pushViewController(eventInviteesVC, animated: true)
+//                                }
+//                                break
+//
+//                            case kNotTypeCommnet,kNotTypeCommnet:
+//
+//                                switch self.post_type {
+//                                case "post_shout":
+//                                    if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
+//                                        shoutsDetailsVC.shoutInformations = self.postInfo
+//                                        print(self.postInfo.valueForString(key: "post_id"))
+//                                        shoutsDetailsVC.shoutID = self.postInfo.valueForString(key: "post_id").toInt
+//                                        self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
+//                                    }
+//                                case "post_article":
+//                                    if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
+//                                        articleDetailVC.articleInformation = self.postInfo
+//                                        articleDetailVC.articleID = self.postInfo.valueForString(key: "post_id").toInt
+//                                        self.navigationController?.pushViewController(articleDetailVC, animated: true)
+//                                    }
+//                                case "post_gallery":
+//                                    let postID = self.postInfo.valueForString(key: "post_id")
+//                                    self.getGalleryDetailsFromServer(imgPostId: postID.toInt,postInfo:self.postInfo)
+//
+//                                case "post_chirpy":
+//                                    if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
+//                                        chirpyDetailVC.chirpyInformation = self.postInfo
+//                                        chirpyDetailVC.chirpyID = self.postInfo.valueForString(key: "post_id").toInt
+//                                        self.navigationController?.pushViewController(chirpyDetailVC, animated: true)
+//                                    }
+//                                case "post_forum":
+//                                    if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
+//                                        forumDetailVC.forumID = self.postInfo.valueForString(key: "post_id").toInt
+//                                        forumDetailVC.forumInformation = self.postInfo
+//                                        self.navigationController?.pushViewController(forumDetailVC, animated: true)
+//                                    }
+//                                case "post_event":
+//                                    if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
+//                                        eventDetailVC.postID = self.postInfo.valueForString(key: "post_id").toInt
+//                                        eventDetailVC.eventInfo = self.postInfo
+//                                        self.navigationController?.pushViewController(eventDetailVC, animated: true)
+//                                    }
+//                                case "productDetails":
+//                                    let productID = self.postInfo.valueForString(key: "product_id")
+//                                    if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
+//                                        ProductDetailVC.productIds = productID
+//                                        self.navigationController?.pushViewController(ProductDetailVC, animated: true)
+//                                    }
+//                                case "post_poll":
+//                                    let productID = self.postInfo.valueForString(key: "post_id")
+//                                    self.getPollDetailsFromServer(pollID: productID.toInt, postInfo: self.postInfo)
+//                                default:
+//                                    break
+//
+//                                }
+//                                break
+//                            default:
+//                                break
+//                            }
+//                        }
+//                    }
+//                }
+//            })
+//        }
+//    }
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         var notifKey = ""
@@ -288,7 +561,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                 post_type = post_types
             }
             
-            if let post_ids = postinfo.valueForString(key: "typost_idpe") as? String{
+            if let post_ids = postinfo.valueForString(key: "post_id") as? String{
                 post_id = post_ids
             }
             postInfo = postinfo
@@ -307,6 +580,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                 }else {
                     if let userChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
                         userChatDetailVC.iObject =  self.postInfo
+                        userChatDetailVC.notifcationStatus = true
                         userChatDetailVC.self.userID = userID.toInt
                         userChatDetailVC.isCreateNewChat = true
                         self.navigationController?.pushViewController(userChatDetailVC, animated: true)
@@ -322,6 +596,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
             case kNotTypeGroup:
                 if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
                     groupChatDetailVC.iObject =  self.postInfo
+                    groupChatDetailVC.notificationGrp = true
                     groupChatDetailVC.isCreateNewChat = false
                     self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
                 }
@@ -332,6 +607,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                 //Group chat detail screen
                 if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
                     groupChatDetailVC.iObject =  self.postInfo
+                    groupChatDetailVC.notificationGrp = true
                     groupChatDetailVC.isCreateNewChat = false
                     self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
                 }
@@ -341,7 +617,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                  kNotTypeFriendReqSentNew:
                 
                 appDelegate.moveOnProfileScreenNew(notificationInfo.valueForString(key: "sender"),notificationInfo.valueForString(key: CUsermailID), self)
-              //  appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
+                //  appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
                 break
             case kNotTypeFriendBlocked:
                 
@@ -365,6 +641,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                     if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
                         shoutsDetailsVC.shoutInformations = postInfo
                         print(postInfo.valueForString(key: "post_id"))
+                        shoutsDetailsVC.likeFromNotify = true
                         shoutsDetailsVC.shoutID = postInfo.valueForString(key: "post_id").toInt
                         self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
                     }
@@ -433,6 +710,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                     appDelegate.moveOnProfileScreenNew(self.userID.description, self.userID.description, self)
                                 }else {
                                     if let userChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
+                                        userChatDetailVC.notifcationStatus = true
                                         userChatDetailVC.iObject =  self.postInfo
                                         userChatDetailVC.self.userID = self.userID.toInt
                                         userChatDetailVC.isCreateNewChat = true
@@ -449,6 +727,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                 if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
                                     groupChatDetailVC.iObject =  self.postInfo
                                     groupChatDetailVC.isCreateNewChat = false
+                                    groupChatDetailVC.notificationGrp = true
                                     self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
                                 }
                                 
@@ -458,6 +737,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                 if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
                                     groupChatDetailVC.iObject =  self.postInfo
                                     groupChatDetailVC.isCreateNewChat = false
+                                    groupChatDetailVC.notificationGrp = true
                                     self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
                                 }
                                 break
@@ -487,6 +767,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                 case "post_shout":
                                     if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
                                         shoutsDetailsVC.shoutInformations = self.postInfo
+                                        shoutsDetailsVC.likeFromNotify = true
                                         print(self.postInfo.valueForString(key: "post_id"))
                                         shoutsDetailsVC.shoutID = self.postInfo.valueForString(key: "post_id").toInt
                                         self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)

@@ -778,7 +778,7 @@ extension AddEditProductVC {
                         if stausLike == "0" {
 //                            MIGeneralsAPI.shared().addRewardsPoints(CPostonstore,message:"Post_on_store",type:CPostonstore,title:"Post on store",name:name,icon:image, detail_text: "Post_on_store")
                             
-                            MIGeneralsAPI.shared().addRewardsPoints(CPostonstore,message:CPostonstore,type:"Post on store",title: self.txtProductTitle.text ?? "",name:name,icon:image, detail_text: "post_on_sell_point")
+                            MIGeneralsAPI.shared().addRewardsPoints(CPostonstore,message:CPostonstore,type:"Post on store",title: self.txtProductTitle.text ?? "",name:name,icon:image, detail_text: "post_on_sell_point",target_id: 0)
                             
                             
                         }

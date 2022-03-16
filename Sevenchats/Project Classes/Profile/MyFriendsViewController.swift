@@ -288,7 +288,7 @@ extension MyFriendsViewController{
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
                         MIGeneralsAPI.shared().sendNotification(friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:])
                         
-                        MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:"Friends request accept",type:CFriendsrequestaccept,title:"",name:name,icon:image, detail_text: "friend_point")
+                        MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:"Friends request accept",type:CFriendsrequestaccept,title:"",name:name,icon:image, detail_text: "friend_point",target_id: 0)
                     }else if totalPoints != "" && metaData.valueForString(key: "message") == "Request accepted successfully" {
                         
                         guard let firstName = appDelegate.loginUser?.first_name else {return}

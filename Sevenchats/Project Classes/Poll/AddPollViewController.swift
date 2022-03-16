@@ -73,6 +73,8 @@ class AddPollViewController: ParentViewController {
     var categoryName : String?
     var pollOptionLst :String?
     var arrsubCategorys : [MDLIntrestSubCategory] = []
+    var post_ID:String?
+    
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -301,15 +303,20 @@ extension AddPollViewController {
         }
         
         APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagpolls) { [weak self] (response, error) in
+           
             if response != nil && error == nil{
+                if let responseData = response![CJsonData] as? [[String : Any]] {
+                    for data in responseData{
+                        self?.post_ID = data.valueForString(key: "post_id")
+                    }
+                }
                 
                 if let metaInfo = response![CJsonMeta] as? [String : Any] {
                     let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                     guard let image = appDelegate.loginUser?.profile_img else { return }
                     let stausLike = metaInfo["status"] as? String ?? "0"
                     if stausLike == "0" {
-                        
-                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"poll",title: self?.categoryDropDownView.txtCategory.text ?? "",name:name,icon:image, detail_text: "post_point")
+                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"poll",title: self?.categoryDropDownView.txtCategory.text ?? "",name:name,icon:image, detail_text: "post_point",target_id: self?.post_ID?.toInt ?? 0)
                         
                         MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self?.pollID, self!,.addPost, rss_id: 0)
                     }

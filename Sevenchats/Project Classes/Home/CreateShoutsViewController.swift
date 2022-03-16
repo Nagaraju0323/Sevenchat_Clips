@@ -47,6 +47,8 @@ class CreateShoutsViewController: ParentViewController {
     var shoutID : Int?
     var quoteDesc = ""
     var postContent = ""
+    var post_ID :String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -160,7 +162,7 @@ extension CreateShoutsViewController{
         }
         guard let userid = appDelegate.loginUser?.user_id else {return}
         let userID = userid.description
-        let txtshout = textViewMessage.text.replace(string: "\n", replacement: "\\n")
+        let txtshout = postContent.replace(string: "\n", replacement: "\\n")
         var dict :[String:Any]  =  [
             "user_id":userID,
             "image":"none", 
@@ -203,12 +205,18 @@ extension CreateShoutsViewController{
         APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagshouts) { [weak self] (response, error) in
             if response != nil && error == nil{
                 
+                if let responseData = response![CJsonData] as? [[String : Any]] {
+                    for data in responseData{
+                        self?.post_ID = data.valueForString(key: "post_id")
+                    }
+                }
+                
                 if let metaInfo = response![CJsonMeta] as? [String : Any] {
                     let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                     guard let image = appDelegate.loginUser?.profile_img else { return }
                     let stausLike = metaInfo["status"] as? String ?? "0"
                     if stausLike == "0" {
-                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"shout",title: self?.textViewMessage.text! ?? "",name:name,icon:image, detail_text: "post_point")
+                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"shout",title: self?.textViewMessage.text! ?? "",name:name,icon:image, detail_text: "post_point",target_id: self?.post_ID?.toInt ?? 0)
                     }
                 }
                 
@@ -432,6 +440,7 @@ extension CreateShoutsViewController{
                     
                 } else {
                    print("false")
+                    postContent = textViewMessage.text
                     self.addEditShout()
                 }
             }

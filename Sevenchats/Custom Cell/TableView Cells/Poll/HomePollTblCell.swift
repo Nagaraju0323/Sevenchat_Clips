@@ -122,21 +122,23 @@ extension HomePollTblCell{
         if isSelected == true {
             //myprofile
             let pollstring = postData["options"] as? String
-            let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
-            let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
-            let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
-            chngString = rplstr_Three
+//            let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
+//            let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
+//            let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
+//            chngString = rplstr_Three
+            fullNameArr =  jsonToStringConvert(pollString: postData["options"] as? String ?? "")
+            
         }else {
             //homeviewcontroller
             let pollstring = postData["options"] as? String
-            let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
-            let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
-            let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
-            chngString = rplstr_Three
-            // fullNameArr =  jsonToStringConvert(pollString: postData["options"] as? String ?? "")
+//            let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
+//            let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
+//            let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
+//            chngString = rplstr_Three
+             fullNameArr =  jsonToStringConvert(pollString: postData["options"] as? String ?? "")
         }
         
-        let fullNameArr:[String] = chngString?.components(separatedBy:",") ?? []
+//        let fullNameArr:[String] = chngString?.components(separatedBy:",") ?? []
         var dictionary = [String: String]()
         for player in fullNameArr {
             dictionary["poll_text"] = player

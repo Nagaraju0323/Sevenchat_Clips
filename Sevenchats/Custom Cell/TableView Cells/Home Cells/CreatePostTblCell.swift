@@ -63,6 +63,8 @@ class CreatePostTblCell: UITableViewCell{
     var shoutID : Int?
     var userID:String?
     var arrSelectedGroupFriends = [[String : Any]]()
+    var post_ID:String?
+    var postContent = ""
     
  //   CShoutPlaceholderContents
     override func awakeFromNib() {
@@ -254,20 +256,30 @@ extension CreatePostTblCell{
             
         }else{
             if textViewMessage.text != ""{
+                
                 let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 if textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
-                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-                        alertWindow.rootViewController = UIViewController()
-                        let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
-                        alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
-                            alertWindow.isHidden = true
-                            return
-                        }))
-
-                        alertWindow.windowLevel = UIWindow.Level.alert + 1;
-                        alertWindow.makeKeyAndVisible()
-                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                    print("contains Special charecter")
+                     postContent = removeSpecialCharacters(from: textViewMessage.text)
+                     self.addEditShout()
+                
+                
+//                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+//                if textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
+//                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+//                        alertWindow.rootViewController = UIViewController()
+//                        let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
+//                        alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+//                            alertWindow.isHidden = true
+//                            return
+//                        }))
+//
+//                        alertWindow.windowLevel = UIWindow.Level.alert + 1;
+//                        alertWindow.makeKeyAndVisible()
+//                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
                 } else {
+                    
+                    postContent = textViewMessage.text
                     self.addEditShout()
                 }
             }
@@ -290,7 +302,7 @@ extension CreatePostTblCell{
             apiPara[CId] = shoutID
         }
        
-        let txtshout = textViewMessage.text.replace(string: "\n", replacement: "\\n")
+        let txtshout = postContent.replace(string: "\n", replacement: "\\n")
         
         var dict = [String:Any]()
         dict[CUserId] = userid.description
@@ -328,16 +340,19 @@ extension CreatePostTblCell{
                 }
                 
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageShoutPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                
+                if let responseData = response![CJsonData] as? [[String : Any]] {
+                    for data in responseData{
+                        self.post_ID = data.valueForString(key: "post_id")
+                    }
+                }
                 if let metaInfo = response![CJsonMeta] as? [String:Any]{
                     let timeStamp = metaInfo.valueForString(key: "status")
                     if timeStamp == "0"{
                         
                         let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                         guard let image = appDelegate.loginUser?.profile_img else { return }
-//                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:"post_point",type:CPostcreate,title:"Shout Add",name:name,icon:image, detail_text: "post_point")
-                      
-                        
-                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"shout",title: self.textViewMessage.text ?? "",name:name,icon:image, detail_text: "post_point")
+                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"shout",title: self.textViewMessage.text ?? "",name:name,icon:image, detail_text: "post_point",target_id: self.post_ID?.toInt ?? 0)
                         self.textViewMessage.text = ""
                         self.onDataAvailable?(true,metaInfo)
                     }
@@ -367,7 +382,6 @@ extension CreatePostTblCell: GenericTextViewDelegate{
                     lblTextCount.text = "\(textView.text.count)/150"
                      print("\(textView.text.count)/150")
                 }
-//        let txtCount = Int(textView.text.count)
         if txtCount == 0{
         CreatePostTblCell.countCompletion?(0)
         }else {
@@ -376,7 +390,6 @@ extension CreatePostTblCell: GenericTextViewDelegate{
     }
     
     func genericTextViewDidBeginEditing(_ textView: UITextView){
-//        print(textViewMessage.text)
         if  textViewMessage.text == "" ||  textViewMessage.text == " " || textViewMessage.text.isEmpty || !textViewMessage.text.isEmpty {
             placeHolderLabel.isHidden = true
         }
@@ -414,4 +427,12 @@ class CreatePostTblCell1: UITableViewCell{
             
         }
     }
+}
+
+extension CreatePostTblCell{
+func removeSpecialCharacters(from text: String) -> String {
+    let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+    return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+}
+
 }

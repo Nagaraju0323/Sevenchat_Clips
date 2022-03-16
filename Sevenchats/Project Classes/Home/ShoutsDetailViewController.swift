@@ -90,6 +90,7 @@ class ShoutsDetailViewController: ParentViewController {
     var posted_IDOthers = ""
     var notificationInfo = [String:Any]()
     var commentCnt = ""
+    var likeFromNotify:Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -231,6 +232,37 @@ extension ShoutsDetailViewController{
                     }
                     btnLike.isSelected = false
                 }
+                if likeFromNotify == true {
+                    
+                    if shoInfo.valueForString(key:"friend_liked") == "Yes"  && shoInfo.valueForString(key:"is_liked") == "Yes" {
+                        btnLike.isSelected = true
+                        if shoInfo.valueForString(key:"is_liked") == "No"{
+                            isLikeSelected = false
+                        }
+                    }else {
+                        if shoInfo.valueForString(key:"is_liked") == "No" && shoInfo.valueForString(key:"friend_liked") == "No" {
+                            isLikeSelected = true
+                        }
+                        btnLike.isSelected = false
+                    }
+                    
+                    if shoInfo.valueForString(key:"is_liked") == "Yes" && shoInfo.valueForString(key:"friend_liked") == "No" {
+                        isLikeSelected = true
+                        btnLike.isSelected = false
+                    }else if shoInfo.valueForString(key:"is_liked") == "No" && shoInfo.valueForString(key:"friend_liked") == "Yes"{
+                        
+                        isLikeSelected = false
+                        btnLike.isSelected = true
+
+                    }
+                    if shoInfo.valueForString(key:CIs_Liked) == "Yes"{
+                        btnLike.isSelected = true
+                    }else {
+                        btnLike.isSelected = false
+                    }
+                    
+                }
+                
                 
                 if shoInfo.valueForString(key:"is_liked") == "Yes" && shoInfo.valueForString(key:"friend_liked") == "No" {
                     isLikeSelected = true

@@ -150,6 +150,7 @@ class GroupChatDetailsViewController: ParentViewController,MIAudioPlayerDelegate
     
     var socketClient = StompClientLib()
     var timeClient: TrueTimeClient?
+    var notificationGrp:Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -599,7 +600,11 @@ extension GroupChatDetailsViewController {
 extension GroupChatDetailsViewController {
     
     func setFetchController() {
-        createTopictoChat()
+//        createTopictoChat()
+        if notificationGrp == true {
+            createTopictoChat()
+        }
+        
         fetchHome = nil;
         strChannelId = group_id
         fetchHome = self.fetchController(listView: tblChat, entity: "TblMessages", sortDescriptors: [NSSortDescriptor.init(key: CCreated_at, ascending: false)], predicate: NSPredicate(format: "\(CChannel_id) == %@", strChannelId as CVarArg), sectionKeyPath: "msgdate", cellIdentifier: "MessageSenderTblCell", batchSize: 20) { (indexpath, cell, item) -> (Void) in

@@ -73,6 +73,7 @@ class AddMediaViewController: ParentViewController {
     var ImgName = ""
     var imgUpoloadUrl = ""
     var imageString = ""
+    var post_ID:String?
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -287,6 +288,12 @@ extension AddMediaViewController {
         APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagsgallery) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil && error == nil{
+           
+                if let responseData = response![CJsonData] as? [[String : Any]] {
+                    for data in responseData{
+                        self.post_ID = data.valueForString(key: "post_id")
+                    }
+                }
                 
                 if let metaInfo = response![CJsonMeta] as? [String : Any] {
                     let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
@@ -294,7 +301,7 @@ extension AddMediaViewController {
                     let stausLike = metaInfo["status"] as? String ?? "0"
                     if stausLike == "0" {
                         
-                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"gallery",title: self.categoryDropDownView.txtCategory.text!,name:name,icon:image, detail_text: "post_point")
+                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"gallery",title: self.categoryDropDownView.txtCategory.text!,name:name,icon:image, detail_text: "post_point", target_id: self.post_ID?.toInt ?? 0)
                         
                         MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self.imgPostId, self,.addPost, rss_id: 0)
                         

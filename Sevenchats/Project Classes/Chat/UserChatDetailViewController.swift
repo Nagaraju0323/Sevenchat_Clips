@@ -177,6 +177,7 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
     var socketClient = StompClientLib()
     var timeClient: TrueTimeClient?
     var chatInfoNot = [String:Any]()
+    var notifcationStatus:Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -674,7 +675,9 @@ extension UserChatDetailViewController {
 extension UserChatDetailViewController {
     func setFetchController() {
         
-        createTopictoChat()
+        if notifcationStatus == true {
+            createTopictoChat()
+        }
         fetchHome = nil;
         if let userid = self.userID {
             print("topicname\(topcName)")

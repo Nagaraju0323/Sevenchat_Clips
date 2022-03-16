@@ -65,6 +65,8 @@ class AddForumViewController: ParentViewController {
     var quoteDesc = ""
     var postContent = ""
     var postTxtFieldContent = ""
+    var post_ID:String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -218,13 +220,21 @@ extension AddForumViewController{
             guard let self = self else { return }
             if response != nil && error == nil{
                 
+                
+                if let responseData = response![CJsonData] as? [[String : Any]] {
+                    for data in responseData{
+                        self.post_ID = data.valueForString(key: "post_id")
+                    }
+                }
+                
+                
                 if let metaInfo = response![CJsonMeta] as? [String : Any] {
                     let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                     guard let image = appDelegate.loginUser?.profile_img else { return }
                     let stausLike = metaInfo["status"] as? String ?? "0"
                     if stausLike == "0" {
  
-                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"forum",title: self.txtForumTitle.text! ,name:name,icon:image, detail_text: "post_point")
+                        MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"forum",title: self.txtForumTitle.text! ,name:name,icon:image, detail_text: "post_point",target_id: self.post_ID?.toInt ?? 0)
 
                         MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self.forumID, self,.addPost, rss_id: 0)
                         

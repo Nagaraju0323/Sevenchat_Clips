@@ -73,6 +73,7 @@ class AddArticleViewController: ParentViewController {
     var arrsubCategorys : [MDLProductSubCategory] = []
     var postContent = ""
     var postTxtFieldContent = ""
+    var post_ID:String?
     
     
     override func viewDidLoad() {
@@ -225,10 +226,17 @@ extension AddArticleViewController{
         APIRequest.shared().addEditPost(para: dict, image: imgArticle.image,apiKeyCall: CAPITagarticles) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil && error == nil{
+                
+                if let responseData = response![CJsonData] as? [[String : Any]] {
+                    for data in responseData{
+                        self.post_ID = data.valueForString(key: "post_id")
+                    }
+                }
+                
                 let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                 guard let image = appDelegate.loginUser?.profile_img else { return }
                 //Add rewards Points
-                MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"article",title: self.txtArticleTitle.text!,name:name,icon:image, detail_text: "post_point")
+                MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"article",title: self.txtArticleTitle.text!,name:name,icon:image, detail_text: "post_point",target_id: self.post_ID?.toInt ?? 0)
                 
                 self.navigationController?.popViewController(animated: true)
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.articleType == .editArticle ? CMessageArticlePostUpdated : CMessageArticlePostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)

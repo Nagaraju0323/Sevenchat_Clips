@@ -84,8 +84,6 @@ class SocketIOManager: NSObject {
                     let dictNot =  self.convertToDictionaryToConent(from: contentConvert ?? "")
                     let  senderName = dictNot["senderName"] as? String ?? ""
                     self.scheduleNotification(notificationType: notifi["subject"] as? String ?? "",senderName:senderName)
-                
-                    
                     dict["subject"] = notifi["subject"] as? String
                     dict["sender"] = notifi["sender"] as? String
                 }

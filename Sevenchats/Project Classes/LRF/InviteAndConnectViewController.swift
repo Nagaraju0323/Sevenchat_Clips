@@ -616,6 +616,7 @@ extension InviteAndConnectViewController{
                             if isShowAlert{
                                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
                                     self.friendStatusApi(User_Id, frndStatus)
+                                    self.tblFriend.reloadData()
                                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                             }else{
                                 self.friendStatusApi(User_Id, frndStatus)
