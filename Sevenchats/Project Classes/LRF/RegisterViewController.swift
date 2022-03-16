@@ -349,8 +349,8 @@ extension RegisterViewController {
         }
         
         let dobconvert = DateFormatter.shared().convertDatereversSinup(strDate: self.txtDob.text)
-        let FirstName = postFirstName
-        let LastName = postLastName
+        let FirstName = txtFirstName.text ?? ""
+        let LastName = txtLastName.text ?? ""
         let Emailtext = self.txtEmail.text ?? ""
         let Password = self.txtPWD.text ?? ""
         let CityName = self.txtCitys.text ?? ""

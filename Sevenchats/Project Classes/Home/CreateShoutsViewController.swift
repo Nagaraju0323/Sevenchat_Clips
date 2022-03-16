@@ -77,9 +77,10 @@ class CreateShoutsViewController: ParentViewController {
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnCreateShoutsClicked(_:)))]
         btnInviteTypeCLK(btnInviteAllFriend)
         
-        if shoutsType == .addShouts{
+        if shoutsType == .addShouts || shoutsType == .shareQuote {
             self.setQuoteText()
         }
+        
         
     }
     
@@ -258,11 +259,11 @@ extension CreateShoutsViewController{
     
     fileprivate func setQuoteText(){
         var strQuote = self.quoteDesc
-        if strQuote.count > 150{
-            strQuote = strQuote[0..<150]
+        if strQuote.count > 5000{
+            strQuote = strQuote[0..<5000]
         }
         self.textViewMessage.text = strQuote
-        self.lblTextCount.text = "\(strQuote.count)/150"
+        self.lblTextCount.text = "\(strQuote.count)/5000"
         
         GCDMainThread.async {
             self.textViewMessage.updatePlaceholderFrame(true)
@@ -271,7 +272,7 @@ extension CreateShoutsViewController{
     
     fileprivate func setShoutDetail (_ shoutInfo : [String : Any]) {
         textViewMessage.text = shoutInfo.valueForString(key: CContent)
-        lblTextCount.text = "\(textViewMessage.text.count)/150"
+        lblTextCount.text = "\(textViewMessage.text.count)/5000"
         
         //...Set invite type
         switch shoutInfo.valueForInt(key: CPublish_To) {

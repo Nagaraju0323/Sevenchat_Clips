@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,13 +31,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Friends" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h4s-gl-pHM" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                        <rect key="frame" x="124.5" y="105" width="126.5" height="21"/>
+                        <rect key="frame" x="124.5" y="105" width="126.5" height="20.5"/>
                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="19"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVI-iv-dGs">
-                        <rect key="frame" x="20" y="127" width="335" height="80"/>
+                        <rect key="frame" x="20" y="126.5" width="335" height="80.5"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wrL-3Y-3ce">
                                 <rect key="frame" x="0.0" y="10" width="335" height="1"/>
@@ -47,10 +47,10 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hAN-3R-MWQ">
-                                <rect key="frame" x="116" y="21" width="103" height="49"/>
+                                <rect key="frame" x="142.5" y="21" width="50" height="49.5"/>
                                 <subviews>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wom-ho-28Z">
-                                        <rect key="frame" x="0.0" y="0.0" width="49" height="49"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="49.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="wom-ho-28Z" secondAttribute="height" multiplier="1:1" id="UUr-nG-LJI"/>
                                         </constraints>
@@ -59,26 +59,27 @@
                                             <action selector="onPhoneBookPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="f77-it-oHe"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZSp-ro-JBC">
-                                        <rect key="frame" x="54" y="0.0" width="49" height="49"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="ZSp-ro-JBC" secondAttribute="height" multiplier="1:1" id="8a3-Kc-6Hk"/>
-                                        </constraints>
-                                        <state key="normal" image="ic_share"/>
-                                    </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="ZSp-ro-JBC" firstAttribute="width" secondItem="ZSp-ro-JBC" secondAttribute="height" multiplier="1:1" id="hzx-Ca-JAM"/>
-                                </constraints>
                             </stackView>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZSp-ro-JBC">
+                                <rect key="frame" x="251.5" y="16" width="48.5" height="48.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ZSp-ro-JBC" secondAttribute="height" multiplier="1:1" id="8a3-Kc-6Hk"/>
+                                </constraints>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="wrL-3Y-3ce" firstAttribute="top" secondItem="xVI-iv-dGs" secondAttribute="top" constant="10" id="42w-iJ-k6l"/>
                             <constraint firstAttribute="trailing" secondItem="wrL-3Y-3ce" secondAttribute="trailing" id="6AQ-3S-9X8"/>
+                            <constraint firstItem="ZSp-ro-JBC" firstAttribute="top" secondItem="wrL-3Y-3ce" secondAttribute="bottom" constant="5" id="EKC-8b-QJM"/>
                             <constraint firstAttribute="bottom" secondItem="hAN-3R-MWQ" secondAttribute="bottom" constant="10" id="Jyl-up-d62"/>
+                            <constraint firstAttribute="trailing" secondItem="ZSp-ro-JBC" secondAttribute="trailing" constant="35" id="Tyf-fL-ccX"/>
                             <constraint firstItem="hAN-3R-MWQ" firstAttribute="top" secondItem="wrL-3Y-3ce" secondAttribute="bottom" constant="10" id="fAQ-Vd-WZ7"/>
+                            <constraint firstItem="ZSp-ro-JBC" firstAttribute="width" secondItem="ZSp-ro-JBC" secondAttribute="height" multiplier="1:1" id="hcf-NE-3vF"/>
                             <constraint firstItem="wrL-3Y-3ce" firstAttribute="leading" secondItem="xVI-iv-dGs" secondAttribute="leading" id="lXy-X3-q2p"/>
+                            <constraint firstItem="ZSp-ro-JBC" firstAttribute="leading" secondItem="hAN-3R-MWQ" secondAttribute="trailing" constant="59" id="slZ-c2-yK3"/>
+                            <constraint firstItem="ZSp-ro-JBC" firstAttribute="centerY" secondItem="xVI-iv-dGs" secondAttribute="centerY" id="tvn-39-uUV"/>
                             <constraint firstItem="hAN-3R-MWQ" firstAttribute="centerX" secondItem="xVI-iv-dGs" secondAttribute="centerX" id="vK3-fu-afD"/>
                         </constraints>
                     </view>
@@ -105,7 +106,6 @@
     </objects>
     <resources>
         <image name="ic_btn_phonebook" width="49" height="49"/>
-        <image name="ic_invite_friend" width="119.5" height="119.5"/>
-        <image name="ic_share" width="32" height="32"/>
+        <image name="ic_invite_friend" width="512" height="512"/>
     </resources>
 </document>

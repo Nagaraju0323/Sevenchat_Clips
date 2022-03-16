@@ -239,7 +239,7 @@ extension CreateChatGroupViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageChatGroupType, btnOneTitle: CBtnOk, btnOneTapped: nil)
         } else if editGroup == true{
             var apiPara = [String : Any]()
-            apiPara[CGroupTitle] = postContent
+            apiPara[CGroupTitle] = txtGroupTitle.text ?? ""
             if imgGroupIcon.image != nil {
                 if self.isSelected == true {
                     apiPara[CGroupImage] = self.imgName

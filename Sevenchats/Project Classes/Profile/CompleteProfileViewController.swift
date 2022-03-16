@@ -383,7 +383,7 @@ extension CompleteProfileViewController{
         var professionText = ""
         if btnEmployed.isSelected{
             emplymenntStatus = 1
-            professionText = postProfession
+            professionText = txtProfession.text ?? ""
         }else if btnUnEmployed.isSelected{
             emplymenntStatus = 2
             professionText = CBtnUnemployed
@@ -398,7 +398,7 @@ extension CompleteProfileViewController{
             CFirstname : appDelegate.loginUser?.first_name ?? "",
             CLastname : appDelegate.loginUser?.last_name ?? "",
             CDob : dob_edit ?? "" ,
-            CShort_biography : postBiography,
+            CShort_biography : txtViewBiography.text ?? "",
             CGender : gender,
             CRelationship_id : relationshipID,
             CAnnual_income_id : incomeID,
@@ -420,7 +420,7 @@ extension CompleteProfileViewController{
             "first_name":firstName_edit ?? "",
             "last_name":lastName_edit ?? "",
             "gender":gender.toString,
-            "religion":postReligion,
+            "religion":txtReligion.text ?? "",
             "city_name":txtCity,
             "profile_image":appDelegate.loginUser?.profile_img ?? "",
             "cover_image":appDelegate.loginUser?.cover_image ?? "",
@@ -456,7 +456,7 @@ extension CompleteProfileViewController{
             "dob":dob_edit ?? "",
             "short_biography":txtViewBiography.text ?? "",
             "relationship":txtStatus.text ?? "",
-            "profession":professionText,
+            "profession":txtProfession.text ?? "",
             "address_line1":txtCity,
             "latitude":0,
             "longitude":0,
@@ -669,9 +669,14 @@ extension CompleteProfileViewController : GenericTextFieldDelegate{
             if txtReligion.text?.count ?? 0 > 20{
                 return false
             }
-            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-            let filtered = string.components(separatedBy: cs).joined(separator: "")
-            return (string == filtered)
+            if string.isSingleEmoji {
+                return (string == string)
+            }else {
+                
+                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                let filtered = string.components(separatedBy: cs).joined(separator: "")
+                return (string == filtered)
+            }
         }
         return true
     }

@@ -404,8 +404,8 @@ extension EditProfileViewController {
         
         let dict :[String:Any]  =  [
             "user_acc_type":"1",
-            "first_name":postFirstName,
-            "last_name":postLastName,
+            "first_name":txtFirstName.text ?? "",
+            "last_name":txtLastName.text ?? "",
             "gender":String(appDelegate.loginUser!.gender),
             "religion":appDelegate.loginUser?.religion ?? "",
             "city_name":txtCitys.text ?? "",
@@ -1143,9 +1143,14 @@ extension EditProfileViewController: GenericTextFieldDelegate {
     
     @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == txtFirstName || textField == txtLastName {
-            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-            let filtered = string.components(separatedBy: cs).joined(separator: "")
-            return (string == filtered)
+            if string.isSingleEmoji {
+                return (string == string)
+            }else {
+                
+                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                let filtered = string.components(separatedBy: cs).joined(separator: "")
+                return (string == filtered)
+            }
         }
         return true
     }

@@ -161,7 +161,7 @@ extension FeedbackViewController{
             }
             
             
-            let txtFeedBack = postContent.replace(string: "\n", replacement: " ")
+            let txtFeedBack = txtViewFeedbackContent.text ?? "".replace(string: "\n", replacement: " ")
             let feedback : [String :Any] = [
                 "image":feedbackImgUrl,
                 "user_id" : userId.description,

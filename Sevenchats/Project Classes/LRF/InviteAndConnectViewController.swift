@@ -106,7 +106,7 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
         tblFriend.dataSource = self
         tblFriend.reloadData()
         self.btnSearch.isHidden = true
-        
+        self.viewButtonView.isHidden = true
         
         cnNavigationHeight.constant = IS_iPhone_X_Series ? 84 : 64
         GCDMainThread.async {

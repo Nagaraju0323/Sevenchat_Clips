@@ -44,8 +44,26 @@ class SharePostHelper : NSObject{
 //        }
 //
     func presentShareActivity() {
+        self.viewcontroller?.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CShareWithinSevenChats, btnOneStyle: .default) { (_) in
+            DispatchQueue.main.async {
+                if self.isFromQuote{
+                    if let createShoutsVC = CStoryboardHome.instantiateViewController(withIdentifier: "CreateShoutsViewController") as? CreateShoutsViewController{
+                        createShoutsVC.shoutsType = .shareQuote
+                        createShoutsVC.shoutID = self.dataSet?[CId] as? Int ?? 0
+                        createShoutsVC.quoteDesc = self.dataSet?["quote_desc"] as? String ?? ""
+                        self.viewcontroller?.navigationController?.pushViewController(createShoutsVC, animated: true)
+                    }
+                }else{
+                    if let sharePost = CStoryboardSharedPost.instantiateViewController(withIdentifier: "SharePostViewController") as? SharePostViewController{
+                        sharePost.postData = self.dataSet ?? [:]
+                        self.viewcontroller?.navigationController?.pushViewController(sharePost, animated: true)
+                    }
+                }
+            }
         
-        self.viewcontroller?.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CShareWithinSevenChats, btnOneStyle: .default, btnOneTapped: { (_) in
+        }
+
+    /*    self.viewcontroller?.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CShareWithinSevenChats, btnOneStyle: .default, btnOneTapped: { (_) in
             DispatchQueue.main.async {
                 if self.isFromQuote{
                     if let createShoutsVC = CStoryboardHome.instantiateViewController(withIdentifier: "CreateShoutsViewController") as? CreateShoutsViewController{
@@ -72,7 +90,7 @@ class SharePostHelper : NSObject{
                 activityController.excludedActivityTypes = [.airDrop, .addToReadingList, .assignToContact, .copyToPasteboard, .mail, .message, .openInIBooks, .postToWeibo, .postToVimeo, .print]
                 self.viewcontroller?.present(activityController, animated: true, completion: nil)
             }
-        }
+        }*/
     }
     }
 

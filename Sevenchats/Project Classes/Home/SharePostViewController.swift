@@ -365,7 +365,7 @@ extension SharePostViewController {
         let dict :[String:Any]  =  [
             "user_id":userID,
             "element_id":postData[COriginalPostId]!,
-            "message":postContent
+            "message":textViewMessage.text ?? ""
         ]
         
         APIRequest.shared().addSharedPost(para: dict, image: nil) { [weak self] (response, error) in

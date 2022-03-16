@@ -141,7 +141,7 @@ extension ProductReportVC {
         para["user_id"] = appDelegate.loginUser?.user_id.description
         para["product_id"] = productId.toString
         para["reported_reason"] = "nice quality"
-        para["report_note"] = postContent
+        para["report_note"] = txtProblem.text ?? ""
         para["status_id"] = "1"
         
         APIRequest.shared().reportProduct(para: para) { [weak self](response, error) in

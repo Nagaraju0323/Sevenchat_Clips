@@ -733,7 +733,7 @@ extension AddEditProductVC {
             }else{
                 currencyName = txtCurrencyList.text ?? ""
             }
-            let txtproductDesc = postContent.replace(string: "\n", replacement: "\\n")
+            let txtproductDesc = txtProductDesc.text ?? "".replace(string: "\n", replacement: "\\n")
             apiTag = CAddProductNew
             dict = [
                 "user_first_name": firstName,
@@ -742,7 +742,7 @@ extension AddEditProductVC {
                 "category_name":categoryDropDownView.txtCategory.text ?? "",
                 "category_level1":subcategoryDropDownView.txtCategory.text ?? "",
                 "product_image":ImgName,
-                "product_title":postTitle.trim ,
+                "product_title":txtProductTitle.text?.trim ,
                 "description":txtproductDesc,
                 "available_status":"1",
                 "cost":self.txtProductPrice.text ?? "0",
