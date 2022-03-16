@@ -170,7 +170,7 @@ extension HomePollTblCell{
             let post_id = optionData["post_id"] as? String
             guard let self = self else {return}
             DispatchQueue.main.async {
-                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, .polladded, isSelected: false)
+                MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, .polladded, isSelected: false)
             }
         }
         
@@ -293,9 +293,7 @@ extension HomePollTblCell {
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
                     
                     if self?.notifcationIsSlected == true{
-                        
                         if self?.posted_ID == user_ID {
-                            
                         }else {
                             if self?.isLikesOthersPage == true {
                                 self?.notificationInfo["friend_liked"] = "Yes"
@@ -309,11 +307,9 @@ extension HomePollTblCell {
                             if let metaInfo = response![CJsonMeta] as? [String : Any] {
                                 let stausLike = metaInfo["status"] as? String ?? "0"
                                 if stausLike == "0" {
-                                    
                                 }
                             }
                         }
-                        
                         self?.notifcationIsSlected = false
                     }
                     if self?.isLikesOthersPage == true {
@@ -338,11 +334,13 @@ extension HomePollTblCell {
     }
     
     func getPollDetailsFromServer() {
-        //        self.parentView.isHidden = true
+        
         if let artID = self.pollIDNew {
+            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
             APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
+                    MILoader.shared.hideLoader()
                     if let Info = response!["data"] as? [[String:Any]]{
                         for articleInfo in Info {
                             self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
@@ -358,8 +356,7 @@ extension HomePollTblCell {
                                 dictionary["poll_text"] = player
                                 self.polls.append(MDLPollOption(fromDictionary: dictionary))
                             }
-                                
-                          }
+                        }
                     }
                     self.arr.removeAll()
                     var arrayData  = ["0","0","0","0"]
@@ -396,8 +393,6 @@ extension HomePollTblCell {
                                     self.arr += arrayData
                                 }
                                 self.dictArray = self.arr
-                               
-                                
                             }
                         }
                     }
@@ -405,56 +400,6 @@ extension HomePollTblCell {
             }
         }
     }
-    
-//    func postDetails(postID:String){
-//        var para = [String:Any]()
-//        para["id"] = postID
-//        para["friend_id"] = appDelegate.loginUser?.user_id.description
-//
-//        APIRequest.shared().votePollDetails(para: para) { [weak self] (response, error) in
-//            guard let _ = self else {return}
-//            if response != nil{
-//                self?.arr.removeAll()
-//                var arrayData  = ["0","0","0","0"]
-//                if let data = response![CData] as? [[String:Any]]{
-//                    if data.count == 1 {
-//                        for datas in data{
-//                            self?.polls = []
-//                            let objarray = (datas["options"] as? String ?? "" ).replace(string: "\"", replacement: "")
-//
-//                            self!.pollOptionArr =  self?.jsonToStringConvert(pollString:datas["options"] as? String ?? "") ?? []
-//                            let obj = datas["results"] as? [String : AnyObject] ?? [:]
-//                            if obj.count == 1 {
-//                                self?.arrPostList =  obj
-//                                for (key, value) in obj {
-//                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
-//                                    if indexOfA == 0{
-//                                        self?.arr = ["\(value)","0","0","0"]
-//                                    }else if indexOfA == 1{
-//                                        self?.arr = ["0","\(value)","0","0"]
-//                                    }else if indexOfA == 2{
-//                                        self?.arr = ["0","0","\(value)","0"]
-//                                    }else if indexOfA == 3{
-//                                        self?.arr = ["0","0","0","\(value)",]
-//                                    }
-//                                }
-//                            }else {
-//                                self?.arrPostList =  obj
-//                                for (key, value) in obj {
-//                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
-//                                    arrayData.remove(at: indexOfA ?? 0)
-//                                    arrayData.insert("\(value)", at: indexOfA ?? 0)
-//                                }
-//                                self?.arr += arrayData
-//                            }
-//                            self?.dictArray = self?.arr ?? []
-//
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
 }
 
 extension HomePollTblCell{

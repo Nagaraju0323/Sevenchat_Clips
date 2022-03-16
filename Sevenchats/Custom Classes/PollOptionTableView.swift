@@ -190,15 +190,6 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
                 
                 cell.btnCheckAnwer.isSelected = false
                 cell.btnSelectAnwer.isSelected = false
-//                if cell.btnSelectAnwer.isSelected {
-//                                   // set deselected
-//                    cell.btnSelectAnwer.isSelected = false
-//                               } else {
-//                                   // set selected
-//                                cell.btnSelectAnwer.isSelected = true
-//
-//                               }
-//
                 cell.progressV.setProgress(0.0, animated: true)
                 cell.lblPercentage.text = ""
             }
