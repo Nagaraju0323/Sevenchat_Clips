@@ -195,7 +195,7 @@ extension AddEditProductVC {
                         print("contains Special charecter")
                         self?.postContent = self?.removeSpecialCharacters(from: self?.txtProductDesc.text ?? "") ?? ""
                         if self?.txtProductTitle.text != ""{
-                            self?.postTitle = self?.removeSpecialCharacters(from: self?.txtProductTitle.text! ?? "") ?? <#default value#>
+                            self?.postTitle = self?.removeSpecialCharacters(from: self?.txtProductTitle.text! ?? "") ?? ""
                             print("specialcCharecte\(self?.postTitle)")
                       }
                         self?.addEditProduct()

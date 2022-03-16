@@ -135,6 +135,8 @@ class OtherUserProfileViewController: ParentViewController {
         btnUnblock.setTitle("  \(CBtnUnblockUser)  ", for: .normal)
         // To Get User detail from server.......
         self.getFriendStatus()
+        
+        self.otherUserDetails(isLoader:true)
 //        self.otherUserDetails(isLoader:true)
 //        self.getPostListFromServer()
         
@@ -144,10 +146,10 @@ class OtherUserProfileViewController: ParentViewController {
         super.viewWillAppear(true)
         DispatchQueue.main.async {
             self.pageNumber = 1
-            self.otherUserDetails(isLoader:true)
+//            self.otherUserDetails(isLoader:true)
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(loadOtherProfile), name: NSNotification.Name(rawValue: "loadOtherIntrest"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(polls_others), name: NSNotification.Name(rawValue: "polls_others"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(loadOtherProfile), name: NSNotification.Name(rawValue: "loadOtherIntrest"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(polls_others), name: NSNotification.Name(rawValue: "polls_others"), object: nil)
     }
     
     @objc func loadOtherProfile(){
@@ -349,8 +351,7 @@ extension OtherUserProfileViewController{
                     if isShowAlert{
                         self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
                     }
-                    
-                    
+
                     if metaData.valueForString(key: "message") == "User Blocked successfully" {
                         guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
@@ -371,7 +372,6 @@ extension OtherUserProfileViewController{
                     self.tblUser.isHidden = false
                     self.viewBlockContainer.isHidden = true
 //                    self.pullToRefresh()
-                    
                     self.navigationController?.popViewController(animated: true)
                 }
             }

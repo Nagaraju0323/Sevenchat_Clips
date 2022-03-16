@@ -101,8 +101,8 @@ extension HomePollTblCell{
         pollIDNew = postInfo.valueForString(key: "post_id").toInt ?? 0
         if isLikesOthersPage == true {
             posted_ID = self.posted_IDOthers
-            tblVAnswre.isSelectedByUser = postInfo.valueForString(key: "friend_selected")
-            self.is_Selected = postInfo.valueForString(key: "friend_selected")
+            tblVAnswre.isSelectedByUser = postInfo.valueForString(key: "is_selected")
+            self.is_Selected = postInfo.valueForString(key: "is_selected")
             voteCount = postInfo.valueForString(key: "total_count").toInt ?? 0
             tblVAnswre.totalVotes = voteCount ?? 0
             tblVAnswre.isLikesOthersPage = true
@@ -152,7 +152,7 @@ extension HomePollTblCell{
         //        tblVAnswre.totalVotes = voteCount ?? 0
         tblVAnswre.arrOption = polls
         
-        if postInfo.valueForString(key:"is_selected") == "N/A" ||  postInfo.valueForString(key:"friend_selected") == "N/A"{
+        if postInfo.valueForString(key:"is_selected") == "N/A" {
             tblVAnswre.isSelected = false
         }else {
             tblVAnswre.isSelected = false
@@ -170,13 +170,7 @@ extension HomePollTblCell{
             let post_id = optionData["post_id"] as? String
             guard let self = self else {return}
             DispatchQueue.main.async {
-                
-                if self.isLikesOthersPage == true {
-                    MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, .polladded, isSelected: true)
-                }else {
                     MIGeneralsAPI.shared().refreshPollPostRelatedScreens(self.postData, post_id?.toInt, self.tblVAnswre.userVotedPollId, optionData: optionData, self.viewController, .polladded, isSelected: false)
-                }
-                //                self.tblVAnswre.reloadData()
             }
         }
         
@@ -349,88 +343,118 @@ extension HomePollTblCell {
             APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
-                    //self.parentView.isHidden = false
-                    //                    DispatchQueue.main.async {
                     if let Info = response!["data"] as? [[String:Any]]{
                         for articleInfo in Info {
                             self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
-                            // self.is_Selected = articleInfo["is_selected"] as? String ?? ""
                             self.is_Selected = articleInfo["is_selected"] as? String ?? ""
-                            //  self.totalVotes = articleInfo["total_count"] as? String ?? ""
-                            //  var polls : [MDLPollOption] = []
                             let pollstring = articleInfo["options"] as? String
                             let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
                             let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
                             let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
                             self.chngString = rplstr_Three
-                            
                             let fullNameArr:[String] = self.chngString?.components(separatedBy:",") ?? []
                             var dictionary = [String: String]()
                             for player in fullNameArr {
                                 dictionary["poll_text"] = player
                                 self.polls.append(MDLPollOption(fromDictionary: dictionary))
                             }
-                            let postID = articleInfo["post_id"] as? String ?? ""
-                            
-                            self.postDetails(postID: postID)
+                                
+                          }
+                    }
+                    self.arr.removeAll()
+                    var arrayData  = ["0","0","0","0"]
+                    if let data = response![CData] as? [[String:Any]]{
+                        if data.count == 1 {
+                            for datas in data{
+                                self.polls = []
+                                let objarray = (datas["options"] as? String ?? "" ).replace(string: "\"", replacement: "")
+                                
+                                self.pollOptionArr =  self.jsonToStringConvert(pollString:datas["options"] as? String ?? "") ?? []
+                                
+                                let obj = datas["results"] as? [String : AnyObject] ?? [:]
+                                if obj.count == 1 {
+                                    self.arrPostList =  obj
+                                    for (key, value) in obj {
+                                        let indexOfA  = self.pollOptionArr.firstIndex(of: key)
+                                        if indexOfA == 0{
+                                            self.arr = ["\(value)","0","0","0"]
+                                        }else if indexOfA == 1{
+                                            self.arr = ["0","\(value)","0","0"]
+                                        }else if indexOfA == 2{
+                                            self.arr = ["0","0","\(value)","0"]
+                                        }else if indexOfA == 3{
+                                            self.arr = ["0","0","0","\(value)",]
+                                        }
+                                    }
+                                }else {
+                                    self.arrPostList =  obj
+                                    for (key, value) in obj {
+                                        let indexOfA  = self.pollOptionArr.firstIndex(of: key)
+                                        arrayData.remove(at: indexOfA ?? 0)
+                                        arrayData.insert("\(value)", at: indexOfA ?? 0)
+                                    }
+                                    self.arr += arrayData
+                                }
+                                self.dictArray = self.arr
+                               
+                                
+                            }
                         }
-                        //                        }
                     }
                 }
             }
         }
     }
     
-    func postDetails(postID:String){
-        var para = [String:Any]()
-        para["id"] = postID
-        para["user_id"] = appDelegate.loginUser?.user_id.description
-        
-        APIRequest.shared().votePollDetails(para: para) { [weak self] (response, error) in
-            guard let _ = self else {return}
-            if response != nil{
-                self?.arr.removeAll()
-                var arrayData  = ["0","0","0","0"]
-                if let data = response![CData] as? [[String:Any]]{
-                    if data.count == 1 {
-                        for datas in data{
-                            self?.polls = []
-                            let objarray = (datas["options"] as? String ?? "" ).replace(string: "\"", replacement: "")
-                            
-                            self!.pollOptionArr =  self?.jsonToStringConvert(pollString:datas["options"] as? String ?? "") ?? []
-                            let obj = datas["results"] as? [String : AnyObject] ?? [:]
-                            if obj.count == 1 {
-                                self?.arrPostList =  obj
-                                for (key, value) in obj {
-                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
-                                    if indexOfA == 0{
-                                        self?.arr = ["\(value)","0","0","0"]
-                                    }else if indexOfA == 1{
-                                        self?.arr = ["0","\(value)","0","0"]
-                                    }else if indexOfA == 2{
-                                        self?.arr = ["0","0","\(value)","0"]
-                                    }else if indexOfA == 3{
-                                        self?.arr = ["0","0","0","\(value)",]
-                                    }
-                                }
-                            }else {
-                                self?.arrPostList =  obj
-                                for (key, value) in obj {
-                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
-                                    arrayData.remove(at: indexOfA ?? 0)
-                                    arrayData.insert("\(value)", at: indexOfA ?? 0)
-                                }
-                                self?.arr += arrayData
-                            }
-                            self?.dictArray = self?.arr ?? []
-                            //                            self?.totalVotes = datas.valueForString(key: "total_count")
-                            
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    func postDetails(postID:String){
+//        var para = [String:Any]()
+//        para["id"] = postID
+//        para["friend_id"] = appDelegate.loginUser?.user_id.description
+//
+//        APIRequest.shared().votePollDetails(para: para) { [weak self] (response, error) in
+//            guard let _ = self else {return}
+//            if response != nil{
+//                self?.arr.removeAll()
+//                var arrayData  = ["0","0","0","0"]
+//                if let data = response![CData] as? [[String:Any]]{
+//                    if data.count == 1 {
+//                        for datas in data{
+//                            self?.polls = []
+//                            let objarray = (datas["options"] as? String ?? "" ).replace(string: "\"", replacement: "")
+//
+//                            self!.pollOptionArr =  self?.jsonToStringConvert(pollString:datas["options"] as? String ?? "") ?? []
+//                            let obj = datas["results"] as? [String : AnyObject] ?? [:]
+//                            if obj.count == 1 {
+//                                self?.arrPostList =  obj
+//                                for (key, value) in obj {
+//                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
+//                                    if indexOfA == 0{
+//                                        self?.arr = ["\(value)","0","0","0"]
+//                                    }else if indexOfA == 1{
+//                                        self?.arr = ["0","\(value)","0","0"]
+//                                    }else if indexOfA == 2{
+//                                        self?.arr = ["0","0","\(value)","0"]
+//                                    }else if indexOfA == 3{
+//                                        self?.arr = ["0","0","0","\(value)",]
+//                                    }
+//                                }
+//                            }else {
+//                                self?.arrPostList =  obj
+//                                for (key, value) in obj {
+//                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
+//                                    arrayData.remove(at: indexOfA ?? 0)
+//                                    arrayData.insert("\(value)", at: indexOfA ?? 0)
+//                                }
+//                                self?.arr += arrayData
+//                            }
+//                            self?.dictArray = self?.arr ?? []
+//
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 extension HomePollTblCell{

@@ -2260,7 +2260,7 @@ extension APIRequest {
     func viewPollDetailNew(postID : Int, completion : @escaping ClosureCompletion) {
         var para = [String:Any]()
         para["id"] =  postID.toString
-        para["user_id"] = appDelegate.loginUser?.user_id.description
+        para["friend_id"] = appDelegate.loginUser?.user_id.description
         
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagpollsDetials, param: para as [String : AnyObject], successBlock: { (task, response) in
             MILoader.shared.hideLoader()

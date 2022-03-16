@@ -1257,17 +1257,6 @@ extension MIGeneralsAPI {
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
                             
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
                             break
                         case .editPost?:
                             detailPost.setShoutsDetailData(postInfo)
@@ -1885,12 +1874,8 @@ extension MIGeneralsAPI {
                 if let index = homeVC.arrPostList.firstIndex(where: { $0["post_id"] as? String == postId?.toString}) {
                     
                     var postPollInfo = homeVC.arrPostList[index]
-                    if isSelected == true {
-                        postPollInfo["friend_selected"] = optionData?.valueForString(key: "friend_selected")
-                        
-                    }else {
-                        postPollInfo["is_selected"] = optionData?.valueForString(key: "is_selected")
-                    }
+                  
+                    postPollInfo["is_selected"] = optionData?.valueForString(key: "is_selected")
                     postPollInfo["results"] = optionData?["results"] as? [String:String]
                     homeVC.arrPostList.remove(at: index)
                     homeVC.arrPostList.insert(postPollInfo, at: index)
@@ -1912,17 +1897,14 @@ extension MIGeneralsAPI {
                         case .likePost?:
                             break
                         case .polladded?:
-                            if isSelected == true {
-                                detailPost.pollInformation["friend_selected"] = optionData?.valueForString(key: "friend_selected")
-                            }else {
+                           
                                 detailPost.pollInformation["is_selected"] = optionData?.valueForString(key: "is_selected")
-                            }
                             detailPost.pollInformation["results"] = optionData?["results"] as? [String:String]
                             detailPost.pollInformation[CLikes] = postInfo?.valueForString(key: "likes")
                             //                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setPollDetails(detailPost.pollInformation)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "polls_others"), object: nil)
                             //  detailPost.setPostDetailData(postInfo)
                             break
                         default: break
@@ -2032,6 +2014,8 @@ extension MIGeneralsAPI {
                         }
                     }
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "polls"), object: nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "polls_others"), object: nil)
+                    
                 }
                 //                let arrPosts = otherProfileVC.arrPostList
                 //                for (index,obj) in arrPosts.enumerated(){

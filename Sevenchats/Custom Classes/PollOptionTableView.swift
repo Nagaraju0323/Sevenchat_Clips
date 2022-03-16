@@ -69,7 +69,7 @@ class PollOptionTableView: UITableView {
 
             self.postIDNew = self.postinfo.valueForString(key: "post_id").toInt ?? 0
             if self.isLikesOthersPage == true {
-                self.SelectedByUser = self.postinfo.valueForString(key: "friend_selected")
+                self.SelectedByUser = self.postinfo.valueForString(key: "is_selected")
                 let replaced2 = self.SelectedByUser.replacingOccurrences(of: "\"", with: "")
                 let replaced3 = replaced2.replacingOccurrences(of: "[", with: "")
                 let replaced4 = replaced3.replacingOccurrences(of: "]", with: "")
@@ -316,7 +316,7 @@ extension PollOptionTableView{
         para["id"] = postID
         para["user_id"] = appDelegate.loginUser?.user_id.description
         
-        APIRequest.shared().votePollDetails(para: para) { [weak self] (response, error) in
+        APIRequest.shared().viewPollDetailNew(postID: postID.toInt ?? 0) { [weak self] (response, error) in
             guard let _ = self else {return}
             if response != nil{
                 self?.arr.removeAll()
