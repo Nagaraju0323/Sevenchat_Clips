@@ -226,7 +226,7 @@ extension VerifyEmailMobileViewController {
                     let alertWindow = UIWindow(frame: UIScreen.main.bounds)
                     alertWindow.rootViewController = UIViewController()
                     let errorMsg = "SuccessFully Register"
-                    let alertController = UIAlertController(title: "", message: "Success", preferredStyle: UIAlertController.Style.alert)
+                    let alertController = UIAlertController(title: "", message: CRegisterSuccess, preferredStyle: UIAlertController.Style.alert)
                     alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { _ in
                         alertWindow.isHidden = true
                         self.dismiss(animated: true, completion: nil)
@@ -271,8 +271,10 @@ extension VerifyEmailMobileViewController{
     @IBAction func btnResendCodeCLK(_ sender : UIButton){
         if isEmail_Mobile == true {
             self.verifyEmail()
+            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CREgisterREsendOTP, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else {
             self.verifyMobile()
+            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CREgisterREsendOTP, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }
     }
 }

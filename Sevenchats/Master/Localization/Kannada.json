@@ -1370,8 +1370,8 @@
             "alert_message_editprofile":"ನಿಮ್ಮ ಮಾಹಿತಿಯನ್ನು ನವೀಕರಿಸಿದ್ದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು",
             "alert_message_delete":"Pಪೋಸ್ಟ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಳಿಸಲಾಗಿದೆ",
             "alert_message_special_character":"ವಿಶೇಷ ಪಾತ್ರವನ್ನು ತಪ್ಪಿಸಿ",
-
-          
+            "alert_resend_otp" : "ಒಟಿಪಿಯನ್ನು ಮರುಕಳುಹಿಸಲಾಗಿದೆ"
+            
             
             
         }

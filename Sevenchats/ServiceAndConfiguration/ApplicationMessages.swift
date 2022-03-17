@@ -127,6 +127,7 @@ var CLoginAlertPasswordBlank: String{ return appDelegate.langugaeText?.login_pas
 var CRegisterTitle: String{ return appDelegate.langugaeText?.register ?? "Register" }
 var CRegisterSignup: String{ return appDelegate.langugaeText?.register_signup ?? "Sign Up" }
 var CRegisterSuccess: String{ return appDelegate.langugaeText?.successfully_signup ?? "Congratulations, Your Account has been Successfully Created" }
+var CREgisterREsendOTP : String{ return appDelegate.langugaeText?.alert_resend_otp ?? "OTP has been Resent" }
 var CRegisterPlaceholderFirstName: String{ return appDelegate.langugaeText?.register_first_name ?? "First Name" }
 var CRegisterPlaceholderLastName: String{ return appDelegate.langugaeText?.register_last_name ?? "Last Name" }
 var CRegisterPlaceholderEmail: String{ return appDelegate.langugaeText?.register_email ?? "Email Address" }
