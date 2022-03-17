@@ -178,7 +178,7 @@ extension AddForumViewController{
         apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
         apiPara[CPost_Detail] = txtViewForumMessage.text
         apiPara[CPublish_To] = self.selectedInviteType
-        let addforum = txtViewForumMessage.text.replace(string: "\n", replacement: "\\n")
+        let addforum = postContent.replace(string: "\n", replacement: "\\n")
         
         // When user editing the article....
         if forumType == .editForum{
@@ -188,7 +188,7 @@ extension AddForumViewController{
         var dict :[String:Any]  =  [
             "user_id":userID.description,
             "image":"",
-            "post_title":txtForumTitle.text!,
+            "post_title":postTxtFieldContent,
             "post_category":categoryDropDownView.txtCategory.text!,
             "post_content":addforum,
             "age_limit":"16",
@@ -449,6 +449,8 @@ extension AddForumViewController{
                   self.addEditForum()
                 } else {
                    print("false")
+                    postContent = txtViewForumMessage.text ?? ""
+                    postTxtFieldContent = txtForumTitle.text ?? ""
                     self.addEditForum()
                 }
             }

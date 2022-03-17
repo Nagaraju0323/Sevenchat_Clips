@@ -218,7 +218,7 @@ extension ReportViewController{
         let userID = user_id.description
 
         let reportedurl = reportedURL ?? ""
-        let reportTxt = textViewReportMessage.text.replace(string: "\n", replacement: " ")
+        let reportTxt = postContent.replace(string: "\n", replacement: " ")
         var dict :[String:Any]  =  [
                "image":uploadImgUrl,
                "reason":reportTxt,
@@ -386,6 +386,7 @@ extension ReportViewController{
                         self.reportApi()
                     } else {
                        print("false")
+                        self.postContent = self.textViewReportMessage.text ?? ""
                         self.reportApi()
                     }
                 }

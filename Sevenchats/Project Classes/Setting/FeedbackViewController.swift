@@ -134,7 +134,7 @@ extension FeedbackViewController{
                    print("false")
             guard let statusId = appDelegate.loginUser?.status_id else {return}
             guard let userId = appDelegate.loginUser?.user_id else {return}
-            
+             self.postContent = self.txtViewFeedbackContent.text ?? ""
             if txtCategory.text == "Not User Friendly" || txtCategory.text == "ಬಳಕೆದಾರ ಸ್ನೇಹಿ ಅಲ್ಲ"{
                 self.selectCategory = "Not User Friendly"
             }
@@ -161,7 +161,7 @@ extension FeedbackViewController{
             }
             
             
-            let txtFeedBack = txtViewFeedbackContent.text ?? "".replace(string: "\n", replacement: " ")
+            let txtFeedBack = self.postContent.replace(string: "\n", replacement: " ")
             let feedback : [String :Any] = [
                 "image":feedbackImgUrl,
                 "user_id" : userId.description,

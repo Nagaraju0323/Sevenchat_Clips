@@ -305,7 +305,7 @@ extension CreateChatGroupViewController{
              self.userIdNot = userIDS
               apiParaFriends = userIDS.components(separatedBy: ",")
              apiPara[CGroupUsersId] = userIDS
-             apiPara[CGroupTitle] = txtGroupTitle.text
+             apiPara[CGroupTitle] = postContent
              if imgGroupIcon.image != nil {
                  apiPara[CGroupImage] = imgGroupIcon.image
              }
@@ -521,12 +521,13 @@ extension CreateChatGroupViewController{
             let characterset = CharacterSet(charactersIn:SPECIALCHAR)
             if txtGroupTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
                 print("contains Special charecter")
-                self.postContent = self.removeSpecialCharacters(from: self.txtGroupTitle.text ?? "") ?? ""
+                self.postContent = self.removeSpecialCharacters(from: self.txtGroupTitle.text ?? "")
                 self.addEditGroup(true)
 
                 
             } else {
                print("false")
+                self.postContent = self.txtGroupTitle.text ?? ""
                 self.addEditGroup(true)
 
             }
