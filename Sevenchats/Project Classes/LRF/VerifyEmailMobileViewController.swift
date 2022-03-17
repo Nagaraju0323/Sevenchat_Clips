@@ -67,10 +67,10 @@ class VerifyEmailMobileViewController: ParentViewController {
         
         if isEmailVerify {
             self.title = CVerifyEmailTitle
-            self.lblNote.text = "\(CVerifyEmailVerificationInfoText) (\(dict.valueForString(key: CEmail)))"
+            self.lblNote.text = "\(CVerifyEmailVerificationInfoText) (\(userEmail))"
         } else {
             self.title = CVerifyMobileTitle
-            self.lblNote.text = "\(CVerifyMobileVerificationInfoText) (\(dict.valueForString(key: CMobile)))"
+            self.lblNote.text = "\(CVerifyMobileVerificationInfoText) (\(userMobile))"
         }
         
         txtVerificationCode.placeHolder = CRegisterPlaceholderVerificationCode
@@ -186,30 +186,7 @@ extension VerifyEmailMobileViewController {
             
         }
     }
-    
-//    func UserDetailsfeath(userEmailId:String,accessToken:String) {
-//
-//        let dict:[String:Any] = [
-//            CEmail_Mobile : userEmailId,
-//        ]
-//
-//        APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
-//            if response != nil && error == nil {
-//                DispatchQueue.main.async {
-//                    let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-//                    guard let image = appDelegate.loginUser?.profile_img else { return }
-//                    MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image, detail_text: "Register_profile")
-//
-//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "RegisterSuccess", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
-//                        self.dismiss(animated: true, completion: nil)
-//                        self.isverify_Success = true
-//                        self.navigationController?.popToRootViewController(animated: true)
-//                    })
-//                }
-//            }
-//        }
-//    }
-    
+
     func UserDetailsfeath(userEmailId:String,accessToken:String) {
         
         let dict:[String:Any] = [
