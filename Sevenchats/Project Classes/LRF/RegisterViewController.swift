@@ -363,7 +363,7 @@ extension RegisterViewController {
         let dict : [String : Any] = [
             "user_acc_type":0,
             CFirstname:postFirstName,
-            CLastname:postFirstName,
+            CLastname:postLastName,
             "email":Emailtext.lowercased(),
             "password":Password,
             "city_name":CityName,

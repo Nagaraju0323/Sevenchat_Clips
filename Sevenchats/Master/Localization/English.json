@@ -38,6 +38,7 @@
     "alert_message_editprofile":"Thank You for updating your information",
     "alert_message_delete":"Post deleted successfully",
     "alert_message_special_character":"Avoid special character",
+    "alert_resend_otp" : "OTP has been Resent"
     
     
     

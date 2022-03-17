@@ -337,6 +337,7 @@ extension SharePostViewController {
             let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
             apiPara[CInvite_Ids] = userIDS
         }
+       
         
         /*let isPostDeleted = postData.valueForInt(key: CIsPostDeleted)
         if isPostDeleted != 1{
@@ -357,7 +358,7 @@ extension SharePostViewController {
     }
     
     fileprivate func shareArticle(){
-        
+        let message = postContent.replace(string: "\n", replacement: "\\n")
         let apiPara = getPostGeneralData()
         //apiPara[CCategory_Id] = postData[CCategory_Id]
 //        print(apiPara)
@@ -366,7 +367,7 @@ extension SharePostViewController {
         let dict :[String:Any]  =  [
             "user_id":userID,
             "element_id":postData[COriginalPostId]!,
-            "message":textViewMessage.text ?? ""
+            "message":message
         ]
         
         APIRequest.shared().addSharedPost(para: dict, image: nil) { [weak self] (response, error) in

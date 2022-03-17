@@ -167,6 +167,7 @@
         <attribute name="alert_message_to_remove_share_folder" optional="YES" attributeType="String"/>
         <attribute name="alert_message_unblock" optional="YES" attributeType="String"/>
         <attribute name="alert_remove_participant_message" optional="YES" attributeType="String"/>
+        <attribute name="alert_resend_otp" optional="YES" attributeType="String"/>
         <attribute name="all" optional="YES" attributeType="String"/>
         <attribute name="all_events" optional="YES" attributeType="String"/>
         <attribute name="all_friends" optional="YES" attributeType="String"/>
@@ -1013,7 +1014,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10859"/>
+        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10874"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>
