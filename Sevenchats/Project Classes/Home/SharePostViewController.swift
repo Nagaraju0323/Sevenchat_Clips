@@ -86,6 +86,7 @@ extension SharePostViewController {
                         
                     } else {
                        print("false")
+                        self?.postContent = self?.textViewMessage.text ?? ""
                         self?.apiForSharePost()
                     }
                 }
@@ -342,7 +343,7 @@ extension SharePostViewController {
             apiPara["shared_post_id"] = postData[COriginalPostId]
         }*/
         apiPara["shared_post_id"] = postData[COriginalPostId]
-        apiPara["shared_message"] = textViewMessage.text ?? ""
+        apiPara["shared_message"] = postContent
         
         
         if isFromEdit{

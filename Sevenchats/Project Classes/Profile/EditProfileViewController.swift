@@ -404,8 +404,8 @@ extension EditProfileViewController {
         
         let dict :[String:Any]  =  [
             "user_acc_type":"1",
-            "first_name":txtFirstName.text ?? "",
-            "last_name":txtLastName.text ?? "",
+            "first_name":postFirstName,
+            "last_name":postLastName,
             "gender":String(appDelegate.loginUser!.gender),
             "religion":appDelegate.loginUser?.religion ?? "",
             "city_name":txtCitys.text ?? "",
@@ -1121,6 +1121,8 @@ extension EditProfileViewController{
               self.editProfile()
             } else {
                print("false")
+                postFirstName = txtFirstName.text ?? ""
+                postLastName = txtLastName.text ?? ""
                 self.editProfile()
             }
         }

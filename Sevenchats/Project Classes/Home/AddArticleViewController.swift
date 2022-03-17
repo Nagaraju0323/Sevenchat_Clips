@@ -193,12 +193,12 @@ extension AddArticleViewController{
         }
         guard let userID = appDelegate.loginUser?.user_id else {return}
         
-        let postcont = txtViewArticleContent.text.replace(string: "\n", replacement: "\\n")
+        let postcont = postContent.replace(string: "\n", replacement: "\\n")
         
         var dict :[String:Any] = [
             CUserId:userID.description,
             "image":profileImgUrl,
-            "post_title":txtArticleTitle.text ?? "",
+            "post_title":postTxtFieldContent,
             "post_category": categoryDropDownView.txtCategory.text ?? "" ,
             "post_content":postcont,
             "age_limit":"16",
@@ -508,6 +508,8 @@ extension AddArticleViewController{
               }
               self.addEditArticle()
                   } else {
+                    postContent = txtViewArticleContent.text ?? ""
+                    postTxtFieldContent = txtArticleTitle.text ?? ""
                     self.addEditArticle()
                     }
            }

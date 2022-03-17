@@ -199,7 +199,7 @@ extension AddChirpyViewController{
             self.ImguploadStr = replaced5
         } catch { print(error) }
         
-        let txtchiripy = txtViewChirpyContent.text.replace(string: "\n", replacement: "\\n")
+        let txtchiripy = postContent.replace(string: "\n", replacement: "\\n")
         
         guard let userID = appDelegate.loginUser?.user_id else {return}
         var dict :[String:Any]  =  [
@@ -538,6 +538,7 @@ extension AddChirpyViewController{
                     
                 } else {
                    print("false")
+                    postContent = txtViewChirpyContent.text ?? ""
                     self.addEditChirpy()
 
                 }

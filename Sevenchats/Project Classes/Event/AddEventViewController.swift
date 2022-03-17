@@ -222,11 +222,11 @@ extension AddEventViewController{
         let startchg = "\(startEvntTime.description) \(" GMT+0530 (IST)")"
         let endchg = "\(endEvntTime.description) \(" GMT+0530 (IST)")"
         guard let userID = appDelegate.loginUser?.user_id else { return }
-        let txtAdv = txtViewContent.text.replace(string: "\n", replacement: "\\n")
+        let txtAdv = postContent.replace(string: "\n", replacement: "\\n")
         var dict:[String:Any] = [
             "user_id":userID,
             "image":profileImgUrl,
-            "post_title":txtEventTitle.text ?? "",
+            "post_title":postTxtFieldContent,
             "post_category":categoryDropDownView.txtCategory.text ?? "",
             "post_content":txtAdv,
             "age_limit":"16",
@@ -488,6 +488,8 @@ extension AddEventViewController{
                     self.addEditEvent()
                 } else {
                    print("false")
+                    postContent = txtViewContent.text ?? ""
+                    postTxtFieldContent = txtEventTitle.text ?? ""
                     self.addEditEvent()
 
                 }

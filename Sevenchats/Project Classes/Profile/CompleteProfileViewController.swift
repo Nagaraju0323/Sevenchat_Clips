@@ -383,7 +383,7 @@ extension CompleteProfileViewController{
         var professionText = ""
         if btnEmployed.isSelected{
             emplymenntStatus = 1
-            professionText = txtProfession.text ?? ""
+            professionText = postProfession
         }else if btnUnEmployed.isSelected{
             emplymenntStatus = 2
             professionText = CBtnUnemployed
@@ -420,7 +420,7 @@ extension CompleteProfileViewController{
             "first_name":firstName_edit ?? "",
             "last_name":lastName_edit ?? "",
             "gender":gender.toString,
-            "religion":txtReligion.text ?? "",
+            "religion":postReligion,
             "city_name":txtCity,
             "profile_image":appDelegate.loginUser?.profile_img ?? "",
             "cover_image":appDelegate.loginUser?.cover_image ?? "",
@@ -428,7 +428,7 @@ extension CompleteProfileViewController{
             "email":txtemail,
             "education":txtEducation.text ?? "",
             "dob":dob_edit ?? "",
-            "short_biography":txtViewBiography.text ?? "",
+            "short_biography":postBiography,
             "relationship":txtStatus.text ?? "",
             "profession":professionText,
             "address_line1":txtCity,
@@ -596,6 +596,9 @@ extension CompleteProfileViewController{
               self.completeProfile()
             } else {
                print("false")
+                postBiography = txtViewBiography.text ?? ""
+                postReligion = txtReligion.text ?? ""
+                postProfession = txtProfession.text ?? ""
                 self.completeProfile()
             }
         }

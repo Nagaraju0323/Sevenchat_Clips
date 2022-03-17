@@ -362,8 +362,8 @@ extension RegisterViewController {
         
         let dict : [String : Any] = [
             "user_acc_type":0,
-            CFirstname:FirstName,
-            CLastname:LastName,
+            CFirstname:postFirstName,
+            CLastname:postFirstName,
             "email":Emailtext.lowercased(),
             "password":Password,
             "city_name":CityName,
@@ -548,6 +548,8 @@ extension RegisterViewController{
                      self.signup()
                    
                 } else {
+                    self.postFirstName = self.txtFirstName.text ?? ""
+                    self.postLastName = self.txtLastName.text ?? ""
                    print("false")
                     self.signup()
                 }

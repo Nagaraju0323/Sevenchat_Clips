@@ -199,7 +199,10 @@ extension AddEditProductVC {
                             print("specialcCharecte\(self?.postTitle)")
                       }
                         self?.addEditProduct()
+                        
                       } else {
+                        self?.postContent = self?.txtProductDesc.text ?? ""
+                            self?.postTitle = self?.txtProductTitle.text! ?? ""
                         self?.addEditProduct()
                         }
                }
@@ -659,14 +662,14 @@ extension AddEditProductVC {
             
             _ = repl.appending(ImgName)
             let replacs = ImgName.replacingOccurrences(of: "][", with: ",")
-            let txtproductDesc = self.txtProductDesc.text.replace(string: "\n", replacement: "\\n")
+            let txtproductDesc = postContent.replace(string: "\n", replacement: "\\n")
             apiTag = CEditProductNew
             dict = [
                 "product_id": prouductID,
                 "category_name":categoryDropDownView.txtCategory.text ?? "",
                 "category_level1":subcategoryDropDownView.txtCategory.text ?? "",
                 "product_image":replacs,
-                "product_title":self.txtProductTitle.text?.trim ?? "",
+                "product_title":postTitle,
                 "description":txtproductDesc,
                 "available_status":availableStatus,
                 "cost":self.txtProductPrice.text ?? "0",
