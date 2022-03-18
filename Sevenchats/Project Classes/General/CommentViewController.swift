@@ -270,7 +270,7 @@ extension CommentViewController: UITableViewDelegate, UITableViewDataSource{
 //            }
 //            
             if indexPath == tblCommentList.lastIndexPath() && !self.isLoadMoreCompleted{
-                self.getCommentListFromServer(showLoader: false)
+//                self.getCommentListFromServer(showLoader: false)
             }
             
             return cell

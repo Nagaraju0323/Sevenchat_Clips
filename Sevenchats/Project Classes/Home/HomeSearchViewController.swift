@@ -198,7 +198,8 @@ extension HomeSearchViewController  {
     }
     
     // Update Friend status Friend/Unfriend/Cancel Request
-    func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?){
+    func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?, completion:@escaping  (Bool) -> ()) {
+//    func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?){
         let friend_ID = userInfo.valueForString(key: "user_id")
         guard let user_ID = appDelegate.loginUser?.user_id else { return }
         
@@ -219,28 +220,30 @@ extension HomeSearchViewController  {
                 
                 if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
                     if  metaData.valueForString(key: "message") == "Request sent successfully"{
+                        
                         guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
                       
                         MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "send you a Friends Request", MsgType: "FRIEND_REQUEST", MsgSent:"", showDisplayContent: "send you a Friends Request", senderName: firstName + " " + lastName, post_ID: dict)
                     }
+                    completion(true)
                 }
                 
                 var frndInfo = userInfo
-                if let data = response![CJsonData] as? [String : Any]{
-                    frndInfo[CFriend_status] = data.valueForInt(key: CFriend_status)
-                    
-                    if let index = self.arrHomeSearch.firstIndex(where: {$0[CUserId] as? Int == userid && $0[CSearchType]  as? Int == CStaticSearchUserTypeId}){
-                        DispatchQueue.main.async {
-                            self.arrHomeSearch.remove(at: index)
-                            self.arrHomeSearch.insert(frndInfo, at: index)
-                            self.isRefreshingUserData = true
-                            self.tblEvents.reloadData()
-                            self.isRefreshingUserData = false
-                        }
-                    }
-                }
+//                if let data = response![CJsonData] as? [String : Any]{
+//                    frndInfo[CFriend_status] = data.valueForInt(key: CFriend_status)
+//
+//                    if let index = self.arrHomeSearch.firstIndex(where: {$0[CUserId] as? Int == userid && $0[CSearchType]  as? Int == CStaticSearchUserTypeId}){
+//                        DispatchQueue.main.async {
+//                            self.arrHomeSearch.remove(at: index)
+//                            self.arrHomeSearch.insert(frndInfo, at: index)
+//                            self.isRefreshingUserData = true
+//                            self.tblEvents.reloadData()
+//                            self.isRefreshingUserData = false
+//                        }
+//                    }
+//                }
             }
         })
     }
@@ -347,18 +350,18 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             }
             cell.btnAddFrd.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
-                
-                let buttonPostion = sender.convert(sender.bounds.origin, to: tableView)
-                if let indexPath = tableView.indexPathForRow(at: buttonPostion) {
-                    let rowIndex =  indexPath.row
-                    let searchInfos = self.arrHomeSearch[rowIndex]
-                    let friendID = searchInfos.valueForString(key: "user_id")
+               
+//                let buttonPostion = sender.convert(sender.bounds.origin, to: tableView)
+//                if let indexPaths = tableView.indexPathForRow(at: buttonPostion) {
+//                    let searchInfos = self.searchInfo[indexPath.row]
+                    let friendID = searchInfo.valueForString(key: "user_id")
                     let dict :[String:Any]  =  [
                         "user_id":  appDelegate.loginUser?.user_id.description ?? "",
                         "friend_user_id": friendID
                     ]
                     APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
                         if response != nil && error == nil{
+//                            MILoader.shared.hideLoader()
                             GCDMainThread.async {
                                 if let arrList = response!["data"] as? [[String:Any]]{
                                     for arrLst in arrList{
@@ -379,8 +382,8 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                         var frndStatus = 1
                                         var isShowAlert = true
                                         var alertMessage = ""
-                                        let first_name = searchInfos.valueForString(key: "first_name")
-                                        let last_name = searchInfos.valueForString(key: "last_name")
+                                        let first_name = searchInfo.valueForString(key: "first_name")
+                                        let last_name = searchInfo.valueForString(key: "last_name")
                                         switch self?.Friend_status {
                                         case 0:
                                             frndStatus = CFriendRequestSent
@@ -409,10 +412,33 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                         if isShowAlert{
                                             self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                                                 guard let self = self else { return }
-                                                self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
+                                               
+                                                
+                                                self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus, completion:{(success) -> Void in
+                                                    if success {
+                                                        
+                                                        self.navigationController?.popViewController(animated: true)
+                                                        
+                                                    }
+                                                })
                                             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                                         }else{
-                                            self?.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
+//                                            self?.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
+                                            
+                                            self?.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus, completion:{(success) -> Void in
+                                                if success {
+                                                    
+//                                                     let indexPath = IndexPath(item: indexPath.row, section: 0)
+//                                                    if let visibleIndexPaths = self?.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
+//                                                         if visibleIndexPaths != NSNotFound {
+//                                                            self?.tblEvents.reloadRows(at: [indexPath], with: .top)
+//                                                         }
+//                                                     }
+                                                    
+                                                    self?.navigationController?.popViewController(animated: true)
+                                                    
+                                                }
+                                            })
                                         }
                                     }
                                     
@@ -421,14 +447,32 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                             }
                         }
                     })
-                }
+//                }
             }
             
             cell.btnAccept.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForAcceptRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                     guard let self = self else { return }
-                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 5)
+                    
+                    
+                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 5, completion:{(success) -> Void in
+                        if success {
+                            
+//                             let indexPath = IndexPath(item: indexPath.row, section: 0)
+//                             if let visibleIndexPaths = self.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
+//                                 if visibleIndexPaths != NSNotFound {
+//                                     tableView.reloadRows(at: [indexPath], with: .fade)
+//                                 }
+//                             }
+                            self.navigationController?.popViewController(animated: true)
+                            
+                        }
+                    })
+                    
+                    
+                    
+//                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 5)
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
@@ -436,7 +480,21 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                     guard let self = self else { return }
-                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 3)
+//                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 3)
+                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 3
+                                         , completion:{(success) -> Void in
+                        if success {
+                            
+//                             let indexPath = IndexPath(item: indexPath.row, section: 0)
+//                             if let visibleIndexPaths = self.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
+//                                 if visibleIndexPaths != NSNotFound {
+//                                     tableView.reloadRows(at: [indexPath], with: .fade)
+//                                 }
+//                             }
+                            self.navigationController?.popViewController(animated: true)
+                            
+                        }
+                    })
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             

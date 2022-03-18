@@ -73,7 +73,7 @@ class PSLViewController: ParentViewController {
     }
     
     fileprivate func getNewsCategoryFromLocal() {
-        
+
         if let arrData = TblPslCategory.fetch(predicate: nil, orderBy: CCategoryName, ascending: true) {
             if arrData.count > 0 {
                 arrNewsCategory = arrData as! [TblPslCategory]

@@ -43,7 +43,7 @@ class FavWebSideViewController: ParentViewController {
     
     @objc func methodOfReceivedNotification(notification: Notification) {
         self.pullToRefresh()
-        //        tblFavWebSite.reloadData()
+        //  tblFavWebSite.reloadData()
         
     }
     
@@ -96,16 +96,18 @@ extension FavWebSideViewController{
                     let arrList = webarrList["favourite_websites"] as? [[String : Any]] ?? []
                     if self.pageNumber == 1{
                         self.arrFavWebSite.removeAll()
+                        self.tblFavWebSite.reloadData()
                     }
+                    if arrList.isEmpty{
+                        self.tblFavWebSite.setEmptyMessage(CNoFavWebList)
+                    }
+                    
                     self.isLoadMoreCompleted = arrList.isEmpty
                     // Add Data here...
                     if arrList.count > 0{
                         self.arrFavWebSite = self.arrFavWebSite + arrList
                         self.tblFavWebSite.reloadData()
                         self.pageNumber += 1
-                    }
-                    DispatchQueue.main.async {
-//                        self.tblFavWebSite.reloadData()
                     }
                 }
             }
@@ -121,7 +123,7 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrFavWebSite.isEmpty{
-            self.tblFavWebSite.setEmptyMessage(CNoFavWebList)
+//            self.tblFavWebSite.setEmptyMessage(CNoFavWebList)
         }else{
             self.tblFavWebSite.restore()
         }

@@ -23,42 +23,42 @@ import LGSideMenuController
 /// Live
 //var BASEURL: String          =   "http://dev1.sevenchats.com:2020/api/v1/"
 //MARK: - Dev
-var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
-let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
-//////MARK: - CHAT
-//var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
-var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
-//////MARK: - OTP
-var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
-var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
-//////MARK: - AUTHENTICATION
-var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
-//////MARK: - Notification
-var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
-var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
-//////MARK:- SockeIO key
-//let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
-let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
-//////MARK:- NotificationSocket
-let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
-let BASEURL_Rew: String = "Dev"
+//var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
+//let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
+////////MARK: - CHAT
+////var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
+//var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
+////////MARK: - OTP
+//var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
+//var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
+////////MARK: - AUTHENTICATION
+//var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
+////////MARK: - Notification
+//var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
+//var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
+////////MARK:- SockeIO key
+////let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
+//let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
+////////MARK:- NotificationSocket
+//let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
+//let BASEURL_Rew: String = "Dev"
 
 //////MARK:- MINIO
 let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 
 
 //MARK: - QA
-//var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
-//var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
-//var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
-//var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
-//let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
-//var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
-//let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
-//var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
-//var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
-//let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
-//let BASEURL_Rew: String = "QA"
+var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
+var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
+var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
+var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
+let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
+var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
+let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
+var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
+var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
+let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
+let BASEURL_Rew: String = "QA"
 
 
 let CAPIVesrion                     = "v1"
@@ -2186,6 +2186,7 @@ extension APIRequest {
     
     
     func userSearchDetail(Param:[String:Any], completion : @escaping ClosureCompletion) {
+//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagSearchUsers, param: Param as [String : AnyObject], successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             completion(response, nil)
