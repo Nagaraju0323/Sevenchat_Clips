@@ -1826,10 +1826,9 @@
                                             <outlet property="delegate" destination="gbv-WS-Ut6" id="OOa-EZ-aDd"/>
                                         </connections>
                                     </tableView>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qO-O6-U23" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qO-O6-U23" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                         <rect key="frame" x="15" y="431" width="384" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
-                                        <nil key="textColor"/>
+                                        <attributedString key="attributedText"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -2009,13 +2008,40 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZiD-XT-9vl">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_2_onboarding_new" translatesAutoresizingMaskIntoConstraints="NO" id="dLm-WT-3S5">
+                                                <rect key="frame" x="0.0" y="20" width="414" height="798"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NxK-DC-f7Z">
+                                                <rect key="frame" x="207" y="613.5" width="0.0" height="0.0"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="dLm-WT-3S5" secondAttribute="trailing" id="6LD-15-VXl"/>
+                                            <constraint firstItem="NxK-DC-f7Z" firstAttribute="centerY" secondItem="ZiD-XT-9vl" secondAttribute="centerY" multiplier="1.5" id="CqR-N9-ple"/>
+                                            <constraint firstItem="NxK-DC-f7Z" firstAttribute="centerX" secondItem="ZiD-XT-9vl" secondAttribute="centerX" id="Hoy-b1-jtK"/>
+                                            <constraint firstAttribute="bottom" secondItem="dLm-WT-3S5" secondAttribute="bottom" id="Pwh-Kf-MwS"/>
+                                            <constraint firstItem="dLm-WT-3S5" firstAttribute="top" secondItem="ZiD-XT-9vl" secondAttribute="top" constant="20" symbolic="YES" id="VgP-bY-dmh"/>
+                                            <constraint firstItem="dLm-WT-3S5" firstAttribute="leading" secondItem="ZiD-XT-9vl" secondAttribute="leading" id="dgI-qY-88R"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="ZiD-XT-9vl" firstAttribute="top" secondItem="3Xh-3P-Jt1" secondAttribute="top" id="CxI-Az-jYj"/>
+                                    <constraint firstItem="ZiD-XT-9vl" firstAttribute="bottom" secondItem="3Xh-3P-Jt1" secondAttribute="bottom" id="PsR-nB-npf"/>
                                     <constraint firstAttribute="trailing" secondItem="nYV-lB-F1C" secondAttribute="trailing" constant="15" id="SHR-s3-eZI"/>
                                     <constraint firstItem="3Xh-3P-Jt1" firstAttribute="top" secondItem="xQ4-lI-byi" secondAttribute="top" id="UXj-ki-dlN"/>
+                                    <constraint firstItem="ZiD-XT-9vl" firstAttribute="trailing" secondItem="3Xh-3P-Jt1" secondAttribute="trailing" id="V7S-5L-fsd"/>
                                     <constraint firstAttribute="trailing" secondItem="3Xh-3P-Jt1" secondAttribute="trailing" id="Vcl-i3-ehI"/>
                                     <constraint firstItem="nYV-lB-F1C" firstAttribute="centerY" secondItem="xQ4-lI-byi" secondAttribute="centerY" id="XRz-Aa-GlT"/>
+                                    <constraint firstItem="ZiD-XT-9vl" firstAttribute="leading" secondItem="3Xh-3P-Jt1" secondAttribute="leading" id="Yb8-YX-rai"/>
                                     <constraint firstItem="3Xh-3P-Jt1" firstAttribute="leading" secondItem="xQ4-lI-byi" secondAttribute="leading" id="bJj-eg-dup"/>
                                     <constraint firstAttribute="bottom" secondItem="3Xh-3P-Jt1" secondAttribute="bottom" id="dyI-pR-eT7"/>
                                     <constraint firstItem="nYV-lB-F1C" firstAttribute="leading" secondItem="xQ4-lI-byi" secondAttribute="leading" constant="15" id="xeQ-5D-MhR"/>
@@ -2032,14 +2058,17 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activeLbl" destination="NxK-DC-f7Z" id="qAz-cY-xVG"/>
                         <outlet property="lblNoData" destination="nYV-lB-F1C" id="6Ch-HS-LLl"/>
                         <outlet property="parentView" destination="xQ4-lI-byi" id="be5-im-Rfp"/>
+                        <outlet property="showImg" destination="dLm-WT-3S5" id="o5N-WW-dtF"/>
                         <outlet property="tblGroups" destination="3Xh-3P-Jt1" id="8tn-IX-yiM"/>
+                        <outlet property="viewImg" destination="ZiD-XT-9vl" id="yRF-ty-Du8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iuz-Tv-3Dh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="193" y="190"/>
+            <point key="canvasLocation" x="192.75362318840581" y="189.50892857142856"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="ZMH-7Y-8LT">
@@ -2421,6 +2450,7 @@
     <resources>
         <image name="123.jpg" width="750" height="560"/>
         <image name="autodeletebtn" width="34" height="34"/>
+        <image name="ic_2_onboarding_new" width="297" height="238"/>
         <image name="ic_add_Participants" width="222.5" height="151.5"/>
         <image name="ic_add_group_image" width="512" height="512"/>
         <image name="ic_attachment" width="22.5" height="20.5"/>
@@ -2452,6 +2482,9 @@
         </namedColor>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

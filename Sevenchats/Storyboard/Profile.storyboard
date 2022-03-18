@@ -3976,7 +3976,7 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zach Braff" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H6L-fC-P1W" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                            <rect key="frame" x="110" y="154" width="245" height="23.5"/>
+                                                            <rect key="frame" x="110" y="154" width="245" height="28"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="18" id="OOC-gQ-1O5"/>
                                                             </constraints>
@@ -3990,7 +3990,7 @@
                                                                 <constraint firstAttribute="width" secondItem="6d0-lV-ZwC" secondAttribute="height" multiplier="67:9" constant="79.444444444444457" id="BzN-f9-bng"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="15"/>
-                                                            <state key="normal" title="   See More Info" image="ic_more">
+                                                            <state key="normal" title="       See More Info" image="ic_more">
                                                                 <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                         </button>
@@ -4125,7 +4125,7 @@
                                                             </constraints>
                                                         </view>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="icL-HE-uoQ">
-                                                            <rect key="frame" x="10" y="200" width="125" height="30.5"/>
+                                                            <rect key="frame" x="10" y="200" width="125" height="39.5"/>
                                                             <color key="backgroundColor" red="0.023529411760000001" green="0.75294117650000003" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="125" id="dQe-FU-gzN"/>
@@ -4259,7 +4259,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hFI-ls-Kff">
-                                                            <rect key="frame" x="338" y="149.5" width="30" height="30"/>
+                                                            <rect key="frame" x="338" y="154" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="F4E-1d-JYs"/>
                                                                 <constraint firstAttribute="width" constant="30" id="vQR-lH-wPJ"/>
