@@ -17,6 +17,14 @@ import UIKit
 class GroupsViewController: ParentViewController {
     
     @IBOutlet weak var tblGroups : UITableView!
+    
+    
+    @IBOutlet weak var viewImg: UIView!
+    @IBOutlet weak var showImg: UIImageView!
+    @IBOutlet weak var activeLbl: UILabel!
+    
+
+
     var arrGroupList = [TblChatGroupList]()
     var arrGroupSearchList = [TblChatGroupList]()
     var refreshControl = UIRefreshControl()
@@ -53,8 +61,7 @@ class GroupsViewController: ParentViewController {
     
     func Initialization(){
         self.title = CSideGroups
-        lblNoData.text = CMessageNoGroupList
-        
+//      lblNoData.text = CMessageNoGroupList
         btnfrdsList = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_event"), style: .plain, target: self, action: #selector(btnAddClicked(_:)))
         
         self.searchBarItem = BlockBarButtonItem(image: UIImage(named: "ic_btn_search"), style: .plain) { [weak self] (_) in
@@ -162,18 +169,31 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
         //return arrGroupList.count
         if(isSearch) {
             if self.arrGroupSearchList.isEmpty{
-                self.tblGroups.setEmptyMessage(CThereIsNoOnGoingChat)
+//                self.tblGroups.setEmptyMessage(CThereIsNoOnGoingChat)
+                self.tblGroups.setImage(url: URL(string: "ic_2_onboarding_new.png")!)
+                
             }else{
                 self.tblGroups.restore()
             }
             return arrGroupSearchList.count
         }else{
             if self.arrGroupList.isEmpty{
-                self.tblGroups.setEmptyMessage(CThereIsNoOnGoingChat)
+                showImg.isHidden = false
+                activeLbl.text = CMessageNoGroupList
+                activeLbl.isHidden = false
+                viewImg.isHidden = false
+//                self.tblGroups.setEmptyMessage(CThereIsNoOnGoingChat)
             }else{
+                showImg.isHidden = true
+                activeLbl.isHidden = true
+                viewImg.isHidden = true
                 self.tblGroups.restore()
+                
             }
+//            showImg.isHidden = true
+//            activeLbl.isHidden = true
             return arrGroupList.count
+           
             
         }
     }

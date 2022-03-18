@@ -16,7 +16,10 @@ import UIKit
 
 class ChatListViewController: ParentViewController {
     
+    @IBOutlet weak var viewImg: UIView!
     @IBOutlet var tblUserChat : UITableView!
+    @IBOutlet weak var showImg: UIImageView!
+    @IBOutlet weak var activeLbl: UILabel!
     var arrUserList = [TblChatUserList]()
     var arrUsersearchList = [TblChatUserList]()
     
@@ -191,8 +194,15 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
             
         }else{
             if self.arrUserList.isEmpty{
-                self.tblUserChat.setEmptyMessage(CThereIsNoOnGoingChat)
+                showImg.isHidden = false
+                activeLbl.text = CMessageNoGroupList
+                activeLbl.isHidden = false
+                viewImg.isHidden = false
+               // self.tblUserChat.setEmptyMessage(CThereIsNoOnGoingChat)
             }else{
+                showImg.isHidden = true
+                activeLbl.isHidden = true
+                viewImg.isHidden = true
                 self.tblUserChat.restore()
             }
             return arrUserList.count
