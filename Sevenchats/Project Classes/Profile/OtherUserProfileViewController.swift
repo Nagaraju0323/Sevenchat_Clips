@@ -613,6 +613,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                            // if self?.isBlock == true {
                                 self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
                                     self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
+                                    self?.navigationController?.popViewController(animated: true)
                                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                                 
 //                            }else {
@@ -623,16 +624,6 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             
                             // Report User
                             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
-                                reportVC.setBlock(block: { (response, error) in
-                                    self?.tblUser.isHidden = true
-                                    self?.viewBlockContainer.isHidden = false
-                                })
-                                reportVC.reportType = .reportUser
-                                reportVC.reportID = userInfo.valueForInt(key: CUserId)
-                                reportVC.userID = userInfo.valueForInt(key: CUserId)
-                                reportVC.reportIDNEW = userInfo.valueForString(key: "email")
-                                self?.navigationController?.pushViewController(reportVC, animated: true)
-                            }; if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                                 reportVC.setBlock(block: { (response, error) in
                                     self?.tblUser.isHidden = true
                                     self?.viewBlockContainer.isHidden = false
@@ -1571,26 +1562,45 @@ extension OtherUserProfileViewController {
         self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CReport, btnOneStyle: .default) { (alert) in
             
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
-                switch postInfo!.valueForInt(key: CPostType) {
-                case CStaticArticleId:
+                switch postInfo!.valueForString(key: CPostTypeNew) {
+                case CStaticArticleIdNew:
                     reportVC.reportType = .reportArticle
-                case CStaticGalleryId:
+                case CStaticGalleryIdNew:
                     reportVC.reportType = .reportGallery
-                case CStaticChirpyId:
+                case CStaticChirpyIdNew:
                     reportVC.reportType = .reportChirpy
-                case CStaticShoutId:
+                case CStaticShoutIdNew:
                     reportVC.reportType = .reportShout
-                case CStaticForumId:
+                case CStaticForumIdNew:
                     reportVC.reportType = .reportForum
-                case CStaticEventId:
+                case CStaticEventIdNew:
                     reportVC.reportType = .reportEvent
-                case CStaticPollId:
+                case CStaticPollIdNew:
                     reportVC.reportType = .reportPoll
                 default:
                     break
                 }
+//                switch postInfo!.valueForInt(key: CPostType) {
+//                case CStaticArticleId:
+//                    reportVC.reportType = .reportArticle
+//                case CStaticGalleryId:
+//                    reportVC.reportType = .reportGallery
+//                case CStaticChirpyId:
+//                    reportVC.reportType = .reportChirpy
+//                case CStaticShoutId:
+//                    reportVC.reportType = .reportShout
+//                case CStaticForumId:
+//                    reportVC.reportType = .reportForum
+//                case CStaticEventId:
+//                    reportVC.reportType = .reportEvent
+//                case CStaticPollId:
+//                    reportVC.reportType = .reportPoll
+//                default:
+//                    break
+//                }
                 reportVC.userID = postInfo?.valueForInt(key: CUserId)
                 reportVC.reportID = postInfo?.valueForInt(key: CId)
+                reportVC.reportIDNEW = postInfo?.valueForString(key: "post_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }
@@ -1602,28 +1612,47 @@ extension OtherUserProfileViewController {
         self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CReport, btnOneStyle: .default) { [weak self] (alert) in
             guard let _ = self else { return }
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
-                switch postInfo!.valueForInt(key: CPostType) {
-                case CStaticArticleId:
+                switch postInfo!.valueForString(key: CPostTypeNew) {
+                case CStaticArticleIdNew:
                     reportVC.reportType = .reportArticle
-                case CStaticGalleryId:
+                case CStaticGalleryIdNew:
                     reportVC.reportType = .reportGallery
-                case CStaticChirpyId:
+                case CStaticChirpyIdNew:
                     reportVC.reportType = .reportChirpy
-                case CStaticShoutId:
+                case CStaticShoutIdNew:
                     reportVC.reportType = .reportShout
-                case CStaticForumId:
+                case CStaticForumIdNew:
                     reportVC.reportType = .reportForum
-                case CStaticEventId:
+                case CStaticEventIdNew:
                     reportVC.reportType = .reportEvent
-                case CStaticPollId:
+                case CStaticPollIdNew:
                     reportVC.reportType = .reportPoll
                 default:
-                    reportVC.reportType = .reportSharedPost
                     break
                 }
+//                switch postInfo!.valueForInt(key: CPostType) {
+//                case CStaticArticleId:
+//                    reportVC.reportType = .reportArticle
+//                case CStaticGalleryId:
+//                    reportVC.reportType = .reportGallery
+//                case CStaticChirpyId:
+//                    reportVC.reportType = .reportChirpy
+//                case CStaticShoutId:
+//                    reportVC.reportType = .reportShout
+//                case CStaticForumId:
+//                    reportVC.reportType = .reportForum
+//                case CStaticEventId:
+//                    reportVC.reportType = .reportEvent
+//                case CStaticPollId:
+//                    reportVC.reportType = .reportPoll
+//                default:
+//                    reportVC.reportType = .reportSharedPost
+//                    break
+//                }
                 reportVC.isSharedPost = true
                 reportVC.userID = sharePostData.valueForInt(key: CUserId)
                 reportVC.reportID = sharePostData.valueForInt(key: CId)
+                reportVC.reportIDNEW = sharePostData.valueForString(key: "post_id")
                 self?.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

@@ -1092,6 +1092,7 @@ extension UserChatDetailViewController {
             guard let _ = self else { return }
             self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
                 self?.blockUnblockUserApi()
+                self?.navigationController?.popViewController(animated: true)
                 //self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
            // self?.blockUnblockUserApi()

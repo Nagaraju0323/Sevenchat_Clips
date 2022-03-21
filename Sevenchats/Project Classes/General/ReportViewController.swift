@@ -219,27 +219,34 @@ extension ReportViewController{
 
         let reportedurl = reportedURL ?? ""
         let reportTxt = postContent.replace(string: "\n", replacement: " ")
+//        var dict :[String:Any]  =  [
+//               "image":uploadImgUrl,
+//               "reason":reportTxt,
+//               "reported_user":reportIDNEW ?? "",
+//               "reporter_user":userID,
+//               "category":reportInfo.valueForString(key: kReportType),
+//               "url":reportedurl as Any,
+//               "status_id":status_id
+//        ]
         var dict :[String:Any]  =  [
-               "image":uploadImgUrl,
-               "reason":reportTxt,
-               "reported_user":reportIDNEW ?? "",
-               "reporter_user":userID,
-               "category":reportInfo.valueForString(key: kReportType),
-               "url":reportedurl as Any,
-               "status_id":status_id
+        "reporter_user_id": userID,
+           "reported_id": reportIDNEW ?? "",
+           "image": uploadImgUrl,
+           "reason": reportTxt,
+           "category": reportInfo.valueForString(key: kReportType),
+           "url": reportedurl as Any,
+           "status_id": status_id
         ]
-        
-        if post_id == nil{
-           dict["element_id"] = reportIDNEW ?? ""
-        }else{
-            dict["element_id"] = post_id ?? ""
-        }
+//        if post_id == nil{
+//           dict["element_id"] = reportIDNEW ?? ""
+//        }else{
+//            dict["element_id"] = post_id ?? ""
+//        }
         APIRequest.shared().reportPostUserRSS(para: dict, image: imgArticle.image) { (response, error) in
-            guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
-            let errorMsg = errorUserinfo.stringAfter(":")
+           
         if response != nil {
 
-            DispatchQueue.main.async {
+//            DispatchQueue.main.async {
                 
                 switch self.reportType {
                 case .reportUser?:
@@ -264,12 +271,19 @@ extension ReportViewController{
                 if metaInfo?.valueForString(key: "status") == "0"{
                     CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageReport, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 }
-            }
+                
+                
+//            }
           
   
         }
+            self.redirectToPreviousScreen()
+            guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+            let errorMsg = errorUserinfo.stringAfter(":")
             if error != nil{
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+               // self.navigationController?.popViewController(animated: true)
+
             }
     }
         
@@ -285,27 +299,29 @@ extension ReportViewController {
         if let arrViewControllers = self.navigationController?.viewControllers {
             if arrViewControllers.contains(where: {return $0 is OtherUserProfileViewController}) {
                 // Move on Other user profile screen...
-                if let index = arrViewControllers.index(where: {return $0 is OtherUserProfileViewController}) {
+                if let index = arrViewControllers.firstIndex(where: {return $0 is OtherUserProfileViewController}) {
                     let otherProfileVC = arrViewControllers[index] as? OtherUserProfileViewController
                     self.navigationController?.popToViewController(otherProfileVC!, animated: true)
                 }
             }else if arrViewControllers.contains(where: {return $0 is HomeSearchViewController}) {
                 // Move on Home search screen...
-                if let index = arrViewControllers.index(where: {return $0 is HomeSearchViewController}) {
+                if let index = arrViewControllers.firstIndex(where: {return $0 is HomeSearchViewController}) {
                     let homeSearchVC = arrViewControllers[index] as? HomeSearchViewController
                     self.navigationController?.popToViewController(homeSearchVC!, animated: true)
                 }
             }else if arrViewControllers.contains(where: {return $0 is HomeViewController}) {
                 // Move on Home screen...
-                if let index = arrViewControllers.index(where: {return $0 is HomeViewController}) {
+                if let index = arrViewControllers.firstIndex(where: {return $0 is HomeViewController}) {
                     let homeVC = arrViewControllers[index] as? HomeViewController
                     self.navigationController?.popToViewController(homeVC!, animated: true)
                 }
             }else {
                 self.navigationController?.popViewController(animated: true)
+                
             }
         }else {
             self.navigationController?.popViewController(animated: true)
+           
         }
     }
 }
