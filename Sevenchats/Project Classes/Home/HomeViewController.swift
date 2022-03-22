@@ -2306,8 +2306,8 @@ extension HomeViewController {
                 
                 reportVC.userID = postInfo?.valueForInt(key: CUserId)
                 reportVC.reportID = postInfo?.valueForInt(key: CId)
-                reportVC.post_id = postInfo?.valueForString(key: "post_id")
-                reportVC.reportIDNEW = postInfo?.valueForString(key: "user_id")
+                reportVC.reportIDNEW = postInfo?.valueForString(key: "post_id")
+                
                 self?.navigationController?.pushViewController(reportVC, animated: true)
             }
         }
@@ -2366,8 +2366,8 @@ extension HomeViewController {
                 }
                 reportVC.userID = postInfo?.valueForInt(key: CUserId)
                 reportVC.reportID = postInfo?.valueForInt(key: CId)
-                reportVC.post_id = postInfo?.valueForString(key: "post_id")
-                reportVC.reportIDNEW = postInfo?.valueForString(key: "user_id")
+                reportVC.reportIDNEW = postInfo?.valueForString(key: "post_id")
+                
                 self?.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

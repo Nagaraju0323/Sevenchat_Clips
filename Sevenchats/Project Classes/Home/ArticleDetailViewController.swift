@@ -373,8 +373,8 @@ extension ArticleDetailViewController{
                 reportVC.reportType = .reportArticle
                 reportVC.userID = articleInformation.valueForInt(key: CUserId)
                 reportVC.reportID = self.articleID
-                reportVC.reportIDNEW = articleInformation.valueForString(key: "user_id")
-                reportVC.post_id = articleInformation.valueForString(key: "post_id")
+               
+                reportVC.reportIDNEW = articleInformation.valueForString(key: "post_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }
