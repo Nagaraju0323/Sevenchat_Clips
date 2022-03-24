@@ -1024,7 +1024,7 @@ class PollDetailsViewController: ParentViewController {
             tblVAnswre.isLikesOthersPage = true
         }
         print("Pollinformation::::::::::\(self.pollInformation)")
-//        self.getPollDetailsFromServer()
+       self.getPollDetailsFromServer()
 //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.setPollDetails(self.pollInformation)
             self.updateUIAccordingToLanguage()
@@ -1072,6 +1072,7 @@ class PollDetailsViewController: ParentViewController {
             self.pageNumber = 1
             self.btnShare.setTitle(CBtnShare, for: .normal)
             self.sizeToFitHeader()
+            self.getPollDetailsFromServer()
         }
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(self.btnMenuClicked(_:)))]
     }
@@ -1123,7 +1124,7 @@ extension PollDetailsViewController {
     }
 }
     
-    
+  //NEw
     fileprivate func openUserProfileScreen(){
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in

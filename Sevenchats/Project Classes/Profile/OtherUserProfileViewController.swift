@@ -8,11 +8,11 @@
 
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
- * Model   : OtherUserProfileViewController              *
- * Changes :                                             *
+ * Author  : Chandrika.R                                                                                     *
+ * Model   : OtherUserProfileViewController                                                       *
+ * Changes :                                                                                                       *
  *                                                       *
- ********************************************************/
+ *************************************************************/
 
 
 
@@ -706,7 +706,8 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
             switch postInfo?.valueForString(key: CPostTypeNew) {
             case CStaticArticleIdNew:
                 //            1-article
-                let isshared = 0
+                let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+               
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedArticleCell", for: indexPath) as? HomeSharedArticleCell {
                         cell.isLikesOthersPage = true
@@ -720,7 +721,31 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.btnMore.touchUpInside {[weak self] (sender) in
                             self?.btnSharedReportCLK(postInfo: postInfo)
                         }
+                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                        }
                         
+                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                        }
+                        
+                        cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        
+                        cell.btnUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                            sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                            sharePost.presentShareActivity()
+                        }
                         cell.btnShare.touchUpInside {[weak self] (sender) in
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -748,7 +773,21 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     cell.btnMore.touchUpInside {[weak self] (sender) in
                         self?.btnReportCLK(postInfo)
                     }
+                    cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                    }
                     
+                    cell.btnUserName.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                    }
+                    cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                        sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                        sharePost.presentShareActivity()
+                    }
                     cell.btnShare.touchUpInside {[weak self] (sender) in
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -763,7 +802,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 break
             case CStaticGalleryIdNew:
                 //            2-gallery
-                let isshared = 0
+                let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedGalleryCell", for: indexPath) as? HomeSharedGalleryCell {
                         
@@ -778,7 +817,31 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.btnMore.touchUpInside { [weak self](sender) in
                             self?.btnSharedReportCLK(postInfo: postInfo)
                         }
+                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                        }
                         
+                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                        }
+                        
+                        cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        
+                        cell.btnUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                            sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                            sharePost.presentShareActivity()
+                        }
                         cell.btnShare.touchUpInside { [weak self](sender) in
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -805,7 +868,21 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     cell.btnMore.touchUpInside { [weak self](sender) in
                         self?.btnReportCLK(postInfo)
                     }
+                    cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                    }
                     
+                    cell.btnUserName.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                    }
+                    cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                        sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                        sharePost.presentShareActivity()
+                    }
                     cell.btnShare.touchUpInside { [weak self](sender) in
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -822,10 +899,12 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 //            3-chripy
                 
                 if (postInfo?.valueForString(key: CImage).isBlank)!{
-                    let isshared = 0
+                    let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                     if isshared == 1{
-                        if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyTblCell", for: indexPath) as? HomeSharedChirpyTblCell {
-                            cell.homeChirpyDataSetup(postInfo!)
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
+                            cell.isLikesOthersPage = true
+                            cell.posted_IDOthers = userIDNew ?? ""
+                            cell.homeChirpyImageDataSetup(postInfo!)
                             
                             cell.btnLikesCount.touchUpInside { [weak self](sender) in
                                 self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
@@ -834,7 +913,31 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             cell.btnMore.touchUpInside { [weak self](sender) in
                                 self?.btnSharedReportCLK(postInfo: postInfo)
                             }
+                            cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                            }
                             
+                            cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                            }
+                            
+                            cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                            }
+                            
+                            cell.btnUserName.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                            }
+                            cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                                sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                                sharePost.presentShareActivity()
+                            }
                             cell.btnShare.touchUpInside { [weak self](sender) in
                                 let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                                 sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -855,7 +958,21 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
                             self?.btnLikesCountCLK(postInfo?.valueForString(key: CPostId).toInt)
                         }
+                        cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
                         
+                        cell.btnUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                            sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                            sharePost.presentShareActivity()
+                        }
                         cell.btnMore.touchUpInside { [weak self](sender) in
                             self?.btnReportCLK(postInfo)
                         }
@@ -872,7 +989,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         return cell
                     }
                 }else{
-                    let isshared = 0
+                    let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                     if isshared == 1{
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
                             cell.isLikesOthersPage = true
@@ -886,6 +1003,16 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             cell.btnMore.touchUpInside { [weak self](sender) in
                                 self?.btnSharedReportCLK(postInfo: postInfo)
                             }
+                            cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                            }
+                            
+                            cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                            }
+                            
                             
                             cell.btnShare.touchUpInside { [weak self](sender) in
                                 let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
@@ -912,7 +1039,23 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.btnMore.touchUpInside { [weak self](sender) in
                             self?.btnReportCLK(postInfo)
                         }
+                       
                         
+                        cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        
+                        cell.btnUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                            sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                            sharePost.presentShareActivity()
+                        }
                         cell.btnShare.touchUpInside { [weak self](sender) in
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -928,8 +1071,8 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 break
             case CStaticShoutIdNew:
                 //            4-shout
-                let isSharedPost = postInfo?.valueForInt(key: CIsSharedPost)
-                if isSharedPost == 1{
+                let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
+                if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedShoutsTblCell", for: indexPath) as? HomeSharedShoutsTblCell {
                         
                         cell.isLikesOthersPage = true
@@ -943,7 +1086,31 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.btnMore.touchUpInside {[weak self] (sender) in
                             self?.btnSharedReportCLK(postInfo: postInfo)
                         }
+                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                        }
                         
+                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                        }
+                        
+                        cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        
+                        cell.btnUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                            sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                            sharePost.presentShareActivity()
+                        }
                         cell.btnShare.touchUpInside { [weak self](sender) in
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -970,7 +1137,21 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     cell.btnMore.touchUpInside {[weak self] (sender) in
                         self?.btnReportCLK(postInfo)
                     }
+                    cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                    }
                     
+                    cell.btnUserName.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                    }
+                    cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                        sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                        sharePost.presentShareActivity()
+                    }
                     cell.btnShare.touchUpInside { [weak self](sender) in
                         let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                         sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -985,7 +1166,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 break
             case CStaticForumIdNew:
                 //            5-forum
-                let isshared = 0
+                let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedFourmTblCell", for: indexPath) as? HomeSharedFourmTblCell {
                         
@@ -1000,7 +1181,31 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.btnMore.touchUpInside { [weak self](sender) in
                             self?.btnSharedReportCLK(postInfo: postInfo)
                         }
+                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                        }
                         
+                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                        }
+                        
+                        cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        
+                        cell.btnUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                            sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                            sharePost.presentShareActivity()
+                        }
                         cell.btnShare.touchUpInside { [weak self](sender) in
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -1042,9 +1247,11 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 //            6-event
                 
                 if (postInfo?.valueForString(key: CImage).isBlank)!{
-                    let isshared = 0
+                    let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                     if isshared == 1{
-                        if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventsCell", for: indexPath) as? HomeSharedEventsCell {
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell", for: indexPath) as? HomeSharedEventImageTblCell {
+                            cell.posted_IDOthers = userIDNew ?? ""
+                            cell.isLikesOthersPage = true
                             cell.homeEventDataSetup(postInfo!)
                             
                             cell.onChangeEventStatus = { [weak self] (action) in
@@ -1058,7 +1265,31 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             cell.btnMore.touchUpInside { [weak self](sender) in
                                 self?.btnSharedReportCLK(postInfo: postInfo)
                             }
+                            cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                            }
                             
+                            cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                            }
+                            
+                            cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                            }
+                            
+                            cell.btnUserName.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                            }
+                            cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                                sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                                sharePost.presentShareActivity()
+                            }
                             cell.btnShare.touchUpInside { [weak self](sender) in
                                 let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                                 sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -1089,7 +1320,21 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.btnMore.touchUpInside { [weak self](sender) in
                             self?.btnReportCLK(postInfo)
                         }
+                        cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
                         
+                        cell.btnUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                            sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                            sharePost.presentShareActivity()
+                        }
                         cell.btnShare.touchUpInside { [weak self](sender) in
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -1102,7 +1347,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         return cell
                     }
                 }else{
-                    let isshared = 0
+                    let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                     if isshared == 1{
                         if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell",for: indexPath) as? HomeSharedEventImageTblCell {
                           
@@ -1120,7 +1365,31 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             cell.btnMore.touchUpInside { [weak self](sender) in
                                 self?.btnSharedReportCLK(postInfo: postInfo)
                             }
+                            cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                            }
                             
+                            cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                            }
+                            
+                            cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                            }
+                            
+                            cell.btnUserName.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                            }
+                            cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                                guard let _ = self else { return }
+                                let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                                sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                                sharePost.presentShareActivity()
+                            }
                             cell.btnShare.touchUpInside {[weak self] (sender) in
                                 let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                                 sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -1149,7 +1418,21 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         cell.btnMore.touchUpInside { [weak self](sender) in
                             self?.btnReportCLK(postInfo)
                         }
+                        cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
                         
+                        cell.btnUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                            sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                            sharePost.presentShareActivity()
+                        }
                         cell.btnShare.touchUpInside {[weak self] (sender) in
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -1165,7 +1448,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 }
                 break
             case CStaticPollIdNew: // Poll Cell....
-                let isshared = 0
+                let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 if isshared == 1{
                     if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedPollTblCell", for: indexPath) as? HomeSharedPollTblCell {
                        
@@ -1182,7 +1465,31 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             guard let _ = self else { return }
                             self?.btnSharedReportCLK(postInfo: postInfo)
                         }
+                        cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                        }
                         
+                        cell.btnSharedUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CSharedUserID), postInfo?.valueForString(key: CSharedEmailID), self)
+                        }
+                        
+                        cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        
+                        cell.btnUserName.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                        }
+                        cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                            guard let _ = self else { return }
+                            let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                            sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                            sharePost.presentShareActivity()
+                        }
                         cell.btnShare.touchUpInside { [weak self](sender) in
                             let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
                             sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
@@ -1216,7 +1523,21 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
                         sharePost.presentShareActivity()
                     }
+                    cell.btnProfileImg.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                    }
                     
+                    cell.btnUserName.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        appDelegate.moveOnProfileScreenNew(postInfo?.valueForString(key: CUserId), postInfo?.valueForString(key: CUsermailID), self)
+                    }
+                    cell.btnIconShare.touchUpInside { [weak self] (sender) in
+                        guard let _ = self else { return }
+                        let sharePost = SharePostHelper(controller: self, dataSet: postInfo)
+                        sharePost.shareURL = postInfo?.valueForString(key: CShare_url) ?? ""
+                        sharePost.presentShareActivity()
+                    }
                     // .... LOAD MORE DATA HERE
                     self.loadMore(indexPath)
                     
@@ -1241,7 +1562,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
         }
         let postInfo = arrPostList[indexPath.row]
         let postId = postInfo?.valueForString(key: "post_id")
-        let isshared = 0
+        //let isshared = 0
         let isdelete = 0
         if isdelete == 1{
             let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
@@ -1255,7 +1576,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
         }
         switch postInfo?.valueForString(key: CPostTypeNew) {
         case CStaticArticleIdNew:
-            
+            let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
             if isshared == 1{
                 let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
                 let sharedPostId = sharePostData[CId] as? Int ?? 0
@@ -1280,7 +1601,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
             
         case CStaticGalleryIdNew:
             
-            let isshared = 0
+            let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
             if isshared == 1{
                 let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
                 let sharedPostId = sharePostData[CId] as? Int ?? 0
@@ -1307,11 +1628,11 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
             
             if postInfo?.valueForString(key: CImage).isBlank ?? true{
                 
-                let isshared = 0
+                let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 if isshared == 1{
                     let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
-                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedDetailsViewController") as? ChirpySharedDetailsViewController else {
+                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedImageDetailsViewController") as? ChirpySharedImageDetailsViewController else {
                         return
                     }
 //                    viewcontroller.isLikesOthersPage = true
@@ -1330,7 +1651,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 }
             }else{
                 
-                let isshared = 0
+                let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 if isshared == 1{
                     let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
@@ -1359,7 +1680,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
             }
         case CStaticShoutIdNew:
             
-            let isshared = 0
+            let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
             if isshared == 1{
                 let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
                 let sharedPostId = sharePostData[CId] as? Int ?? 0
@@ -1372,7 +1693,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 
                 viewcontroller.isLikesOthersPage = true
                 viewcontroller.posted_IDOthers = userIDNew ?? ""
-                viewcontroller.shoutInformations = postInfo ?? [:]
+                viewcontroller.shoutInformation = postInfo ?? [:]
                 viewcontroller.shoutID = postId?.toInt
                 self.navigationController?.pushViewController(viewcontroller, animated: true)
                 break
@@ -1388,7 +1709,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
             
         case CStaticForumIdNew:
             
-            let isshared = 0
+            let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
             if isshared == 1{
                 let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
                 let sharedPostId = sharePostData[CId] as? Int ?? 0
@@ -1416,11 +1737,11 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
         case CStaticEventIdNew:
             if postInfo?.valueForString(key: CImage).isBlank ?? true{
                 
-                let isshared = 0
+                let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 if isshared == 1{
                     let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
-                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailViewController") as? EventSharedDetailViewController else {
+                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailImageViewController") as? EventSharedDetailImageViewController else {
                         return
                     }
 //                    viewcontroller.isLikesOthersPage = true
@@ -1440,7 +1761,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 }
             }else{
                 //let isSharedPost = postInfo?.valueForInt(key: CIsSharedPost)
-                let isshared = 0
+                let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 if isshared == 1{
                     let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
@@ -1467,7 +1788,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
             break
         case CStaticPollIdNew: // Poll Cell....
             
-            let isshared = 0
+            let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
             if isshared == 1{
                 let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
                 let sharedPostId = sharePostData[CId] as? Int ?? 0

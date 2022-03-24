@@ -825,7 +825,7 @@
         <image name="ic_post_event" width="20" height="20.5"/>
         <image name="user_placeholder.png" width="300" height="300"/>
         <namedColor name="AppDefault">
-            <color red="0.0" green="0.75294119119644165" blue="0.65098041296005249" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.75294117647058822" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
