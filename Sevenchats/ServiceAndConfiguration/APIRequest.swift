@@ -875,7 +875,7 @@ extension APIRequest {
         let langID = CUserDefaults.value(forKey: UserDefaultSelectedLangID) as! Int
         let langName = CUserDefaults.value(forKey: UserDefaultSelectedLang) as! String
         
-        _ = Networking.sharedInstance.GETNEW(apiTag: "\(CAPITaglanguages)/\(langID)", param: [:], successBlock: { (task, response) in
+        _ = Networking.sharedInstance.GETNEWMASTER(apiTag: "\(CAPITaglanguages)/\(langID)", param: [:], successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
             //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITaglanguages){
@@ -917,7 +917,7 @@ extension APIRequest {
     
     func countryList(timestamp : AnyObject, completion: @escaping ClosureCompletion) {
         
-        _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagCountry, param: ["timestamp":timestamp], successBlock: { (task, response) in
+        _ = Networking.sharedInstance.GETNEWMASTER(apiTag: CAPITagCountry, param: ["timestamp":timestamp], successBlock: { (task, response) in
             
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCountry){
                 self.storeCountryInLocal(response: response as! [String : AnyObject])
