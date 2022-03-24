@@ -53,7 +53,7 @@ extension AddPollQuestionCell : UITextFieldDelegate{
         }
         
         if textField == txtOption{
-        if (textField.text?.count ?? 0) > 100{
+        if (textField.text?.count ?? 0) > 20{
             return false
         }
         
@@ -67,10 +67,13 @@ extension AddPollQuestionCell : UITextFieldDelegate{
                 
             }else {
                 //Normat type
-                if textField == textField{
-                let cs = NSCharacterSet(charactersIn: SPECIALCHARPOLL).inverted
-                let filtered = string.components(separatedBy: cs).joined(separator: "")
-                return (string == filtered)
+                if string.isSingleEmoji {
+                    return (string == string)
+                }else {
+                    
+                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                    let filtered = string.components(separatedBy: cs).joined(separator: "")
+                    return (string == filtered)
                 }
             }
             
