@@ -74,6 +74,8 @@ class AddPollViewController: ParentViewController {
     var pollOptionLst :String?
     var arrsubCategorys : [MDLIntrestSubCategory] = []
     var post_ID:String?
+    var postContent = ""
+    var postTxtFieldContent = ""
     
     
     //MARK: - View life cycle methods
@@ -162,10 +164,16 @@ extension AddPollViewController {
                 if self?.txtQuestion.text != "" && self?.pollOptionLst != "" {
                     let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                     if self?.txtQuestion.text.rangeOfCharacter(from: characterset.inverted) != nil || self?.pollOptionLst?.rangeOfCharacter(from: characterset.inverted) != nil  {
-                       print("true")
-                        self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        self?.postContent = self?.removeSpecialCharacters(from: self?.txtQuestion.text ?? "") ?? ""
+                        if self?.pollOptionLst != ""{
+                            self?.postTxtFieldContent = self?.removeSpecialCharacters(from: self?.pollOptionLst ?? "") ?? ""
+                            print("specialcCharecte\(self?.postTxtFieldContent)")
+                        }
+                        self?.addEditPoll()
                     } else {
                        print("false")
+                        self?.postContent = self?.txtQuestion.text ?? ""
+                        self?.postTxtFieldContent = self?.pollOptionLst ?? ""
                         self?.addEditPoll()
                     }
                 }
@@ -559,4 +567,13 @@ extension AddPollViewController: GenericTextViewDelegate{
     }
     
 
+}
+extension AddPollViewController{
+    
+    func removeSpecialCharacters(from text: String) -> String {
+        let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
+        return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
+    }
+    
+    
 }
