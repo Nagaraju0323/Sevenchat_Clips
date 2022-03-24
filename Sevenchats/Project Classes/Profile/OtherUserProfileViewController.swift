@@ -8,11 +8,11 @@
 
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
- * Model   : OtherUserProfileViewController              *
- * Changes :                                             *
+ * Author  : Chandrika.R                                                                                     *
+ * Model   : OtherUserProfileViewController                                                       *
+ * Changes :                                                                                                       *
  *                                                       *
- ********************************************************/
+ *************************************************************/
 
 
 

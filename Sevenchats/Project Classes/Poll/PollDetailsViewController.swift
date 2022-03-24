@@ -1124,7 +1124,7 @@ extension PollDetailsViewController {
     }
 }
     
-    
+  //NEw
     fileprivate func openUserProfileScreen(){
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
