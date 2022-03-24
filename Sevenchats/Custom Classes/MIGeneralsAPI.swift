@@ -100,7 +100,8 @@ extension MIGeneralsAPI {
                 CEmail_Mobile : userEmail.description
             ]
             
-            APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
+            APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0){
+                (response, error) in
                 if response != nil {
                 }
             }

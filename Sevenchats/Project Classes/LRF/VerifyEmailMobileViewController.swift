@@ -193,7 +193,8 @@ extension VerifyEmailMobileViewController {
             CEmail_Mobile : userEmailId,
         ]
         
-        APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
+//        APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
+            APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
                     let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")

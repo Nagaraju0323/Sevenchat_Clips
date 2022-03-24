@@ -23,42 +23,43 @@ import LGSideMenuController
 /// Live
 //var BASEURL: String          =   "http://dev1.sevenchats.com:2020/api/v1/"
 //MARK: - Dev
-//var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
-//let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
-////////MARK: - CHAT
-////var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
-//var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
-////////MARK: - OTP
-//var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
-//var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
-////////MARK: - AUTHENTICATION
-//var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
-////////MARK: - Notification
-//var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
-//var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
-////////MARK:- SockeIO key
-////let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
-//let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
-////////MARK:- NotificationSocket
-//let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
-//let BASEURL_Rew: String = "Dev"
+var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
+let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
+var BASEMASTERURL = "https://dev.sevenchats.com:3001/auth/"
+//////MARK: - CHAT
+//var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
+var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
+//////MARK: - OTP
+var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
+var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
+//////MARK: - AUTHENTICATION
+var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
+//////MARK: - Notification
+var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
+var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
+//////MARK:- SockeIO key
+//let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
+let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
+//////MARK:- NotificationSocket
+let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
+let BASEURL_Rew: String = "Dev"
 
 //////MARK:- MINIO
 let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 
 
 //MARK: - QA
-var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
-var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
-var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
-var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
-let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
-var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
-let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
-var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
-var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
-let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
-let BASEURL_Rew: String = "QA"
+//var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
+//var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
+//var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
+//var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
+//let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
+//var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
+//let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
+//var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
+//var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
+//let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
+//let BASEURL_Rew: String = "QA"
 
 
 let CAPIVesrion                     = "v1"
@@ -460,6 +461,13 @@ extension Networking {
             }
         }
     }
+    func GETNEWMASTER(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
+        let uRequest = SessionManager.default.request((BASEMASTERURL + tag), method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil)
+        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+        return uRequest.task
+    }
+    
+    
     func GETNEWTest(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
         let uRequest = SessionManager.default.request((tag), method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers)
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
@@ -1334,7 +1342,7 @@ extension APIRequest {
                 
                 if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
                     if metaData.valueForString(key: CJsonStatus) == CStatusZeros {
-                        self.saveUserDetail(response: response as! [String : AnyObject])
+                        self.saveUserDetail(response: response as! [String : AnyObject],accessToken:"", ViewController: 0)
                     }
                 }
                 completion(response, nil)
@@ -1342,12 +1350,12 @@ extension APIRequest {
             if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
                 
                 if metaData.valueForInt(key: CJsonStatus) == CStatusZero {
-                    self.saveUserDetail(response: response as! [String : AnyObject])
+                    self.saveUserDetail(response: response as! [String : AnyObject],accessToken:"", ViewController: 0)
                     CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
                     CUserDefaults.synchronize()
                     completion(response, nil)
                 } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTwelve {
-                    self.saveUserDetail(response: response as! [String : AnyObject])
+                    self.saveUserDetail(response: response as! [String : AnyObject],accessToken:"", ViewController: 0)
                     CUserDefaults.set(false, forKey: UserDefaultIsAppLaunchHere)
                     CUserDefaults.synchronize()
                     completion(response, nil)
@@ -1398,8 +1406,55 @@ extension APIRequest {
             }
         })
     }
-    func userDetails(para:[String:AnyObject], completion : @escaping ClosureCompletion) {
+    
+//    func userDetails(para:[String:AnyObject], completion : @escaping ClosureCompletion) {
+//
+//        _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersDetails, param: para , successBlock: { (task, response) in
+//
+//            MILoader.shared.hideLoader()
+//            let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
+//            guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {
+//                completion(nil, nil)
+//                return
+//            }
+//            guard let _response = response as? [String : AnyObject] else {
+//                completion(nil, nil)
+//                return
+//            }
+//
+//            guard let responseData = _response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] else {
+//                completion(_response as AnyObject, nil)
+//                return
+//            }
+//            for response in responseData{
+//                self.saveUserDetail(response: _response)
+//                if (response.valueForString(key: "user_id")) == appDelegate.loginUser?.user_id.description {
+//                    self.saveUserDetail(response: _response)
+//                }
+//            }
+//
+//            if metaData.valueForString(key: CJsonStatus) == CStatusZeros && !isAppLaunchHere {
+//                CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
+//                CUserDefaults.synchronize()
+//                appDelegate.initHomeViewController()
+//            }
+//            completion(response, nil)
+//
+//        }, failureBlock: { (task, message, error) in
+//            MILoader.shared.hideLoader()
+//            completion(nil, error)
+//            if error?.code == CStatus405{
+//                appDelegate.logOut()
+//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+//            } else {
+//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagUser, error: error)
+//            }
+//        })
+//    }
+    
+    func userDetails(para:[String:AnyObject],access_Token:String,viewType:Int, completion : @escaping ClosureCompletion) {
         
+        self.saveUserDetail(response: [:], accessToken: access_Token, ViewController: viewType)
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersDetails, param: para , successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
@@ -1418,9 +1473,9 @@ extension APIRequest {
                 return
             }
             for response in responseData{
-                self.saveUserDetail(response: _response)
+                self.saveUserDetail(response: _response, accessToken: access_Token, ViewController: viewType)
                 if (response.valueForString(key: "user_id")) == appDelegate.loginUser?.user_id.description {
-                    self.saveUserDetail(response: _response)
+                    self.saveUserDetail(response: _response, accessToken:access_Token, ViewController: viewType)
                 }
             }
             
@@ -1443,7 +1498,55 @@ extension APIRequest {
         })
     }
     
-    func userDetailsMobile(para:[String:AnyObject], completion : @escaping ClosureCompletion) {
+    
+//    func userDetailsMobile(para:[String:AnyObject], completion : @escaping ClosureCompletion) {
+//
+//        _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersMobileDetails, param: para , successBlock: { (task, response) in
+//
+//            MILoader.shared.hideLoader()
+//            let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
+//            guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {
+//                completion(nil, nil)
+//                return
+//            }
+//            guard let _response = response as? [String : AnyObject] else {
+//                completion(nil, nil)
+//                return
+//            }
+//
+//            guard let responseData = _response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] else {
+//                completion(_response as AnyObject, nil)
+//                return
+//            }
+//            for response in responseData{
+//                self.saveUserDetail(response: _response)
+//                if (response.valueForString(key: "user_id")) == appDelegate.loginUser?.user_id.description {
+//                    self.saveUserDetail(response: _response)
+//                }
+//            }
+//
+//            if metaData.valueForString(key: CJsonStatus) == CStatusZeros && !isAppLaunchHere {
+//                CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
+//                CUserDefaults.synchronize()
+//                appDelegate.initHomeViewController()
+//            }
+//            completion(response, nil)
+//
+//        }, failureBlock: { (task, message, error) in
+//            MILoader.shared.hideLoader()
+//            completion(nil, error)
+//            if error?.code == CStatus405{
+//                appDelegate.logOut()
+//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+//            } else {
+//                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagUser, error: error)
+//            }
+//        })
+//    }
+    
+    func userDetailsMobile(para:[String:AnyObject],access_Token:String,viewType:Int, completion : @escaping ClosureCompletion) {
+    
+//    func userDetailsMobile(para:[String:AnyObject], completion : @escaping ClosureCompletion) {
         
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersMobileDetails, param: para , successBlock: { (task, response) in
             
@@ -1463,9 +1566,9 @@ extension APIRequest {
                 return
             }
             for response in responseData{
-                self.saveUserDetail(response: _response)
+                self.saveUserDetail(response: _response, accessToken: "", ViewController: viewType)
                 if (response.valueForString(key: "user_id")) == appDelegate.loginUser?.user_id.description {
-                    self.saveUserDetail(response: _response)
+                    self.saveUserDetail(response: _response, accessToken: "", ViewController: viewType)
                 }
             }
             
@@ -1933,12 +2036,12 @@ extension APIRequest {
             if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
                 
                 if metaData.valueForString(key: CJsonStatus) == "0" {
-                    self.saveUserDetail(response: parsedObjectchange as! [String : AnyObject])
+                    self.saveUserDetail(response: parsedObjectchange as! [String : AnyObject], accessToken: "", ViewController: 0)
                     //CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
                     //CUserDefaults.synchronize()
                     completion(response, nil)
                 } else if  metaData.valueForInt(key: CJsonStatus) == CStatusTwelve {
-                    self.saveUserDetail(response: userDetails )
+                    self.saveUserDetail(response: parsedObjectchange as! [String : AnyObject], accessToken: "", ViewController: 0)
                     //CUserDefaults.set(false, forKey: UserDefaultIsAppLaunchHere)
                     //CUserDefaults.synchronize()
                     completion(response, nil)
@@ -2347,7 +2450,8 @@ extension APIRequest {
         _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagshared, param: para, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             
-            self.saveUserDetail(response: response as! [String : AnyObject])
+//            self.saveUserDetail(response: parsedObjectchange as! [String : AnyObject], accessToken: "", ViewController: 0)
+            self.saveUserDetail(response: response as! [String : AnyObject], accessToken: "", ViewController: 0)
             completion(response, nil)
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
@@ -3659,7 +3763,87 @@ extension APIRequest {
 
 extension APIRequest {
     
-    func saveUserDetail(response : [String : AnyObject]) {
+//    func saveUserDetail(response : [String : AnyObject]) {
+//
+//        if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
+//
+//            for dict in data{
+//
+//                let tblUser = TblUser.findOrCreate(dictionary: [CUserId : Int64(dict.valueForString(key: CUserId)) ?? ""]) as! TblUser
+//
+//                tblUser.email = dict.valueForString(key: CEmail)
+//                tblUser.first_name = dict.valueForString(key: CFirstname)
+//                tblUser.last_name = dict.valueForString(key: CLastname)
+//                tblUser.profile_img = dict.valueForString(key: CImage)
+//                tblUser.address = dict.valueForString(key: CAddress)
+//                tblUser.annual_income_id = Int64(dict.valueForString(key: CAnnual_income)) ?? 0
+//                tblUser.annual_income = dict.valueForString(key: "annual_income")
+//
+//                tblUser.badge_count = 0
+//                tblUser.block_unblock_status = false
+//                tblUser.dob = dict.valueForString(key: CDob)
+//                tblUser.education_id = Int64(dict.valueForString(key: "education_name")) ?? 0
+//                tblUser.employment_status = Int16(dict.valueForString(key: CEmployment_status)) ?? 0
+//
+//                tblUser.friend_block_unblock_status = false
+//                tblUser.friend_report_status = false
+//                tblUser.friend_status = false
+//                tblUser.friends = dict.valueForJSON(key: CFriends) as? NSObject
+//                tblUser.gender = Int16(dict.valueForString(key: CGender)) ?? 0
+//                tblUser.push_notify = dict.valueForBool(key: CPush_notify)
+//                tblUser.email_notify = dict.valueForBool(key: CEmail_notify)
+//                tblUser.lang_name = dict.valueForString(key: "lang_name")
+//                tblUser.latitude = Double(dict.valueForString(key: CLatitude)) ?? 0.0
+//                tblUser.longitude = Double(dict.valueForString(key: CLongitude)) ?? 0.0
+//                tblUser.mobile = dict.valueForString(key: CMobile)
+//                tblUser.profession = dict.valueForString(key: CProfession)
+//                tblUser.relationship_id = Int64(dict.valueForString(key: "relationship") ) ?? 0
+//                tblUser.relationship = dict.valueForString(key: "relationship")
+//                tblUser.religion = dict.valueForString(key: "religion")
+//                tblUser.short_biography = dict.valueForString(key: CShort_biography)
+//                tblUser.total_like = Int64(dict.valueForString(key: "likes")) ?? 0
+//                tblUser.user_type = true
+//                tblUser.user_types = dict.valueForString(key: "user_type")
+//                tblUser.visible_to_friend = Int16(dict.valueForString(key: CVisible_to_friend)) ?? 0
+//                tblUser.visible_to_other = Int16(dict.valueForString(key: CVisible_to_other)) ?? 0
+//                tblUser.profile_url = dict.valueForString(key: "profile_image")
+//                tblUser.cover_image = dict.valueForString(key: "cover_image")
+//                tblUser.education_name = dict.valueForString(key: "education_name")
+//                tblUser.country = dict.valueForString(key: CCountryName)
+//                tblUser.state = dict.valueForString(key: CStateName)
+//                tblUser.city = dict.valueForString(key: CCityName)
+//                tblUser.status_id = dict.valueForString(key: CStatus_id)
+//                tblUser.account_type = Int16(dict.valueForString(key: CAccounttype)) ?? 0
+//                let arrCountry = TblCountry.fetch(predicate: NSPredicate(format:"%K == %s", CCountryName, (dict.valueForString(key: "country_name"))))
+//
+//                if (arrCountry?.count)! > 0{
+//                    tblUser.country_code = ((arrCountry![0] as! TblCountry).country_code)
+//                }
+//                CUserDefaults.setValue(dict.valueForString(key: CUserId), forKey: UserDefaultUserID)
+//                CUserDefaults.synchronize()
+//                appDelegate.loginUser = tblUser
+//                CoreData.saveContext()
+//            }
+//        }
+//
+//        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjY2NGViZmYyMDM1YjIzZjk3OTg3MDdmYTgwOWYyNTBmZTk2NDVlMGQ3NTg1OGFlMjNiMTA3MTAxNTFhNjFlNTMwZWVmOTkxNDQ3OTUyYWI0In0.eyJhdWQiOiI3IiwianRpIjoiNjY0ZWJmZjIwMzViMjNmOTc5ODcwN2ZhODA5ZjI1MGZlOTY0NWUwZDc1ODU4YWUyM2IxMDcxMDE1MWE2MWU1MzBlZWY5OTE0NDc5NTJhYjQiLCJpYXQiOjE2Mjk0NzU5ODgsIm5iZiI6MTYyOTQ3NTk4OCwiZXhwIjoxNjYxMDExOTg4LCJzdWIiOiI1MjYiLCJzY29wZXMiOltdfQ.cjUBHTR8X8w__fLmKFpDL4l8N9E_EIaoJmZb8QIhvD7cBjvOk0fY2HF88OoBtuGDO7maFkfk0ayZ2LXRzP5EhZY43_imlnZVuM-8XN7OYwlW2N1pW1nYZKmNSjOSukHd4cIhq0iuFTEzYHVnVgI84ctGsVO8aU9lnX4h1YpOLuOON2VwbsYxHS8oITGGhL7AUu2ywmwtODlh2rGKDOAGezLeRu20xu-llDaTwRsalIFW1KNC720PWGmHTogoei2-96-W9hskJVXMDMWjyUO87C1W9LqFQjj5k-33Yx7EYA7AYSFxoYo1CLmFYphjiPT5EU50Fosl3QAu4udH-rNpLQdEJJthw-FcKaJJsaHaYnZ5GMKX_sJFfhT2feMp-9bjbvtx0bh6bjAISZj9TgN8LwVB_3uNUJ4G9AZD7zY-JumxaId91UUcdm9XFbQXeh3PkB1H1ceGmg3cD-SWkI2LjS3QL0IcUVVRXhMaEgBvY_oC_W1Hdkkd3riSBOn5W7-oLVQy0irzyDKqBbw4TS4rjHUNy1oUqY6vppNVgRfgLVN0RfVPbymQi1V2EmNMs1UGbhyqQyCndWfX_B-J2QUV2kK5uR36hkdzbKu23wE3k8PVN_mKYHtU3ASQCYQWBs1e6gZxDWw0X4t1CKLJjtC93lE2aB_JaZ5N-5_os5vISVM"
+//
+//
+//        if let metaData = response.valueForJSON(key: CJsonMeta) as? [String : AnyObject] {
+//            //...Save userID and token in Userdefault
+//
+//            if metaData.valueForString(key: "token") != "" {
+//
+//                CUserDefaults.setValue(metaData.valueForString(key: "token"), forKey: UserDefaultDeviceToken)
+//            }else {
+//
+//                CUserDefaults.setValue(token, forKey: UserDefaultDeviceToken)
+//            }
+//            CUserDefaults.synchronize()
+//        }
+//    }
+  
+    func saveUserDetail(response : [String : AnyObject],accessToken:String,ViewController:Int) {
         
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
             
@@ -3722,21 +3906,34 @@ extension APIRequest {
             }
         }
         
-        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjY2NGViZmYyMDM1YjIzZjk3OTg3MDdmYTgwOWYyNTBmZTk2NDVlMGQ3NTg1OGFlMjNiMTA3MTAxNTFhNjFlNTMwZWVmOTkxNDQ3OTUyYWI0In0.eyJhdWQiOiI3IiwianRpIjoiNjY0ZWJmZjIwMzViMjNmOTc5ODcwN2ZhODA5ZjI1MGZlOTY0NWUwZDc1ODU4YWUyM2IxMDcxMDE1MWE2MWU1MzBlZWY5OTE0NDc5NTJhYjQiLCJpYXQiOjE2Mjk0NzU5ODgsIm5iZiI6MTYyOTQ3NTk4OCwiZXhwIjoxNjYxMDExOTg4LCJzdWIiOiI1MjYiLCJzY29wZXMiOltdfQ.cjUBHTR8X8w__fLmKFpDL4l8N9E_EIaoJmZb8QIhvD7cBjvOk0fY2HF88OoBtuGDO7maFkfk0ayZ2LXRzP5EhZY43_imlnZVuM-8XN7OYwlW2N1pW1nYZKmNSjOSukHd4cIhq0iuFTEzYHVnVgI84ctGsVO8aU9lnX4h1YpOLuOON2VwbsYxHS8oITGGhL7AUu2ywmwtODlh2rGKDOAGezLeRu20xu-llDaTwRsalIFW1KNC720PWGmHTogoei2-96-W9hskJVXMDMWjyUO87C1W9LqFQjj5k-33Yx7EYA7AYSFxoYo1CLmFYphjiPT5EU50Fosl3QAu4udH-rNpLQdEJJthw-FcKaJJsaHaYnZ5GMKX_sJFfhT2feMp-9bjbvtx0bh6bjAISZj9TgN8LwVB_3uNUJ4G9AZD7zY-JumxaId91UUcdm9XFbQXeh3PkB1H1ceGmg3cD-SWkI2LjS3QL0IcUVVRXhMaEgBvY_oC_W1Hdkkd3riSBOn5W7-oLVQy0irzyDKqBbw4TS4rjHUNy1oUqY6vppNVgRfgLVN0RfVPbymQi1V2EmNMs1UGbhyqQyCndWfX_B-J2QUV2kK5uR36hkdzbKu23wE3k8PVN_mKYHtU3ASQCYQWBs1e6gZxDWw0X4t1CKLJjtC93lE2aB_JaZ5N-5_os5vISVM"
+//        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjY2NGViZmYyMDM1YjIzZjk3OTg3MDdmYTgwOWYyNTBmZTk2NDVlMGQ3NTg1OGFlMjNiMTA3MTAxNTFhNjFlNTMwZWVmOTkxNDQ3OTUyYWI0In0.eyJhdWQiOiI3IiwianRpIjoiNjY0ZWJmZjIwMzViMjNmOTc5ODcwN2ZhODA5ZjI1MGZlOTY0NWUwZDc1ODU4YWUyM2IxMDcxMDE1MWE2MWU1MzBlZWY5OTE0NDc5NTJhYjQiLCJpYXQiOjE2Mjk0NzU5ODgsIm5iZiI6MTYyOTQ3NTk4OCwiZXhwIjoxNjYxMDExOTg4LCJzdWIiOiI1MjYiLCJzY29wZXMiOltdfQ.cjUBHTR8X8w__fLmKFpDL4l8N9E_EIaoJmZb8QIhvD7cBjvOk0fY2HF88OoBtuGDO7maFkfk0ayZ2LXRzP5EhZY43_imlnZVuM-8XN7OYwlW2N1pW1nYZKmNSjOSukHd4cIhq0iuFTEzYHVnVgI84ctGsVO8aU9lnX4h1YpOLuOON2VwbsYxHS8oITGGhL7AUu2ywmwtODlh2rGKDOAGezLeRu20xu-llDaTwRsalIFW1KNC720PWGmHTogoei2-96-W9hskJVXMDMWjyUO87C1W9LqFQjj5k-33Yx7EYA7AYSFxoYo1CLmFYphjiPT5EU50Fosl3QAu4udH-rNpLQdEJJthw-FcKaJJsaHaYnZ5GMKX_sJFfhT2feMp-9bjbvtx0bh6bjAISZj9TgN8LwVB_3uNUJ4G9AZD7zY-JumxaId91UUcdm9XFbQXeh3PkB1H1ceGmg3cD-SWkI2LjS3QL0IcUVVRXhMaEgBvY_oC_W1Hdkkd3riSBOn5W7-oLVQy0irzyDKqBbw4TS4rjHUNy1oUqY6vppNVgRfgLVN0RfVPbymQi1V2EmNMs1UGbhyqQyCndWfX_B-J2QUV2kK5uR36hkdzbKu23wE3k8PVN_mKYHtU3ASQCYQWBs1e6gZxDWw0X4t1CKLJjtC93lE2aB_JaZ5N-5_os5vISVM"
         
         
-        if let metaData = response.valueForJSON(key: CJsonMeta) as? [String : AnyObject] {
-            //...Save userID and token in Userdefault
-            
-            if metaData.valueForString(key: "token") != "" {
-                
-                CUserDefaults.setValue(metaData.valueForString(key: "token"), forKey: UserDefaultDeviceToken)
-            }else {
-                
-                CUserDefaults.setValue(token, forKey: UserDefaultDeviceToken)
-            }
+        
+        if ViewController == 1{
+            CUserDefaults.setValue(accessToken, forKey: UserDefaultDeviceToken)
             CUserDefaults.synchronize()
         }
+        
+//        if let metaData = response.valueForJSON(key: CJsonMeta) as? [String : AnyObject] {
+//            //...Save userID and token in Userdefault
+//
+//            if metaData.valueForString(key: "token") != "" {
+//
+//                CUserDefaults.setValue(metaData.valueForString(key: "token"), forKey: UserDefaultDeviceToken)
+//            }else {
+//
+//                CUserDefaults.setValue(accessToken, forKey: UserDefaultDeviceToken)
+//            }
+//
+////            if ViewController == 1{
+////                CUserDefaults.setValue(accessToken, forKey: UserDefaultDeviceToken)
+////                CUserDefaults.synchronize()
+////            }
+////            CUserDefaults.setValue(accessToken, forKey: UserDefaultDeviceToken)
+//
+//            CUserDefaults.synchronize()
+//        }
     }
     
     

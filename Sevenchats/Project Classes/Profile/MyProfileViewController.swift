@@ -134,7 +134,8 @@ extension MyProfileViewController{
             let dict:[String:Any] = [
                 CEmail_Mobile : appDelegate.loginUser?.email ?? ""
             ]
-            APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
+            APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
+//            APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
                 self.refreshControl.endRefreshing()
                 if response != nil && error == nil {
                     self.tblUser.reloadData()
