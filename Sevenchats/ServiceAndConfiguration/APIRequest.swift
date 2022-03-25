@@ -49,18 +49,18 @@ let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 
 
 //MARK: - QA
-var BASEMASTERURL = "https://dev.sevenchats.com:3001/auth/"
-var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
-var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
-var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
-var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
-let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
-var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
-let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
-var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
-var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
-let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
-let BASEURL_Rew: String = "QA"
+//var BASEMASTERURL = "https://dev.sevenchats.com:3001/auth/"
+//var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
+//var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
+//var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
+//var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
+//let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
+//var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
+//let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
+//var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
+//var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
+//let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
+//let BASEURL_Rew: String = "QA"
 
 
 let CAPIVesrion                     = "v1"
@@ -853,7 +853,7 @@ extension APIRequest {
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
         }
         
-        _ = Networking.sharedInstance.GETNEW(apiTag:CAPITaglanguages, param: [:], successBlock: { (task, response) in
+        _ = Networking.sharedInstance.GETNEWMASTER(apiTag:CAPITaglanguages, param: [:], successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITaglanguages){
                 self.storeLanguageList(response: response as! [String : AnyObject])
@@ -936,15 +936,35 @@ extension APIRequest {
         })
     }
     
+//    func loadPointsConfigs(timestamp : AnyObject, completion: @escaping ClosureCompletion) {
+//
+//        _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagPointsConfigs, param: ["timestamp":timestamp], successBlock: { (task, response) in
+//
+//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCountry){
+//                self.storePointsConfigsInLocal(response: response as! [String : AnyObject])
+//                completion(response, nil)
+//            }
+//
+//        }, failureBlock: { (task, message, error) in
+//            completion(nil, error)
+//            if error?.code == CStatus405{
+//                appDelegate.logOut()
+//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+//            } else {
+//                self.loadPointsConfigs(timestamp: timestamp, completion: completion)
+//            }
+//        })
+//    }
+    
     func loadPointsConfigs(timestamp : AnyObject, completion: @escaping ClosureCompletion) {
-        
-        _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagPointsConfigs, param: ["timestamp":timestamp], successBlock: { (task, response) in
-            
+
+        _ = Networking.sharedInstance.GETNEWMASTER(apiTag: CAPITagPointsConfigs, param: ["timestamp":timestamp], successBlock: { (task, response) in
+
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCountry){
                 self.storePointsConfigsInLocal(response: response as! [String : AnyObject])
                 completion(response, nil)
             }
-            
+
         }, failureBlock: { (task, message, error) in
             completion(nil, error)
             if error?.code == CStatus405{
@@ -955,6 +975,10 @@ extension APIRequest {
             }
         })
     }
+    
+    
+    //
+    
     
     
     func loadRewardsCategory(timestamp : AnyObject, completion: @escaping ClosureCompletion) {
@@ -979,7 +1003,7 @@ extension APIRequest {
     
     func stateList(timestamp : AnyObject, countryID: String, completion: @escaping ClosureCompletion) -> URLSessionTask?{
         let countryName = countryID.replace(string: " ", replacement: "%20")
-        return Networking.sharedInstance.GETNEW(apiTag: CAPITagState + countryName , param:nil, successBlock: { (task, response) in
+        return Networking.sharedInstance.GETNEWMASTER(apiTag: CAPITagState + countryName , param:nil, successBlock: { (task, response) in
             //MILoader.shared.hideLoader()
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagState){
                 completion(response, nil)
@@ -1000,7 +1024,7 @@ extension APIRequest {
     func cityList(timestamp : AnyObject, stateId : String, completion: @escaping ClosureCompletion) -> URLSessionTask?{
         
         let stateName = stateId.replace(string: " ", replacement: "%20")
-        return Networking.sharedInstance.GETNEW(apiTag: CAPITagCity + stateName, param:nil, successBlock: { (task, response) in
+        return Networking.sharedInstance.GETNEWMASTER(apiTag: CAPITagCity + stateName, param:nil, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             completion(response, nil)
             //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCity){
@@ -2892,9 +2916,10 @@ extension APIRequest {
         return Networking.sharedInstance.GETNEWPR(apiTag: apiTag, param: para as [String : AnyObject], successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {
-                completion(response, nil)
-            }
+            completion(response, nil)
+//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {
+//                completion(response, nil)
+//            }
             
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()

@@ -111,6 +111,7 @@ extension FavWebSideViewController{
                     }
                 }
             }
+            
         }
     }
 }
@@ -123,7 +124,7 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrFavWebSite.isEmpty{
-//            self.tblFavWebSite.setEmptyMessage(CNoFavWebList)
+            self.tblFavWebSite.setEmptyMessage(CNoFavWebList)
         }else{
             self.tblFavWebSite.restore()
         }

@@ -952,6 +952,10 @@ extension GroupChatDetailsViewController {
     @IBAction func btnSendCLK(_ sender : UIButton) {
         
         //for QA
+        if !ChatSocketIo.shared().socketClient.isConnected(){
+            ChatSocketIo.shared().reconnect()
+        }
+        
         ChatSocketIo.shared().SocketInitilized()
         
         // Send Message to all user...
@@ -1579,6 +1583,11 @@ extension GroupChatDetailsViewController{
 extension GroupChatDetailsViewController {
     
     func ImageAttachemntApiCall(uploadImgUrl:String,type:String,thumbLine:UIImage){
+        
+        if !ChatSocketIo.shared().socketClient.isConnected(){
+            ChatSocketIo.shared().reconnect()
+        }
+        
         guard let user_ID = appDelegate.loginUser?.user_id else { return }
         guard let firstName = appDelegate.loginUser?.first_name  else { return }
         guard let lastName = appDelegate.loginUser?.last_name else { return }

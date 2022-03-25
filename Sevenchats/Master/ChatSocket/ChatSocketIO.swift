@@ -69,7 +69,7 @@ class ChatSocketIo: NSObject {
 
     func reconeectSocket(){
         let url = URL(string: SocketIoUrl)
-        socketClient.reconnect(request: NSURLRequest(url: url! as URL) , delegate: self as StompClientLibDelegate, time: 4.0)
+        socketClient.reconnect(request: NSURLRequest(url: url! as URL) , delegate: self as StompClientLibDelegate, time: 2.0)
     }
     
     func disconnectSocket(){

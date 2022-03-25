@@ -1126,6 +1126,12 @@ extension UserChatDetailViewController {
             //                return
             //            }
         }
+        
+        if !ChatSocketIo.shared().socketClient.isConnected(){
+            ChatSocketIo.shared().reconnect()
+        }
+        
+        
         if isCreateNewChat == true {
 //            createTopictoChat()
         }
@@ -1168,7 +1174,7 @@ extension UserChatDetailViewController {
                         }
                     }
                 }
-//                self.fetchHome.loadData()
+                self.fetchHome.loadData()
                 txtViewMessage.text = nil
                 txtViewMessage.updatePlaceholderFrame(false)
                 cnTextViewHeightHeight.constant = 34
@@ -1701,6 +1707,10 @@ extension UserChatDetailViewController{
     
     
     func ImageAttachemntApiCall(uploadImgUrl:String,type:String,thumbLine:UIImage){
+        
+        if !ChatSocketIo.shared().socketClient.isConnected(){
+            ChatSocketIo.shared().reconnect()
+        }
         
         guard let user_id = appDelegate.loginUser?.user_id else { return }
         guard let firstName = appDelegate.loginUser?.first_name  else { return }

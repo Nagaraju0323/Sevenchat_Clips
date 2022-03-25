@@ -36,7 +36,9 @@ class VerifyEmailMobileViewController: ParentViewController {
     var apiStatusCode = 0
     var url:URL?
     var passwordStr = ""
-    var profileImgUrlupdate = "" 
+    var profileImgUrlupdate = ""
+    var emailverify:Bool?
+    var mobileverify:Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -418,8 +420,10 @@ extension VerifyEmailMobileViewController{
         
         if isEmail_Mobile == true {
             self.url = URL(string: "\(BASEURLOTP)auth/verifyEmailOTP?email=\(userEmail)&otp=\(otp)")
+            emailverify = true
         }else {
             self.url = URL(string:"\(BASEURLOTP)auth/verifyMobileOTP?mobile=\(userMobile)&otp=\(otp)")
+            mobileverify = true
         }
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "GET"
@@ -450,6 +454,13 @@ extension VerifyEmailMobileViewController{
                     })
                 }else {
                     DispatchQueue.main.async (execute: { () -> Void in
+                        if self.emailverify == true{
+                            self.dictSingupdatas["is_email_verify"] = "1"
+                            self.dictSingupdatas["is_mobile_verify"] = "0"
+                        }else if self.mobileverify == true{
+                            self.dictSingupdatas["is_email_verify"] = "0"
+                            self.dictSingupdatas["is_mobile_verify"] = "1"
+                        }
                         self.singupRegisterUser(param:self.dictSingupdatas)
                     })
                 }
