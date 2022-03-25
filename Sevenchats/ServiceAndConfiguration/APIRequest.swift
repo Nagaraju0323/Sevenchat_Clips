@@ -25,7 +25,7 @@ import LGSideMenuController
 //MARK: - Dev
 var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
 let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
-var BASEMASTERURL = "http://dev.sevenchats.com:3001/auth/"
+var BASEMASTERURL           = "http://dev.sevenchats.com:3001/auth/"
 //////MARK: - CHAT
 //var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
 var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
@@ -499,6 +499,19 @@ extension Networking {
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task
     }
+    
+    
+    
+    func POSTJSONAUTH(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
+        
+        let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
+        
+        let uRequest = SessionManager.default.request((BASEMASTERURL + tag), method: .post, parameters: nil, encoding: parameterEncoding, headers: internalheaders ?? headers)
+        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+        return uRequest.task
+    }
+    
+    
     
     
     func POSTJSON(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
@@ -1710,7 +1723,7 @@ extension APIRequest {
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
-        _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagSignUp, param: dict, successBlock: { (task, response) in
+        _ = Networking.sharedInstance.POSTJSONAUTH(apiTag: CAPITagSignUp, param: dict, successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
             completion(response, nil)
