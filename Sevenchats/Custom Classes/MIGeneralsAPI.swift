@@ -53,8 +53,7 @@ class MIGeneralsAPI: NSObject {
 
 extension MIGeneralsAPI {
     
-    func fetchAllGeneralDataFromServer()
-    {
+    func fetchAllGeneralDataFromServer(){
         self.laodLoginUserDetail()
         self.loadCountryList()
         self.loadRelationList()
@@ -76,6 +75,14 @@ extension MIGeneralsAPI {
         self.loadUserRewardPoings()
         self.loadPslCategory()
     }
+    func fetchAllGeneralDataFromServerMaster(){
+       
+            self.laodLoginUserDetail()
+            self.loadCountryList()
+            self.loadPointsConfigs()
+            self.getLanguageListMaster()
+    }
+    
     
     func loadUserRewardPoings() {
         
@@ -95,7 +102,7 @@ extension MIGeneralsAPI {
     func laodLoginUserDetail() {
         
         if let userEmail = appDelegate.loginUser?.email {
-            
+
             let dict:[String:Any] = [
                 CEmail_Mobile : userEmail.description
             ]
@@ -167,6 +174,13 @@ extension MIGeneralsAPI {
                 
                 CUserDefaults.setValue(metaData?["new_timestamp"], forKey: UserDefaultTimestamp)
                 CUserDefaults.synchronize()
+            }
+        }
+    }
+    
+    func getLanguageListMaster(){
+        APIRequest.shared().getLanguageListMaster(showLoader: true){ (response, error) in
+            if response != nil && error == nil {
             }
         }
     }
@@ -2387,6 +2401,7 @@ extension MIGeneralsAPI {
         var max_points:String?
         
         guard let userID = appDelegate.loginUser?.user_id else {return}
+        
         
         if let arrMessageList : [TblPointsConfig] = TblPointsConfig .fetch(predicate: NSPredicate(format: "\("points_config_name") == %@",points_config_idName ), orderBy: CCreated_at, ascending: true) as? [TblPointsConfig] {
             if arrMessageList.count > 0 {

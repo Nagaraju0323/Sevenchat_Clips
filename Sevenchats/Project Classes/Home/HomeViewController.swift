@@ -55,7 +55,6 @@ class HomeViewController: ParentViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loading), name: NSNotification.Name(rawValue: "loading"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(loadListval), name: NSNotification.Name(rawValue: "loadder"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pollloadder), name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(pollloadder), name: NSNotification.Name(rawValue: "polls"), object: nil)
     }
     override func didReceiveMemoryWarning() {
@@ -66,7 +65,6 @@ class HomeViewController: ParentViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(loading), name: NSNotification.Name(rawValue: "loading"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pollloadder), name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
-     
         NotificationCenter.default.addObserver(self, selector: #selector(polls), name: NSNotification.Name(rawValue: "polls"), object: nil)
 
         lblNoData.text = CToEnhanceFeed
@@ -89,8 +87,6 @@ class HomeViewController: ParentViewController {
     }
     
     @objc func polls(){
-//        self.tblEvents.reloadData()
-        
         if apiTask?.state == URLSessionTask.State.running {
             apiTask?.cancel()
         }
@@ -117,7 +113,6 @@ class HomeViewController: ParentViewController {
         let navSearchbtn = UIBarButtonItem(customView: searchbtnNav)
         
 //        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_filter"), style: .plain, target: self, action: #selector(btnFilterClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
-        
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
         tblEvents.estimatedRowHeight = 250;
@@ -733,7 +728,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 if indexPath == tblEvents.lastIndexPath() && !self.isLoadMoreCompleted{
                     if isSelectedFilter == true{
                         self.getPostListFromServerFilter()
-                        print(":::::::::;Filter is calling::::::::")
+                        print(":::::::::Filter is calling::::::::")
                     }else {
                         self.getPostListFromServer(showLoader: false)
                     }
@@ -2734,9 +2729,7 @@ extension HomeViewController{
             postFilterVC.arrSelectedFilter = arrSelectedFilterOption
             
             postFilterVC.callbacks = { message in
-                print("message\(message)")
                 self.isSelectedFilter = message
-                print("self.selectedFilter\(self.isSelectedFilter)")
             }
             postFilterVC.setBlock { [weak self](object, message) in
                 guard let _ = self else { return }

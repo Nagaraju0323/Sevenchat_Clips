@@ -288,7 +288,7 @@ extension AddMediaViewController {
         APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagsgallery) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil && error == nil{
-           
+                
                 if let responseData = response![CJsonData] as? [[String : Any]] {
                     for data in responseData{
                         self.post_ID = data.valueForString(key: "post_id")
@@ -309,7 +309,7 @@ extension AddMediaViewController {
                 }
                 
                 if let imgInfo = response![CJsonData] as? [String : Any]{
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(imgInfo,self.imgPostId, self, self.imagePostType == .editImagePost ? .editPost : .addPost, rss_id: 0)
+                    //                    MIGeneralsAPI.shared().refreshPostRelatedScreens(imgInfo,self.imgPostId, self, self.imagePostType == .editImagePost ? .editPost : .addPost, rss_id: 0)
                     
                     APIRequest.shared().saveNewInterest(interestID: imgInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: imgInfo.valueForString(key: CCategory))
                 }

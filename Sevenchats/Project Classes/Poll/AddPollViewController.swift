@@ -167,7 +167,6 @@ extension AddPollViewController {
                         self?.postContent = self?.removeSpecialCharacters(from: self?.txtQuestion.text ?? "") ?? ""
                         if self?.pollOptionLst != ""{
                             self?.postTxtFieldContent = self?.removeSpecialCharacters(from: self?.pollOptionLst ?? "") ?? ""
-                            print("specialcCharecte\(self?.postTxtFieldContent)")
                         }
                         self?.addEditPoll()
                     } else {
@@ -341,10 +340,6 @@ extension AddPollViewController {
                 }
             }
         }
-        
-        
-        
-
         
     }
 }

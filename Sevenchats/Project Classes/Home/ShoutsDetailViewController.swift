@@ -184,7 +184,7 @@ extension ShoutsDetailViewController{
                         }
                     }
                 }
-//                self.getCommentListFromServer()
+                //                self.getCommentListFromServer()
             }
         }
     }
@@ -218,8 +218,8 @@ extension ShoutsDetailViewController{
             self.lblUserName.text = shoInfo.valueForString(key: CFirstname) + " " + shoInfo.valueForString(key: CLastname)
             self.lblShoutsDescription.text = shoInfo.valueForString(key: CContent)
             self.imgUser.loadImageFromUrl(shoInfo.valueForString(key: CUserProfileImage), true)
-            let is_Liked = shoInfo.valueForString(key: CIsLiked)
-
+            _ = shoInfo.valueForString(key: CIsLiked)
+            
             if isLikesOthersPage == true {
                 if shoInfo.valueForString(key:"friend_liked") == "Yes"  && shoInfo.valueForString(key:"is_liked") == "Yes" {
                     btnLike.isSelected = true
@@ -253,7 +253,7 @@ extension ShoutsDetailViewController{
                         
                         isLikeSelected = false
                         btnLike.isSelected = true
-
+                        
                     }
                     if shoInfo.valueForString(key:CIs_Liked) == "Yes"{
                         btnLike.isSelected = true
@@ -271,7 +271,7 @@ extension ShoutsDetailViewController{
                     
                     isLikeSelected = false
                     btnLike.isSelected = true
-
+                    
                 }
             }
             if isLikesHomePage == true  || isLikesMyprofilePage == true {
@@ -312,7 +312,7 @@ extension ShoutsDetailViewController{
                         "status_id": "3"
                     ]
                 
-                APIRequest.shared().deletePostNew(postDetials: dict, apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
+                APIRequest.shared().deletePostNew(postDetials: dict as [String : Any], apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
                     guard let self = self else { return }
                     if response != nil && error == nil{
                         self.navigationController?.popViewController(animated: true)
@@ -416,7 +416,7 @@ extension ShoutsDetailViewController: UITableViewDelegate, UITableViewDataSource
                         let arrSelectedUser = arrIncludedUsers.filter({$0[CFullName] as? String == name})
                         
                         if arrSelectedUser.count > 0 {
-                            let userSelectedInfo = arrSelectedUser[0]
+                            _ = arrSelectedUser[0]
                             appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
                         }
                     })
@@ -447,7 +447,7 @@ extension ShoutsDetailViewController: UITableViewDelegate, UITableViewDataSource
             }
             // Load more data....
             if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {
-//                self.getCommentListFromServer()
+                //                self.getCommentListFromServer()
             }
             return cell
         }
@@ -531,7 +531,7 @@ extension ShoutsDetailViewController{
                 let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
                 
                 // Get Mention user's Ids..
-                let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
+                _ = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
                 
                 guard let userID = appDelegate.loginUser?.user_id else{
                     return
@@ -574,8 +574,8 @@ extension ShoutsDetailViewController{
                                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + " " + lastName, post_ID: self.notificationInfo)
                             }
                             if self.posted_ID != user_ID{
-                            self.notificationInfo["comments"] = self.commentCount
-                            MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + " " + lastName, post_ID: self.notificationInfo)
+                                self.notificationInfo["comments"] = self.commentCount
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + " " + lastName, post_ID: self.notificationInfo)
                             }
                             
                             
@@ -606,7 +606,7 @@ extension ShoutsDetailViewController{
                 reportVC.userID = shoutInformation.valueForInt(key: CUserId)
                 reportVC.reportID = self.shoutID
                 reportVC.reportIDNEW = shoutInformation.valueForString(key: "post_id")
-            
+                
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }
@@ -614,56 +614,56 @@ extension ShoutsDetailViewController{
     
     @IBAction func btnLikeCLK(_ sender : UIButton){
         if sender.tag == 0{
-        self.btnLike.isSelected = !self.btnLike.isSelected
-
-        if self.btnLike.isSelected == true{
-            likeCount = 1
-            like = 1
-            notifcationIsSlected = true
+            self.btnLike.isSelected = !self.btnLike.isSelected
             
-            if isLikesOthersPage  == true {
-                if isLikeSelected == true{
-                    self.isFinalLikeSelected = true
-                    isLikeSelected = false
-                }else {
-                    self.isFinalLikeSelected = false
-                }
-            }
-        }else {
-            likeCount = 2
-            like = 0
-            
-            if isLikesOthersPage == true {
-                if isLikeSelected == false{
-                    self.isFinalLikeSelected = false
-                    isLikeSelected = false
-                }else {
-                    self.isFinalLikeSelected = false
-                }
-            }
-        }
-        
-        
-        guard let userID = appDelegate.loginUser?.user_id else {
-            return
-        }
-        APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: (self.shoutIDNew)?.toInt ?? 0 , isLike: likeCount){ [weak self](response, error) in
-            guard let _ = self else { return }
-            if response != nil {
-                GCDMainThread.async {
-                    
-                    let infodatass = response![CJsonData] as? [[String:Any]] ?? [[:]]
-                    for infora in infodatass{
-                        self?.info = infora
+            if self.btnLike.isSelected == true{
+                likeCount = 1
+                like = 1
+                notifcationIsSlected = true
+                
+                if isLikesOthersPage  == true {
+                    if isLikeSelected == true{
+                        self.isFinalLikeSelected = true
+                        isLikeSelected = false
+                    }else {
+                        self.isFinalLikeSelected = false
                     }
-                    let data = response![CJsonMeta] as? [String:Any] ?? [:]
-                    let stausLike = data["status"] as? String ?? "0"
-                    if stausLike == "0"{
-                        self?.likeCountfromSever(productId: self?.shoutIDNew?.toInt ?? 0,likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
+                }
+            }else {
+                likeCount = 2
+                like = 0
+                
+                if isLikesOthersPage == true {
+                    if isLikeSelected == false{
+                        self.isFinalLikeSelected = false
+                        isLikeSelected = false
+                    }else {
+                        self.isFinalLikeSelected = false
                     }
                 }
             }
-        }
+            
+            
+            guard let userID = appDelegate.loginUser?.user_id else {
+                return
+            }
+            APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: (self.shoutIDNew)?.toInt ?? 0 , isLike: likeCount){ [weak self](response, error) in
+                guard let _ = self else { return }
+                if response != nil {
+                    GCDMainThread.async {
+                        
+                        let infodatass = response![CJsonData] as? [[String:Any]] ?? [[:]]
+                        for infora in infodatass{
+                            self?.info = infora
+                        }
+                        let data = response![CJsonMeta] as? [String:Any] ?? [:]
+                        let stausLike = data["status"] as? String ?? "0"
+                        if stausLike == "0"{
+                            self?.likeCountfromSever(productId: self?.shoutIDNew?.toInt ?? 0,likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
+                        }
+                    }
+                }
+            }
         }else{
             if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
                 likeVC.postID = self.shoutID
@@ -684,43 +684,39 @@ extension ShoutsDetailViewController{
                         guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-
+                        
                         if self?.posted_ID == user_ID {
                         }else {
-                        
-                        if self?.isLikesOthersPage == true {
-                            self?.notificationInfo["friend_liked"] = "Yes"
-                        }
-                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
-                            self?.notificationInfo["is_liked"] = "Yes"
                             
-                        }
-                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + " " + lastName, post_ID: self?.notificationInfo ?? [:])
-                        if let metaInfo = response![CJsonMeta] as? [String : Any] {
-                            let stausLike = metaInfo["status"] as? String ?? "0"
-                            if stausLike == "0" {
+                            if self?.isLikesOthersPage == true {
+                                self?.notificationInfo["friend_liked"] = "Yes"
+                            }
+                            if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                                self?.notificationInfo["is_liked"] = "Yes"
                                 
-
+                            }
+                            self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + " " + lastName, post_ID: self?.notificationInfo ?? [:])
+                            if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                                let stausLike = metaInfo["status"] as? String ?? "0"
+                                if stausLike == "0" {
+                                }
                             }
                         }
-                    }
                         self?.notifcationIsSlected = false
                     }
-//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.shoutIDNew?.toInt ?? 0, rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
-                    
                     
                     if self?.isLikesOthersPage == true {
-                    if self?.isFinalLikeSelected == true{
-                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.shoutIDNew?.toInt ?? 0, rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
-                        self?.isLikeSelected = false
-                    }else {
-                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id:  self?.shoutIDNew?.toInt ?? 0, rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
-
+                        if self?.isFinalLikeSelected == true{
+                            MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: self?.shoutIDNew?.toInt ?? 0, rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                            self?.isLikeSelected = false
+                        }else {
+                            MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id:  self?.shoutIDNew?.toInt ?? 0, rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                            
+                        }
                     }
-                   }
                     if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
-                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id:  self?.shoutIDNew?.toInt ?? 0, rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id:  self?.shoutIDNew?.toInt ?? 0, rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self)
                     }
                 }
             }

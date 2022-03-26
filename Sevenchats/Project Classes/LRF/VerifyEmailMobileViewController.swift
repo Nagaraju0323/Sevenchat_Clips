@@ -39,6 +39,8 @@ class VerifyEmailMobileViewController: ParentViewController {
     var profileImgUrlupdate = ""
     var emailverify:Bool?
     var mobileverify:Bool?
+    var userToken:String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +65,8 @@ class VerifyEmailMobileViewController: ParentViewController {
         GCDMainThread.async {
             self.txtVerificationCode.txtDelegate = self
         }
+        
+        MIGeneralsAPI.shared().fetchAllGeneralDataFromServerMaster()
     }
     
     func setLanguageText() {
@@ -188,45 +192,6 @@ extension VerifyEmailMobileViewController {
             
         }
     }
-
-    func UserDetailsfeath(userEmailId:String,accessToken:String) {
-        
-        let dict:[String:Any] = [
-            CEmail_Mobile : userEmailId,
-        ]
-        
-//        APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
-            APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
-            if response != nil && error == nil {
-                DispatchQueue.main.async {
-                    let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-                    guard let image = appDelegate.loginUser?.profile_img else { return }
-                    MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image, detail_text: "Register_profile",target_id: 0)
-                
-                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-                    alertWindow.rootViewController = UIViewController()
-                    let errorMsg = "SuccessFully Register"
-                    let alertController = UIAlertController(title: "", message: CRegisterSuccess, preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { _ in
-                        alertWindow.isHidden = true
-                        self.dismiss(animated: true, completion: nil)
-                        self.isverify_Success = true
-                        self.navigationController?.popToRootViewController(animated: true)
-                        return
-                    }))
-                    
-                    alertWindow.windowLevel = UIWindow.Level.alert + 1;
-                    alertWindow.makeKeyAndVisible()
-                    alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
-//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "RegisterSuccess", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
-//                        self.dismiss(animated: true, completion: nil)
-//                        self.isverify_Success = true
-//                        self.navigationController?.popToRootViewController(animated: true)
-//                    })
-                }
-            }
-        }
-    }
 }
 
 // MARK:- --------- Action Event
@@ -244,7 +209,7 @@ extension VerifyEmailMobileViewController{
         } else if (txtVerificationCode.text?.count)! < 6{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CForgotAlertVerficationCodeIncorrect, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else {
-            self.redirectOnSuccessAfter(otp:txtVerificationCode.text ?? "")
+            self.singupWithUserEmailOrMobile(otp:txtVerificationCode.text ?? "")
         }
     }
     
@@ -291,7 +256,8 @@ extension VerifyEmailMobileViewController{
 // MARK:- --------- API Auth
 extension VerifyEmailMobileViewController{
     
-    func singupRegisterUser(param:[String:Any]){
+    //...singupand Registration
+    func singupAndRegisterUsers(param:[String:Any],isVerifySataus:Int){
         APIRequest.shared().signUpUser(dict: param as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 let msgError = response?["error"] as? String
@@ -301,14 +267,19 @@ extension VerifyEmailMobileViewController{
                 } else {
                     let dict = response?.value(forKey: CJsonData) as! [String : AnyObject]
                     self.uploadUserProfile(userID: dict.valueForInt(key: CUserId)!, signUpResponse: response, imageEmpty:false)
-                    self.registerUserEmail(username:self.userEmail,password:self.passwordStr)
-                    self.registerUserMobile(username:self.userMobile,password:self.passwordStr)
+                    if isVerifySataus == 1{
+                        self.registerUserEmail(username:self.userEmail,password:self.passwordStr)
+                    }else if isVerifySataus == 2{
+                        self.registerUserMobile(username:self.userMobile,password:self.passwordStr)
+                    }
                 }
             }
         }
     }
-    
+    //...register with user EamilID
     func registerUserEmail(username:String,password:String){
+        
+        let dispatchGroup = DispatchGroup()
         let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
         let url = URL(string: "\(BASEAUTH)auth/register")
         var request : URLRequest = URLRequest(url: url!)
@@ -331,15 +302,75 @@ extension VerifyEmailMobileViewController{
                 print("Error: did not receive data")
                 return
             }
-            let decoder = JSONDecoder()
+            _ = JSONDecoder()
             let token_type = (String(data: responseData, encoding: .utf8))
             do {
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
                 guard let userMsg = dict?["message"] as? String else { return }
-                DispatchQueue.main.async {
-                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-                    self.UserDetailsfeath(userEmailId:self.userEmail,accessToken:"")
-                    MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
+                if userMsg == "Success!!"{
+                    DispatchQueue.main.async {
+                        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+                    }
+                    
+                    let concurrentQueue = DispatchQueue(label: "queue", attributes: .concurrent)
+                    let semaphore = DispatchSemaphore(value: 1)
+                    dispatchGroup.enter()
+                    concurrentQueue.async {
+                        semaphore.wait()
+                        self.LoginWithToken(userEmailId:username,completion: { [self] success in
+                            if success == true {
+                                dispatchGroup.leave()
+                                semaphore.signal()
+                            }
+                        })
+                    }
+                    dispatchGroup.enter()
+                    concurrentQueue.async {
+                        semaphore.wait()
+                        MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
+                        dispatchGroup.leave()
+                        semaphore.signal()
+                    }
+                    dispatchGroup.enter()
+                    concurrentQueue.async {
+                        semaphore.wait()
+                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                        guard let image = appDelegate.loginUser?.profile_img else { return }
+                        MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image, detail_text: "Register_profile",target_id: 0)
+                        dispatchGroup.leave()
+                        semaphore.signal()
+                    }
+                }else {
+                    DispatchQueue.main.async {
+                        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                        alertWindow.rootViewController = UIViewController()
+                        let alertController = UIAlertController(title: "", message:userMsg , preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { _ in
+                            self.dismiss(animated: true, completion: nil)
+                            //                        return
+                        }))
+                        alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                        alertWindow.makeKeyAndVisible()
+                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                    }
+                }
+                dispatchGroup.notify(queue: .main) {
+                    MILoader.shared.hideLoader()
+                    print("Successfully Done!!")
+                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                    alertWindow.rootViewController = UIViewController()
+                    let alertController = UIAlertController(title: "", message: CRegisterSuccess, preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { _ in
+                        alertWindow.isHidden = true
+                        self.dismiss(animated: true, completion: nil)
+                        self.isverify_Success = true
+                        self.navigationController?.popToRootViewController(animated: true)
+                        return
+                    }))
+                    alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                    alertWindow.makeKeyAndVisible()
+                    alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                    
                 }
             } catch let error  {
                 print("error trying to convert data to \(error)")
@@ -348,7 +379,11 @@ extension VerifyEmailMobileViewController{
         task.resume()
     }
     
+    //...register with user Mobile Number
     func registerUserMobile(username:String,password:String){
+        
+        let dispatchGroup = DispatchGroup()
+        
         let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
         let url = URL(string: "\(BASEAUTH)auth/register")
         var request : URLRequest = URLRequest(url: url!)
@@ -371,26 +406,76 @@ extension VerifyEmailMobileViewController{
                 print("Error: did not receive data")
                 return
             }
-            let decoder = JSONDecoder()
+            _ = JSONDecoder()
             let token_type = (String(data: responseData, encoding: .utf8))
             do {
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
                 guard let userMsg = dict?["message"] as? String else { return }
-                DispatchQueue.main.async {
+                print("errorMsg\(userMsg)")
+                
+                if userMsg == "Success!!"{
+                    DispatchQueue.main.async {
+                        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+                    }
+                    let concurrentQueue = DispatchQueue(label: "queue", attributes: .concurrent)
+                    let semaphore = DispatchSemaphore(value: 1)
+                    dispatchGroup.enter()
+                    concurrentQueue.async {
+                        semaphore.wait()
+                        self.LoginWithToken(userEmailId:username,completion: { [self] success in
+                            if success == true {
+                                dispatchGroup.leave()
+                                semaphore.signal()
+                            }
+                        })
+                    }
                     
-//                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-//                        alertWindow.rootViewController = UIViewController()
-//                        let errorMsg = "SuccessFully Register"
-//                        let alertController = UIAlertController(title: "", message: errorMsg, preferredStyle: UIAlertController.Style.alert)
-//                        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { _ in
-//                            alertWindow.isHidden = true
-//                            return
-//                        }))
-//
-//                        alertWindow.windowLevel = UIWindow.Level.alert + 1;
-//                        alertWindow.makeKeyAndVisible()
-//                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
-//
+                    dispatchGroup.enter()
+                    concurrentQueue.async {
+                        semaphore.wait()
+                        MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
+                        dispatchGroup.leave()
+                        semaphore.signal()
+                    }
+                    dispatchGroup.enter()
+                    concurrentQueue.async {
+                        semaphore.wait()
+                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                        guard let image = appDelegate.loginUser?.profile_img else { return }
+                        MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:image, detail_text: "Register_profile",target_id: 0)
+                        dispatchGroup.leave()
+                        semaphore.signal()
+                    }
+                }else {
+                    DispatchQueue.main.async {
+                        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                        alertWindow.rootViewController = UIViewController()
+                        let alertController = UIAlertController(title: "", message:userMsg , preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { _ in
+                            self.dismiss(animated: true, completion: nil)
+                            //                        return
+                        }))
+                        alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                        alertWindow.makeKeyAndVisible()
+                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                    }
+                }
+                dispatchGroup.notify(queue: .main) {
+                    MILoader.shared.hideLoader()
+                    print("Successfully Done!!")
+                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                    alertWindow.rootViewController = UIViewController()
+                    let alertController = UIAlertController(title: "", message: CRegisterSuccess, preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { _ in
+                        alertWindow.isHidden = true
+                        self.dismiss(animated: true, completion: nil)
+                        self.isverify_Success = true
+                        self.navigationController?.popToRootViewController(animated: true)
+                        return
+                    }))
+                    alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                    alertWindow.makeKeyAndVisible()
+                    alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
                     
                 }
             } catch let error  {
@@ -400,7 +485,7 @@ extension VerifyEmailMobileViewController{
         task.resume()
     }
     
-    
+    //...upload UserProfile picture
     func uploadUserProfile(userID : Int, signUpResponse : AnyObject?,imageEmpty:Bool) {
         if imageEmpty == true{
             print("image empty convert text to image")
@@ -416,7 +501,8 @@ extension VerifyEmailMobileViewController{
         }
     }
     
-    func redirectOnSuccessAfter(otp:String){
+    //...OTP Generation
+    func singupWithUserEmailOrMobile(otp:String){
         
         if isEmail_Mobile == true {
             self.url = URL(string: "\(BASEURLOTP)auth/verifyEmailOTP?email=\(userEmail)&otp=\(otp)")
@@ -443,7 +529,7 @@ extension VerifyEmailMobileViewController{
                 print("Error: did not receive data")
                 return
             }
-            let decoder = JSONDecoder()
+            _ = JSONDecoder()
             let token_type = (String(data: responseData, encoding: .utf8))
             do {
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
@@ -453,21 +539,111 @@ extension VerifyEmailMobileViewController{
                         self.dismiss(animated: true, completion: nil)
                     })
                 }else {
-                    DispatchQueue.main.async (execute: { () -> Void in
-                        if self.emailverify == true{
-                            self.dictSingupdatas["is_email_verify"] = "1"
-                            self.dictSingupdatas["is_mobile_verify"] = "0"
-                        }else if self.mobileverify == true{
-                            self.dictSingupdatas["is_email_verify"] = "0"
-                            self.dictSingupdatas["is_mobile_verify"] = "1"
-                        }
-                        self.singupRegisterUser(param:self.dictSingupdatas)
-                    })
+                    //                    DispatchQueue.main.async (execute: { () -> Void in
+                    if self.emailverify == true{
+                        self.dictSingupdatas["is_email_verify"] = "1"
+                        self.dictSingupdatas["is_mobile_verify"] = "0"
+                    }else if self.mobileverify == true{
+                        self.dictSingupdatas["is_email_verify"] = "0"
+                        self.dictSingupdatas["is_mobile_verify"] = "1"
+                    }
+                    if self.emailverify == true {
+                        
+                        self.singupAndRegisterUsers(param:self.dictSingupdatas, isVerifySataus: 1)
+                    }else if self.mobileverify == true{
+                        self.singupAndRegisterUsers(param:self.dictSingupdatas,isVerifySataus:2)
+                    }
                 }
             }catch let error  {
                 print("error trying to convert data to \(error)")
             }
         })
         task.resume()
+    }
+    
+}
+
+//MARK:- Login Api Call
+extension VerifyEmailMobileViewController{
+    
+    func LoginWithToken (userEmailId:String,completion:@escaping(_ success:Bool) -> Void ){
+        let txtEmailid = userEmailId.lowercased()
+        let data : Data = "username=\(txtEmailid )&password=\(passwordStr)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
+        let url = URL(string: "\(BASEAUTH)auth/login")
+        var request : URLRequest = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
+        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
+        request.httpBody = data
+        
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) in
+            if let error = error{
+                print("somethis\(error)")
+            }
+            else if response != nil {
+            }else if data != nil{
+            }
+            DispatchQueue.main.async { [self] in
+                guard let responseData = data else {
+                    print("Error: did not receive data")
+                    return
+                }
+                _ = JSONDecoder()
+                let token_type = (String(data: responseData, encoding: .utf8))
+                do {
+                    let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                    guard let usertoken = dict?["token_type"] as? String else { return  }
+                    guard let access_token = dict?["access_token"] as? String else { return }
+                    CUserDefaults.setValue(access_token, forKey: UserDefaultDeviceToken)
+                    CUserDefaults.synchronize()
+                    if self.isEmailVerify == true{
+                        
+                        self.UserDetailsfeath(userEmailId:userEmailId,accessToken:access_token,completion: { [self] success in
+                            if success == true {
+                                completion(true)
+                            }
+                        })
+                        
+                    }else {
+                        
+                        self.UserDetailsfeathMobile(userEmailId:userEmailId,accessToken:access_token,completion: { [self] success in
+                            if success == true {
+                                completion(true)
+                            }
+                        })
+                    }
+                }catch let error  {
+                    print("error trying to convert data to \(error)")
+                }
+            }
+        })
+        task.resume()
+    }
+    
+    //...UserDetails featch from Back
+    func UserDetailsfeath(userEmailId:String,accessToken:String,completion:@escaping(_ success:Bool) -> Void ) {
+        let dict:[String:Any] = [
+            CEmail_Mobile : userEmailId,
+        ]
+        APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:accessToken,viewType:1) { (response, error) in
+            if response != nil && error == nil {
+                completion(true)
+            }
+        }
+    }
+    
+    //...UserDetails featch from Back
+    func UserDetailsfeathMobile(userEmailId:String,accessToken:String,completion:@escaping(_ success:Bool) -> Void ) {
+        let dict:[String:Any] = [
+            CMobile : userEmailId,
+        ]
+        APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject],access_Token:accessToken,viewType:1) { (response, error) in
+            if response != nil && error == nil {
+                completion(true)
+            }
+        }
     }
 }

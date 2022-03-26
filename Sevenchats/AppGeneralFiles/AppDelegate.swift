@@ -83,7 +83,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.initiateApplicationRoot(launchOptions: launchOptions)
         
         //...Load Common api
-        MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
+//        MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
+        
+        MIGeneralsAPI.shared().fetchAllGeneralDataFromServerMaster()
         
         //...Configure for Location Manager
         MILocationManager.shared().initializeLocationManager()

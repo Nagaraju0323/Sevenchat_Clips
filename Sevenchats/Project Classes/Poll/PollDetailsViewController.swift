@@ -1365,17 +1365,12 @@ extension PollDetailsViewController {
                     dispatchGroup.leave()
                 })
                 }
-                    print("frames success")
-//                    self.tblVAnswre.dictArray = result
                 self.tblVAnswre.pollIsSelected = pollsData.valueForString(key: "is_selected")
                self.tblVAnswre.totalVotes = pollsData.valueForString(key: "total_count").toInt ?? 0
-                
-//                dispatchGroup.leave()
                 dispatchGroup.notify(queue: .main) {
                     self.tblVAnswre.reloadData()
                 }
             }
-            
 
             lblPollType.text = CTypePoll
             lblPollCategory.text = pollInfo.valueForString(key: CCategory).uppercased()
@@ -1420,7 +1415,6 @@ extension PollDetailsViewController {
             self.tblCommentList.updateHeaderViewHeight(extxtraSpace: 0)
             let created_At = pollInfo.valueForString(key: CCreated_at)
             let cnvStr = created_At.stringBefore("G")
-//            let removeFrst = cnvStr.chopPrefix(3)
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             lblPollPostDate.text = startCreated
             btnShare.setTitle(CBtnShare, for: .normal)
@@ -1649,7 +1643,7 @@ extension PollDetailsViewController{
                         self?.pageNumber += 1
                     }
                 }
-                print("arrCommentListCount : \(self?.arrCommentList.count)")
+//                print("arrCommentListCount : \(self?.arrCommentList.count)")
                 //self.lblNoData.isHidden = self.arrCommentList.count != 0
             }
         }

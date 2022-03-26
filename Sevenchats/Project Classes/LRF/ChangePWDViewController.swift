@@ -81,8 +81,7 @@ extension ChangePWDViewController{
 extension ChangePWDViewController{
     
     func changePasswords(){
-        
-        
+
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
         guard let userName = appDelegate.loginUser?.email else{ return}
         
@@ -95,7 +94,7 @@ extension ChangePWDViewController{
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "PUT"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
-        request.setValue("Bearer \("f17511300f38aef3f6d1a674c07e7292c1dc56ec")", forHTTPHeaderField:"Authorization")
+        request.setValue("Bearer \(CUserDefaults.value(forKey: UserDefaultDeviceToken))", forHTTPHeaderField:"Authorization")
         request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
         request.httpBody = data
         
@@ -113,7 +112,7 @@ extension ChangePWDViewController{
                 print("Error: did not receive data")
                 return
             }
-            let decoder = JSONDecoder()
+            _ = JSONDecoder()
             let token_type = (String(data: responseData, encoding: .utf8))
             do {
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
@@ -133,7 +132,7 @@ extension ChangePWDViewController{
                         })
                     }
                 }
-            }catch let error  {
+            } catch let error  {
                 print("error trying to convert data to \(error)")
             }
         })

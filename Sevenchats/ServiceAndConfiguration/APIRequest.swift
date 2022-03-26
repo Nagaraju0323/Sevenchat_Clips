@@ -49,7 +49,7 @@ let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 
 
 //MARK: - QA
-//var BASEMASTERURL = "https://dev.sevenchats.com:3001/auth/"
+//var BASEMASTERURL = "http://dev.sevenchats.com:3001/auth/"
 //var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
 //var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
 //var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
@@ -344,9 +344,12 @@ class Networking: NSObject
                 //...Get selected langauge detail from local
                 let langID = CUserDefaults.value(forKey: UserDefaultSelectedLangID) as? Int
                 let arrLang = TblLanguage.fetch(predicate: NSPredicate(format: "%K == %d", CLang_id, langID!), orderBy: CName, ascending: true)
-                
+              
                 if (arrLang?.count)! > 0 {
                     let dict = arrLang![0] as! TblLanguage
+                   
+                    print("this is the values\(CUserDefaults.value(forKey: UserDefaultDeviceToken))")
+                    
                     return ["Authorization" : "Bearer \((CUserDefaults.value(forKey: UserDefaultDeviceToken)) as? String ?? "")","Content-Type" : "application/json", "Accept-Language" : dict.lang_code ?? "en", "language":"\(CUserDefaults.value(forKey: UserDefaultSelectedLangID) ?? 1)","Accept" : "application/json"]
                 }
             }
@@ -506,13 +509,19 @@ extension Networking {
         
         let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
         
-        let uRequest = SessionManager.default.request((BASEMASTERURL + tag), method: .post, parameters: nil, encoding: parameterEncoding, headers: internalheaders ?? headers)
+        let uRequest = SessionManager.default.request((BASEMASTERURL + tag), method: .post, parameters: nil, encoding: parameterEncoding, headers:nil)
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task
     }
     
-    
-    
+    func POSTJSONREWARDS(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
+        
+        let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
+        
+        let uRequest = SessionManager.default.request((BASEMASTERURL + tag), method: .post, parameters:parameters, encoding: parameterEncoding, headers: internalheaders ?? headers)
+        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+        return uRequest.task
+    }
     
     func POSTJSON(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
         
@@ -868,6 +877,8 @@ extension APIRequest {
         
         _ = Networking.sharedInstance.GETNEWMASTER(apiTag:CAPITaglanguages, param: [:], successBlock: { (task, response) in
             MILoader.shared.hideLoader()
+            self.storeLanguageList(response: response as! [String : AnyObject])
+            completion(response, nil)
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITaglanguages){
                 self.storeLanguageList(response: response as! [String : AnyObject])
                 completion(response, nil)
@@ -883,6 +894,30 @@ extension APIRequest {
             }
         })
     }
+    
+    func getLanguageListMaster(showLoader : Bool, completion : @escaping ClosureCompletion) {
+        
+        _ = Networking.sharedInstance.GETNEWMASTER(apiTag:CAPITaglanguages, param: [:], successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            self.storeLanguageList(response: response as! [String : AnyObject])
+            completion(response, nil)
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITaglanguages){
+//                self.storeLanguageList(response: response as! [String : AnyObject])
+//                completion(response, nil)
+            }
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITaglanguages, error: error)
+            }
+        })
+    }
+    
+    
     
     func loadLanguagesText(completion : @escaping ClosureCompletion) {
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
@@ -1165,7 +1200,7 @@ extension APIRequest {
     
     func getInterestListNew(search : String?,langName : String?, type : Int?, page : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         if showLoader {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         let pages = page?.toString
         let CLimits = CLimitNew
@@ -1200,7 +1235,7 @@ extension APIRequest {
     
     func getInterestListArticle(articleType : String?,langName : String?, type : Int?, page : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         if showLoader {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         let tag = CAPITagCategoryType + articleType!
         
@@ -1224,7 +1259,7 @@ extension APIRequest {
     
     func getInterestListChiripy(articleType : String?,langName : String?, type : Int?, page : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         if showLoader {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         let tag = CAPITagCategoryType + articleType!
         
@@ -1247,7 +1282,7 @@ extension APIRequest {
     
     func getInterestListEvent(articleType : String?,langName : String?, type : Int?, page : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         if showLoader {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         let tag = CAPITagCategoryType + articleType!
         
@@ -1270,7 +1305,7 @@ extension APIRequest {
     
     func getInterestListForum(articleType : String?,langName : String?, type : Int?, page : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         if showLoader {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         let tag = CAPITagCategoryType + articleType!
         
@@ -1293,7 +1328,7 @@ extension APIRequest {
     
     func getInterestListGallery(articleType : String?,langName : String?, type : Int?, page : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         if showLoader {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         let tag = CAPITagCategoryType + articleType!
         
@@ -1316,7 +1351,7 @@ extension APIRequest {
     
     func getInterestListPoll(articleType : String?,langName : String?, type : Int?, page : Int?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         if showLoader {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         let tag = CAPITagCategoryType + articleType!
         
@@ -1718,13 +1753,19 @@ extension APIRequest {
         })
     }
     
+    func signUpUserDetailsSave(dict : [String : AnyObject],completion : (_ response:[String:AnyObject?]) -> Void ){
+        self.saveUserDetail(response: dict, accessToken: "", ViewController: 0)
+        completion(dict)
+    }
+    
+    
     
     func signUpUser(dict : [String : AnyObject], completion : @escaping ClosureCompletion) {
         
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
         _ = Networking.sharedInstance.POSTJSONAUTH(apiTag: CAPITagSignUp, param: dict, successBlock: { (task, response) in
-            
+            self.saveUserDetail(response: response as! [String:AnyObject], accessToken: "", ViewController: 0)
             MILoader.shared.hideLoader()
             completion(response, nil)
         }, failureBlock: { (task, message, error) in
@@ -3312,7 +3353,7 @@ extension APIRequest {
     func productLevelCategoriesList(searchText:String,showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
         
         if showLoader{
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         //let apiTag = CProductCategoriesList + "search=" + searchText
         let param : [String : Any] = [
@@ -3737,7 +3778,7 @@ extension APIRequest {
     }
     func rewardsAdding(param:[String:Any], completion: @escaping ClosureCompletion) {
         
-        _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITrewardAdd, param: param as [String:Any], successBlock: { (task, response) in
+        _ = Networking.sharedInstance.POSTJSONREWARDS(apiTag: CAPITrewardAdd, param: param as [String:Any], successBlock: { (task, response) in
             
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagNotifier){
                 completion(response, nil)
@@ -3758,7 +3799,7 @@ extension APIRequest {
     func rewardsSummaryNew(dict:[String:Any],showLoader : Bool, completion: @escaping ClosureCompletion) {
         
         if showLoader{
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
         
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagRewards, param: dict as [String:AnyObject], successBlock: { (task, reponse) in
@@ -3801,87 +3842,7 @@ extension APIRequest {
 //MARK:- --------- Store in Local
 
 extension APIRequest {
-    
-//    func saveUserDetail(response : [String : AnyObject]) {
-//
-//        if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
-//
-//            for dict in data{
-//
-//                let tblUser = TblUser.findOrCreate(dictionary: [CUserId : Int64(dict.valueForString(key: CUserId)) ?? ""]) as! TblUser
-//
-//                tblUser.email = dict.valueForString(key: CEmail)
-//                tblUser.first_name = dict.valueForString(key: CFirstname)
-//                tblUser.last_name = dict.valueForString(key: CLastname)
-//                tblUser.profile_img = dict.valueForString(key: CImage)
-//                tblUser.address = dict.valueForString(key: CAddress)
-//                tblUser.annual_income_id = Int64(dict.valueForString(key: CAnnual_income)) ?? 0
-//                tblUser.annual_income = dict.valueForString(key: "annual_income")
-//
-//                tblUser.badge_count = 0
-//                tblUser.block_unblock_status = false
-//                tblUser.dob = dict.valueForString(key: CDob)
-//                tblUser.education_id = Int64(dict.valueForString(key: "education_name")) ?? 0
-//                tblUser.employment_status = Int16(dict.valueForString(key: CEmployment_status)) ?? 0
-//
-//                tblUser.friend_block_unblock_status = false
-//                tblUser.friend_report_status = false
-//                tblUser.friend_status = false
-//                tblUser.friends = dict.valueForJSON(key: CFriends) as? NSObject
-//                tblUser.gender = Int16(dict.valueForString(key: CGender)) ?? 0
-//                tblUser.push_notify = dict.valueForBool(key: CPush_notify)
-//                tblUser.email_notify = dict.valueForBool(key: CEmail_notify)
-//                tblUser.lang_name = dict.valueForString(key: "lang_name")
-//                tblUser.latitude = Double(dict.valueForString(key: CLatitude)) ?? 0.0
-//                tblUser.longitude = Double(dict.valueForString(key: CLongitude)) ?? 0.0
-//                tblUser.mobile = dict.valueForString(key: CMobile)
-//                tblUser.profession = dict.valueForString(key: CProfession)
-//                tblUser.relationship_id = Int64(dict.valueForString(key: "relationship") ) ?? 0
-//                tblUser.relationship = dict.valueForString(key: "relationship")
-//                tblUser.religion = dict.valueForString(key: "religion")
-//                tblUser.short_biography = dict.valueForString(key: CShort_biography)
-//                tblUser.total_like = Int64(dict.valueForString(key: "likes")) ?? 0
-//                tblUser.user_type = true
-//                tblUser.user_types = dict.valueForString(key: "user_type")
-//                tblUser.visible_to_friend = Int16(dict.valueForString(key: CVisible_to_friend)) ?? 0
-//                tblUser.visible_to_other = Int16(dict.valueForString(key: CVisible_to_other)) ?? 0
-//                tblUser.profile_url = dict.valueForString(key: "profile_image")
-//                tblUser.cover_image = dict.valueForString(key: "cover_image")
-//                tblUser.education_name = dict.valueForString(key: "education_name")
-//                tblUser.country = dict.valueForString(key: CCountryName)
-//                tblUser.state = dict.valueForString(key: CStateName)
-//                tblUser.city = dict.valueForString(key: CCityName)
-//                tblUser.status_id = dict.valueForString(key: CStatus_id)
-//                tblUser.account_type = Int16(dict.valueForString(key: CAccounttype)) ?? 0
-//                let arrCountry = TblCountry.fetch(predicate: NSPredicate(format:"%K == %s", CCountryName, (dict.valueForString(key: "country_name"))))
-//
-//                if (arrCountry?.count)! > 0{
-//                    tblUser.country_code = ((arrCountry![0] as! TblCountry).country_code)
-//                }
-//                CUserDefaults.setValue(dict.valueForString(key: CUserId), forKey: UserDefaultUserID)
-//                CUserDefaults.synchronize()
-//                appDelegate.loginUser = tblUser
-//                CoreData.saveContext()
-//            }
-//        }
-//
-//        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjY2NGViZmYyMDM1YjIzZjk3OTg3MDdmYTgwOWYyNTBmZTk2NDVlMGQ3NTg1OGFlMjNiMTA3MTAxNTFhNjFlNTMwZWVmOTkxNDQ3OTUyYWI0In0.eyJhdWQiOiI3IiwianRpIjoiNjY0ZWJmZjIwMzViMjNmOTc5ODcwN2ZhODA5ZjI1MGZlOTY0NWUwZDc1ODU4YWUyM2IxMDcxMDE1MWE2MWU1MzBlZWY5OTE0NDc5NTJhYjQiLCJpYXQiOjE2Mjk0NzU5ODgsIm5iZiI6MTYyOTQ3NTk4OCwiZXhwIjoxNjYxMDExOTg4LCJzdWIiOiI1MjYiLCJzY29wZXMiOltdfQ.cjUBHTR8X8w__fLmKFpDL4l8N9E_EIaoJmZb8QIhvD7cBjvOk0fY2HF88OoBtuGDO7maFkfk0ayZ2LXRzP5EhZY43_imlnZVuM-8XN7OYwlW2N1pW1nYZKmNSjOSukHd4cIhq0iuFTEzYHVnVgI84ctGsVO8aU9lnX4h1YpOLuOON2VwbsYxHS8oITGGhL7AUu2ywmwtODlh2rGKDOAGezLeRu20xu-llDaTwRsalIFW1KNC720PWGmHTogoei2-96-W9hskJVXMDMWjyUO87C1W9LqFQjj5k-33Yx7EYA7AYSFxoYo1CLmFYphjiPT5EU50Fosl3QAu4udH-rNpLQdEJJthw-FcKaJJsaHaYnZ5GMKX_sJFfhT2feMp-9bjbvtx0bh6bjAISZj9TgN8LwVB_3uNUJ4G9AZD7zY-JumxaId91UUcdm9XFbQXeh3PkB1H1ceGmg3cD-SWkI2LjS3QL0IcUVVRXhMaEgBvY_oC_W1Hdkkd3riSBOn5W7-oLVQy0irzyDKqBbw4TS4rjHUNy1oUqY6vppNVgRfgLVN0RfVPbymQi1V2EmNMs1UGbhyqQyCndWfX_B-J2QUV2kK5uR36hkdzbKu23wE3k8PVN_mKYHtU3ASQCYQWBs1e6gZxDWw0X4t1CKLJjtC93lE2aB_JaZ5N-5_os5vISVM"
-//
-//
-//        if let metaData = response.valueForJSON(key: CJsonMeta) as? [String : AnyObject] {
-//            //...Save userID and token in Userdefault
-//
-//            if metaData.valueForString(key: "token") != "" {
-//
-//                CUserDefaults.setValue(metaData.valueForString(key: "token"), forKey: UserDefaultDeviceToken)
-//            }else {
-//
-//                CUserDefaults.setValue(token, forKey: UserDefaultDeviceToken)
-//            }
-//            CUserDefaults.synchronize()
-//        }
-//    }
-  
+
     func saveUserDetail(response : [String : AnyObject],accessToken:String,ViewController:Int) {
         
         if let data = response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] {
@@ -3944,6 +3905,69 @@ extension APIRequest {
                 CoreData.saveContext()
             }
         }
+        
+        
+        
+        if let data = response.valueForJSON(key:CJsonData) as? [String : AnyObject] {
+            
+                let tblUser = TblUser.findOrCreate(dictionary: [CUserId : Int64(data.valueForString(key: CUserId)) ?? ""]) as! TblUser
+                
+                tblUser.email = data.valueForString(key: CEmail)
+                tblUser.first_name = data.valueForString(key: CFirstname)
+                tblUser.last_name = data.valueForString(key: CLastname)
+                tblUser.profile_img = data.valueForString(key: CImage)
+                tblUser.address = data.valueForString(key: CAddress)
+                tblUser.annual_income_id = Int64(data.valueForString(key: CAnnual_income)) ?? 0
+                tblUser.annual_income = data.valueForString(key: "annual_income")
+                
+                tblUser.badge_count = 0
+                tblUser.block_unblock_status = false
+                tblUser.dob = data.valueForString(key: CDob)
+                tblUser.education_id = Int64(data.valueForString(key: "education_name")) ?? 0
+                tblUser.employment_status = Int16(data.valueForString(key: CEmployment_status)) ?? 0
+                
+                tblUser.friend_block_unblock_status = false
+                tblUser.friend_report_status = false
+                tblUser.friend_status = false
+                tblUser.friends = data.valueForJSON(key: CFriends) as? NSObject
+                tblUser.gender = Int16(data.valueForString(key: CGender)) ?? 0
+                tblUser.push_notify = data.valueForBool(key: CPush_notify)
+                tblUser.email_notify = data.valueForBool(key: CEmail_notify)
+                tblUser.lang_name = data.valueForString(key: "lang_name")
+                tblUser.latitude = Double(data.valueForString(key: CLatitude)) ?? 0.0
+                tblUser.longitude = Double(data.valueForString(key: CLongitude)) ?? 0.0
+                tblUser.mobile = data.valueForString(key: CMobile)
+                tblUser.profession = data.valueForString(key: CProfession)
+                tblUser.relationship_id = Int64(data.valueForString(key: "relationship") ) ?? 0
+                tblUser.relationship = data.valueForString(key: "relationship")
+                tblUser.religion = data.valueForString(key: "religion")
+                tblUser.short_biography = data.valueForString(key: CShort_biography)
+                tblUser.total_like = Int64(data.valueForString(key: "likes")) ?? 0
+                tblUser.user_type = true
+                tblUser.user_types = data.valueForString(key: "user_type")
+                tblUser.visible_to_friend = Int16(data.valueForString(key: CVisible_to_friend)) ?? 0
+                tblUser.visible_to_other = Int16(data.valueForString(key: CVisible_to_other)) ?? 0
+                tblUser.profile_url = data.valueForString(key: "profile_image")
+                tblUser.cover_image = data.valueForString(key: "cover_image")
+                tblUser.education_name = data.valueForString(key: "education_name")
+                tblUser.country = data.valueForString(key: CCountryName)
+                tblUser.state = data.valueForString(key: CStateName)
+                tblUser.city = data.valueForString(key: CCityName)
+                tblUser.status_id = data.valueForString(key: CStatus_id)
+                tblUser.account_type = Int16(data.valueForString(key: CAccounttype)) ?? 0
+                let arrCountry = TblCountry.fetch(predicate: NSPredicate(format:"%K == %s", CCountryName, (data.valueForString(key: "country_name"))))
+                
+                if (arrCountry?.count)! > 0{
+                    tblUser.country_code = ((arrCountry![0] as! TblCountry).country_code)
+                }
+                CUserDefaults.setValue(data.valueForString(key: CUserId), forKey: UserDefaultUserID)
+                CUserDefaults.synchronize()
+                appDelegate.loginUser = tblUser
+                CoreData.saveContext()
+            
+        }
+        
+        
         
 //        let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjY2NGViZmYyMDM1YjIzZjk3OTg3MDdmYTgwOWYyNTBmZTk2NDVlMGQ3NTg1OGFlMjNiMTA3MTAxNTFhNjFlNTMwZWVmOTkxNDQ3OTUyYWI0In0.eyJhdWQiOiI3IiwianRpIjoiNjY0ZWJmZjIwMzViMjNmOTc5ODcwN2ZhODA5ZjI1MGZlOTY0NWUwZDc1ODU4YWUyM2IxMDcxMDE1MWE2MWU1MzBlZWY5OTE0NDc5NTJhYjQiLCJpYXQiOjE2Mjk0NzU5ODgsIm5iZiI6MTYyOTQ3NTk4OCwiZXhwIjoxNjYxMDExOTg4LCJzdWIiOiI1MjYiLCJzY29wZXMiOltdfQ.cjUBHTR8X8w__fLmKFpDL4l8N9E_EIaoJmZb8QIhvD7cBjvOk0fY2HF88OoBtuGDO7maFkfk0ayZ2LXRzP5EhZY43_imlnZVuM-8XN7OYwlW2N1pW1nYZKmNSjOSukHd4cIhq0iuFTEzYHVnVgI84ctGsVO8aU9lnX4h1YpOLuOON2VwbsYxHS8oITGGhL7AUu2ywmwtODlh2rGKDOAGezLeRu20xu-llDaTwRsalIFW1KNC720PWGmHTogoei2-96-W9hskJVXMDMWjyUO87C1W9LqFQjj5k-33Yx7EYA7AYSFxoYo1CLmFYphjiPT5EU50Fosl3QAu4udH-rNpLQdEJJthw-FcKaJJsaHaYnZ5GMKX_sJFfhT2feMp-9bjbvtx0bh6bjAISZj9TgN8LwVB_3uNUJ4G9AZD7zY-JumxaId91UUcdm9XFbQXeh3PkB1H1ceGmg3cD-SWkI2LjS3QL0IcUVVRXhMaEgBvY_oC_W1Hdkkd3riSBOn5W7-oLVQy0irzyDKqBbw4TS4rjHUNy1oUqY6vppNVgRfgLVN0RfVPbymQi1V2EmNMs1UGbhyqQyCndWfX_B-J2QUV2kK5uR36hkdzbKu23wE3k8PVN_mKYHtU3ASQCYQWBs1e6gZxDWw0X4t1CKLJjtC93lE2aB_JaZ5N-5_os5vISVM"
         

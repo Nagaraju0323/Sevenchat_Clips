@@ -90,8 +90,6 @@ class ForumDetailViewController: ParentViewController {
     var posted_IDOthers = ""
     var notificationInfo = [String:Any]()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
@@ -205,8 +203,6 @@ extension ForumDetailViewController{
             forumInformation = forInfo
             notificationInfo = forInfo
             self.forumIDNew = forumInformation.valueForString(key:CPostId)
-//            posted_ID = forumInformation.valueForString(key: "user_id")
-            
             if isLikesOthersPage == true {
                 posted_ID = self.posted_IDOthers
             }else {
@@ -224,7 +220,7 @@ extension ForumDetailViewController{
             self.lblForumTitle.text = forInfo.valueForString(key: CTitle)
             self.lblForumCategory.text = forInfo.valueForString(key: CCategory).uppercased()
             
-            let is_Liked = forumInformation.valueForString(key: CIsLiked)
+            _ = forumInformation.valueForString(key: CIsLiked)
 
             if isLikesOthersPage == true {
                 if forInfo.valueForString(key:"friend_liked") == "Yes"  && forInfo.valueForString(key:"is_liked") == "Yes" {
@@ -249,8 +245,6 @@ extension ForumDetailViewController{
 
                 }
             }
-            
-            
             if isLikesHomePage == true  || isLikesMyprofilePage == true {
                 if forInfo.valueForString(key:CIs_Liked) == "Yes"{
                     btnLike.isSelected = true
@@ -398,7 +392,7 @@ extension ForumDetailViewController: UITableViewDelegate, UITableViewDataSource{
                         let arrSelectedUser = arrIncludedUsers.filter({$0[CFullName] as? String == name})
                         
                         if arrSelectedUser.count > 0 {
-                            let userSelectedInfo = arrSelectedUser[0]
+                            _ = arrSelectedUser[0]
                             appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CUserId), self.forumInformation.valueForString(key: CUsermailID), self)
                         }
                     })
@@ -553,7 +547,7 @@ extension ForumDetailViewController{
                             let data = response![CJsonMeta] as? [String:Any] ?? [:]
                             guard let firstName = appDelegate.loginUser?.first_name else {return}
                             guard let lastName = appDelegate.loginUser?.last_name else {return}
-                            let stausLike = data["status"] as? String ?? "0"
+                            _ = data["status"] as? String ?? "0"
                             if self.posted_ID != userID.description {
                                 
                                 self.notificationInfo["comments"] = self.commentCount
@@ -562,8 +556,6 @@ extension ForumDetailViewController{
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }
                         self.editCommentId =  nil
-                        //                        self.tblCommentList.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-                        //self.lblNoData.isHidden = self.arrCommentList.count != 0
                     }
                 }
             }

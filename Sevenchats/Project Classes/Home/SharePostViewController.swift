@@ -389,15 +389,6 @@ extension SharePostViewController {
                         }
                    }
                 }
-                
-//                if let postInfo = response![CJsonData] as? [String : Any]{
-//                    let postID = postInfo[CPostId] as? Int
-//                    if self.isFromEdit{
-//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(postInfo,postID, self, .editPost, rss_id: 0)
-//                    }else{
-//                        MIGeneralsAPI.shared().refreshPostRelatedScreens(postInfo,postID, self, .addPost, rss_id: 0)
-//                    }
-//                }
             }
         }
     }
