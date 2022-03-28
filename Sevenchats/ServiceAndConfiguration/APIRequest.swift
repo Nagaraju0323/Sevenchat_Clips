@@ -518,7 +518,7 @@ extension Networking {
         
         let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
         
-        let uRequest = SessionManager.default.request((BASEMASTERURL + tag), method: .post, parameters:parameters, encoding: parameterEncoding, headers: internalheaders ?? headers)
+        let uRequest = SessionManager.default.request((BASEURLNEW + tag), method: .post, parameters:parameters, encoding: parameterEncoding, headers: internalheaders ?? headers)
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task
     }
@@ -1639,9 +1639,9 @@ extension APIRequest {
                 return
             }
             for response in responseData{
-                self.saveUserDetail(response: _response, accessToken: "", ViewController: viewType)
+                self.saveUserDetail(response: _response, accessToken:access_Token, ViewController: viewType)
                 if (response.valueForString(key: "user_id")) == appDelegate.loginUser?.user_id.description {
-                    self.saveUserDetail(response: _response, accessToken: "", ViewController: viewType)
+                    self.saveUserDetail(response: _response, accessToken: access_Token, ViewController: viewType)
                 }
             }
             
@@ -1857,13 +1857,14 @@ extension APIRequest {
     
     func verifyMobile(api: String, email : String, mobile : String, completion : @escaping ClosureCompletion) {
         
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         let para : [String:Any]  =
             [
                 "to":mobile.description
             ]
         _ = Networking.sharedInstance.POSTJSONOTP(apiTag: CAPITagVerifyEditMobileNew, param: para, successBlock: { (task, response) in
-            
             completion(response, nil)
+            MILoader.shared.hideLoader()
         }, failureBlock: { (task, message, error) in
             MILoader.shared.hideLoader()
             completion(nil, error)
