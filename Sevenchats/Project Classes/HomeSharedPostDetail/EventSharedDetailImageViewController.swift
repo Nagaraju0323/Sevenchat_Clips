@@ -648,7 +648,7 @@ extension EventSharedDetailImageViewController {
                         intrestCount = +1
                         notificationInfo["yes_count"] = intrestCount.toString
                         notificationInfo["selected_choice"] = "1"
-                      MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo)
+                      MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo,shareLink: "sendEventChLink")
                     }
                     eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
                 }
@@ -664,7 +664,7 @@ extension EventSharedDetailImageViewController {
                             notificationInfo["no_count"] = notIntrestCount
                             notificationInfo["selected_choice"] = "2"
 
-                        MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo)
+                        MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo,shareLink: "sendEventChLink")
                         }
                         eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
                     }
@@ -679,7 +679,7 @@ extension EventSharedDetailImageViewController {
                         maybeCount = +1
                         notificationInfo["maybe_count"] = maybeCount
                         notificationInfo["selected_choice"] = "3"
-                        MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:])
+                        MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:],shareLink: "sendEventChLink")
                     }
                     eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
                 }
@@ -1115,7 +1115,7 @@ extension EventSharedDetailImageViewController{
                             self?.notificationInfo["is_liked"] = "Yes"
                         }
                         self?.notificationInfo["likes"] = self?.likeTotalCount.toString
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:], shareLink: "shareLikes")
                         if let metaInfo = response![CJsonMeta] as? [String : Any] {
                             let stausLike = metaInfo["status"] as? String ?? "0"
                             if stausLike == "0" {
@@ -1364,7 +1364,7 @@ extension EventSharedDetailImageViewController{
                             let stausLike = data["status"] as? String ?? "0"
                             if self.postID ?? 0 != userID{
                                 self.notificationInfo["comments"] = self.commentCount
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo,shareLink: "shareComment")
 
                             }
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)

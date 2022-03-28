@@ -610,7 +610,7 @@ extension ProductDetailVC {
                     self.productNotfi["product_id"] = self.product?.productID
                     self.productNotfi["productUserID"] = self.product?.productUserID
                     
-                    MIGeneralsAPI.shared().sendNotification(self.productUserID, userID: userID.description, subject: "Commented on your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Product", senderName: firstName + lastName, post_ID: self.productNotfi)
+                    MIGeneralsAPI.shared().sendNotification(self.productUserID, userID: userID.description, subject: "Commented on your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Product", senderName: firstName + lastName, post_ID: self.productNotfi,shareLink: "sendProductComtLink")
                     self.editCommentId =  nil
                     //self.tblProduct.scrollToRow(at: IndexPath(row: 0, section: 1), at: .top, animated: false)
                     //self.lblNoData.isHidden = self.arrCommentList.count != 0

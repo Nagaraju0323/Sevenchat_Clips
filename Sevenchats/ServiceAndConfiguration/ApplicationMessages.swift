@@ -503,7 +503,7 @@ var CMessageNoCommentFound: String{ return appDelegate.langugaeText?.no_comment_
 
 //MARK:- Messages
 
-var CMessageReport: String{ return appDelegate.langugaeText?.alert_message_editprofile ?? "Your Request is on the way. We will investigate and take an action soon" }
+var CMessageReport: String{ return appDelegate.langugaeText?.report_success ?? "Your Request is on the way. We will investigate and take an action soon" }
 var CMessageUpdatedprofile: String{ return appDelegate.langugaeText?.alert_message_editprofile ?? "Thank You for updating your information" }
 var CMessageReportSubmitted: String{ return appDelegate.langugaeText?.group_report_submitted_success ?? "User report has been submitted" }
 var CMessagePleaseWait: String{ return appDelegate.langugaeText?.please_wait ?? "Please Wait..." }

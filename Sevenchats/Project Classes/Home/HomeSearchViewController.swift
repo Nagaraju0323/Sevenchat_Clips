@@ -225,7 +225,7 @@ extension HomeSearchViewController  {
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
                       
-                        MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "send you a Friends Request", MsgType: "FRIEND_REQUEST", MsgSent:"", showDisplayContent: "send you a Friends Request", senderName: firstName + " " + lastName, post_ID: dict)
+                        MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "send you a Friends Request", MsgType: "FRIEND_REQUEST", MsgSent:"", showDisplayContent: "send you a Friends Request", senderName: firstName + " " + lastName, post_ID: dict,shareLink:"sendFrdRequestLink")
                     }
                     completion(true)
                 }

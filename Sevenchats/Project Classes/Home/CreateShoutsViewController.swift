@@ -220,7 +220,6 @@ extension CreateShoutsViewController{
                     }
                 }
                 
-                
                 if self?.shoutsType == .shareQuote{
                     (appDelegate.sideMenuController.leftViewController as? SideMenuViewController)?.selectIndex(0)
                     appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))

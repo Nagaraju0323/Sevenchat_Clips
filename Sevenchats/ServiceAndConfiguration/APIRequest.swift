@@ -4366,6 +4366,7 @@ extension APIRequest {
             tblLanguageText.the_provided_email_id_already_registered = dict?.valueForString(key: "the_provided_email_id_already_registered")
             tblLanguageText.the_provided_Mobile_Number_already_registered = dict?.valueForString(key: "the_provided_Mobile_Number_already_registered")
             tblLanguageText.entered_wrong_otp = dict?.valueForString(key: "entered_wrong_otp")
+            tblLanguageText.report_success = dict?.valueForString(key: "report_success")
             
             
             //LRF screen Messages...

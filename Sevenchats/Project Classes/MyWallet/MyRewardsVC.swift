@@ -139,15 +139,18 @@ extension MyRewardsVC {
     }
     fileprivate func getRewardsSummaryNew(isLoader: Bool) {
         
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        
         guard let userID = appDelegate.loginUser?.user_id.description else { return }
         dict[CUserId] = userID
         APIRequest.shared().rewardsSummaryNew(dict:dict,showLoader: isLoader) { [weak self] (response, error) in
-            guard let self = self else { return }
             
+            guard let self = self else { return }
             var dict = [String:Any]()
             self.refreshControl.endRefreshing()
             print(response as Any)
             self.arrHistory.removeAll()
+            MILoader.shared.hideLoader()
             if response != nil {
                 let arrData = response![CData] as? [[String : Any]] ?? []
                 if let arrMessageList : [TblRewardCategory] = TblRewardCategory.fetch(predicate: nil, orderBy: CCategoryName, ascending: true) as? [TblRewardCategory] {

@@ -840,7 +840,7 @@ extension ImageSharedDetailViewController{
                         }
                             self?.notificationInfo["likes"] = self?.likeTotalCount.toString
                             self?.notificationInfo["image"] = ""
-                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:],shareLink: "shareLikes")
                         }
                         self?.notifcationIsSlected = false
                     }
@@ -938,7 +938,7 @@ extension ImageSharedDetailViewController{
                             let stausLike = data["status"] as? String ?? "0"
                             self.notificationInfo["image"] = ""
                             if self.posted_ID != userID.description{
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post" ,senderName: firstName + lastName, post_ID: self.notificationInfo )
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post" ,senderName: firstName + lastName, post_ID: self.notificationInfo, shareLink: "shareComment" )
                             }
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }

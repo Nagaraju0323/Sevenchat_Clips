@@ -280,7 +280,7 @@ extension HomeArticleCell{
                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:],shareLink: "shareLikes")
                         
                         }
                         

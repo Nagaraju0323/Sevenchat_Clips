@@ -35,6 +35,27 @@ enum PostActions : Int {
 }
 
 
+enum shareLinks:String{
+    
+    case shareComment = "shareComment"
+    case shareLikes = "shareLikes"
+    case sendFrdRequestLink = "sendFrdRequestLink"
+    case sendBlckLink = "sendBlckLink"
+    case senduserChatLink = "senduserChatLink"
+    case sendGrpChatLink = "sendGrpChatLink"
+    case sendGrpAddLink = "sendGrpAddLink"
+    case sendGrpRemoveLink = "sendGrpRemoveLink"
+    case sendGrpExitLink = "sendGrpExitLink"
+    case sendGrpDeleteLink = "sendGrpDeleteLink"
+    case sendProductLikeLink = "sendProductLikeLink"
+    case sendContactSlrLink = "sendContactSlrLink"
+    case sendProductComtLink = "sendProductComtLink"
+    case sendEventChLink = "sendEventChLink"
+    
+    
+}
+
+
 class MIGeneralsAPI: NSObject {
     
     private override init() {
@@ -2330,24 +2351,91 @@ extension MIGeneralsAPI {
 
 extension MIGeneralsAPI {
     
-    func sendNotification(_ receiverID: String?,userID:String?,subject:String?,MsgType:String?,MsgSent:String?,showDisplayContent:String?,senderName:String,post_ID:[String:Any]) {
+    func sendNotification(_ receiverID: String?,userID:String?,subject:String?,MsgType:String?,MsgSent:String?,showDisplayContent:String?,senderName:String,post_ID:[String:Any],shareLink:String) {
         
         guard let firstName = appDelegate.loginUser?.first_name else {return}
         guard let lastName = appDelegate.loginUser?.last_name else {return}
         guard let profileImg = appDelegate.loginUser?.profile_img else {return}
-        
         let post_Type = post_ID.valueForString(key: "type")
+        let postID_str = post_ID.valueForString(key:"post_id")
+        var links = ""
+        let shareLink = shareLinks(rawValue: shareLink)
+
+        switch (shareLink){
         
+        case .shareComment:
+            
+            links = "/post_details?id=" + postID_str + "&type=" + post_Type
+            
+            break
+        case .shareLikes:
+            
+            links = "/post_details?id="+"\(postID_str)"+"+&type="+"\(post_Type)"
+            break
+            
+        case .sendFrdRequestLink:
+           
+            links = "/friend_profile?id=" + "\(userID ?? "")"
+            
+            break
+        case .sendBlckLink:
+            
+            links = "/friend_profile?id=" + "\(userID ?? "")"
+            break
+        case .senduserChatLink:
+            
+            links = "/chats"
+           
+            break
+        case .sendGrpChatLink:
+            
+            links = "/groups"
+            
+            break
+        case .sendGrpAddLink:
+            links = "/groups"
+            
+            break
+            
+        case .sendGrpRemoveLink:
+            links = "/groups"
+            break
+        case .sendGrpExitLink:
+            links = "/groups"
+            break
+        case .sendGrpDeleteLink:
+            links = "/groups"
+            break
+        case .sendProductLikeLink:
+           
+            links = "/post_details?id="+"\(postID_str)"+"&type=productlike"
+            
+            break
+        case .sendContactSlrLink:
+           
+            links = "/post_details?id="+"\(postID_str)"+"+&type="+"\(post_Type)"
+            
+            break
+        case .sendProductComtLink:
+          
+            links = "/post_details?id=" + postID_str + "&type=" + post_Type
+            
+            break
+        case .sendEventChLink:
+            links = "/post_details?id="+"\(postID_str)"+"&type=event"
+
+            break
+        default: break
+        }
+
         let userName = "\(firstName)\(" ")\(lastName)"
         var contentStr = ""
         let content:[String:Any]  = [
             "subject":subject as Any,
             "senderName": senderName,
-            //         "content":"<b>\(firstName) \(lastName)</b> &nbsp\(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
-            //         "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")\(" ") \(MsgSent ?? "")",
-            
+            //"content":"<b>\(firstName) \(lastName)</b> &nbsp\(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
             "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")\(" ")\(MsgSent ?? "")",
-            "link":"",
+            "link":links as Any,
             "type":MsgType as Any,
             "postInfo":post_ID
         ]

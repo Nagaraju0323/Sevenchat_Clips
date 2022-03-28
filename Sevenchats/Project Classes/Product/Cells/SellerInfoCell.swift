@@ -64,7 +64,7 @@ class SellerInfoCell: UITableViewCell, ProductDetailBaseCell  {
                 "reciver_userID"  : self.modelData.userId ?? "",
                 "type_Details" : "productDetails"
                 ]
-            MIGeneralsAPI.shared().sendNotification(self.modelData.userId ?? "", userID: user_ID.description, subject: "Viewed your product \(self.modelData.productDescription ?? "") please click to view \(userName)", MsgType: "CHAT_MESSAGE", MsgSent:"", showDisplayContent: "Product Viewed", senderName: firstName + lastName, post_ID: para)
+            MIGeneralsAPI.shared().sendNotification(self.modelData.userId ?? "", userID: user_ID.description, subject: "Viewed your product \(self.modelData.productDescription ?? "") please click to view \(userName)", MsgType: "CHAT_MESSAGE", MsgSent:"", showDisplayContent: "Product Viewed", senderName: firstName + lastName, post_ID: para,shareLink: "sendContactSlrLink")
             contactInfo.productIDs = self.modelData.productID
             contactInfo.productEmailid = self.modelData.pemail
             contactInfo.productUserName = self.modelData.firstName + " " + self.modelData.lastName

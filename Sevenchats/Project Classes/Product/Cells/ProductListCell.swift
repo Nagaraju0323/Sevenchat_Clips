@@ -183,7 +183,7 @@ extension ProductListCell {
                         self?.productDetails["type"] = "productDetails"
                         self?.productDetails["product_id"] = self?.product.productID
                         self?.productDetails["productUserID"] = self?.product.productUserID
-                        MIGeneralsAPI.shared().sendNotification(self?.product.productUserID, userID: user_ID, subject: "liked your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Product", senderName: firstName + lastName, post_ID: self?.productDetails ?? [:])
+                        MIGeneralsAPI.shared().sendNotification(self?.product.productUserID, userID: user_ID, subject: "liked your Product", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Product", senderName: firstName + lastName, post_ID: self?.productDetails ?? [:],shareLink: "sendProductLikeLink")
                         self?.notifcationIsSlected = false
                     }
                     

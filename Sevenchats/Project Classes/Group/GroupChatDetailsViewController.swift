@@ -1000,7 +1000,7 @@ extension GroupChatDetailsViewController {
 //                                        let groupInfos = self.iObject as? [String : Any]
                                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "send a text Message to you \(self.group_Name)", MsgType: "GROUP_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a text Message to you \(self.group_Name)", senderName: firstName + lastName, post_ID: self.groupInfoLatest )
+                                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "send a text Message to you \(self.group_Name)", MsgType: "GROUP_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a text Message to you \(self.group_Name)", senderName: firstName + lastName, post_ID: self.groupInfoLatest,shareLink: "sendGrpChatLink" )
                                     }
                                 }
                             }
@@ -1622,7 +1622,7 @@ extension GroupChatDetailsViewController {
                     }else {
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "send a text Message to you \(self.group_Name)", MsgType: "GROUP_MESSAGE", MsgSent: "send Attachment", showDisplayContent: "send a text Message to you \(self.group_Name)", senderName: firstName + lastName, post_ID: self.groupInfoLatest)
+                        MIGeneralsAPI.shared().sendNotification(friends_ID, userID: user_ID.description, subject: "send a text Message to you \(self.group_Name)", MsgType: "GROUP_MESSAGE", MsgSent: "send Attachment", showDisplayContent: "send a text Message to you \(self.group_Name)", senderName: firstName + lastName, post_ID: self.groupInfoLatest,shareLink: "sendGrpChatLink")
                     }
                 }
             }

@@ -824,6 +824,17 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
     
+    //...Get Article Details From Server
+//    func getarticleDetailsFromServer(postID:String?,postInfo[String:Any]){
+//
+//
+//        
+//
+//
+//    }
+    
+    
+    //...Get Gellery Details From Server
     func getGalleryDetailsFromServer(imgPostId:Int?,postInfo:[String:Any]) {
         var imagesUpload = ""
         if let imgID = imgPostId {
@@ -846,6 +857,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         }
     }
     
+    //...Get Poll Details From Server
     func getPollDetailsFromServer(pollID:Int?,postInfo:[String:Any]) {
         var options = ""
         if let artID = pollID {

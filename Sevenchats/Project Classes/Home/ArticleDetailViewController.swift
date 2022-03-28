@@ -444,7 +444,7 @@ extension ArticleDetailViewController{
                                 self?.notificationInfo["is_liked"] = "Yes"
                             }
                             self?.notificationInfo["likes"] = self?.likeTotalCount.toString
-                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:])
+                            MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:], shareLink: "shareLikes")
                             if let metaInfo = response![CJsonMeta] as? [String : Any] {
                                 let stausLike = metaInfo["status"] as? String ?? "0"
                                 if stausLike == "0" {
@@ -785,7 +785,7 @@ extension ArticleDetailViewController{
                                 
                                 self.notificationInfo["comments"] = self.commentCount
                                 self.notificationInfo["comments"] = self.commentCount
-                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo)
+                                MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: userId, subject: "Commented on your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "Commented on your Post", senderName: firstName + lastName, post_ID: self.notificationInfo, shareLink: "shareComment")
                             }
                             self.genericTextViewDidChange(self.txtViewComment, height: 10)
                         }

@@ -453,7 +453,7 @@ extension HomeEventImageTblCell{
                                     self?.notificationInfo["is_liked"] = "Yes"
                                 }
                                 self?.notificationInfo["likes"] = self?.likeTotalCount.toString
-                                MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName,  post_ID: self?.notificationInfo ?? [:])
+                                MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName,  post_ID: self?.notificationInfo ?? [:],shareLink: "shareLikes")
 //                           }
                         }
                         self?.notifcationIsSlected = false
@@ -535,7 +535,7 @@ extension HomeEventImageTblCell{
                     intrestCount = +1
                     notificationInfo["yes_count"] = intrestCount?.toString
                     notificationInfo["selected_choice"] = "1"
-                    MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo)
+                    MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo,shareLink: "sendEventChLink")
                 }
             }
            }
@@ -564,7 +564,7 @@ extension HomeEventImageTblCell{
                     maybeCount = +1
                     notificationInfo["maybe_count"] = maybeCount.toString
                     notificationInfo["selected_choice"] = "3"
-                    MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID:notificationInfo)
+                    MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID:notificationInfo,shareLink: "sendEventChLink")
                     
                 }
               }
@@ -594,7 +594,7 @@ extension HomeEventImageTblCell{
                     notificationInfo["no_count"] = notIntrestCount.toString
                     notificationInfo["selected_choice"] = "2"
                     
-                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo)
+                 MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: "Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo,shareLink: "sendEventChLink")
                     
                 }
               }
