@@ -257,6 +257,7 @@ let RejectRequest = "Request rejected successfully"
 let UnFriendRequest = "User unfriend successfully"
 let Blocked = "User Blocked successfully"
 let UnBlock = "User Un-Blocked successfully"
+let RequestSent = "Request sent successfully"
 
 
 let CStaticArticleId     = 1

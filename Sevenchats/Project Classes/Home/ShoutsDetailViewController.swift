@@ -173,8 +173,9 @@ extension ShoutsDetailViewController{
     fileprivate func getShoutsDetailsFromServer() {
         
         self.parentView.isHidden = true
+        guard let userid = appDelegate.loginUser?.user_id else { return }
         if let shouID = self.shoutID {
-            APIRequest.shared().viewPostDetailNew(postID: shouID, apiKeyCall: CAPITagshoutsDetials){ [weak self] (response, error) in
+            APIRequest.shared().viewPostDetailLatest(postID: shouID,userid: userid.description, apiKeyCall: "shouts"){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false

@@ -214,8 +214,8 @@ extension ArticleDetailViewController{
         
         self.parentView.isHidden = true
         if let artID = self.articleID {
-            
-            APIRequest.shared().viewPostDetailNew(postID: artID, apiKeyCall: CAPITagarticlesDetials){ [weak self] (response, error) in
+            guard let userid = appDelegate.loginUser?.user_id else { return }
+            APIRequest.shared().viewPostDetailLatest(postID: artID,userid: userid.description, apiKeyCall: CAPITagarticlesDetials){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false

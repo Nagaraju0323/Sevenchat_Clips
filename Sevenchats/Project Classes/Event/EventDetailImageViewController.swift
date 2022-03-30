@@ -267,9 +267,11 @@ extension EventDetailImageViewController {
     }
     func loadEventDetailFromServer() {
         self.parentView.isHidden = true
+        guard let userid = appDelegate.loginUser?.user_id else { return }
         
-        APIRequest.shared().viewPostDetailNew(postID: self.postID ?? 0, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in
+        APIRequest.shared().viewPostDetailLatest(postID: self.postID ?? 0,userid: userid.description, apiKeyCall: "events"){ [weak self] (response, error) in
             guard let self = self else { return }
+            
             if response != nil {
                 self.parentView.isHidden = false
                 if let shoInfo = response!["data"] as? [[String:Any]]{

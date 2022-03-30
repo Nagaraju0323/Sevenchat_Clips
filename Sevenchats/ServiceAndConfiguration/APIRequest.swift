@@ -40,6 +40,8 @@ var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
 //////MARK:- SockeIO key
 //let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
 let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
+//https://dev.sevenchats.com:4443/ws-chat/websocket
+
 //////MARK:- NotificationSocket
 let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
 let BASEURL_Rew: String = "Dev"
@@ -49,7 +51,7 @@ let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 
 
 //MARK: - QA
-//var BASEMASTERURL = "http://dev.sevenchats.com:3001/auth/"
+//var BASEMASTERURL = "https://qa.sevenchats.com:7444/auth/"
 //var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
 //var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
 //var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
@@ -2415,6 +2417,40 @@ extension APIRequest {
         })
     }
     
+    func viewPostDetailLatest(postID : Int,userid:String,apiKeyCall: String, completion : @escaping ClosureCompletion) {
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+
+//        var CAPITagurl = ""
+//        if CAPITagarticlesDetials == apiKeyCall || CAPITagchirpiesDetials == apiKeyCall || CAPITageventsDetials == apiKeyCall  || CAPITagforumsDetials == apiKeyCall || CAPITagsgalleryDetials == apiKeyCall || CAPITagpollsDetials == apiKeyCall  || CAPITagshoutsDetials == apiKeyCall{
+//            CAPITagurl = apiKeyCall
+//        }
+
+        var param = [String:Any]()
+        param["post_id"] = postID.description
+        param["user_id"] = userid.description
+        
+        let apiTag = apiKeyCall + "/details"
+
+        _ = Networking.sharedInstance.GETNEWPR(apiTag: apiTag, param: param as [String:AnyObject], successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: apiTag) {
+                //                    self.saveUserDetail(response: response as! [String : AnyObject])
+                completion(response, nil)
+            }
+        },failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagViewPost, error: error)
+            }
+        })
+    }
+    
+    
+    
     func PollDetailNews(postID : Int, completion : @escaping ClosureCompletion) {
         var para = [String:Any]()
         para["id"] =  postID.toString
@@ -4309,6 +4345,8 @@ extension APIRequest {
     
     // Store user chat list to local..
     func storeUserChatList(response : [String : Any]) {
+        TblChatUserList.deleteAllObjects()
+        CoreData.saveContext()
         if let data = response.valueForJSON(key: CJsonData) as? [[String : Any]] {
             
             for item in data {

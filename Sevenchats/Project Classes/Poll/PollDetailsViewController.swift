@@ -1104,7 +1104,9 @@ extension PollDetailsViewController {
 
     func getPollDetailsFromServer() {
         if let artID = self.pollID {
-            APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
+//            APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
+            guard let userid = appDelegate.loginUser?.user_id else { return }
+            APIRequest.shared().viewPostDetailLatest(postID: artID,userid: userid.description, apiKeyCall: "polls"){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     //self.parentView.isHidden = false

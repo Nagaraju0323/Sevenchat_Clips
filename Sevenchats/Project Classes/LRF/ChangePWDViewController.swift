@@ -23,10 +23,12 @@ class ChangePWDViewController: ParentViewController {
     @IBOutlet var txtOldPWD : MIGenericTextFiled!
     @IBOutlet var txtNewPWD : MIGenericTextFiled!
     @IBOutlet var txtConfirmPWD : MIGenericTextFiled!
+    var loginType:Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -71,6 +73,7 @@ extension ChangePWDViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetAlertPWDConfirmPWDNotMatch, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
             self.changePasswords()
+            self.changePasswordsMobielNo()
         }
     }
     
@@ -94,7 +97,68 @@ extension ChangePWDViewController{
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "PUT"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
-        request.setValue("Bearer \(CUserDefaults.value(forKey: UserDefaultDeviceToken))", forHTTPHeaderField:"Authorization")
+        let token = CUserDefaults.value(forKey: UserDefaultDeviceToken)
+        request.setValue("Bearer \(token ?? "")", forHTTPHeaderField:"Authorization")
+        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
+        request.httpBody = data
+        
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) in
+            if let error = error{
+                print("somethis\(error)")
+            }
+            else if let response = response {
+            }else if let data = data{
+            }
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            _ = JSONDecoder()
+            let token_type = (String(data: responseData, encoding: .utf8))
+            do {
+                let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                guard let userMsg = dict?["message"] as? String else { return }
+                DispatchQueue.main.async {
+                    if userMsg == "Something went wrong!"{
+                        MILoader.shared.hideLoader()
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Password Does not Match", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        })
+                        
+                    }else {
+                        MILoader.shared.hideLoader()
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                            self.navigationController?.popToRootViewController(animated: true)
+                        })
+                    }
+                }
+            } catch let error  {
+                print("error trying to convert data to \(error)")
+            }
+        })
+        task.resume()
+    }
+    
+    func changePasswordsMobielNo(){
+
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
+        guard let userName = appDelegate.loginUser?.mobile else{ return}
+        
+        let password = txtNewPWD.text ?? ""
+        let old_password = txtOldPWD.text ?? ""
+        
+        let data : Data = "username=\(userName)&password=\(password)&grant_type=password&client_id=null&client_secret=null&old_password=\(old_password)".data(using: .utf8)!
+        
+        let url = URL(string: "\(BASEAUTH)auth/resetPassword")
+        var request : URLRequest = URLRequest(url: url!)
+        request.httpMethod = "PUT"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
+        let token = CUserDefaults.value(forKey: UserDefaultDeviceToken)
+        request.setValue("Bearer \(token ?? "")", forHTTPHeaderField:"Authorization")
         request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
         request.httpBody = data
         

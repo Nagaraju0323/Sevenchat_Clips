@@ -194,7 +194,8 @@ extension ImageDetailViewController{
     fileprivate func getGalleryDetailsFromServer() {
         self.parentView.isHidden = true
         if let imgID = self.imgPostId {
-            APIRequest.shared().viewPostDetailNew(postID: imgID, apiKeyCall: CAPITagsgalleryDetials){ [weak self] (response, error) in
+            guard let userid = appDelegate.loginUser?.user_id else { return }
+            APIRequest.shared().viewPostDetailLatest(postID: imgID,userid: userid.description, apiKeyCall: "galleries"){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false

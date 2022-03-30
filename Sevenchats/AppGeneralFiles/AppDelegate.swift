@@ -213,7 +213,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if appDelegate.loginUser?.user_id != nil {
             MIGeneralsAPI.shared().laodLoginUserDetail()
             MIGeneralsAPI.shared().getAdvertisementList()
-            ChatSocketIo.shared().SocketInitilized()
+//            ChatSocketIo.shared().SocketInitilized()
 
         }
         
@@ -456,7 +456,7 @@ extension AppDelegate {
 
           langugaeText = TblLanguageText.findOrCreate(dictionary: [CLang_code : CUserDefaults.object(forKey: UserDefaultSelectedLangCode) as Any]) as? TblLanguageText
 
-            ChatSocketIo.shared().SocketInitilized()
+//            ChatSocketIo.shared().SocketInitilized()
             MIGeneralsAPI.shared().getAdvertisementList()
           
             let remoteNotif = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? [String: Any]
@@ -637,7 +637,7 @@ extension AppDelegate {
                 print("NETWORK REACHABLE")
                 noInternetView?.removeFromSuperview()
              
-                ChatSocketIo.shared().SocketInitilized()
+//                ChatSocketIo.shared().SocketInitilized()
                 
 //                if MIMQTT.shared().objMQTTClient != nil {
 //                    _ = MIMQTT.shared().objMQTTClient?.connect()

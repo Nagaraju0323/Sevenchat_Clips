@@ -50,7 +50,7 @@ class ChatListViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.fetchUserListFromLocal()
+//        self.fetchUserListFromLocal()
         self.getUserChatListFromServer(isNew: true)
     }
     
@@ -142,17 +142,16 @@ extension ChatListViewController {
         
         var apiTimeStamp : Double = 0
         
-        if !isNew {
-            // When need old data...
-            if let chatInfo = MIGeneralsAPI.shared().fetchChatUserObjectFromLocal(isNew: !isNew) {
-                apiTimeStamp = chatInfo.created_at
-            }
-        }
+//        if !isNew {
+//            // When need old data...
+//            if let chatInfo = MIGeneralsAPI.shared().fetchChatUserObjectFromLocal(isNew: !isNew) {
+//                apiTimeStamp = chatInfo.created_at
+//            }
+//        }
         
-        guard let userid = appDelegate.loginUser?.user_id else {
-            return
-        }
+        guard let userid = appDelegate.loginUser?.user_id else {return}
         let userID = String(userid)
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
         apiTask = APIRequest.shared().getUserChatList(timestamp: apiTimeStamp, userID:userID,showLoader: false, completion: { (response, error) in
             self.refreshControl.endRefreshing()

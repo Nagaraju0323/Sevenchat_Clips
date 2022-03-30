@@ -1129,6 +1129,8 @@ extension UserChatDetailViewController {
         
         if !ChatSocketIo.shared().socketClient.isConnected(){
             ChatSocketIo.shared().reconnect()
+        }else {
+            print("Socket Is Connected")
         }
         
         

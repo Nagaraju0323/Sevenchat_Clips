@@ -374,7 +374,9 @@ extension LoginViewController{
 extension LoginViewController{
     
     func loginUser(){
+
         self.LoginWithToken(userEmailId:txtEmail.text!)
+        
     }
     
     //UserDetails featch from Back

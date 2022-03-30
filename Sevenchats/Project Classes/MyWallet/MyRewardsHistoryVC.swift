@@ -17,6 +17,20 @@
 import Foundation
 import UIKit
 
+enum RewardType:String{
+    
+    case shoutType = "shout"
+    case forumType = "forum"
+    case articleType = "article"
+    case chirpyType = "chirpy"
+    case pollType = "poll"
+    case eventType = "event"
+    case galleryType = "gallery"
+    
+}
+
+
+
 class MyRewardsHistoryVC: ParentViewController {
     
     
@@ -151,11 +165,46 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
 
         var options = ""
         var post_id = ""
-        APIRequest.shared().viewPostDetailNew(postID: post_ID,apiKeyCall:CAPITagshoutsDetials){ [weak self] (response, error) in
+        var apiKeyCall = ""
+        
+        let rewardType = RewardType(rawValue: postType)
+        switch (rewardType){
+        case .shoutType:
+            apiKeyCall = "shouts"
+            break;
+        
+        case .forumType:
+            apiKeyCall = "fourms"
+            break;
+            
+        case .articleType:
+            apiKeyCall = "articles"
+            break;
+        case .chirpyType:
+            apiKeyCall = "chirpys"
+            break;
+        case .pollType:
+            apiKeyCall = "polls"
+            break;
+        case .eventType:
+            apiKeyCall = "events"
+            break;
+            
+        case .galleryType:
+            apiKeyCall = "galleries"
+            break
+            
+        default:
+            print("tihs is defatult")
+        }
+        
+        guard let userID = appDelegate.loginUser?.user_id else { return }
+        APIRequest.shared().viewPostDetailLatest(postID: post_ID,userid:userID.description,apiKeyCall:apiKeyCall){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     DispatchQueue.main.async {
                         if let Info = response!["data"] as? [[String:Any]]{
+                            print("this Reward Poit\(Info)")
                             let postInfo = Info[0]
                             for articleInfo in Info {
                                 options = articleInfo["options"] as? String ?? ""
@@ -166,7 +215,7 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
                             switch postType {
                             case "shout":
                                 if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
-                                    shoutsDetailsVC.shoutInformations = postInfo
+                                     shoutsDetailsVC.shoutInformations = postInfo
                                     print(postInfo.valueForString(key: "post_id"))
                                     shoutsDetailsVC.shoutID = postInfo.valueForString(key: "post_id").toInt
                                     self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
@@ -178,10 +227,14 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
                                     self.navigationController?.pushViewController(articleDetailVC, animated: true)
                                 }
                             case "gallery":
-                                let postID = postInfo.valueForString(key: "post_id")
-                                self.getGalleryDetailsFromServer(imgPostId: postID.toInt)
+//                                let postID = postInfo.valueForString(key: "post_id")
+//                                self.getGalleryDetailsFromServer(imgPostId: postID.toInt)
                                 
-                                
+                                if let chirpyDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
+                                    chirpyDetailVC.galleryInfo = postInfo
+                                    chirpyDetailVC.imgPostId = postInfo.valueForString(key: "post_id").toInt
+                                    self.navigationController?.pushViewController(chirpyDetailVC, animated: true)
+                                }
                             case "chirpy":
                                 if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
                                     chirpyDetailVC.chirpyInformation = postInfo
@@ -202,10 +255,17 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
                                 }
                             case "poll":
                                 
-                                let postID = postInfo.valueForString(key: "post_id")
-                                self.getGalleryDetailsFromServer(imgPostId: postID.toInt)
+//                                let postID = postInfo.valueForString(key: "post_id")
+//                                self.getGalleryDetailsFromServer(imgPostId: postID.toInt)
 //                                let productID = self.postInfo.valueForString(key: "post_id")
 //                                self.getPollDetailsFromServer(pollID: post_ID.toInt, postInfo: self.postInfo)
+                                if let pollDetailVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
+                                    pollDetailVC.posted_ID = postInfo.valueForString(key: "post_id")
+                                    pollDetailVC.pollInformation = postInfo
+                                    self.navigationController?.pushViewController(pollDetailVC, animated: true)
+                                }
+                            
+                            
                             case "productDetails":
 //                                let productID = self.postInfo.valueForString(key: "product_id")
                                 if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
@@ -346,6 +406,29 @@ extension MyRewardsHistoryVC {
         }
     }
 }
+
+//MARK:- API Calls For PostDetails
+extension MyRewardsHistoryVC{
+    
+    func shoutDetailview(){
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+}
+
+
+
 
 extension MyRewardsHistoryVC {
     func redirectOnProductDetail(_ rewardDetail : MDLRewardDetail) {

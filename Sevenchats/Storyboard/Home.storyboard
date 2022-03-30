@@ -155,6 +155,7 @@
                                                 <connections>
                                                     <outlet property="btnSearch" destination="JK8-97-L1C" id="n87-fK-Pf2"/>
                                                     <outlet property="lblAll" destination="3N0-aN-lx3" id="3a7-e0-WXD"/>
+                                                    <outlet property="searchView" destination="lWs-F2-IF4" id="XBk-AX-J7Y"/>
                                                     <outlet property="txtSearch" destination="CXA-rp-Eye" id="Jkm-er-9uI"/>
                                                     <outlet property="viewPostType" destination="Fqs-6R-R0D" id="ab0-ZG-vp8"/>
                                                     <outlet property="viewPostTypeContainer" destination="Dgk-uh-0Pc" id="5se-7i-jBX"/>
@@ -4192,6 +4193,7 @@
                         <outlet property="btnBack" destination="uIY-fN-qTI" id="aNG-wy-CxZ"/>
                         <outlet property="cnNavigationHeight" destination="IBs-KC-JGD" id="shi-Jg-F6t"/>
                         <outlet property="parentView" destination="v9b-Gn-i3f" id="2pQ-fz-BQf"/>
+                        <outlet property="searchView" destination="eDd-dk-Ypg" id="2eD-Ko-IN7"/>
                         <outlet property="tblEvents" destination="Lkb-c4-Nni" id="Chv-AP-i6m"/>
                         <outlet property="txtSearch" destination="X98-IK-ihp" id="1nV-r1-L3b"/>
                         <outlet property="txtSearchDropdown" destination="PBc-rZ-FV8" id="v75-Fa-VLF"/>

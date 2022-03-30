@@ -26,6 +26,7 @@ class HomeSearchViewController: ParentViewController {
     @IBOutlet weak var cnNavigationHeight : NSLayoutConstraint!
     @IBOutlet weak var tblEvents : UITableView!
     @IBOutlet weak var btnBack : UIButton!
+    @IBOutlet weak var searchView : UIView!
     
     var isRefreshingUserData = false
     var arrHomeSearch = [[String:Any]]()
@@ -61,7 +62,7 @@ class HomeSearchViewController: ParentViewController {
     
     // MARK:- --------- Initialization
     func Initialization(){
-        
+        self.searchView.isHidden = true
         cnNavigationHeight.constant = IS_iPhone_X_Series ? 84 : 64
         txtSearch.becomeFirstResponder()
         

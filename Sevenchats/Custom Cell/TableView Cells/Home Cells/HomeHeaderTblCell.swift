@@ -23,12 +23,15 @@ class HomeHeaderTblCell: UITableViewCell {
     @IBOutlet var btnSearch : UIButton!
     @IBOutlet var txtSearch : UITextField!
     @IBOutlet var lblAll : UILabel!
+    @IBOutlet weak var searchView : UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         GCDMainThread.async {
-            self.lblAll.text = CTypeAll
             
+            self.searchView.isHidden = true
+            
+            self.lblAll.text = CTypeAll
             self.txtSearch.placeholder = CSearch
             self.viewSearchContainer.layer.cornerRadius = 12
             self.viewSearchContainer.layer.masksToBounds = false

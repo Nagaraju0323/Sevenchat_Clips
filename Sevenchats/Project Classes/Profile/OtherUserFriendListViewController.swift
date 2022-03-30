@@ -177,6 +177,38 @@ extension OtherUserFriendListViewController {
                         }
                     }
                 }
+                let metaInfo = response![CJsonMeta] as? [String:Any] ?? [:]
+                           let message = metaInfo["message"] as? String ?? "0"
+                           var isShowAlert = false
+                           var alertMessage = ""
+                           let first_name = userInfo.valueForString(key: "first_name")
+                           let last_name = userInfo.valueForString(key: "last_name")
+                           switch message {
+                           case CancelRequest:
+                               isShowAlert = true
+                               alertMessage = CMessageAfterCancel
+                           case RejectRequest:
+                               isShowAlert = true
+                               alertMessage = CMessageAfterReject
+                           case UnFriendRequest:
+                               isShowAlert = true
+                               alertMessage = first_name + " " + last_name + " " + CMessageAfterUnfriend
+                           case AcceptRequest:
+                               isShowAlert = true
+                               alertMessage = CMessageAfterAccept
+                           case RequestSent:
+                               isShowAlert = true
+                               alertMessage = CTabRequestSend
+                           default:
+                               break
+                           }
+                           if isShowAlert{
+                               self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnOk, btnOneTapped: { [weak self] (alert) in
+                                   guard let self = self else { return }
+                                   self.navigationController?.popViewController(animated: true)
+                               })
+                           
+            }
             }
         })
     }

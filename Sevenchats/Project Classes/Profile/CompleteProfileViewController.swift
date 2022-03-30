@@ -591,7 +591,7 @@ extension CompleteProfileViewController{
 extension CompleteProfileViewController{
     
     @objc fileprivate func btnCompleteClicked(_ sender : UIBarButtonItem) {
-        if self.txtProfession.text != "" || self.txtViewBiography.text != "" || self.txtReligion.text != ""{
+       // if self.txtProfession.text != "" || self.txtViewBiography.text != "" || self.txtReligion.text != ""{
             let characterset = CharacterSet(charactersIn:SPECIALCHAR)
             if self.txtProfession.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtViewBiography.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtReligion.text?.rangeOfCharacter(from: characterset.inverted) != nil {
                 print("contains Special charecter")
@@ -609,7 +609,7 @@ extension CompleteProfileViewController{
                 postProfession = txtProfession.text ?? ""
                 self.completeProfile()
             }
-        }
+       // }
 //        self.completeProfile()
     }
     
