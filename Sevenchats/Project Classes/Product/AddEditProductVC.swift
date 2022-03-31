@@ -97,6 +97,7 @@ class AddEditProductVC: ParentViewController {
     var isedits = ""
     var postContent = ""
     var postTitle = ""
+    var prouductRewardsID = ""
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -774,16 +775,21 @@ extension AddEditProductVC {
             APIRequest.shared().addEditProduct(apiTag: CAddProductNew, dict:dict, arrMedia: _arrMedia, showLoader: true) { [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil && error == nil{
+                    
+                  
+                    if let productInfo = response![CJsonData] as? [[String : Any]]{
+                    
+                        for productid in productInfo{
+                            self.prouductRewardsID = productid["product_id"] as? String ?? ""
+                        }
+                        
+                    }
                     if let metaInfo = response![CJsonMeta] as? [String : Any] {
                         let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
                         guard let image = appDelegate.loginUser?.profile_img else { return }
                         let stausLike = metaInfo["status"] as? String ?? "0"
                         if stausLike == "0" {
-//                            MIGeneralsAPI.shared().addRewardsPoints(CPostonstore,message:"Post_on_store",type:CPostonstore,title:"Post on store",name:name,icon:image, detail_text: "Post_on_store")
-                            
-                            MIGeneralsAPI.shared().addRewardsPoints(CPostonstore,message:CPostonstore,type:"Post on store",title: self.txtProductTitle.text ?? "",name:name,icon:image, detail_text: "post_on_sell_point",target_id: 0)
-                            
-                            
+                            MIGeneralsAPI.shared().addRewardsPoints(CPostonstore,message:CPostonstore,type:"Post on store",title: self.txtProductTitle.text ?? "",name:name,icon:image, detail_text: "post_on_sell_point",target_id:self.prouductRewardsID.toInt ?? 0)
                         }
                     }
                     

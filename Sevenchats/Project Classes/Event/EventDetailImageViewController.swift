@@ -126,6 +126,7 @@ class EventDetailImageViewController: ParentViewController {
     var mayBe = ""
     var notificationInfo = [String:Any]()
     var isSelectedChoice = ""
+    var likeFromNotify:Bool?
     
     
     override func viewDidLoad() {
@@ -369,7 +370,7 @@ extension EventDetailImageViewController {
 
             }
         }
-        if isLikesHomePage == true  || isLikesMyprofilePage == true {
+        if isLikesHomePage == true  || isLikesMyprofilePage == true || likeFromNotify == true {
             if dict.valueForString(key:CIs_Liked) == "Yes"{
                 btnLike.isSelected = true
             }else {

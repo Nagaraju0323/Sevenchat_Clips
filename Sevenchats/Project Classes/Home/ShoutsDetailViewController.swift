@@ -91,6 +91,7 @@ class ShoutsDetailViewController: ParentViewController {
     var notificationInfo = [String:Any]()
     var commentCnt = ""
     var likeFromNotify:Bool?
+    var isLikeFromNotification:Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -275,7 +276,7 @@ extension ShoutsDetailViewController{
                     
                 }
             }
-            if isLikesHomePage == true  || isLikesMyprofilePage == true {
+            if isLikesHomePage == true  || isLikesMyprofilePage == true  || likeFromNotify == true {
                 if shoInfo.valueForString(key:CIs_Liked) == "Yes"{
                     btnLike.isSelected = true
                 }else {

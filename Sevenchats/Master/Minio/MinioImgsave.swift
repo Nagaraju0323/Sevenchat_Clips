@@ -157,7 +157,8 @@ class MInioimageupload: NSObject{
             folderRequest.body = fileURL
             AWSS3.default().putObject(folderRequest).continueWith(block: { (task) -> Any? in
                 if task.error != nil {
-                    assertionFailure("* * * error: \(task.error?.localizedDescription ?? "")")
+                    return nil
+//                    assertionFailure("* * * error: \(task.error?.localizedDescription ?? "")")
                 } else {
 
                     let url = AWSS3.default().configuration.endpoint.url

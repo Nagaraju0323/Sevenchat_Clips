@@ -129,11 +129,12 @@ extension CommentViewController{
         // Add load more indicator here...
         self.tblCommentList.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
 
-        self.arrCommentList.removeAll()
+//        self.arrCommentList.removeAll()
         apiTask = APIRequest.shared().getProductCommentLists(page: pageNumber, showLoader: showLoader, productId: rssID) { [weak self] (response, error) in
             
             guard let self = self else { return }
-
+            self.refreshControl.endRefreshing()
+            
             self.tblCommentList.tableFooterView = UIView()
             self.apiTask?.cancel()
             

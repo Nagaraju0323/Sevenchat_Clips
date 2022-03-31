@@ -193,11 +193,9 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
         case .galleryType:
             apiKeyCall = "galleries"
             break
-            
         default:
             print("tihs is defatult")
         }
-        
         guard let userID = appDelegate.loginUser?.user_id else { return }
         APIRequest.shared().viewPostDetailLatest(postID: post_ID,userid:userID.description,apiKeyCall:apiKeyCall){ [weak self] (response, error) in
                 guard let self = self else { return }
@@ -216,6 +214,7 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
                             case "shout":
                                 if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
                                      shoutsDetailsVC.shoutInformations = postInfo
+                                    shoutsDetailsVC.likeFromNotify = true
                                     print(postInfo.valueForString(key: "post_id"))
                                     shoutsDetailsVC.shoutID = postInfo.valueForString(key: "post_id").toInt
                                     self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
@@ -223,6 +222,7 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
                             case "article":
                                 if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
                                     articleDetailVC.articleInformation = postInfo
+                                    articleDetailVC.likeFromNotify = true
                                     articleDetailVC.articleID = postInfo.valueForString(key: "post_id").toInt
                                     self.navigationController?.pushViewController(articleDetailVC, animated: true)
                                 }
@@ -232,18 +232,21 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
                                 
                                 if let chirpyDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
                                     chirpyDetailVC.galleryInfo = postInfo
+                                    chirpyDetailVC.likeFromNotify = true
                                     chirpyDetailVC.imgPostId = postInfo.valueForString(key: "post_id").toInt
                                     self.navigationController?.pushViewController(chirpyDetailVC, animated: true)
                                 }
                             case "chirpy":
                                 if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
                                     chirpyDetailVC.chirpyInformation = postInfo
+                                    chirpyDetailVC.likeFromNotify = true
                                     chirpyDetailVC.chirpyID = postInfo.valueForString(key: "post_id").toInt
                                     self.navigationController?.pushViewController(chirpyDetailVC, animated: true)
                                 }
                             case "forum":
                                 if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
                                     forumDetailVC.forumID = postInfo.valueForString(key: "post_id").toInt
+                                    forumDetailVC.likeFromNotify = true
                                     forumDetailVC.forumInformation = postInfo
                                     self.navigationController?.pushViewController(forumDetailVC, animated: true)
                                 }
@@ -251,6 +254,7 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
                                 if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
                                     eventDetailVC.postID = postInfo.valueForString(key: "post_id").toInt
                                     eventDetailVC.eventInfo = postInfo
+                                    eventDetailVC.likeFromNotify = true
                                     self.navigationController?.pushViewController(eventDetailVC, animated: true)
                                 }
                             case "poll":
@@ -261,6 +265,7 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
 //                                self.getPollDetailsFromServer(pollID: post_ID.toInt, postInfo: self.postInfo)
                                 if let pollDetailVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
                                     pollDetailVC.posted_ID = postInfo.valueForString(key: "post_id")
+                                    pollDetailVC.likeFromNotify = true
                                     pollDetailVC.pollInformation = postInfo
                                     self.navigationController?.pushViewController(pollDetailVC, animated: true)
                                 }
@@ -281,6 +286,13 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
                     }
                 }
             }
+   
+        if postType == "Post on store"{
+            if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
+                ProductDetailVC.productIds = post_ID.toString
+                self.navigationController?.pushViewController(ProductDetailVC, animated: true)
+            }
+        }
     }
     
     
@@ -299,33 +311,6 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
 //                            imageDetailVC.galleryInfo = self.postInfo
 //                            imageDetailVC.imgPostId = postInfo.valueForString(key: "post_id").toInt
                             self.navigationController?.pushViewController(imageDetailVC, animated: true)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    func getPollDetailsFromServer(pollID:Int?,postInfo:[String:Any]) {
-        var options = ""
-        if let artID = pollID {
-            APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
-                guard let self = self else { return }
-                if response != nil {
-                    //self.parentView.isHidden = false
-                    DispatchQueue.main.async {
-                        if let Info = response!["data"] as? [[String:Any]]{
-                            for articleInfo in Info {
-                                options = articleInfo["options"] as? String ?? ""
-                            }
-                            if let pollDetailVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
-//                                self.postInfo["options"] = options
-//                                pollDetailVC.pollInformation = self.postInfo
-                                pollDetailVC.posted_ID = postInfo.valueForString(key: "post_id")
-                                
-                                self.navigationController?.pushViewController(pollDetailVC, animated: true)
-                            }
                         }
                     }
                 }

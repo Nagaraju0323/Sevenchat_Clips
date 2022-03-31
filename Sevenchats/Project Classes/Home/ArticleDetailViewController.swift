@@ -102,6 +102,7 @@ class ArticleDetailViewController: ParentViewController {
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
     var notificationInfo = [String:Any]()
+    var likeFromNotify:Bool?
     
     
     

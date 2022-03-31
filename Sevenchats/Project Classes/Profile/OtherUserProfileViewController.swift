@@ -265,16 +265,34 @@ extension OtherUserProfileViewController{
                                 
                             }
                             let CVisible_to_other = data.valueForInt(key: "visible_to_other")
-                            if self.Friend_status != 5 || CVisible_to_other == 1 {
-                                // Show bottom private View
-                                self.arrPostList.append([CNoDataCellType:CNoDataCell])
-                                UIView.performWithoutAnimation {
-                                    self.tblUser.reloadData()
-                                }
-                            }else {
-                                // Call post list api here........
-                                self.getPostListFromServer()
-                            }
+                            let CVisible_to_friend = data.valueForInt(key: "visible_to_friend")
+                            if self.Friend_status != 5 {
+                            // Show bottom private View
+                            self.arrPostList.append([CNoDataCellType:CNoDataCell])
+                            UIView.performWithoutAnimation {
+                            self.tblUser.reloadData()
+                              }
+                               }else {
+                           if CVisible_to_friend == 0{
+                            self.arrPostList.append([CNoDataCellType:CNoDataCell])
+                             UIView.performWithoutAnimation {
+                             self.tblUser.reloadData()
+                               }
+                               }else{
+                              // Call post list api here........
+                               self.getPostListFromServer()
+                                                }
+                                            }
+//                            if self.Friend_status != 5 || CVisible_to_other == 1 {
+//                                // Show bottom private View
+//                                self.arrPostList.append([CNoDataCellType:CNoDataCell])
+//                                UIView.performWithoutAnimation {
+//                                    self.tblUser.reloadData()
+//                                }
+//                            }else {
+//                                // Call post list api here........
+//                                self.getPostListFromServer()
+//                            }
                         }
                     }
                 } else {

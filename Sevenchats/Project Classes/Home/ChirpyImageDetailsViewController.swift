@@ -69,7 +69,7 @@ class ChirpyImageDetailsViewController: ParentViewController {
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
     var notificationInfo = [String:Any]()
-    
+    var likeFromNotify:Bool?
     
     
     // Set for User suggestion view...
@@ -260,7 +260,7 @@ extension ChirpyImageDetailsViewController{
                 }
             }
 
-            if isLikesHomePage == true  || isLikesMyprofilePage == true {
+            if isLikesHomePage == true  || isLikesMyprofilePage == true || likeFromNotify == true {
                 if chirInfo.valueForString(key:CIs_Liked) == "Yes"{
                     btnLike.isSelected = true
                 }else {

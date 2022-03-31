@@ -153,17 +153,10 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
             let percentag = (option.pollVotePer / 100.0)
             cell.progressV.setProgress(Float(percentag), animated: false)
             cell.lblPercentage.text = "\(Int((percentag * 100).rounded()))%"
-            
-            
             if option.pollText == self.isSelectedByUser{
-                //            cell.btnCheckAnwer.isHidden = false
-                //            cell.btnCheckAnwer.isSelected = true
                 cell.btnCheckAnwer.isHidden = true
-                //print("voted")
             }else{
                 cell.btnCheckAnwer.isHidden = true
-                
-                //print("not voted")
             }
             
             if userVotedPollId == option.pollId{

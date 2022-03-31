@@ -280,8 +280,9 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
             }
         }
         let CVisible_to_friend = userInfo.valueForInt(key: "visible_to_friend")
+        let CVisible_to_other = userInfo.valueForInt(key: "visible_to_other")
         if self.Friend_status == 5 {
-            if CVisible_to_friend == 1 {
+            if CVisible_to_friend == 0 {
                 self.btnViewCompleteProfile.setConstraintConstant(-40, edge: .top, ancestor: true)
                 self.btnViewCompleteProfile.hide(byHeight: true)
                 self.hideShowMobileAndEmail(true)
@@ -291,11 +292,18 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
             }
         }else {
             // For Unknown user
-            self.btnViewCompleteProfile.setConstraintConstant(-20, edge: .top, ancestor: true)
+            if CVisible_to_other == 0 {
+                            self.btnViewCompleteProfile.setConstraintConstant(-40, edge: .top, ancestor: true)
+                            self.btnViewCompleteProfile.hide(byHeight: true)
+                            self.hideShowMobileAndEmail(true)
+                        }else {
+                            self.btnViewCompleteProfile.hide(byHeight: false)
+                            self.hideShowMobileAndEmail(false)
+                        }
             //            self.btnViewCompleteProfile.setConstraintConstant(-20, edge: .top, ancestor: true)
-            self.btnViewCompleteProfile.hide(byHeight: true)
+            //self.btnViewCompleteProfile.hide(byHeight: true)
             self.hideShowMobileAndEmail(true)
-            if userInfo.valueForInt(key: "visible_to_other") == 1{
+            if userInfo.valueForInt(key: "visible_to_other") == 0{
                 lblTitleFriends.hide(byHeight: true)
                 hideFriendsList(isHide: true)
             }else{

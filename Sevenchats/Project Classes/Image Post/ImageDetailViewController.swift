@@ -111,6 +111,7 @@ class ImageDetailViewController: ParentViewController {
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
     var notificationInfo = [String:Any]()
+    var likeFromNotify:Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -287,7 +288,7 @@ extension ImageDetailViewController{
 
                 }
             }
-            if isLikesHomePage == true  || isLikesMyprofilePage == true {
+            if isLikesHomePage == true  || isLikesMyprofilePage == true  || likeFromNotify == true {
                 if galleryInfo.valueForString(key:CIs_Liked) == "Yes"{
                     btnLike.isSelected = true
                 }else {

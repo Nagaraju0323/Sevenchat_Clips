@@ -484,7 +484,10 @@ extension HomePollTblCell {
         onMorePressed?(sender.tag)
     }
     func getPollDetailsFromServer(postID:Int,completion:@escaping(_ success:Bool,_ result:[String],_ totalVotesCout:String) -> Void ) {
-        APIRequest.shared().viewPollDetailNew(postID: postID){ [weak self] (response, error) in
+        
+       
+        APIRequest.shared().viewPostDetailLatest(postID: postID,userid: posted_ID.description, apiKeyCall: "polls"){ [weak self] (response, error) in
+//        APIRequest.shared().viewPollDetailNew(postID: postID){ [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil {
                 if let Info = response!["data"] as? [[String:Any]]{

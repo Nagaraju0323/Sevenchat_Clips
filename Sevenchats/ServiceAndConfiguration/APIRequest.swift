@@ -23,53 +23,52 @@ import LGSideMenuController
 /// Live
 //var BASEURL: String          =   "http://dev1.sevenchats.com:2020/api/v1/"
 //MARK: - Dev
-var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
-let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
-var BASEMASTERURL           = "http://dev.sevenchats.com:3001/auth/"
-//////MARK: - CHAT
-//var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
-var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
-//////MARK: - OTP
-var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
-var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
-//////MARK: - AUTHENTICATION
-var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
-//////MARK: - Notification
-var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
-var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
-//////MARK:- SockeIO key
-//let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
-let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
-//https://dev.sevenchats.com:4443/ws-chat/websocket
-
-//////MARK:- NotificationSocket
-let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
-let BASEURL_Rew: String = "Dev"
+//var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
+//let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
+//var BASEMASTERURL           = "http://dev.sevenchats.com:3001/auth/"
+////////MARK: - CHAT
+////var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
+//var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
+////////MARK: - OTP
+//var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
+//var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
+////////MARK: - AUTHENTICATION
+//var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
+////////MARK: - Notification
+//var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
+//var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
+////////MARK:- SockeIO key
+////let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
+//let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
+////https://dev.sevenchats.com:4443/ws-chat/websocket
+//
+////////MARK:- NotificationSocket
+//let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
+//let BASEURL_Rew: String = "Dev"
 
 //////MARK:- MINIO
 let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 
 
 //MARK: - QA
-//var BASEMASTERURL = "https://qa.sevenchats.com:7444/auth/"
-//var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
-//var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
-//var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
-//var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
-//let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
-//var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
-//let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
-//var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
-//var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
-//let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
-//let BASEURL_Rew: String = "QA"
+var BASEMASTERURL = "https://qa.sevenchats.com:7444/auth/"
+var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
+var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
+var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
+var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
+let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
+var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
+let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
+var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
+var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
+let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
+let BASEURL_Rew: String = "QA"
 
 
 let CAPIVesrion                     = "v1"
 let CAPITagRelations                = "relations"
 let CAPITagRelship                  = "relationships"
 let CAPITagFeedbackList             = "feedback-list"
-
 let CAPITagAnnualIncomes            = "annual-incomes"
 let CAPITagEducations               = "educations"
 let CAPITagCMS                      = "cms"
@@ -83,7 +82,7 @@ let CAPITagVerifyEditEmail          = "verify-edit-email"
 let CAPITagVerifyMobile             = "verify-mobile"
 let CAPITagVerifyMobileNew          = "sendOTP"
 let CAPITagVerifyEditMobile         = "verify-edit-mobile"
-let CAPITagVerifyEditMobileNew         = "sendOTP"
+let CAPITagVerifyEditMobileNew      = "sendOTP"
 let CAPITagResetPassword            = "reset-password"
 let CAPITagResendVerification       = "resend-verification"
 let CAPITagResendEditVerification   = "edit-resend-verification-code"
@@ -91,13 +90,13 @@ let CAPITagForgotPassword           = "forgot-password"
 let CAPITaglanguages                = "languages"
 let CAPITagEditProfile              = "users/update"
 let CAPITagUser                     = "user"
-let CAPITagUsers                     = "users/id"
+let CAPITagUsers                    = "users/id"
 let CAPITagUsersDetails             = "user/details"
 let CAPITagUsersMobileDetails       = "user/details/mobile"
-let CAPITagUserNew                   = "users/"
+let CAPITagUserNew                  = "users/"
 let CAPITagUserBlockUnblock         = "user-block-unblock"
 let CAPITagFriendStatus             = "friends/handleRequest"
-let CAPITagGetFriendStatus             = "friendstatus"
+let CAPITagGetFriendStatus          = "friendstatus"
 let CAPITagConnectInviteStatus      = "connect-invite-status"
 let CAPITagConnectAll               = "connect-all"
 let CAPITagAddInterest              = "add-interest"
@@ -2418,7 +2417,13 @@ extension APIRequest {
     }
     
     func viewPostDetailLatest(postID : Int,userid:String,apiKeyCall: String, completion : @escaping ClosureCompletion) {
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        
+        if apiKeyCall != "polls"{
+            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        }else {
+            
+        }
+        
 
 //        var CAPITagurl = ""
 //        if CAPITagarticlesDetials == apiKeyCall || CAPITagchirpiesDetials == apiKeyCall || CAPITageventsDetials == apiKeyCall  || CAPITagforumsDetials == apiKeyCall || CAPITagsgalleryDetials == apiKeyCall || CAPITagpollsDetials == apiKeyCall  || CAPITagshoutsDetials == apiKeyCall{

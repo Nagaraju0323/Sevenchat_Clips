@@ -637,7 +637,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                 
             case kNotTypeCommnet,kNotTypeCommnet:
                 switch post_type {
-                case "post_shout":
+                case "shout":
                     if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
                         shoutsDetailsVC.shoutInformations = postInfo
                         print(postInfo.valueForString(key: "post_id"))
@@ -645,36 +645,37 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                         shoutsDetailsVC.shoutID = postInfo.valueForString(key: "post_id").toInt
                         self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
                     }
-                case "post_article":
+                case "article":
                     if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
                         articleDetailVC.articleInformation = postInfo
+                        articleDetailVC.likeFromNotify = true
                         articleDetailVC.articleID = postInfo.valueForString(key: "post_id").toInt
                         self.navigationController?.pushViewController(articleDetailVC, animated: true)
                     }
-                case "post_gallery":
+                case "gallery":
                     let postID = postInfo.valueForString(key: "post_id")
                     self.getGalleryDetailsFromServer(imgPostId: postID.toInt,postInfo:self.postInfo)
                     
                     
-                case "post_chirpy":
+                case "chirpy":
                     if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
                         chirpyDetailVC.chirpyInformation = postInfo
                         chirpyDetailVC.chirpyID = postInfo.valueForString(key: "post_id").toInt
                         self.navigationController?.pushViewController(chirpyDetailVC, animated: true)
                     }
-                case "post_forum":
+                case "forum":
                     if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
                         forumDetailVC.forumID = postInfo.valueForString(key: "post_id").toInt
                         forumDetailVC.forumInformation = postInfo
                         self.navigationController?.pushViewController(forumDetailVC, animated: true)
                     }
-                case "post_event":
+                case "event":
                     if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
                         eventDetailVC.postID = postInfo.valueForString(key: "post_id").toInt
                         eventDetailVC.eventInfo = postInfo
                         self.navigationController?.pushViewController(eventDetailVC, animated: true)
                     }
-                case "post_poll":
+                case "poll":
                     let productID = self.postInfo.valueForString(key: "post_id")
                     self.getPollDetailsFromServer(pollID: productID.toInt, postInfo: self.postInfo)
                 case "productDetails":
@@ -764,7 +765,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                             case kNotTypeCommnet,kNotTypeCommnet:
                                 
                                 switch self.post_type {
-                                case "post_shout":
+                                case "shout":
                                     if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
                                         shoutsDetailsVC.shoutInformations = self.postInfo
                                         shoutsDetailsVC.likeFromNotify = true
@@ -772,29 +773,29 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                         shoutsDetailsVC.shoutID = self.postInfo.valueForString(key: "post_id").toInt
                                         self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
                                     }
-                                case "post_article":
+                                case "article":
                                     if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
                                         articleDetailVC.articleInformation = self.postInfo
                                         articleDetailVC.articleID = self.postInfo.valueForString(key: "post_id").toInt
                                         self.navigationController?.pushViewController(articleDetailVC, animated: true)
                                     }
-                                case "post_gallery":
+                                case "gallery":
                                     let postID = self.postInfo.valueForString(key: "post_id")
                                     self.getGalleryDetailsFromServer(imgPostId: postID.toInt,postInfo:self.postInfo)
                                     
-                                case "post_chirpy":
+                                case "chirpy":
                                     if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
                                         chirpyDetailVC.chirpyInformation = self.postInfo
                                         chirpyDetailVC.chirpyID = self.postInfo.valueForString(key: "post_id").toInt
                                         self.navigationController?.pushViewController(chirpyDetailVC, animated: true)
                                     }
-                                case "post_forum":
+                                case "forum":
                                     if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
                                         forumDetailVC.forumID = self.postInfo.valueForString(key: "post_id").toInt
                                         forumDetailVC.forumInformation = self.postInfo
                                         self.navigationController?.pushViewController(forumDetailVC, animated: true)
                                     }
-                                case "post_event":
+                                case "event":
                                     if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
                                         eventDetailVC.postID = self.postInfo.valueForString(key: "post_id").toInt
                                         eventDetailVC.eventInfo = self.postInfo
@@ -837,8 +838,9 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
     //...Get Gellery Details From Server
     func getGalleryDetailsFromServer(imgPostId:Int?,postInfo:[String:Any]) {
         var imagesUpload = ""
+        guard let userID = appDelegate.loginUser?.user_id else {return}
         if let imgID = imgPostId {
-            APIRequest.shared().viewPostDetailNew(postID: imgID, apiKeyCall: CAPITagsgalleryDetials){ [weak self] (response, error) in
+            APIRequest.shared().viewPostDetailLatest(postID: imgID,userid: userID.description, apiKeyCall: CAPITagsgalleryDetials){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     if let Info = response!["data"] as? [[String:Any]]{
@@ -848,6 +850,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                         if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
                             self.postInfo["image"] = imagesUpload
                             imageDetailVC.galleryInfo = self.postInfo
+                            imageDetailVC.likeFromNotify  = true
                             imageDetailVC.imgPostId = postInfo.valueForString(key: "post_id").toInt
                             self.navigationController?.pushViewController(imageDetailVC, animated: true)
                         }
