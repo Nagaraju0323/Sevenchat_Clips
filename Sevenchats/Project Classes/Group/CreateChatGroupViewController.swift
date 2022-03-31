@@ -353,6 +353,7 @@ extension CreateChatGroupViewController{
                          }
                      }
                     
+                    dict["group_id"] = _groupID
                     let data = response![CJsonMeta] as? [String:Any] ?? [:]
                     let stausLike = data["status"] as? String  ?? ""
                     if stausLike == "0"{

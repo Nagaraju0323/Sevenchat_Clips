@@ -2424,7 +2424,6 @@ extension APIRequest {
             
         }
         
-
 //        var CAPITagurl = ""
 //        if CAPITagarticlesDetials == apiKeyCall || CAPITagchirpiesDetials == apiKeyCall || CAPITageventsDetials == apiKeyCall  || CAPITagforumsDetials == apiKeyCall || CAPITagsgalleryDetials == apiKeyCall || CAPITagpollsDetials == apiKeyCall  || CAPITagshoutsDetials == apiKeyCall{
 //            CAPITagurl = apiKeyCall
@@ -2475,11 +2474,6 @@ extension APIRequest {
             }
         })
     }
-    
-    
-    
-    
-    
     
     
     func viewPollDetailNew(postID : Int, completion : @escaping ClosureCompletion) {

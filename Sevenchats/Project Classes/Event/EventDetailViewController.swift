@@ -96,6 +96,7 @@ class EventDetailViewController: ParentViewController {
     var arrMaybe = [[String : Any]]()
     var arrDeclined = [[String : Any]]()
     let currentDateTime = Date().timeIntervalSince1970
+    let likeFromNotify  = true 
     
     override func viewDidLoad() {
         super.viewDidLoad()

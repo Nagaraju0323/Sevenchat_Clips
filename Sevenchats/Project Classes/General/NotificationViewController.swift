@@ -551,6 +551,12 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         let notificationInfo = arrNotiificationList[indexPath.row]
         let notfiContent = notificationInfo.valueForString(key: "content")
         userID = notificationInfo.valueForString(key: "sender")
+        
+        userID = notificationInfo.valueForString(key: "sender") as? String ?? ""
+        if userID == ""{
+            userID = notificationInfo.valueForString(key: "sender_id") as? String ?? ""
+        }
+        
         let nib = notificationInfo.valueForString(key: "nid")
         do {
             let dict = try convertToDictionary(from: notfiContent)
@@ -561,6 +567,8 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                 post_type = post_types
             }
             
+            
+            print("postType\(post_type)")
             if let post_ids = postinfo.valueForString(key: "post_id") as? String{
                 post_id = post_ids
             }
@@ -677,7 +685,9 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                     }
                 case "poll":
                     let productID = self.postInfo.valueForString(key: "post_id")
-                    self.getPollDetailsFromServer(pollID: productID.toInt, postInfo: self.postInfo)
+//                    let userID = self.postInfo.valueForString(key: "user_id")
+                    guard let userID = appDelegate.loginUser?.user_id else { return }
+                    self.getPollDetailsFromServer(pollID: productID.toInt, postInfo: self.postInfo, userID: userID.description)
                 case "productDetails":
                     let productID = self.postInfo.valueForString(key: "product_id")
                     if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
@@ -776,6 +786,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                 case "article":
                                     if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
                                         articleDetailVC.articleInformation = self.postInfo
+                                        articleDetailVC.likeFromNotify  = true
                                         articleDetailVC.articleID = self.postInfo.valueForString(key: "post_id").toInt
                                         self.navigationController?.pushViewController(articleDetailVC, animated: true)
                                     }
@@ -785,13 +796,16 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                     
                                 case "chirpy":
                                     if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
+                                        chirpyDetailVC.likeFromNotify = true
                                         chirpyDetailVC.chirpyInformation = self.postInfo
+                                        
                                         chirpyDetailVC.chirpyID = self.postInfo.valueForString(key: "post_id").toInt
                                         self.navigationController?.pushViewController(chirpyDetailVC, animated: true)
                                     }
                                 case "forum":
                                     if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
                                         forumDetailVC.forumID = self.postInfo.valueForString(key: "post_id").toInt
+                                        forumDetailVC.likeFromNotify = true
                                         forumDetailVC.forumInformation = self.postInfo
                                         self.navigationController?.pushViewController(forumDetailVC, animated: true)
                                     }
@@ -799,17 +813,20 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                     if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
                                         eventDetailVC.postID = self.postInfo.valueForString(key: "post_id").toInt
                                         eventDetailVC.eventInfo = self.postInfo
+                                        eventDetailVC.likeFromNotify = true
                                         self.navigationController?.pushViewController(eventDetailVC, animated: true)
                                     }
                                 case "productDetails":
                                     let productID = self.postInfo.valueForString(key: "product_id")
                                     if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
                                         ProductDetailVC.productIds = productID
+                                        
                                         self.navigationController?.pushViewController(ProductDetailVC, animated: true)
                                     }
-                                case "post_poll":
+                                case "poll":
                                     let productID = self.postInfo.valueForString(key: "post_id")
-                                    self.getPollDetailsFromServer(pollID: productID.toInt, postInfo: self.postInfo)
+                                    let userID =  self.postInfo.valueForString(key: "user_id")
+                                    self.getPollDetailsFromServer(pollID: productID.toInt, postInfo: self.postInfo, userID: userID)
                                 default:
                                     break
                                     
@@ -861,10 +878,12 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     //...Get Poll Details From Server
-    func getPollDetailsFromServer(pollID:Int?,postInfo:[String:Any]) {
+    func getPollDetailsFromServer(pollID:Int?,postInfo:[String:Any],userID:String?) {
         var options = ""
         if let artID = pollID {
-            APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
+            APIRequest.shared().viewPostDetailLatest(postID: artID,userid: userID ?? "", apiKeyCall: "polls"){ [weak self] (response, error) in
+//            APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
+//                APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     //self.parentView.isHidden = false
@@ -875,6 +894,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                             }
                             if let pollDetailVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
                                 self.postInfo["options"] = options
+                                pollDetailVC.likeFromNotify  = true
                                 pollDetailVC.pollInformation = self.postInfo
                                 pollDetailVC.posted_ID = postInfo.valueForString(key: "post_id")
                                 

@@ -2352,7 +2352,7 @@ extension MIGeneralsAPI {
 extension MIGeneralsAPI {
     
     func sendNotification(_ receiverID: String?,userID:String?,subject:String?,MsgType:String?,MsgSent:String?,showDisplayContent:String?,senderName:String,post_ID:[String:Any],shareLink:String) {
-        
+
         guard let firstName = appDelegate.loginUser?.first_name else {return}
         guard let lastName = appDelegate.loginUser?.last_name else {return}
         guard let profileImg = appDelegate.loginUser?.profile_img else {return}

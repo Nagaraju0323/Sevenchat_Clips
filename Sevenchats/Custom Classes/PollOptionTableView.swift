@@ -295,8 +295,11 @@ extension PollOptionTableView{
         var para = [String:Any]()
         para["id"] = postID
         para["user_id"] = appDelegate.loginUser?.user_id.description
+        guard let userID = appDelegate.loginUser?.user_id else {return}
+     
+        APIRequest.shared().viewPostDetailLatest(postID: postID.toInt ?? 0,userid: userID.description , apiKeyCall: "polls"){ [weak self] (response, error) in
         
-        APIRequest.shared().viewPollDetailNew(postID: postID.toInt ?? 0) { [weak self] (response, error) in
+//        APIRequest.shared().viewPollDetailNew(postID: postID.toInt ?? 0) { [weak self] (response, error) in
             guard let _ = self else {return}
             if response != nil{
                 self?.arr.removeAll()

@@ -35,12 +35,20 @@ class AddParticipantsViewController: ParentViewController {
         }
     }
     
+    var arrUserList = [[String:Any]]()
+    var arrUser : [[String:Any]] = [[:]] {
+        didSet{
+            self.arrUserList = arrUser
+         
+        }
+    }
+    
     
     var isAddMoreMember = false
     var groupID : Int?
     var arrSelectedParticipant = [[String:Any]]()
     var arrAllreadySelectedParticipants = [[String : Any]]()
-    var arrUser = [[String:Any]]()
+//    var arrUser = [[String:Any]]()
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
@@ -147,7 +155,7 @@ extension AddParticipantsViewController : UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrUser.count
+        return arrUserList.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -158,7 +166,7 @@ extension AddParticipantsViewController : UITableViewDelegate, UITableViewDataSo
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "AddParticipantsTblCell", for: indexPath) as? AddParticipantsTblCell {
             
-            let userInfo = arrUser[indexPath.row]
+            let userInfo = arrUserList[indexPath.row]
             cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
             cell.btnSelect.isSelected = arrSelectedParticipant.contains(where: {$0[CFriendUserID] as? String == userInfo.valueForString(key: CFriendUserID) })
             cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
@@ -175,7 +183,7 @@ extension AddParticipantsViewController : UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let userInfo = arrUser[indexPath.row]
+        let userInfo = arrUserList[indexPath.row]
         
         if arrSelectedParticipant.contains(where: {$0[CFriendUserID] as? String == userInfo.valueForString(key: CFriendUserID)}){
             if let index = arrSelectedParticipant.index(where: {$0[CFriendUserID] as? String == userInfo.valueForString(key: CFriendUserID)}){
@@ -252,9 +260,13 @@ extension AddParticipantsViewController: UITextFieldDelegate {
               let textRange = Range(range, in: text) else{
             return true
         }
+
         let updatedText = text.replacingCharacters(in: textRange,with: string)
         self.pageNumber = 1
         self.getFriendList(strSearch: updatedText, showLoader: false)
+        arrUserList.removeAll()
+        arrUserList =  (arrUser as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
+        tblUser.reloadData()
         return true
     }
     func textFieldShouldClear(_ textField: UITextField) -> Bool {

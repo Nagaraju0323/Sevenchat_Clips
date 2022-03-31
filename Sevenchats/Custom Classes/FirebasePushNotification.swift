@@ -157,15 +157,20 @@ extension FirebasePushNotification {
         var post_type = ""
         var postInfo = [String:Any]()
         var userID = ""
-        var recvierUsrID = ""
+        _ = ""
         
         let stringCovt = postConent.replace(string: "\\\"", replacement: "\"")
         let dict = convertToDictionaryUserinfo(from: stringCovt)
         guard let userMsg = dict["type"] else { return }
         guard let subject = dict["subject"] else { return }
-        userID = dict.valueForString(key: "sender")
+//        if let userID = dict.valueForString(key: "sender") else {
+//            if let userID = dict.valueForString(key: "sender_id")
+//        }
         
-        
+        userID = dict.valueForString(key: "sender") as? String ?? ""
+        if userID == ""{
+            userID = dict.valueForString(key: "sender_id") as? String ?? ""
+        }
         postInfo = dict["postInfo"] as? [String:Any] ?? [:]
         if let post_types = postInfo.valueForString(key: "type") as? String{
             post_type = post_types
@@ -287,6 +292,7 @@ extension FirebasePushNotification {
                 let eventViewController = appDelegate.getTopMostViewController()
                 let postID = postInfo.valueForString(key: CPostId)
                 eventDetailVC.postIDNew = postID
+                eventDetailVC.likeFromNotify  = true
                 eventDetailVC.postID = postID.toInt
                 eventDetailVC.eventInfo = postInfo
                 
@@ -296,19 +302,20 @@ extension FirebasePushNotification {
             
         case kNotTypeCommnet,kNotTypeCommnet:
             switch post_type {
-            case "post_shout":
+            case "shout":
             
                 appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
                 appDelegate.hideSidemenu()
                 if let shoutDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController {
                     let shoutViewController = appDelegate.getTopMostViewController()
                     shoutDetailVC.shoutInformations = postInfo
+                    shoutDetailVC.likeFromNotify  = true
                     print(postInfo.valueForString(key: "post_id"))
                     shoutDetailVC.shoutID = postInfo.valueForString(key: "post_id").toInt
                     
                     shoutViewController.navigationController?.pushViewController(shoutDetailVC, animated: true)
                 }
-            case "post_article":
+            case "article":
                 
                 appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
                 appDelegate.hideSidemenu()
@@ -316,17 +323,18 @@ extension FirebasePushNotification {
                 if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
                     let articleViewController = appDelegate.getTopMostViewController()
                     articleDetailVC.articleInformation = postInfo
+                    articleDetailVC.likeFromNotify  = true
                     articleDetailVC.articleID = postInfo.valueForString(key: "post_id").toInt
                     articleViewController.navigationController?.pushViewController(articleDetailVC, animated: true)
                 }
                 
                 
-            case "post_gallery":
+            case "gallery":
                 let postID = postInfo.valueForString(key: "post_id")
                 self.getGalleryDetailsFromServer(imgPostId: postID.toInt,postInfo:postInfo)
                 
                 
-            case "post_chirpy":
+            case "chirpy":
 
                 appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
                 appDelegate.hideSidemenu()
@@ -336,11 +344,12 @@ extension FirebasePushNotification {
                     let chirpyViewController = appDelegate.getTopMostViewController()
                     //                    chirpyDetailVC.chirpyID = postID
                     chirpyDetailVC.chirpyInformation = postInfo
+                    chirpyDetailVC.likeFromNotify  = true
                     chirpyDetailVC.chirpyID = postInfo.valueForString(key: "post_id").toInt
                     chirpyViewController.navigationController?.pushViewController(chirpyDetailVC, animated: true)
                 }
 
-            case "post_forum":
+            case "forum":
                 
                 appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
                 appDelegate.hideSidemenu()
@@ -350,23 +359,25 @@ extension FirebasePushNotification {
                     let forumViewController = appDelegate.getTopMostViewController()
                     //                    forumDetailVC.forumID = postID
                     forumDetailVC.forumID = postInfo.valueForString(key: "post_id").toInt
+                    forumDetailVC.likeFromNotify  = true
                     forumDetailVC.forumInformation = postInfo
                     forumViewController.navigationController?.pushViewController(forumDetailVC, animated: true)
                 }
-            case "post_event":
+            case "event":
                 
                 appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
                 appDelegate.hideSidemenu()
                 
-                if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? EventDetailViewController {
+                if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? EventDetailImageViewController {
                     
                     let eventViewController = appDelegate.getTopMostViewController()
                     eventDetailVC.postID = postInfo.valueForString(key: "post_id").toInt
                     eventDetailVC.eventInfo = postInfo
+                    eventDetailVC.likeFromNotify  = true
                     eventViewController.navigationController?.pushViewController(eventDetailVC, animated: true)
                 }
 
-            case "post_poll":
+            case "poll":
                 let productID = postInfo.valueForString(key: "post_id")
                 self.getPollDetailsFromServer(pollID: productID.toInt, postInfo: postInfo)
 
@@ -409,6 +420,7 @@ extension FirebasePushNotification {
                         if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
                             let imageViewController = appDelegate.getTopMostViewController()
                             postINFO["image"] = imagesUpload
+                            imageDetailVC.likeFromNotify  = true
                             imageDetailVC.galleryInfo = postINFO
                             imageDetailVC.imgPostId = postINFO.valueForString(key: "post_id").toInt
                             imageViewController.navigationController?.pushViewController(imageDetailVC, animated: true)
@@ -444,6 +456,7 @@ extension FirebasePushNotification {
                                 //                                shoutDetailVC.shoutID = postID
                                 postINFO["options"] = options
                                 pollDetailVC.pollInformation = postINFO
+                                pollDetailVC.likeFromNotify  = true
                                 pollDetailVC.posted_ID = postInfo.valueForString(key: "post_id")
                                 
                                 pollViewController.navigationController?.pushViewController(pollDetailVC, animated: true)

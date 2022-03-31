@@ -16,7 +16,7 @@
 import UIKit
 
 class BlockUserListViewController: ParentViewController {
-
+    
     @IBOutlet var viewSearchBar : UIView!
     @IBOutlet var btnSearch : UIButton!
     @IBOutlet var btnCancel : UIButton!
@@ -32,8 +32,17 @@ class BlockUserListViewController: ParentViewController {
     @IBOutlet var lblBlockUserCount : UILabel!
     @IBOutlet var lblNoData : UILabel!
     @IBOutlet var vwBlockCount : UIView!
-
-    var arrBlockUserList = [[String:Any]]()
+    
+    var arrBlockUserListSearch = [[String:Any]]()
+    //    var arrBlockUserList = [[String:Any]]()
+    
+    var arrBlockUserList : [[String:Any]] = [[:]] {
+        didSet{
+            self.arrBlockUserListSearch = arrBlockUserList
+            
+        }
+    }
+    
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
@@ -42,7 +51,7 @@ class BlockUserListViewController: ParentViewController {
         super.viewDidLoad()
         self.Initialization()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -108,50 +117,50 @@ extension BlockUserListViewController{
         self.getBlockUserListFromServer(false, search: txtSearch.text)
     }
     
- //MARK:- API Call
+    //MARK:- API Call
     fileprivate func getBlockUserListFromServer(_ shouldShowLoader : Bool, search : String?){
+        
+        if apiTask?.state == URLSessionTask.State.running {
+            return
+        }
+        
+        // Add load more indicator here...
+        if self.pageNumber > 2 {
+            self.tblBlockList.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+        }else{
+            self.tblBlockList.tableFooterView = nil
+        }
+        
+        apiTask = APIRequest.shared().getBlockUserList(page: pageNumber, search: search, showLoader: shouldShowLoader) { (response, error) in
+            self.refreshControl.endRefreshing()
+            self.tblBlockList.tableFooterView = nil
             
-            if apiTask?.state == URLSessionTask.State.running {
-                return
-            }
-         
-            // Add load more indicator here...
-            if self.pageNumber > 2 {
-                self.tblBlockList.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
-            }else{
-                self.tblBlockList.tableFooterView = nil
-            }
-            
-            apiTask = APIRequest.shared().getBlockUserList(page: pageNumber, search: search, showLoader: shouldShowLoader) { (response, error) in
-                self.refreshControl.endRefreshing()
-                self.tblBlockList.tableFooterView = nil
-                
-                if response != nil && error == nil{
-                    _ = response!["total_block_users"] as? Int
-                    if let arrList = response!["block_users"] as? [[String:Any]]{
-                        // Remove all data here when page number == 1
-                        if self.pageNumber == 1{
-                            self.arrBlockUserList.removeAll()
-                            self.tblBlockList.reloadData()
-                        }
-                        
-                        // Add Data here...
-                        if arrList.count > 0{
-                            self.arrBlockUserList = self.arrBlockUserList + arrList
-                            self.tblBlockList.reloadData()
-                            self.pageNumber += 1
-                        }
+            if response != nil && error == nil{
+                _ = response!["total_block_users"] as? Int
+                if let arrList = response!["block_users"] as? [[String:Any]]{
+                    // Remove all data here when page number == 1
+                    if self.pageNumber == 1{
+                        self.arrBlockUserList.removeAll()
+                        self.tblBlockList.reloadData()
                     }
                     
-                    if let metaInfo = response!["total_block_users"] as? Int {
-                        self.setBlockCountAttributeString(metaInfo)
+                    // Add Data here...
+                    if arrList.count > 0{
+                        self.arrBlockUserList = self.arrBlockUserList + arrList
+                        self.tblBlockList.reloadData()
+                        self.pageNumber += 1
                     }
-                    
-                    self.vwBlockCount.isHidden = self.arrBlockUserList.count == 0
-                    self.lblNoData.isHidden = self.arrBlockUserList.count > 0
                 }
                 
+                if let metaInfo = response!["total_block_users"] as? Int {
+                    self.setBlockCountAttributeString(metaInfo)
+                }
+                
+                self.vwBlockCount.isHidden = self.arrBlockUserList.count == 0
+                self.lblNoData.isHidden = self.arrBlockUserList.count > 0
             }
+            
+        }
     }
 }
 
@@ -163,7 +172,7 @@ extension BlockUserListViewController : UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrBlockUserList.count
+        return arrBlockUserListSearch.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -173,21 +182,21 @@ extension BlockUserListViewController : UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "BlockUserListTblCell", for: indexPath) as? BlockUserListTblCell {
-            let userInfo = arrBlockUserList[indexPath.row]
+            let userInfo = arrBlockUserListSearch[indexPath.row]
             cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
-//            cell.imgUser.image = UIImage(named: "profile_image")
+            //            cell.imgUser.image = UIImage(named: "profile_image")
             cell.btnUnblock.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageUnBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
                     guard let self = self else { return }
                     self.apiUhblockUser(userInfo.valueForString(key: "friend_user_id") ?? "",index: indexPath.row)
-                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
             // Load More Data.....
             if indexPath == tblBlockList.lastIndexPath(){
-//                self.getBlockUserListFromServer(false, search: txtSearch.text)
+                //                self.getBlockUserListFromServer(false, search: txtSearch.text)
             }
             
             return cell
@@ -209,15 +218,28 @@ extension BlockUserListViewController : UITextFieldDelegate {
             apiTask?.cancel()
         }
         
-        if (textFiled.text?.count)! < 2{
-            pageNumber = 1
-            arrBlockUserList.removeAll()
-            tblBlockList.reloadData()
-            return
-        }
+        //        if (textFiled.text?.count)! < 2{
+        //            pageNumber = 1
+        //            arrBlockUserList.removeAll()
+        //            tblBlockList.reloadData()
+        //            return
+        //        }
+        //
+        //        pageNumber = 1
+        //        self.getBlockUserListFromServer(false, search: txtSearch.text)
         
         pageNumber = 1
-        self.getBlockUserListFromServer(false, search: txtSearch.text)
+        arrBlockUserListSearch.removeAll()
+        arrBlockUserListSearch =  (arrBlockUserList as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
+        tblBlockList.reloadData()
+        if (textFiled.text?.isEmpty ?? true){
+            arrBlockUserListSearch = arrBlockUserList
+        }
+        pageNumber = 1
+        tblBlockList.reloadData()
+        
+        
+        
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return textField.resignFirstResponder()
@@ -227,7 +249,7 @@ extension BlockUserListViewController : UITextFieldDelegate {
 // MARK:- -------------- Action Event
 extension BlockUserListViewController{
     
-        
+    
     @IBAction func btnSearchCancelCLK(_ sender : UIButton){
         
         switch sender.tag {
@@ -258,7 +280,7 @@ extension BlockUserListViewController{
         if sender.tag != 0{
             txtSearch.text = nil
             pageNumber = 1
-            arrBlockUserList.removeAll()
+            arrBlockUserListSearch.removeAll()
             tblBlockList.reloadData()
             self.getBlockUserListFromServer(false, search: txtSearch.text)
         }
@@ -270,9 +292,9 @@ extension BlockUserListViewController{
 extension BlockUserListViewController{
     
     func apiUhblockUser(_ userId: String, index:Int){
-           APIRequest.shared().blockUnblockUserNew(userID:userId, block_unblock_status: "7", completion: { (response, error) in
+        APIRequest.shared().blockUnblockUserNew(userID:userId, block_unblock_status: "7", completion: { (response, error) in
             if response != nil{
-                self.arrBlockUserList.remove(at: index)
+                self.arrBlockUserListSearch.remove(at: index)
                 UIView.performWithoutAnimation {
                     self.tblBlockList.reloadData()
                 }

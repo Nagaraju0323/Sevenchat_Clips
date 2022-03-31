@@ -35,11 +35,19 @@ class OtherUserFriendListViewController: ParentViewController {
     var userIDNew : String?
     var arrBlockList = [[String : Any]?]()
     var Friend_status = 0
-    var arrFriendList = [[String:Any]]()
+//    var arrFriendList = [[String:Any]]()
+    var arrFriendListNew = [[String:Any]]()
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
     var isRefreshingUserData = false
+    
+    var arrFriendList : [[String:Any]] = [[:]] {
+        didSet{
+            self.arrFriendListNew = arrFriendList
+         
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,7 +216,7 @@ extension OtherUserFriendListViewController {
                                    self.navigationController?.popViewController(animated: true)
                                })
                            
-            }
+                 }
             }
         })
     }
@@ -221,7 +229,10 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrFriendList.count
+//        return arrFriendList.count
+        
+       
+        return arrFriendListNew.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -231,7 +242,7 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendTblCell", for: indexPath) as? MyFriendTblCell {
-            let userInfo = arrFriendList[indexPath.row]
+            let userInfo = arrFriendListNew[indexPath.row]
             cell.setupCell(loan: userInfo)
             cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
@@ -239,44 +250,6 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
             
             cell.btnUnfriendCancelRequest.isHidden = true
             cell.viewAcceptReject.isHidden = true
-//            do{
-//                //MARK:- FRIENDS
-//                for data in arrBlockList{
-//                    if data?.valueForString(key: "request_status") == "5"{
-//                        self.Friend_status = 5
-//                    }
-//                }
-//                //MARK:- REQUEST
-//                for data in arrBlockList{
-//                    let user_id = appDelegate.loginUser?.user_id
-//                    if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
-//                        self.Friend_status = 1
-//                    }
-//                }
-//                //MARK:- PENDING
-//                for data in arrBlockList{
-//                    let user_id = appDelegate.loginUser?.user_id
-//                    if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
-//                        self.Friend_status = 2
-//                    }
-//                }
-//            }
-//            switch self.Friend_status {
-//            case 0: //... Add Friend
-//                cell.btnUnfriendCancelRequest.isHidden = appDelegate.loginUser?.user_id == Int64(userInfo.valueForString(key: CUserId))
-//                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnAddFriend)  ", for: .normal)
-//            case 1:  //...Cancel Request
-//                cell.btnUnfriendCancelRequest.isHidden = false
-//                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
-//            case 2:  //...Accept-Reject
-//                cell.viewAcceptReject.isHidden = false
-//            case 5:  //...UnFriend
-//                cell.btnUnfriendCancelRequest.isHidden = false
-//                cell.btnUnfriendCancelRequest.setTitle("  \(CBtnUnfriend)  ", for: .normal)
-//            default:
-//                break
-//            }
-            
             cell.btnAcceptRequest.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
                 
@@ -295,60 +268,9 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                     self.navigationController?.popViewController(animated: true)
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
-            
-//            cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
-//                guard let self = self else { return }
-//                var frndStatus = 0
-//                var isShowAlert = false
-//                var alertMessage = ""
-//                do{
-//                    for data in self.arrBlockList {
-//                        if data?.valueForString(key: "request_status") == "5"{
-//                            self.Friend_status = 5
-//                        }
-//                    }
-//                    for data in self.arrBlockList {
-//                        let user_id = appDelegate.loginUser?.user_id
-//                        if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
-//                            self.Friend_status = 1
-//                        }
-//                    }
-//                    for data in self.arrBlockList{
-//                        let user_id = appDelegate.loginUser?.user_id
-//                        if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
-//                            self.Friend_status = 0
-//                        }
-//                    }
-//                }
-//                switch self.Friend_status {
-//                case 0:
-//                    frndStatus = CFriendRequestSent
-//                    isShowAlert = true
-//                    alertMessage = CMessageAddfriend
-//                case 1:
-//                    frndStatus = CFriendRequestCancel
-//                    isShowAlert = true
-//                    alertMessage = CMessageCancelRequest
-//                case 5:
-//                    frndStatus = CFriendRequestUnfriend
-//                    isShowAlert = true
-//                    alertMessage = CMessageUnfriend
-//                default:
-//                    break
-//                }
-//                if isShowAlert {
-//                    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-//                        self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
-//                    }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-//                }else {
-//                    self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
-//                }
-//            }
+
             cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-//                var frndStatus = 0
-//                var isShowAlert = false
-//                var alertMessage = ""
                 let user_id = userInfo.valueForString(key: "id")
                 let dict :[String:Any]  =  [
                     "user_id":  appDelegate.loginUser?.user_id ?? "",
@@ -434,7 +356,7 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let userInfo = arrFriendList[indexPath.row]
+        let userInfo = arrFriendListNew[indexPath.row]
         appDelegate.moveOnProfileScreenNew(userInfo.valueForString(key: "id"), userInfo.valueForString(key: CUsermailID), self)
     }
 }
@@ -447,15 +369,24 @@ extension OtherUserFriendListViewController : UITextFieldDelegate {
             apiTask?.cancel()
         }
         
-        if (textFiled.text?.count)! < 2{
+//        if (textFiled.text?.count)! < 2{
             pageNumber = 1
-            arrFriendList.removeAll()
+            arrFriendListNew.removeAll()
+            arrFriendListNew =  (arrFriendList as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
+            
+            
             tblFriendList.reloadData()
-            return
+            
+//            return
+//        }
+        if (textFiled.text?.isEmpty ?? true){
+            arrFriendListNew = arrFriendList
         }
         
         pageNumber = 1
-        self.getFriendListFromServer(txtSearch.text)
+//        self.getFriendListFromServer(txtSearch.text)
+//        tblFriendList.reloadData()
+        tblFriendList.reloadData()
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return textField.resignFirstResponder()

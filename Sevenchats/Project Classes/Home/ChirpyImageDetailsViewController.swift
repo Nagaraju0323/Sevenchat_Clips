@@ -181,7 +181,7 @@ extension ChirpyImageDetailsViewController{
         
         if let chirID = self.chirpyID {
             guard let userid = appDelegate.loginUser?.user_id else { return }
-            APIRequest.shared().viewPostDetailLatest(postID: chirID,userid: userid.description, apiKeyCall: "chirpys"){ [weak self] (response, error) in
+            APIRequest.shared().viewPostDetailLatest(postID: chirID,userid: userid.description, apiKeyCall: "chirpies"){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false

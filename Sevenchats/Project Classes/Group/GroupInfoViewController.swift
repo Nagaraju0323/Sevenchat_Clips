@@ -269,7 +269,8 @@ extension GroupInfoViewController{
                             }
                             var moveBack = true
                             if moveBack {
-                                self.navigationController?.popViewController(animated: true)
+//                                self.navigationController?.popViewController(animated: true)
+                                self.navigationController?.popToRootViewController(animated: true)
                                 GCDMainThread.async {
                                     if metaData.valueForString(key: "message") == "Group deleted successfully"{
                                         self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CgroupRemoved, btnOneTitle: CBtnOk, btnOneTapped: nil)

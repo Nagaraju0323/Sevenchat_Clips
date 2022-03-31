@@ -77,28 +77,34 @@ class SocketIOManager: NSObject {
         guard let userId = appDelegate.loginUser?.user_id.description else { return}
         socketIOClient?.on(userId) { data, ack in
             var dict = [String:Any]()
+            var postInfoConent = [String:Any]()
             if let notifications = data as? [[String:AnyObject]]{
-                for notifi in notifications{
-                    let content = notifi["content"] as? String
+                for notify in notifications{
+                    let content = notify["content"] as? String
                     let contentConvert = content?.replace(string: "\\", replacement: "")
                     let dictNot =  self.convertToDictionaryToConent(from: contentConvert ?? "")
+                    var postInfo = dictNot["postInfo"] as? [String:Any] ?? [:]
                     let  senderName = dictNot["senderName"] as? String ?? ""
-                    self.scheduleNotification(notificationType: notifi["subject"] as? String ?? "",senderName:senderName)
-                    dict["subject"] = notifi["subject"] as? String
-                    dict["sender"] = notifi["sender"] as? String
+                    postInfoConent["content"] = content
+                    self.scheduleNotification(notificationType: notify["subject"] as? String ?? "",senderName:senderName,postInfo:postInfoConent)
+                    dict["subject"] = notify["subject"] as? String
+                    dict["sender"] = notify["sender"] as? String
+                   
                 }
             }
         }
     }
     
     
-    func scheduleNotification(notificationType:String,senderName:String){
+    
+    func scheduleNotification(notificationType:String,senderName:String,postInfo:[String:Any]){
         let center = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
         content.title = senderName
         content.body = notificationType
         content.sound = .default
-        content.userInfo = ["value": "Data with local notification"]
+        content.badge = NSNumber(value: UIApplication.shared.applicationIconBadgeNumber + 1)
+        content.userInfo = postInfo
         let fireDate = Calendar.current.dateComponents([.day, .month, .year, .hour, .minute, .second], from: Date().addingTimeInterval(1))
         let trigger = UNCalendarNotificationTrigger(dateMatching: fireDate, repeats: false)
         let request = UNNotificationRequest(identifier: "reminder", content: content, trigger: trigger)
