@@ -23,46 +23,46 @@ import LGSideMenuController
 /// Live
 //var BASEURL: String          =   "http://dev1.sevenchats.com:2020/api/v1/"
 //MARK: - Dev
-//var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
-//let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
-//var BASEMASTERURL           = "http://dev.sevenchats.com:3001/auth/"
-////////MARK: - CHAT
-////var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
-//var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
-////////MARK: - OTP
-//var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
-//var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
-////////MARK: - AUTHENTICATION
-//var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
-////////MARK: - Notification
-//var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
-//var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
-////////MARK:- SockeIO key
-////let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
-//let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
-////https://dev.sevenchats.com:4443/ws-chat/websocket
-//
-////////MARK:- NotificationSocket
-//let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
-//let BASEURL_Rew: String = "Dev"
+var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
+let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
+var BASEMASTERURL           = "http://dev.sevenchats.com:3001/auth/"
+//////MARK: - CHAT
+//var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
+var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
+//////MARK: - OTP
+var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
+var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
+//////MARK: - AUTHENTICATION
+var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
+//////MARK: - Notification
+var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
+var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
+//////MARK:- SockeIO key
+//let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
+let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
+//https://dev.sevenchats.com:4443/ws-chat/websocket
+
+//////MARK:- NotificationSocket
+let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
+let BASEURL_Rew: String = "Dev"
 
 //////MARK:- MINIO
 let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 
 
 //MARK: - QA
-var BASEMASTERURL = "https://qa.sevenchats.com:7444/auth/"
-var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
-var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
-var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
-var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
-let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
-var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
-let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
-var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
-var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
-let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
-let BASEURL_Rew: String = "QA"
+//var BASEMASTERURL = "https://qa.sevenchats.com:7444/auth/"
+//var BASEURLNEW: String    =  "https://qa.sevenchats.com:8443/admin/"
+//var BASEAUTH:String       =   "https://qa.sevenchats.com:7444/"
+//var BASEURLNOTIFICATION: String  = "https://qa.sevenchats.com:7444/"
+//var BASEURLSENDNOTIF : String  =  "https://qa.sevenchats.com:7444/"
+//let SocketIoUrl : String = "https://qa.sevenchats.com:4443/ws-chat/websocket"
+//var BASEURLCHATLASTMSG: String   =   "https://qa.sevenchats.com:7444/"
+//let BASEMSGURL:String       =   "https://qa.sevenchats.com:4443/"
+//var BASEURLOTP: String     =   "https://qa.sevenchats.com:7444/"
+//var BASEEMAILOTP:String    =   "https://qa.sevenchats.com:7444/"
+//let BASEURLSOCKETNOTF: String = "https://qa.sevenchats.com:2443/"
+//let BASEURL_Rew: String = "QA"
 
 
 let CAPIVesrion                     = "v1"
@@ -3893,8 +3893,22 @@ extension APIRequest {
                 tblUser.profile_img = dict.valueForString(key: CImage)
                 tblUser.address = dict.valueForString(key: CAddress)
                 tblUser.annual_income_id = Int64(dict.valueForString(key: CAnnual_income)) ?? 0
-                tblUser.annual_income = dict.valueForString(key: "annual_income")
-                
+                //tblUser.annual_income = dict.valueForString(key: "annual_income")
+                if dict.valueForString(key: "relationship") == "null"{
+                 tblUser.relationship = ""
+                   }else{
+                  tblUser.relationship = dict.valueForString(key: "relationship")
+                   }
+                if dict.valueForString(key: "education_name") == "null"{
+                    tblUser.relationship = ""
+                }else{
+                    tblUser.relationship = dict.valueForString(key: "education_name")
+                }
+                if dict.valueForString(key: "annual_income") == "null"{
+                    tblUser.relationship = ""
+                }else{
+                    tblUser.annual_income = dict.valueForString(key: "annual_income")
+                }
                 tblUser.badge_count = 0
                 tblUser.block_unblock_status = false
                 tblUser.dob = dict.valueForString(key: CDob)
@@ -3914,7 +3928,7 @@ extension APIRequest {
                 tblUser.mobile = dict.valueForString(key: CMobile)
                 tblUser.profession = dict.valueForString(key: CProfession)
                 tblUser.relationship_id = Int64(dict.valueForString(key: "relationship") ) ?? 0
-                tblUser.relationship = dict.valueForString(key: "relationship")
+               // tblUser.relationship = dict.valueForString(key: "relationship")
                 tblUser.religion = dict.valueForString(key: "religion")
                 tblUser.short_biography = dict.valueForString(key: CShort_biography)
                 tblUser.total_like = Int64(dict.valueForString(key: "likes")) ?? 0
@@ -3924,7 +3938,7 @@ extension APIRequest {
                 tblUser.visible_to_other = Int16(dict.valueForString(key: CVisible_to_other)) ?? 0
                 tblUser.profile_url = dict.valueForString(key: "profile_image")
                 tblUser.cover_image = dict.valueForString(key: "cover_image")
-                tblUser.education_name = dict.valueForString(key: "education_name")
+               // tblUser.education_name = dict.valueForString(key: "education_name")
                 tblUser.country = dict.valueForString(key: CCountryName)
                 tblUser.state = dict.valueForString(key: CStateName)
                 tblUser.city = dict.valueForString(key: CCityName)
