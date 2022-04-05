@@ -190,6 +190,8 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
         notificationObserver = nil
         NotificationCenter.default.addObserver(self, selector: #selector(self.MsgsentNotifications(notification:)), name: Notification.Name("MsgSentNotification"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.MsgrecviedNotification(notification:)), name: Notification.Name("MsgrecviedNotification"), object: nil)
+       
+        NotificationCenter.default.addObserver(self, selector: #selector(SocketDisconect), name: NSNotification.Name(rawValue: "SocketDisconect"), object: nil)
     }
     
     var notificationObserver: Any? {
@@ -200,6 +202,12 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
         }
     }
     
+    
+    @objc func SocketDisconect(){
+        print("Notifciaton From Disconect")
+        ChatSocketIo.shared().reconnectSocket(topic: topcName)
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -455,6 +463,7 @@ extension UserChatDetailViewController {
             }
         }
         refreshControl.beginRefreshing()
+        getMessagesFromServer(isNew : true)
     }
     
     func getMessagesFromServer(isNew : Bool) {
@@ -495,8 +504,9 @@ extension UserChatDetailViewController {
                     }
                     let timstmamp = dict?["timestamp"]?.replace(string: "T", replacement: " ")
                     //todo chagnes futures
-//                    let chatTimeStamp = DateFormatter.shared().timestampGMTFromDateNew(date: timstmamp)
-                    let chatTimeStamp = ""
+//                    let chatTimeStamp = ""
+                    let chatTimeStamp = (DateFormatter.shared().timestampGMTFromDateNew(date: timstmamp))?.toString
+//
                     //todo chagnes futures
                     let create  = chatTimeStamp
                     if let sender = dict?["sender"]{
@@ -505,23 +515,23 @@ extension UserChatDetailViewController {
                     
                     let senderName = dict?["name"] ?? ""
                     let senderProfImg = dict?["profile_image"] ?? ""
-                    let timestamp2 = dict?["timestamp"]
+//                    let timestamp2 = dict?["timestamp"]
                     
                     if dictcontent?["type"] == "image"{
-                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .image, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ,timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .image, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "" ,timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
                         UserDefaultHelper.userChatLastMsg = true
                         
                     }else if dictcontent?["type"] == "video"{
                         
-                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .video, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ,timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .video, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "" ,timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
                         UserDefaultHelper.userChatLastMsg = true
                         
                     }else if dictcontent?["type"] == "audio"{
-                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .audio, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ,timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .audio, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "" ,timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
                         UserDefaultHelper.userChatLastMsg = true
                         
                     }else {
-                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .text, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ,timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .text, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "",timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
                         UserDefaultHelper.userChatLastMsg = true
                     }
                     
@@ -680,7 +690,7 @@ extension UserChatDetailViewController {
         }
         fetchHome = nil;
         if let userid = self.userID {
-            print("topicname\(topcName)")
+//            print("topicname\(topcName)")
             strChannelId = topcName ?? ""
         }
         fetchHome = self.fetchController(listView: tblChat,
@@ -1119,20 +1129,20 @@ extension UserChatDetailViewController {
     
     @IBAction func btnSendCLK(_ sender : UIButton){
         
-//        ChatSocketIo.shared().SocketInitilized()
+       
         if sessionTask != nil {
             //            if sessionTask.state == .running {
             //                print(" Api calling continue =========")
             //                return
             //            }
         }
-        
-        if !ChatSocketIo.shared().socketClient.isConnected(){
-            ChatSocketIo.shared().reconnect()
-        }else {
-            print("Socket Is Connected")
-        }
-        
+//
+//        if !ChatSocketIo.shared().socketClient.isConnected(){
+//            ChatSocketIo.shared().reconnect()
+//        }else {
+//            print("Socket Is Connected")
+//        }
+        ChatSocketIo.shared().SocketInitilized()
         
         if isCreateNewChat == true {
 //            createTopictoChat()
@@ -1166,11 +1176,13 @@ extension UserChatDetailViewController {
                         DispatchQueue.main.async{
                             guard let arrList = response as? [String:Any] else { return }
 //                            self.fetchHome.loadData()
+//                            print("this message is Called multiple times")
                             if let arrStatus = arrList["message"] as? String{
                                 guard let userid = appDelegate.loginUser?.user_id else { return}
                                 guard let firstName = appDelegate.loginUser?.first_name else {return}
                                 guard let lastName = appDelegate.loginUser?.last_name else {return}
                                 MIGeneralsAPI.shared().sendNotification(self.userID?.description, userID:userid.description , subject: "send a text message to you", MsgType: "CHAT_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a text message to you", senderName: firstName + lastName, post_ID: self.chatInfoNot,shareLink: "senduserChatLink")
+//                                self.loadgetMessagesFromServer(isNew : true)
                                 self.fetchHome.loadData()
                             }
                         }
@@ -1643,27 +1655,27 @@ extension Dictionary {
 
 
 extension UserChatDetailViewController{
-    func getChatMessagesFromServer(dict : [String:Any],isNew:Bool) {
-        if sessionTask != nil {
-            if sessionTask.state == .running {
-                print(" Api calling continue =========")
-                return
-            }
-        }
-        sessionTask = APIRequest.shared().userSentMsg(dict:dict) { [weak self] (response, error) in
-            
-            guard let self = self else { return }
-            self.refreshControl.endRefreshing()
-            self.tblChat.tableFooterView = UIView()
-            if response != nil && error == nil {
-                guard let arrList = response as? [String:Any] else { return }
-                self.fetchHome.loadData()
-                if let arrStatus = arrList["message"] as? String{
-                    print("#######arrStatus\(arrStatus)")
-                }
-            }
-        }
-    }
+//    func getChatMessagesFromServer(dict : [String:Any],isNew:Bool) {
+//        if sessionTask != nil {
+//            if sessionTask.state == .running {
+//                print(" Api calling continue =========")
+//                return
+//            }
+//        }
+//        sessionTask = APIRequest.shared().userSentMsg(dict:dict) { [weak self] (response, error) in
+//
+//            guard let self = self else { return }
+//            self.refreshControl.endRefreshing()
+//            self.tblChat.tableFooterView = UIView()
+//            if response != nil && error == nil {
+//                guard let arrList = response as? [String:Any] else { return }
+//                self.fetchHome.loadData()
+//                if let arrStatus = arrList["message"] as? String{
+//                    print("#######arrStatus\(arrStatus)")
+//                }
+//            }
+//        }
+//    }
     
 }
 

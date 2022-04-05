@@ -76,10 +76,28 @@ class ChatSocketIo: NSObject {
         socketClient.disconnect()
     }
     
+    
+    func reconnectSocket(topic:String){
+        print("reconnect Api")
+        socketClient.subscribe(destination: topic)
+        let url = URL(string: SocketIoUrl)
+        socketClient.reconnect(request: NSURLRequest(url: url! as URL) , delegate: self as StompClientLibDelegate, time: 2.0)
+    }
+    
+//    func stompClientDidConnect(client: StompClientLib!) {
+//       socketClient.subscribe(destination: "/topic/some-topic-here")
+//
+//       socketClient.reconnect(
+//          request: socketRequest, delegate: self,
+//          connectionHeaders: socketHeader, time: 2.0
+//       )
+//    }
+    
+    
 
     func reconnect() {
         let url = URL(string: SocketIoUrl)
-        socketClient.reconnect(request: NSURLRequest(url: url! as URL),  delegate: self, connectionHeaders: [:], time: 4, exponentialBackoff: false)
+        socketClient.reconnect(request: NSURLRequest(url: url! as URL),  delegate: self, connectionHeaders: [:], time: 2.0, exponentialBackoff: false)
         stompClientLibDelegte = self
     }
     var apiTask : URLSessionTask?
@@ -201,10 +219,12 @@ extension ChatSocketIo: StompClientLibDelegate{
     
     func stompClientDidDisconnect(client: StompClientLib!) {
         print(":::::::::::stompClientDidDisconnect:::::::::::")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SocketDisconect"), object: nil)
      }
 
     func stompClientDidConnect(client: StompClientLib!) {
         print(":::::::::::stompClientDidConnect:::::::::::")
+     
      }
 
      func serverDidSendReceipt(client: StompClientLib!, withReceiptId receiptId: String) {
@@ -559,7 +579,7 @@ extension ChatSocketIo {
                 objMessageInfo.channel_id = messageInfo.valueForString(key: CChannel_id)
             }
 
-            print("channel ========= ",objMessageInfo.channel_id ?? "")
+//            print("channel ========= ",objMessageInfo.channel_id ?? "")
 
             //...Convert Timestamp in Local
             objMessageInfo.message_actual_timestamp = DateFormatter.shared().ConvertGMTMillisecondsTimestampToLocalTimestampChat(timestamp: messageInfo.valueForDouble(key: CCreated_at) ?? 0.0) ?? 0.0

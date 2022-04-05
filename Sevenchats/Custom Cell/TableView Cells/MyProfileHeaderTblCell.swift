@@ -127,7 +127,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
         }
         
         lblTitleFriends.text = CProfileFriends
-        btnViewCompleteProfile.setTitle(CProfileBtnViewCompleteProfile, for: .normal)
+        btnViewCompleteProfile.setTitle("\(" ") \(CProfileBtnViewCompleteProfile)", for: .normal)
         btnShare.isHidden  = true
     }
     

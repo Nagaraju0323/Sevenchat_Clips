@@ -93,7 +93,7 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
         
         lblTitleFriends.text = CProfileFriends
         btnMore.setTitle(CMore, for: .normal)
-        btnViewCompleteProfile.setTitle(CProfileBtnViewCompleteProfile, for: .normal)
+        btnViewCompleteProfile.setTitle("\(" ") \(CProfileBtnViewCompleteProfile)", for: .normal)
         //btnReportUser.setTitle(CBtnReportUser, for: .normal)
         btnRequestAccept.setTitle(CBtnAccept, for: .normal)
         btnRequestReject.setTitle(CBtnReject, for: .normal)

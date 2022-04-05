@@ -755,7 +755,8 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                                 
                                 
                             case kNotTypeFriendReqAccept,kNotTypeFriendReqSentNew:
-                                appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
+                                appDelegate.moveOnProfileScreenNew(notificationInfo.valueForString(key: "sender"),notificationInfo.valueForString(key: CUsermailID), self)
+//                                appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
                                 break
                             case kNotTypeFriendBlocked:
                                 
@@ -906,6 +907,38 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
             }
         }
     }
+    
+    
+    func EventDetailsFromServer(pollID:Int?,postInfo:[String:Any],userID:String?) {
+        var options = ""
+        if let artID = pollID {
+            APIRequest.shared().viewPostDetailLatest(postID: artID,userid: userID ?? "", apiKeyCall: "polls"){ [weak self] (response, error) in
+//            APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
+//                APIRequest.shared().viewPollDetailNew(postID: artID){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    //self.parentView.isHidden = false
+                    DispatchQueue.main.async {
+                        if let Info = response!["data"] as? [[String:Any]]{
+                            for articleInfo in Info {
+                                options = articleInfo["options"] as? String ?? ""
+                            }
+                            if let pollDetailVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
+                                self.postInfo["options"] = options
+                                pollDetailVC.likeFromNotify  = true
+                                pollDetailVC.pollInformation = self.postInfo
+                                pollDetailVC.posted_ID = postInfo.valueForString(key: "post_id")
+                                
+                                self.navigationController?.pushViewController(pollDetailVC, animated: true)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
 }
 
 extension NotificationViewController{

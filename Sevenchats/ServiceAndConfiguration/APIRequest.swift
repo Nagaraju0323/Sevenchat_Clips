@@ -349,7 +349,7 @@ class Networking: NSObject
                 if (arrLang?.count)! > 0 {
                     let dict = arrLang![0] as! TblLanguage
                    
-                    print("this is the values\(CUserDefaults.value(forKey: UserDefaultDeviceToken))")
+//                    print("this is the values\(CUserDefaults.value(forKey: UserDefaultDeviceToken))")
                     
                     return ["Authorization" : "Bearer \((CUserDefaults.value(forKey: UserDefaultDeviceToken)) as? String ?? "")","Content-Type" : "application/json", "Accept-Language" : dict.lang_code ?? "en", "language":"\(CUserDefaults.value(forKey: UserDefaultSelectedLangID) ?? 1)","Accept" : "application/json"]
                 }
@@ -3894,21 +3894,22 @@ extension APIRequest {
                 tblUser.address = dict.valueForString(key: CAddress)
                 tblUser.annual_income_id = Int64(dict.valueForString(key: CAnnual_income)) ?? 0
                 //tblUser.annual_income = dict.valueForString(key: "annual_income")
-                if dict.valueForString(key: "relationship") == "null"{
-                 tblUser.relationship = ""
-                   }else{
-                  tblUser.relationship = dict.valueForString(key: "relationship")
-                   }
-                if dict.valueForString(key: "education_name") == "null"{
-                    tblUser.relationship = ""
-                }else{
-                    tblUser.relationship = dict.valueForString(key: "education_name")
-                }
-                if dict.valueForString(key: "annual_income") == "null"{
-                    tblUser.relationship = ""
-                }else{
+                if dict.valueForString(key: "education_name") == "null" {
+                                    // do something with null JSON value here
+                  tblUser.education_name = ""
+                   }else {
+                   tblUser.education_name = dict.valueForString(key: "education_name")
+                    }
+                    if dict.valueForString(key: "education_name") == "null"{
+                    tblUser.education_name = ""
+                      }else{
+                    tblUser.education_name = dict.valueForString(key: "education_name")
+                    }
+                    if dict.valueForString(key: "annual_income") == "null"{
+                    tblUser.annual_income = ""
+                    }else{
                     tblUser.annual_income = dict.valueForString(key: "annual_income")
-                }
+                    }
                 tblUser.badge_count = 0
                 tblUser.block_unblock_status = false
                 tblUser.dob = dict.valueForString(key: CDob)
