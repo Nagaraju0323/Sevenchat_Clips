@@ -553,17 +553,27 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         //MARK:-FRIEND
                         for data in self?.arrBlockList ?? []{
                             let user_id = appDelegate.loginUser?.user_id
-                            if data?.valueForString(key: "friend_status") == "1"{
-                                self?.Friend_status = 5
-                            }else if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
-                                self?.Friend_status = 1
-                            }else if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
-                                self?.Friend_status = 0
-                            }
+//                            if data?.valueForString(key: "friend_status") == "1"{
+//                                self?.Friend_status = 5
+//                            }else if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
+//                                self?.Friend_status = 1
+//                            }else if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
+//                                self?.Friend_status = 0
+//                            }
+                      
+                         if data?.valueForString(key: "friend_status") == "1"{
+                            self?.Friend_status = 5
+                        }else if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
+                            self?.Friend_status = 1
+                        }else if data?.valueForString(key: "request_status") == "0" &&  data?.valueForString(key: "friend_status") == "0" && data?.valueForString(key: "reject_status") == "0" && data?.valueForString(key: "cancel_status") == "0" && data?.valueForString(key: "unfriend_status") == "0" || data?.valueForString(key: "unfriend_status") == "1" &&  data?.valueForString(key: "request_status") == "0" && data?.valueForString(key: "friend_status") == "0"{
+                            self?.Friend_status = 0
+                        }
                         }
                         switch self?.Friend_status {
                         case 0:
                             frndStatus = CFriendRequestSent
+                            isShowAlert = true
+                            alertMessage = CAlertMessageForSendRequest
                         case 1:
                             frndStatus = CFriendRequestCancel
                             isShowAlert = true
@@ -580,6 +590,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
                                 self?.friendStatusApi(userInfo, frndStatus)
                                 NotificationCenter.default.post(name: Notification.Name("NotificationRecived"), object: nil,userInfo: nil)
+                                NotificationCenter.default.post(name: Notification.Name("NotificationFrndRequest"), object: nil,userInfo: nil)
                                 self?.navigationController?.popViewController(animated: true)
                             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                         }else{
@@ -599,6 +610,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         
                         self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
                             self?.friendStatusApi(userInfo, 3)
+                            self?.navigationController?.popViewController(animated: true)
                         }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                     }
                     

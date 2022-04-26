@@ -595,7 +595,7 @@ extension InviteAndConnectViewController{
                             case 0, 3, 4:
                                 frndStatus = CFriendRequestSent
                                 isShowAlert = true
-                                alertMessage = CMessageAddfriend
+                                alertMessage = CAlertMessageForSendRequest
                             case 1:
                                 frndStatus = CFriendRequestCancel
                                 isShowAlert = true

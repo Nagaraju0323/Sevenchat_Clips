@@ -718,7 +718,7 @@ extension MIGeneralsAPI {
                         case .addPost?:
                             homeSearchVC.timeStamp = nil
                             homeSearchVC.isPost = nil
-                            homeSearchVC.getSearchDataFromServer(homeSearchVC.txtSearch.text, "new")
+                            homeSearchVC.getSearchDataFromServer(homeSearchVC.txtSearch.text, "new", searchTxtOther: false)
                             
                         case .editPost?:
                             if let index = homeSearchVC.arrHomeSearch.firstIndex(where: { $0[CId] as? Int == postInfo!.valueForInt(key: CId)}) {

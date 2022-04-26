@@ -306,7 +306,7 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                                     case 0:
                                         frndStatus = CFriendRequestSent
                                         isShowAlert = true
-                                        alertMessage = CMessageAddfriend
+                                        alertMessage = CAlertMessageForSendRequest
                                     case 1:
                                         frndStatus = CFriendRequestCancel
                                         isShowAlert = true

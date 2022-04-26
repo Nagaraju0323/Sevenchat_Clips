@@ -5284,6 +5284,8 @@ extension APIRequest {
             
             tblLanguageText.alert_message_for_reject = dict?.valueForString(key: "alert_message_for_reject")
             tblLanguageText.alert_message_for_accept = dict?.valueForString(key: "alert_message_for_accept")
+            tblLanguageText.alert_message_for_send = dict?.valueForString(key: "alert_message_for_send")
+            
             
             tblLanguageText.alert_message_addfriend = dict?.valueForString(key: "alert_message_addfriend")
             tblLanguageText.to_enhance_feed = dict?.valueForString(key: "to_enhance_feed")

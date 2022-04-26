@@ -1267,6 +1267,9 @@ var CAlertMessageForRejectRequest: String{
 var CAlertMessageForAcceptRequest: String{
     return CLocalize(text: appDelegate.langugaeText?.alert_message_for_accept ?? "Are you sure? You want to accept friend request!")
 }
+var CAlertMessageForSendRequest: String{
+    return CLocalize(text: appDelegate.langugaeText?.alert_message_for_send ?? "Are you sure? You want to send friend request!")
+}
 
 var CToEnhanceFeed: String{
     return CLocalize(text: appDelegate.langugaeText?.to_enhance_feed ?? "To enhance your feed and make it more interesting. Build your connections with other people, pick your interests from the profile section, or start posting your own content.")
