@@ -28,6 +28,7 @@ class HomeSearchViewController: ParentViewController {
     @IBOutlet weak var btnBack : UIButton!
     @IBOutlet weak var searchView : UIView!
     
+    
     var isRefreshingUserData = false
     var arrHomeSearch = [[String:Any]]()
     var arrBlockList = [[String : Any]?]()
@@ -43,6 +44,7 @@ class HomeSearchViewController: ParentViewController {
     var apiTask : URLSessionTask?
     var param = [String:Any]()
     var notificationInfo = [String:Any]()
+    let prefs = UserDefaults.standard
     
     var pageNumber = 1
     
@@ -58,7 +60,25 @@ class HomeSearchViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
+       
+        NotificationCenter.default.addObserver(self, selector: #selector(NotificationRecivedFrends), name: NSNotification.Name(rawValue: "NotificationFrndRequest"), object: nil)
     }
+    //..Notification Frdns Request
+
+    @objc func NotificationRecivedFrends(){
+        DispatchQueue.main.async {
+           
+//            self.tblEvents.reloadData()
+            print("this is Calling")
+        }
+        let searchKey = prefs.value(forKey: "searchKey")
+        
+        self.getSearchDataFromServer(searchKey as! String, "new",searchTxtOther:true)
+      
+    }
+    
+    
+    
     
     // MARK:- --------- Initialization
     func Initialization(){
@@ -138,7 +158,7 @@ extension HomeSearchViewController  {
     fileprivate func loadMore(_ indexPath : IndexPath) {
         // Load more data...
         if indexPath == tblEvents.lastIndexPath() && !self.isRefreshingUserData {
-            self.getSearchDataFromServer(txtSearch.text, "new")
+            self.getSearchDataFromServer(txtSearch.text, "new",searchTxtOther:false)
         }
     }
     
@@ -149,11 +169,11 @@ extension HomeSearchViewController  {
         
         timeStamp = nil
         isPost = nil
+        self.getSearchDataFromServer(txtSearch.text, "new",searchTxtOther:true)
         refreshControl.beginRefreshing()
     }
     
-    func getSearchDataFromServer(_ searchText : String?, _ typeLook : String?){
-        
+    func getSearchDataFromServer(_ searchText : String?, _ typeLook : String?,searchTxtOther:Bool){
         if apiTask?.state == URLSessionTask.State.running {
             return
         }
@@ -167,7 +187,13 @@ extension HomeSearchViewController  {
         let serchTextStr = searchText?.firstCharacterUpperCase()
         param[CName] = serchTextStr
         //        param[CPage] = "1"
-        param[CPage] = pageNumber
+        if searchTxtOther == true {
+            param[CPage] = 1
+        }else {
+            param[CPage] = pageNumber
+        }
+        
+        
         param[CLimitS] = CLimitTW
         param["user_id"] = appDelegate.loginUser?.user_id.description
         APIRequest.shared().userSearchDetail(Param: param){ [weak self] (response, error) in
@@ -193,6 +219,8 @@ extension HomeSearchViewController  {
             }
         }
     }
+    //...Search From Other profile
+    
     
     func deletePost(_ postId : Int, _ index : Int){
         //        weak var weakSelf = self
@@ -270,7 +298,9 @@ extension HomeSearchViewController : UITextFieldDelegate {
         pageNumber = 1
         timeStamp = nil
         isPost = nil
-        self.getSearchDataFromServer(txtSearch.text, "new")
+        prefs.setValue(txtSearch.text, forKey: "searchKey")
+        UserDefaults.standard.synchronize()
+        self.getSearchDataFromServer(txtSearch.text, "new",searchTxtOther:true)
     }
     
 }
@@ -391,7 +421,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                         case 0:
                                             frndStatus = CFriendRequestSent
                                             isShowAlert = true
-                                            alertMessage = CMessageAddfriend
+                                            alertMessage = CAlertMessageForSendRequest
                                         case 1:
                                             frndStatus = CFriendRequestCancel
                                             isShowAlert = true
@@ -416,7 +446,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                             self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                                                 guard let self = self else { return }
                                                
-                                                
+                                               
                                                 self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus, completion:{(success) -> Void in
                                                     if success {
                                                         

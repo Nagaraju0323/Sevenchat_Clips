@@ -163,6 +163,7 @@
         <attribute name="alert_message_for_cancel" optional="YES" attributeType="String"/>
         <attribute name="alert_message_for_files_not_uploaded" optional="YES" attributeType="String"/>
         <attribute name="alert_message_for_reject" optional="YES" attributeType="String"/>
+        <attribute name="alert_message_for_send" optional="YES" attributeType="String"/>
         <attribute name="alert_message_for_unfriend" optional="YES" attributeType="String"/>
         <attribute name="alert_message_report" optional="YES" attributeType="String"/>
         <attribute name="alert_message_special_character" optional="YES" attributeType="String"/>
@@ -1022,7 +1023,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="10994"/>
+        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11009"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>
