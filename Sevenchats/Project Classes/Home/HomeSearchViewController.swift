@@ -263,9 +263,11 @@ extension HomeSearchViewController : UITextFieldDelegate {
             isPost = nil
             arrHomeSearch.removeAll()
             tblEvents.restore()
+            pageNumber = 1
             tblEvents.reloadData()
             return
         }
+        pageNumber = 1
         timeStamp = nil
         isPost = nil
         self.getSearchDataFromServer(txtSearch.text, "new")

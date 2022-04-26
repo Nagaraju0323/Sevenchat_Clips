@@ -82,6 +82,8 @@ class HomeSharedArticleCell: UITableViewCell {
             self.imgSharedUser.layer.cornerRadius = self.imgSharedUser.frame.size.width/2
             self.imgSharedUser.layer.borderWidth = 2
             self.imgSharedUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.lblArticleDescription.adjustsFontSizeToFitWidth = true
+//            self.lblMessage.adjustsFontSizeToFitWidth = true
         }
     }
     

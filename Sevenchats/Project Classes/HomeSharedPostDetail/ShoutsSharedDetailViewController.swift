@@ -185,7 +185,8 @@ extension ShoutsSharedDetailViewController{
         
         self.parentView.isHidden = true
         if let shouID = self.shoutID {
-            APIRequest.shared().viewPostDetailNew(postID: shouID, apiKeyCall: CAPITagshoutsDetials) { [weak self] (response, error) in
+            guard let userid = appDelegate.loginUser?.user_id else { return }
+            APIRequest.shared().viewPostDetailLatest(postID: shouID,userid: userid.description, apiKeyCall: CAPITagshoutsDetials) { [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false
@@ -635,8 +636,12 @@ extension ShoutsSharedDetailViewController{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportShout
                 reportVC.isSharedPost = true
-                reportVC.userID = sharePostData.valueForInt(key: CUserId)
-                reportVC.reportID = sharePostData.valueForInt(key: CId)
+//                reportVC.userID = sharePostData.valueForInt(key: CUserId)
+//                reportVC.reportID = sharePostData.valueForInt(key: CId)
+//                reportVC.reportType = .reportShout
+                reportVC.userID = shoutInformation.valueForInt(key: CUserId)
+                reportVC.reportID = self.shoutID
+                reportVC.reportIDNEW = shoutInformation.valueForString(key: "post_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

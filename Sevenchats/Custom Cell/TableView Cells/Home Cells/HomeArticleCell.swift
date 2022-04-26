@@ -57,9 +57,7 @@ class HomeArticleCell: UITableViewCell {
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
     var notificationInfo = [String:Any]()
-    
-    
-    
+  
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -72,6 +70,7 @@ class HomeArticleCell: UITableViewCell {
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblArticleType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
+            self.lblArticleDescription.adjustsFontSizeToFitWidth = true
         }
     }
     
@@ -154,8 +153,6 @@ extension HomeArticleCell{
             }
         }
         
-        
-        
         likeCount = postInfo.valueForString(key: CLikes).toInt ?? 0
         btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
         
@@ -166,6 +163,7 @@ extension HomeArticleCell{
         lblArticleTitle.text = postInfo.valueForString(key: CTitle)
         lblArticleDescription.text = postInfo.valueForString(key: CContent)
         
+        print("printImagevalues\(postInfo.valueForString(key: "image"))")
         
         let image = postInfo.valueForString(key: "image")
         if image.isEmpty {

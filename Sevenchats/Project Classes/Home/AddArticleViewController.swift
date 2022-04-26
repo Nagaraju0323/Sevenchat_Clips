@@ -381,7 +381,7 @@ extension AddArticleViewController{
                 self.imgArticle.image = image
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
-                
+                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                 if let selectedImage = info?[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                     let imgName = UUID().uuidString
                     let documentDirectory = NSTemporaryDirectory()
@@ -399,6 +399,7 @@ extension AddArticleViewController{
                     MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                     MInioimageupload.shared().callback = { message in
                         print("UploadImage::::::::::::::\(message)")
+                        MILoader.shared.hideLoader()
                         self.profileImgUrl = message
                     }
                 }

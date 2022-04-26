@@ -273,10 +273,11 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
                             
                             case "productDetails":
 //                                let productID = self.postInfo.valueForString(key: "product_id")
-                                if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
-                                    ProductDetailVC.productIds = post_ID.toString
-                                    self.navigationController?.pushViewController(ProductDetailVC, animated: true)
-                                }
+//                                if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
+//                                    ProductDetailVC.productIds = post_ID.toString
+//                                    self.navigationController?.pushViewController(ProductDetailVC, animated: true)
+//                                }
+                                self.getProductDetail(productIds:post_ID.toString)
                                 
                             default:
                                 break
@@ -288,10 +289,13 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
             }
    
         if postType == "Post on store"{
-            if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
-                ProductDetailVC.productIds = post_ID.toString
-                self.navigationController?.pushViewController(ProductDetailVC, animated: true)
-            }
+//            if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
+//                ProductDetailVC.productIds = post_ID.toString
+//                self.navigationController?.pushViewController(ProductDetailVC, animated: true)
+//            }
+            
+            
+            self.getProductDetail(productIds:post_ID.toString)
         }
     }
     
@@ -317,6 +321,40 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+    //...Product Sold
+    func getProductDetail(productIds:String) {
+            
+            if apiTask?.state == URLSessionTask.State.running {return}
+            guard let userId = appDelegate.loginUser?.user_id else {return}
+            let userID = String(userId)
+            var para = [String:Any]()
+            para["user_id"] = userID
+            para["product_id"] = productIds
+            let _ = APIRequest.shared().getProductDetail(para:para,productID: productIds.toInt ?? 0,userID:userID, showLoader: true, completion:{ [weak self](response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    GCDMainThread.async {
+                        if let data = response?[CData] as? [[String:Any]] {
+                            for productInfo in data{
+                                let availableStatus = productInfo.valueForString(key: "available_status")
+                                print("availableStatus\(availableStatus)")
+                                if availableStatus == "2"{
+                                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CNoProductList, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                                }else {
+                                    
+                                    if let ProductDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
+                                        ProductDetailVC.productIds = productIds
+                                        self.navigationController?.pushViewController(ProductDetailVC, animated: true)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    MILoader.shared.hideLoader()
+                }
+            })
+        }
     
     
     

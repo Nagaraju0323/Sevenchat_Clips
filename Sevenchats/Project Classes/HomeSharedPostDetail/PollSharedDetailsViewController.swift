@@ -174,7 +174,7 @@ class PollSharedDetailsViewController: ParentViewController {
         
         self.title = CPollDetails
         self.view.backgroundColor = CRGB(r: 249, g: 250, b: 250)
-        lblSharedPostType.text = CSharedEvents
+        lblSharedPostType.text = CSharedPoll
         self.parentView.backgroundColor = .clear
         self.tblCommentList.backgroundColor = .clear
         
@@ -614,8 +614,12 @@ extension PollSharedDetailsViewController{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportPoll
                 reportVC.isSharedPost = true
-                reportVC.userID = sharePostData.valueForInt(key: CUserId)
-                reportVC.reportID = sharePostData.valueForInt(key: CId)
+//                reportVC.userID = sharePostData.valueForInt(key: CUserId)
+//                reportVC.reportID = sharePostData.valueForInt(key: CId)
+                
+                reportVC.userID = pollInformation.valueForInt(key: CUserId)
+                reportVC.reportID = self.pollID
+                reportVC.reportIDNEW = pollInformation.valueForString(key: "post_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

@@ -214,8 +214,8 @@ let COther           = 3
 let CInterestType    = 1
 let CNewsType        = 2
 let CBusinessType    = 3
-let CBasicPrefrence      = 1
-let CCompletePrefrence   = 2
+let CBasicPrefrence      = 0
+let CCompletePrefrence   = 1
 let CLessThan1Lakh                = 1
 let CBetween1LakhAnd5Lakhs        = 2
 let CBetween5LakhsTo10Lakhs       = 3
@@ -515,8 +515,10 @@ let CBindingId = "bindingId"
 //NEW CODE 
 
 let CisAutoDelete       = "is_auto_delete"
-let CAccesskey = "minioadmin"
-let CSecretKey = "minioadmin"
+//let CAccesskey = "minioadmin"
+//let CSecretKey = "minioadmin"
+let CAccesskey = "sevenchats"
+let CSecretKey = "sevenchats"
 let CProfileImages    = "profile_image"
 let CEmail_Mobile     = "email"
 let CCoverImage = "cover_image"

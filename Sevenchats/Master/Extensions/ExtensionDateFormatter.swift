@@ -76,6 +76,7 @@ extension DateFormatter{
     
     func convertDatereversLatest(strDate: String?) -> String?{
         
+        
         let dateFormatter = DateFormatter()
       
         dateFormatter.dateStyle = DateFormatter.Style.long
@@ -242,7 +243,7 @@ extension DateFormatter {
         self.timeZone = TimeZone.current
 //        var timeStamp = self.date(from: date!)?.timeIntervalSince1970
         var timeStamp = self.date(from: date!)?.addingTimeInterval((330*60)).timeIntervalSince1970
-        timeStamp = Double(timeStamp!)
+        timeStamp = Double(timeStamp ?? 1.012122)
         return timeStamp
     }
     // To Get local Timestamp from specific date

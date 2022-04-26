@@ -674,13 +674,14 @@ extension EventDetailImageViewController {
                     "end_date": eventInfo?.valueForString(key: "end_date"),
                     "targeted_audience": eventInfo?.valueForString(key: "targeted_audience"),
                     "selected_persons": eventInfo?.valueForString(key: "selected_persons"),
-                    "status_id": "3"
+                    "status_id": "3",
+                    "address_line1":""
                 ]
             APIRequest.shared().deletePostNew(postDetials: dict, apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
                 guard let self = self else { return }
                 if response != nil && error == nil{
                     self.navigationController?.popViewController(animated: true)
-                    // MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, chirID, self, .deletePost)
+                    MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, self.postID, self, .deletePost, rss_id: 0)
                 }
             })
         }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)

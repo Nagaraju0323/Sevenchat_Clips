@@ -181,8 +181,8 @@ extension ForumSharedDetailViewController{
     fileprivate func getForumDetailsFromServer() {
         self.parentView.isHidden = true
         if let forID = self.forumID {
-            
-            APIRequest.shared().viewPostDetailNew(postID: forID, apiKeyCall: CAPITagforumsDetials){ [weak self] (response, error) in
+            guard let userid = appDelegate.loginUser?.user_id else { return }
+            APIRequest.shared().viewPostDetailLatest(postID: forID, userid: userid.description, apiKeyCall: CAPITagforumsDetials){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false
@@ -235,7 +235,7 @@ extension ForumSharedDetailViewController{
                 posted_ID = forumInformation.valueForString(key: "user_id")
             }
             //if let sharedData = forInfo[CSharedPost] as? [String:Any]{
-                self.lblSharedUserName.text = forInfo.valueForString(key: CFullName) + " " + forInfo.valueForString(key: CFullName)
+                self.lblSharedUserName.text = forInfo.valueForString(key: CFullName) + " " + forInfo.valueForString(key: CLastName)
                 //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: forInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
             let shared_created_at = forInfo.valueForString(key: CShared_Created_at)
                        let shared_cnv_date = shared_created_at.stringBefore("G")
@@ -640,8 +640,12 @@ extension ForumSharedDetailViewController{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportForum
                 reportVC.isSharedPost = true
-                reportVC.userID = sharePostData.valueForInt(key: CUserId)
-                reportVC.reportID = sharePostData.valueForInt(key: CId)
+//                reportVC.userID = sharePostData.valueForInt(key: CUserId)
+//                reportVC.reportID = sharePostData.valueForInt(key: CId)
+                
+                reportVC.userID = forumInformation.valueForInt(key: CUserId)
+                reportVC.reportID = self.forumID
+                reportVC.reportIDNEW = forumInformation.valueForString(key: "post_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }
@@ -761,7 +765,10 @@ extension ForumSharedDetailViewController{
     }
     
     @IBAction func btnShareReportCLK(_ sender : UIButton){
-        self.presentActivityViewController(mediaData: forumInformation.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+       // self.presentActivityViewController(mediaData: forumInformation.valueForString(key: CShare_url), contentTitle: CSharePostContentMsg)
+        let sharePost = SharePostHelper(controller: self, dataSet: forumInformation)
+        sharePost.shareURL = forumInformation.valueForString(key: CShare_url)
+        sharePost.presentShareActivity()
     }
     
     func btnMoreOptionOfComment(index:Int){

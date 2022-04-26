@@ -95,6 +95,7 @@ class HomeEventImageTblCell: UITableViewCell {
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblEventType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
+          self.lblEventDescription.adjustsFontSizeToFitWidth = true
         }
     }
     

@@ -124,15 +124,16 @@ extension ChangePWDViewController{
                 DispatchQueue.main.async {
                     if userMsg == "Something went wrong!"{
                         MILoader.shared.hideLoader()
-                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Password Does not Match", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetPasswordNotMatch, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                             self.dismiss(animated: true, completion: nil)
                         })
                         
                     }else {
                         MILoader.shared.hideLoader()
-                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetPassword, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                             self.dismiss(animated: true, completion: nil)
-                            self.navigationController?.popToRootViewController(animated: true)
+                            MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: 1)
+//                            self.navigationController?.popToRootViewController(animated: true)
                         })
                     }
                 }
@@ -184,13 +185,13 @@ extension ChangePWDViewController{
                 DispatchQueue.main.async {
                     if userMsg == "Something went wrong!"{
                         MILoader.shared.hideLoader()
-                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Password Does not Match", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetPasswordNotMatch, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                             self.dismiss(animated: true, completion: nil)
                         })
                         
                     }else {
                         MILoader.shared.hideLoader()
-                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetPassword, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                             self.dismiss(animated: true, completion: nil)
                             self.navigationController?.popToRootViewController(animated: true)
                         })

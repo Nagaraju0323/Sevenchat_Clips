@@ -98,8 +98,10 @@ extension VerifyEmailMobileViewController {
             }else {
                 guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
                 let errorMsg = errorUserinfo.stringAfter(":")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
+            
         }
     }
     

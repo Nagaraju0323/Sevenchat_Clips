@@ -95,9 +95,9 @@ extension FavWebSideViewController{
                 let respErrorMsg = response?["error"] as? String
                 print("response\(respErrorMsg)")
                 let errorMsg = respErrorMsg?.stringAfter(":")
-                if errorMsg == " No Favourite Websites Details Found "{
-                    self.tblFavWebSite.setEmptyMessage(errorMsg ?? CNoFavWebList)
-                }
+//                if errorMsg == " No Favourite Websites Details Found "{
+//                    self.tblFavWebSite.setEmptyMessage(errorMsg ?? CNoFavWebList)
+//                }
                 
                 if let webarrList = response![CWebsites] as? [String:Any]{
                     let arrList = webarrList["favourite_websites"] as? [[String : Any]] ?? []
@@ -131,7 +131,7 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.arrFavWebSite.isEmpty{
-//            self.tblFavWebSite.setEmptyMessage(CNoFavWebList)
+            self.tblFavWebSite.setEmptyMessage(CNoFavWebList)
         }else{
             self.tblFavWebSite.restore()
         }

@@ -48,13 +48,13 @@ class ProfilePreferenceViewController: ParentViewController {
         
         self.setLanguageText()
         
-        if appDelegate.loginUser?.visible_to_friend == 1 {
+        if appDelegate.loginUser?.visible_to_friend == 0 {
             btnFriendBasic.isSelected = true
         } else {
             btnFriendComplete.isSelected = true
         }
         
-        if appDelegate.loginUser?.visible_to_other == 1 {
+        if appDelegate.loginUser?.visible_to_other == 0 {
             btnUnknowsBasic.isSelected = true
         } else {
             btnUnknowsComplete.isSelected = true

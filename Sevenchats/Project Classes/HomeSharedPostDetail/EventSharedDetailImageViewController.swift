@@ -173,6 +173,7 @@ class EventSharedDetailImageViewController: ParentViewController {
 
         lblEventType.layer.cornerRadius = 3
         
+        
         self.view.backgroundColor = CRGB(r: 249, g: 250, b: 250)
         self.parentView.backgroundColor = .clear
         self.tblCommentList.backgroundColor = .clear
@@ -303,8 +304,8 @@ extension EventSharedDetailImageViewController {
     
     func loadEventDetailFromServer() {
         self.parentView.isHidden = true
-        
-        APIRequest.shared().viewPostDetailNew(postID: self.postID ?? 0, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in
+        guard let userid = appDelegate.loginUser?.user_id else { return }
+        APIRequest.shared().viewPostDetailLatest(postID: self.postID ?? 0, userid: userid.description, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil {
                 self.parentView.isHidden = false
@@ -1200,8 +1201,13 @@ extension EventSharedDetailImageViewController{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportEvent
                 reportVC.isSharedPost = true
-                reportVC.userID = sharePostData.valueForInt(key: CUserId)
-                reportVC.reportID = sharePostData.valueForInt(key: CId)
+//                reportVC.userID = sharePostData.valueForInt(key: CUserId)
+//                reportVC.reportID = sharePostData.valueForInt(key: CId)
+                
+            
+                reportVC.userID = eventInfo.valueForInt(key: CUserId)
+                reportVC.reportID = self.postID
+                reportVC.reportIDNEW = eventInfo.valueForString(key: "user_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

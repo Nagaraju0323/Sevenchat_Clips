@@ -219,7 +219,8 @@ extension ImageSharedDetailViewController{
     fileprivate func getGalleryDetailsFromServer() {
         self.parentView.isHidden = true
         if let imgID = self.imgPostId {
-            APIRequest.shared().viewPostDetailNew(postID: imgID, apiKeyCall: CAPITagsgalleryDetials){ [weak self] (response, error) in
+            guard let userid = appDelegate.loginUser?.user_id else { return }
+            APIRequest.shared().viewPostDetailLatest(postID: imgID, userid: userid.description, apiKeyCall: CAPITagsgalleryDetials){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false
@@ -753,8 +754,11 @@ extension ImageSharedDetailViewController{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportGallery
                 reportVC.isSharedPost = true
-                reportVC.userID = sharePostData.valueForInt(key: CUserId)
-                reportVC.reportID = sharePostData.valueForInt(key: CId)
+//                reportVC.userID = sharePostData.valueForInt(key: CUserId)
+//                reportVC.reportID = sharePostData.valueForInt(key: CId)
+                reportVC.userID = galleryInfo.valueForInt(key: CUserId)
+                reportVC.reportID = self.imgPostId
+                reportVC.reportIDNEW = galleryInfo.valueForString(key: "post_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }
@@ -952,7 +956,12 @@ extension ImageSharedDetailViewController{
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadder"), object: nil)    }
     
     func btnMoreOptionOfComment(index:Int){
-       
+        self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
+            guard let _ = self else {return}
+            DispatchQueue.main.async {
+                self?.deleteComment(index)
+            }
+        }
     }
     
     func deleteComment(_ index:Int){

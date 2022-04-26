@@ -94,7 +94,7 @@ extension PollVotesListViewController : UITableViewDelegate, UITableViewDataSour
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "PollVotesListTblCell") as? PollVotesListTblCell {
-          cell.lblName.text = pollUsers[indexPath.row].firstName + pollUsers[indexPath.row].lastName
+          cell.lblName.text = pollUsers[indexPath.row].firstName + " " + pollUsers[indexPath.row].lastName
             cell.imgVProfile.loadImageFromUrl(pollUsers[indexPath.row].profileImage, true)
             
             return cell

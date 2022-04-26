@@ -73,7 +73,12 @@ class AddEventViewController: ParentViewController {
     var arrsubCategorys : [MDLIntrestSubCategory] = []
     var postContent = ""
     var postTxtFieldContent = ""
+    
     var post_ID:String?
+    var startEventChng = ""
+       var endEventChng = ""
+       var chngStringStart = ""
+       var chngStringEnd = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -216,9 +221,82 @@ extension AddEventViewController{
         if eventType == .editEvent{
             apiPara[CId] = eventID
         }
+        
+        if txtEventStartDate.text?.range(of:"ಜನವರಿ") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ಜನವರಿ", with: "Jan") ?? ""
+              }else if txtEventStartDate.text?.range(of:"ಫೆಬ್ರವರಿ") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ಫೆಬ್ರವರಿ", with: "Feb") ?? ""
+              } else if txtEventStartDate.text?.range(of:"ಮಾರ್ಚ್") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ಮಾರ್ಚ್", with: "Mar") ?? ""
+              }else if txtEventStartDate.text?.range(of:"ಏಪ್ರಿ") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ಏಪ್ರಿ", with: "Apr") ?? ""
+              }else if txtEventStartDate.text?.range(of:"ಮೇ") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ಮೇ", with: "May") ?? ""
+              }else if txtEventStartDate.text?.range(of:"ಜೂನ್") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ಜೂನ್", with: "Jun") ?? ""
+              }else if txtEventStartDate.text?.range(of:"ಜುಲೈ") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ಜುಲೈ", with: "Jul") ?? ""
+              }else if txtEventStartDate.text?.range(of:"ಆಗ") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ಆಗ", with: "Aug") ?? ""
+              }else if txtEventStartDate.text?.range(of:"ಸೆಪ್ಟೆಂ") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ಸೆಪ್ಟೆಂ", with: "Sep") ?? ""
+              }else if txtEventStartDate.text?.range(of:"ಅಕ್ಟೋ") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ಅಕ್ಟೋ", with: "Oct") ?? ""
+              } else if txtEventStartDate.text?.range(of:"ನವೆಂ") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ನವೆಂ", with: "Nov") ?? ""
+              }else if txtEventStartDate.text?.range(of:"ಡಿಸೆಂ") != nil{
+                  startEventChng = txtEventStartDate.text?.replacingOccurrences(of: "ಡಿಸೆಂ", with: "Dec") ?? ""
+              }else {
+                  chngStringStart = txtEventStartDate.text ?? ""
+              }
+              
+              if txtEventEndDate.text?.range(of:"ಜನವರಿ") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ಜನವರಿ", with: "Jan") ?? ""
+              }else if txtEventEndDate.text?.range(of:"ಫೆಬ್ರವರಿ") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ಫೆಬ್ರವರಿ", with: "Feb") ?? ""
+              } else if txtEventEndDate.text?.range(of:"ಮಾರ್ಚ್") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ಮಾರ್ಚ್", with: "Mar") ?? ""
+              }else if txtEventEndDate.text?.range(of:"ಏಪ್ರಿ") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ಏಪ್ರಿ", with: "Apr") ?? ""
+              }else if txtEventEndDate.text?.range(of:"ಮೇ") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ಮೇ", with: "May") ?? ""
+              }else if txtEventEndDate.text?.range(of:"ಜೂನ್") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ಜೂನ್", with: "Jun") ?? ""
+              }else if txtEventEndDate.text?.range(of:"ಜುಲೈ") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ಜುಲೈ", with: "Jul") ?? ""
+              }else if txtEventEndDate.text?.range(of:"ಆಗ") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ಆಗ", with: "Aug") ?? ""
+              }else if txtEventEndDate.text?.range(of:"ಸೆಪ್ಟೆಂ") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ಸೆಪ್ಟೆಂ", with: "Sep") ?? ""
+              }else if txtEventEndDate.text?.range(of:"ಅಕ್ಟೋ") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ಅಕ್ಟೋ", with: "Oct") ?? ""
+              } else if txtEventEndDate.text?.range(of:"ನವೆಂ") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ನವೆಂ", with: "Nov") ?? ""
+              }else if txtEventEndDate.text?.range(of:"ಡಿಸೆಂ") != nil{
+                  endEventChng = txtEventEndDate.text?.replacingOccurrences(of: "ಡಿಸೆಂ", with: "Dec") ?? ""
+              }else {
+                  chngStringEnd = txtEventEndDate.text ?? ""
+              }
+              
+              if startEventChng.range(of:"ಅಪರಾಹ್ನ") != nil {
+                  chngStringStart = startEventChng.replacingOccurrences(of: "ಅಪರಾಹ್ನ", with: "PM")
+              }
+              
+              if startEventChng.range(of:"ಪೂರ್ವಾಹ್ನ") != nil{
+                  chngStringStart = startEventChng.replacingOccurrences(of: "ಪೂರ್ವಾಹ್ನ", with: "AM")
+              }
+              
+              if endEventChng.range(of:"ಅಪರಾಹ್ನ") != nil{
+                  chngStringEnd = endEventChng.replacingOccurrences(of: "ಅಪರಾಹ್ನ", with: "PM")
+              }
+              
+              if endEventChng.range(of:"ಪೂರ್ವಾಹ್ನ") != nil{
+                  chngStringEnd = endEventChng.replacingOccurrences(of: "ಪೂರ್ವಾಹ್ನ", with: "AM")
+              }
+        
         print(apiPara)
-        let startEvntTime =  DateFormatter.shared().reversDateFormat(dateString:txtEventStartDate.text ?? "" )
-        let endEvntTime = DateFormatter.shared().reversDateFormat(dateString:txtEventEndDate.text ?? "" )
+        let startEvntTime =  DateFormatter.shared().reversDateFormat(dateString:chngStringStart ?? "" )
+        let endEvntTime = DateFormatter.shared().reversDateFormat(dateString:chngStringEnd ?? "" )
         let startchg = "\(startEvntTime.description) \(" GMT+0530 (IST)")"
         let endchg = "\(endEvntTime.description) \(" GMT+0530 (IST)")"
         guard let userID = appDelegate.loginUser?.user_id else { return }
@@ -393,6 +471,7 @@ extension AddEventViewController{
         self.presentImagePickerController(allowEditing: false) { [weak self] (image, info) in
             guard let self = self else { return }
             if image != nil{
+                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                 self.imgEvent.image = image
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
@@ -403,6 +482,7 @@ extension AddEventViewController{
                 MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                 MInioimageupload.shared().callback = { message in
                     print("UploadImage::::::::::::::\(message)")
+                    MILoader.shared.hideLoader()
                     self.profileImgUrl = message
                 }
             }

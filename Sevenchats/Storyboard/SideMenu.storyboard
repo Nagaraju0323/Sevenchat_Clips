@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -255,7 +255,7 @@
                                                         </constraints>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentTblCell" rowHeight="80" id="sJ9-ax-mIx" customClass="CommentTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="24.5" width="375" height="80"/>
+                                                                <rect key="frame" x="0.0" y="44.5" width="375" height="80"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sJ9-ax-mIx" id="504-cR-1Bg">
                                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -525,7 +525,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="QuotesTblCell" rowHeight="187" id="v8S-f6-lQ5" customClass="QuotesTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="414" height="187"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="187"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="v8S-f6-lQ5" id="9Vk-A7-SJt">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="187"/>
@@ -747,7 +747,7 @@
                                         <color key="backgroundColor" red="0.97647058823529409" green="0.98039215686274506" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsTblCell" rowHeight="200" id="t3b-QK-t8g" customClass="NewsTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="414" height="200"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="200"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t3b-QK-t8g" id="BP4-P7-n8v">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
@@ -1106,7 +1106,7 @@
                                                         </constraints>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentTblCell" rowHeight="80" id="h5M-uQ-PZS" customClass="CommentTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="24.5" width="375" height="80"/>
+                                                                <rect key="frame" x="0.0" y="44.5" width="375" height="80"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h5M-uQ-PZS" id="vFY-NG-iwm">
                                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
@@ -1429,7 +1429,7 @@
                                         <color key="backgroundColor" red="0.97647058819999999" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PSLTblCell" rowHeight="200" id="bAL-wu-GGQ" customClass="PSLTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="414" height="200"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="200"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bAL-wu-GGQ" id="hTE-X7-2tS">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
@@ -1442,7 +1442,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="186"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where do people go wrong in mutual fund investing? " textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvv-wl-8AL" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="47" y="10" width="317" height="42"/>
+                                                                            <rect key="frame" x="10" y="10" width="354" height="42"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" id="rlx-26-RUY"/>
@@ -1451,31 +1451,32 @@
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In April - May 2017, Mint surveyed 19 finanacial advisers to know some of the biggest mistakes investors make " textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHE-3w-b5h" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="47" y="62" width="317" height="50.5"/>
+                                                                            <rect key="frame" x="10" y="62" width="354" height="51"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" id="SR1-Bj-Maz"/>
+                                                                                <constraint firstAttribute="height" constant="51" id="t5q-73-fiD"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
                                                                             <color key="textColor" red="0.34509803919999998" green="0.34509803919999998" blue="0.34509803919999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tmn-nx-Z0a">
-                                                                            <rect key="frame" x="47" y="132.5" width="319" height="1"/>
+                                                                            <rect key="frame" x="13" y="133" width="353" height="1"/>
                                                                             <color key="backgroundColor" red="0.80784313730000001" green="0.80784313730000001" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="1" id="JRZ-TJ-0pv"/>
                                                                             </constraints>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y3s-ow-AWI">
-                                                                            <rect key="frame" x="47" y="53" width="319" height="1"/>
+                                                                            <rect key="frame" x="13" y="53" width="353" height="1"/>
                                                                             <color key="backgroundColor" red="0.80784313730000001" green="0.80784313730000001" blue="0.80784313730000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="1" id="gvA-ve-Y9c"/>
                                                                             </constraints>
                                                                         </view>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="38y-Is-lOr" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                            <rect key="frame" x="67" y="138.5" width="252" height="0.0"/>
+                                                                            <rect key="frame" x="67" y="139" width="252" height="0.0"/>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" id="vpM-He-iZA"/>
@@ -1490,13 +1491,15 @@
                                                                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="38y-Is-lOr" secondAttribute="bottom" priority="750" constant="4" id="09R-rK-Wz4"/>
                                                                         <constraint firstItem="BHE-3w-b5h" firstAttribute="trailing" secondItem="wvv-wl-8AL" secondAttribute="trailing" id="1SA-zq-yo4"/>
                                                                         <constraint firstItem="38y-Is-lOr" firstAttribute="trailing" secondItem="HV5-nv-5wY" secondAttribute="trailing" constant="-55" id="2vf-4v-vca"/>
-                                                                        <constraint firstItem="Tmn-nx-Z0a" firstAttribute="leading" secondItem="BHE-3w-b5h" secondAttribute="leading" id="49d-dq-s71"/>
+                                                                        <constraint firstItem="Tmn-nx-Z0a" firstAttribute="leading" secondItem="BHE-3w-b5h" secondAttribute="leading" constant="3" id="49d-dq-s71"/>
                                                                         <constraint firstItem="38y-Is-lOr" firstAttribute="leading" secondItem="HV5-nv-5wY" secondAttribute="leading" constant="67" id="4yu-6H-8jS"/>
                                                                         <constraint firstItem="BHE-3w-b5h" firstAttribute="top" secondItem="wvv-wl-8AL" secondAttribute="bottom" constant="10" id="Ec5-3F-wvf"/>
                                                                         <constraint firstItem="y3s-ow-AWI" firstAttribute="trailing" secondItem="Tmn-nx-Z0a" secondAttribute="trailing" id="ObL-9Z-5Wr"/>
-                                                                        <constraint firstItem="y3s-ow-AWI" firstAttribute="leading" secondItem="wvv-wl-8AL" secondAttribute="leading" id="P0g-ot-vzx"/>
+                                                                        <constraint firstItem="y3s-ow-AWI" firstAttribute="leading" secondItem="wvv-wl-8AL" secondAttribute="leading" constant="3" id="P0g-ot-vzx"/>
+                                                                        <constraint firstItem="BHE-3w-b5h" firstAttribute="leading" secondItem="HV5-nv-5wY" secondAttribute="leading" constant="10" id="Xf0-Uh-uEz"/>
                                                                         <constraint firstAttribute="trailing" secondItem="Tmn-nx-Z0a" secondAttribute="trailing" constant="8" id="YBd-fS-JHu"/>
-                                                                        <constraint firstItem="wvv-wl-8AL" firstAttribute="leading" secondItem="HV5-nv-5wY" secondAttribute="trailing" constant="-327" id="bnu-UK-5q3"/>
+                                                                        <constraint firstItem="wvv-wl-8AL" firstAttribute="leading" secondItem="HV5-nv-5wY" secondAttribute="trailing" constant="-374" id="bnu-UK-5q3"/>
+                                                                        <constraint firstItem="wvv-wl-8AL" firstAttribute="leading" secondItem="HV5-nv-5wY" secondAttribute="leading" constant="10" id="dTt-jm-wSC"/>
                                                                         <constraint firstItem="wvv-wl-8AL" firstAttribute="top" secondItem="HV5-nv-5wY" secondAttribute="top" constant="10" id="f7W-k7-GI1"/>
                                                                         <constraint firstItem="BHE-3w-b5h" firstAttribute="leading" secondItem="wvv-wl-8AL" secondAttribute="leading" id="fyA-GE-ES1"/>
                                                                         <constraint firstItem="38y-Is-lOr" firstAttribute="top" secondItem="Tmn-nx-Z0a" secondAttribute="bottom" constant="5" id="gyW-cS-2Fd"/>
@@ -1587,7 +1590,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="baV-y6-K1e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1716" y="-861"/>
+            <point key="canvasLocation" x="1715.9420289855075" y="-861.16071428571422"/>
         </scene>
     </scenes>
     <designables>

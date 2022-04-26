@@ -24,7 +24,7 @@ open class GooglePlacesAutocompleteContainer: UITableViewController {
     private var placeType: PlaceType = .all
     var components: [String] = [] // array of two character ISO (IN,US)
     var coordinate: CLLocationCoordinate2D = kCLLocationCoordinate2DInvalid
-    private var radius: Double = 50000
+    private var radius: Double = 5000000
     private var strictBounds: Bool = false
     private let cellIdentifier = "Cell"
     var restrictedCity : String?

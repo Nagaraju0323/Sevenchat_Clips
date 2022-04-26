@@ -439,6 +439,7 @@ extension AddChirpyViewController{
         self.presentImagePickerController(allowEditing: false) { [weak self] (image, info) in
             guard let self = self else { return }
             if image != nil{
+                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                 self.imgChirpy.image = image
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
@@ -446,6 +447,7 @@ extension AddChirpyViewController{
                 guard let mobileNum = appDelegate.loginUser?.mobile else {return}
                 MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                 MInioimageupload.shared().callback = { message in
+                    MILoader.shared.hideLoader()
                     self.uploadImgUrl = message
                 }
             }

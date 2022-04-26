@@ -93,6 +93,7 @@ class HomeSharedGalleryCell: UITableViewCell {
             self.btnComment.isUserInteractionEnabled = false
             self.vwCountImage.layer.cornerRadius = 4
             self.vwCountImage.isHidden = true
+            self.lblMessage.adjustsFontSizeToFitWidth = true
             
         }
         

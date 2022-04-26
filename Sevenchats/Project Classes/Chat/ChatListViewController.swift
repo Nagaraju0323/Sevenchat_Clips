@@ -49,10 +49,15 @@ class ChatListViewController: ParentViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-//        self.fetchUserListFromLocal()
         self.getUserChatListFromServer(isNew: true)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifier"), object: nil)
+      
     }
+   
+    //...Notficatin Response
+    @objc func methodOfReceivedNotification(notification: Notification) {
+           pullToRefresh()
+       }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -160,6 +165,8 @@ extension ChatListViewController {
                 if let arrList = response![CJsonData] as? [[String : Any]] {
                     if arrList.count > 0 {
                         self.fetchUserListFromLocal()
+                    }else {
+                        self.fetchUserListFromLocal()
                     }
                 }
             }
@@ -245,7 +252,7 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
              If not update online offline status.
              */
             if indexPath == tblUserChat.lastIndexPath() && !isChangingOnlineOffline {
-                self.getUserChatListFromServer(isNew: false)
+               // self.getUserChatListFromServer(isNew: false)
             }
             return cell
         }
@@ -326,7 +333,7 @@ extension ChatListViewController: UISearchBarDelegate{
                         return false
                     }
                 }
-                tblUserChat.reloadData()
+//                tblUserChat.reloadData()
             } else {
                 isSearch = true
             }

@@ -82,6 +82,9 @@ class InviteFriendCell: UITableViewCell {
         }
     }
     
+    deinit {
+        print("Deinit -> InviteViewController")
+    }
     
     func inviteContacts(_ userID:String?,friend_user_id:String,Check_status:String,phoneNumber:String,arrSyncUser:[[String : Any]],userMobileNo:String,userIDs:String){
         
@@ -96,10 +99,6 @@ class InviteFriendCell: UITableViewCell {
                 btnInviteConnect.isHidden = false
                 
             }
-            //            btnInviteConnect.isHidden = userIDs == appDelegate.loginUser?.user_id.description ? true : false
-            //             btnInviteConnect.setImage(nil, for: .normal)
-            //             btnInviteConnect.setTitle(nil, for: .normal)
-            //
             let dict :[String:Any]  =  [
                 "user_id":  appDelegate.loginUser?.user_id.description ?? "",
                 "friend_user_id": userIDs.description
@@ -129,9 +128,6 @@ class InviteFriendCell: UITableViewCell {
                                 let friendStatus = Check_status
                                 if friendStatus.toInt == 0{
                                     self.check_Status = 0
-                                    
-                                    
-                                    
                                     self.btnInviteConnect.setTitle(CBtnInvite, for: .normal)
                                 }else{
 //                                    self.check_Status = 1

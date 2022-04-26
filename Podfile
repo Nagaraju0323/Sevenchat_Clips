@@ -41,7 +41,7 @@ target 'Sevenchats' do
   pod 'DropDown'
   pod 'AWSS3' , '~> 2.6.27' 
   pod 'StompClientLib'  
-  pod 'Socket.IO-Client-Swift'
+  pod 'Socket.IO-Client-Swift', '~> 16.0.1'
   
   post_install do |installer|
     installer.pods_project.targets.each do |target|

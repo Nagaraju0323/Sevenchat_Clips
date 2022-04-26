@@ -67,6 +67,8 @@ class EditProfileViewController: ParentViewController {
     var isCoverImg = false
     var postFirstName = ""
     var postLastName = ""
+    var startDate = ""
+    var chngDate = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +100,7 @@ class EditProfileViewController: ParentViewController {
             self.imgUser.layer.borderWidth = 3
         }
         txtDOB.setDatePickerMode(mode: .date)
-        txtDOB.setMaximumDate(maxDate: Date().dateByAdd(years: -13))
+        txtDOB.setMaximumDate(maxDate: Date().dateByAdd(years: -16))
         txtDOB.setDatePickerWithDateFormate(dateFormate: "dd MMM yyyy", defaultDate: Date(), isPrefilledDate: false) { [weak self] (date) in
             guard let self = self else { return }
             self.dobDate = DateFormatter.shared().string(fromDate: date, dateFormat: "dd MMM yyyy")
@@ -182,7 +184,7 @@ class EditProfileViewController: ParentViewController {
         let dobtxtAppDlg = appDelegate.loginUser?.dob?.description ?? ""
         let addTimeformat = " GMT+0000 (Coordinated Universal Time)"
         
-        if dobtxtAppDlg.contains(find:" GMT+0000 (Coordinated Universal Time)"){
+    if dobtxtAppDlg.contains(find:" GMT+0000 (Coordinated Universal Time)"){
             self.Dob = "\(dobtxtAppDlg)"
         }else {
             self.Dob = "\(dobtxtAppDlg) \(addTimeformat)"
@@ -398,8 +400,44 @@ extension EditProfileViewController {
         
         guard let langName = appDelegate.loginUser?.lang_name else {return}
         guard let userID = appDelegate.loginUser?.user_id else {return}
-        let dobconvert = DateFormatter.shared().convertDaterevers(strDate: txtDOB.text)
-        let dobupdateUserDtls = DateFormatter.shared().convertDatereveruserDetails(strDate: txtDOB.text)
+        print("self.txtDOB\(self.txtDOB)")
+        
+        if self.txtDOB.text?.range(of:"ಜನವರಿ") != nil{
+            startDate = self.txtDOB.text?.replacingOccurrences(of: "ಜನವರಿ", with: "Jan") ?? ""
+              }else if self.txtDOB.text?.range(of:"ಫೆಬ್ರವರಿ") != nil{
+                  startDate = self.txtDOB.text?.replacingOccurrences(of: "ಫೆಬ್ರವರಿ", with: "Feb") ?? ""
+              } else if self.txtDOB.text?.range(of:"ಮಾರ್ಚ್") != nil{
+                  startDate = self.txtDOB.text?.replacingOccurrences(of: "ಮಾರ್ಚ್", with: "Mar") ?? ""
+              }else if self.txtDOB.text?.range(of:"ಏಪ್ರಿ") != nil{
+                  startDate = self.txtDOB.text?.replacingOccurrences(of: "ಏಪ್ರಿ", with: "Apr") ?? ""
+              }else if self.txtDOB.text?.range(of:"ಮೇ") != nil{
+                  startDate = self.txtDOB.text?.replacingOccurrences(of: "ಮೇ", with: "May") ?? ""
+              }else if self.txtDOB.text?.range(of:"ಜೂನ್") != nil{
+                  startDate = self.txtDOB.text?.replacingOccurrences(of: "ಜೂನ್", with: "Jun") ?? ""
+              }else if self.txtDOB.text?.range(of:"ಜುಲೈ") != nil{
+                  startDate = self.txtDOB.text?.replacingOccurrences(of: "ಜುಲೈ", with: "Jul") ?? ""
+              }else if txtDOB.text?.range(of:"ಆಗ") != nil{
+                  startDate = txtDOB.text?.replacingOccurrences(of: "ಆಗ", with: "Aug") ?? ""
+              }else if txtDOB.text?.range(of:"ಸೆಪ್ಟೆಂ") != nil{
+                  startDate = txtDOB.text?.replacingOccurrences(of: "ಸೆಪ್ಟೆಂ", with: "Sep") ?? ""
+              }else if txtDOB.text?.range(of:"ಅಕ್ಟೋ") != nil{
+                  startDate = txtDOB.text?.replacingOccurrences(of: "ಅಕ್ಟೋ", with: "Oct") ?? ""
+              } else if txtDOB.text?.range(of:"ನವೆಂ") != nil{
+                  startDate = txtDOB.text?.replacingOccurrences(of: "ನವೆಂ", with: "Nov") ?? ""
+              }else if txtDOB.text?.range(of:"ಡಿಸೆಂ") != nil{
+                  startDate = txtDOB.text?.replacingOccurrences(of: "ಡಿಸೆಂ", with: "Dec") ?? ""
+              }else {
+                  chngDate = self.txtDOB.text ?? ""
+              }
+        if startDate.range(of:"ಅಪರಾಹ್ನ") != nil{
+            chngDate = startDate.replacingOccurrences(of: "ಅಪರಾಹ್ನ", with: "PM")
+        }
+        if startDate.range(of:"ಪೂರ್ವಾಹ್ನ") != nil{
+            chngDate = startDate.replacingOccurrences(of: "ಪೂರ್ವಾಹ್ನ", with: "AM")
+        }
+        
+        let dobconvert = DateFormatter.shared().convertDaterevers(strDate: chngDate)
+        let dobupdateUserDtls = DateFormatter.shared().convertDatereveruserDetails(strDate: chngDate)
         let chgtimeFormat = "\(dobupdateUserDtls?.description ?? "" ) \(" GMT+0000 (Coordinated Universal Time)")"
         
         let dict :[String:Any]  =  [

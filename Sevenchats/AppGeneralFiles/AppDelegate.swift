@@ -75,7 +75,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         CUserDefaults.register(defaults: dict)
         GIDSignIn.sharedInstance()?.clientID = CGoogleClientID
 
-        self.window.backgroundColor = CRGB(r: 138, g: 181, b: 139)
+//        self.window.backgroundColor = CRGB(r: 138, g: 181, b: 139)
+        self.window.backgroundColor = ColorAppThemeNew
         
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = false
@@ -210,18 +211,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Refresh profile data....
         //
+        SocketIOManager.shared().establishConnection()
         if appDelegate.loginUser?.user_id != nil {
             MIGeneralsAPI.shared().laodLoginUserDetail()
             MIGeneralsAPI.shared().getAdvertisementList()
 //            ChatSocketIo.shared().SocketInitilized()
-
+            SocketIOManager.shared().establishConnection()
+            
         }
         
     }
     
+    func runBackgrounThread(){
+       
+        var timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+//            self.someBackgroundTask(timer: timer)
+        }
+        
+    }
+    
+    
+    
+     func someBackgroundTask(timer:Timer) {
+         DispatchQueue.global(qos: DispatchQoS.background.qosClass).async {
+             print("do some background task")
+             DispatchQueue.main.async {
+                
+                ChatSocketIo.shared().SocketInitilized()
+             }
+         }
+     }
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         ChatSocketIo.shared().SocketInitilized()
+        UIApplication.shared.applicationIconBadgeNumber = 0
         SocketIOManager.shared().establishConnection()
+//        runBackgrounThread()
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {

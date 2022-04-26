@@ -237,6 +237,10 @@ var CResetAlertNewPWDBlank: String{ return appDelegate.langugaeText?.reset_new_p
 var CResetAlertMinLimit: String{ return appDelegate.langugaeText?.reset_password_min_val ?? "Password must be minimum 8 character alphanumeric and must have at least one special character" }
 var CResetAlertConfirmPWDBlank: String{ return appDelegate.langugaeText?.reset_confirm_password_blank ?? "Please confirm password" }
 var CResetAlertPWDConfirmPWDNotMatch: String{ return appDelegate.langugaeText?.reset_new_password_and_confirm_password_mismatch ?? "New password and confirm password do not match" }
+var CResetPassword: String{ return appDelegate.langugaeText?.reset_password_changed_successfully ?? "Password changed" }
+var CResetPasswordNotMatch: String{ return appDelegate.langugaeText?.password_does_not_match ?? "Password Does not Match" }
+var CGroupMemberExist: String{ return appDelegate.langugaeText?.group_member_already_exist ?? "Group Member Already Exist" }
+
 
 //MARK:- Profile Screen
 var CLive_in: String{ return appDelegate.langugaeText?.live_in ?? "Live" }
@@ -281,6 +285,7 @@ var CSideFavWebSites: String{ return appDelegate.langugaeText?.sidemenu_fav_webs
 var CSideConnectInvite: String{ return appDelegate.langugaeText?.sidemenu_connect_invite ?? "Connect & Invite" }
 var CSideEventCalendar: String{ return appDelegate.langugaeText?.sidemenu_event_calendar ?? "Event Calendar" }
 var CSideNotifications: String{ return appDelegate.langugaeText?.sidemenu_notifications ?? "Notifications" }
+var CShoutHere: String{ return appDelegate.langugaeText?.shout_here ?? "shout here and tell all you know about it" }
 var CSideSettings: String{ return appDelegate.langugaeText?.sidemenu_settings ?? "Settings" }
 var CSideLogout: String{ return appDelegate.langugaeText?.sidemenu_logout ?? "Logout" }
 
@@ -502,6 +507,11 @@ var CMessageNoCommentFound: String{ return appDelegate.langugaeText?.no_comment_
 
 
 //MARK:- Messages
+
+var CMessageEmailExists: String{ return appDelegate.langugaeText?.alert_already_registered_email ?? "The provided Email already registered" }
+var CMessagePhNoExists: String{ return appDelegate.langugaeText?.alert_already_registered_ph ?? "The provided Mobile Number already registered" }
+
+
 
 var CMessageReport: String{ return appDelegate.langugaeText?.report_success ?? "Your Request is on the way. We will investigate and take an action soon" }
 var CMessageUpdatedprofile: String{ return appDelegate.langugaeText?.alert_message_editprofile ?? "Thank You for updating your information" }
@@ -905,13 +915,16 @@ var CMyProducts: String{
 var CNoProductAddedInMyProductList: String{
     return CLocalize(text: appDelegate.langugaeText?.no_product_added ?? "No products added. Click on ⊕ to add any new product.")
 }
+var CNoProductList: String{
+        return CLocalize(text: appDelegate.langugaeText?.products_sold ?? "The product have been Sold")
+}
 var CURLNotFound: String{
     return CLocalize(text: appDelegate.langugaeText?.url_not_found ?? "URL not found.")
 }
 
 //MARK: - Store Search List
 var CSearchSellerPlaceholder: String{
-    return CLocalize(text: appDelegate.langugaeText?.search_buy_seller_and_product_name ?? "Search by seller and product name")
+    return CLocalize(text: appDelegate.langugaeText?.search_buy_seller_and_product_name ?? "Search by product title")
 }
 
 //MARK: - Product Report
@@ -959,6 +972,10 @@ var COldToNew: String{
 var CShareCurrentLocation: String{
     return CLocalize(text: appDelegate.langugaeText?.share_current_location ?? "Share Current Location")
 }
+var CFriendsExists: String{
+    return CLocalize(text: appDelegate.langugaeText?.chat_friend_already_exists ?? "Chat Friend Already Exists")
+}
+
 
 var CTermsAndConditionsText: String{
     return CLocalize(text: appDelegate.langugaeText?.product_terms_conditions ?? "By Signing Up, you agree to our Terms & Conditions, and that you have read our Privacy Policy.")
@@ -1049,6 +1066,8 @@ var CNoCategoryFound: String{
 var CReportProductTitle: String{
     return CLocalize(text: appDelegate.langugaeText?.report_product ?? "Report Product")
 }
+
+
 
 var CContactToSellerSuccessfully: String{
     return CLocalize(text: appDelegate.langugaeText?.your_message_has_been_sent_to_seller ?? "Your message has been sent to the seller successfully.")

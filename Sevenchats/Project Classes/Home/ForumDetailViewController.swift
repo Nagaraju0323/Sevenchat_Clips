@@ -172,7 +172,8 @@ extension ForumDetailViewController{
         if let forID = self.forumID {
             
             guard let userid = appDelegate.loginUser?.user_id else { return }
-            APIRequest.shared().viewPostDetailLatest(postID: forID,userid: userid.description, apiKeyCall: "fourms"){ [weak self] (response, error) in
+            APIRequest.shared().viewPostDetailLatest(postID: forID,userid: userid.description, apiKeyCall: "forums"){ [weak self] (response, error) in
+//            APIRequest.shared().viewPostDetailLatest(postID: forID,userid: userid.description, apiKeyCall: "forums"){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false

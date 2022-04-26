@@ -73,6 +73,7 @@ class CreatePostTblCell: UITableViewCell{
         textViewMessage.genericDelegate = self
         lblTextCount.isHidden = true
         lblCreateShout.text = CCreateshout
+        placeHolderLabel.text = CShoutHere
         // Initialization code
         GCDMainThread.async {
             self.imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_img ?? ""), true)

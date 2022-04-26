@@ -85,6 +85,7 @@ class HomePollTblCell: UITableViewCell {
         self.tblVAnswre.reloadData()
         self.btnComment.isUserInteractionEnabled = false
         self.layoutIfNeeded()
+        self.lblPollType.text = CTypePoll
         
         self.tblVAnswre.layoutIfNeeded()
     }
@@ -152,12 +153,12 @@ extension HomePollTblCell{
             tblVAnswre.userVotedPollId = postInfo.valueForInt(key: CUserVotedPoll) ?? 0
             tblVAnswre.userEmailID = postInfo.valueForString(key: "user_email")
             tblVAnswre.postID = postInfo.valueForString(key: "post_id").toInt ?? 0
-            let postID = postInfo.valueForString(key: "post_id").toInt ?? 0
+            postID = postInfo.valueForString(key: "post_id").toInt ?? 0
             tblVAnswre.userID = postInfo.valueForString(key: CUserId).toInt ?? 0
             
             dispatchGroup.enter()
             DispatchQueue.global().async {
-                self.getPollDetailsFromServer(postID:postID,completion: { [self] success,result,totalVotesCount   in
+                self.getPollDetailsFromServer(postID:self.postID,completion: { [self] success,result,totalVotesCount   in
                     if success == true {
                         print("frames success")
                         self.tblVAnswre.dictArray = result

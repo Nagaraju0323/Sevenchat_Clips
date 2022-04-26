@@ -190,8 +190,9 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
         notificationObserver = nil
         NotificationCenter.default.addObserver(self, selector: #selector(self.MsgsentNotifications(notification:)), name: Notification.Name("MsgSentNotification"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.MsgrecviedNotification(notification:)), name: Notification.Name("MsgrecviedNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.LoadMsgData(notification:)), name: Notification.Name("LoadMsgData"), object: nil)
        
-        NotificationCenter.default.addObserver(self, selector: #selector(SocketDisconect), name: NSNotification.Name(rawValue: "SocketDisconect"), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(SocketDisconect), name: NSNotification.Name(rawValue: "SocketDisconect"), object: nil)
     }
     
     var notificationObserver: Any? {
@@ -200,6 +201,10 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
                 NotificationCenter.default.removeObserver(observer)
             }
         }
+    }
+    
+    @objc func LoadMsgData(notification: Notification){
+        loadlatestDataFromSever()
     }
     
     
@@ -217,7 +222,7 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
         super.viewWillAppear(animated)
         
 //        GCDMainThread.async {
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+           // MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
 //         }
         
         messageidListItems.removeAll()
@@ -466,6 +471,92 @@ extension UserChatDetailViewController {
         getMessagesFromServer(isNew : true)
     }
     
+    @objc fileprivate func pullToRefreshLoad() {
+//        if sessionTask != nil {
+//            if sessionTask!.state == .running {
+//                return
+//            }
+//        }
+//        refreshControl.beginRefreshing()
+//        getMessagesFromServerRefresh(isNew : true)
+    }
+    
+    func loadlatestDataFromSever(){
+        
+        
+        TblMessages.deleteAllObjects()
+        if sessionTask != nil {
+            if sessionTask.state == .running {
+//                print(" Api calling continue =========")
+                return
+            }
+        }
+        
+        var _ : Double = 0
+        sessionTask = APIRequest.shared().userMesageListNew(chanelID: topcName) { [weak self] (response, error) in
+            guard let self = self else { return }
+            var txtmsg = ""
+            self.refreshControl.endRefreshing()
+            self.tblChat.tableFooterView = UIView()
+            if response != nil && error == nil {
+//                MILoader.shared.hideLoader()
+                
+                let resp = response as? [String] ?? []
+                
+                resp.forEach { item in
+                    var imagepath = ""
+                    var senders  = ""
+                    var dict =  self.convertToDictionarywithtry(from: item)
+                    let dictcont = dict?["content"]
+                    dict?.removeValue(forKey: "content")
+                    let dictcontent =  self.convertToDictionarywithtry(from: dictcont ?? "")
+                    if dictcontent?["type"] == "image" || dictcontent?["type"] == "video" || dictcontent?["type"] == "audio" {
+                        imagepath = dictcontent?["message"] ?? ""
+                        txtmsg = imagepath
+                    }else {
+                        txtmsg = dictcontent?["message"] ?? ""
+                    }
+                    let timstmamp = dict?["timestamp"]?.replace(string: "T", replacement: " ")
+                    //todo chagnes futures
+//                    let chatTimeStamp = ""
+                    let chatTimeStamp = (DateFormatter.shared().timestampGMTFromDateNew(date: timstmamp))?.toString
+//
+                    //todo chagnes futures
+                    let create  = chatTimeStamp
+                    if let sender = dict?["sender"]{
+                        senders = sender
+                    }
+                    
+                    let senderName = dict?["name"] ?? ""
+                    let senderProfImg = dict?["profile_image"] ?? ""
+//                    let timestamp2 = dict?["timestamp"]
+                    
+                    if dictcontent?["type"] == "image"{
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .image, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "" ,timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                        
+                    }else if dictcontent?["type"] == "video"{
+                        
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .video, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "" ,timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                        
+                    }else if dictcontent?["type"] == "audio"{
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .audio, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "" ,timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                        
+                    }else {
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .text, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "",timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                    }
+                    
+                }
+                self.fetchHome.loadData()
+                
+            }
+        }
+    }
+    
+    
     func getMessagesFromServer(isNew : Bool) {
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
@@ -571,6 +662,8 @@ extension UserChatDetailViewController {
                             break
                         }
                         if isShowAlert{
+                            
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadinfor"), object: nil)
                             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
                         }
                     }
@@ -1092,7 +1185,6 @@ extension UserChatDetailViewController {
                     reportVC.reportType = .reportUser
                     reportVC.userID = userid
                     reportVC.reportIDNEW = userid.toString
-                    
                     self?.navigationController?.pushViewController(reportVC, animated: true)
                 }
             }
@@ -1102,7 +1194,9 @@ extension UserChatDetailViewController {
             guard let _ = self else { return }
             self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
                 self?.blockUnblockUserApi()
+                NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: nil)
                 self?.navigationController?.popViewController(animated: true)
+               
                 //self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
            // self?.blockUnblockUserApi()
@@ -1183,7 +1277,10 @@ extension UserChatDetailViewController {
                                 guard let lastName = appDelegate.loginUser?.last_name else {return}
                                 MIGeneralsAPI.shared().sendNotification(self.userID?.description, userID:userid.description , subject: "send a text message to you", MsgType: "CHAT_MESSAGE", MsgSent: textMsg as? String, showDisplayContent: "send a text message to you", senderName: firstName + lastName, post_ID: self.chatInfoNot,shareLink: "senduserChatLink")
 //                                self.loadgetMessagesFromServer(isNew : true)
-                                self.fetchHome.loadData()
+//                                self.fetchHome.loadData()
+//                                self.refreshControl.addTarget(self, action: #selector(self.pullToRefreshLoad), for: .valueChanged)
+                                self.loadlatestDataFromSever()
+                                
                             }
                         }
                     }
@@ -1730,6 +1827,7 @@ extension UserChatDetailViewController{
         guard let firstName = appDelegate.loginUser?.first_name  else { return }
         guard let lastName = appDelegate.loginUser?.last_name else { return }
         guard let profileImage = appDelegate.loginUser?.profile_img else { return }
+        MILoader.shared.hideLoader()
         if let userid = self.userID{
             
             let contentString:[String:Any]  = [
@@ -1761,6 +1859,7 @@ extension UserChatDetailViewController{
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
                         MIGeneralsAPI.shared().sendNotification(self.userID?.description, userID:userid.description , subject: "send a text message to you", MsgType: "CHAT_MESSAGE", MsgSent: type, showDisplayContent: "send a text message to you", senderName: firstName + lastName, post_ID: self.chatInfoNot,shareLink: "senduserChatLink")
+                        self.loadlatestDataFromSever()
                         if let arrStatus = arrList["message"] as? String{
                             print("arrStatus,\(arrStatus)")
                         }

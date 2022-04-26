@@ -167,6 +167,7 @@ class ArticleSharedDetailViewController: ParentViewController {
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
 
             self.lblArticleCategory.layer.cornerRadius = 3
+          
         }
         
         GCDMainThread.async {
@@ -217,8 +218,8 @@ extension ArticleSharedDetailViewController{
     func getArticleDetailsFromServer() {
         self.parentView.isHidden = true
         if let artID = self.articleID {
-            
-            APIRequest.shared().viewPostDetailNew(postID: artID, apiKeyCall: CAPITagarticlesDetials){ [weak self] (response, error) in
+            guard let userid = appDelegate.loginUser?.user_id else { return }
+            APIRequest.shared().viewPostDetailLatest(postID: artID, userid: userid.description, apiKeyCall: CAPITagarticlesDetials){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false
@@ -409,8 +410,12 @@ extension ArticleSharedDetailViewController{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.isSharedPost = true
                 reportVC.reportType = .reportArticle
-                reportVC.userID = sharePostData.valueForInt(key: CUserId)
-                reportVC.reportID = sharePostData.valueForInt(key: CId)
+//                reportVC.userID = sharePostData.valueForInt(key: CUserId)
+//                reportVC.reportID = sharePostData.valueForInt(key: CId)
+                
+                reportVC.userID = articleInformation.valueForInt(key: CUserId)
+                reportVC.reportID = self.articleID
+                reportVC.reportIDNEW = articleInformation.valueForString(key: "post_id")
                 self.navigationController?.pushViewController(reportVC, animated: true)
             }
         }

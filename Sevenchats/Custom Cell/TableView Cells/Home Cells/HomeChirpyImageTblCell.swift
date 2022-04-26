@@ -66,6 +66,7 @@ class HomeChirpyImageTblCell: UITableViewCell {
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblChirpyType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
+            
         }
     }
     override func layoutSubviews() {

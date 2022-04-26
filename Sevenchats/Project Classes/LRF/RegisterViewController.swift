@@ -64,6 +64,8 @@ class RegisterViewController: ParentViewController {
     var isSelected = false
     var postFirstName = ""
     var postLastName = ""
+    var startEventChng = ""
+    var chngStringStart = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -348,7 +350,46 @@ extension RegisterViewController {
             gender = COther
         }
         
-        let dobconvert = DateFormatter.shared().convertDatereversSinup(strDate: self.txtDob.text)
+        
+        
+        if self.txtDob.text?.range(of:"ಜನವರಿ") != nil{
+                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಜನವರಿ", with: "Jan") ?? ""
+              }else if self.txtDob.text?.range(of:"ಫೆಬ್ರವರಿ") != nil{
+                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಫೆಬ್ರವರಿ", with: "Feb") ?? ""
+              } else if self.txtDob.text?.range(of:"ಮಾರ್ಚ್") != nil{
+                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಮಾರ್ಚ್", with: "Mar") ?? ""
+              }else if self.txtDob.text?.range(of:"ಏಪ್ರಿ") != nil{
+                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಏಪ್ರಿ", with: "Apr") ?? ""
+              }else if self.txtDob.text?.range(of:"ಮೇ") != nil{
+                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಮೇ", with: "May") ?? ""
+              }else if self.txtDob.text?.range(of:"ಜೂನ್") != nil{
+                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಜೂನ್", with: "Jun") ?? ""
+              }else if self.txtDob.text?.range(of:"ಜುಲೈ") != nil{
+                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಜುಲೈ", with: "Jul") ?? ""
+              }else if txtDob.text?.range(of:"ಆಗ") != nil{
+                  startEventChng = txtDob.text?.replacingOccurrences(of: "ಆಗ", with: "Aug") ?? ""
+              }else if txtDob.text?.range(of:"ಸೆಪ್ಟೆಂ") != nil{
+                  startEventChng = txtDob.text?.replacingOccurrences(of: "ಸೆಪ್ಟೆಂ", with: "Sep") ?? ""
+              }else if txtDob.text?.range(of:"ಅಕ್ಟೋ") != nil{
+                  startEventChng = txtDob.text?.replacingOccurrences(of: "ಅಕ್ಟೋ", with: "Oct") ?? ""
+              } else if txtDob.text?.range(of:"ನವೆಂ") != nil{
+                  startEventChng = txtDob.text?.replacingOccurrences(of: "ನವೆಂ", with: "Nov") ?? ""
+              }else if txtDob.text?.range(of:"ಡಿಸೆಂ") != nil{
+                  startEventChng = txtDob.text?.replacingOccurrences(of: "ಡಿಸೆಂ", with: "Dec") ?? ""
+              }else {
+                  chngStringStart = self.txtDob.text ?? ""
+              }
+        if startEventChng.range(of:"ಅಪರಾಹ್ನ") != nil{
+            chngStringStart = startEventChng.replacingOccurrences(of: "ಅಪರಾಹ್ನ", with: "PM")
+        }
+        
+        if startEventChng.range(of:"ಪೂರ್ವಾಹ್ನ") != nil{
+            chngStringStart = startEventChng.replacingOccurrences(of: "ಪೂರ್ವಾಹ್ನ", with: "AM")
+        }
+        
+        
+        
+        let dobconvert = DateFormatter.shared().convertDatereversSinup(strDate: chngStringStart)
         _ = txtFirstName.text ?? ""
         _ = txtLastName.text ?? ""
         let Emailtext = self.txtEmail.text ?? ""
@@ -618,7 +659,8 @@ extension RegisterViewController{
             }else {
                 guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
                 let errorMsg = errorUserinfo.stringAfter(":")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
         }
     }
@@ -645,7 +687,9 @@ extension RegisterViewController{
                 
                 guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
                 let errorMsg = errorUserinfo.stringAfter(":")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePhNoExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
         }
     }

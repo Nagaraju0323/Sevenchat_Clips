@@ -60,6 +60,12 @@ class ChatSocketIo: NSObject {
         socketClient.openSocketWithURLRequest(request: NSURLRequest(url: url!) , delegate: self)
         print(":::::::::::SocketInitilized:::::::::::")
     }
+    
+    func SocketInitilizedLoop(){
+        let url = URL(string: SocketIoUrl)
+        socketClient.openSocketWithURLRequest(request: NSURLRequest(url: url!) , delegate: self)
+        print(":::::::::::SocketInitilized:::::::::::")
+    }
 
     func createTopicTouser(userTopic:String){
         print(":::::::::::SocketInitilizedcreateTopicTouser:::::::::::")
@@ -164,6 +170,7 @@ extension ChatSocketIo: StompClientLibDelegate{
   
     func serverDidSendError(client: StompClientLib!, withErrorMessage description: String, detailedErrorMessage message: String?) {
         print(":::::::::::serverDidSendError:::::::::::")
+        SocketInitilized()
     }
 
     func serverDidSendPing() {

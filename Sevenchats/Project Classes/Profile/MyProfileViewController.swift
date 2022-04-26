@@ -942,8 +942,13 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         if userID == appDelegate.loginUser?.user_id{
                             self?.btnSharedMoreCLK(indexPath.row, postInfo)
                         }else{
-                           // self?.btnSharedReportCLK(postInfo: postInfo)
+                            self?.btnSharedReportCLK(postInfo: postInfo)
                         }
+//                        if userID == appDelegate.loginUser?.user_id{
+//                            self?.btnSharedMoreCLK(indexPath.row, postInfo)
+//                        }else{
+//                          self?.btnSharedReportCLK(postInfo: postInfo)
+//                        }
                     }
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
@@ -1027,7 +1032,13 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnMore.touchUpInside { [weak self](sender) in
                         //self?.btnMoreCLK(indexPath.row, postInfo)
-                        self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                       // self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                        let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+                        if userID == appDelegate.loginUser?.user_id{
+                            self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                        }else{
+                            self?.btnSharedReportCLK(postInfo: postInfo)
+                        }
                     }
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
@@ -1120,7 +1131,13 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         cell.btnMore.touchUpInside { [weak self](sender) in
                             //self?.btnMoreCLK(indexPath.row, postInfo)
-                            self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                           // self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                            let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+                            if userID == appDelegate.loginUser?.user_id{
+                                self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                            }else{
+                                self?.btnSharedReportCLK(postInfo: postInfo)
+                            }
                         }
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
@@ -1204,7 +1221,13 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         
                         cell.btnMore.touchUpInside { [weak self](sender) in
                             //self?.btnMoreCLK(indexPath.row, postInfo)
-                            self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                            //self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                            let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+                            if userID == appDelegate.loginUser?.user_id{
+                                self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                            }else{
+                                self?.btnSharedReportCLK(postInfo: postInfo)
+                            }
                         }
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
@@ -1290,8 +1313,14 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     
                     cell.btnMore.touchUpInside { [weak self](sender) in
+                        let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+                        if userID == appDelegate.loginUser?.user_id{
+                            self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                        }else{
+                            self?.btnSharedReportCLK(postInfo: postInfo)
+                        }
                         //self?.btnMoreCLK(indexPath.row, postInfo)
-                        self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                        //self?.btnSharedMoreCLK(indexPath.row, postInfo)
                     }
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
@@ -1379,8 +1408,14 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                     
                     cell.btnMore.touchUpInside { [weak self](sender) in
+                        let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+                        if userID == appDelegate.loginUser?.user_id{
+                            self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                        }else{
+                            self?.btnSharedReportCLK(postInfo: postInfo)
+                        }
                         //self?.btnMoreCLK(indexPath.row, postInfo)
-                        self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                       // self?.btnSharedMoreCLK(indexPath.row, postInfo)
                     }
                     cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
@@ -1471,8 +1506,14 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         }
                         
                         cell.btnMore.touchUpInside { [weak self](sender) in
+                            let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+                            if userID == appDelegate.loginUser?.user_id{
+                                self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                            }else{
+                                self?.btnSharedReportCLK(postInfo: postInfo)
+                            }
                             //self?.btnMoreCLK(indexPath.row, postInfo)
-                            self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                            //self?.btnSharedMoreCLK(indexPath.row, postInfo)
                         }
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
@@ -1567,8 +1608,14 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         }
                         
                         cell.btnMore.touchUpInside { [weak self](sender) in
+                            let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+                            if userID == appDelegate.loginUser?.user_id{
+                                self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                            }else{
+                                self?.btnSharedReportCLK(postInfo: postInfo)
+                            }
                             //self?.btnMoreCLK(indexPath.row, postInfo)
-                            self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                            //self?.btnSharedMoreCLK(indexPath.row, postInfo)
                         }
                         cell.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
@@ -1657,6 +1704,16 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
                         self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                    }
+                    cell.btnMore.touchUpInside { [weak self](sender) in
+                        let userID = (postInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int64 ?? 0
+                        if userID == appDelegate.loginUser?.user_id{
+                            self?.btnSharedMoreCLK(indexPath.row, postInfo)
+                        }else{
+                            self?.btnSharedReportCLK(postInfo: postInfo)
+                        }
+                        //self?.btnMoreCLK(indexPath.row, postInfo)
+                        //self?.btnSharedMoreCLK(indexPath.row, postInfo)
                     }
                     cell.btnMore.tag = indexPath.row
                     cell.onMorePressed = { [weak self] (index) in
@@ -2174,6 +2231,39 @@ extension MyProfileViewController{
 //            }
 //        }
 //    }
+    
+    fileprivate func btnSharedReportCLK(postInfo : [String : Any]?){
+        
+        let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
+        self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CReport, btnOneStyle: .default) { [weak self] (alert) in
+            guard let _ = self else { return }
+            if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
+                switch postInfo!.valueForString(key: CPostTypeNew) {
+                case CStaticArticleIdNew:
+                    reportVC.reportType = .reportArticle
+                case CStaticGalleryIdNew:
+                    reportVC.reportType = .reportGallery
+                case CStaticChirpyIdNew:
+                    reportVC.reportType = .reportChirpy
+                case CStaticShoutIdNew:
+                    reportVC.reportType = .reportShout
+                case CStaticForumIdNew:
+                    reportVC.reportType = .reportForum
+                case CStaticEventIdNew:
+                    reportVC.reportType = .reportEvent
+                case CStaticPollIdNew:
+                    reportVC.reportType = .reportPoll
+                default:
+                    break
+                }
+                reportVC.userID = postInfo?.valueForInt(key: CUserId)
+                reportVC.reportID = postInfo?.valueForInt(key: CId)
+                reportVC.reportIDNEW = postInfo?.valueForString(key: "post_id")
+                
+                self?.navigationController?.pushViewController(reportVC, animated: true)
+            }
+        }
+    }
 }
 
 // MARK:- ---------- Action Event

@@ -89,7 +89,7 @@ class FavWebSiteDetailViewController: ParentViewController {
     
     // MARK:- --------- Initialization
     func Initialization(){
-        
+        self.btnComment.isUserInteractionEnabled = false
         self.title = CSideFavWebSites
         
         // Set website related contern here...

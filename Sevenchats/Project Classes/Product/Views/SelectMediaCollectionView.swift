@@ -272,8 +272,12 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
                 media.assetType = .Image
                 if (info[UIImagePickerController.InfoKey.originalImage] as? UIImage) != nil {
                     let imgName = UUID().uuidString
+                    
+                    var sharedImg = [String]()
+                    sharedImg.removeAll()
                     let documentDirectory = NSTemporaryDirectory()
                     let localPath = documentDirectory.appending(imgName)
+                    sharedImg.append(localPath)
                     
                     let modileNum = appDelegate.loginUser?.mobile
                     
@@ -300,7 +304,7 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
                         }
                         self.arrImagesVideo.append(self.imageString)
                         print("*****************\(self.arrImagesVideo)")
-                        if localPath.count == self.arrImagesVideo.count{
+                        if sharedImg.count == self.arrImagesVideo.count{
                             print("Success")
                             DispatchQueue.main.async {
                                 MILoader.shared.hideLoader()

@@ -615,6 +615,7 @@ extension CreateChatGroupViewController{
         
         self.presentImagePickerController(allowEditing: false) { (image, info) in
             if image != nil{
+                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                 self.imgGroupIcon.image = image
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
@@ -624,6 +625,7 @@ extension CreateChatGroupViewController{
                 }
                 MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                 MInioimageupload.shared().callback = { message in
+                MILoader.shared.hideLoader()
                 self.imgName = message
                 }
             }

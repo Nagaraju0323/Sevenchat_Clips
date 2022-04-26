@@ -35,6 +35,11 @@ enum ReportType : Int {
     case reportSharedPost = 11
 }
 
+protocol SecondVCDelegate: class {
+    func didSelectData(_ result: String)
+}
+
+
 class ReportViewController: ParentViewController {
     
     @IBOutlet var cnTblHeight : NSLayoutConstraint!
@@ -66,7 +71,7 @@ class ReportViewController: ParentViewController {
     var imgName = ""
     var uploadImgUrl = ""
     var postContent = ""
-    
+    weak var delegate: SecondVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -272,7 +277,6 @@ extension ReportViewController{
                     CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageReport, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 }
                 
-                
 //            }
           
   
@@ -316,10 +320,12 @@ extension ReportViewController {
                     self.navigationController?.popToViewController(homeVC!, animated: true)
                 }
             }else {
+                
                 self.navigationController?.popViewController(animated: true)
                 
             }
         }else {
+        
             self.navigationController?.popViewController(animated: true)
            
         }

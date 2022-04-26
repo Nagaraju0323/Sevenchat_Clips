@@ -80,10 +80,12 @@ extension ImageSenderTblCell {
         switch messageInfo?.message_Delivered {
         case 1:
             // Local
-            self.imgMessageDelivered.image = UIImage(named: "ic_message_not_sent")
+            //self.imgMessageDelivered.image = UIImage(named: "ic_message_not_sent")
+            self.imgMessageDelivered.image = UIImage(named: "ic_message_delivered")
         case 2:
             // Sent
-            self.imgMessageDelivered.image = UIImage(named: "ic_message_sent")
+            //self.imgMessageDelivered.image = UIImage(named: "ic_message_sent")
+            self.imgMessageDelivered.image = UIImage(named: "ic_message_delivered")
         default:
             // Read
             self.imgMessageDelivered.image = UIImage(named: "ic_message_delivered")

@@ -82,7 +82,7 @@ class FirebasePushNotification: NSObject {
 // MARK:- Firebase Setup
 // MARK:-
 extension FirebasePushNotification : UNUserNotificationCenterDelegate {
-
+    
     func getNotificationSettings() {
         print("isRegisteredForRemoteNotifications : \(UIApplication.shared.isRegisteredForRemoteNotifications)")
         if #available(iOS 10.0, *) {
@@ -116,14 +116,14 @@ extension FirebasePushNotification : UNUserNotificationCenterDelegate {
 // MARK:-
 
 extension FirebasePushNotification {
-
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         appDelegate.notificationPayload = userInfo
-
+        
         //Redirection for notification Sceen
-//        moveOnEventDetailScreenNotifcaiotn()
-
+        //        moveOnEventDetailScreenNotifcaiotn()
+        
         if let pushPayload = userInfo as? [String:Any]{
             let postConent = pushPayload["content"] as? String ?? ""
             moveOnEventDetailScreenNotifcaiotnLatest(postConent:postConent)
@@ -134,18 +134,18 @@ extension FirebasePushNotification {
         
         
     }
-
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         let userInfo = notification.request.content.userInfo
         let option = notificationHandleFromActiveMode(userInfo)
         if let pushPayload = userInfo as? [String : Any]{
             print("willPresent ====== \(pushPayload)")
-//            if let _ = pushPayload["identity"] as? String {
-//                VoIPNotificationHandler.shared().actionOnPushNotification(notification: pushPayload)
+            //            if let _ = pushPayload["identity"] as? String {
+            //                VoIPNotificationHandler.shared().actionOnPushNotification(notification: pushPayload)
             
-//                return
-//            }
+            //                return
+            //            }
         }
         
         completionHandler([.alert, .badge, .sound])
@@ -163,10 +163,6 @@ extension FirebasePushNotification {
         let dict = convertToDictionaryUserinfo(from: stringCovt)
         guard let userMsg = dict["type"] else { return }
         guard let subject = dict["subject"] else { return }
-//        if let userID = dict.valueForString(key: "sender") else {
-//            if let userID = dict.valueForString(key: "sender_id")
-//        }
-        
         userID = dict.valueForString(key: "sender") as? String ?? ""
         if userID == ""{
             userID = dict.valueForString(key: "sender_id") as? String ?? ""
@@ -230,10 +226,8 @@ extension FirebasePushNotification {
                             groupVC.getGroupListFromServer(isNew: true)
                         }
                     }
-                    groupChatDetailsVC.notificationGrp = true
-                    groupChatDetailsVC.iObject = postInfo
-                    groupChatDetailsVC.isCreateNewChat = false
-                    groupViewController.navigationController?.pushViewController(groupChatDetailsVC, animated: true)
+                    let groupID = postInfo.valueForString(key: "group_id")
+                    self.getGroupInformationFromServer(groupID:groupID)
                 }
             })
             break
@@ -252,10 +246,14 @@ extension FirebasePushNotification {
                             groupVC.getGroupListFromServer(isNew: true)
                         }
                     }
-                    groupChatDetailsVC.notificationGrp = true
-                    groupChatDetailsVC.iObject = postInfo
-                    groupChatDetailsVC.isCreateNewChat = false
-                    groupViewController.navigationController?.pushViewController(groupChatDetailsVC, animated: true)
+                    let groupID = postInfo.valueForString(key: "group_id")
+                    self.getGroupInformationFromServer(groupID:groupID)
+                    
+//                    groupChatDetailsVC.notificationGrp = true
+//                    groupChatDetailsVC.iObject = postInfo
+//                    groupChatDetailsVC.groupNotfInfo = postInfo
+//                    groupChatDetailsVC.isCreateNewChat = false
+//                    groupViewController.navigationController?.pushViewController(groupChatDetailsVC, animated: true)
                 }
             })
             break
@@ -285,108 +283,113 @@ extension FirebasePushNotification {
             break
         case  kNotTypeEventType:
             
+            let userID =  postInfo.valueForString(key: "user_id")
+            let postID = postInfo.valueForString(key: "post_id")
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
             appDelegate.hideSidemenu()
+            self.EventDetailsFromServer(eventID: postID.toInt ?? 0, postInfo: postInfo, userID: userID)
             
-            if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
-                let eventViewController = appDelegate.getTopMostViewController()
-                let postID = postInfo.valueForString(key: CPostId)
-                eventDetailVC.postIDNew = postID
-                eventDetailVC.likeFromNotify  = true
-                eventDetailVC.postID = postID.toInt
-                eventDetailVC.eventInfo = postInfo
-                
-                eventViewController.navigationController?.pushViewController(eventDetailVC, animated: true)
-            }
             break
             
         case kNotTypeCommnet,kNotTypeCommnet:
-            switch post_type {
-            case "shout":
+            let userID =  postInfo.valueForString(key: "user_id")
+            let postID = postInfo.valueForString(key: "post_id")
             
-                appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
-                appDelegate.hideSidemenu()
-                if let shoutDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController {
-                    let shoutViewController = appDelegate.getTopMostViewController()
-                    shoutDetailVC.shoutInformations = postInfo
-                    shoutDetailVC.likeFromNotify  = true
-                    print(postInfo.valueForString(key: "post_id"))
-                    shoutDetailVC.shoutID = postInfo.valueForString(key: "post_id").toInt
-                    
-                    shoutViewController.navigationController?.pushViewController(shoutDetailVC, animated: true)
-                }
-            case "article":
-                
+            switch post_type {
+            case "shout","post_shout":
                 appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
                 appDelegate.hideSidemenu()
                 
-                if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
-                    let articleViewController = appDelegate.getTopMostViewController()
-                    articleDetailVC.articleInformation = postInfo
-                    articleDetailVC.likeFromNotify  = true
-                    articleDetailVC.articleID = postInfo.valueForString(key: "post_id").toInt
-                    articleViewController.navigationController?.pushViewController(articleDetailVC, animated: true)
-                }
+                self.ShoutDetailsFromServer(shoutID: postID.toInt ?? 0, postInfo: postInfo, userID: userID)
                 
+            //                if let shoutDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController {
+            //                    let shoutViewController = appDelegate.getTopMostViewController()
+            //                    shoutDetailVC.shoutInformations = postInfo
+            //                    shoutDetailVC.likeFromNotify  = true
+            //                    print(postInfo.valueForString(key: "post_id"))
+            //                    shoutDetailVC.shoutID = postInfo.valueForString(key: "post_id").toInt
+            //
+            //                    shoutViewController.navigationController?.pushViewController(shoutDetailVC, animated: true)
+            //                }
+            case "article","post_article":
                 
-            case "gallery":
+                self.articleDetailsFromServer(articleID: postID.toInt ?? 0, postInfo: postInfo, userID: userID)
+                
+                appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
+                appDelegate.hideSidemenu()
+                
+            //                if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
+            //                    let articleViewController = appDelegate.getTopMostViewController()
+            //                    articleDetailVC.articleInformation = postInfo
+            //                    articleDetailVC.likeFromNotify  = true
+            //                    articleDetailVC.articleID = postInfo.valueForString(key: "post_id").toInt
+            //                    articleViewController.navigationController?.pushViewController(articleDetailVC, animated: true)
+            //                }
+            
+            
+            
+            case "gallery","post_gallery":
                 let postID = postInfo.valueForString(key: "post_id")
                 self.getGalleryDetailsFromServer(imgPostId: postID.toInt,postInfo:postInfo)
-                
-                
-            case "chirpy":
-
-                appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
-                appDelegate.hideSidemenu()
-                
-                if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
-                    
-                    let chirpyViewController = appDelegate.getTopMostViewController()
-                    //                    chirpyDetailVC.chirpyID = postID
-                    chirpyDetailVC.chirpyInformation = postInfo
-                    chirpyDetailVC.likeFromNotify  = true
-                    chirpyDetailVC.chirpyID = postInfo.valueForString(key: "post_id").toInt
-                    chirpyViewController.navigationController?.pushViewController(chirpyDetailVC, animated: true)
-                }
-
-            case "forum":
+            //                self.getGalleryDetailsFromServer(imgPostId: postID.toInt,postInfo:postInfo)
+            
+            
+            case "chirpy","post_chirpy":
                 
                 appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
                 appDelegate.hideSidemenu()
                 
-                if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
-                    
-                    let forumViewController = appDelegate.getTopMostViewController()
-                    //                    forumDetailVC.forumID = postID
-                    forumDetailVC.forumID = postInfo.valueForString(key: "post_id").toInt
-                    forumDetailVC.likeFromNotify  = true
-                    forumDetailVC.forumInformation = postInfo
-                    forumViewController.navigationController?.pushViewController(forumDetailVC, animated: true)
-                }
-            case "event":
+                //                if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
+                //
+                //                    let chirpyViewController = appDelegate.getTopMostViewController()
+                //                    //                    chirpyDetailVC.chirpyID = postID
+                //                    chirpyDetailVC.chirpyInformation = postInfo
+                //                    chirpyDetailVC.likeFromNotify  = true
+                //                    chirpyDetailVC.chirpyID = postInfo.valueForString(key: "post_id").toInt
+                //                    chirpyViewController.navigationController?.pushViewController(chirpyDetailVC, animated: true)
+                //                }
+                self.chiripyDetailsFromServer(chiripyID: postID.toInt ?? 0, postInfo: postInfo, userID: userID)
+                
+            case "forum","post_forum":
                 
                 appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
                 appDelegate.hideSidemenu()
+                self.forumsDetailsFromServer(forumsID: postID.toInt ?? 0, postInfo: postInfo, userID: userID)
                 
-                if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? EventDetailImageViewController {
-                    
-                    let eventViewController = appDelegate.getTopMostViewController()
-                    eventDetailVC.postID = postInfo.valueForString(key: "post_id").toInt
-                    eventDetailVC.eventInfo = postInfo
-                    eventDetailVC.likeFromNotify  = true
-                    eventViewController.navigationController?.pushViewController(eventDetailVC, animated: true)
-                }
-
-            case "poll":
-                let productID = postInfo.valueForString(key: "post_id")
-                self.getPollDetailsFromServer(pollID: productID.toInt, postInfo: postInfo)
-
+            //                if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
+            //
+            //                    let forumViewController = appDelegate.getTopMostViewController()
+            //                    //                    forumDetailVC.forumID = postID
+            //                    forumDetailVC.forumID = postInfo.valueForString(key: "post_id").toInt
+            //                    forumDetailVC.likeFromNotify  = true
+            //                    forumDetailVC.forumInformation = postInfo
+            //                    forumViewController.navigationController?.pushViewController(forumDetailVC, animated: true)
+            //                }
+            case "event","post_event":
+                
+                appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
+                appDelegate.hideSidemenu()
+                self.EventDetailsFromServer(eventID: postID.toInt ?? 0, postInfo: postInfo, userID: userID)
+                
+            //                if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? EventDetailImageViewController {
+            //
+            //                    let eventViewController = appDelegate.getTopMostViewController()
+            //                    eventDetailVC.postID = postInfo.valueForString(key: "post_id").toInt
+            //                    eventDetailVC.eventInfo = postInfo
+            //                    eventDetailVC.likeFromNotify  = true
+            //                    eventViewController.navigationController?.pushViewController(eventDetailVC, animated: true)
+            //                }
+            
+            case "poll","post_poll":
+                self.getPollDetailsFromServer(pollID: postID.toInt, postInfo: postInfo, userID: userID)
+                
             case "productDetails":
                 let productID = postInfo.valueForString(key: "product_id")
                 
                 appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
                 appDelegate.hideSidemenu()
                 
+                //                let productID = postInfo.valueForString(key: "product_id")
                 if let productDetailVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductDetailVC") as? ProductDetailVC {
                     let productViewController = appDelegate.getTopMostViewController()
                     productDetailVC.productIds = productID
@@ -402,28 +405,29 @@ extension FirebasePushNotification {
             break
         }
     }
-     
-    func getGalleryDetailsFromServer(imgPostId:Int?,postInfo:[String:Any]) {
-        var imagesUpload = ""
-        var postINFO:[String:Any] = postInfo
-        if let imgID = imgPostId {
-            APIRequest.shared().viewPostDetailNew(postID: imgID, apiKeyCall: CAPITagsgalleryDetials){ [weak self] (response, error) in
+}
+
+
+
+//MARK:- FirebasePushNotificatoin
+extension FirebasePushNotification{
+    
+    //... Shout Detaisl View controller
+    
+    func ShoutDetailsFromServer(shoutID:Int?,postInfo:[String:Any],userID:String?) {
+        if let shoutid = shoutID {
+            APIRequest.shared().viewPostDetailLatest(postID: shoutid,userid: userID ?? "", apiKeyCall: "shouts"){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
-                    if let Info = response!["data"] as? [[String:Any]]{
-                        for galleryInfo in Info {
-                            imagesUpload = galleryInfo["image"] as? String ?? ""
-                        }
-                        appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
-                        appDelegate.hideSidemenu()
-                        
-                        if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
-                            let imageViewController = appDelegate.getTopMostViewController()
-                            postINFO["image"] = imagesUpload
-                            imageDetailVC.likeFromNotify  = true
-                            imageDetailVC.galleryInfo = postINFO
-                            imageDetailVC.imgPostId = postINFO.valueForString(key: "post_id").toInt
-                            imageViewController.navigationController?.pushViewController(imageDetailVC, animated: true)
+                    DispatchQueue.main.async {
+                        if let postInfo = response!["data"] as? [[String:Any]]{
+                            if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
+                                let shoutViewController = appDelegate.getTopMostViewController()
+                                shoutsDetailsVC.shoutInformations = postInfo.first ?? [:]
+                                shoutsDetailsVC.likeFromNotify = true
+                                shoutsDetailsVC.shoutID = postInfo.first?.valueForString(key: "post_id").toInt
+                                shoutViewController.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
+                            }
                         }
                     }
                 }
@@ -431,34 +435,125 @@ extension FirebasePushNotification {
         }
     }
     
-    
-    func getPollDetailsFromServer(pollID:Int?,postInfo:[String:Any]) {
-        var options = ""
-        var postINFO:[String:Any] = postInfo
-        if let artID = pollID {
-            
-            APIRequest.shared().viewPostDetailNew(postID: artID, apiKeyCall: CAPITagpollsDetials){ [weak self] (response, error) in
+    //...post Article
+    func articleDetailsFromServer(articleID:Int?,postInfo:[String:Any],userID:String?) {
+        if let articleid = articleID {
+            APIRequest.shared().viewPostDetailLatest(postID: articleid,userid: userID ?? "", apiKeyCall: "articles"){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     //self.parentView.isHidden = false
+                    DispatchQueue.main.async {
+                        if let postInfo = response!["data"] as? [[String:Any]]{
+                            if let articleDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ArticleDetailViewController") as? ArticleDetailViewController {
+                                let articleViewController = appDelegate.getTopMostViewController()
+                                articleDetailVC.articleInformation = postInfo.first ?? [:]
+                                articleDetailVC.likeFromNotify  = true
+                                articleDetailVC.articleID = postInfo.first?.valueForString(key: "post_id").toInt
+                                articleViewController.navigationController?.pushViewController(articleDetailVC, animated: true)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //...Chiripy Detailsview Controller
+    
+    func chiripyDetailsFromServer(chiripyID:Int?,postInfo:[String:Any],userID:String?) {
+        if let articleid = chiripyID {
+            APIRequest.shared().viewPostDetailLatest(postID: articleid,userid: userID ?? "", apiKeyCall: "chirpies"){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    //self.parentView.isHidden = false
+                    DispatchQueue.main.async {
+                        if let postInfo = response!["data"] as? [[String:Any]]{
+                            if let chirpyDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController {
+                                let chiripyViewController = appDelegate.getTopMostViewController()
+                                chirpyDetailVC.likeFromNotify = true
+                                chirpyDetailVC.chirpyInformation = postInfo.first ?? [:]
+                                chirpyDetailVC.chirpyID = postInfo.first?.valueForString(key: "post_id").toInt
+                                chiripyViewController.navigationController?.pushViewController(chirpyDetailVC, animated: true)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    //..Forums DetailsViewController
+    
+    func forumsDetailsFromServer(forumsID:Int?,postInfo:[String:Any],userID:String?) {
+        if let forumsid = forumsID {
+            APIRequest.shared().viewPostDetailLatest(postID: forumsid,userid: userID ?? "", apiKeyCall: "forums"){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    DispatchQueue.main.async {
+                        if let postInfo = response!["data"] as? [[String:Any]]{
+                            if let forumDetailVC = CStoryboardHome.instantiateViewController(withIdentifier: "ForumDetailViewController") as? ForumDetailViewController {
+                                let ForumViewController = appDelegate.getTopMostViewController()
+                                forumDetailVC.forumID = postInfo.first?.valueForString(key: "post_id").toInt
+                                forumDetailVC.likeFromNotify = true
+                                forumDetailVC.forumInformation = postInfo.first ?? [:]
+                                ForumViewController.navigationController?.pushViewController(forumDetailVC, animated: true)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //...Get Gellery Details From Server
+    func getGalleryDetailsFromServer(imgPostId:Int?,postInfo:[String:Any]) {
+        var imagesUpload = ""
+        var postInfos = postInfo
+        guard let userID = appDelegate.loginUser?.user_id else {return}
+        if let imgID = imgPostId {
+            APIRequest.shared().viewPostDetailLatest(postID: imgID,userid: userID.description, apiKeyCall: CAPITagsgalleryDetials){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    if let Info = response!["data"] as? [[String:Any]]{
+                        for galleryInfo in Info {
+                            imagesUpload = galleryInfo["image"] as? String ?? ""
+                        }
+                        
+                        if let imageDetailVC = CStoryboardImage.instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController {
+                            let galleryViewController = appDelegate.getTopMostViewController()
+                            postInfos["image"] = imagesUpload
+                            imageDetailVC.galleryInfo = postInfos
+                            imageDetailVC.likeFromNotify  = true
+                            imageDetailVC.imgPostId = postInfo.valueForString(key: "post_id").toInt
+                            galleryViewController.navigationController?.pushViewController(imageDetailVC, animated: true)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    //...Get Poll Details From Server
+    func getPollDetailsFromServer(pollID:Int?,postInfo:[String:Any],userID:String?) {
+        var options = ""
+        var postInfos = [String:Any]()
+        postInfos = postInfo
+        if let artID = pollID {
+            APIRequest.shared().viewPostDetailLatest(postID: artID,userid: userID ?? "", apiKeyCall: "polls"){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
                     DispatchQueue.main.async {
                         if let Info = response!["data"] as? [[String:Any]]{
                             for articleInfo in Info {
                                 options = articleInfo["options"] as? String ?? ""
                             }
-                            
-                            appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
-                            appDelegate.hideSidemenu()
-                            
                             if let pollDetailVC = CStoryboardPoll.instantiateViewController(withIdentifier: "PollDetailsViewController") as? PollDetailsViewController {
-                                
                                 let pollViewController = appDelegate.getTopMostViewController()
-                                //                                shoutDetailVC.shoutID = postID
-                                postINFO["options"] = options
-                                pollDetailVC.pollInformation = postINFO
+                                postInfos["options"] = options
+                                postInfos["likes"] = Info.first?["likes"] as? String
+                                postInfos["comments"] = Info.first?["comments"] as? String
+                                postInfos["is_liked"] = Info.first?["is_liked"] as? String
                                 pollDetailVC.likeFromNotify  = true
+                                pollDetailVC.pollInformation = postInfos
                                 pollDetailVC.posted_ID = postInfo.valueForString(key: "post_id")
-                                
                                 pollViewController.navigationController?.pushViewController(pollDetailVC, animated: true)
                             }
                         }
@@ -468,9 +563,75 @@ extension FirebasePushNotification {
         }
     }
     
+    func EventDetailsFromServer(eventID:Int?,postInfo:[String:Any],userID:String?) {
+        var options = ""
+        if let artID = eventID {
+            APIRequest.shared().viewPostDetailLatest(postID: artID,userid: userID ?? "", apiKeyCall: "events"){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    //self.parentView.isHidden = false
+                    DispatchQueue.main.async {
+                        if let postInfo = response!["data"] as? [[String:Any]]{
+                            
+                            
+                            if let eventDetailVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
+                                let eventViewController = appDelegate.getTopMostViewController()
+                                eventDetailVC.postID = postInfo.first?.valueForString(key: "post_id").toInt
+                                eventDetailVC.eventInfo = postInfo.first ?? [:]
+                                eventDetailVC.likeFromNotify = true
+                                eventViewController.navigationController?.pushViewController(eventDetailVC, animated: true)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    //...GroupDeatils.....
+    func getGroupInformationFromServer(groupID:String) {
+        APIRequest.shared().groupDetail(group_id:groupID ,shouldShowLoader:false) { (response, error) in
+            if response != nil && error == nil{
+                DispatchQueue.main.async {
+                    if let groupInfo = response?[CJsonData] as? [[String : Any]] {
+                        
+                        if groupInfo.isEmpty{
+                            print("is empty")
+                            
+                            let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                            alertWindow.rootViewController = UIViewController()
+                            
+                            let alertController = UIAlertController(title: "", message: CMessageGroupDeleted, preferredStyle: UIAlertController.Style.alert)
+                            alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+                                alertWindow.isHidden = true
+                                return
+                            }))
+                            alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                            alertWindow.makeKeyAndVisible()
+                            alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                            
+                            
+//                            presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageGroupDeleted, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        }else {
+                        
+                        if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
+                            let eventViewController = appDelegate.getTopMostViewController()
+                            groupChatDetailVC.iObject =  groupInfo.first ?? [:]
+                            groupChatDetailVC.groupNotfInfo = groupInfo.first ?? [:]
+                            groupChatDetailVC.isCreateNewChat = false
+                            groupChatDetailVC.notificationGrp = true
+                            eventViewController.navigationController?.pushViewController(groupChatDetailVC, animated: true)
+                        }
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     
 }
+
 
 // MARK:- Notification Navigation
 // MARK:-
@@ -478,8 +639,8 @@ extension FirebasePushNotification {
 extension FirebasePushNotification {
     
     func notificationHandleFromActiveMode(_ userInfo: [AnyHashable : Any]) -> UNNotificationPresentationOptions {
-
-      guard let notificationJsonString = userInfo.valueForJSON(key: CNotificationData) as? String else {
+        
+        guard let notificationJsonString = userInfo.valueForJSON(key: CNotificationData) as? String else {
             return []
         }
         guard !notificationJsonString.isEmpty else { return [] }
@@ -495,14 +656,14 @@ extension FirebasePushNotification {
         switch notificationType {
         
         case kNotTypeOTOMessage:
-        // 2 = OTO Chat
-        let friendId = notificationInfo.valueForInt(key: "friend_id") ?? -1
-        if let userChatDetail = viewController as? UserChatDetailViewController {
-            if (userChatDetail.userID ?? 0) == friendId {
-                return []
+            // 2 = OTO Chat
+            let friendId = notificationInfo.valueForInt(key: "friend_id") ?? -1
+            if let userChatDetail = viewController as? UserChatDetailViewController {
+                if (userChatDetail.userID ?? 0) == friendId {
+                    return []
+                }
             }
-        }
-        break
+            break
         case kNotTypeGroupMessage:
             // 1 = Group Chat
             
@@ -535,12 +696,12 @@ extension FirebasePushNotification {
         case kNotTypeGroupJoinAccept:
             // Group Join Accept Notification
             return [.badge, .alert, .sound]
-          
+            
         case kNotTypeADAccountAccept,
              kNotTypeADAccountReject,
              kNotTypeADPostAccept,
              kNotTypeADPostReject:
-             // AD Related Notification
+            // AD Related Notification
             return [.badge, .alert, .sound]
             
         case kNotTypeEventStatus :
@@ -549,7 +710,7 @@ extension FirebasePushNotification {
             
         case kNotTypeSharedFolder :
             return [.badge, .alert, .sound]
-              
+            
         case kNotTypeAdminCreditReward,kNotTypeAdminDebitReward  :
             return [.badge, .alert, .sound]
             
@@ -609,7 +770,7 @@ extension FirebasePushNotification {
                 self.moveOnGroupChatScreen(notificationInfo)
             }
             break
-
+            
         case kNotTypeFriendReqSent,
              kNotTypeAcceptFriendReq,
              kNotTypeRejectFriendReq:
@@ -679,9 +840,9 @@ extension FirebasePushNotification {
 // MARK:-
 
 extension FirebasePushNotification {
- 
+    
     func deeplinkingRedirection(_ postID: Int, _ postType: Int) {
-
+        
         switch postType {
         case CStaticArticleId:
             self.moveOnArticleDetailScreen(postID)
@@ -716,7 +877,6 @@ extension FirebasePushNotification {
         })
     }
     
-    
     fileprivate func moveOnOTOChatScreen(_ notificationInfo: [String: Any]) {
         
         appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController"))
@@ -733,7 +893,7 @@ extension FirebasePushNotification {
     }
     
     // To Move on Group chat details screen
-     func moveOnGroupChatScreen(_ notificationInfo: [String: Any]) {
+    func moveOnGroupChatScreen(_ notificationInfo: [String: Any]) {
         appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardGroup.instantiateViewController(withIdentifier: "GroupsViewController"))
         appDelegate.hideSidemenu()
         
@@ -757,9 +917,7 @@ extension FirebasePushNotification {
     fileprivate func moveOnEventInviteesScreen(_ postID: Int?) {
         appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
         appDelegate.hideSidemenu()
-        
-        if let eventInviteesVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventInviteesViewController") as? EventInviteesViewController{
-            
+         if let eventInviteesVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventInviteesViewController") as? EventInviteesViewController{
             let articleViewController = appDelegate.getTopMostViewController()
             eventInviteesVC.eventId = postID
             articleViewController.navigationController?.pushViewController(eventInviteesVC, animated: true)

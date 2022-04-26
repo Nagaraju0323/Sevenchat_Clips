@@ -65,8 +65,8 @@ class MDLProduct : NSObject, ProductBaseModel {
         return ProductPaymentMode(rawValue: strPaymentType.toInt ?? 1) ?? .Offline
     }
     fileprivate var strPaymentType : String!
-    var latitude : Double!
-    var longitude : Double!
+    var latitude : String!
+    var longitude : String!
     var lastDateSelling : Double!
     var formatedPriceAmount : String{
         let priceString = productPrice ?? ""
@@ -101,8 +101,8 @@ class MDLProduct : NSObject, ProductBaseModel {
         userId = dictionary["user_id"] as? Int ?? 0
         productUserID = dictionary["user_id"] as? String ?? ""
         userProfileImage = dictionary["profile_image"] as? String ?? ""
-        latitude = dictionary["latitude"] as? Double ?? 0.0
-        longitude = dictionary["longitude"] as? Double ?? 0.0
+        latitude = dictionary["latitude"] as? String ?? ""
+        longitude = dictionary["longitude"]  as? String ?? ""
         strPaymentType = dictionary["payment_type"] as? String ?? "1"
         lastDateSelling = dictionary["created_at"] as? Double ?? 0.0
         product_id = dictionary["product_id"] as? String ?? ""

@@ -29,7 +29,7 @@ class SocketIOManager: NSObject {
     }
     
     private static var sharedInstance : SocketIOManager?
-    let manager : SocketManager = SocketManager(socketURL: URL(string:BASEURLSOCKETNOTF)!, config: [.log(true), .compress])
+    let manager : SocketManager = SocketManager(socketURL: URL(string:BASEURLSOCKETNOTF)!, config: [.forceWebsockets(true),.forceNew(true),.log(true), .compress])
     private var socketIOClient: SocketIOClient?
     
     override init() {
@@ -89,6 +89,9 @@ class SocketIOManager: NSObject {
                     self.scheduleNotification(notificationType: notify["subject"] as? String ?? "",senderName:senderName,postInfo:postInfoConent)
                     dict["subject"] = notify["subject"] as? String
                     dict["sender"] = notify["sender"] as? String
+                   print("this is calling observer")
+                    NotificationCenter.default.post(name: Notification.Name("LoadMsgData"), object: nil,userInfo: nil)
+                    
                    
                 }
             }

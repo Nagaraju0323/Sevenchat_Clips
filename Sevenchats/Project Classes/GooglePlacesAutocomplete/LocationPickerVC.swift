@@ -67,7 +67,7 @@ class LocationPickerVC: UIViewController {
             apiKey: CGooglePlacePickerKey,
             placeType: .geocode,
             coordinate: kCLLocationCoordinate2DInvalid,
-            radius: 50000,
+            radius: 5000000,
             strictBounds: true,
             searchBarPlaceholder: "Start typing..."
         )

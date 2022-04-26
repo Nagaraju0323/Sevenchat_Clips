@@ -1067,7 +1067,7 @@
             "sort": "ವಿಂಗಡಿಸಿ",
             "new_to_old": "ಹಳೆಯದಕ್ಕೆ ಹೊಸದು",
             "old_to_new": "ಹಳೆಯದರಿಂದ ಹೊಸದು",
-            "search_buy_seller_and_product_name": "ಮಾರಾಟಗಾರ ಮತ್ತು ಉತ್ಪನ್ನದ ಹೆಸರಿನಿಂದ ಹುಡುಕಿ",
+            "search_buy_seller_and_product_name": "ಉತ್ಪನ್ನ ಶೀರ್ಷಿಕೆಯ ಮೂಲಕ ಹುಡುಕಿ",
             "rate_and_review_product": "ಉತ್ಪನ್ನವನ್ನು ರೇಟ್ ಮಾಡಿ ಮತ್ತು ಪರಿಶೀಲಿಸಿ",
             "your_rating": "ನಿಮ್ಮ ರೇಟಿಂಗ್‌ಗಳು",
             "add_your_review": "ನಿಮ್ಮ ವಿಮರ್ಶೆಗಳನ್ನು ಸೇರಿಸಿ",
@@ -1370,7 +1370,15 @@
             "alert_message_editprofile":"ನಿಮ್ಮ ಮಾಹಿತಿಯನ್ನು ನವೀಕರಿಸಿದ್ದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು",
             "alert_message_delete":"Pಪೋಸ್ಟ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ಅಳಿಸಲಾಗಿದೆ",
             "alert_message_special_character":"ವಿಶೇಷ ಪಾತ್ರವನ್ನು ತಪ್ಪಿಸಿ",
-            "alert_resend_otp" : "ಒಟಿಪಿಯನ್ನು ಮರುಕಳುಹಿಸಲಾಗಿದೆ"
+            "alert_resend_otp" : "ಒಟಿಪಿಯನ್ನು ಮರುಕಳುಹಿಸಲಾಗಿದೆ",
+            "alert_already_registered_ph" : "ಒದಗಿಸಿದ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಲಾಗಿದೆ",
+            "alert_already_registered_email" : "ಒದಗಿಸಿದ ಇಮೇಲ್ ಈಗಾಗಲೇ ನೋಂದಾಯಿಸಲಾಗಿದೆ",
+            "your_message_has_been_sent_to_seller" : "ಮಾರಾಟಗಾರರಿಗೆ ಯಶಸ್ವಿಯಾಗಿ ಮಾಹಿತಿ ನೀಡಿದರು. ಮಾರಾಟಗಾರರು ನಿಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸುವವರೆಗೆ ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ.",
+            "chat_friend_already_exists":"ಚಾಟ್ ಸ್ನೇಹಿತ ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ",
+            "password_does_not_match":"ಪಾಸ್ವರ್ಡ್ ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ",
+            "group_member_already_exist" : "ಗುಂಪಿನ ಸದಸ್ಯರು ಈಗಾಗಲೇ ಅಸ್ತಿತ್ವದಲ್ಲಿದ್ದಾರೆ",
+            "shout_here":"ಇಲ್ಲಿ ಕೂಗು ಮತ್ತು ಅದರ ಬಗ್ಗೆ ನಿಮಗೆ ತಿಳಿದಿರುವ ಎಲ್ಲವನ್ನೂ ಹೇಳಿ",
+            "products_sold": "ಉತ್ಪನ್ನವನ್ನು ಮಾರಾಟ ಮಾಡಲಾಗಿದೆ",
             
             
             

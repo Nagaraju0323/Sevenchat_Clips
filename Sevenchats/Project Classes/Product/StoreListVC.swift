@@ -153,7 +153,10 @@ extension StoreListVC {
                 }
             }
         }
-        self.navigationItem.rightBarButtonItems = [sortBarItem, filterBarItem]
+        //..Hide the filter icond
+//        self.navigationItem.rightBarButtonItems = [sortBarItem, filterBarItem]
+        self.navigationItem.rightBarButtonItems = [sortBarItem]
+        
     }
 }
 

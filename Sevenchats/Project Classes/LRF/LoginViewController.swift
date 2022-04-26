@@ -357,10 +357,14 @@ extension LoginViewController{
     
     @IBAction func btnForgotCLK(_ sender : UIButton){
         
+        
         if BASEURL_Rew == "QA"{
             CWebSiteLink = "https://qa.sevenchats.com:7444/forgot_password"
-        }else {
+        }else if BASEURL_Rew == "DEV"{
             CWebSiteLink = "https://dev.sevenchats.com:7443/forgot_password"
+        }else {
+            CWebSiteLink = "https://beta.sevenchats.com:443/forgot_password"
+        
         }
         
         if UIApplication.shared.canOpenURL(URL(string: CWebSiteLink)!){

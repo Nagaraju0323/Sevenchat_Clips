@@ -117,6 +117,26 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true //false
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        if #available(iOS 15.0, *) {
+                       let appearance = UINavigationBarAppearance()
+                       appearance.configureWithTransparentBackground()
+                       appearance.backgroundImage = UIImage(named: "ic_navigation_bg")
+                   appearance.titleTextAttributes = [NSAttributedString.Key.font:CFontPoppins(size: 18, type: .meduim), NSAttributedString.Key.foregroundColor:UIColor.white]
+                       navigationController?.navigationBar.standardAppearance = appearance
+                       navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
+                   }else{
+                       self.navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+                       self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font:CFontPoppins(size: 18, type: .meduim), NSAttributedString.Key.foregroundColor:UIColor.white]
+                       self.navigationController?.navigationBar.barTintColor = ColorAppBackground1
+                       self.navigationController?.navigationBar.tintColor = .white
+                       self.navigationController?.navigationBar.barStyle = .default
+                       self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "ic_navigation_bg"), for: .default)
+                       self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+                       self.navigationController?.navigationBar.shadowImage = UIImage()
+                       self.navigationController?.navigationBar.isTranslucent = true //false
+                       self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+                   }
+        
         
         var imgBack = UIImage()
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {

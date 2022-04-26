@@ -58,7 +58,7 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         btnLikesCount.setTitle(CLike, for: .normal)
         btnComment.setTitle(CComment, for: .normal)
         self.collVImages.scrollToIndex = { [weak self] (index) in
-            self?.lblCountImage.text = ""
+//            self?.lblCountImage.text = ""
         }
     }
     
@@ -76,7 +76,7 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         self.lblPrice.text = self.modelData.formatedPriceAmount
         self.lblName.text = self.modelData.productTitle
         self.lblAddrees.text = self.modelData.address
-        
+        self.lblCountImage.text = "\( self.collVImages.arrMedia.count) \("/") \("5")"
         self.btnLike.isSelected = self.modelData.isLike == 1
         self.likeCounts = self.modelData.likes
         likeCount = self.likeCounts.toInt ?? 0

@@ -51,6 +51,9 @@ class AddEditProductVC: ParentViewController {
     }
     @IBOutlet weak var txtCurrencyList : MIGenericTextFiled!
     @IBOutlet weak var txtLastDOP : MIGenericTextFiled!
+    @IBOutlet weak var viewCountrys : UIView!
+    @IBOutlet weak var viewStates : UIView!
+    @IBOutlet weak var viewCitys : UIView!
     @IBOutlet weak var txtCountrys : MIGenericTextFiled!
     @IBOutlet weak var txtStates : MIGenericTextFiled!
     @IBOutlet weak var txtCitys : MIGenericTextFiled!
@@ -98,6 +101,10 @@ class AddEditProductVC: ParentViewController {
     var postContent = ""
     var postTitle = ""
     var prouductRewardsID = ""
+    var startEventChng = ""
+        var endEventChng = ""
+        var chngStringStart = ""
+        var chngStringEnd = ""
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -128,6 +135,10 @@ extension AddEditProductVC {
     
     func intilization() {
         txtProductTitle.txtDelegate = self
+       viewCountrys.isHidden = true
+//        viewCitys.isHidden = true
+      viewStates.isHidden = true
+      
         let arrCategory = MIGeneralsAPI.shared().fetchproductCategoryFromLocalArticle()
         
         /// Set Dropdown on txtCategory
@@ -222,6 +233,7 @@ extension AddEditProductVC {
         formatter.dateFormat = displaySellingDateFormate
         self.txtLastDOP.text = formatter.string(from: strDate!)
         self.strSellingDate = DateFormatter.dateStringFrom(timestamp: date.timeIntervalSince1970, withFormate: lastSellingDateFormate)
+        print("sellingDate\(strSellingDate)")
     }
     
     fileprivate func updateUIAccordingToLanguage(){
@@ -457,9 +469,9 @@ extension AddEditProductVC {
         self.txtStates.text = _product.stateName
         self.txtCitys.text = _product.cityName
         
-        self.txtCountrys.isEnabled = !_product.countryName.isEmpty
-        self.txtStates.isEnabled = !_product.stateName.isEmpty
-        self.txtCitys.isEnabled = !_product.cityName.isEmpty
+//        self.txtCountrys.isEnabled = !_product.countryName.isEmpty
+//        self.txtStates.isEnabled = !_product.stateName.isEmpty
+//        self.txtCitys.isEnabled = !_product.cityName.isEmpty
         
         if (self.stateName ?? "") != ""{
             self.loadStateList(isCancelTask: false)
@@ -479,8 +491,13 @@ extension AddEditProductVC {
         self.txtProductPrice.text = _product.productPrice.description
         self.txtCurrencyList.text = _product.currencyName
         self.selectedCurrencyName = _product.currencyName
-        let date = Date.init(timeIntervalSince1970: Double(_product.lastDateSelling) )
-        self.setDate(date: date)
+//        let date = Date.init(timeIntervalSince1970: Double(_product.lastdateSelling) ?? 0.0)
+//        self.setDate(date: date)
+        let lastDate =  _product.lastdateSelling.stringBefore("G")
+        let  lastMod = DateFormatter.shared().convertDatereversLatestsell(strDate: lastDate)
+        self.strSellingDate = lastMod ?? ""
+        self.txtLastDOP.text = lastMod ?? ""
+        
         self.availableStatus = _product.productState
         self.prouductID = _product.productID ?? ""
         let productimage = _product.galleyimagesArray
@@ -497,8 +514,8 @@ extension AddEditProductVC {
             self.txtCurrencyList.updatePlaceholderFrame(true)
             self.txtLastDOP.updatePlaceholderFrame(true)
             self.txtCountrys.updatePlaceholderFrame(true)
-            self.txtStates.updatePlaceholderFrame(true)
-            self.txtCitys.updatePlaceholderFrame(true)
+//            self.txtStates.updatePlaceholderFrame(true)
+//            self.txtCitys.updatePlaceholderFrame(true)
             self.txtLocation.updatePlaceholderFrame(true)
             self.txtLocation.layoutIfNeeded()
         }
@@ -686,7 +703,7 @@ extension AddEditProductVC {
                 dict["user_id"] = userID
             }
             if (cityName ?? "") != ""{
-                dict["city_name"] = self.cityName!
+                dict["city_name"] = ""
             }
             var _arrMedia = self.collVMedia.arrMedia
             if let _product = self.product{
@@ -732,12 +749,13 @@ extension AddEditProductVC {
                 
             } catch { print(error) }
             
+            
             if self.selectedCurrencyName != nil {
                 currencyName = self.selectedCurrencyName ?? ""
             }else{
                 currencyName = txtCurrencyList.text ?? ""
             }
-            let txtproductDesc = txtProductDesc.text ?? "".replace(string: "\n", replacement: "\\n")
+            let txtproductDesc =  postContent.replace(string: "\n", replacement: "\\n")
             apiTag = CAddProductNew
             dict = [
                 "user_first_name": firstName,

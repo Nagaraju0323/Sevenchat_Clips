@@ -74,6 +74,14 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
     }
+    deinit {
+        print("Deinit -> InviteViewController")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+         super.viewWillDisappear(true)
+         tblFriend.removeFromSuperview()
+     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -82,6 +90,7 @@ class InviteAndConnectViewController: ParentViewController, UITableViewDelegate,
     // MARK:- --------- Initialization
     func Initialization(){
         //self.title = CNavInviteContact
+        lblTitle.text = CInviteConnectTitle
         if isFromSideMenu{
             btnSideMenu.isHidden = false
             btnBigDone.isHidden = true
@@ -412,7 +421,9 @@ extension InviteAndConnectViewController{
             
             cell.btnShareSocialMedia.touchUpInside { [weak self](sender) in
                 
-                self?.presentActivityViewController(mediaData: CAppStoreURI, contentTitle: "Sevenchats app invitation.\n" )
+//                self?.presentActivityViewController(mediaData: CAppStoreURI, contentTitle: "Sevenchats app invitation.\n" )
+                
+                self?.presentActivityViewController(mediaData: CAppStoreURI, contentTitle: "Let's chat on Sevenchats! It's a fast, simple, and secure app we can use to message, sale and buy products, and do many things for free. Get it at\n" )
             }
             
             
@@ -549,7 +560,8 @@ extension InviteAndConnectViewController{
                     let image = UIImage(data: imgData)
                     cell.imgUser.image = image
                 } else {
-                    cell.imgUser.image = UIImage(named: "avtar.png")
+                    cell.imgUser.image = UIImage(named: "ic_add_user.png")
+                    
                 }
                 
                 if (contactInfo?.phoneNumbers.count)! > 0 {
@@ -570,25 +582,11 @@ extension InviteAndConnectViewController{
                         let User_Id = arrListModel.first?.user_id
                         //                        print("arralist\(arrlist.user_id)")
                         if check_Status == 0 {
-                            let strInviteText = "Sevenchats app invitation.\n" + CAppStoreURI
-                            self.openMessageComposer(number: cell.lblUserInfo.text, body: strInviteText)
+//                            let strInviteText = "Sevenchats app invitation.\n" + CAppStoreURI
+//                            self.openMessageComposer(number: cell.lblUserInfo.text, body: strInviteText)
+                            let strInviteText = "Let's chat on Sevenchats! It's a fast, simple, and secure app we can use to message, sale and buy products, and do many things for free. Get it at.\n" + CAppStoreURI
+                                                        self.openMessageComposer(number: cell.lblUserInfo.text, body: strInviteText)
                         } else {
-                            // Friend request api...
-                            //                                if  syncUserInfo.valueForInt(key: CFriend_status) == 0 {
-                            //                            if Friendstatus == 0 {
-                            //                                    if self.arrConnectAllFriend.contains(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}){
-                            //                                        if let index = self.arrConnectAllFriend.index(where: {$0[CUserId] as? Int == syncUserInfo.valueForInt(key: CUserId)}) {
-                            //                                            self.arrConnectAllFriend.remove(at: index)
-                            //                                        }
-                            //                                    }else{
-                            //                                        self.arrConnectAllFriend.append(syncUserInfo)
-                            //                                    }
-                            //                                    self.tblFriend.reloadData()
-                            //                                    self.checkConnectAllFriendStatus()
-                            //   }else {
-                            
-                            
-                            print("this is calling")
                             var frndStatus = 0
                             var isShowAlert = false
                             var alertMessage = ""

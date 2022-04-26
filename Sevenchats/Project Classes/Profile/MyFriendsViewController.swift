@@ -34,7 +34,7 @@ class MyFriendsViewController: ParentViewController {
     var selectedIndexPath = IndexPath(item: 0, section: 0)
     
     var isRefreshingUserData = false
-    var arrFriendList = [[String:Any]]()
+//    var arrFriendList = [[String:Any]]()
     var pageNumber = 1
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
@@ -43,6 +43,14 @@ class MyFriendsViewController: ParentViewController {
     var arrRequestList = [[String : Any]?]()
     var arrPendingList = [[String : Any]?]()
     var Friend_status : Int?
+    var arrFriendListNew = [[String:Any]]()
+    var arrFriendList : [[String:Any]] = [[:]] {
+           didSet{
+               self.arrFriendListNew = arrFriendList
+               
+           }
+       }
+    var searchStatus:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -190,6 +198,7 @@ extension MyFriendsViewController{
                         // Add Data here...
                         if arrList.count > 0{
                             self.arrFriendList = self.arrFriendList + arrList
+                            self.searchStatus = true
                             self.tblFriendList.reloadData()
                             self.pageNumber += 1
                         }
@@ -206,6 +215,7 @@ extension MyFriendsViewController{
                         // Add Data here...
                         if arrList.count > 0{
                             self.arrFriendList = self.arrFriendList + arrList
+                            self.searchStatus = true
                             self.tblFriendList.reloadData()
                             self.pageNumber += 1
                         }
@@ -222,6 +232,7 @@ extension MyFriendsViewController{
                         // Add Data here...
                         if arrList.count > 0{
                             self.arrFriendList = self.arrFriendList + arrList
+                            self.searchStatus = true
                             self.tblFriendList.reloadData()
                             self.pageNumber += 1
                         }
@@ -427,7 +438,7 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
         }else{
             self.tblFriendList.restore()
         }
-        return arrFriendList.count
+        return arrFriendListNew.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -437,7 +448,7 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "MyFriendTblCell", for: indexPath) as? MyFriendTblCell {
-            let userInfo = arrFriendList[indexPath.row]
+            let userInfo = arrFriendListNew[indexPath.row]
             cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
             
@@ -555,7 +566,11 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
             
              //Load more data...
             if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData {
+                if self.searchStatus == false {
                 self.getFriendList(txtSearch.text, showLoader: false)
+                }else {
+                    
+                }
             }
             
             return cell
@@ -611,15 +626,53 @@ extension MyFriendsViewController : UITextFieldDelegate {
         if apiTask?.state == URLSessionTask.State.running {
             apiTask?.cancel()
         }
-        if (textFiled.text?.count)! < 2{
-            pageNumber = 1
-            arrFriendList.removeAll()
-            tblFriendList.reloadData()
-            self.getFriendList("", showLoader: false)
-            return
-        }
-        pageNumber = 1
-        self.getFriendList(txtSearch.text, showLoader: false)
+//        if (textFiled.text?.count)! < 2{
+//            pageNumber = 1
+//            arrFriendList.removeAll()
+//            tblFriendList.reloadData()
+//            self.getFriendList("", showLoader: false)
+//            return
+//        }
+//        pageNumber = 1
+//        self.getFriendList(txtSearch.text, showLoader: false)
+        
+        
+        switch selectedIndexPath.item {
+                case 0:
+                    debugPrint("::::::::::this All Friends:::::::")
+                    pageNumber = 1
+                    arrFriendListNew.removeAll()
+                    arrFriendListNew =  (arrFriendList as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
+                    tblFriendList.reloadData()
+                    if (textFiled.text?.isEmpty ?? true){
+                        arrFriendListNew = arrFriendList
+                    }
+                    pageNumber = 1
+                    tblFriendList.reloadData()
+                    
+                case 1:
+                    pageNumber = 1
+                    arrFriendListNew.removeAll()
+                    arrFriendListNew =  (arrFriendList as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
+                    tblFriendList.reloadData()
+                    if (textFiled.text?.isEmpty ?? true){
+                        arrFriendListNew = arrFriendList
+                    }
+                    pageNumber = 1
+                    tblFriendList.reloadData()
+                    debugPrint(":::::::::Request sent::::::::")
+                default:
+                    pageNumber = 1
+                    arrFriendListNew.removeAll()
+                    arrFriendListNew =  (arrFriendList as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
+                    tblFriendList.reloadData()
+                    if (textFiled.text?.isEmpty ?? true){
+                        arrFriendListNew = arrFriendList
+                    }
+                    pageNumber = 1
+                    tblFriendList.reloadData()
+                    debugPrint(":::::::::PendingReques::::::::")
+                }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -46,7 +46,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeHeaderTblCell" rowHeight="110" id="cdM-dV-ZRh" customClass="HomeHeaderTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="375" height="110"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="375" height="110"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cdM-dV-ZRh" id="rXU-lJ-FXH">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
@@ -163,7 +163,7 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeStoriesTblCell" rowHeight="120" id="vZe-4q-ucR" customClass="HomeStoriesTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="134.5" width="375" height="120"/>
+                                                <rect key="frame" x="0.0" y="154.5" width="375" height="120"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vZe-4q-ucR" id="VNv-lQ-Kpc">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
@@ -235,7 +235,7 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CreatePostTblCell" rowHeight="200" id="EfV-Sb-5HE" customClass="CreatePostTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="254.5" width="375" height="200"/>
+                                                <rect key="frame" x="0.0" y="274.5" width="375" height="200"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EfV-Sb-5HE" id="1S7-Lu-J1B">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
@@ -433,7 +433,7 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CreatePostTblCell1" rowHeight="70" id="85f-gj-a3b" customClass="CreatePostTblCell1" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="454.5" width="375" height="70"/>
+                                                <rect key="frame" x="0.0" y="474.5" width="375" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="85f-gj-a3b" id="8Qc-CV-iUZ">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
@@ -446,10 +446,10 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="327" height="50"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEv-TC-21W">
-                                                                            <rect key="frame" x="10" y="14" width="307" height="31"/>
+                                                                            <rect key="frame" x="10" y="15" width="307" height="20"/>
                                                                             <subviews>
                                                                                 <stackView opaque="NO" contentMode="scaleAspectFit" distribution="fillEqually" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="1jN-JS-gAu">
-                                                                                    <rect key="frame" x="5" y="0.5" width="297" height="30"/>
+                                                                                    <rect key="frame" x="5" y="-5" width="297" height="30"/>
                                                                                     <subviews>
                                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6nU-hr-dbJ">
                                                                                             <rect key="frame" x="0.0" y="0.0" width="24.5" height="30"/>
@@ -494,10 +494,10 @@
                                                                     </subviews>
                                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
-                                                                        <constraint firstItem="LEv-TC-21W" firstAttribute="top" secondItem="5BY-IX-7kK" secondAttribute="top" constant="14" id="B1u-Oq-wgw"/>
+                                                                        <constraint firstItem="LEv-TC-21W" firstAttribute="top" secondItem="5BY-IX-7kK" secondAttribute="top" constant="15" id="B1u-Oq-wgw"/>
                                                                         <constraint firstItem="LEv-TC-21W" firstAttribute="leading" secondItem="5BY-IX-7kK" secondAttribute="leading" constant="10" id="NzI-jk-OS3"/>
                                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" secondItem="5BY-IX-7kK" secondAttribute="height" multiplier="337:382" constant="-2" id="QNA-DW-lJt"/>
-                                                                        <constraint firstAttribute="bottom" secondItem="LEv-TC-21W" secondAttribute="bottom" constant="5" id="bwU-tV-WxK"/>
+                                                                        <constraint firstAttribute="bottom" secondItem="LEv-TC-21W" secondAttribute="bottom" constant="15" id="bwU-tV-WxK"/>
                                                                         <constraint firstAttribute="trailing" secondItem="LEv-TC-21W" secondAttribute="trailing" constant="10" id="x09-vB-co7"/>
                                                                     </constraints>
                                                                 </view>
@@ -638,7 +638,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SideMenuCell" id="4hh-Tu-KT8" customClass="SideMenuCell" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="250" height="45"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="250" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4hh-Tu-KT8" id="12t-Le-P0A">
                                             <rect key="frame" x="0.0" y="0.0" width="250" height="45"/>
@@ -4048,7 +4048,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeAddFrdTblCell" rowHeight="90" id="paI-Em-ogm" customClass="HomeAddFrdTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="375" height="90"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="375" height="90"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="paI-Em-ogm" id="6CI-RB-gEA">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>

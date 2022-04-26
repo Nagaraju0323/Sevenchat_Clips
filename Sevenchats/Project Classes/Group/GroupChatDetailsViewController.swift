@@ -130,6 +130,7 @@ class GroupChatDetailsViewController: ParentViewController,MIAudioPlayerDelegate
     var locationPicker : LocationPickerVC?
     var userID: Int?
     var isautoDeleteTime: String?
+    var topcName = ""
     
     var messageidListItems:[String] = []
     var pastebaord = UIPasteboard.general
@@ -146,7 +147,9 @@ class GroupChatDetailsViewController: ParentViewController,MIAudioPlayerDelegate
     var group_Name = ""
     var uploadImgUrl:String?
     var groupInfo = [String:Any]()
+    var groupNotfInfo = [String:Any]()
     var groupInfoLatest = [String:Any]()
+    var groupNotificaiton:Bool?
     
     var socketClient = StompClientLib()
     var timeClient: TrueTimeClient?
@@ -161,6 +164,7 @@ class GroupChatDetailsViewController: ParentViewController,MIAudioPlayerDelegate
         Initialization()
         notificationObserver = nil
         NotificationCenter.default.addObserver(self, selector: #selector(self.MsgrecviedNotificationGrp(notification:)), name: Notification.Name("MsgrecviedNotificationGrp"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.LoadMsgData(notification:)), name: Notification.Name("LoadMsgData"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -221,7 +225,87 @@ class GroupChatDetailsViewController: ParentViewController,MIAudioPlayerDelegate
             }
         }
     }
+    //...GroupChat Messages Load
+    func getMessagesLoadFromServer(){
+        
+        
+        TblMessages.deleteAllObjects()
+        if sessionTask != nil {
+            if sessionTask.state == .running {
+//                print(" Api calling continue =========")
+                return
+            }
+        }
+        
+        var _ : Double = 0
+        sessionTask = APIRequest.shared().userMesageListNew(chanelID: topcName) { [weak self] (response, error) in
+            guard let self = self else { return }
+            var txtmsg = ""
+            self.refreshControl.endRefreshing()
+            self.tblChat.tableFooterView = UIView()
+            if response != nil && error == nil {
+//                MILoader.shared.hideLoader()
+                
+                let resp = response as? [String] ?? []
+                
+                resp.forEach { item in
+                    var imagepath = ""
+                    var senders  = ""
+                    var dict =  self.convertToDictionarywithtry(from: item)
+                    let dictcont = dict?["content"]
+                    dict?.removeValue(forKey: "content")
+                    let dictcontent =  self.convertToDictionarywithtry(from: dictcont ?? "")
+                    if dictcontent?["type"] == "image" || dictcontent?["type"] == "video" || dictcontent?["type"] == "audio" {
+                        imagepath = dictcontent?["message"] ?? ""
+                        txtmsg = imagepath
+                    }else {
+                        txtmsg = dictcontent?["message"] ?? ""
+                    }
+                    let timstmamp = dict?["timestamp"]?.replace(string: "T", replacement: " ")
+                    //todo chagnes futures
+//                    let chatTimeStamp = ""
+                    let chatTimeStamp = (DateFormatter.shared().timestampGMTFromDateNew(date: timstmamp))?.toString
+//
+                    //todo chagnes futures
+                    let create  = chatTimeStamp
+                    if let sender = dict?["sender"]{
+                        senders = sender
+                    }
+                    
+                    let senderName = dict?["name"] ?? ""
+                    let senderProfImg = dict?["profile_image"] ?? ""
+//                    let timestamp2 = dict?["timestamp"]
+                    
+                    if dictcontent?["type"] == "image"{
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .image, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "" ,timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                        
+                    }else if dictcontent?["type"] == "video"{
+                        
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .video, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "" ,timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                        
+                    }else if dictcontent?["type"] == "audio"{
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .audio, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "" ,timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                        
+                    }else {
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.topcName , message: txtmsg, messageType: .text, chatType: .user, groupID: nil, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "",timestampDate:chatTimeStamp ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                    }
+                    
+                }
+                self.fetchHome.loadData()
+                
+            }
+        }
+    }
     
+    
+    @objc func LoadMsgData(notification: Notification){
+        getMessagesLoadFromServer(isNew : true)
+    }
+
     
     @objc func AudioMsgEnd(){
         audioMsgView.isHidden = true
@@ -384,26 +468,52 @@ extension GroupChatDetailsViewController {
         }
     }
     
+//    fileprivate func getGroupInformationFromServer() {
+//        if let groupInfo = self.iObject as? [String : Any] {
+//            APIRequest.shared().groupDetail(group_id: groupInfo.valueForString(key: CGroupId),shouldShowLoader:false) { (response, error) in
+//                if response != nil && error == nil{
+//                    DispatchQueue.main.async {
+//                        if let groupInfo = response?[CJsonData] as? [[String : Any]] {
+//                            self.iObject = groupInfo
+//                            self.setGroupDetails()
+//                            for groupDetails in groupInfo{
+//                                self.group_id = groupDetails["group_id"] as? String ?? ""
+//                                if let uesrInfo = groupDetails[CAPITFriendsList] as? [[String : Any]] {
+//                                    self.arrMembers = uesrInfo
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
     fileprivate func getGroupInformationFromServer() {
-        if let groupInfo = self.iObject as? [String : Any] {
-            APIRequest.shared().groupDetail(group_id: groupInfo.valueForString(key: CGroupId),shouldShowLoader:false) { (response, error) in
-                if response != nil && error == nil{
-                    DispatchQueue.main.async {
-                        if let groupInfo = response?[CJsonData] as? [[String : Any]] {
-                            self.iObject = groupInfo
-                            self.setGroupDetails()
-                            for groupDetails in groupInfo{
-                                self.group_id = groupDetails["group_id"] as? String ?? ""
-                                if let uesrInfo = groupDetails[CAPITFriendsList] as? [[String : Any]] {
-                                    self.arrMembers = uesrInfo
+            if let groupInfo = self.iObject as? [String : Any] {
+                APIRequest.shared().groupDetail(group_id: groupInfo.valueForString(key: CGroupId),shouldShowLoader:false) { (response, error) in
+                    if response != nil && error == nil{
+                        DispatchQueue.main.async {
+                            if let JSON = response as? [String : Any] {
+                                if let groupinfor =  JSON["data"] as? [[String : Any]] {
+                                    //                                   if let groupInfo = groupinfor{
+                                    self.iObject = groupinfor
+                                    self.setGroupDetails()
+                                    for groupDetails in groupinfor{
+                                        self.group_id = groupDetails["group_id"] as? String ?? ""
+                                        if let uesrInfo = groupDetails[CAPITFriendsList] as? [[String : Any]] {
+                                            self.arrMembers = uesrInfo
+                                        }
+                                    }
                                 }
                             }
+                            
                         }
                     }
                 }
             }
         }
-    }
+    
     
     @objc fileprivate func pullToRefresh() {
         if sessionTask != nil {
@@ -411,6 +521,7 @@ extension GroupChatDetailsViewController {
                 return
             }
         }
+        getMessagesFromServer(isNew: true)
         refreshControl.beginRefreshing()
     }
     
@@ -483,7 +594,76 @@ extension GroupChatDetailsViewController {
         }
         
     }
-    
+    //...GetMessages from Server
+    func getMessagesLoadFromServer(isNew : Bool) {
+        
+        TblMessages.deleteAllObjects()
+//        if sessionTask != nil {
+//            if sessionTask.state == .running {
+//                print(" Api calling continue =========")
+//                return
+//            }
+//        }
+        var _ : Double = 0
+        sessionTask = APIRequest.shared().userMesageListNew(chanelID: group_id) { [weak self] (response, error) in
+            guard let self = self else { return }
+            var txtmsg = ""
+//            self.refreshControl.endRefreshing()
+            self.tblChat.tableFooterView = UIView()
+            if response != nil && error == nil {
+                let resp = response as? [String] ?? []
+                
+                resp.forEach { item in
+                    var imagepath = ""
+                    var senders  = ""
+                    var dict =  self.convertToDictionarywithtry(from: item)
+                    let dictcont = dict?["content"]
+                    dict?.removeValue(forKey: "content")
+                    var dictcontent =  self.convertToDictionarywithtry(from: dictcont ?? "")
+                    if dictcontent?["type"] == "image" || dictcontent?["type"] == "video" || dictcontent?["type"] == "audio" {
+                        imagepath = dictcontent?["message"] ?? ""
+                        txtmsg = imagepath
+                    }else {
+                        txtmsg = dictcontent?["message"] ?? ""
+                    }
+                    
+                    let senderName = dictcontent?["name"] ?? ""
+                    let senderProfImg = dictcontent?["profile_image"] ?? ""
+                    let timstmamp = dict?["timestamp"]?.replace(string: "T", replacement: " ")
+                    let chatTimeStamp = DateFormatter.shared().timestampGMTFromDateNew(date: timstmamp)
+                    let create  = chatTimeStamp?.toString
+                    if let sender = dict?["sender"]{
+                        senders = sender
+                    }
+                    let timestamp2 = dict?["timestamp"]
+                    
+                    if dictcontent?["type"] == "image"{
+                        
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.group_id , message: txtmsg, messageType: .image, chatType: .group, groupID: self.group_id, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "",timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                        
+                    }else if dictcontent?["type"] == "video"{
+                        
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.group_id , message: txtmsg, messageType: .video, chatType: .group, groupID: self.group_id, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "",timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                        
+                    }else if dictcontent?["type"] == "audio"{
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.group_id , message: txtmsg, messageType: .audio, chatType: .group, groupID: self.group_id, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "",timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                        
+                    }else {
+                        
+                        ChatSocketIo.shared().messagePaylaodLast(arrUser: ["\(senders )"], channelId: self.group_id , message: txtmsg, messageType: .text, chatType: .group, groupID: self.group_id, latitude: 0.0, longitude: 0.0, address: "", forwardedMsgId: "", cloleFile: nil, sender: senders , isSelected: true,createat: create ?? "",timestampDate:timestamp2 ?? "",senderName:senderName,SenderProfImg:senderProfImg)
+                        UserDefaultHelper.userChatLastMsg = true
+                    }
+                    
+                }
+                self.fetchHome.loadData()
+                
+            }
+        }
+        
+    }
     
     fileprivate func storeMediaToLocal(_ mediaType: MessageType, latitude:Double = 0.0, longitude:Double = 0.0, address: String = "") {
         
@@ -986,11 +1166,12 @@ extension GroupChatDetailsViewController {
                     ]
                     sessionTask = APIRequest.shared().userSentMsg(dict:dict) { [weak self] (response, error) in
                         guard let self = self else { return }
-                        self.refreshControl.endRefreshing()
+                       // self.refreshControl.endRefreshing()
                         self.tblChat.tableFooterView = UIView()
                         if response != nil && error == nil {
                             guard let arrList = response as? [String:Any] else { return }
-                            self.fetchHome.loadData()
+                            self.getMessagesLoadFromServer(isNew: true)
+//                            self.fetchHome.loadData()
                             if let arrStatus = arrList["message"] as? String{
                                 print("arrStatus,\(arrStatus)")
                                 let strArr = self.arrMembers.map({$0.valueForString(key: CUserId) })
@@ -1615,6 +1796,7 @@ extension GroupChatDetailsViewController {
             self.tblChat.tableFooterView = UIView()
             if response != nil && error == nil {
                 self.fetchHome.loadData()
+                self.getMessagesLoadFromServer(isNew: true)
                 ChatSocketIo.shared().socketDelegate = self
                 let strArr = self.arrMembers.map({$0.valueForString(key: CUserId) })
                 strArr.forEach { friends_ID in

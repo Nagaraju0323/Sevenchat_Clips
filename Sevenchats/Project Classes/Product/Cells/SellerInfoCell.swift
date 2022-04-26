@@ -71,7 +71,21 @@ class SellerInfoCell: UITableViewCell, ProductDetailBaseCell  {
             contactInfo.productMobile = self.modelData.pmobileNum
             
 //            self.viewController?.navigationController?.pushViewController(contactInfo, animated: true)
-            
+        
+            let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                        alertWindow.rootViewController = UIViewController()
+                        
+                        let alertController = UIAlertController(title: "", message: CContactToSellerSuccessfully, preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel, handler: { _ in
+                            alertWindow.isHidden = true
+                            //                            self?.postDetails(postID:self?.postID.toString ?? "")
+                          
+                            return
+                        }))
+                        
+                        alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                        alertWindow.makeKeyAndVisible()
+                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
         }
     }
 

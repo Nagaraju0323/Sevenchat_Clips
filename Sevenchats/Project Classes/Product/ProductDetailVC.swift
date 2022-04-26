@@ -196,7 +196,7 @@ extension ProductDetailVC {
             "latitude":"60",
             "longitude":"80",
             "status_id":"1",
-            "city_name":product?.cityName ?? "",
+            "city_name": "",
             "address_line1":""
             
         ]
@@ -205,7 +205,7 @@ extension ProductDetailVC {
             dict["user_id"] = userID.description
         }
         
-        dict["city_name"] = product?.cityName
+//        dict["city_name"] = product?.cityName
         
         APIRequest.shared().productEditProduct(apiTag: CEditProductNew, dict:dict, showLoader: true) { [weak self] (response, error) in
             guard let self = self else { return }

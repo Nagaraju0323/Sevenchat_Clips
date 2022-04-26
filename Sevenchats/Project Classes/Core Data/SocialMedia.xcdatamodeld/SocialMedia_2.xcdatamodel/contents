@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20G417" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="TblAdvertise" representedClassName="TblAdvertise" syncable="YES" codeGenerationType="class">
         <attribute name="ads_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="ads_image" optional="YES" attributeType="String"/>
@@ -143,6 +143,8 @@
         <attribute name="ads_posted" optional="YES" attributeType="String"/>
         <attribute name="advertisements" optional="YES" attributeType="String"/>
         <attribute name="ago" optional="YES" attributeType="String"/>
+        <attribute name="alert_already_registered_email" optional="YES" attributeType="String"/>
+        <attribute name="alert_already_registered_ph" optional="YES" attributeType="String"/>
         <attribute name="alert_delete_message" optional="YES" attributeType="String"/>
         <attribute name="alert_delete_message_image" optional="YES" attributeType="String"/>
         <attribute name="alert_exit_message" optional="YES" attributeType="String"/>
@@ -212,6 +214,7 @@
         <attribute name="cancel" optional="YES" attributeType="String"/>
         <attribute name="cancel_request" optional="YES" attributeType="String"/>
         <attribute name="cancel_subscription_alert" optional="YES" attributeType="String"/>
+        <attribute name="chat_friend_already_exists" optional="YES" attributeType="String"/>
         <attribute name="check_out_this_store_post" optional="YES" attributeType="String"/>
         <attribute name="check_this_in_news" optional="YES" attributeType="String"/>
         <attribute name="check_this_in_post" optional="YES" attributeType="String"/>
@@ -358,6 +361,7 @@
         <attribute name="group_info_link" optional="YES" attributeType="String"/>
         <attribute name="group_is_added_successfully" optional="YES" attributeType="String"/>
         <attribute name="group_member" optional="YES" attributeType="String"/>
+        <attribute name="group_member_already_exist" optional="YES" attributeType="String"/>
         <attribute name="group_member_not_selected" optional="YES" attributeType="String"/>
         <attribute name="group_members" optional="YES" attributeType="String"/>
         <attribute name="group_members_minimum" optional="YES" attributeType="String"/>
@@ -503,6 +507,7 @@
         <attribute name="others" optional="YES" attributeType="String"/>
         <attribute name="out_of" optional="YES" attributeType="String"/>
         <attribute name="participants" optional="YES" attributeType="String"/>
+        <attribute name="password_does_not_match" optional="YES" attributeType="String"/>
         <attribute name="payment" optional="YES" attributeType="String"/>
         <attribute name="payment_description" optional="YES" attributeType="String"/>
         <attribute name="payment_error" optional="YES" attributeType="String"/>
@@ -573,6 +578,7 @@
         <attribute name="product_terms_conditions" optional="YES" attributeType="String"/>
         <attribute name="product_title" optional="YES" attributeType="String"/>
         <attribute name="product_updated_success" optional="YES" attributeType="String"/>
+        <attribute name="products_sold" optional="YES" attributeType="String"/>
         <attribute name="profession" optional="YES" attributeType="String"/>
         <attribute name="profile_add_your_interest" optional="YES" attributeType="String"/>
         <attribute name="profile_biography" optional="YES" attributeType="String"/>
@@ -723,6 +729,7 @@
         <attribute name="shout_edited_successfully" optional="YES" attributeType="String"/>
         <attribute name="shout_friends" optional="YES" attributeType="String"/>
         <attribute name="shout_groups" optional="YES" attributeType="String"/>
+        <attribute name="shout_here" optional="YES" attributeType="String"/>
         <attribute name="shout_message_cant_blank" optional="YES" attributeType="String"/>
         <attribute name="shout_public" optional="YES" attributeType="String"/>
         <attribute name="sidemenu_chats" optional="YES" attributeType="String"/>
@@ -1015,7 +1022,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="-45" positionY="135" width="128" height="10889"/>
+        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="10994"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>

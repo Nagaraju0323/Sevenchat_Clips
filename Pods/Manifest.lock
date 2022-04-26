@@ -160,10 +160,10 @@ PODS:
   - SDWebImage/GIF (4.4.8):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
-  - Socket.IO-Client-Swift (15.2.0):
-    - Starscream (~> 3.1)
+  - Socket.IO-Client-Swift (16.0.1):
+    - Starscream (~> 4.0)
   - SocketRocket (0.5.1)
-  - Starscream (3.1.1)
+  - Starscream (4.0.4)
   - StompClientLib (1.4.1):
     - SocketRocket
   - TLPhotoPicker (2.0.11)
@@ -193,7 +193,7 @@ DEPENDENCIES:
   - PhoneNumberKit
   - SDWebImage
   - SDWebImage/GIF
-  - Socket.IO-Client-Swift
+  - Socket.IO-Client-Swift (~> 16.0.1)
   - StompClientLib
   - TLPhotoPicker
   - TrueTime
@@ -294,13 +294,13 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
-  Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
+  Socket.IO-Client-Swift: c116d6dc9fd6be9c259bacfe143f8725bce7d79e
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
-  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
   StompClientLib: ac40390e9660c574675f1c933bec81c8e2811a4f
   TLPhotoPicker: a5c339732b8326bb16cbb4e00ed01a86f2bfbbb3
   TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
 
-PODFILE CHECKSUM: 429346487285b883ec9d10b1dee230fafbdf6024
+PODFILE CHECKSUM: 3fad0756c17dd8763ad069173fa2f8de447b97ff
 
 COCOAPODS: 1.10.1

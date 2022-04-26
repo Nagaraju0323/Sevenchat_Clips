@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -36,7 +36,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LikesTblCell" rowHeight="65" id="CVv-bi-lfB" customClass="LikesTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="375" height="65"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="375" height="65"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CVv-bi-lfB" id="EHW-vp-Ijl">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
@@ -151,7 +151,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FilterSubCatTblCell" rowHeight="45" id="jfA-lQ-Lm6" customClass="FilterSubCatTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="414" height="45"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="45"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jfA-lQ-Lm6" id="jgZ-je-uZw">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
@@ -226,7 +226,7 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LineSeparatorTblCell" rowHeight="1" id="vkM-Q3-cSb" customClass="LineSeparatorTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="69.5" width="414" height="1"/>
+                                                <rect key="frame" x="0.0" y="89.5" width="414" height="1"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vkM-Q3-cSb" id="WmN-1V-HO7">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
@@ -301,7 +301,7 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentTblCell" rowHeight="80" id="wNy-mg-Xaa" customClass="CommentTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="24.5" width="414" height="80"/>
+                                                                <rect key="frame" x="0.0" y="44.5" width="414" height="80"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wNy-mg-Xaa" id="Ayg-UX-6Yy">
                                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -565,7 +565,7 @@
                                                         </constraints>
                                                         <prototypes>
                                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReportTblCell" rowHeight="50" id="EQR-Oy-6B9" customClass="ReportTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="24.5" width="375" height="50"/>
+                                                                <rect key="frame" x="0.0" y="44.5" width="375" height="50"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EQR-Oy-6B9" id="aKB-NN-FqR">
                                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
@@ -967,7 +967,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="BlockUserListTblCell" rowHeight="60" id="C2R-ZE-Nne" customClass="BlockUserListTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="414" height="60"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="C2R-ZE-Nne" id="UH2-iK-dLk">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
@@ -1099,7 +1099,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NotificationGeneralTblCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NotificationGeneralTblCell" rowHeight="70" id="kRf-8z-tgG" customClass="NotificationGeneralTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="414" height="70"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kRf-8z-tgG" id="HzV-1H-9Rd">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
@@ -1170,7 +1170,7 @@
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NotificationInvitationTblCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NotificationInvitationTblCell" rowHeight="150" id="sfT-ff-hVe" customClass="NotificationInvitationTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="94.5" width="414" height="150"/>
+                                                <rect key="frame" x="0.0" y="114.5" width="414" height="150"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sfT-ff-hVe" id="q7a-hY-hJC">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
@@ -1304,7 +1304,7 @@ Declined</string>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="NotificationRequestTblCell" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NotificationRequestTblCell" rowHeight="120" id="kDv-4F-bQj" customClass="NotificationRequestTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="244.5" width="414" height="120"/>
+                                                <rect key="frame" x="0.0" y="264.5" width="414" height="120"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kDv-4F-bQj" id="T6W-jG-gCn">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
@@ -1433,15 +1433,23 @@ Declined</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TlM-8w-hIy">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="822"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AuQ-Yl-j98">
-                                        <rect key="frame" x="20" y="0.0" width="375" height="667"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AuQ-Yl-j98">
+                                        <rect key="frame" x="8" y="0.0" width="398" height="820"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="820" id="WF8-zv-G8Z"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="AuQ-Yl-j98" firstAttribute="top" secondItem="TlM-8w-hIy" secondAttribute="top" id="EMZ-5y-wWy"/>
+                                    <constraint firstItem="AuQ-Yl-j98" firstAttribute="centerX" secondItem="TlM-8w-hIy" secondAttribute="centerX" id="g7o-QD-Uls"/>
+                                    <constraint firstAttribute="bottom" secondItem="AuQ-Yl-j98" secondAttribute="bottom" constant="2" id="gky-Tv-pDY"/>
+                                    <constraint firstItem="AuQ-Yl-j98" firstAttribute="leading" secondItem="TlM-8w-hIy" secondAttribute="leading" constant="8" id="jSa-Eg-Omi"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JTP-6C-yZE"/>
@@ -1449,13 +1457,13 @@ Declined</string>
                         <constraints>
                             <constraint firstItem="TlM-8w-hIy" firstAttribute="top" secondItem="JTP-6C-yZE" secondAttribute="top" id="6qw-Cd-cOd"/>
                             <constraint firstItem="TlM-8w-hIy" firstAttribute="leading" secondItem="JTP-6C-yZE" secondAttribute="leading" id="7PG-zs-Hdx"/>
-                            <constraint firstItem="TlM-8w-hIy" firstAttribute="top" secondItem="5bx-PM-w9J" secondAttribute="top" id="Grt-5F-Aop"/>
+                            <constraint firstItem="TlM-8w-hIy" firstAttribute="top" secondItem="5bx-PM-w9J" secondAttribute="top" constant="44" id="Grt-5F-Aop"/>
                             <constraint firstItem="TlM-8w-hIy" firstAttribute="trailing" secondItem="JTP-6C-yZE" secondAttribute="trailing" id="Hwt-6M-5ar"/>
-                            <constraint firstItem="TlM-8w-hIy" firstAttribute="bottom" secondItem="JTP-6C-yZE" secondAttribute="bottom" id="NQ3-RG-pK3"/>
-                            <constraint firstItem="TlM-8w-hIy" firstAttribute="bottom" secondItem="JTP-6C-yZE" secondAttribute="bottom" id="Nx1-aS-Vbu"/>
+                            <constraint firstItem="TlM-8w-hIy" firstAttribute="bottom" secondItem="JTP-6C-yZE" secondAttribute="bottom" constant="4" id="NQ3-RG-pK3"/>
+                            <constraint firstItem="TlM-8w-hIy" firstAttribute="bottom" secondItem="JTP-6C-yZE" secondAttribute="bottom" constant="4" id="Nx1-aS-Vbu"/>
                             <constraint firstItem="TlM-8w-hIy" firstAttribute="leading" secondItem="5bx-PM-w9J" secondAttribute="leading" id="e2G-yN-jjQ"/>
                             <constraint firstItem="TlM-8w-hIy" firstAttribute="trailing" secondItem="JTP-6C-yZE" secondAttribute="trailing" id="kTG-dv-cWg"/>
-                            <constraint firstItem="TlM-8w-hIy" firstAttribute="bottom" secondItem="JTP-6C-yZE" secondAttribute="bottom" id="mkU-3N-96Z"/>
+                            <constraint firstItem="TlM-8w-hIy" firstAttribute="bottom" secondItem="JTP-6C-yZE" secondAttribute="bottom" constant="4" id="mkU-3N-96Z"/>
                             <constraint firstItem="TlM-8w-hIy" firstAttribute="top" secondItem="JTP-6C-yZE" secondAttribute="top" id="p9n-NC-mHB"/>
                             <constraint firstItem="TlM-8w-hIy" firstAttribute="leading" secondItem="JTP-6C-yZE" secondAttribute="leading" id="rSY-Au-Rhx"/>
                             <constraint firstAttribute="trailing" secondItem="TlM-8w-hIy" secondAttribute="trailing" id="s40-VK-1wh"/>
@@ -1468,7 +1476,7 @@ Declined</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sZY-tR-sD8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2649" y="-767"/>
+            <point key="canvasLocation" x="2647.826086956522" y="-767.41071428571422"/>
         </scene>
         <!--Feedback View Controller-->
         <scene sceneID="nZv-sy-iSP">
@@ -1798,7 +1806,7 @@ Declined</string>
                                         <inset key="separatorInset" minX="73" minY="0.0" maxX="20" maxY="0.0"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AddParticipantsTblCell" rowHeight="65" id="mfq-50-GuW" customClass="AddParticipantsTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="414" height="65"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="65"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mfq-50-GuW" id="jXM-QS-wa9">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
@@ -1902,8 +1910,9 @@ Declined</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4s4-Nb-9Wa">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uzt-FC-VCA">
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uzt-FC-VCA">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="kkq-DZ-fpN">
@@ -1913,23 +1922,15 @@ Declined</string>
                                     </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Uzt-FC-VCA" secondAttribute="bottom" id="9C1-eb-aaD"/>
-                                    <constraint firstItem="Uzt-FC-VCA" firstAttribute="top" secondItem="4s4-Nb-9Wa" secondAttribute="top" id="Bs4-7q-dxA"/>
-                                    <constraint firstItem="Uzt-FC-VCA" firstAttribute="leading" secondItem="4s4-Nb-9Wa" secondAttribute="leading" id="OIn-sK-YAa"/>
-                                    <constraint firstAttribute="trailing" secondItem="Uzt-FC-VCA" secondAttribute="trailing" id="yot-xA-GKt"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Gm2-Or-aJX"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="4s4-Nb-9Wa" firstAttribute="bottom" secondItem="Gm2-Or-aJX" secondAttribute="bottom" id="8Uw-iV-hSW"/>
-                            <constraint firstItem="4s4-Nb-9Wa" firstAttribute="top" secondItem="Gm2-Or-aJX" secondAttribute="top" id="Lva-dw-Azh"/>
-                            <constraint firstItem="4s4-Nb-9Wa" firstAttribute="trailing" secondItem="Gm2-Or-aJX" secondAttribute="trailing" id="Mbe-dt-NDF"/>
-                            <constraint firstItem="4s4-Nb-9Wa" firstAttribute="leading" secondItem="Gm2-Or-aJX" secondAttribute="leading" id="gHI-z3-ZnZ"/>
-                            <constraint firstItem="4s4-Nb-9Wa" firstAttribute="centerX" secondItem="bBp-dR-u2p" secondAttribute="centerX" id="vlD-n3-gq6"/>
-                            <constraint firstItem="4s4-Nb-9Wa" firstAttribute="centerY" secondItem="bBp-dR-u2p" secondAttribute="centerY" id="w1Z-eS-iWH"/>
+                            <constraint firstItem="4s4-Nb-9Wa" firstAttribute="leading" secondItem="bBp-dR-u2p" secondAttribute="leading" id="5Zw-px-cH2"/>
+                            <constraint firstItem="4s4-Nb-9Wa" firstAttribute="bottom" secondItem="Gm2-Or-aJX" secondAttribute="bottom" id="Ixr-k9-DEZ"/>
+                            <constraint firstItem="4s4-Nb-9Wa" firstAttribute="top" secondItem="Gm2-Or-aJX" secondAttribute="top" id="Meo-el-ePN"/>
+                            <constraint firstAttribute="trailing" secondItem="4s4-Nb-9Wa" secondAttribute="trailing" id="v8Q-xg-tiP"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1988,7 +1989,7 @@ Declined</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SongListTblCell" id="Wu9-0G-egJ" customClass="SongListTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Wu9-0G-egJ" id="JJK-bL-Rq0">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>

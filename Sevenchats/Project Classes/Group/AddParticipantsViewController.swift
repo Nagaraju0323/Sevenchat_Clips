@@ -34,7 +34,7 @@ class AddParticipantsViewController: ParentViewController {
             txtSearch.delegate = self
         }
     }
-    
+    var arrUserListInfo = [[String:Any]]()
     var arrUserList = [[String:Any]]()
     var arrUser : [[String:Any]] = [[:]] {
         didSet{
@@ -185,15 +185,33 @@ extension AddParticipantsViewController : UITableViewDelegate, UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let userInfo = arrUserList[indexPath.row]
         
+//        if arrSelectedParticipant.contains(where: {$0[CFriendUserID] as? String == userInfo.valueForString(key: CFriendUserID)}){
+//            if let index = arrSelectedParticipant.index(where: {$0[CFriendUserID] as? String == userInfo.valueForString(key: CFriendUserID)}){
+//                arrSelectedParticipant.remove(at: index)
+//            }
+//        }else{
+//            arrSelectedParticipant.append(userInfo)
+//        }
+//        tblUser.reloadData()
+//    }
+        
         if arrSelectedParticipant.contains(where: {$0[CFriendUserID] as? String == userInfo.valueForString(key: CFriendUserID)}){
-            if let index = arrSelectedParticipant.index(where: {$0[CFriendUserID] as? String == userInfo.valueForString(key: CFriendUserID)}){
-                arrSelectedParticipant.remove(at: index)
+                    if let index = arrSelectedParticipant.index(where: {$0[CFriendUserID] as? String == userInfo.valueForString(key: CFriendUserID)}){
+                        arrSelectedParticipant.remove(at: index)
+                    }
+                }else{
+                    if isAddMoreMember == true {
+                        if let index = arrUserListInfo.index(where: {$0["user_id"] as? String == userInfo.valueForString(key: CFriendUserID)}){
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CGroupMemberExist, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        }else {
+                            arrSelectedParticipant.append(userInfo)
+                        }
+                    }else {
+                        arrSelectedParticipant.append(userInfo)
+                    }
+                }
+                tblUser.reloadData()
             }
-        }else{
-            arrSelectedParticipant.append(userInfo)
-        }
-        tblUser.reloadData()
-    }
     
 }
 // MARK:- ------------ Action Event

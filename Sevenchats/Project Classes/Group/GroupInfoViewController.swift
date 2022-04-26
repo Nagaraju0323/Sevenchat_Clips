@@ -340,6 +340,7 @@ extension GroupInfoViewController{
                 }
                 addPartiVC.groupID = groupInfo.valueForInt(key: CGroupId)
                 addPartiVC.isAddMoreMember = true
+                addPartiVC.arrUserListInfo = arrMembers
                 addPartiVC.arrAllreadySelectedParticipants = arrMemberTemp
                 self.navigationController?.pushViewController(addPartiVC, animated: true)
             }

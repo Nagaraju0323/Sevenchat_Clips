@@ -75,6 +75,9 @@ class ProductListCell: UITableViewCell {
                 btnSold.setTitle(CSold, for: .normal)
                 btnSold.backgroundColor = UIColor(hex: "FF0C00")
             }
+            print("print\(product.galleryImages.count.toString)")
+                       lblCountImage.text = "\(product.galleryImages.count.toString) \("/") \("5")"
+            
             let commentCount = product.totalComments.toInt ?? 0
             btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
             self.vwCountImage.isHidden = (product.galleryImages.count <= 1)
@@ -87,7 +90,7 @@ class ProductListCell: UITableViewCell {
         
         self.btnSold.layer.cornerRadius = 4
         self.vwCountImage.layer.cornerRadius = 4
-        
+        self.btnComment.isUserInteractionEnabled = false
         self.btnLikesCount.setTitle(CLike, for: .normal)
         self.btnComment.setTitle(CComment, for: .normal)
         self.viewSubContainer.layer.cornerRadius = 8

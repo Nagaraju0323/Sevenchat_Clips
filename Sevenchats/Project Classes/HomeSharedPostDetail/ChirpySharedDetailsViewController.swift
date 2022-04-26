@@ -568,30 +568,37 @@ extension ChirpySharedDetailsViewController{
     }
     
     func btnMoreOptionOfComment(index:Int){
-        self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
-            
-            guard let self = self else {return}
-            let commentInfo = self.arrCommentList[index]
-            var commentText = commentInfo.valueForString(key: "comment")
-            DispatchQueue.main.async {
-                self.viewUserSuggestion.resetData()
-                self.editCommentId = commentInfo.valueForInt(key: CId)
-                if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
-                    for userInfo in arrIncludedUsers {
-                        let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-                        commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
-                        self.viewUserSuggestion.addSelectedUser(user: userInfo)
-                    }
-                }
-                self.txtViewComment.text = commentText
-                self.viewUserSuggestion.setAttributeStringInTextView(self.txtViewComment)
-                self.txtViewComment.updatePlaceholderFrame(true)
-                let constraintRect = CGSize(width: self.txtViewComment.frame.size.width, height: .greatestFiniteMagnitude)
-                let boundingBox = self.txtViewComment.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.txtViewComment.font!], context: nil)
-                self.genericTextViewDidChange(self.txtViewComment, height: ceil(boundingBox.height))
-            }
-            
-        }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](_) in
+//        self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: {[weak self] (_) in
+//
+//            guard let self = self else {return}
+//            let commentInfo = self.arrCommentList[index]
+//            var commentText = commentInfo.valueForString(key: "comment")
+//            DispatchQueue.main.async {
+//                self.viewUserSuggestion.resetData()
+//                self.editCommentId = commentInfo.valueForInt(key: CId)
+//                if let arrIncludedUsers = commentInfo[CIncludeUserId] as? [[String : Any]] {
+//                    for userInfo in arrIncludedUsers {
+//                        let userName = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
+//                        commentText = commentText.replacingOccurrences(of: String(NSString(format: kMentionFriendStringFormate as NSString, userInfo.valueForString(key: CUserId))), with: userName)
+//                        self.viewUserSuggestion.addSelectedUser(user: userInfo)
+//                    }
+//                }
+//                self.txtViewComment.text = commentText
+//                self.viewUserSuggestion.setAttributeStringInTextView(self.txtViewComment)
+//                self.txtViewComment.updatePlaceholderFrame(true)
+//                let constraintRect = CGSize(width: self.txtViewComment.frame.size.width, height: .greatestFiniteMagnitude)
+//                let boundingBox = self.txtViewComment.text.boundingRect(with: constraintRect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: self.txtViewComment.font!], context: nil)
+//                self.genericTextViewDidChange(self.txtViewComment, height: ceil(boundingBox.height))
+//            }
+//
+//        }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](_) in
+//            guard let _ = self else {return}
+//            DispatchQueue.main.async {
+//                self?.deleteComment(index)
+//            }
+//        }
+        
+        self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
             guard let _ = self else {return}
             DispatchQueue.main.async {
                 self?.deleteComment(index)

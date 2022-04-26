@@ -29,6 +29,7 @@ class NewsViewController: ParentViewController {
     @IBOutlet fileprivate weak var cnImgVTopBgHeight : NSLayoutConstraint!
     @IBOutlet fileprivate weak var activityLoader : UIActivityIndicatorView!
     @IBOutlet fileprivate weak var lblNoData : UILabel!
+   
     
     var arrNewsCategory = [TblNewsCategory]()
     var arrNews = [[String : AnyObject]]()
@@ -55,7 +56,7 @@ class NewsViewController: ParentViewController {
     func initailize() {
         
         self.title = CNavNews
-        
+       
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
             collNewCategory.semanticContentAttribute = UISemanticContentAttribute.forceRightToLeft
         } else {

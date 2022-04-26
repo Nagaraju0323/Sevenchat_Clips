@@ -82,7 +82,7 @@ class ProductSearchVC: ParentViewController {
 extension ProductSearchVC {
     
     fileprivate func setupView() {
-        
+        txtSearchDropdown.isHidden = true
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let navBarHeight = self.navigationController?.navigationBar.bounds.height
         self.cnNavigationHeight.constant = statusBarHeight + (navBarHeight ?? 44)

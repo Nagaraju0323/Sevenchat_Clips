@@ -51,6 +51,8 @@ class ChatFriendViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         self.navigationController?.isNavigationBarHidden = true
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(loadinfor), name: NSNotification.Name(rawValue: "loadinfor"), object: nil)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -72,10 +74,23 @@ class ChatFriendViewController: ParentViewController {
         if let users = appDelegate.loginUser?.user_id{
             self.userID = Int(users)
         }
+   
+        self.getFriendListFromServer(showLoader: true)
         
+    }
+
+    
+    //...Notification Response
+    @objc func loadList(notification: NSNotification){
         self.getFriendListFromServer(showLoader: true)
     }
     
+    @objc func loadinfor(notification: NSNotification){
+        print("Loadingis::::::::::::::")
+        self.view.layoutIfNeeded()
+     
+    }
+   
 }
 // MARK:- --------- Api Functions
 extension ChatFriendViewController {
@@ -181,6 +196,16 @@ extension ChatFriendViewController : UITableViewDelegate, UITableViewDataSource{
                     }
                     
                 }
+            }else {
+                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+                let errorMsg = errorUserinfo.stringAfter(":")
+                  print("error\(errorMsg)")
+            
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CFriendsExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                
+//                if showAlert && errorMessage != nil{
+//                    print("error\(errorMsg)")
+//                }
             }
         })
     }

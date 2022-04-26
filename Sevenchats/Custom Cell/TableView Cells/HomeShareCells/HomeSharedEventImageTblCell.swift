@@ -110,6 +110,7 @@ class HomeSharedEventImageTblCell: UITableViewCell {
             self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
             self.lblEventType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
+           // self.lblEventDescription.adjustsFontSizeToFitWidth = true
             
             self.imgSharedUser.layer.cornerRadius = self.imgSharedUser.frame.size.width/2
         }
