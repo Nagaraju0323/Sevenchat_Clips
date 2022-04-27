@@ -27,8 +27,7 @@ class HomeSearchViewController: ParentViewController {
     @IBOutlet weak var tblEvents : UITableView!
     @IBOutlet weak var btnBack : UIButton!
     @IBOutlet weak var searchView : UIView!
-    
-    
+
     var isRefreshingUserData = false
     var arrHomeSearch = [[String:Any]]()
     var arrBlockList = [[String : Any]?]()
@@ -67,8 +66,8 @@ class HomeSearchViewController: ParentViewController {
 
     @objc func NotificationRecivedFrends(){
         DispatchQueue.main.async {
-           
-//            self.tblEvents.reloadData()
+
+        //   self.tblEvents.reloadData()
             print("this is Calling")
         }
         let searchKey = prefs.value(forKey: "searchKey")
@@ -76,9 +75,6 @@ class HomeSearchViewController: ParentViewController {
         self.getSearchDataFromServer(searchKey as! String, "new",searchTxtOther:true)
       
     }
-    
-    
-    
     
     // MARK:- --------- Initialization
     func Initialization(){
@@ -140,7 +136,7 @@ class HomeSearchViewController: ParentViewController {
     }
     
     func updateUIAccordingToLanguage() {
-        
+    
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
             // Reverse Flow...
             btnBack.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)

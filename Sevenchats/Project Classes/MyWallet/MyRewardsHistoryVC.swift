@@ -285,6 +285,13 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
                             }
                         }
                     }
+                }else {
+                  
+                    guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+                    let errorMsg = errorUserinfo.stringAfter(":")
+                    if errorMsg == " No Post Details Found"{
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "No Post Details Found", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    }
                 }
             }
    

@@ -504,6 +504,66 @@ extension VerifyEmailMobileViewController{
     }
     
     //...OTP Generation
+//    func singupWithUserEmailOrMobile(otp:String){
+//
+//        if isEmail_Mobile == true {
+//            self.url = URL(string: "\(BASEURLOTP)auth/verifyEmailOTP?email=\(userEmail)&otp=\(otp)")
+//            emailverify = true
+//        }else {
+//            self.url = URL(string:"\(BASEURLOTP)auth/verifyMobileOTP?mobile=\(userMobile)&otp=\(otp)")
+//            mobileverify = true
+//        }
+//        var request : URLRequest = URLRequest(url: url!)
+//        request.httpMethod = "GET"
+//        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
+//        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
+//        let config = URLSessionConfiguration.default
+//        let session = URLSession(configuration: config)
+//        let task = session.dataTask(with: request, completionHandler: {
+//            (data, response, error) in
+//            if let error = error{
+//                print("somethis\(error)")
+//            }
+//            else if let response = response {
+//            }else if let data = data{
+//            }
+//            guard let responseData = data else {
+//                print("Error: did not receive data")
+//                return
+//            }
+//            _ = JSONDecoder()
+//            let token_type = (String(data: responseData, encoding: .utf8))
+//            do {
+//                let dict = try self.convertStringToDictionary(text: token_type ?? "")
+//                guard let userMsg = dict?["message"] as? String else { return }
+//                if userMsg == "invalid_otp"{
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+//                        self.dismiss(animated: true, completion: nil)
+//                    })
+//                }else {
+//                    //                    DispatchQueue.main.async (execute: { () -> Void in
+//                    if self.emailverify == true{
+//                        self.dictSingupdatas["is_email_verify"] = "1"
+//                        self.dictSingupdatas["is_mobile_verify"] = "0"
+//                    }else if self.mobileverify == true{
+//                        self.dictSingupdatas["is_email_verify"] = "0"
+//                        self.dictSingupdatas["is_mobile_verify"] = "1"
+//                    }
+//                    if self.emailverify == true {
+//
+//                        self.singupAndRegisterUsers(param:self.dictSingupdatas, isVerifySataus: 1)
+//                    }else if self.mobileverify == true{
+//                        self.singupAndRegisterUsers(param:self.dictSingupdatas,isVerifySataus:2)
+//                    }
+//                }
+//            }catch let error  {
+//                print("error trying to convert data to \(error)")
+//            }
+//        })
+//        task.resume()
+//    }
+    
+    
     func singupWithUserEmailOrMobile(otp:String){
         
         if isEmail_Mobile == true {
@@ -550,10 +610,9 @@ extension VerifyEmailMobileViewController{
                         self.dictSingupdatas["is_mobile_verify"] = "1"
                     }
                     if self.emailverify == true {
-                        
-                        self.singupAndRegisterUsers(param:self.dictSingupdatas, isVerifySataus: 1)
+                        self.singupValidation()
                     }else if self.mobileverify == true{
-                        self.singupAndRegisterUsers(param:self.dictSingupdatas,isVerifySataus:2)
+                        self.singupValidation()
                     }
                 }
             }catch let error  {
@@ -648,4 +707,87 @@ extension VerifyEmailMobileViewController{
             }
         }
     }
+}
+
+
+//MARk:- Valdation emial & Mobiel
+extension VerifyEmailMobileViewController{
+
+    func singupValidation(){
+        
+        if isEmail_Mobile == true {
+            self.url = URL(string: "\(BASEMASTERURL)users/validate-email?email=\(userEmail)")
+            emailverify = true
+        }else {
+            self.url = URL(string:"\(BASEMASTERURL)users/validate-mobile?mobile=\(userMobile)")
+            mobileverify = true
+        }
+        var request : URLRequest = URLRequest(url: url!)
+        request.httpMethod = "GET"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
+        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) in
+            if let error = error{
+                print("somethis\(error)")
+            }
+            else if let response = response {
+            }else if let data = data{
+            }
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            _ = JSONDecoder()
+            let token_type = (String(data: responseData, encoding: .utf8))
+            do {
+                let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                if let metaInfo = dict![CJsonMeta] as? [String : Any] {
+                    print("userMessage\(metaInfo)")
+                    let stausLike = metaInfo["status"] as? String ?? "0"
+                    if stausLike == "0" {
+                        if self.emailverify == true {
+                            self.singupAndRegisterUsers(param:self.dictSingupdatas, isVerifySataus: 1)
+                        }else if self.mobileverify == true{
+                            self.singupAndRegisterUsers(param:self.dictSingupdatas,isVerifySataus:2)
+                        }
+                        
+                    }else {
+                        if  self.emailverify == true {
+                            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                                self.dismiss(animated: true, completion: nil)
+                            })
+                        }else {
+                            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePhNoExists, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                                self.dismiss(animated: true, completion: nil)
+                            })
+                        }
+//                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+//                            self.dismiss(animated: true, completion: nil)
+//                        })
+                    }
+                }
+//                guard let userMsg = dict?["message"] as? String else { return }
+//                if userMsg == "invalid_otp"{
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+//                        self.dismiss(animated: true, completion: nil)
+//                    })
+//                }else {
+//                    //                    DispatchQueue.main.async (execute: { () -> Void in
+//                    if self.emailverify == true {
+//                        self.singupAndRegisterUsers(param:self.dictSingupdatas, isVerifySataus: 1)
+//                    }else if self.mobileverify == true{
+//                        self.singupAndRegisterUsers(param:self.dictSingupdatas,isVerifySataus:2)
+//                    }
+//                }
+            }catch let error  {
+                print("error trying to convert data to \(error)")
+            }
+        })
+        task.resume()
+    }
+    
+    
 }

@@ -45,9 +45,11 @@ class HomeAddFrdTblCell: UITableViewCell {
             self.viewSubContainer.layer.cornerRadius = 8
             self.viewMainContainer.layer.cornerRadius = 8
             self.viewMainContainer.shadow(color: CRGB(r: 237, g: 236, b: 226), shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)
-            
             self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
         }
+        btnAddFrd.isHidden = true
+        btnAccept.isHidden = true
+        btnReject.isHidden = true 
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
