@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : MIPhoneContacts                             *
  * Description : Featch phone contacts from mobile       *
  *                                                       *

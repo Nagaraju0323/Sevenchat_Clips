@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : ResetPWDViewController                      *
  * Changes :                                             *
  * User can reset password                               *

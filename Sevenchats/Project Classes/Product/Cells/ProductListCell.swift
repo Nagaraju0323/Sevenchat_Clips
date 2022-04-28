@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : ProductListCell                             *
  * Description : Like nand comment product list items    *
  *

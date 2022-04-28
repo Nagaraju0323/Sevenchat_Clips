@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : ChatFriendViewController                    *
  * Description :  List out friends for chat              *
  ********************************************************/

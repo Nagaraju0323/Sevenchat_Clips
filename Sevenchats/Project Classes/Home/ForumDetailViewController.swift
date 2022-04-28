@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : ForumDetailViewController                   *
  * Changes :                                             *
  * Deisplay Forum Details user can like and comments,    *

@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : ArticleDetailViewController                 *
  * Changes :                                             *
  * Deisplay Article Details user can like and comments,  *

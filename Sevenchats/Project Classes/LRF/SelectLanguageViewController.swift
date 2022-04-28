@@ -9,7 +9,7 @@
 
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : SelectLanguageViewController                *
  * Changes :                                             *
  * User can Select Multiple Language Default is English  *

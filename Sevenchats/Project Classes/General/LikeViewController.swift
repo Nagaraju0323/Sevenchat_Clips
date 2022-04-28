@@ -6,7 +6,7 @@
 //  Copyright © 2018 mac-0005. All rights reserved.
 //
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : LikeViewController                          *
  * Changes :                                             *
  ********************************************************/

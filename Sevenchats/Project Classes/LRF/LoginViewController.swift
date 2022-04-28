@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : LoginViewController                         *
  * Changes :                                             *
  * Login With Mobile Number (or) Emaild ID               *

@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : HomeSearchViewController                    *
  * Changes :                                             *
  * search Users based on First Name, send Friends Request*
@@ -359,9 +359,9 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
         if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeAddFrdTblCell", for: indexPath) as? HomeAddFrdTblCell {
             
             if appDelegate.loginUser?.user_id == Int64(searchInfo.valueForString(key: CUserId)){
-                cell.btnAddFrd.isHidden = true
-                cell.btnAccept.isHidden = true
-                cell.btnReject.isHidden = true
+//                cell.btnAddFrd.isHidden = true
+//                cell.btnAccept.isHidden = false
+//                cell.btnReject.isHidden = false
                 cell.lblUserName.text = searchInfo.valueForString(key: CFirstname) + " " + searchInfo.valueForString(key: CLastname)
                 cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
                 
@@ -417,13 +417,16 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                         case 0:
                                             frndStatus = CFriendRequestSent
                                             isShowAlert = true
+                                            cell.btnAddFrd.isHidden = false
                                             alertMessage = CAlertMessageForSendRequest
                                         case 1:
                                             frndStatus = CFriendRequestCancel
                                             isShowAlert = true
+                                            cell.btnAddFrd.isHidden = false
                                             alertMessage = CMessageCancelRequest
                                         case 5:
                                             frndStatus = CFriendRequestUnfriend
+                                            cell.btnAddFrd.isHidden = false
                                             isShowAlert = true
                                             alertMessage =  CMessageUnfriend + " " + first_name + " " + last_name
                                         case 6:
@@ -432,6 +435,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                             isShowAlert = false
                                         case 7:
                                             frndStatus = CFriendUnblock
+                                            cell.btnAddFrd.isHidden = false
                                             isShowAlert = true
                                             alertMessage = CMessageUnBlockUser
                                             
@@ -483,7 +487,8 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForAcceptRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                     guard let self = self else { return }
-                    
+//                    cell.btnAccept.isHidden = false
+//                    cell.btnReject.isHidden = false
                     
                     self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 5, completion:{(success) -> Void in
                         if success {

@@ -8,7 +8,7 @@
 
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : HomeViewController                          *
  * Changes :                                             *
  * Added Search,Filter,List post,Like and comments post  *

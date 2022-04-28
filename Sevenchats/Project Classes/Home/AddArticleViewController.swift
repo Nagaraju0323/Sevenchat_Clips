@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : AddArticleViewController                    *
  * Changes :                                             *
  * Add article and limit with 5000 charectes             *

@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : UserSuggestionView                          *
  * Description : Comments display to every post          *
  *                                                       *

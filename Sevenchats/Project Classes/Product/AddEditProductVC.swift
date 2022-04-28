@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : RestrictedFilesVC                           *
  * Changes :                                             *
  *                                                       *
@@ -57,6 +57,8 @@ class AddEditProductVC: ParentViewController {
     @IBOutlet weak var txtCountrys : MIGenericTextFiled!
     @IBOutlet weak var txtStates : MIGenericTextFiled!
     @IBOutlet weak var txtCitys : MIGenericTextFiled!
+    @IBOutlet weak var btnChkterm:UIButton!
+    var chkStatus:Bool = false
     
     @IBOutlet weak var collVHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var txtHeightLocation: NSLayoutConstraint!{
@@ -561,6 +563,8 @@ extension AddEditProductVC {
             displayAlertMessage(meesage:CBlankProductLocation)
             return false
         }
+        
+        
         return true
     }
 }
@@ -572,6 +576,26 @@ extension AddEditProductVC {
     /// - Parameter sender: btnPayment
     @IBAction func onOnlineOfflinePayment(_ sender : UIButton){
     }
+    
+    
+    @IBAction func btnTermCLK(_ sender : UIButton){
+        
+        if (btnChkterm.isSelected == true){
+            btnChkterm.setBackgroundImage(UIImage(named: "dry-clean"), for:.normal)
+            chkStatus = false
+            btnChkterm.isSelected = false;
+        }else{
+            btnChkterm.setBackgroundImage(UIImage(named: "checked-4"), for:.normal)
+            chkStatus = true
+            btnChkterm.isSelected = true;
+           }
+        
+        
+    }
+    
+    
+    
+    
 }
 
 // MARK:-  --------- Generic UITextView Delegate
@@ -654,6 +678,8 @@ extension AddEditProductVC {
         guard let firstName = appDelegate.loginUser?.first_name else { return }
         guard let lastName = appDelegate.loginUser?.last_name else { return }
         guard let email = appDelegate.loginUser?.email else { return }
+      
+       
         
         if self.selectedCurrencyName != nil {
             currencyName = self.selectedCurrencyName ?? ""
@@ -661,6 +687,12 @@ extension AddEditProductVC {
             currencyName = txtCurrencyList.text ?? ""
         }
         if myeditStart == "editCLK"{
+            
+            if (chkStatus == false){
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "enale check box statusto", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                return
+            }
+            
             var repl = ""
             repl = (productImgEdit?.replacingOccurrences(of: "\"", with: "\\\""))!
             print(repl)
@@ -735,6 +767,12 @@ extension AddEditProductVC {
                 }
             }
         }else{
+            
+            if (chkStatus == false){
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "enale check box statusto", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                return
+            }
+            
             do {
                 let data = try JSONEncoder().encode(self.collVMedia.arrImagesVideo)
                 let string = String(data: data, encoding: .utf8)!

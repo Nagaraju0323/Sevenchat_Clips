@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : AddMediaViewController                      *
  * Changes :                                             *
  * Added Media file Like photo,Vidoes,Audio,images       *

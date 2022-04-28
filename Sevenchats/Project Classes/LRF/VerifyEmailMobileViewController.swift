@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : VerifyEmailMobileViewController             *
  * Changes :                                             *
  * verify OTP with Auth Server once user Enter valid OTP *

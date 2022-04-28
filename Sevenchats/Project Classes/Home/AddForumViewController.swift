@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : AddForumViewController                      *
  * Changes :                                             *
  * AddForum with text Limit 5000 charectes                *

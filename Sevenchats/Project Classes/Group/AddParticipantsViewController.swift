@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : AddParticipantsViewController               *
  * Changes :                                             *
  *  Disply Friends List & Search Friends                 *

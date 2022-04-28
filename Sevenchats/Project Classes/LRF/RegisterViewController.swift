@@ -9,7 +9,7 @@
 
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : RegisterViewController                      *
  * Changes :                                             *
  * Added Mobile Number and Email Validation with Auth    *
@@ -43,6 +43,9 @@ class RegisterViewController: ParentViewController {
     @IBOutlet weak var txtCountrys : MIGenericTextFiled!
     @IBOutlet weak var txtStates : MIGenericTextFiled!
     @IBOutlet weak var txtCitys : MIGenericTextFiled!
+    @IBOutlet weak var btnChkterm:UIButton!
+    
+    
     
     var countryID : Int?
     var stateID : Int?
@@ -66,6 +69,7 @@ class RegisterViewController: ParentViewController {
     var postLastName = ""
     var startEventChng = ""
     var chngStringStart = ""
+    var chkStatus:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -576,6 +580,12 @@ extension RegisterViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertDobBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
+        
+        if (chkStatus == false){
+            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "enale check box statusto", btnOneTitle: CBtnOk, btnOneTapped: nil)
+            return
+        }
+        
         let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + txtEmail.text! + "\n" + txtMobileNumber.text!
         self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
             
@@ -599,6 +609,22 @@ extension RegisterViewController{
             //            self.redirectToVerificationScreen()
         }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
     }
+    
+    
+  
+    @IBAction func btnChktermCLK(_ sender : UIButton){
+     
+        if (btnChkterm.isSelected == true){
+            btnChkterm.setBackgroundImage(UIImage(named: "dry-clean"), for:.normal)
+            chkStatus = false
+            btnChkterm.isSelected = false;
+        }else{
+            btnChkterm.setBackgroundImage(UIImage(named: "checked-4"), for:.normal)
+            chkStatus = true
+            btnChkterm.isSelected = true;
+           }
+    }
+    
     
 }
 

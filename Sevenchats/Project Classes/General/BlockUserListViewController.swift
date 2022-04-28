@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : BlockUserListViewController                 *
  * Changes : List Blocker Users & UnBlock Users          *
  *                                                       *

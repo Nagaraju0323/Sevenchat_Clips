@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : CreateShoutsViewController                  *
  * Changes :                                             *
  * Create short message with text Limit 150 charectes    *

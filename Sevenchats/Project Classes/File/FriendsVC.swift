@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : FriendsVC                                   *
  * Changes :                                             *
  * List of user Friends                                  *

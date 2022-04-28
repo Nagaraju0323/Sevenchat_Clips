@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : HomeChirpyImageTblCell                      *
  * Changes :                                             *
  *                                                       *
@@ -49,7 +49,7 @@ class HomeAddFrdTblCell: UITableViewCell {
         }
         btnAddFrd.isHidden = true
         btnAccept.isHidden = true
-        btnReject.isHidden = true 
+        btnReject.isHidden = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -87,8 +87,13 @@ class HomeAddFrdTblCell: UITableViewCell {
                             if Friend_status == 2 {
                                 self?.btnAddFrd.isHidden = true
                                 self?.viewAcceptReject.isHidden = false
+                                self?.btnAccept.isHidden = false
+                                self?.btnReject.isHidden = false
+                                
                             }else{
                                 self?.btnAddFrd.isHidden = false
+                                self?.btnAccept.isHidden = true
+                                self?.btnReject.isHidden = true
                                 self?.viewAcceptReject.isHidden = true
                                 
                                 switch Friend_status{

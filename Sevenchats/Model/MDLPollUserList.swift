@@ -2,7 +2,7 @@
 //  MDLPollUserList.swift
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : RestrictedFilesVC                           *
  * Changes :                                             *
  *                                                       *

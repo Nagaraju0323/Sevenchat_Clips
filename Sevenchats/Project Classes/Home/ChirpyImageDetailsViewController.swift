@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : ChirpyImageDetailsViewController            *
  * Changes :                                             *
  * Show chiripy Details,Like and comments to post        *

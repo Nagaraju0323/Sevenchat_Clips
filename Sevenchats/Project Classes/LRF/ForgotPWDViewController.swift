@@ -8,7 +8,7 @@
 //
 
 /*********************************************************
- * Author  : Chandrika.R                                 *
+ * Author  : Nagaraju K and Chandrika R                                 *
  * Model   : ForgotPWDViewController                     *
  * Changes :                                             *
  * for got pass word Redirect to Web page                *
