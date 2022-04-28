@@ -689,7 +689,7 @@ extension AddEditProductVC {
         if myeditStart == "editCLK"{
             
             if (chkStatus == false){
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "enale check box statusto", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CProductTermsAndCondition, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }
             
@@ -769,7 +769,7 @@ extension AddEditProductVC {
         }else{
             
             if (chkStatus == false){
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "enale check box statusto", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CProductTermsAndCondition, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }
             

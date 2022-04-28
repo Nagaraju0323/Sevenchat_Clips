@@ -114,7 +114,9 @@ var CLoginBtnForgot: String{ return appDelegate.langugaeText?.login_forgot_passw
 var CLoginBtnSignIn: String{ return appDelegate.langugaeText?.login_signin ?? "Sign In" }
 var CLoginWithSocial: String{ return appDelegate.langugaeText?.login_with_social ?? "Or login with social media" }
 var CLoginAlertEmailMobileBlank: String{ return appDelegate.langugaeText?.login_email_or_mobile_cant_blank ?? "Please enter registered mobile number or email address" }
-var CLoginAlertUserExist: String{ return appDelegate.langugaeText?.login_invalid_credentials_email ?? "Email address and password is not registered with us" }
+var CLoginAlertUserExist: String{ return appDelegate.langugaeText?.login_invalid_credentials_email ?? "Email address/Mobile Number and password is not registered with us" }
+//var CLoginAlertUserPhNoExist: String{ return appDelegate.langugaeText?.login_invalid_credentials_mobile ?? "Mobile Number and password is not registered with us" }
+
 
 var CLoginAlertValidEmail: String{ return appDelegate.langugaeText?.login_enter_valid_email_address ?? "Please enter valid email address" }
 
