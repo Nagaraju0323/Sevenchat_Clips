@@ -265,7 +265,12 @@ extension VerifyEmailMobileViewController{
                 let msgError = response?["error"] as? String
                 let errorMsg = msgError?.stringAfter(":")
                 if errorMsg == " User Mobile Number is Exists" ||  errorMsg == " User email Exists"{
-                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    if errorMsg == " User Mobile Number is Exists"{
+                        CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePhNoExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    }else if errorMsg == " User email Exists"{
+                        CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    }
+                   
                 } else {
                     let dict = response?.value(forKey: CJsonData) as! [String : AnyObject]
                     self.uploadUserProfile(userID: dict.valueForInt(key: CUserId)!, signUpResponse: response, imageEmpty:false)
@@ -596,11 +601,18 @@ extension VerifyEmailMobileViewController{
             do {
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
                 guard let userMsg = dict?["message"] as? String else { return }
-                if userMsg == "invalid_otp"{
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: userMsg, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
-                        self.dismiss(animated: true, completion: nil)
-                    })
+                if userMsg == "verification_failed"{
+                    DispatchQueue.main.async {
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CWRONGOTP, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        })
+                    }
+                   
                 }else {
+                    
+                    if userMsg == "The OTP provided is valid."{
+                        
+                    
                     //                    DispatchQueue.main.async (execute: { () -> Void in
                     if self.emailverify == true{
                         self.dictSingupdatas["is_email_verify"] = "1"
@@ -613,6 +625,14 @@ extension VerifyEmailMobileViewController{
                         self.singupValidation()
                     }else if self.mobileverify == true{
                         self.singupValidation()
+                    }
+                    }else {
+                       
+                        DispatchQueue.main.async {
+                            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CWRONGOTP, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                                self.dismiss(animated: true, completion: nil)
+                            })
+                        }
                     }
                 }
             }catch let error  {

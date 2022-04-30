@@ -117,8 +117,8 @@ extension OtherUserFriendListViewController {
             self.tblFriendList.tableFooterView = nil
             
             if response != nil && error == nil {
-                let list = response!["friends_Of_friend"] as? [String:Any]
-                if let arrList = list![CJsonData] as? [[String:Any]] {
+                let list = response?["friends_Of_friend"] as? [String:Any] ?? [:]
+                if let arrList = list[CJsonData] as? [[String:Any]] {
                     print("arraylist\(arrList)")
                     for data in arrList{
                         self.getFriendStatus(user_id: data.valueForString(key: "id"))
