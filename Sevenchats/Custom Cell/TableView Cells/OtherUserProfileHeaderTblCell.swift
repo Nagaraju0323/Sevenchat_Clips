@@ -330,8 +330,8 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
     func getFriendListFromServer(_ userid : String?) {
         _ = APIRequest.shared().getOtherUserFriendListNew(user_id: userid) { (response, error) in
             if response != nil && error == nil {
-                let list = response!["friends_Of_friend"] as? [String:Any]
-                if let arrList = list![CJsonData] as? [[String:Any]] {
+                let list = response?["friends_Of_friend"] as? [String:Any] ?? [:]
+                if let arrList = list[CJsonData] as? [[String:Any]] {
                     print(":::::::::friendsofFreinds\(arrList)")
                     self.frdsofFrds = arrList
                 }

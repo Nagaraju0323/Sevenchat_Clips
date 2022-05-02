@@ -173,8 +173,8 @@ extension HomePollTblCell{
                         if polltextCnt == 1{
                             
                         }else if polltextCnt == 2{
-                            let poll_Text1 = result[0]
-                            let poll_Text2 = result[1]
+                            let poll_Text1 = result[0] ?? "0"
+                            let poll_Text2 = result[1] ?? "0"
                             let poll_Res1 = Int(poll_Text1) ?? 0
                             let poll_Res2 = Int(poll_Text2) ?? 0
                             

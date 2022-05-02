@@ -945,19 +945,34 @@ extension AddMediaViewController : TLPhotosPickerViewControllerDelegate,TLPhotos
     }
     
     func handleNoAlbumPermissions(picker: TLPhotosPickerViewController) {
-        picker.dismiss(animated: true) {
-            let settingsAppURL = URL(string: UIApplication.openSettingsURLString)!
-            let alert = UIAlertController(
-                title: nil,
-                message: CDeniedAlbumsPermission,
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: CBtnCancel, style: .destructive, handler: nil))
-            alert.addAction(UIAlertAction(title: CNavSettings, style: .default, handler: { (alert) -> Void in
-                UIApplication.shared.open(settingsAppURL, options: [:], completionHandler: nil)
-            }))
-            self.present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            picker.dismiss(animated: true) {
+                let settingsAppURL = URL(string: UIApplication.openSettingsURLString)!
+                let alert = UIAlertController(
+                    title: nil,
+                    message: CDeniedAlbumsPermission,
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: CBtnCancel, style: .destructive, handler: nil))
+                alert.addAction(UIAlertAction(title: CNavSettings, style: .default, handler: { (alert) -> Void in
+                    UIApplication.shared.open(settingsAppURL, options: [:], completionHandler: nil)
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
+//        picker.dismiss(animated: true) {
+//            let settingsAppURL = URL(string: UIApplication.openSettingsURLString)!
+//            let alert = UIAlertController(
+//                title: nil,
+//                message: CDeniedAlbumsPermission,
+//                preferredStyle: .alert
+//            )
+//            alert.addAction(UIAlertAction(title: CBtnCancel, style: .destructive, handler: nil))
+//            alert.addAction(UIAlertAction(title: CNavSettings, style: .default, handler: { (alert) -> Void in
+//                UIApplication.shared.open(settingsAppURL, options: [:], completionHandler: nil)
+//            }))
+//            self.present(alert, animated: true, completion: nil)
+//        }
     }
     
     //For Log User Interaction

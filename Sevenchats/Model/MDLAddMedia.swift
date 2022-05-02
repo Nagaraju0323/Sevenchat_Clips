@@ -38,7 +38,7 @@ enum AssetTypes : Int {
             return .Audio
         }
         
-        let imageExtension = ["jpeg","jpg","png","heic","heif"]
+        let imageExtension = ["jpeg","jpg","png","heic","heif","webp"]
         if imageExtension.contains(ext.lowercased()){
             return .Image
         }

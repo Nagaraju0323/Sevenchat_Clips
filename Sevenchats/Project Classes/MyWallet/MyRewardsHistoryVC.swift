@@ -174,14 +174,14 @@ extension MyRewardsHistoryVC : UITableViewDelegate, UITableViewDataSource {
             break;
         
         case .forumType:
-            apiKeyCall = "fourms"
+            apiKeyCall = "forums"
             break;
             
         case .articleType:
             apiKeyCall = "articles"
             break;
         case .chirpyType:
-            apiKeyCall = "chirpys"
+            apiKeyCall = "chirpies"
             break;
         case .pollType:
             apiKeyCall = "polls"
