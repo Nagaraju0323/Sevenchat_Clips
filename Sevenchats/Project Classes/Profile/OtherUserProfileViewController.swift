@@ -341,6 +341,29 @@ extension OtherUserProfileViewController{
                         }
                     }
                 }
+//                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+//                      if  metaData.valueForString(key: "message") == "Request sent successfully"{
+//
+//                          self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForSendRequest, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
+//  //                            self?.friendStatusApi(userInfo, frndStatus)
+//                              NotificationCenter.default.post(name: Notification.Name("NotificationRecived"), object: nil,userInfo: nil)
+//                              NotificationCenter.default.post(name: Notification.Name("NotificationFrndRequest"), object: nil,userInfo: nil)
+//                              self.navigationController?.popViewController(animated: true)
+//                          }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//
+//                      }
+//
+//                  }
+                
+                
+                
+            }
+            
+            
+            let msgError = response?["error"] as? String
+            let errorMsg = msgError?.stringAfter(":")
+            if errorMsg == " Request already sent"{
+                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "friend_request_already_sent", btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
         })
     }
@@ -594,7 +617,12 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                                 self?.navigationController?.popViewController(animated: true)
                             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                         }else{
-                            self?.friendStatusApi(userInfo, 1)
+                            self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForSendRequest, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
+                                self?.friendStatusApi(userInfo, 1)
+                                NotificationCenter.default.post(name: Notification.Name("NotificationRecived"), object: nil,userInfo: nil)
+                                NotificationCenter.default.post(name: Notification.Name("NotificationFrndRequest"), object: nil,userInfo: nil)
+                                self?.navigationController?.popViewController(animated: true)
+                            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                         }
                     }
                     

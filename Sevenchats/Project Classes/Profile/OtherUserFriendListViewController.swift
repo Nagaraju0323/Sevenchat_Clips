@@ -333,7 +333,12 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                                             self.navigationController?.popViewController(animated: true)
                                         }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                                     }else{
-                                        self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
+                                        self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForSendRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                                            guard let self = self else { return }
+                                            self.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), 1)
+                                            self.navigationController?.popViewController(animated: true)
+                                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+                                       // self?.friendStatusApi(userInfo, userInfo.valueForInt(key: CUserId), frndStatus)
                                     }
                                 }
                                 
