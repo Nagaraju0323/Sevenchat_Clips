@@ -25,6 +25,8 @@ enum CMSType : Int {
 class AboutUsViewController: ParentViewController {
 
     var webView: WKWebView!
+
+    
     @IBOutlet weak var vwWebView : UIView!{
         didSet{
             let webConfiguration = WKWebViewConfiguration()
@@ -78,11 +80,12 @@ class AboutUsViewController: ParentViewController {
                 
                 switch self.cmsType.rawValue {
                 case CMSType.aboutUS.rawValue :
-                    content = data![0]["description"] as! String
+                    
+                    content = data![4]["description"] as! String
                 case CMSType.termsAndConditions.rawValue :
-                    content = data![1]["description"] as! String
-                default :
                     content = data![2]["description"] as! String
+                default :
+                    content = data![3]["description"] as! String
                 }
                 var htmString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>"
                 htmString += content

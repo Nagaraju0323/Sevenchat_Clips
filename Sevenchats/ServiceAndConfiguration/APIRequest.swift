@@ -1186,7 +1186,7 @@ extension APIRequest {
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
-        _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagCMS, param: nil, successBlock: { (task, response) in
+        _ = Networking.sharedInstance.GETNEWMASTER(apiTag: CAPITagCMS, param: nil, successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCMS) {

@@ -66,13 +66,10 @@ class HomeSearchViewController: ParentViewController {
 
     @objc func NotificationRecivedFrends(){
         DispatchQueue.main.async {
-
-        //   self.tblEvents.reloadData()
-            print("this is Calling")
+            let searchKey = self.prefs.value(forKey: "searchKey")
+            self.getSearchDataFromServer(searchKey as! String, "new",searchTxtOther:true)
         }
-        let searchKey = prefs.value(forKey: "searchKey")
-        
-        self.getSearchDataFromServer(searchKey as! String, "new",searchTxtOther:true)
+     
       
     }
     
