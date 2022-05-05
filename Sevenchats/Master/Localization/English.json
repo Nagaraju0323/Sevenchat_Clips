@@ -43,11 +43,13 @@
     "alert_already_registered_ph" : "The provided Mobile Number already registered",
     "your_message_has_been_sent_to_seller" : "Informed seller successfully. Please wait while seller contact you.",
     "chat_friend_already_exists":"Chat Friend Already Exists",
-    "password_does_not_match":"Password Does not Match",
+    "password_does_not_match":"Password does not match",
     "group_member_already_exist" : "Group Member Already Exist",
     "shout_here":"Shout here and tell all you know about it",
-    "products_sold": "The product have been Sold"
-    
+    "products_sold": "The product have been Sold",
+    "old_password_does_not_match":"Old password does not match",
+    "old_new_password_does_match":"Old and New password are same",
+    "already_voted":"your Already voted"
     
     
     

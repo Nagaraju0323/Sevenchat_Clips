@@ -674,7 +674,7 @@ extension RegisterViewController{
             if response != nil && error == nil{
                 
                 if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
-                    objVerify.userEmail = self.txtEmail.text ?? ""
+                    objVerify.userEmail = (self.txtEmail.text ?? "").lowercased()
                     objVerify.passwordStr = self.txtPWD.text ?? ""
                     objVerify.isEmail_Mobile = true
                     objVerify.dictSingupdatas = self.dictSinup ?? [:]
@@ -697,7 +697,7 @@ extension RegisterViewController{
         APIRequest.shared().verifyMobile(api : api, email : txtEmail.text ?? "", mobile: txtMobileNumber.text ?? "") { (response, error) in
             if response != nil && error == nil{
                 if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
-                    objVerify.userEmail = self.txtEmail.text ?? ""
+                    objVerify.userEmail = (self.txtEmail.text ?? "").lowercased()
                     objVerify.isEmail_Mobile = false
                     objVerify.dictSingupdatas = self.dictSinup ?? [:]
                     objVerify.userMobile = self.txtMobileNumber.text ?? ""

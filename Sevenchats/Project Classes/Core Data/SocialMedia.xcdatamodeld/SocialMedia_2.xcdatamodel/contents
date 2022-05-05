@@ -176,6 +176,7 @@
         <attribute name="all_friends" optional="YES" attributeType="String"/>
         <attribute name="all_in_one_platform" optional="YES" attributeType="String"/>
         <attribute name="all_products" optional="YES" attributeType="String"/>
+        <attribute name="already_voted" optional="YES" attributeType="String"/>
         <attribute name="apply_filter" optional="YES" attributeType="String"/>
         <attribute name="are_you_sure_to_delete_this_media" optional="YES" attributeType="String"/>
         <attribute name="are_you_sure_to_report_this_fav_web" optional="YES" attributeType="String"/>
@@ -497,7 +498,9 @@
         <attribute name="offline_payment" optional="YES" attributeType="String"/>
         <attribute name="offline_payment_mode" optional="YES" attributeType="String"/>
         <attribute name="ok" optional="YES" attributeType="String"/>
+        <attribute name="old_new_password_does_match" optional="YES" attributeType="String"/>
         <attribute name="old_password" optional="YES" attributeType="String"/>
+        <attribute name="old_password_does_not_match" optional="YES" attributeType="String"/>
         <attribute name="old_to_new" optional="YES" attributeType="String"/>
         <attribute name="online_payment" optional="YES" attributeType="String"/>
         <attribute name="online_payment_mode" optional="YES" attributeType="String"/>
@@ -1023,7 +1026,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11009"/>
+        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11054"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>

@@ -73,7 +73,7 @@ extension ChangePWDViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetAlertPWDConfirmPWDNotMatch, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
             self.changePasswords()
-            self.changePasswordsMobielNo()
+           // self.changePasswordsMobielNo()
         }
     }
     
@@ -91,6 +91,13 @@ extension ChangePWDViewController{
         let password = txtNewPWD.text ?? ""
         let old_password = txtOldPWD.text ?? ""
         
+        if password == old_password{
+            MILoader.shared.hideLoader()
+            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetOldNewPasswordMatch, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                self.dismiss(animated: true, completion: nil)
+            })
+        }else{
+        
         let data : Data = "username=\(userName)&password=\(password)&grant_type=password&client_id=null&client_secret=null&old_password=\(old_password)".data(using: .utf8)!
         
         let url = URL(string: "\(BASEAUTH)auth/resetPassword")
@@ -122,12 +129,13 @@ extension ChangePWDViewController{
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
                 guard let userMsg = dict?["message"] as? String else { return }
                 DispatchQueue.main.async {
-                    if userMsg == "Something went wrong!"{
+                    if userMsg ==  "This user does not exist!" {
+                        self.changePasswordsMobielNo()
+                    }else if userMsg == "Something went wrong!"{
                         MILoader.shared.hideLoader()
-                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetPasswordNotMatch, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetOldPasswordNotMatch, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                             self.dismiss(animated: true, completion: nil)
                         })
-                        
                     }else {
                         MILoader.shared.hideLoader()
                         self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetPassword, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
@@ -143,6 +151,7 @@ extension ChangePWDViewController{
         })
         task.resume()
     }
+    }
     
     func changePasswordsMobielNo(){
 
@@ -151,6 +160,13 @@ extension ChangePWDViewController{
         
         let password = txtNewPWD.text ?? ""
         let old_password = txtOldPWD.text ?? ""
+        
+        if password == old_password{
+            
+            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetOldNewPasswordMatch, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                self.dismiss(animated: true, completion: nil)
+            })
+        }else{
         
         let data : Data = "username=\(userName)&password=\(password)&grant_type=password&client_id=null&client_secret=null&old_password=\(old_password)".data(using: .utf8)!
         
@@ -185,15 +201,14 @@ extension ChangePWDViewController{
                 DispatchQueue.main.async {
                     if userMsg == "Something went wrong!"{
                         MILoader.shared.hideLoader()
-                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetPasswordNotMatch, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetOldPasswordNotMatch, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                             self.dismiss(animated: true, completion: nil)
                         })
-                        
                     }else {
                         MILoader.shared.hideLoader()
                         self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CResetPassword, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                             self.dismiss(animated: true, completion: nil)
-                            self.navigationController?.popToRootViewController(animated: true)
+                            MIGeneralsAPI.shared().addRemoveNotificationToken(isLogout: 1)
                         })
                     }
                 }
@@ -202,6 +217,7 @@ extension ChangePWDViewController{
             }
         })
         task.resume()
+        }
     }
     
 }

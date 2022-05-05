@@ -304,7 +304,7 @@ extension SelectMediaCollectionView : UIImagePickerControllerDelegate,UINavigati
                         }
                         self.arrImagesVideo.append(self.imageString)
                         print("*****************\(self.arrImagesVideo)")
-                        if sharedImg.count == self.arrImagesVideo.count{
+                        if self.arrImagesVideo.count == self.arrImagesVideo.count{
                             print("Success")
                             DispatchQueue.main.async {
                                 MILoader.shared.hideLoader()

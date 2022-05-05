@@ -241,6 +241,10 @@ var CResetAlertConfirmPWDBlank: String{ return appDelegate.langugaeText?.reset_c
 var CResetAlertPWDConfirmPWDNotMatch: String{ return appDelegate.langugaeText?.reset_new_password_and_confirm_password_mismatch ?? "New password and confirm password do not match" }
 var CResetPassword: String{ return appDelegate.langugaeText?.reset_password_changed_successfully ?? "Password changed" }
 var CResetPasswordNotMatch: String{ return appDelegate.langugaeText?.password_does_not_match ?? "Password Does not Match" }
+var CResetOldPasswordNotMatch: String{ return appDelegate.langugaeText?.old_password_does_not_match ?? "Old password does not match" }
+var CResetOldNewPasswordMatch: String{ return appDelegate.langugaeText?.old_new_password_does_match ?? "Old and New password are same" }
+var CAlreadyVoted: String{ return appDelegate.langugaeText?.already_voted ?? "Your already voted" }
+
 var CGroupMemberExist: String{ return appDelegate.langugaeText?.group_member_already_exist ?? "Group Member Already Exist" }
 
 

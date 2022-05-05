@@ -204,9 +204,9 @@ extension HomePollTblCell{
                         }else if polltextCnt == 3{
                             print("count\(polltextCnt)")
                             
-                            let poll_Text1 = result[0]
-                            let poll_Text2 = result[1]
-                            let poll_Text3 = result[2]
+                            let poll_Text1 = result[0] ?? "0"
+                            let poll_Text2 = result[1] ?? "0"
+                            let poll_Text3 = result[2] ?? "0"
                             let poll_Res1 = Int(poll_Text1) ?? 0
                             let poll_Res2 = Int(poll_Text2) ?? 0
                             let poll_Res3 = Int(poll_Text3) ?? 0
@@ -258,10 +258,10 @@ extension HomePollTblCell{
                         }else if polltextCnt == 4 {
                             print("count\(polltextCnt)")
                             
-                            let poll_Text1 = result[0]
-                            let poll_Text2 = result[1]
-                            let poll_Text3 = result[2]
-                            let poll_Text4 = result[3]
+                            let poll_Text1 = result[0] ?? "0"
+                            let poll_Text2 = result[1] ?? "0"
+                            let poll_Text3 = result[2] ?? "0"
+                            let poll_Text4 = result[3] ?? "0"
                             let poll_Res1 = Int(poll_Text1) ?? 0
                             let poll_Res2 = Int(poll_Text2) ?? 0
                             let poll_Res3 = Int(poll_Text3) ?? 0

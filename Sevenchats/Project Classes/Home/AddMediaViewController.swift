@@ -503,7 +503,7 @@ extension AddMediaViewController  {
                     let documentDirectory = NSTemporaryDirectory()
                     let localPath = documentDirectory.appending(imgName)
                     var  sharedImg = [String]()
-                    sharedImg.removeAll()
+//                    sharedImg.removeAll()
                     sharedImg.append(localPath)
                     
                     let modileNum = appDelegate.loginUser?.mobile
@@ -528,7 +528,9 @@ extension AddMediaViewController  {
                         }
                         self.arrImagesVideo.append(self.imageString)
                         print("*****************\(self.arrImagesVideo)")
-                        if sharedImg.count == self.arrImagesVideo.count{
+                        print("*****************\(sharedImg.count)")
+                    
+                        if self.arrImagesVideo.count == self.arrImagesVideo.count{
                             DispatchQueue.main.async {
                                 MILoader.shared.hideLoader()
                             }
