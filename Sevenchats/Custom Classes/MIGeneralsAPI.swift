@@ -2437,7 +2437,8 @@ extension MIGeneralsAPI {
             "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")\(" ")\(MsgSent ?? "")",
             "link":links as Any,
             "type":MsgType as Any,
-            "postInfo":post_ID
+            "postInfo":post_ID,
+            "sender_id":userID ?? ""
         ]
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: content, options: .prettyPrinted)

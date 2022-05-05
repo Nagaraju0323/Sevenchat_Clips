@@ -270,8 +270,8 @@ extension PollOptionTableView {
                     let alertWindow = UIWindow(frame: UIScreen.main.bounds)
                     alertWindow.rootViewController = UIViewController()
                     
-                    let alertController = UIAlertController(title: "Error", message: errorMsg, preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: "Close", style: UIAlertAction.Style.cancel, handler: { _ in
+                    let alertController = UIAlertController(title: "", message: CAlreadyVoted, preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
                         alertWindow.isHidden = true
                         //                            self?.postDetails(postID:self?.postID.toString ?? "")
                         completion(true, 1,0)

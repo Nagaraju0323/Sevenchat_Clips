@@ -163,13 +163,24 @@ extension FirebasePushNotification {
         let dict = convertToDictionaryUserinfo(from: stringCovt)
         guard let userMsg = dict["type"] else { return }
         guard let subject = dict["subject"] else { return }
+        
+//        if userID == ""{
+//            userID = dict.valueForString(key: "sender_id") as? String ?? ""
+//        }
+        //New modified
         userID = dict.valueForString(key: "sender") as? String ?? ""
         if userID == ""{
             userID = dict.valueForString(key: "sender_id") as? String ?? ""
         }
+        
         postInfo = dict["postInfo"] as? [String:Any] ?? [:]
         if let post_types = postInfo.valueForString(key: "type") as? String{
             post_type = post_types
+        }
+        
+        if let userid = postInfo.valueForString(key: "user_id") as? String{
+            userID = userid
+            
         }
         
         let subjectCat = subject as! String

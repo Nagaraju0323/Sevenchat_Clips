@@ -76,8 +76,7 @@ class LoginViewController: ParentViewController {
         let attrs = [NSAttributedString.Key.font : CFontPoppins(size: lblSignUp.font.pointSize, type: .light),
                      NSAttributedString.Key.foregroundColor: UIColor.black]
         let attrs1 = [NSAttributedString.Key.font : CFontPoppins(size: lblSignUp.font.pointSize, type: .light),
-                      NSAttributedString.Key.foregroundColor: CRGB(r: 90, g: 106, b: 75)]
-        
+                      NSAttributedString.Key.foregroundColor: CRGB(r: 33, g: 191, b: 166)]
         let attributedString = NSMutableAttributedString(string: CLoginDontHaveAccount, attributes:attrs)
         let normalString = NSMutableAttributedString(string: " \(CRegisterSignup)", attributes:attrs1)
         attributedString.append(normalString)

@@ -25,6 +25,8 @@ enum CMSType : Int {
 class AboutUsViewController: ParentViewController {
 
     var webView: WKWebView!
+    var arrList = [[String : Any]?]()
+    var titles = [String]()
 
     
     @IBOutlet weak var vwWebView : UIView!{
@@ -78,15 +80,40 @@ class AboutUsViewController: ParentViewController {
                 let data = response?.value(forKey: CJsonData) as? [[String : AnyObject]]
                 var content = ""
                 
+                self.titles.removeAll()
+                self.arrList =  data ?? [[:]]
+                for arr in self.arrList{
+                    let title = arr?.valueForString(key: "title") ?? ""
+                    let rmSpaces = title.replacingOccurrences(of: " ", with: "").lowercased()
+                    self.titles.append(rmSpaces)
+                }
+
+//                switch self.cmsType.rawValue {
+//                case CMSType.aboutUS.rawValue :
+//
+//                    content = data![4]["description"] as! String
+//                case CMSType.termsAndConditions.rawValue :
+//                    content = data![2]["description"] as! String
+//                default :
+//                    content = data![3]["description"] as! String
+//                }
+                
+                //Modified Code
                 switch self.cmsType.rawValue {
                 case CMSType.aboutUS.rawValue :
-                    
-                    content = data![4]["description"] as! String
+                    if let index = self.titles.firstIndex(of: "aboutus") {
+                        content = data![index]["description"] as! String
+                    }
                 case CMSType.termsAndConditions.rawValue :
-                    content = data![2]["description"] as! String
+                    if let index = self.titles.firstIndex(of: "termsandconditions") {
+                        content = data![index]["description"] as! String
+                    }
                 default :
-                    content = data![3]["description"] as! String
+                    if let index = self.titles.firstIndex(of: "privacypolicy") {
+                        content = data![index]["description"] as! String
+                    }
                 }
+                
                 var htmString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no'></header>"
                 htmString += content
                 self.webView.loadHTMLString(htmString, baseURL: nil)
