@@ -658,7 +658,9 @@ extension EditProfileViewController{
         self.navigationController?.pushViewController(locationPicker, animated: true)
     }
     @IBAction func btnUploadImageCLK(_ sender : UIButton){
+        
         if isProfileImg == true{
+            guard let modileNum = appDelegate.loginUser?.mobile else {return}
             if self.imgUser.image != nil || self.imgUser.image == nil {
                 self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
                     guard let self = self else { return }
@@ -699,7 +701,13 @@ extension EditProfileViewController{
                             self.uploadedImg = true
                             self.imgEditIcon.isHidden = false
                             self.imgUser.image = image
-                            self.uploadProfilePic()
+                            MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                            MInioimageupload.shared().callback = { message in
+                                self.profileImgUrl = message
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                    self.uploadProfilePic()
+                               })
+                            }
                         }
                     })
                 }
@@ -707,7 +715,8 @@ extension EditProfileViewController{
                 
             }
         }else{
-            if self.imgCover.image != nil {
+            guard let modileNum = appDelegate.loginUser?.mobile else {return}
+            if self.imgUser.image != nil {
                 self.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
                     guard let self = self else { return }
                     
@@ -749,8 +758,20 @@ extension EditProfileViewController{
                             self.uploadedImg = true
                             self.imgEditIcon.isHidden = false
                             self.imgUser.image = image
-                            self.uploadProfilePic()
+                            MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                            MInioimageupload.shared().callback = { message in
+                                self.profileImgUrl = message
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                    self.uploadProfilePic()
+                               })
+                            }
                         }
+//                        if image != nil{
+//                            self.uploadedImg = true
+//                            self.imgEditIcon.isHidden = false
+//                            self.imgUser.image = image
+//                            self.uploadProfilePic()
+//                        }
                     })
                 }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
                     guard let self = self else { return }
@@ -776,6 +797,7 @@ extension EditProfileViewController{
     }
     @IBAction func btnUploadCoverCLK (_ sender : UIButton) {
         if isCoverImg == true{
+            guard let modileNum = appDelegate.loginUser?.mobile else {return}
             if self.imgCover.image != nil {
                 self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
                     guard let self = self else { return }
@@ -816,14 +838,27 @@ extension EditProfileViewController{
                             self.coverImg = true
                             self.CoverEditIcon.isHidden = false
                             self.imgCover.image = image
-                            self.uploadCoverPic()
+                            MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                            MInioimageupload.shared().callback = { message in
+                                self.coverImgUrl = message
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                    self.uploadCoverPic()
+                               })
+                            }
                         }
+//                        if image != nil{
+//                            self.coverImg = true
+//                            self.CoverEditIcon.isHidden = false
+//                            self.imgCover.image = image
+//                            self.uploadCoverPic()
+//                        }
                     })
                 }
                 
                 
             }
         }else{
+            guard let modileNum = appDelegate.loginUser?.mobile else {return}
             if self.imgCover.image != nil {
                 self.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
                     guard let self = self else { return }
@@ -866,8 +901,20 @@ extension EditProfileViewController{
                             self.coverImg = true
                             self.CoverEditIcon.isHidden = false
                             self.imgCover.image = image
-                            self.uploadCoverPic()
+                            MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                            MInioimageupload.shared().callback = { message in
+                                self.coverImgUrl = message
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                    self.uploadCoverPic()
+                               })
+                            }
                         }
+//                        if image != nil{
+//                            self.coverImg = true
+//                            self.CoverEditIcon.isHidden = false
+//                            self.imgCover.image = image
+//                            self.uploadCoverPic()
+//                        }
                     })
                 }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
                     guard let self = self else { return }
