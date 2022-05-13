@@ -49,7 +49,8 @@
     "products_sold": "The product have been Sold",
     "old_password_does_not_match":"Old password does not match",
     "old_new_password_does_match":"Old and New password are same",
-    "already_voted":"your Already voted"
+    "already_voted":"your Already voted",
+    "cannot_voted":"Your cannot vote on poll created by yourself"
     
     
     

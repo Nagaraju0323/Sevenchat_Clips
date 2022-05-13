@@ -4568,6 +4568,8 @@ extension APIRequest {
             tblLanguageText.old_new_password_does_match = dict?.valueForString(key: "old_new_password_does_match")
             tblLanguageText.old_password_does_not_match = dict?.valueForString(key: "old_password_does_not_match")
             tblLanguageText.already_voted = dict?.valueForString(key: "already_voted")
+            tblLanguageText.cannot_voted = dict?.valueForString(key: "cannot_voted")
+            
             tblLanguageText.group_member_already_exist = dict?.valueForString(key: "group_member_already_exist")
             tblLanguageText.reset_password_min_val = dict?.valueForString(key: "reset_password_min_val")
             tblLanguageText.reset_update = dict?.valueForString(key: "reset_update")

@@ -244,6 +244,7 @@ var CResetPasswordNotMatch: String{ return appDelegate.langugaeText?.password_do
 var CResetOldPasswordNotMatch: String{ return appDelegate.langugaeText?.old_password_does_not_match ?? "Old password does not match" }
 var CResetOldNewPasswordMatch: String{ return appDelegate.langugaeText?.old_new_password_does_match ?? "Old and New password are same" }
 var CAlreadyVoted: String{ return appDelegate.langugaeText?.already_voted ?? "Your already voted" }
+var CAlreadyCannotVoted: String{ return appDelegate.langugaeText?.cannot_voted ?? "Your cannot vote on poll created by yourself" }
 
 var CGroupMemberExist: String{ return appDelegate.langugaeText?.group_member_already_exist ?? "Group Member Already Exist" }
 

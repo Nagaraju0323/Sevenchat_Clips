@@ -136,7 +136,6 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
         let option = self.arrOption[indexPath.row]
         cell.lblName.text = option.pollText
         cell.btnCheckAnwer.isSelected = false
-        
         cell.btnCheckAnwer.isHidden = false
         cell.btnSelectAnwer.isHidden = false
         //option.calculateVote(totalVote: totalVotes)
@@ -227,7 +226,19 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
             if success {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.40) {
                     if self.arrOptionNew.count <= 0{
-                        return;
+                        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                        alertWindow.rootViewController = UIViewController()
+                        
+                        let alertController = UIAlertController(title: "", message: CAlreadyVoted, preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+                            alertWindow.isHidden = true
+
+                        }))
+                        
+                        alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                        alertWindow.makeKeyAndVisible()
+                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                        return
                     }
                     if let pollVoteList = CStoryboardPoll.instantiateViewController(withIdentifier: "PollVotesListViewController") as? PollVotesListViewController {
                         pollVoteList.pollUsers = self.arrOptionNew

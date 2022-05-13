@@ -216,6 +216,7 @@
         <attribute name="cancel" optional="YES" attributeType="String"/>
         <attribute name="cancel_request" optional="YES" attributeType="String"/>
         <attribute name="cancel_subscription_alert" optional="YES" attributeType="String"/>
+        <attribute name="cannot_voted" optional="YES" attributeType="String"/>
         <attribute name="chat_friend_already_exists" optional="YES" attributeType="String"/>
         <attribute name="check_out_this_store_post" optional="YES" attributeType="String"/>
         <attribute name="check_this_in_news" optional="YES" attributeType="String"/>
@@ -1026,7 +1027,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11054"/>
+        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11069"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>
