@@ -558,18 +558,28 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                                 guard let self = self else { return }
                                 if image != nil{
                                     cell.imgCover.image = image
-                                    guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
-                                        return
-                                    }
-                                 self.imgName = imageURL.absoluteString ?? ""
                                     MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                                     MInioimageupload.shared().callback = { message in
-                                   self.coverImgUrl = message
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                                        self.uploadCoverPic()
-                                      })
+                                        self.coverImgUrl = message
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                            self.uploadCoverPic()
+                                       })
                                     }
                                 }
+//                                if image != nil{
+//                                    cell.imgCover.image = image
+//                                    guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
+//                                        return
+//                                    }
+//                                 self.imgName = imageURL.absoluteString ?? ""
+//                                    MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+//                                    MInioimageupload.shared().callback = { message in
+//                                   self.coverImgUrl = message
+//                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+//                                        self.uploadCoverPic()
+//                                      })
+//                                    }
+//                                }
                             })
                         }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
                                 guard let self = self else { return }
@@ -605,69 +615,60 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                                    guard let self = self else { return }
                                    if image != nil{
                                        cell.imgCover.image = image
-                                       guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
-                                           return
-                                       }
-                                       self.imgName = imageURL.absoluteString ?? ""
                                        MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                                        MInioimageupload.shared().callback = { message in
                                            self.coverImgUrl = message
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                                                self.uploadCoverPic()
-                                            })
+                                           DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                                               self.uploadCoverPic()
+                                          })
                                        }
-                                       
                                    }
                                })
                            }
                         }
-                    guard let modileNum = appDelegate.loginUser?.mobile else {return}
-                    self?.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
-                        guard let self = self else { return }
-                        
-                        self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-                            guard let self = self else { return }
-                            if image != nil{
-                                cell.imgCover.image = image
-                                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
-                                
-                                guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {return}
-                                self.imgName = imageURL.absoluteString ?? ""
-                                MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                                MInioimageupload.shared().callback = { message in
-                               self.coverImgUrl = message
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                                  self.uploadCoverPic()
-                                    })
-                                }
-                            }
-                        })
-                    }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default, btnTwoTapped: { [weak self] (action) in
-                        guard let self = self else { return }
-                        self.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
-                                guard let self = self else { return }
-                                  if image != nil{
-                                    cell.imgCover.image = image
-                                      guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
-                                          return
-                                      }
-                                      self.imgName = imageURL.absoluteString ?? ""
-                                      MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                                      MInioimageupload.shared().callback = { message in
-                                          self.coverImgUrl = message
-                                       DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-                                           self.uploadCoverPic()
-                                       })
-                                      }
-                                  }
-                        })
-                    }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
-                        guard let self = self else { return }
-                                //                        cell.imgCover.image = nil
-                        //self.coverImgUrl = "https://qa.sevenchats.com:3443/sevenchats/CoverImage/IOS1643088311733.png"
-                        cell.imgCover.image = UIImage(named: "CoverImage.png")
-                        self.uploadCoverPic()
-                    }
+//                    guard let modileNum = appDelegate.loginUser?.mobile else {return}
+//                    self?.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { [weak self] (action) in
+//                        guard let self = self else { return }
+//                        
+//                        self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
+//                            guard let self = self else { return }
+//                            if image != nil{
+//                                cell.imgCover.image = image
+//                                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: nil)
+//                                
+//                                guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {return}
+//                                self.imgName = imageURL.absoluteString ?? ""
+//                                MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+//                                MInioimageupload.shared().callback = { message in
+//                               self.coverImgUrl = message
+//                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+//                                  self.uploadCoverPic()
+//                                    })
+//                                }
+//                            }
+//                        })
+//                    }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default, btnTwoTapped: { [weak self] (action) in
+//                        guard let self = self else { return }
+//                        self.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { [weak self] (image, info) in
+//                            guard let self = self else { return }
+//                            if image != nil{
+//                                cell.imgCover.image = image
+//                                MInioimageupload.shared().uploadMinioimages(mobileNo: modileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+//                                MInioimageupload.shared().callback = { message in
+//                                    self.profileImgUrl = message
+//                                    DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+//                                        self.uploadCoverPic()
+//                                   })
+//                                }
+//                            }
+//                        })
+//                    }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { [weak self] (action) in
+//                        guard let self = self else { return }
+//                                //                        cell.imgCover.image = nil
+//                        //self.coverImgUrl = "https://qa.sevenchats.com:3443/sevenchats/CoverImage/IOS1643088311733.png"
+//                        cell.imgCover.image = UIImage(named: "CoverImage.png")
+//                        self.uploadCoverPic()
+//                    }
                 }
                 cell.btnProfileChange.touchUpInside {[weak self](sender) in
                     if appDelegate.loginUser?.profile_img  != ""{
