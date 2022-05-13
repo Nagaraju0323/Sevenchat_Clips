@@ -1962,6 +1962,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
         if indexPath.section == 2 {
             return
         }
+        if indexPath.section == 3 {
+            return
+        }
         
         let row = indexPath.row
         print("selectdRow\(row),")

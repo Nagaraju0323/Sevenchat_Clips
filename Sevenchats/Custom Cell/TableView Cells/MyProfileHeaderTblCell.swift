@@ -141,11 +141,22 @@ class MyProfileHeaderTblCell: UITableViewCell {
             let dict = arr![0] as? TblRelation
             lblStatus.text = dict?.name
         }
+//        lblStatus.attributedText = NSMutableAttributedString().normal(CRelationship_Status).normal(" ").bold((appDelegate.loginUser?.relationship ?? ""))
+        
         lblUserName.text = "\(appDelegate.loginUser?.first_name ?? "") \(appDelegate.loginUser?.last_name ?? "")"
         
        // lblLocation.attributedText = NSMutableAttributedString().bold(CLive_in).normal(" ").normal((appDelegate.loginUser?.city ?? ""))
+        
         lblLocation.attributedText = NSMutableAttributedString().normal(CLive_in).normal(" ").bold((appDelegate.loginUser?.city ?? ""))
-        lblStatus.attributedText = NSMutableAttributedString().normal(CRelationship_Status).normal(" ").bold((appDelegate.loginUser?.relationship ?? ""))
+        if appDelegate.loginUser?.relationship == "N/A" ||  appDelegate.loginUser?.relationship == "null" || appDelegate.loginUser?.relationship == "" {
+            let relationship = " "
+            lblStatus.attributedText = NSMutableAttributedString().normal(CRelationship_Status).normal(" ").bold((relationship))
+            
+        }else{
+            lblStatus.attributedText = NSMutableAttributedString().normal(CRelationship_Status).normal(" ").bold((appDelegate.loginUser?.relationship ?? ""))
+            
+        }
+        
         
         switch Int((appDelegate.loginUser?.gender)!) {
         case CMale :

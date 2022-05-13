@@ -145,6 +145,7 @@ extension HomePollTblCell{
             tblVAnswre.arrPollInformation = pollinformation
             
             if postInfo.valueForString(key: CUserId) == "\(String(describing: appDelegate.loginUser?.user_id ?? 0))" {
+                print("userDetails\(postInfo.valueForString(key: CUserId))")
                 tblVAnswre.isSelected = true
             }else{
                 tblVAnswre.isSelected = postInfo.valueForBool(key: CIsUserVoted)

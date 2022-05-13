@@ -675,9 +675,21 @@ extension CompleteProfileViewController : GenericTextFieldDelegate{
     
     func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
         
-        
         if textField == txtReligion || txtProfession == txtProfession{
             if txtReligion.text?.count ?? 0 > 20{
+                return false
+            }
+            if string.isSingleEmoji {
+                return (string == string)
+            }else {
+                
+                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+                let filtered = string.components(separatedBy: cs).joined(separator: "")
+                return (string == filtered)
+            }
+        }
+        if txtProfession == txtProfession{
+            if txtProfession.text?.count ?? 0 > 20{
                 return false
             }
             if string.isSingleEmoji {

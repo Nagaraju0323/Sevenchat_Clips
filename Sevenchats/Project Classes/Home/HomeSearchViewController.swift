@@ -415,12 +415,14 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                             frndStatus = CFriendRequestSent
                                             isShowAlert = true
                                             cell.btnAddFrd.isHidden = false
-                                            alertMessage = CAlertMessageForSendRequest
+                                            alertMessage =  CAlertMessageForSendRequest + " " + first_name + " " + last_name
+                                            
                                         case 1:
                                             frndStatus = CFriendRequestCancel
                                             isShowAlert = true
                                             cell.btnAddFrd.isHidden = false
                                             alertMessage = CMessageCancelRequest
+                                            
                                         case 5:
                                             frndStatus = CFriendRequestUnfriend
                                             cell.btnAddFrd.isHidden = false
