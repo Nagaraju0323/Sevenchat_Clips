@@ -220,7 +220,28 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
         if let cell = tableView.cellForRow(at: indexPath) as? PollProgressTblCell {
             optionText =  cell.lblName.text ?? ""
         }
-        if "\(self.userEmailID)" != "\(String(describing: appDelegate.loginUser?.email ?? ""))"{return}
+//        if "\(self.userEmailID)" != "\(String(describing: appDelegate.loginUser?.email ?? ""))"{return}
+        
+        if "\(self.userEmailID)" != "\(String(describing: appDelegate.loginUser?.email ?? ""))"{return}else {
+                 
+                    print("totalVotesCount\(self.totalVotes)")
+                    if self.totalVotes == 0{
+                        let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                        alertWindow.rootViewController = UIViewController()
+                        
+                        let alertController = UIAlertController(title: "", message: CAlreadyCannotVoted, preferredStyle: UIAlertController.Style.alert)
+                        alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+                            alertWindow.isHidden = true
+                            return
+                        }))
+                        
+                        alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                        alertWindow.makeKeyAndVisible()
+                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                       return
+                    }
+                }
+        
         
         self.postDetailsList(optionTexts: self.optionText,arg: true, completion:{(success) -> Void in
             if success {
@@ -326,7 +347,8 @@ extension PollOptionTableView{
                             if obj.count == 1 {
                                 self?.arrPostList =  obj
                                 for (key, value) in obj {
-                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
+//                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
+                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
                                     if indexOfA == 0{
                                         self?.arr = ["\(value)","0","0","0"]
                                     }else if indexOfA == 1{
@@ -340,7 +362,8 @@ extension PollOptionTableView{
                             }else {
                                 self?.arrPostList =  obj
                                 for (key, value) in obj {
-                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
+//                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key)
+                                    let indexOfA  = self?.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
                                     arrayData.remove(at: indexOfA ?? 0)
                                     arrayData.insert("\(value)", at: indexOfA ?? 0)
                                 }

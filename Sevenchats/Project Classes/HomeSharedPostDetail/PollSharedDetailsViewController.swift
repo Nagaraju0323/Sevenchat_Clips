@@ -1106,7 +1106,8 @@ extension PollSharedDetailsViewController{
             if obj.count == 1 {
                 self.arrPostList =  obj
                 for (key, value) in obj {
-                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
+//                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
+                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
                     if indexOfA == 0{
                         self.arr = ["\(value)","0","0","0"]
                     }else if indexOfA == 1{
@@ -1120,7 +1121,8 @@ extension PollSharedDetailsViewController{
             }else {
                 self.arrPostList =  obj
                 for (key, value) in obj {
-                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
+//                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
+                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
                     arrayData.remove(at: indexOfA ?? 0)
                     arrayData.insert("\(value)", at: indexOfA ?? 0)
                 }
