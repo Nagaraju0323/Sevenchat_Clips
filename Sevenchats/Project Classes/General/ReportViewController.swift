@@ -433,6 +433,10 @@ extension ReportViewController{
                 print("UploadImage::::::::::::::\(message)")
                 self.uploadImgUrl = message
                 }
+                
+                if self.uploadImgUrl.isEmpty{
+                    MILoader.shared.hideLoader()
+                }
             }
         }
     }

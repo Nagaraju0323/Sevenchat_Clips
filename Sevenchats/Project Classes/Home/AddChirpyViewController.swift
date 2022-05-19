@@ -451,6 +451,9 @@ extension AddChirpyViewController{
                     MILoader.shared.hideLoader()
                     self.uploadImgUrl = message
                 }
+                if self.uploadImgUrl.isEmpty{
+                    MILoader.shared.hideLoader()
+                }
             }
         }
     }

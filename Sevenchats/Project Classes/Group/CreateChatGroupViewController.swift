@@ -121,6 +121,8 @@ class CreateChatGroupViewController: ParentViewController {
         MInioimageupload.shared().callback = { message in
         self.defaultImgUrl = message
         }
+        
+      
     }
     
     func setLanguageText() {

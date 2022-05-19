@@ -87,8 +87,24 @@ class SideMenuViewController: ParentViewController {
     
     func updateUserProfile(){
         lblUserName.text = "\(appDelegate.loginUser?.first_name ?? "") \(appDelegate.loginUser?.last_name ?? "")"
-        imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
+        self.userDetailsApi()
+//        imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
     }
+    
+    func userDetailsApi(){
+            if let userID = appDelegate.loginUser?.user_id{
+                let dict:[String:Any] = [
+                    CEmail_Mobile : appDelegate.loginUser?.email ?? ""
+                ]
+                let token = CUserDefaults.string(forKey: UserDefaultDeviceToken)
+                APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token: token ?? "",viewType: 1) {(response, error) in
+                    if response != nil && error == nil {
+                        self.imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
+                    }
+                }
+            }
+        }
+    
 }
 
 // MARK:- ---------- Api Functions

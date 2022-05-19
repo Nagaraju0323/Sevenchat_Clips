@@ -402,6 +402,11 @@ extension AddArticleViewController{
                         MILoader.shared.hideLoader()
                         self.profileImgUrl = message
                     }
+                    
+                    if self.profileImgUrl.isEmpty{
+                        MILoader.shared.hideLoader()
+                    }
+                    
                 }
                 
             }

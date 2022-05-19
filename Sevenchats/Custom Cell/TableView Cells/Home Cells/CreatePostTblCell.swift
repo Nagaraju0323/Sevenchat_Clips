@@ -90,6 +90,7 @@ class CreatePostTblCell: UITableViewCell{
                self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
            }
         self.Initialization()
+        self.userDetailsApiCall()
         self.updateUIAccordingToLanguage()
     }
     // MARK:- --------- Initialization
@@ -102,6 +103,21 @@ class CreatePostTblCell: UITableViewCell{
             self.setQuoteText()
         }
         
+    }
+    
+    func userDetailsApiCall(){
+        if let userID = appDelegate.loginUser?.user_id{
+            let dict:[String:Any] = [
+                CEmail_Mobile : appDelegate.loginUser?.email ?? ""
+            ]
+            let token = CUserDefaults.string(forKey: UserDefaultDeviceToken)
+            APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token: token ?? "",viewType: 1) {(response, error) in
+                if response != nil && error == nil {
+                    
+                    self.imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_img ?? ""), true)
+                }
+            }
+        }
     }
   
     func updateUIAccordingToLanguage(){

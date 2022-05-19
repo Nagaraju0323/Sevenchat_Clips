@@ -104,6 +104,10 @@ extension FeedbackViewController{
                 MInioimageupload.shared().callback = { message in
                     self.feedbackImgUrl = message
                 }
+                
+                if self.feedbackImgUrl.isEmpty{
+                    MILoader.shared.hideLoader()
+                }
             }
         }
     }

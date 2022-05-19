@@ -687,6 +687,9 @@ extension UserChatDetailViewController {
                             self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"image", thumbLine: img)
                             
                         }
+//                        if self.uploadImgUrl.isEmpty{
+//                            MILoader.shared.hideLoader()
+//                        }
                     }
                     
                 } else if mediaType == .video && self.arrSelectedMediaForChat.count > 0 {
@@ -707,6 +710,8 @@ extension UserChatDetailViewController {
                             self.uploadImgUrl = message
                             self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"video", thumbLine: urlVidoes)
                         }
+                       
+                        
                     }
                 }else if mediaType == .audio && self.arrSelectedMediaForChat.count > 0 {
                     if let audioURL = self.arrSelectedMediaForChat.first as? String {
@@ -728,6 +733,8 @@ extension UserChatDetailViewController {
                            self.uploadImgUrl = message
                             self.ImageAttachemntApiCall(uploadImgUrl:self.uploadImgUrl ?? "",type:"audio", thumbLine: urlVidoes)
                         }
+                        
+                     
                         
                     }
                 }else if mediaType == .location && self.arrSelectedMediaForChat.count > 0 {

@@ -135,7 +135,6 @@ class OtherUserProfileViewController: ParentViewController {
         btnUnblock.setTitle("  \(CBtnUnblockUser)  ", for: .normal)
         // To Get User detail from server.......
         self.getFriendStatus()
-        
         self.otherUserDetails(isLoader:true)
 //        self.otherUserDetails(isLoader:true)
 //        self.getPostListFromServer()
@@ -314,7 +313,7 @@ extension OtherUserProfileViewController{
         let dict :[String:Any]  =  [
             "user_id":  appDelegate.loginUser?.user_id ?? "",
             "friend_user_id": friend_ID,
-            "request_type": status?.toString as Any
+            "request_type": status?.toString ?? ""
         ]
         
         APIRequest.shared().friendRquestStatus(dict: dict, completion: { [weak self] (response, error) in
@@ -428,14 +427,31 @@ extension OtherUserProfileViewController{
         ]
         APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
             self?.refreshControl.endRefreshing()
+            DispatchQueue.main.async{
             if response != nil && error == nil{
                 if let arrList = response!["data"] as? [[String:Any]]{
                     self?.arrBlockList = arrList
                 }
             }
-            
+          }
         })
     }
+    func  getFriendStatusNew(completion: @escaping (_ success: Bool) -> Void) {
+
+        let dict :[String:Any]  =  [
+               "user_id":  appDelegate.loginUser?.user_id ?? "",
+               "friend_user_id": userIDNew ?? ""
+           ]
+           APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
+               self?.refreshControl.endRefreshing()
+                   if response != nil && error == nil{
+                       if let arrList = response!["data"] as? [[String:Any]]{
+                           self?.arrBlockList = arrList
+                           completion(true)
+                   }
+               }
+           })
+       }
     
     func getPostListFromServer() {
         
@@ -551,6 +567,8 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                                 self.Friend_status = 1
                             }else if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") != user_id?.description {
                                 self.Friend_status = 0
+                            }else if friend?.valueForString(key: "request_status") == "0" && friend?.valueForString(key: "cancelled_id") == user_id?.description {
+                                self.Friend_status = 0
                             }
                         }
                        
@@ -614,14 +632,36 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                                 self?.friendStatusApi(userInfo, frndStatus)
                                 NotificationCenter.default.post(name: Notification.Name("NotificationRecived"), object: nil,userInfo: nil)
                                 NotificationCenter.default.post(name: Notification.Name("NotificationFrndRequest"), object: nil,userInfo: nil)
-                                self?.navigationController?.popViewController(animated: true)
+                                
+                                self?.getFriendStatusNew { (success) -> Void in
+                                    if success {
+                                        // do second task if success
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                            // your code here
+                                            self?.viewDidLoad()
+                                            self?.viewWillAppear(true)
+                                        }
+                                    }
+                                }
+
+//                                self?.navigationController?.popViewController(animated: true)
                             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                         }else{
                             self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForSendRequest, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
                                 self?.friendStatusApi(userInfo, 1)
                                 NotificationCenter.default.post(name: Notification.Name("NotificationRecived"), object: nil,userInfo: nil)
                                 NotificationCenter.default.post(name: Notification.Name("NotificationFrndRequest"), object: nil,userInfo: nil)
-                                self?.navigationController?.popViewController(animated: true)
+                                self?.getFriendStatusNew { (success) -> Void in
+                                    if success {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                            // your code here
+                                            self?.viewDidLoad()
+                                            self?.viewWillAppear(true)
+                                        }
+                                    }
+                                }
+
+//                                self?.navigationController?.popViewController(animated: true)
                             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                         }
                     }
