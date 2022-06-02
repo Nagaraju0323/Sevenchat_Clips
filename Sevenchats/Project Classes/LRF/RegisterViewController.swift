@@ -206,7 +206,7 @@ extension RegisterViewController {
                 guard let self = self else { return }
                 let dict = arrCountry![index] as AnyObject
                 let countryName = dict.value(forKey: CCountryName) as? String
-                if countryName != self.countryName {
+                if countryName == self.countryName {
                     self.countryName = dict.value(forKey: CCountryName) as? String
                     self.txtStates.text = ""
                     self.txtCitys.text = ""

@@ -37,6 +37,7 @@
 		184E1848260872A300E1D5D7 /* CountryHolidayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184E1847260872A300E1D5D7 /* CountryHolidayList.swift */; };
 		185712A6262FFFD100AFEE52 /* MessageSenderSwpTblCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 185712A4262FFFD100AFEE52 /* MessageSenderSwpTblCell.xib */; };
 		185712AA2630077A00AFEE52 /* MessageSenderSwpTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185712A92630077A00AFEE52 /* MessageSenderSwpTblCell.swift */; };
+		185CE9992847658F00FA159B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 185CE9982847658F00FA159B /* StoreKit.framework */; };
 		1863D0C22600ACCA00B5BDE8 /* Stories.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1863D0C12600ACCA00B5BDE8 /* Stories.storyboard */; };
 		1863D0C62600AD3A00B5BDE8 /* showCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863D0C52600AD3A00B5BDE8 /* showCameraViewController.swift */; };
 		1863D0D72600C30600B5BDE8 /* SwiftyCamButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1863D0D02600C30500B5BDE8 /* SwiftyCamButton.swift */; };
@@ -109,7 +110,6 @@
 		6225402D240E43E500624F33 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6225402C240E43E500624F33 /* SystemConfiguration.framework */; };
 		6225402F240E43EB00624F33 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6225402E240E43EB00624F33 /* libc++.tbd */; };
 		624EE3F6241BA02D00941C85 /* AppUpdateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 624EE3F5241BA02D00941C85 /* AppUpdateManager.swift */; };
-		62793ACF240E300100E906B7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62793ACE240E300100E906B7 /* StoreKit.framework */; };
 		62CE58972420FFEB0061CC9A /* RTLCollectionFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62CE58962420FFEB0061CC9A /* RTLCollectionFlow.swift */; };
 		62E1A5D7240E2EC5001BD7A8 /* HomeSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A396240E2EC4001BD7A8 /* HomeSearchViewController.swift */; };
 		62E1A5D8240E2EC5001BD7A8 /* ShoutsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A397240E2EC4001BD7A8 /* ShoutsDetailViewController.swift */; };
@@ -619,6 +619,8 @@
 		184E1847260872A300E1D5D7 /* CountryHolidayList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryHolidayList.swift; sourceTree = "<group>"; };
 		185712A4262FFFD100AFEE52 /* MessageSenderSwpTblCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageSenderSwpTblCell.xib; sourceTree = "<group>"; };
 		185712A92630077A00AFEE52 /* MessageSenderSwpTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSenderSwpTblCell.swift; sourceTree = "<group>"; };
+		185CE9972847646C00FA159B /* SevenchatsRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SevenchatsRelease.entitlements; sourceTree = "<group>"; };
+		185CE9982847658F00FA159B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		1863D0C12600ACCA00B5BDE8 /* Stories.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Stories.storyboard; sourceTree = "<group>"; };
 		1863D0C52600AD3A00B5BDE8 /* showCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = showCameraViewController.swift; sourceTree = "<group>"; };
 		1863D0D02600C30500B5BDE8 /* SwiftyCamButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyCamButton.swift; sourceTree = "<group>"; };
@@ -693,7 +695,6 @@
 		6225402C240E43E500624F33 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6225402E240E43EB00624F33 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		624EE3F5241BA02D00941C85 /* AppUpdateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdateManager.swift; sourceTree = "<group>"; };
-		62793ACE240E300100E906B7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		62793AD0240E301400E906B7 /* Sevenchats.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Sevenchats.entitlements; sourceTree = "<group>"; };
 		62CE58962420FFEB0061CC9A /* RTLCollectionFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTLCollectionFlow.swift; sourceTree = "<group>"; };
 		62E1A37C240E2E47001BD7A8 /* Sevenchats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sevenchats.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1190,6 +1191,7 @@
 				6225402B240E43DD00624F33 /* GLKit.framework in Frameworks */,
 				62254029240E43D900624F33 /* CoreTelephony.framework in Frameworks */,
 				62254025240E43CD00624F33 /* VideoToolbox.framework in Frameworks */,
+				185CE9992847658F00FA159B /* StoreKit.framework in Frameworks */,
 				62254023240E43C700624F33 /* AudioToolbox.framework in Frameworks */,
 				62254020240E438C00624F33 /* NotificationCenter.framework in Frameworks */,
 				62254021240E438C00624F33 /* UserNotifications.framework in Frameworks */,
@@ -1197,7 +1199,6 @@
 				6225401B240E433D00624F33 /* MediaToolbox.framework in Frameworks */,
 				62254019240E433500624F33 /* CoreMedia.framework in Frameworks */,
 				62254017240E433000624F33 /* MediaPlayer.framework in Frameworks */,
-				62793ACF240E300100E906B7 /* StoreKit.framework in Frameworks */,
 				A09326B63F9C017116863AC6 /* Pods_Sevenchats.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1333,6 +1334,7 @@
 		62793ACD240E300100E906B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				185CE9982847658F00FA159B /* StoreKit.framework */,
 				1838BA70275F350D00A9372C /* SocketIO.framework */,
 				1838BA6E275F30FC00A9372C /* SocketIO.framework */,
 				181F07D226D3A88D00A7BA49 /* SocketRocket.framework */,
@@ -1352,7 +1354,6 @@
 				6225401A240E433D00624F33 /* MediaToolbox.framework */,
 				62254018240E433500624F33 /* CoreMedia.framework */,
 				62254016240E432F00624F33 /* MediaPlayer.framework */,
-				62793ACE240E300100E906B7 /* StoreKit.framework */,
 				27804AECFF1A40FF9011865E /* Pods_Sevenchats.framework */,
 			);
 			name = Frameworks;
@@ -1379,6 +1380,7 @@
 		62E1A393240E2EC4001BD7A8 /* Sevenchats */ = {
 			isa = PBXGroup;
 			children = (
+				185CE9972847646C00FA159B /* SevenchatsRelease.entitlements */,
 				62793AD0240E301400E906B7 /* Sevenchats.entitlements */,
 				62E1A394240E2EC4001BD7A8 /* Project Classes */,
 				62E1A463240E2EC4001BD7A8 /* Storyboard */,
@@ -3155,7 +3157,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Syed Khadir (3XC632973S)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = YES;
@@ -3221,7 +3224,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Syed Khadir (3XC632973S)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = YES;
@@ -3256,7 +3260,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Sevenchats/Sevenchats.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution: Syed Khadir (3XC632973S)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.70;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3XC632973S;
@@ -3269,7 +3273,7 @@
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.sevenchats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = SevenchatsAppStore_16_April_2020;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3280,9 +3284,9 @@
 			baseConfigurationReference = F7BFE4C7823818FE87CD8731 /* Pods-Sevenchats.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Sevenchats/Sevenchats.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Syed Khadir (3XC632973S)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = Sevenchats/SevenchatsRelease.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.70;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3XC632973S;
@@ -3295,7 +3299,7 @@
 				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.app.sevenchats;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = SevenchatsAppStore_16_April_2020;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
