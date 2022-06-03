@@ -21,6 +21,8 @@ class ChatListViewController: ParentViewController {
     @IBOutlet weak var showImg: UIImageView!
     @IBOutlet weak var activeLbl: UILabel!
     var arrUserList = [TblChatUserList]()
+  
+//    arruserSearchLists =[arrUserList]()
     var arrUsersearchList = [TblChatUserList]()
     
     var refreshControl = UIRefreshControl()
@@ -163,6 +165,7 @@ extension ChatListViewController {
             
             if response != nil {
                 if let arrList = response![CJsonData] as? [[String : Any]] {
+                    
                     if arrList.count > 0 {
                         self.fetchUserListFromLocal()
                     }else {
@@ -174,7 +177,10 @@ extension ChatListViewController {
     }
     
     func fetchUserListFromLocal() {
-        if let arr = TblChatUserList.fetch(predicate: nil, orderBy: CCreated_at, ascending: false) as? [TblChatUserList] {
+//        if let arr = TblChatUserList.fetch(predicate: nil, orderBy: "created_at", ascending: false) as?
+//            [TblChatUserList] {
+            if let arr = TblChatUserList.fetch(predicate: nil, orderBy: "first_name", ascending: false) as?
+                [TblChatUserList] {
             self.arrUserList.removeAll()
             self.arrUserList = arr
             self.tblUserChat.reloadData()

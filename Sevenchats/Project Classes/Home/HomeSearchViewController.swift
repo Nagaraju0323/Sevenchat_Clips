@@ -449,7 +449,14 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                                 self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus, completion:{(success) -> Void in
                                                     if success {
                                                         
-                                                        self.navigationController?.popViewController(animated: true)
+                                                        let indexPath = IndexPath(item: indexPath.row, section: 0)
+                                                        cell.setupCell(loan: searchInfo)
+                                                        
+                                                        let name = searchInfo.valueForString(key: "first_name")
+                                                        print("name\(name)")
+                                                        
+                                                        
+//                                                        self.navigationController?.popViewController(animated: true)
                                                         
                                                     }
                                                 })

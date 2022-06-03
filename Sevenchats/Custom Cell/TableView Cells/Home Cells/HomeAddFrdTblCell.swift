@@ -69,20 +69,38 @@ class HomeAddFrdTblCell: UITableViewCell {
                 GCDMainThread.async {
                     if let arrList = response!["data"] as? [[String:Any]]{
                         for arrLst in arrList{
-                            if arrLst.valueForString(key: "block_status") == "1" && arrLst.valueForString(key: "blocked_id") == appDelegate.loginUser?.user_id.description{
+                            
+                            if arrLst.valueForString(key: "block_status") == "1" && arrLst.valueForString(key: "blocked_id") == appDelegate.loginUser?.user_id.description {
                                 Friend_status = 7
                             }else if arrLst.valueForString(key: "block_status") == "1"  {
-                                Friend_status = 6
-                            }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
-                                Friend_status = 0
-                                
+                              Friend_status = 6
+                            } else if arrLst.valueForString(key: "friend_status") == "1"{
+                             Friend_status = 5
+                            }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
+                              Friend_status = 1
+                            }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "0" && arrLst.valueForString(key: "cancel_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "0" &&  arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "cancel_status") == "1" {
+                            Friend_status = 0
                             }else if arrLst.valueForString(key: "request_status")  == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description {
                                 Friend_status = 2
-                            }else if arrLst.valueForString(key: "friend_status") == "1"{
-                                Friend_status = 5
-                            }else  if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id")  == user_id?.description {
-                                Friend_status = 1
+                                
+                            }else if arrLst.valueForString(key: "unfriend_status") == "0" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "cancel_status") == "1" || arrLst.valueForString(key: "senders_id").isEmpty {
+                                Friend_status = 0
                             }
+                            
+//                            if arrLst.valueForString(key: "block_status") == "1" && arrLst.valueForString(key: "blocked_id") == appDelegate.loginUser?.user_id.description{
+//                                Friend_status = 7
+//                            }else if arrLst.valueForString(key: "block_status") == "1"  {
+//                                Friend_status = 6
+//                            }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
+//                                Friend_status = 0
+//
+//                            }else if arrLst.valueForString(key: "request_status")  == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description {
+//                                Friend_status = 2
+//                            }else if arrLst.valueForString(key: "friend_status") == "1"{
+//                                Friend_status = 5
+//                            }else  if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id")  == user_id?.description {
+//                                Friend_status = 1
+//                            }
                             
                             if Friend_status == 2 {
                                 self?.btnAddFrd.isHidden = true
@@ -129,6 +147,16 @@ class HomeAddFrdTblCell: UITableViewCell {
         tapGesture.friendID = friendID
         
     }
+    
+    func setupUserStatusChange(loan:[String:Any]) {
+//        let friendID = loan.valueForString(key: "user_id")
+//        let tapGesture = CustomTapGestureRecognizer(target: self,action: #selector(tapSelector(sender:)))
+//        imgUser.addGestureRecognizer(tapGesture)
+//        imgUser.isUserInteractionEnabled = true
+//        tapGesture.friendID = friendID
+        
+    }
+    
     func setupLblTapGestures(loan:[String:Any]) {
         let friendID = loan.valueForString(key: "user_id")
         let tapGesture = CustomTapGestureRecognizer(target: self,action: #selector(tapSelector(sender:)))

@@ -7,8 +7,8 @@
 //
 
 /********************************************************
- * Author : Nagaraju K and Chandrika R                                 *
- * Model  : SocketIO & Notification                     *
+ * Author : Nagaraju K and Chandrika R                   *
+ * Model  : SocketIO & Notification                      *
  * Description: Create SocketIO,Popup for Notifcations   *
  ********************************************************/
 
@@ -34,6 +34,9 @@ class SocketIOManager: NSObject {
     
     override init() {
         super.init()
+        socketIOClient?.on(clientEvent: .reconnect) {data, ack in
+                debugPrint("socket reconnecting")
+            }
         socketIOClient = manager.defaultSocket
         registerForRemoteNotifictionViaSocket()
         createListererForUpComingJob()
@@ -91,8 +94,6 @@ class SocketIOManager: NSObject {
                     dict["sender"] = notify["sender"] as? String
                    print("this is calling observer")
                     NotificationCenter.default.post(name: Notification.Name("LoadMsgData"), object: nil,userInfo: nil)
-                    
-                   
                 }
             }
         }

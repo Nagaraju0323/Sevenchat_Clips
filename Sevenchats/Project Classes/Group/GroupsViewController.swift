@@ -150,7 +150,8 @@ extension GroupsViewController {
     }
     
     func fetchGroupListFromLocal() {
-        if let arr = TblChatGroupList.fetch(predicate: nil, orderBy: CDateTime, ascending: false) as? [TblChatGroupList] {
+        if let arr = TblChatGroupList.fetch(predicate: nil, orderBy: "group_title", ascending: false) as? [TblChatGroupList] {
+//            if let arr = TblChatGroupList.fetch(predicate: nil, orderBy: CDateTime, ascending: false) as? [TblChatGroupList] {
             self.arrGroupList.removeAll()
             self.arrGroupList = arr
             self.tblGroups.reloadData()

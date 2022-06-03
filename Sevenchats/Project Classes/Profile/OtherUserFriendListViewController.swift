@@ -295,7 +295,6 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
                                         self?.Friend_status = 0
                                     }
 
-
                                     var frndStatus = 0
                                     var isShowAlert = false
                                     var alertMessage = ""
