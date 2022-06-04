@@ -152,19 +152,18 @@ class CompleteProfileViewController: ParentViewController, GenericTextViewDelega
         
         txtViewBiography.text = appDelegate.loginUser?.short_biography
         txtReligion.text = appDelegate.loginUser?.religion
-        if appDelegate.loginUser?.relationship == "null"{
+        if appDelegate.loginUser?.relationship == "N/A" ||  appDelegate.loginUser?.relationship == "null" || appDelegate.loginUser?.relationship == ""{
             txtStatus.text = ""
         }else {
             txtStatus.text = appDelegate.loginUser?.relationship
         }
+        if appDelegate.loginUser?.education_name == "N/A" ||  appDelegate.loginUser?.education_name == "null" || appDelegate.loginUser?.education_name == ""{
         
-        if appDelegate.loginUser?.education_name == "null"{
             txtEducation.text  = ""
         }else {
             txtEducation.text  = appDelegate.loginUser?.education_name
         }
-        
-        if appDelegate.loginUser?.annual_income == "null"{
+        if appDelegate.loginUser?.annual_income == "N/A" ||  appDelegate.loginUser?.annual_income == "null" || appDelegate.loginUser?.annual_income == ""{
             txtIncomeLevel.text = ""
         }else {
             txtIncomeLevel.text = appDelegate.loginUser?.annual_income
@@ -414,13 +413,14 @@ extension CompleteProfileViewController{
         guard let txtmobile = appDelegate.loginUser?.mobile else {return}
         guard let txtemail = appDelegate.loginUser?.email else {return}
         
-        
+        let txtshortbio = txtViewBiography.text.replace(string: "\n", replacement: "\\n")
+        let txtprofession = txtProfession.text?.replace(string: "\n", replacement: "\\n")
         let dictcomp:[String:Any] = [
             "user_acc_type":user_acc_type,
             "first_name":firstName_edit ?? "",
             "last_name":lastName_edit ?? "",
             "gender":gender.toString,
-            "religion":postReligion,
+            "religion":txtReligion.text,
             "city_name":txtCity,
             "profile_image":appDelegate.loginUser?.profile_img ?? "",
             "cover_image":appDelegate.loginUser?.cover_image ?? "",
@@ -428,9 +428,9 @@ extension CompleteProfileViewController{
             "email":txtemail,
             "education":txtEducation.text ?? "",
             "dob":dob_edit ?? "",
-            "short_biography":postBiography,
+            "short_biography":txtshortbio,
             "relationship":txtStatus.text ?? "",
-            "profession":professionText,
+            "profession":txtprofession,
             "address_line1":txtCity,
             "latitude":0,
             "longitude":0,
@@ -591,26 +591,17 @@ extension CompleteProfileViewController{
 extension CompleteProfileViewController{
     
     @objc fileprivate func btnCompleteClicked(_ sender : UIBarButtonItem) {
-       // if self.txtProfession.text != "" || self.txtViewBiography.text != "" || self.txtReligion.text != ""{
-            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-            if self.txtProfession.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtViewBiography.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtReligion.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                print("contains Special charecter")
-              postBiography = removeSpecialCharacters(from: txtViewBiography.text)
-                if txtReligion.text != "" || txtProfession.text != "" {
-                  postReligion = removeSpecialCharacters(from: txtReligion.text!)
-                postProfession = removeSpecialCharacters(from: txtProfession.text!)
-                  print("specialcCharecte\(postProfession)")
-              }
-              self.completeProfile()
-            } else {
-               print("false")
-                postBiography = txtViewBiography.text ?? ""
-                postReligion = txtReligion.text ?? ""
-                postProfession = txtProfession.text ?? ""
+        
+        let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+        if (self.txtProfession.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtViewBiography.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtReligion.text?.rangeOfCharacter(from: charSet) != nil)
+            {
+                print("true")
+            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                return
+            }else{
                 self.completeProfile()
             }
-       // }
-//        self.completeProfile()
+      
     }
     
     @IBAction func btnAddInterestCLK(_ sender : UIButton){
@@ -682,10 +673,24 @@ extension CompleteProfileViewController : GenericTextFieldDelegate{
             if string.isSingleEmoji {
                 return (string == string)
             }else {
-                
-                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                let filtered = string.components(separatedBy: cs).joined(separator: "")
-                return (string == filtered)
+                if string.count <= 20{
+                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+
+                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+                    
+                        if (string.isEmpty  && filtered.isEmpty ) {
+                                    let isBackSpace = strcmp(string, "\\b")
+                                    if (isBackSpace == -92) {
+                                        print("Backspace was pressed")
+                                        return (string == filtered)
+                                    }
+                        } else {
+                            return (string != filtered)
+                        }
+
+                }else{
+                    return (string == "")
+                }
             }
         }
         if txtProfession == txtProfession{
@@ -695,10 +700,24 @@ extension CompleteProfileViewController : GenericTextFieldDelegate{
             if string.isSingleEmoji {
                 return (string == string)
             }else {
-                
-                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                let filtered = string.components(separatedBy: cs).joined(separator: "")
-                return (string == filtered)
+                if string.count <= 20{
+                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+
+                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+                    
+                        if (string.isEmpty  && filtered.isEmpty ) {
+                                    let isBackSpace = strcmp(string, "\\b")
+                                    if (isBackSpace == -92) {
+                                        print("Backspace was pressed")
+                                        return (string == filtered)
+                                    }
+                        } else {
+                            return (string != filtered)
+                        }
+
+                }else{
+                    return (string == "")
+                }
             }
         }
         return true

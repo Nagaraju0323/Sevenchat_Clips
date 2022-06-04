@@ -203,24 +203,18 @@ extension AddEditProductVC {
             self?.resignKeyboard()
             if self?.isValideAllFileds() ?? false{
                 print("Ready for post")
-                if self?.txtProductTitle.text != "" && self?.txtProductDesc.text != ""{
-                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                    if self?.txtProductTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil || self?.txtProductDesc.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                        print("contains Special charecter")
-                        self?.postContent = self?.removeSpecialCharacters(from: self?.txtProductDesc.text ?? "") ?? ""
-                        if self?.txtProductTitle.text != ""{
-                            self?.postTitle = self?.removeSpecialCharacters(from: self?.txtProductTitle.text! ?? "") ?? ""
-                            print("specialcCharecte\(self?.postTitle)")
-                      }
+                
+                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+                if (self?.txtProductTitle.text?.rangeOfCharacter(from: charSet) != nil) || (self?.txtProductDesc.text?.rangeOfCharacter(from: charSet) != nil)
+                    {
+                        print("true")
+                    self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        return
+                    }else{
                         self?.addEditProduct()
-                        
-                      } else {
-                        self?.postContent = self?.txtProductDesc.text ?? ""
-                            self?.postTitle = self?.txtProductTitle.text! ?? ""
-                        self?.addEditProduct()
-                        }
-               }
-               // self?.addEditProduct()
+                    }
+
+           
             }
         }
         self.navigationItem.rightBarButtonItems = [addMediaBarButtion]
@@ -637,10 +631,24 @@ extension AddEditProductVC : GenericTextFieldDelegate{
             if string.isSingleEmoji {
                 return (string == string)
             }else {
-                
-                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                let filtered = string.components(separatedBy: cs).joined(separator: "")
-                return (string == filtered)
+                if string.count <= 20{
+                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+
+                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+                    
+                        if (string.isEmpty  && filtered.isEmpty ) {
+                                    let isBackSpace = strcmp(string, "\\b")
+                                    if (isBackSpace == -92) {
+                                        print("Backspace was pressed")
+                                        return (string == filtered)
+                                    }
+                        } else {
+                            return (string != filtered)
+                        }
+
+                }else{
+                    return (string == "")
+                }
             }
         }
         return true
@@ -712,14 +720,14 @@ extension AddEditProductVC {
             
             _ = repl.appending(ImgName)
             let replacs = ImgName.replacingOccurrences(of: "][", with: ",")
-            let txtproductDesc = postContent.replace(string: "\n", replacement: "\\n")
+            let txtproductDesc = txtProductDesc.text.replace(string: "\n", replacement: "\\n")
             apiTag = CEditProductNew
             dict = [
                 "product_id": prouductID,
                 "category_name":categoryDropDownView.txtCategory.text ?? "",
                 "category_level1":subcategoryDropDownView.txtCategory.text ?? "",
                 "product_image":replacs,
-                "product_title":postTitle,
+                "product_title":txtProductTitle.text,
                 "description":txtproductDesc,
                 "available_status":availableStatus,
                 "cost":self.txtProductPrice.text ?? "0",
@@ -793,7 +801,8 @@ extension AddEditProductVC {
             }else{
                 currencyName = txtCurrencyList.text ?? ""
             }
-            let txtproductDesc =  postContent.replace(string: "\n", replacement: "\\n")
+            //let txtproductDesc =  postContent.replace(string: "\n", replacement: "\\n")
+            let txtproductDesc = txtProductDesc.text.replace(string: "\n", replacement: "\\n")
             apiTag = CAddProductNew
             dict = [
                 "user_first_name": firstName,

@@ -128,13 +128,21 @@ extension FeedbackViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CNavAddImage, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
             if self.txtViewFeedbackContent.text != ""{
-                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                if self.txtViewFeedbackContent.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                    print("contains Special charecter")
-                    self.postContent = self.removeSpecialCharacters(from: self.txtViewFeedbackContent.text ?? "")
-//                   print("true")
-//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                } else {
+                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+                if (self.txtViewFeedbackContent.text?.rangeOfCharacter(from: charSet) != nil) {
+                        print("true")
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        return
+                    }else{
+                       
+              
+//                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+//                if self.txtViewFeedbackContent.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+//                    print("contains Special charecter")
+//                    self.postContent = self.removeSpecialCharacters(from: self.txtViewFeedbackContent.text ?? "")
+////                   print("true")
+////                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                } else {
                    print("false")
             guard let statusId = appDelegate.loginUser?.status_id else {return}
             guard let userId = appDelegate.loginUser?.user_id else {return}
@@ -165,7 +173,7 @@ extension FeedbackViewController{
             }
             
             
-            let txtFeedBack = self.postContent.replace(string: "\n", replacement: " ")
+                    let txtFeedBack = txtViewFeedbackContent.text.replace(string: "\n", replacement: "\\n")
             let feedback : [String :Any] = [
                 "image":feedbackImgUrl,
                 "user_id" : userId.description,
@@ -219,7 +227,7 @@ extension FeedbackViewController{
                     }
                 }
             }
-        }
+  }
     }
     
         }

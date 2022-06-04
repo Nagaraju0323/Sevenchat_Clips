@@ -37,11 +37,12 @@ class AddEventViewController: ParentViewController {
     @IBOutlet weak var btnSelectGroupFriend : UIButton!
     @IBOutlet weak var viewSelectGroup : UIView!
     @IBOutlet weak var clGroupFriend : UICollectionView!
+    @IBOutlet weak var lblTextCount : UILabel!
     @IBOutlet weak var txtViewContent : GenericTextView!{
         didSet{
             self.txtViewContent.txtDelegate = self
             self.txtViewContent.isScrollEnabled = true
-            self.txtViewContent.textLimit = "150"
+            self.txtViewContent.textLimit = "5000"
             self.txtViewContent.type = "1"
         }
     }
@@ -73,6 +74,7 @@ class AddEventViewController: ParentViewController {
     var arrsubCategorys : [MDLIntrestSubCategory] = []
     var postContent = ""
     var postTxtFieldContent = ""
+    var quoteDesc = ""
     
     var post_ID:String?
     var startEventChng = ""
@@ -99,6 +101,7 @@ class AddEventViewController: ParentViewController {
         if eventType == .editEvent{
             self.loadEventDetailFromServer()
         }
+        setQuoteText()
         viewUploadedImageContainer.isHidden = true
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddEventClicked(_:)))]
         let arrCategory = MIGeneralsAPI.shared().fetchCategoryFromLocalEvent()
@@ -140,7 +143,18 @@ class AddEventViewController: ParentViewController {
         self.selectedInviteType = 4
         
     }
-    
+    fileprivate func setQuoteText(){
+        var strQuote = self.quoteDesc
+        if strQuote.count > 5000{
+            strQuote = strQuote[0..<5000]
+        }
+        self.txtViewContent.text = strQuote
+        self.lblTextCount.text = "\(strQuote.count)/5000"
+        
+        GCDMainThread.async {
+            self.txtViewContent.updatePlaceholderFrame(true)
+        }
+    }
     func updateUIAccordingToLanguage(){
         
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
@@ -300,11 +314,11 @@ extension AddEventViewController{
         let startchg = "\(startEvntTime.description) \(" GMT+0530 (IST)")"
         let endchg = "\(endEvntTime.description) \(" GMT+0530 (IST)")"
         guard let userID = appDelegate.loginUser?.user_id else { return }
-        let txtAdv = postContent.replace(string: "\n", replacement: "\\n")
+        let txtAdv = txtViewContent.text.replace(string: "\n", replacement: "\\n")
         var dict:[String:Any] = [
             "user_id":userID,
             "image":profileImgUrl,
-            "post_title":postTxtFieldContent,
+            "post_title":txtEventTitle.text,
             "post_category":categoryDropDownView.txtCategory.text ?? "",
             "post_content":txtAdv,
             "age_limit":"16",
@@ -559,25 +573,16 @@ extension AddEventViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEventLocation, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }
         else{
-            if txtViewContent.text != "" && txtEventTitle.text != ""{
-                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                if txtViewContent.text.rangeOfCharacter(from: characterset.inverted) != nil || txtEventTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil{
-                    print("contains Special charecter")
-                  postContent = removeSpecialCharacters(from: txtViewContent.text)
-                  if txtEventTitle.text != ""{
-                      postTxtFieldContent = removeSpecialCharacters(from: txtEventTitle.text!)
-                      print("specialcCharecte\(postTxtFieldContent)")
-                  }
+            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+            if (txtEventTitle.text?.rangeOfCharacter(from: charSet) != nil) || (txtViewContent.text?.rangeOfCharacter(from: charSet) != nil)
+                {
+                    print("true")
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    return
+                }else{
                     self.addEditEvent()
-                } else {
-                   print("false")
-                    postContent = txtViewContent.text ?? ""
-                    postTxtFieldContent = txtEventTitle.text ?? ""
-                    self.addEditEvent()
-
                 }
-            }
-           // self.addEditEvent()
+
         }
         
     }
@@ -587,9 +592,8 @@ extension AddEventViewController{
 extension AddEventViewController: GenericTextViewDelegate{
     
     func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
-        
         if textView == txtViewContent{
-            //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
+            lblTextCount.text = "\(textView.text.count)/5000"
         }
     }
 }
@@ -605,10 +609,24 @@ extension AddEventViewController: GenericTextFieldDelegate {
             if string.isSingleEmoji {
                 return (string == string)
             }else {
-                
-                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                let filtered = string.components(separatedBy: cs).joined(separator: "")
-                return (string == filtered)
+                if string.count <= 20{
+                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+
+                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+                    
+                        if (string.isEmpty  && filtered.isEmpty ) {
+                                    let isBackSpace = strcmp(string, "\\b")
+                                    if (isBackSpace == -92) {
+                                        print("Backspace was pressed")
+                                        return (string == filtered)
+                                    }
+                        } else {
+                            return (string != filtered)
+                        }
+                }else{
+                    return (string == "")
+                }
+         
             }
         }
         return true
@@ -620,3 +638,4 @@ func removeSpecialCharacters(from text: String) -> String {
     return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
 }
 }
+// MARK:-  --------- Generic UITextView Delegate

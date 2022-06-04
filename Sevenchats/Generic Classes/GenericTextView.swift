@@ -251,15 +251,29 @@ class GenericTextView: UITextView, UITextViewDelegate {
                 }
                 } else {
                     print("normal typing")
-                     _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
-                     let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                     if text.isSingleEmoji{
- //                        let filtered = text.components(separatedBy: cs).joined(separator: "")
-                       return (text == text)
-                     }else {
-                         let filtered = text.components(separatedBy: cs).joined(separator: "")
-                       return (text == filtered)
-                     }
+                    let str = (textView.text + text)
+                    if str.count <= 5000 {
+                        print("done")
+                        _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
+                        let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+
+                        if text.isSingleEmoji{
+                          return (text == text)
+                        }else {
+                            let filtered = text.components(separatedBy: inverted).joined(separator: "")
+                            if (text.isEmpty  && filtered.isEmpty ) {
+                                        let isBackSpace = strcmp(text, "\\b")
+                                        if (isBackSpace == -92) {
+                                            print("Backspace was pressed")
+                                            return (text == filtered)
+                                        }
+                            } else {
+                                return (text != filtered)
+                            }
+                        }
+                    }
+
+
 //                   print("normal typing")
 //
 //
@@ -269,7 +283,7 @@ class GenericTextView: UITextView, UITextViewDelegate {
 //                    let filtered = text.components(separatedBy: cs).joined(separator: "")
 //                  return (text == filtered)
 
-                }
+          }
 //            _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
 //               let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
 //          let filtered = text.components(separatedBy: cs).joined(separator: "")
@@ -308,23 +322,34 @@ class GenericTextView: UITextView, UITextViewDelegate {
                 return textView.text.count + (text.count - range.length) <= (textLimit?.toInt)!
             }
             } else {
+            
                print("normal typing")
                 let str = (textView.text + text)
                 if str.count <= 150 {
                     _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
-                     let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                     if text.isSingleEmoji{
- //                        let filtered = text.components(separatedBy: cs).joined(separator: "")
-                       return (text == text)
-                     }else {
-                         let filtered = text.components(separatedBy: cs).joined(separator: "")
-                       return (text == filtered)
-                     }
+                    let RISTRICTED_CHARACTERS = "'\\'\""
+                    let inverted = NSCharacterSet(charactersIn: RISTRICTED_CHARACTERS).inverted
+
+                    if text.isSingleEmoji{
+                      return (text == text)
+                    }else {
+                        let filtered = text.components(separatedBy: inverted).joined(separator: "")
+                        
+                        if (text.isEmpty  && filtered.isEmpty ) {
+                                    let isBackSpace = strcmp(text, "\\b")
+                                    if (isBackSpace == -92) {
+                                        print("Backspace was pressed")
+                                        return (text == filtered)
+                                    }
+                        } else {
+                            return (text != filtered)
+                        }
+                    }
 //                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
 //                    let filtered = text.components(separatedBy: cs).joined(separator: "")
 //                  return (text == filtered)
                 }
-            }
+         }
         // Check text limit here....
         if textLimit != nil {
             if textLimit?.toInt != 0 && !(textLimit?.isBlank)! {

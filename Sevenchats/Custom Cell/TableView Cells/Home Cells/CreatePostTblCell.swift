@@ -272,34 +272,25 @@ extension CreatePostTblCell{
            self.closureShowMessage?(1)
             
         }else{
-            if textViewMessage.text != ""{
-                
-                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                if textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
-                    print("contains Special charecter")
-                     postContent = removeSpecialCharacters(from: textViewMessage.text)
-                     self.addEditShout()
-                
-                
-//                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-//                if textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
-//                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-//                        alertWindow.rootViewController = UIViewController()
-//                        let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
-//                        alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
-//                            alertWindow.isHidden = true
-//                            return
-//                        }))
-//
-//                        alertWindow.windowLevel = UIWindow.Level.alert + 1;
-//                        alertWindow.makeKeyAndVisible()
-//                        alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
-                } else {
-                    
-                    postContent = textViewMessage.text
+            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+            if (textViewMessage.text.rangeOfCharacter(from: charSet) != nil)
+                {
+                    print("true")
+                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+            alertWindow.rootViewController = UIViewController()
+          let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
+      alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+      alertWindow.isHidden = true
+                                              return
+                                          }))
+                  
+                  alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                  alertWindow.makeKeyAndVisible()
+                alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                    return
+                }else{
                     self.addEditShout()
                 }
-            }
         }
         
         
@@ -319,7 +310,7 @@ extension CreatePostTblCell{
             apiPara[CId] = shoutID
         }
        
-        let txtshout = postContent.replace(string: "\n", replacement: "\\n")
+        let txtshout = textViewMessage.text.replace(string: "\n", replacement: "\\n")
         
         var dict = [String:Any]()
         dict[CUserId] = userid.description

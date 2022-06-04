@@ -56,8 +56,7 @@ extension AddPollQuestionCell : UITextFieldDelegate{
         if (textField.text?.count ?? 0) > 20{
             return false
         }
-        
-            
+ 
             if string.contains(UIPasteboard.general.string ?? ""){
 
                 let text: NSString = (textField.text ?? "") as NSString
@@ -70,12 +69,23 @@ extension AddPollQuestionCell : UITextFieldDelegate{
                 if string.isSingleEmoji {
                     return (string == string)
                 }else {
+                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
                     
-                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                    let filtered = string.components(separatedBy: cs).joined(separator: "")
-                    return (string == filtered)
+                    let filtered = string.components(separatedBy: inverted).joined(separator: "")
+                    if (string.isEmpty  && filtered.isEmpty ) {
+                                let isBackSpace = strcmp(string, "\\b")
+                                if (isBackSpace == -92) {
+                                    print("Backspace was pressed")
+                                    return (string == filtered)
+                                }
+                    } else {
+                        return (string != filtered)
+                    }
+//                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+//                    let filtered = string.components(separatedBy: cs).joined(separator: "")
+//                    return (string == filtered)
                 }
-            }
+       }
             
        
         

@@ -223,7 +223,7 @@ extension ReportViewController{
         let userID = user_id.description
 
         let reportedurl = reportedURL ?? ""
-        let reportTxt = postContent.replace(string: "\n", replacement: " ")
+        let reportTxt = textViewReportMessage.text.replace(string: "\n", replacement: "\\n")
 //        var dict :[String:Any]  =  [
 //               "image":uploadImgUrl,
 //               "reason":reportTxt,
@@ -400,19 +400,27 @@ extension ReportViewController{
             }
             
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: strMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                if self.textViewReportMessage.text != ""{
-                    let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                    if self.textViewReportMessage.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                        print("contains Special charecter")
-                        self.postContent = self.removeSpecialCharacters(from: self.textViewReportMessage.text ?? "")
-                        self.reportApi()
-                    } else {
-                       print("false")
-                        self.postContent = self.textViewReportMessage.text ?? ""
-                        self.reportApi()
-                    }
+                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+                if (self.textViewReportMessage.text?.rangeOfCharacter(from: charSet) != nil) {
+                        print("true")
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                        return
+                }else{
+                    self.reportApi()
                 }
-//                self.reportApi()
+//                if self.textViewReportMessage.text != ""{
+//                    let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+//                    if self.textViewReportMessage.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+//                        print("contains Special charecter")
+//                        self.postContent = self.removeSpecialCharacters(from: self.textViewReportMessage.text ?? "")
+//                        self.reportApi()
+//                    } else {
+//                       print("false")
+//                        self.postContent = self.textViewReportMessage.text ?? ""
+//                        self.reportApi()
+//                    }
+//                }
+             
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
         }
     }

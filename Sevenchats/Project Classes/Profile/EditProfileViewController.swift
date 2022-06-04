@@ -442,8 +442,8 @@ extension EditProfileViewController {
         
         let dict :[String:Any]  =  [
             "user_acc_type":"1",
-            "first_name":postFirstName,
-            "last_name":postLastName,
+            "first_name":txtFirstName.text ?? "",
+            "last_name":txtLastName.text ?? "",
             "gender":String(appDelegate.loginUser!.gender),
             "religion":appDelegate.loginUser?.religion ?? "",
             "city_name":txtCitys.text ?? "",
@@ -1194,24 +1194,32 @@ extension EditProfileViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CBlankCity, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
-        if self.txtFirstName.text != "" && self.txtLastName.text != "" {
-            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-            if self.txtFirstName.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtLastName.text?.rangeOfCharacter(from: characterset.inverted) != nil  {
-                print("contains Special charecter")
-                if txtFirstName.text != "" || txtLastName.text != "" {
-                postFirstName = removeSpecialCharacters(from: txtFirstName.text!)
-                postLastName = removeSpecialCharacters(from: txtLastName.text!)
-                  
-              }
-              self.editProfile()
-            } else {
-               print("false")
-                postFirstName = txtFirstName.text ?? ""
-                postLastName = txtLastName.text ?? ""
+        let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+        if (self.txtFirstName.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtLastName.text?.rangeOfCharacter(from: charSet) != nil)
+            {
+                print("true")
+            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                return
+            }else{
                 self.editProfile()
             }
-        }
-//        self.editProfile()
+//        if self.txtFirstName.text != "" && self.txtLastName.text != "" {
+//            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+//            if self.txtFirstName.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtLastName.text?.rangeOfCharacter(from: characterset.inverted) != nil  {
+//                print("contains Special charecter")
+//                if txtFirstName.text != "" || txtLastName.text != "" {
+//                postFirstName = removeSpecialCharacters(from: txtFirstName.text!)
+//                postLastName = removeSpecialCharacters(from: txtLastName.text!)
+//
+//              }
+//              self.editProfile()
+//            } else {
+//               print("false")
+//                postFirstName = txtFirstName.text ?? ""
+//                postLastName = txtLastName.text ?? ""
+//                self.editProfile()
+//            }
+//        }
     }
     
     @IBAction func btnUpdateCompleteCLK(_ sender : UIButton) {
@@ -1233,10 +1241,24 @@ extension EditProfileViewController: GenericTextFieldDelegate {
             if string.isSingleEmoji {
                 return (string == string)
             }else {
-                
-                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                let filtered = string.components(separatedBy: cs).joined(separator: "")
-                return (string == filtered)
+                if string.count <= 20{
+                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+
+                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+                    
+                        if (string.isEmpty  && filtered.isEmpty ) {
+                                    let isBackSpace = strcmp(string, "\\b")
+                                    if (isBackSpace == -92) {
+                                        print("Backspace was pressed")
+                                        return (string == filtered)
+                                    }
+                        } else {
+                            return (string != filtered)
+                        }
+
+                }else{
+                    return (string == "")
+                }
             }
         }
         return true

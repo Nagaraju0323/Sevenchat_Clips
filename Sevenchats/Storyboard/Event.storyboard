@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -461,16 +461,24 @@
                                                             <constraint firstAttribute="trailing" secondItem="YAl-oL-Zhl" secondAttribute="trailing" id="zw6-LT-ZXq"/>
                                                         </constraints>
                                                     </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/5000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="an5-TY-zKx" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                                        <rect key="frame" x="312" y="393" width="42.5" height="17"/>
+                                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="12"/>
+                                                        <color key="textColor" red="0.52156862749999999" green="0.52941176469999995" blue="0.51764705879999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="ssQ-zS-kBI" firstAttribute="centerY" secondItem="S4r-K8-P70" secondAttribute="centerY" id="08L-xy-OKh"/>
+                                                    <constraint firstItem="an5-TY-zKx" firstAttribute="bottom" secondItem="93G-RI-1ha" secondAttribute="bottom" id="0Ci-l7-iQz"/>
                                                     <constraint firstItem="FzZ-H4-LPR" firstAttribute="top" secondItem="Jq4-jh-8It" secondAttribute="bottom" constant="15" id="1pV-Zg-U9M"/>
                                                     <constraint firstItem="Jq4-jh-8It" firstAttribute="leading" secondItem="zJx-ZF-hBC" secondAttribute="leading" id="2Qz-zG-eNG"/>
                                                     <constraint firstItem="b1D-xO-ZRR" firstAttribute="top" secondItem="FzZ-H4-LPR" secondAttribute="bottom" constant="15" id="3mX-LB-JX0"/>
                                                     <constraint firstItem="fg0-PG-88b" firstAttribute="leading" secondItem="zJx-ZF-hBC" secondAttribute="leading" constant="20" id="3vZ-hw-Ct2"/>
                                                     <constraint firstItem="ssQ-zS-kBI" firstAttribute="height" secondItem="S4r-K8-P70" secondAttribute="height" id="55w-bW-MPT"/>
                                                     <constraint firstItem="93G-RI-1ha" firstAttribute="top" secondItem="b1D-xO-ZRR" secondAttribute="bottom" constant="15" id="6rb-5p-7gl"/>
+                                                    <constraint firstAttribute="trailing" secondItem="an5-TY-zKx" secondAttribute="trailing" constant="20.5" id="7kI-KB-Uul"/>
                                                     <constraint firstAttribute="trailing" secondItem="wBo-GR-tZs" secondAttribute="trailing" constant="20" id="9ni-yg-rag"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="B2H-hD-uuj"/>
                                                     <constraint firstItem="eOt-lF-wM0" firstAttribute="centerY" secondItem="fg0-PG-88b" secondAttribute="centerY" id="CuV-lO-sZU"/>
@@ -531,6 +539,7 @@
                     <connections>
                         <outlet property="categoryDropDownView" destination="b1D-xO-ZRR" id="U5b-Y2-gHB"/>
                         <outlet property="imgEvent" destination="vcs-k8-9hW" id="Rz0-RK-kfh"/>
+                        <outlet property="lblTextCount" destination="an5-TY-zKx" id="gCa-VN-gWg"/>
                         <outlet property="lblUploadImage" destination="FFh-VT-7rv" id="ZfY-Ur-kz2"/>
                         <outlet property="parentView" destination="JE8-Cj-cb0" id="Wwh-ZJ-E3j"/>
                         <outlet property="scrollViewContainer" destination="zJx-ZF-hBC" id="7gt-Yh-4nq"/>
@@ -1206,7 +1215,7 @@ Declined</string>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LikesTblCell" rowHeight="65" id="tzN-B2-V2B" customClass="LikesTblCell" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="24.5" width="414" height="65"/>
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="65"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tzN-B2-V2B" id="4Rs-Ib-Zqd">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
@@ -2015,7 +2024,7 @@ Declined</string>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload image" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fht-ay-fHN" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                                        <rect key="frame" x="20" y="109.5" width="276.5" height="16.5"/>
+                                                                        <rect key="frame" x="20" y="109.5" width="335" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="Fht-ay-fHN" secondAttribute="height" multiplier="67:4" id="bvt-ub-QZs"/>
                                                                         </constraints>
