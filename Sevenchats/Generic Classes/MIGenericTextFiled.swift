@@ -288,12 +288,12 @@ extension MIGenericTextFiled {
                 return true
             }
             
-            if string.contains(UIPasteboard.general.string ?? ""){
-                print("print this copy paste")
-               
-                return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersInForEmpty: range, replacementString: string)) ??  true
-                
-            }else {
+//            if string.contains(UIPasteboard.general.string ?? ""){
+//                print("print this copy paste")
+//
+//                return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersInForEmpty: range, replacementString: string)) ??  true
+//                
+//            }else {
                 print("prin normatl test")
                
                 if let limit = self.textLimit, let text = textField.text,
@@ -304,7 +304,7 @@ extension MIGenericTextFiled {
                     }
                 }
                 
-            }
+      // }
 
             
             

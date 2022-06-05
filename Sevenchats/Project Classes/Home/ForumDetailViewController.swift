@@ -419,12 +419,12 @@ extension ForumDetailViewController: UITableViewDelegate, UITableViewDataSource{
             
             cell.btnUserName.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-                appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CUserId), self.forumInformation.valueForString(key: CUsermailID), self)
+                appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             
             cell.btnUserImage.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
-                appDelegate.moveOnProfileScreenNew(self.forumInformation.valueForString(key: CUserId), self.forumInformation.valueForString(key: CUsermailID), self)
+                appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             
             // Load more data....

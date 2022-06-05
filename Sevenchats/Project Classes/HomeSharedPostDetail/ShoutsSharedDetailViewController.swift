@@ -458,12 +458,12 @@ extension ShoutsSharedDetailViewController: UITableViewDelegate, UITableViewData
             
             cell.btnUserName.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
-                appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
+                appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             
             cell.btnUserImage.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
-                appDelegate.moveOnProfileScreenNew(self.shoutInformation.valueForString(key: CUserId), self.shoutInformation.valueForString(key: CUsermailID), self)
+                appDelegate.moveOnProfileScreenNew(commentInfo.valueForString(key: CUserId), commentInfo.valueForString(key: CUsermailID), self)
             }
             // Load more data....
             if (indexPath == tblCommentList.lastIndexPath()) && apiTask?.state != URLSessionTask.State.running {

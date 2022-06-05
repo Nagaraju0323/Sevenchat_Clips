@@ -37,7 +37,7 @@ class AddForumViewController: ParentViewController {
         didSet{
             self.txtViewForumMessage.txtDelegate = self
             self.txtViewForumMessage.isScrollEnabled = true
-            self.txtViewForumMessage.textLimit = "150"
+            self.txtViewForumMessage.textLimit = "5000"
             self.txtViewForumMessage.type = "1"
         }
     }
@@ -178,7 +178,7 @@ extension AddForumViewController{
         apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
         apiPara[CPost_Detail] = txtViewForumMessage.text
         apiPara[CPublish_To] = self.selectedInviteType
-        let addforum = postContent.replace(string: "\n", replacement: "\\n")
+        let addforum = txtViewForumMessage.text.replace(string: "\n", replacement: "\\n")
         
         // When user editing the article....
         if forumType == .editForum{
@@ -188,7 +188,7 @@ extension AddForumViewController{
         var dict :[String:Any]  =  [
             "user_id":userID.description,
             "image":"",
-            "post_title":postTxtFieldContent,
+            "post_title":txtForumTitle.text ?? "",
             "post_category":categoryDropDownView.txtCategory.text!,
             "post_content":addforum,
             "age_limit":"16",
@@ -437,24 +437,16 @@ extension AddForumViewController{
         else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupForum, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-            if txtViewForumMessage.text != "" && txtForumTitle.text != ""{
-                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                if txtViewForumMessage.text.rangeOfCharacter(from: characterset.inverted) != nil || txtForumTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                    print("contains Special charecter")
-                  postContent = removeSpecialCharacters(from: txtViewForumMessage.text)
-                  if txtForumTitle.text != ""{
-                      postTxtFieldContent = removeSpecialCharacters(from: txtForumTitle.text!)
-                      print("specialcCharecte\(postTxtFieldContent)")
-                  }
-                  self.addEditForum()
-                } else {
-                   print("false")
-                    postContent = txtViewForumMessage.text ?? ""
-                    postTxtFieldContent = txtForumTitle.text ?? ""
+            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+            if (txtForumTitle.text?.rangeOfCharacter(from: charSet) != nil) || (txtViewForumMessage.text?.rangeOfCharacter(from: charSet) != nil)
+                {
+                    print("true")
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    return
+                }else{
                     self.addEditForum()
                 }
-            }
-           // self.addEditForum()
+     
         }
     }
 }
@@ -508,10 +500,23 @@ extension AddForumViewController: GenericTextFieldDelegate {
             if string.isSingleEmoji {
                 return (string == string)
             }else {
-                
-                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-                let filtered = string.components(separatedBy: cs).joined(separator: "")
-                return (string == filtered)
+                if string.count <= 20{
+                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+
+                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+                    
+                        if (string.isEmpty  && filtered.isEmpty ) {
+                                    let isBackSpace = strcmp(string, "\\b")
+                                    if (isBackSpace == -92) {
+                                        print("Backspace was pressed")
+                                        return (string == filtered)
+                                    }
+                        } else {
+                            return (string != filtered)
+                        }
+                }else{
+                    return (string == "")
+                }
             }
         }
         return true

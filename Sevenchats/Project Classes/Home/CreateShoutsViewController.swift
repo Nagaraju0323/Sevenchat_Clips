@@ -162,7 +162,7 @@ extension CreateShoutsViewController{
         }
         guard let userid = appDelegate.loginUser?.user_id else {return}
         let userID = userid.description
-        let txtshout = postContent.replace(string: "\n", replacement: "\\n")
+        let txtshout = textViewMessage.text.replace(string: "\n", replacement: "\\n")
         var dict :[String:Any]  =  [
             "user_id":userID,
             "image":"none", 
@@ -270,7 +270,7 @@ extension CreateShoutsViewController{
             strQuote = strQuote[0..<5000]
         }
         self.textViewMessage.text = strQuote
-        self.lblTextCount.text = "\(strQuote.count)/5000"
+        self.lblTextCount.text = "\(strQuote.count)/150"
         
         GCDMainThread.async {
             self.textViewMessage.updatePlaceholderFrame(true)
@@ -430,20 +430,18 @@ extension CreateShoutsViewController{
         }else if (btnInviteGroup.isSelected || btnInviteContacts.isSelected) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupShout, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-            if textViewMessage.text != ""{
-                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                if textViewMessage.text.rangeOfCharacter(from: characterset.inverted) != nil {
-                    print("contains Special charecter")
-                     postContent = removeSpecialCharacters(from: textViewMessage.text)
-                     self.addEditShout()
-                    
-                } else {
-                   print("false")
-                    postContent = textViewMessage.text
+            
+            
+            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+            if (textViewMessage.text.rangeOfCharacter(from: charSet) != nil)
+                {
+                    print("true")
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    return
+                }else{
                     self.addEditShout()
                 }
-            }
-//            self.addEditShout()
+
         }
     }
 }

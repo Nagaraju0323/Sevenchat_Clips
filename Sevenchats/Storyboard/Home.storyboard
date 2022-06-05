@@ -611,7 +611,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="250" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tom.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="YwM-56-ksO">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="YwM-56-ksO">
                                 <rect key="frame" x="90" y="68" width="70" height="70"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="4bY-yH-VXX"/>
@@ -5189,7 +5189,6 @@
         <image name="ic_shout_poll" width="512" height="512"/>
         <image name="ic_small_checkmark_selected" width="24.5" height="24.5"/>
         <image name="ic_small_checkmark_unselected" width="24.5" height="24.5"/>
-        <image name="tom.jpg" width="300" height="250"/>
         <image name="user_placeholder.png" width="300" height="300"/>
         <namedColor name="AppDefault">
             <color red="0.0" green="0.75294117647058822" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

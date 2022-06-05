@@ -1511,13 +1511,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         cell.homeEventDataSetup(postInfo)
                         
                         cell.onChangeEventStatus = { [weak self] (action) in
-//                            self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
-                            self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
+                            self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
+                            
                         }
                         
                         cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                             guard let _ = self else { return }
-                            self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
+                            self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                         }
                         
                         cell.btnMore.touchUpInside { [weak self] (sender) in
@@ -1587,7 +1587,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
+                        self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
+                        
                     }
                     
                     cell.btnMore.touchUpInside { [weak self] (sender) in
@@ -1713,7 +1714,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     cell.homeEventDataSetup(postInfo)
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
-                        self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)
+                        self?.btnLikesCountCLK(postInfo.valueForString(key: "post_id").toInt)
                     }
                     cell.onChangeEventStatus = { [weak self] (action) in
                         self?.btnInterestedNotInterestedMayBeCLK(action, indexPath)
@@ -2104,6 +2105,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             if let shoutsDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ShoutsDetailViewController") as? ShoutsDetailViewController{
                 shoutsDetailsVC.isLikesHomePage = true
                 shoutsDetailsVC.shoutInformations = postInfo
+                shoutsDetailsVC.shoutInformation = postInfo
                 shoutsDetailsVC.shoutID = postId.toInt
                 self.navigationController?.pushViewController(shoutsDetailsVC, animated: true)
             }

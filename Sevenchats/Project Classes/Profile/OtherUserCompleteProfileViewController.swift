@@ -167,9 +167,27 @@ extension OtherUserCompleteProfileViewController{
                             self?.lblBiography.text = userInfo.valueForString(key: CShort_biography)
                             self?.lblProfession.text = userInfo.valueForString(key: CProfession)
                             self?.lblReligion.text = userInfo.valueForString(key: CReligion)
-                            self?.lblEducation.text = userInfo.valueForString(key: "education")
-                            self?.lblStatus.text = userInfo.valueForString(key: "relationship")
-                            self?.lblIncomeLevel.text = userInfo.valueForString(key: "income")
+                            if userInfo.valueForString(key: "education") == "N/A" ||  userInfo.valueForString(key: "education") == "null" || userInfo.valueForString(key: "education") == ""{
+                                self?.lblEducation.text = ""
+                            }else {
+                                self?.lblEducation.text = userInfo.valueForString(key: "education")
+                            }
+                            
+                            if userInfo.valueForString(key: "relationship") == "N/A" ||  userInfo.valueForString(key: "relationship") == "null" || userInfo.valueForString(key: "relationship") == ""{
+                                self?.lblEducation.text = ""
+                            }else {
+                                self?.lblStatus.text = userInfo.valueForString(key: "relationship")
+                            }
+                            
+                            if userInfo.valueForString(key: "income") == "N/A" ||  userInfo.valueForString(key: "income") == "null" || userInfo.valueForString(key: "income") == ""{
+                                self?.lblIncomeLevel.text = ""
+                            }else {
+                                self?.lblIncomeLevel.text = userInfo.valueForString(key: "income")
+                            }
+                            
+//                            self?.lblEducation.text = userInfo.valueForString(key: "education")
+//                            self?.lblStatus.text = userInfo.valueForString(key: "relationship")
+//                            self?.lblIncomeLevel.text = userInfo.valueForString(key: "income")
                             switch userInfo.valueForInt(key: CGender) {
                             case CMale :
                                 self?.lblGender.text = CRegisterGenderMale

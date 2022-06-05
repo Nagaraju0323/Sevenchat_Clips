@@ -520,21 +520,30 @@ extension CreateChatGroupViewController : UITableViewDelegate, UITableViewDataSo
 extension CreateChatGroupViewController{
     
     @objc fileprivate func btnDoneCLK(_ sender : UIBarButtonItem) {
-        if txtGroupTitle.text != "" {
-            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-            if txtGroupTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                print("contains Special charecter")
-                self.postContent = self.removeSpecialCharacters(from: self.txtGroupTitle.text ?? "")
+    
+            
+            let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+            if (self.txtGroupTitle.text?.rangeOfCharacter(from: charSet) != nil) {
+                    print("true")
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    return
+            }else{
                 self.addEditGroup(true)
-
-                
-            } else {
-               print("false")
-                self.postContent = self.txtGroupTitle.text ?? ""
-                self.addEditGroup(true)
-
             }
-        }
+//            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+//            if txtGroupTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+//                print("contains Special charecter")
+//                self.postContent = self.removeSpecialCharacters(from: self.txtGroupTitle.text ?? "")
+//                self.addEditGroup(true)
+//
+//
+//            } else {
+//               print("false")
+//                self.postContent = self.txtGroupTitle.text ?? ""
+//                self.addEditGroup(true)
+//
+//            }
+       
             //self.addEditGroup(true)
     }
     
@@ -666,9 +675,24 @@ extension CreateChatGroupViewController: GenericTextFieldDelegate {
             if txtGroupTitle.text?.count ?? 0 > 20{
                 return false
             }
-            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-            let filtered = string.components(separatedBy: cs).joined(separator: "")
-            return (string == filtered)
+            if string.count <= 20{
+                let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+
+                    let filtered = string.components(separatedBy: inverted).joined(separator: "")
+                
+                    if (string.isEmpty  && filtered.isEmpty ) {
+                                let isBackSpace = strcmp(string, "\\b")
+                                if (isBackSpace == -92) {
+                                    print("Backspace was pressed")
+                                    return (string == filtered)
+                                }
+                    } else {
+                        return (string != filtered)
+                    }
+            }else{
+                return (string == "")
+            }
+     
         }
         return true
     }

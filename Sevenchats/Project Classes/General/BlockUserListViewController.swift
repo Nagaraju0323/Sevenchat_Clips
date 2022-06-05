@@ -90,8 +90,11 @@ class BlockUserListViewController: ParentViewController {
                       NSAttributedString.Key.foregroundColor: CRGB(r: 218, g: 66, b: 90)]
         let attributedString = NSMutableAttributedString(string: "\(CBlockedUsersCount) ", attributes:attrs)
         let normalString = NSMutableAttributedString(string: "\(totalUser ?? 0) \(totalUser == 1 ? CBlockedUser : CBlockedUsers)", attributes:attrs1)
+        
         attributedString.append(normalString)
         lblBlockUserCount.attributedText = attributedString
+       
+        
     }
     
     func updateUIAccordingToLanguage(){
@@ -155,7 +158,6 @@ extension BlockUserListViewController{
                 if let metaInfo = response!["total_block_users"] as? Int {
                     self.setBlockCountAttributeString(metaInfo)
                 }
-                
                 self.vwBlockCount.isHidden = self.arrBlockUserList.count == 0
                 self.lblNoData.isHidden = self.arrBlockUserList.count > 0
             }
@@ -191,6 +193,7 @@ extension BlockUserListViewController : UITableViewDataSource, UITableViewDelega
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageUnBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
                     guard let self = self else { return }
                     self.apiUhblockUser(userInfo.valueForString(key: "friend_user_id") ?? "",index: indexPath.row)
+               
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
@@ -297,6 +300,7 @@ extension BlockUserListViewController{
                 self.arrBlockUserListSearch.remove(at: index)
                 UIView.performWithoutAnimation {
                     self.tblBlockList.reloadData()
+                    self.pullToRefresh()
                 }
                 self.vwBlockCount.isHidden = self.arrBlockUserList.count == 0
                 self.lblNoData.isHidden = self.arrBlockUserList.count > 0

@@ -590,21 +590,30 @@ extension RegisterViewController{
         self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
             
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-            if self.txtFirstName.text != "" || self.txtLastName.text != ""{
-                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                if self.txtFirstName.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtLastName.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                    print("contains Special charecter")
-                    self.postFirstName = self.removeSpecialCharacters(from: self.txtFirstName.text ?? "")
-                    self.postLastName = self.removeSpecialCharacters(from: self.txtLastName.text ?? "")
-                     self.signup()
-                   
-                } else {
-                    self.postFirstName = self.txtFirstName.text ?? ""
-                    self.postLastName = self.txtLastName.text ?? ""
-                   print("false")
-                    self.signup()
-                }
+            let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+            if (self.txtFirstName.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtLastName.text?.rangeOfCharacter(from: charSet) != nil) {
+                    print("true")
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                MILoader.shared.hideLoader()
+                    return
+            }else{
+                self.signup()
             }
+//            if self.txtFirstName.text != "" || self.txtLastName.text != ""{
+//                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+//                if self.txtFirstName.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtLastName.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+//                    print("contains Special charecter")
+//                    self.postFirstName = self.removeSpecialCharacters(from: self.txtFirstName.text ?? "")
+//                    self.postLastName = self.removeSpecialCharacters(from: self.txtLastName.text ?? "")
+//                     self.signup()
+//
+//                } else {
+//                    self.postFirstName = self.txtFirstName.text ?? ""
+//                    self.postLastName = self.txtLastName.text ?? ""
+//                   print("false")
+//                    self.signup()
+//                }
+//            }
 //            self.signup()
             //            self.redirectToVerificationScreen()
         }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
@@ -645,9 +654,22 @@ extension RegisterViewController: GenericTextFieldDelegate {
             let filtered = string.components(separatedBy: cs).joined(separator: "")
             return (string == filtered)
         }else if textField == txtFirstName || textField == txtLastName {
-            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-            let filtered = string.components(separatedBy: cs).joined(separator: "")
-            return (string == filtered)
+            let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+
+                let filtered = string.components(separatedBy: inverted).joined(separator: "")
+            
+                if (string.isEmpty  && filtered.isEmpty ) {
+                            let isBackSpace = strcmp(string, "\\b")
+                            if (isBackSpace == -92) {
+                                print("Backspace was pressed")
+                                return (string == filtered)
+                            }
+                } else {
+                    return (string != filtered)
+                }
+//            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+//            let filtered = string.components(separatedBy: cs).joined(separator: "")
+//            return (string == filtered)
         }
         return true
     }

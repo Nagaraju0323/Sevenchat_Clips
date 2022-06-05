@@ -43,7 +43,7 @@ class AddPollViewController: ParentViewController {
             self.txtQuestion.txtDelegate = self
             self.txtQuestion.type = "1"
             self.txtQuestion.isScrollEnabled = true
-            self.txtQuestion.textLimit = "150"
+            self.txtQuestion.textLimit = "5000"
         }
     }
     
@@ -161,22 +161,41 @@ extension AddPollViewController {
             self?.resignKeyboard()
             if self?.isValidForAddPost() ?? false{
                 print("Ready for post")
-                if self?.txtQuestion.text != "" && self?.pollOptionLst != "" {
-                    let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                    if self?.txtQuestion.text.rangeOfCharacter(from: characterset.inverted) != nil || self?.pollOptionLst?.rangeOfCharacter(from: characterset.inverted) != nil  {
-                        self?.postContent = self?.removeSpecialCharacters(from: self?.txtQuestion.text ?? "") ?? ""
-                        if self?.pollOptionLst != ""{
-                            self?.postTxtFieldContent = self?.removeSpecialCharacters(from: self?.pollOptionLst ?? "") ?? ""
-                        }
-                        self?.addEditPoll()
-                    } else {
-                       print("false")
-                        self?.postContent = self?.txtQuestion.text ?? ""
-                        self?.postTxtFieldContent = self?.pollOptionLst ?? ""
+                var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+                if (self?.txtQuestion.text?.rangeOfCharacter(from: charSet) != nil) || (self?.pollOptionLst?.rangeOfCharacter(from: charSet) != nil)
+                    {
+                        print("true")
+                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+            alertWindow.rootViewController = UIViewController()
+          let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
+      alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+      alertWindow.isHidden = true
+                                              return
+                                          }))
+                  
+                  alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                  alertWindow.makeKeyAndVisible()
+                alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                    return
+                    }else{
                         self?.addEditPoll()
                     }
-                }
-               // self?.addEditPoll()
+//                if self?.txtQuestion.text != "" && self?.pollOptionLst != "" {
+//                    let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+//                    if self?.txtQuestion.text.rangeOfCharacter(from: characterset.inverted) != nil || self?.pollOptionLst?.rangeOfCharacter(from: characterset.inverted) != nil  {
+//                        self?.postContent = self?.removeSpecialCharacters(from: self?.txtQuestion.text ?? "") ?? ""
+//                        if self?.pollOptionLst != ""{
+//                            self?.postTxtFieldContent = self?.removeSpecialCharacters(from: self?.pollOptionLst ?? "") ?? ""
+//                        }
+//                        self?.addEditPoll()
+//                    } else {
+//                       print("false")
+//                        self?.postContent = self?.txtQuestion.text ?? ""
+//                        self?.postTxtFieldContent = self?.pollOptionLst ?? ""
+//                        self?.addEditPoll()
+//                    }
+//                }
+     
             }
         }
         self.navigationItem.rightBarButtonItems = [addMediaBarButtion]
@@ -277,14 +296,14 @@ extension AddPollViewController {
                     print(replaced4)
                     
                 } catch { print(error) }
-                
+        let txtAdv = txtQuestion.text.replace(string: "\n", replacement: "\\n")
         var dict :[String:Any]  =  [
                     "image" : "",
                     "age_limit":"13",
                     "token" : "1234567890abcdefghijklmnoupqrstuvwxyz",
                     "user_id":userID,
                     "post_category":categoryDropDownView.txtCategory.text!,
-                    "post_title":txtQuestion.text!,
+                    "post_title":txtAdv,
                     "options":pollOptionLst as Any,
                   ]
         
