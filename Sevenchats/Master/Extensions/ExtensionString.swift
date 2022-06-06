@@ -216,5 +216,44 @@ extension String {
     
  }
 
+//...String replace 
+extension String{
+    
+    func replace_str(replace:String) -> String{
+             let txtshout = replace.replace(string: "\n", replacement: "{NL}")
+              let val = txtshout.replace(string: "\t", replacement: "{TS}")
+              let val1 = val.replace(string: "\"", replacement: "{DQ}")
+              let val2 = val1.replace(string: "'", replacement: "{SQ}")
+              let val3 = val2.replace(string: "\\", replacement: "{SS}")
+              let val4 = val3.replace(string: "“", replacement: "{DQ}")
+              let val5 = val4.replace(string: "‘", replacement: "{SQ}")
+        let val6 = val5.replace(string: "’", replacement: "{SQ}")
+        let val7 = val6.replace(string: "”", replacement: "{DQ}")
+       
+        return val7
+        
+    }
+    
+    func return_replaceBack(replaceBack:String) -> String{
+        
+        
+        let txtshout = replaceBack.replace(string: "{NL}", replacement: "\n")
+               let val = txtshout.replace(string: "{TS}", replacement: "\t")
+               let val1 = val.replace(string: "{DQ}", replacement: "\"")
+               let val2 = val1.replace(string: "{SQ}", replacement: "'")
+               let val3 = val2.replace(string: "{SS}", replacement: "\\")
+               let val4 = val3.replace(string: "{DQ}", replacement: "“")
+               let val5 = val4.replace(string: "{SQ}", replacement: "‘")
+               let val6 = val5.replace(string: "{SQ}", replacement: "’")
+               let val7 = val6.replace(string: "{DQ}", replacement: "”")
+        return val7
+        
+        
+    }
+    
+    
+    
+    
+}
 
 

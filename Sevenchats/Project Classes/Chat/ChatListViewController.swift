@@ -207,7 +207,7 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
         }else{
             if self.arrUserList.isEmpty{
                 showImg.isHidden = false
-                activeLbl.text = CMessageNoGroupList
+                activeLbl.text = CMessageConnectNoFriend
                 activeLbl.isHidden = false
                 viewImg.isHidden = false
                // self.tblUserChat.setEmptyMessage(CThereIsNoOnGoingChat)

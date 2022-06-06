@@ -14,6 +14,8 @@
  ********************************************************/
 
 import UIKit
+import Foundation
+
 
 enum ShoutsType : Int {
     case addShouts = 0
@@ -160,9 +162,18 @@ extension CreateShoutsViewController{
         if shoutsType == .editShouts{
             apiPara[CId] = shoutID
         }
+       
+//
+//        print("return\(return_Str)")
+//        let values = textViewMessage.text.folding(options: .diacriticInsensitive, locale: .current)
+        
+      
+ 
+        
         guard let userid = appDelegate.loginUser?.user_id else {return}
         let userID = userid.description
-        let txtshout = textViewMessage.text.replace(string: "\n", replacement: "\\n")
+//        let txtshout = textViewMessage.text.replace(string: "\n", replacement: "\\n")
+        let txtshout = textViewMessage.text.replace_str(replace: textViewMessage.text)
         var dict :[String:Any]  =  [
             "user_id":userID,
             "image":"none", 
@@ -430,17 +441,20 @@ extension CreateShoutsViewController{
         }else if (btnInviteGroup.isSelected || btnInviteContacts.isSelected) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupShout, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-            
-            
-            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-            if (textViewMessage.text.rangeOfCharacter(from: charSet) != nil)
-                {
-                    print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                    return
-                }else{
-                    self.addEditShout()
-                }
+            self.addEditShout()
+//            let replace_str = textViewMessage.text.replace_str(replace: textViewMessage.text)
+//            print("replace_str\(replace_str)")
+//
+//            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//            if (textViewMessage.text.rangeOfCharacter(from: charSet) != nil)
+//                {
+//                    print("true")
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                    return
+//
+//                }else{
+//                    self.addEditShout()
+//                }
 
         }
     }

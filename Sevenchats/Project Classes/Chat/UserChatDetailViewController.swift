@@ -2073,9 +2073,9 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate,
         self.swiftStomp.delegate = self
         self.swiftStomp.autoReconnect = true
         self.swiftStomp.enableAutoPing()
-        if !self.swiftStomp.isConnected{
-            self.swiftStomp.connect()
-        }
+//        if !self.swiftStomp.isConnected{
+//            self.swiftStomp.connect()
+//        }
     }
     
     private func registerObservers(){

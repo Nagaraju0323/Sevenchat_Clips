@@ -280,11 +280,30 @@ extension AddPollViewController {
             if !obj.option.isBlank{
                 
                 
+                var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+                if (obj.option.rangeOfCharacter(from: charSet) != nil) || (self.pollOptionLst?.rangeOfCharacter(from: charSet) != nil)
+                {
+                    print("true")
+                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+                    alertWindow.rootViewController = UIViewController()
+                    let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+                        alertWindow.isHidden = true
+                        return
+                    }))
+                    
+                    alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                    alertWindow.makeKeyAndVisible()
+                    alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                    return
+                }else {
+                    arrOptions.append(obj.option)
+                }
                 
                 
                 
                 
-                arrOptions.append(obj.option)
+               
             }
         }
         let _:String = "\(arrOptions)"

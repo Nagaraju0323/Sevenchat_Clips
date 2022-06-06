@@ -327,24 +327,25 @@ class GenericTextView: UITextView, UITextViewDelegate {
                 let str = (textView.text + text)
                 if str.count <= 150 {
                     _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
-                    let RISTRICTED_CHARACTERS = "'\\'\""
-                    let inverted = NSCharacterSet(charactersIn: RISTRICTED_CHARACTERS).inverted
-
-                    if text.isSingleEmoji{
-                      return (text == text)
-                    }else {
-                        let filtered = text.components(separatedBy: inverted).joined(separator: "")
-                        
-                        if (text.isEmpty  && filtered.isEmpty ) {
-                                    let isBackSpace = strcmp(text, "\\b")
-                                    if (isBackSpace == -92) {
-                                        print("Backspace was pressed")
-                                        return (text == filtered)
-                                    }
-                        } else {
-                            return (text != filtered)
-                        }
-                    }
+                    return (text == text)
+//                    let RISTRICTED_CHARACTERS = "'\\'\""
+//                    let inverted = NSCharacterSet(charactersIn: RISTRICTED_CHARACTERS).inverted
+//
+//                    if text.isSingleEmoji{
+//                      return (text == text)
+//                    }else {
+//                        let filtered = text.components(separatedBy: inverted).joined(separator: "")
+//
+//                        if (text.isEmpty  && filtered.isEmpty ) {
+//                                    let isBackSpace = strcmp(text, "\\b")
+//                                    if (isBackSpace == -92) {
+//                                        print("Backspace was pressed")
+//                                        return (text == filtered)
+//                                    }
+//                        } else {
+//                            return (text != filtered)
+//                        }
+//                    }
 //                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
 //                    let filtered = text.components(separatedBy: cs).joined(separator: "")
 //                  return (text == filtered)

@@ -105,7 +105,13 @@ extension HomeShoutsTblCell{
         lblShoutsType.text = CTypeShout
 
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        lblShoutsDescription.text = postInfo.valueForString(key: CContent)
+        
+        let str = postInfo.valueForString(key: CContent)
+        let str_Back = str.return_replaceBack(replaceBack: str)
+    
+        
+        
+        lblShoutsDescription.text = str_Back
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         _ = postInfo.valueForString(key: CIsLiked)
         
