@@ -127,15 +127,33 @@ extension AddParticipantsViewController{
                         self.tblUser.reloadData()
                     }
                     // Add Data here...
+//                    if arrList.count > 0{
+//                        for object in arrList{
+//                            if self.arrSelectedParticipant.contains(where: {$0["friend_user_id"] as? Int == object.valueForInt(key: "friend_user_id")}){
+//                                if let index = self.arrSelectedParticipant.index(where: {$0["friend_user_id"] as? Int == object.valueForInt(key: "friend_user_id")}){
+//                                    self.arrUser.append(self.arrSelectedParticipant[index])
+//                                }
+//                            }else{
+//                                self.arrUser.append(object)
+//                            }
+//                        }
+//                        self.pageNumber += 1
+//                        self.tblUser.reloadData()
+//                    }
+                    
+                    
                     if arrList.count > 0{
-                        for object in arrList{
-                            if self.arrSelectedParticipant.contains(where: {$0["friend_user_id"] as? Int == object.valueForInt(key: "friend_user_id")}){
-                                if let index = self.arrSelectedParticipant.index(where: {$0["friend_user_id"] as? Int == object.valueForInt(key: "friend_user_id")}){
-                                    self.arrUser.append(self.arrSelectedParticipant[index])
+                        var strArr = self.arrUserListInfo.map({$0.valueForString(key: "user")})
+                        var arrListInfo = arrList.map({$0.valueForString(key: "friend_user_id")})
+                        arrListInfo.forEach { friends_ID in
+                            if self.arrUserListInfo.contains(where: {$0["user_id"] as? String == friends_ID}) {
+                            }else {
+                                if let index = arrList.index(where: {$0["friend_user_id"] as? String == friends_ID}){
+                                    self.arrUser.append(arrList[index])
                                 }
-                            }else{
-                                self.arrUser.append(object)
+                                
                             }
+                            
                         }
                         self.pageNumber += 1
                         self.tblUser.reloadData()

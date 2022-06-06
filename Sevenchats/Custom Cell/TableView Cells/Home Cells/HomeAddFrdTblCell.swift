@@ -87,6 +87,14 @@ class HomeAddFrdTblCell: UITableViewCell {
                                 Friend_status = 0
                             }
                             
+                            if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") != user_id?.description{
+                                Friend_status = 2
+                            }
+                            
+                            if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "1" && arrLst.valueForString(key: "cancel_status") == "1" &&   arrLst.valueForString(key: "senders_id") == "0" {
+                                Friend_status = 0
+                            }
+                            
 //                            if arrLst.valueForString(key: "block_status") == "1" && arrLst.valueForString(key: "blocked_id") == appDelegate.loginUser?.user_id.description{
 //                                Friend_status = 7
 //                            }else if arrLst.valueForString(key: "block_status") == "1"  {

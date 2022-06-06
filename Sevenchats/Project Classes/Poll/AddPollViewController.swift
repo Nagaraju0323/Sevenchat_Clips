@@ -76,6 +76,7 @@ class AddPollViewController: ParentViewController {
     var post_ID:String?
     var postContent = ""
     var postTxtFieldContent = ""
+    var arrOptions : [String] = []
     
     
     //MARK: - View life cycle methods
@@ -137,7 +138,7 @@ extension AddPollViewController {
         txtInviteType.setPickerData(arrPickerData: arrInviteType, selectedPickerDataHandler: { [weak self] (text, row, component) in
             guard let self = self else { return }
             self.selectedInviteType = (row + 1)
-            }, defaultPlaceholder: CPostPostsInviteGroups)
+        }, defaultPlaceholder: CPostPostsInviteGroups)
         
         // By default `All type` selected
         self.selectedInviteType = 4
@@ -163,39 +164,39 @@ extension AddPollViewController {
                 print("Ready for post")
                 var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
                 if (self?.txtQuestion.text?.rangeOfCharacter(from: charSet) != nil) || (self?.pollOptionLst?.rangeOfCharacter(from: charSet) != nil)
-                    {
-                        print("true")
+                {
+                    print("true")
                     let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-            alertWindow.rootViewController = UIViewController()
-          let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
-      alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
-      alertWindow.isHidden = true
-                                              return
-                                          }))
-                  
-                  alertWindow.windowLevel = UIWindow.Level.alert + 1;
-                  alertWindow.makeKeyAndVisible()
-                alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+                    alertWindow.rootViewController = UIViewController()
+                    let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
+                    alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+                        alertWindow.isHidden = true
+                        return
+                    }))
+                    
+                    alertWindow.windowLevel = UIWindow.Level.alert + 1;
+                    alertWindow.makeKeyAndVisible()
+                    alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
                     return
-                    }else{
-                        self?.addEditPoll()
-                    }
-//                if self?.txtQuestion.text != "" && self?.pollOptionLst != "" {
-//                    let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-//                    if self?.txtQuestion.text.rangeOfCharacter(from: characterset.inverted) != nil || self?.pollOptionLst?.rangeOfCharacter(from: characterset.inverted) != nil  {
-//                        self?.postContent = self?.removeSpecialCharacters(from: self?.txtQuestion.text ?? "") ?? ""
-//                        if self?.pollOptionLst != ""{
-//                            self?.postTxtFieldContent = self?.removeSpecialCharacters(from: self?.pollOptionLst ?? "") ?? ""
-//                        }
-//                        self?.addEditPoll()
-//                    } else {
-//                       print("false")
-//                        self?.postContent = self?.txtQuestion.text ?? ""
-//                        self?.postTxtFieldContent = self?.pollOptionLst ?? ""
-//                        self?.addEditPoll()
-//                    }
-//                }
-     
+                }else{
+                    self?.addEditPoll()
+                }
+                //                if self?.txtQuestion.text != "" && self?.pollOptionLst != "" {
+                //                    let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+                //                    if self?.txtQuestion.text.rangeOfCharacter(from: characterset.inverted) != nil || self?.pollOptionLst?.rangeOfCharacter(from: characterset.inverted) != nil  {
+                //                        self?.postContent = self?.removeSpecialCharacters(from: self?.txtQuestion.text ?? "") ?? ""
+                //                        if self?.pollOptionLst != ""{
+                //                            self?.postTxtFieldContent = self?.removeSpecialCharacters(from: self?.pollOptionLst ?? "") ?? ""
+                //                        }
+                //                        self?.addEditPoll()
+                //                    } else {
+                //                       print("false")
+                //                        self?.postContent = self?.txtQuestion.text ?? ""
+                //                        self?.postTxtFieldContent = self?.pollOptionLst ?? ""
+                //                        self?.addEditPoll()
+                //                    }
+                //                }
+                
             }
         }
         self.navigationItem.rightBarButtonItems = [addMediaBarButtion]
@@ -208,7 +209,7 @@ extension AddPollViewController {
         categoryDropDownView.txtCategory.placeholder = CSelectCategoryOfPoll
         btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
         txtInviteType.placeHolder = CVisiblity
-    
+        
         if arrSelectedGroupFriends.count > 0{
             self.clGroupFriend.reloadData()
             self.clGroupFriend.isHidden = false
@@ -274,9 +275,15 @@ extension AddPollViewController {
         apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
         
         apiPara[CPublish_To] = self.selectedInviteType
-        var arrOptions : [String] = []
+//        var arrOptions : [String] = []
         for obj in self.arrQuestions{
             if !obj.option.isBlank{
+                
+                
+                
+                
+                
+                
                 arrOptions.append(obj.option)
             }
         }
@@ -284,28 +291,28 @@ extension AddPollViewController {
         apiPara[COptions] = arrOptions
         let strConvertJson = arrJson(arrString:arrOptions)
         let pollOption = strConvertJson.components(separatedBy: .whitespacesAndNewlines).joined()
-       
+        
         guard let userID = appDelegate.loginUser?.user_id else { return}
         
         do {
-                    let data = try JSONEncoder().encode(arrOptions)
-                    let string = String(data: data, encoding: .utf8)!
-                    let replaced4 = string.replacingOccurrences(of: "\"", with: "\\\"")
-                    print(replaced4)
-                    pollOptionLst  = replaced4
-                    print(replaced4)
-                    
-                } catch { print(error) }
+            let data = try JSONEncoder().encode(arrOptions)
+            let string = String(data: data, encoding: .utf8)!
+            let replaced4 = string.replacingOccurrences(of: "\"", with: "\\\"")
+            print(replaced4)
+            pollOptionLst  = replaced4
+            print(replaced4)
+            
+        } catch { print(error) }
         let txtAdv = txtQuestion.text.replace(string: "\n", replacement: "\\n")
         var dict :[String:Any]  =  [
-                    "image" : "",
-                    "age_limit":"13",
-                    "token" : "1234567890abcdefghijklmnoupqrstuvwxyz",
-                    "user_id":userID,
-                    "post_category":categoryDropDownView.txtCategory.text!,
-                    "post_title":txtAdv,
-                    "options":pollOptionLst as Any,
-                  ]
+            "image" : "",
+            "age_limit":"13",
+            "token" : "1234567890abcdefghijklmnoupqrstuvwxyz",
+            "user_id":userID,
+            "post_category":categoryDropDownView.txtCategory.text!,
+            "post_title":txtAdv,
+            "options":pollOptionLst as Any,
+        ]
         
         if self.selectedInviteType == 1{
             let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
@@ -329,7 +336,7 @@ extension AddPollViewController {
         }
         
         APIRequest.shared().addEditPost(para: dict, image: nil, apiKeyCall: CAPITagpolls) { [weak self] (response, error) in
-           
+            
             if response != nil && error == nil{
                 if let responseData = response![CJsonData] as? [[String : Any]] {
                     for data in responseData{
@@ -353,9 +360,9 @@ extension AddPollViewController {
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePollPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 
                 if let pollInfo = response![CJsonData] as? [String : Any]{
-//                    MIGeneralsAPI.shared().refreshPostRelatedScreens(pollInfo,self?.pollID, self!,  .addPost, rss_id: 0)
+                    //                    MIGeneralsAPI.shared().refreshPostRelatedScreens(pollInfo,self?.pollID, self!,  .addPost, rss_id: 0)
                     
-//                    APIRequest.shared().saveNewInterest(interestID: pollInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: pollInfo.valueForString(key: CCategory))
+                    //                    APIRequest.shared().saveNewInterest(interestID: pollInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: pollInfo.valueForString(key: CCategory))
                 }
             }
         }
@@ -509,8 +516,8 @@ extension AddPollViewController{
             self.txtInviteType.text = CPostPostsInviteContacts
             viewSelectGroup.hide(byHeight: false)
         case 3:
-          
-          self.txtInviteType.text = CPostPostsInvitePublic
+            
+            self.txtInviteType.text = CPostPostsInvitePublic
             btnSelectGroupFriend.isHidden = true
             viewSelectGroup.hide(byHeight: true)
         case 4:
@@ -530,7 +537,7 @@ extension AddPollViewController{
 extension AddPollViewController{
     func fetchsubCategoryFromLocal() -> [[String : Any]] {
         var arrCategory = [[String : Any]]()
-
+        
         if arrCategory.count < 1 {
             // If not intereste selected by user then show all interest.....
             let arrCategoryTemp = TblSubIntrest.fetchAllObjects()
@@ -557,13 +564,13 @@ extension AddPollViewController{
     func arrJson(arrString:[String]) ->String{
         
         var myJsonString = ""
-            do {
-                let data =  try JSONSerialization.data(withJSONObject:arrString, options: .prettyPrinted)
-               myJsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as! String
-            } catch {
-                print(error.localizedDescription)
-            }
-            return myJsonString
+        do {
+            let data =  try JSONSerialization.data(withJSONObject:arrString, options: .prettyPrinted)
+            myJsonString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) as! String
+        } catch {
+            print(error.localizedDescription)
+        }
+        return myJsonString
         
     }
     
@@ -576,11 +583,11 @@ extension AddPollViewController: GenericTextViewDelegate{
     func genericTextViewDidChange(_ textView: UITextView, height: CGFloat){
         
         if textView == txtQuestion{
-//            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
+            //            lblTextCount.text = "\(textView.text.count)/\(txtViewArticleContent.textLimit ?? "0")"
         }
     }
     
-
+    
 }
 extension AddPollViewController{
     

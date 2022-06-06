@@ -90,12 +90,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         //...Configure for Location Manager
         MILocationManager.shared().initializeLocationManager()
+//        SocketIOManager.shared().establishConnection()
+        SocketIOManager.shared().establishConnection()
         
         //...Configure for Internet checker..
         self.internetGoesToOfflineOnline()
         
         //...SocketConncectionEstblish
-        ChatSocketIo.shared().SocketInitilized()
+//        ChatSocketIo.shared().SocketInitilized()
 //        SocketIOManager.SocketConnection()
       
         //...Regiter remote push notification.

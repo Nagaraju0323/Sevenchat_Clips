@@ -14,7 +14,7 @@ target 'Sevenchats' do
   pod 'Firebase/Crashlytics'
   #pod 'Crashlytics'
   pod 'ISEmojiView'
-
+  pod 'SwiftStomp'
   # (Recommended) Pod for Google Analytics
   pod 'Firebase/Analytics'
   

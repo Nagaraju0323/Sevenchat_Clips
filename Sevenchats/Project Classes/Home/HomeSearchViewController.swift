@@ -66,6 +66,7 @@ class HomeSearchViewController: ParentViewController {
 
     @objc func NotificationRecivedFrends(){
         DispatchQueue.main.async {
+            self.arrHomeSearch.removeAll()
             let searchKey = self.prefs.value(forKey: "searchKey")
             self.getSearchDataFromServer(searchKey as! String, "new",searchTxtOther:true)
         }
@@ -228,7 +229,7 @@ extension HomeSearchViewController  {
         let dict :[String:Any]  =  [
             "user_id":  user_ID.description,
             "friend_user_id": friend_ID,
-            "request_type": status?.toString as Any
+            "request_type": status?.toString ?? ""
         ]
         
         APIRequest.shared().friendRquestStatus(dict: dict, completion: { [weak self] (response, error) in
@@ -376,7 +377,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             }
             cell.btnAddFrd.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
-               
+                self.view.endEditing(true)
 //                let buttonPostion = sender.convert(sender.bounds.origin, to: tableView)
 //                if let indexPaths = tableView.indexPathForRow(at: buttonPostion) {
 //                    let searchInfos = self.searchInfo[indexPath.row]
@@ -401,6 +402,8 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                         }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
                                             self?.Friend_status = 1
                                         }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "0" && arrLst.valueForString(key: "cancel_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
+                                            self?.Friend_status = 0
+                                        }else if arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "senders_id") == "0" {
                                             self?.Friend_status = 0
                                         }
                                         
@@ -448,16 +451,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                                
                                                 self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus, completion:{(success) -> Void in
                                                     if success {
-                                                        
-                                                        let indexPath = IndexPath(item: indexPath.row, section: 0)
                                                         cell.setupCell(loan: searchInfo)
-                                                        
-                                                        let name = searchInfo.valueForString(key: "first_name")
-                                                        print("name\(name)")
-                                                        
-                                                        
-//                                                        self.navigationController?.popViewController(animated: true)
-                                                        
                                                     }
                                                 })
                                             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
@@ -466,7 +460,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                             
                                             self?.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus, completion:{(success) -> Void in
                                                 if success {
-                                                    
+                                                    cell.setupCell(loan: searchInfo)
 //                                                     let indexPath = IndexPath(item: indexPath.row, section: 0)
 //                                                    if let visibleIndexPaths = self?.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
 //                                                         if visibleIndexPaths != NSNotFound {
@@ -474,7 +468,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
 //                                                         }
 //                                                     }
                                                     
-                                                    self?.navigationController?.popViewController(animated: true)
+//                                                    self?.navigationController?.popViewController(animated: true)
                                                     
                                                 }
                                             })
@@ -490,6 +484,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
             cell.btnAccept.touchUpInside {[weak self] (sender) in
+                self?.view.endEditing(true)
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForAcceptRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                     guard let self = self else { return }
@@ -498,14 +493,14 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                     
                     self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 5, completion:{(success) -> Void in
                         if success {
-                            
+                            cell.setupCell(loan: searchInfo)
 //                             let indexPath = IndexPath(item: indexPath.row, section: 0)
 //                             if let visibleIndexPaths = self.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
 //                                 if visibleIndexPaths != NSNotFound {
 //                                     tableView.reloadRows(at: [indexPath], with: .fade)
 //                                 }
 //                             }
-                            self.navigationController?.popViewController(animated: true)
+//                              self.navigationController?.popViewController(animated: true)
                             
                         }
                     })
@@ -517,6 +512,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
             cell.btnReject.touchUpInside {[weak self] (sender) in
+                self?.view.endEditing(true)
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                     guard let self = self else { return }
@@ -531,7 +527,8 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
 //                                     tableView.reloadRows(at: [indexPath], with: .fade)
 //                                 }
 //                             }
-                            self.navigationController?.popViewController(animated: true)
+                            cell.setupCell(loan: searchInfo)
+//                            self.navigationController?.popViewController(animated: true)
                             
                         }
                     })

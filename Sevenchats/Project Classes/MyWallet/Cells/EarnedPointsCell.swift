@@ -85,7 +85,8 @@ class EarnedPointsCell: UITableViewCell {
         // Initialization code
         
         self.lblDescription.textColor = UIColor(hexString: "a09c9c")
-        self.lblDate.textColor = ColorAppTheme
+//        self.lblDate.textColor = ColorAppTheme
+        self.lblDate.textColor = .white
         self.viewMainContainer.layer.cornerRadius = 8
         self.viewMainContainer.shadow(color: CRGB(r: 237, g: 236, b: 226), shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)
         self.imgUserProfile.layer.cornerRadius = self.imgUserProfile.frame.size.width / 2

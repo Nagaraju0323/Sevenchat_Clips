@@ -164,9 +164,10 @@ extension FirebasePushNotification {
         guard let userMsg = dict["type"] else { return }
         guard let subject = dict["subject"] else { return }
         
-//        if userID == ""{
-//            userID = dict.valueForString(key: "sender_id") as? String ?? ""
-//        }
+        guard let link = dict["link"] as? String else { return }
+        let friend_profile:String = link.stringAfter("=")
+        print("link\(friend_profile)")
+        
         //New modified
         userID = dict.valueForString(key: "sender") as? String ?? ""
         if userID == ""{
@@ -277,7 +278,7 @@ extension FirebasePushNotification {
             
             GCDMainThread.asyncAfter(deadline: .now() + kScreenMovingTime) {
                 let homeViewController = appDelegate.getTopMostViewController()
-                appDelegate.moveOnProfileScreenNew(userID,emailID, homeViewController)
+                appDelegate.moveOnProfileScreenNew(friend_profile,emailID, homeViewController)
             }
             //  appDelegate.moveOnProfileScreen(notificationInfo.valueForString(key: "sender"), self)
             break

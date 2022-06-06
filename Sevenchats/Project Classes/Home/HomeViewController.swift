@@ -2761,15 +2761,21 @@ extension HomeViewController{
     //search Button Click
     
     @objc fileprivate func btnSearchClicked(_ sender : UIBarButtonItem) {
-        if searchbtnNav.isSelected == true {
-            issearchSelected = false
-            searchbtnNav.isSelected = false
-            tblEvents.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-        }else {
-            issearchSelected = true
-            searchbtnNav.isSelected = true
-            tblEvents.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+//        if searchbtnNav.isSelected == true {
+//            issearchSelected = false
+//            searchbtnNav.isSelected = false
+//            tblEvents.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+//        }else {
+//            issearchSelected = true
+//            searchbtnNav.isSelected = true
+//            tblEvents.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+//        }
+      
+        if let searchHomeVC = CStoryboardHome.instantiateViewController(withIdentifier: "HomeSearchViewController") as? HomeSearchViewController{
+            self.navigationController?.pushViewController(searchHomeVC, animated: false)
         }
+        
+        
     }
     
     
