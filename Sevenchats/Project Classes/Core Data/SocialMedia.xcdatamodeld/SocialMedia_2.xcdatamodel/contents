@@ -508,6 +508,12 @@
         <attribute name="open_in_google_maps" optional="YES" attributeType="String"/>
         <attribute name="open_in_maps" optional="YES" attributeType="String"/>
         <attribute name="option" optional="YES" attributeType="String"/>
+        <attribute name="option_FF" optional="YES" attributeType="String"/>
+        <attribute name="option_FS" optional="YES" attributeType="String"/>
+        <attribute name="option_FT" optional="YES" attributeType="String"/>
+        <attribute name="option_SF" optional="YES" attributeType="String"/>
+        <attribute name="option_ST" optional="YES" attributeType="String"/>
+        <attribute name="option_TF" optional="YES" attributeType="String"/>
         <attribute name="other" optional="YES" attributeType="String"/>
         <attribute name="others" optional="YES" attributeType="String"/>
         <attribute name="out_of" optional="YES" attributeType="String"/>
@@ -1027,7 +1033,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11069"/>
+        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11159"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>
