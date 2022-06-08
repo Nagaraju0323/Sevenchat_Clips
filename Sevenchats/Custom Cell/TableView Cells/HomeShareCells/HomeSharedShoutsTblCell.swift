@@ -125,12 +125,18 @@ extension HomeSharedShoutsTblCell{
         
         // self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
         imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
-        lblMessage.text = postInfo.valueForString(key: CMessage)
+        let str_share = postInfo.valueForString(key: CMessage)
+        let str_share_back = str_share.return_replaceBack(replaceBack: str_share)
+        lblMessage.text = str_share_back
+       // lblMessage.text = postInfo.valueForString(key: CMessage)
         //  }
         
         lblShoutsType.text = CTypeShout
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        lblShoutsDescription.text = postInfo.valueForString(key: CContent)
+        let str = postInfo.valueForString(key: CContent)
+        let str_Back = str.return_replaceBack(replaceBack: str)
+        lblShoutsDescription.text = str_Back
+       // lblShoutsDescription.text = postInfo.valueForString(key: CContent)
         let created_at = postInfo.valueForString(key: CCreated_at)
         let cnvStr = created_at.stringBefore("G")
         let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)

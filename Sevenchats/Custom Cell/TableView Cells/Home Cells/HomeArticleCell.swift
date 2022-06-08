@@ -160,8 +160,15 @@ extension HomeArticleCell{
         let cnvStr = created_At.stringBefore("G")
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblArticlePostDate.text = startCreated
-        lblArticleTitle.text = postInfo.valueForString(key: CTitle)
-        lblArticleDescription.text = postInfo.valueForString(key: CContent)
+        
+        let str_Back_title = postInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: postInfo.valueForString(key: CTitle))
+        lblArticleTitle.text = str_Back_title
+        
+         let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
+        lblArticleDescription.text = str_Back_desc
+        
+//        lblArticleTitle.text = postInfo.valueForString(key: CTitle)
+//        lblArticleDescription.text = postInfo.valueForString(key: CContent)
         
         print("printImagevalues\(postInfo.valueForString(key: "image"))")
         

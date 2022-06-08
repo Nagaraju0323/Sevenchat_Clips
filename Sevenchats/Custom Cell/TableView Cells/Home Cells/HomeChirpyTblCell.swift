@@ -91,7 +91,9 @@ extension HomeChirpyTblCell{
         posted_ID = postInfo.valueForString(key: "user_id")
         lblChirpyType.text = CTypeChirpy
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        lblChirpyDescription.text = postInfo.valueForString(key: CContent)
+        let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
+        lblChirpyDescription.text = str_Back_desc
+       // lblChirpyDescription.text = postInfo.valueForString(key: CContent)
         lblChirpyCategory.text = postInfo.valueForString(key: CCategory).uppercased()
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         let commentCount = postInfo.valueForInt(key: CTotalComment) ?? 0

@@ -223,7 +223,8 @@ extension ReportViewController{
         let userID = user_id.description
 
         let reportedurl = reportedURL ?? ""
-        let reportTxt = textViewReportMessage.text.replace(string: "\n", replacement: "\\n")
+        let reportTxt = textViewReportMessage.text?.replace_str(replace: textViewReportMessage.text ?? "")
+       // let reportTxt = textViewReportMessage.text.replace(string: "\n", replacement: "\\n")
 //        var dict :[String:Any]  =  [
 //               "image":uploadImgUrl,
 //               "reason":reportTxt,
@@ -400,14 +401,15 @@ extension ReportViewController{
             }
             
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: strMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-                if (self.textViewReportMessage.text?.rangeOfCharacter(from: charSet) != nil) {
-                        print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                        return
-                }else{
-                    self.reportApi()
-                }
+                self.reportApi()
+//                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//                if (self.textViewReportMessage.text?.rangeOfCharacter(from: charSet) != nil) {
+//                        print("true")
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                        return
+//                }else{
+//                    self.reportApi()
+//                }
 //                if self.textViewReportMessage.text != ""{
 //                    let characterset = CharacterSet(charactersIn:SPECIALCHAR)
 //                    if self.textViewReportMessage.text?.rangeOfCharacter(from: characterset.inverted) != nil {

@@ -203,16 +203,16 @@ extension AddEditProductVC {
             self?.resignKeyboard()
             if self?.isValideAllFileds() ?? false{
                 print("Ready for post")
-                
-                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-                if (self?.txtProductTitle.text?.rangeOfCharacter(from: charSet) != nil) || (self?.txtProductDesc.text?.rangeOfCharacter(from: charSet) != nil)
-                    {
-                        print("true")
-                    self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                        return
-                    }else{
-                        self?.addEditProduct()
-                    }
+                self?.addEditProduct()
+//                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//                if (self?.txtProductTitle.text?.rangeOfCharacter(from: charSet) != nil) || (self?.txtProductDesc.text?.rangeOfCharacter(from: charSet) != nil)
+//                    {
+//                        print("true")
+//                    self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                        return
+//                    }else{
+//                        self?.addEditProduct()
+//                    }
 
            
             }
@@ -482,8 +482,12 @@ extension AddEditProductVC {
         subcategoryDropDownView.txtCategory.text = _product.productsubCategroy
         self.categoryID = _product.categoryId
         
-        self.txtProductTitle.text = _product.productTitle
-        self.txtProductDesc.text = _product.productDescription
+//        self.txtProductTitle.text = _product.productTitle
+//        self.txtProductDesc.text = _product.productDescription
+      let str_Back_title = _product.productTitle.return_replaceBack(replaceBack:_product.productTitle)
+        self.txtProductTitle.text = str_Back_title
+   let str_Back_desc = _product.productTitle.return_replaceBack(replaceBack:_product.productTitle)
+        self.txtProductDesc.text = str_Back_desc
         self.txtProductPrice.text = _product.productPrice.description
         self.txtCurrencyList.text = _product.currencyName
         self.selectedCurrencyName = _product.currencyName
@@ -632,22 +636,23 @@ extension AddEditProductVC : GenericTextFieldDelegate{
                 return (string == string)
             }else {
                 if string.count <= 20{
-                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
-
-                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
-                    
-                        if (string.isEmpty  && filtered.isEmpty ) {
-                                    let isBackSpace = strcmp(string, "\\b")
-                                    if (isBackSpace == -92) {
-                                        print("Backspace was pressed")
-                                        return (string == filtered)
-                                    }
-                        } else {
-                            return (string != filtered)
-                        }
-
-                }else{
-                    return (string == "")
+                    return (string == string)
+//                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+//
+//                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+//
+//                        if (string.isEmpty  && filtered.isEmpty ) {
+//                                    let isBackSpace = strcmp(string, "\\b")
+//                                    if (isBackSpace == -92) {
+//                                        print("Backspace was pressed")
+//                                        return (string == filtered)
+//                                    }
+//                        } else {
+//                            return (string != filtered)
+//                        }
+//
+//                }else{
+//                    return (string == "")
                 }
             }
         }
@@ -720,14 +725,17 @@ extension AddEditProductVC {
             
             _ = repl.appending(ImgName)
             let replacs = ImgName.replacingOccurrences(of: "][", with: ",")
-            let txtproductDesc = txtProductDesc.text.replace(string: "\n", replacement: "\\n")
+            
+//            let txtproductDesc = txtProductDesc.text.replace(string: "\n", replacement: "\\n")
+            let txtproductDesc = txtProductDesc.text?.replace_str(replace: txtProductDesc.text ?? "")
+            let txtProductTitle = txtProductTitle.text?.replace_str(replace: txtProductTitle.text ?? "")
             apiTag = CEditProductNew
             dict = [
                 "product_id": prouductID,
                 "category_name":categoryDropDownView.txtCategory.text ?? "",
                 "category_level1":subcategoryDropDownView.txtCategory.text ?? "",
                 "product_image":replacs,
-                "product_title":txtProductTitle.text,
+                "product_title":txtProductTitle,
                 "description":txtproductDesc,
                 "available_status":availableStatus,
                 "cost":self.txtProductPrice.text ?? "0",
@@ -801,8 +809,10 @@ extension AddEditProductVC {
             }else{
                 currencyName = txtCurrencyList.text ?? ""
             }
+            let txtproductDesc = txtProductDesc.text?.replace_str(replace: txtProductDesc.text ?? "")
+            let txtProductTitle = txtProductTitle.text?.replace_str(replace: txtProductTitle.text ?? "")
             //let txtproductDesc =  postContent.replace(string: "\n", replacement: "\\n")
-            let txtproductDesc = txtProductDesc.text.replace(string: "\n", replacement: "\\n")
+//            let txtproductDesc = txtProductDesc.text.replace(string: "\n", replacement: "\\n")
             apiTag = CAddProductNew
             dict = [
                 "user_first_name": firstName,
@@ -811,7 +821,7 @@ extension AddEditProductVC {
                 "category_name":categoryDropDownView.txtCategory.text ?? "",
                 "category_level1":subcategoryDropDownView.txtCategory.text ?? "",
                 "product_image":ImgName,
-                "product_title":txtProductTitle.text?.trim ,
+                "product_title":txtProductTitle?.trim ,
                 "description":txtproductDesc,
                 "available_status":"1",
                 "cost":self.txtProductPrice.text ?? "0",

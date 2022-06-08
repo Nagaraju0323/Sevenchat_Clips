@@ -106,7 +106,10 @@ extension HomeChirpyImageTblCell{
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         self.lblChirpyPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-        lblChirpyDescription.text = postInfo.valueForString(key: CContent)
+        
+        let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
+        lblChirpyDescription.text = str_Back_desc
+        //lblChirpyDescription.text = postInfo.valueForString(key: CContent)
         let image = postInfo.valueForString(key: Cimages)
         if image.isEmpty {
             blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true

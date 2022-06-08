@@ -74,7 +74,9 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         self.vwCountImage.isHidden = (self.modelData.galleryImages.count <= 1)
         
         self.lblPrice.text = self.modelData.formatedPriceAmount
-        self.lblName.text = self.modelData.productTitle
+        let str_Back_title = self.modelData.productTitle.return_replaceBack(replaceBack:self.modelData.productTitle)
+        self.lblName.text = str_Back_title
+        //self.lblName.text = self.modelData.productTitle
         self.lblAddrees.text = self.modelData.address
         self.lblCountImage.text = "\( self.collVImages.arrMedia.count) \("/") \("5")"
         self.btnLike.isSelected = self.modelData.isLike == 1
@@ -95,7 +97,11 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         }else {
             btnLike.isSelected = false
         }
-        self.lblDescription.text = self.modelData.productDescription
+//        let str_Back_title = _product.productTitle.return_replaceBack(replaceBack:_product.productTitle)
+//          self.txtProductTitle.text = str_Back_title
+     let str_Back_desc = self.modelData.productDescription.return_replaceBack(replaceBack:self.modelData.productDescription)
+        self.lblDescription.text = str_Back_desc
+        //self.lblDescription.text = self.modelData.productDescription
         let commentCount = self.modelData.totalComments.toInt ?? 0
         self.btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
         let lastDate =  self.modelData.lastdateSelling.stringBefore("G")
@@ -114,7 +120,9 @@ class ProductDetailCell: UITableViewCell, ProductDetailBaseCell {
         self.collVImages.arrMedia = self.modelData.galleryImages
         self.vwCountImage.isHidden = (self.modelData.galleryImages.count <= 1)
         self.lblPrice.text = self.modelData.formatedPriceAmount
-        self.lblName.text = self.modelData.productTitle
+        let str_Back_desc_title = self.modelData.productTitle.return_replaceBack(replaceBack: self.modelData.productTitle)
+        self.lblName.text = str_Back_desc_title
+       // self.lblName.text = self.modelData.productTitle
         self.lblAddrees.text = self.modelData.address
         self.btnLike.isSelected = self.modelData.isLike == 1
         self.likeCounts = self.modelData.likes

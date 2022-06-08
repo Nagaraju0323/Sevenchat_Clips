@@ -218,9 +218,14 @@ extension ForumDetailViewController{
             let cnvStr = created_At.stringBefore("G")
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             lblForumPostDate.text = startCreated
-            self.lblForumDescription.text = forInfo.valueForString(key: CContent)
+//            self.lblForumTitle.text = forInfo.valueForString(key: CTitle)
+//            self.lblForumDescription.text = forInfo.valueForString(key: CContent)
+            let str_Back_title = forInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: forInfo.valueForString(key: CTitle))
+            self.lblForumTitle.text = str_Back_title
+              let str_Back_desc = forInfo.valueForString(key: CContent).return_replaceBack(replaceBack: forInfo.valueForString(key: CContent))
+            self.lblForumDescription.text = str_Back_desc
             self.imgUser.loadImageFromUrl(forInfo.valueForString(key: CUserProfileImage), true)
-            self.lblForumTitle.text = forInfo.valueForString(key: CTitle)
+           
             self.lblForumCategory.text = forInfo.valueForString(key: CCategory).uppercased()
             
             _ = forumInformation.valueForString(key: CIsLiked)

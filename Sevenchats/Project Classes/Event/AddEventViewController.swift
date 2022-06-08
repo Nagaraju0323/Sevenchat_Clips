@@ -314,13 +314,15 @@ extension AddEventViewController{
         let startchg = "\(startEvntTime.description) \(" GMT+0530 (IST)")"
         let endchg = "\(endEvntTime.description) \(" GMT+0530 (IST)")"
         guard let userID = appDelegate.loginUser?.user_id else { return }
-        let txtAdv = txtViewContent.text.replace(string: "\n", replacement: "\\n")
+        let addevent_desc = txtViewContent.text.replace_str(replace: txtViewContent.text)
+        let addevent_title = txtEventTitle.text?.replace_str(replace: txtEventTitle.text ?? "")
+        //let txtAdv = txtViewContent.text.replace(string: "\n", replacement: "\\n")
         var dict:[String:Any] = [
             "user_id":userID,
             "image":profileImgUrl,
-            "post_title":txtEventTitle.text,
+            "post_title":addevent_title,
             "post_category":categoryDropDownView.txtCategory.text ?? "",
-            "post_content":txtAdv,
+            "post_content":addevent_desc,
             "age_limit":"16",
             "latitude":self.latitude,
             "longitude":self.longitude,
@@ -573,15 +575,16 @@ extension AddEventViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEventLocation, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }
         else{
-            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-            if (txtEventTitle.text?.rangeOfCharacter(from: charSet) != nil) || (txtViewContent.text?.rangeOfCharacter(from: charSet) != nil)
-                {
-                    print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                    return
-                }else{
-                    self.addEditEvent()
-                }
+            self.addEditEvent()
+//            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//            if (txtEventTitle.text?.rangeOfCharacter(from: charSet) != nil) || (txtViewContent.text?.rangeOfCharacter(from: charSet) != nil)
+//                {
+//                    print("true")
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                    return
+//                }else{
+//                    self.addEditEvent()
+//                }
 
         }
         
@@ -610,21 +613,22 @@ extension AddEventViewController: GenericTextFieldDelegate {
                 return (string == string)
             }else {
                 if string.count <= 20{
-                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
-
-                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
-                    
-                        if (string.isEmpty  && filtered.isEmpty ) {
-                                    let isBackSpace = strcmp(string, "\\b")
-                                    if (isBackSpace == -92) {
-                                        print("Backspace was pressed")
-                                        return (string == filtered)
-                                    }
-                        } else {
-                            return (string != filtered)
-                        }
-                }else{
-                    return (string == "")
+                    return (string == string)
+//                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+//
+//                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+//
+//                        if (string.isEmpty  && filtered.isEmpty ) {
+//                                    let isBackSpace = strcmp(string, "\\b")
+//                                    if (isBackSpace == -92) {
+//                                        print("Backspace was pressed")
+//                                        return (string == filtered)
+//                                    }
+//                        } else {
+//                            return (string != filtered)
+//                        }
+//                }else{
+//                    return (string == "")
                 }
          
             }

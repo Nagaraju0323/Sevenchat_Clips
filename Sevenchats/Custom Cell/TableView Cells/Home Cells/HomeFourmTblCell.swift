@@ -107,8 +107,12 @@ extension HomeFourmTblCell{
         lblFourmType.text = CTypeForum
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        lblFourmTitle.text = postInfo.valueForString(key: CTitle)
-        lblFourmDescription.text = postInfo.valueForString(key: CContent)
+        let str_Back_title = postInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: postInfo.valueForString(key: CTitle))
+        lblFourmTitle.text = str_Back_title
+          let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
+        lblFourmDescription.text = str_Back_desc
+//        lblFourmTitle.text = postInfo.valueForString(key: CTitle)
+//        lblFourmDescription.text = postInfo.valueForString(key: CContent)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         self.lblFourmCategory.text = postInfo.valueForString(key: CCategory).uppercased()
         let commentCount = postInfo.valueForString(key: "comments").toInt

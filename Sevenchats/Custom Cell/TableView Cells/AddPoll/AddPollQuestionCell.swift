@@ -69,18 +69,19 @@ extension AddPollQuestionCell : UITextFieldDelegate{
                 if string.isSingleEmoji {
                     return (string == string)
                 }else {
-                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
-                    
-                    let filtered = string.components(separatedBy: inverted).joined(separator: "")
-                    if (string.isEmpty  && filtered.isEmpty ) {
-                                let isBackSpace = strcmp(string, "\\b")
-                                if (isBackSpace == -92) {
-                                    print("Backspace was pressed")
-                                    return (string == filtered)
-                                }
-                    } else {
-                        return (string != filtered)
-                    }
+                    return (string == string)
+//                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+//
+//                    let filtered = string.components(separatedBy: inverted).joined(separator: "")
+//                    if (string.isEmpty  && filtered.isEmpty ) {
+//                                let isBackSpace = strcmp(string, "\\b")
+//                                if (isBackSpace == -92) {
+//                                    print("Backspace was pressed")
+//                                    return (string == filtered)
+//                                }
+//                    } else {
+//                        return (string != filtered)
+//                    }
 //                    let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
 //                    let filtered = string.components(separatedBy: cs).joined(separator: "")
 //                    return (string == filtered)

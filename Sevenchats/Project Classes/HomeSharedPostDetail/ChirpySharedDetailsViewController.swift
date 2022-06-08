@@ -197,11 +197,15 @@ extension ChirpySharedDetailsViewController{
                 self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
                 self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
                 imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-                lblMessage.text = sharedData.valueForString(key: CMessage)
+                let str_Back_desc_share = sharedData.valueForString(key: CMessage).return_replaceBack(replaceBack: sharedData.valueForString(key: CMessage))
+                lblMessage.text = str_Back_desc_share
+                //lblMessage.text = sharedData.valueForString(key: CMessage)
             }
             self.lblUserName.text = chirInfo.valueForString(key: CFirstname) + " " + chirInfo.valueForString(key: CLastname)
             self.lblChirpyPostDate.text = DateFormatter.dateStringFrom(timestamp: chirInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
+            let str_Back_desc = chirInfo.valueForString(key: CContent).return_replaceBack(replaceBack: chirInfo.valueForString(key: CContent))
+            lblChirpyDescription.text = str_Back_desc
+           // self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
             
             self.imgUser.loadImageFromUrl(chirInfo.valueForString(key: CUserProfileImage), true)
             self.lblChirpyCategory.text = chirInfo.valueForString(key: CCategory)

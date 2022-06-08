@@ -129,7 +129,9 @@ extension HomeSharedFourmTblCell{
          lblSharedPostDate.text = shared_Date
             //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
             imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
-            lblMessage.text = postInfo.valueForString(key: CMessage)
+        let str_Back_desc_share = postInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: postInfo.valueForString(key: CMessage))
+         lblMessage.text = str_Back_desc_share
+           // lblMessage.text = postInfo.valueForString(key: CMessage)
        // }
 
         lblFourmType.text = CTypeForum
@@ -139,8 +141,12 @@ extension HomeSharedFourmTblCell{
                 let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblFourmPostDate.text = Created_Date
        // self.lblFourmPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-        lblFourmTitle.text = postInfo.valueForString(key: CTitle)
-        lblFourmDescription.text = postInfo.valueForString(key: CContent)
+        let str_Back_title = postInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: postInfo.valueForString(key: CTitle))
+        lblFourmTitle.text = str_Back_title
+          let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
+        lblFourmDescription.text = str_Back_desc
+//        lblFourmTitle.text = postInfo.valueForString(key: CTitle)
+//        lblFourmDescription.text = postInfo.valueForString(key: CContent)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         self.lblFourmCategory.text = postInfo.valueForString(key: CCategory).uppercased()
 

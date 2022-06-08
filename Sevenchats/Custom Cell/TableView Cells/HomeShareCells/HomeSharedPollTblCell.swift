@@ -146,14 +146,18 @@ extension HomeSharedPollTblCell{
         let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
         lblSharedPostDate.text = shared_Date
         imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
-        lblMessage.text = postInfo.valueForString(key: CMessage)
+        let str_Back_title = postInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: postInfo.valueForString(key: CMessage))
+        lblMessage.text = str_Back_title
+        //lblMessage.text = postInfo.valueForString(key: CMessage)
         postData = postInfo
         lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         let created_at = postInfo.valueForString(key: CCreated_at)
         let cnvStr = created_at.stringBefore("G")
         let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblPollPostDate.text = Created_Date
-        lblPollTitle.text = postInfo.valueForString(key: CTitle)
+        let str_Back_qus = postInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: postInfo.valueForString(key: CTitle))
+        lblPollTitle.text = str_Back_qus
+        //lblPollTitle.text = postInfo.valueForString(key: CTitle)
         
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         var polls : [MDLPollOption] = []
@@ -520,7 +524,8 @@ extension HomeSharedPollTblCell {
                         self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
                         self.pollIsSelected = articleInfo["is_selected"] as? String ?? ""
                         let pollstring = articleInfo["options"] as? String
-                        let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
+                        let poll_str = pollstring?.replace_str(replace: pollstring ?? "")
+                        let rplstr_Frirst = poll_str?.replacingOccurrences(of: "\"", with: "")
                         let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
                         let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
                         self.chngString = rplstr_Three

@@ -190,7 +190,9 @@ extension HomeSharedEventImageTblCell{
                 let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
                 lblSharedPostDate.text = shared_Date
             imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
-            lblMessage.text = postInfo.valueForString(key: CMessage)
+        let str_Back_desc_share = postInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: postInfo.valueForString(key: CMessage))
+                  lblMessage.text = str_Back_desc_share
+          //  lblMessage.text = postInfo.valueForString(key: CMessage)
        // }
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         let created_at = postInfo.valueForString(key: CCreated_at)
@@ -199,8 +201,13 @@ extension HomeSharedEventImageTblCell{
         lblEventPostDate.text = Created_Date
        // self.lblEventPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
         
-        lblEventTitle.text = postInfo.valueForString(key: CTitle)
-        lblEventDescription.text = postInfo.valueForString(key: CContent)
+//        lblEventTitle.text = postInfo.valueForString(key: CTitle)
+//        lblEventDescription.text = postInfo.valueForString(key: CContent)
+        let str_Back_title = postInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: postInfo.valueForString(key: CTitle))
+        lblEventTitle.text = str_Back_title
+                    
+                     let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
+        lblEventDescription.text = str_Back_desc
         lblStartDate.text = "\(CStartDate)"
         lblEndDate.text = "\(CEndDate)"
         

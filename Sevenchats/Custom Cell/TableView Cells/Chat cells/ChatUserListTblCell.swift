@@ -60,7 +60,9 @@ class ChatUserListTblCell: UITableViewCell {
 extension ChatUserListTblCell {
     
     func groupChatCellConfiguration(_ groupInfo : TblChatGroupList) {
-        lblUserName.text = groupInfo.group_title
+        let str_Back_desc_share = groupInfo.group_title?.return_replaceBack(replaceBack: groupInfo.group_title ?? "")
+        lblUserName.text = str_Back_desc_share
+       // lblUserName.text = groupInfo.group_title
         lblMessage.text = groupInfo.last_message
         imgUser.loadImageFromUrl(groupInfo.group_image, true)
         

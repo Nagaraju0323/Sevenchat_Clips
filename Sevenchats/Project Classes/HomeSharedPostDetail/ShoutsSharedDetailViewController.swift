@@ -244,13 +244,19 @@ extension ShoutsSharedDetailViewController{
             let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
             lblSharedPostDate.text = sharedCreated
             imgSharedUser.loadImageFromUrl(shoInfo.valueForString(key: CUserSharedProfileImage), true)
-            lblMessage.text = shoInfo.valueForString(key: CMessage)
+            let str_share = shoInfo.valueForString(key: CMessage)
+            let str_share_back = str_share.return_replaceBack(replaceBack: str_share)
+            lblMessage.text = str_share_back
+//            lblMessage.text = shoInfo.valueForString(key: CMessage)
             self.lblUserName.text = shoInfo.valueForString(key: CFirstname) + " " + shoInfo.valueForString(key: CLastname)
             let created_At = shoInfo.valueForString(key: CCreated_at)
             let cnvStr = created_At.stringBefore("G")
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             lblShoutsPostDate.text = startCreated
-            self.lblShoutsDescription.text = shoInfo.valueForString(key: CContent)
+            let str = shoutInfo?.valueForString(key: CContent)
+            let str_Back = str?.return_replaceBack(replaceBack: str ?? "")
+            self.lblShoutsDescription.text = str_Back
+           // self.lblShoutsDescription.text = shoInfo.valueForString(key: CContent)
             self.imgUser.loadImageFromUrl(shoInfo.valueForString(key: CUserProfileImage), true)
             
 //            self.btnLike.isSelected = shoInfo.valueForInt(key: CIs_Like) == 1

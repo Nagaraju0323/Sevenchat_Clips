@@ -110,7 +110,9 @@ extension HomePollTblCell{
         }
         postData = postInfo
         lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        lblPollTitle.text = postInfo.valueForString(key: CTitle)
+        let str_Back_title = postInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: postInfo.valueForString(key: CTitle))
+        lblPollTitle.text = str_Back_title
+        //lblPollTitle.text = postInfo.valueForString(key: CTitle)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
 
         
@@ -497,7 +499,8 @@ extension HomePollTblCell {
                         self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
                         self.pollIsSelected = articleInfo["is_selected"] as? String ?? ""
                         let pollstring = articleInfo["options"] as? String
-                        let rplstr_Frirst = pollstring?.replacingOccurrences(of: "\"", with: "")
+                        let poll_Str = pollstring?.return_replaceBack(replaceBack: pollstring ?? "")
+                        let rplstr_Frirst = poll_Str?.replacingOccurrences(of: "\"", with: "")
                         let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
                         let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
                         self.chngString = rplstr_Three

@@ -218,7 +218,10 @@ extension ShoutsDetailViewController{
                 posted_ID = shoInfo.valueForString(key: "user_id")
             }
             self.lblUserName.text = shoInfo.valueForString(key: CFirstname) + " " + shoInfo.valueForString(key: CLastname)
-            self.lblShoutsDescription.text = shoInfo.valueForString(key: CContent)
+            let str = shoutInfo?.valueForString(key: CContent)
+            let str_Back = str?.return_replaceBack(replaceBack: str ?? "")
+            lblShoutsDescription.text = str_Back
+           // self.lblShoutsDescription.text = shoInfo.valueForString(key: CContent)
             self.imgUser.loadImageFromUrl(shoInfo.valueForString(key: CUserProfileImage), true)
             _ = shoInfo.valueForString(key: CIsLiked)
             

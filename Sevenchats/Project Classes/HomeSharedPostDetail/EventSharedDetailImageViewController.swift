@@ -364,7 +364,9 @@ extension EventSharedDetailImageViewController {
                     lblSharedPostDate.text = sharedCreated
             //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
         imgSharedUser.loadImageFromUrl(dict.valueForString(key: CUserSharedProfileImage), true)
-        lblMessage.text = dict.valueForString(key: CMessage)
+        let str_Back_desc_share = dict.valueForString(key: CMessage).return_replaceBack(replaceBack: dict.valueForString(key: CMessage))
+                  lblMessage.text = str_Back_desc_share
+       // lblMessage.text = dict.valueForString(key: CMessage)
        // }
         self.parentView.isHidden = false
         self.lbluserName.text = "\(dict.valueForString(key: CFirstname)) \(dict.valueForString(key: CLastname))"
@@ -375,8 +377,13 @@ extension EventSharedDetailImageViewController {
         lblEventPostDate.text = startCreated
         self.lblEventCategory.text = dict.valueForString(key: CCategory).uppercased()
         self.lblEventType.text = CTypeEvent
-        self.lblEventTitle.text = dict.valueForString(key: CTitle)
-        self.lblEventDescription.text = dict.valueForString(key: CContent)
+        let str_Back_title = dict.valueForString(key: CTitle).return_replaceBack(replaceBack: dict.valueForString(key: CTitle))
+        lblEventTitle.text = str_Back_title
+
+                     let str_Back_desc = dict.valueForString(key: CContent).return_replaceBack(replaceBack: dict.valueForString(key: CContent))
+        lblEventDescription.text = str_Back_desc
+//        self.lblEventTitle.text = dict.valueForString(key: CTitle)
+//        self.lblEventDescription.text = dict.valueForString(key: CContent)
         self.lblStartDate.text = "\(CStartDate)"
         self.lblEndDate.text = "\(CEndDate)"
         let created_At1 = eventInfo.valueForString(key: "start_date")

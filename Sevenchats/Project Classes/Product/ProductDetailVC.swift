@@ -108,12 +108,14 @@ class ProductDetailVC: ParentViewController {
 extension ProductDetailVC {
     
     fileprivate func setupView() {
-        
-        self.title = product?.productTitle ?? ""
+        let str_Back_title = product?.productTitle ?? "".return_replaceBack(replaceBack:product?.productTitle ?? "")
+        self.title = str_Back_title
+    //  self.title = product?.productTitle ?? ""
         addBarButtonItems()
         
         getProductDetail()
         getCommentListFromServer(showLoader: true)
+        self.title = product?.productTitle ?? ""
     }
     
     fileprivate func addBarButtonItems() {
@@ -181,13 +183,15 @@ extension ProductDetailVC {
             
         } catch { print(error) }
         
+        let txtProductTitle = product?.productTitle.replace_str(replace: product?.productTitle ?? "")
+        let txtproductDesc = product?.productDescription?.replace_str(replace: product?.productDescription ?? "")
         var dict = [String:Any]()
         dict = [
             "product_id": product?.productID ?? "",
             "category_name":product?.category ?? "" ,
             "product_image":ImgName,
-            "product_title":product?.productTitle ?? "",
-            "description":product?.productDescription ?? "" ,
+            "product_title":txtProductTitle as Any,
+            "description":txtproductDesc as Any ,
             "available_status":"2" ,
             "cost":product?.productPrice ?? "",
             "currency_name":self.product?.currencyName ?? "",
@@ -493,7 +497,12 @@ extension ProductDetailVC {
                     }
                     for arrayData in data{
                         self.product = MDLProduct(fromDictionary: arrayData)
-                        self.title = self.product?.productTitle ?? ""
+                        
+                        let str_Back_title = self.product?.productTitle ?? "".return_replaceBack(replaceBack:self.product?.productTitle ?? "")
+                    
+                        print("backtiele\(self.product?.productTitle)")
+//                        self.title = str_Back_title
+                        self.title = self.product?.productTitle.return_replaceBack(replaceBack:self.product?.productTitle ?? "")
                         self.arrProducts.append(self.product!)
                         self.commentCount = self.product?.totalComments.toInt ?? 0
                         let isMyProduct = (self.product!.userId.description == appDelegate.loginUser?.user_id.description)

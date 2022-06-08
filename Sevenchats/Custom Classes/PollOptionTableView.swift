@@ -134,7 +134,7 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
         }
         
         let option = self.arrOption[indexPath.row]
-        cell.lblName.text = option.pollText
+        cell.lblName.text = option.pollText.return_replaceBack(replaceBack: option.pollText)
         cell.btnCheckAnwer.isSelected = false
         cell.btnCheckAnwer.isHidden = false
         cell.btnSelectAnwer.isHidden = false
@@ -281,7 +281,7 @@ extension PollOptionTableView {
         
         var apiPara = [String : Any]()
         apiPara[CPostId] = optionID.toString
-        apiPara["option"] = optionText
+        apiPara["option"] = optionText.replace_str(replace: optionText)
         apiPara["user_id"] = appDelegate.loginUser?.user_id.description
         APIRequest.shared().voteForPoll(para: apiPara) { [weak self] (response, error) in
             guard let _ = self else {return}
@@ -342,6 +342,7 @@ extension PollOptionTableView{
                         for datas in data{
                             self?.arrOption = []
                             let objarray = (datas["options"] as? String ?? "" ).replace(string: "\"", replacement: "")
+                           
                             self!.pollOptionArr =  self?.jsonToStringConvert(pollString:datas["options"] as? String ?? "") ?? []
                             let obj = datas["results"] as? [String : AnyObject] ?? [:]
                             if obj.count == 1 {

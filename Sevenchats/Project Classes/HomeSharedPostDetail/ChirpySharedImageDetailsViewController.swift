@@ -260,7 +260,9 @@ extension ChirpySharedImageDetailsViewController{
                        let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
                        lblSharedPostDate.text = sharedCreated
                 imgSharedUser.loadImageFromUrl(chirInfo.valueForString(key: CUserSharedProfileImage), true)
-                lblMessage.text = chirInfo.valueForString(key: CMessage)
+            let str_Back_desc_share = chirInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: chirInfo.valueForString(key: CMessage))
+            lblMessage.text = str_Back_desc_share
+            //    lblMessage.text = chirInfo.valueForString(key: CMessage)
             //}
             self.lblUserName.text = chirInfo.valueForString(key: CFirstname) + " " + chirInfo.valueForString(key: CLastname)
             //self.lblChirpyPostDate.text = DateFormatter.dateStringFrom(timestamp: chirInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
@@ -268,7 +270,9 @@ extension ChirpySharedImageDetailsViewController{
                         let cnvStr = created_At.stringBefore("G")
                         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             lblChirpyPostDate.text = startCreated
-            self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
+            let str_Back_desc = chirInfo.valueForString(key: CContent).return_replaceBack(replaceBack: chirInfo.valueForString(key: CContent))
+            lblChirpyDescription.text = str_Back_desc
+           // self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
             let image = chirInfo.valueForString(key: "image")
             if image.isEmpty {
                 blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true

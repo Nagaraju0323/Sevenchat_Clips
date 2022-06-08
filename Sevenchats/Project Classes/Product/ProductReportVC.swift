@@ -119,15 +119,16 @@ extension ProductReportVC {
         
         DispatchQueue.main.async {
             if self.txtProblem.text != ""{
-            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-                if self.txtProblem.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-                    print("contains Special charecter")
-                    self.postContent = self.removeSpecialCharacters(from: self.txtProblem.text ?? "")
-                    self.reportProductApi()
-                  } else {
-                    self.postContent = self.txtProblem.text ?? ""
-                    self.reportProductApi()
-                    }
+                self.reportProductApi()
+//            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
+//                if self.txtProblem.text?.rangeOfCharacter(from: characterset.inverted) != nil {
+//                    print("contains Special charecter")
+//                    self.postContent = self.removeSpecialCharacters(from: self.txtProblem.text ?? "")
+//                    self.reportProductApi()
+//                  } else {
+//                    self.postContent = self.txtProblem.text ?? ""
+//                    self.reportProductApi()
+//                    }
            }
 //            self.reportProductApi()
         }
@@ -138,11 +139,12 @@ extension ProductReportVC {
 extension ProductReportVC {
     
     func reportProductApi(){
+        let reportTxt = txtProblem.text?.replace_str(replace: txtProblem.text ?? "")
         var para = [String : Any]()
         para["user_id"] = appDelegate.loginUser?.user_id.description
         para["product_id"] = productId.toString
         para["reported_reason"] = "nice quality"
-        para["report_note"] = postContent
+        para["report_note"] = reportTxt
         para["status_id"] = "1"
         
         APIRequest.shared().reportProduct(para: para) { [weak self](response, error) in

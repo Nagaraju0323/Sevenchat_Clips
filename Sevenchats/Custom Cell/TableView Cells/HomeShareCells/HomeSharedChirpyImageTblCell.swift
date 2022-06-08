@@ -131,14 +131,18 @@ extension HomeSharedChirpyImageTblCell{
         let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
         lblSharedPostDate.text = sharedCreated
         imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
-        lblMessage.text = postInfo.valueForString(key: CMessage)
+        let str_Back_desc_share = postInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: postInfo.valueForString(key: CMessage))
+        lblMessage.text = str_Back_desc_share
+       // lblMessage.text = postInfo.valueForString(key: CMessage)
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         let created_At = postInfo.valueForString(key: CCreated_at)
         let cnvStr = created_At.stringBefore("G")
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         
         lblChirpyPostDate.text = startCreated
-        lblChirpyDescription.text = postInfo.valueForString(key: CContent)
+        let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
+        lblChirpyDescription.text = str_Back_desc
+       // lblChirpyDescription.text = postInfo.valueForString(key: CContent)
         let image = postInfo.valueForString(key: Cimages)
         if image.isEmpty {
             blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true

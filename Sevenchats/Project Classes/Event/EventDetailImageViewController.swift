@@ -318,8 +318,13 @@ extension EventDetailImageViewController {
         lblEventPostDate.text = startCreated
         self.lblEventCategory.text = dict.valueForString(key: CCategory).uppercased()
         self.lblEventType.text = CTypeEvent
-        self.lblEventTitle.text = dict.valueForString(key: CTitle)
-        self.lblEventDescription.text = dict.valueForString(key: CContent)
+        let str_Back_title = dict.valueForString(key: CTitle).return_replaceBack(replaceBack: dict.valueForString(key: CTitle))
+        lblEventTitle.text = str_Back_title
+                    
+                     let str_Back_desc = dict.valueForString(key: CContent).return_replaceBack(replaceBack: dict.valueForString(key: CContent))
+        lblEventDescription.text = str_Back_desc
+//        self.lblEventTitle.text = dict.valueForString(key: CTitle)
+//        self.lblEventDescription.text = dict.valueForString(key: CContent)
         let created_At1 = eventInfo.valueForString(key: "start_date")
         let cnvStr1 = created_At1.stringBefore("G")
         guard let startCreated1 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr1)  else { return}

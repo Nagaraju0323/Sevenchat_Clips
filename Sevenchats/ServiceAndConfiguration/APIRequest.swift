@@ -3975,8 +3975,16 @@ extension APIRequest {
                 tblUser.profession = dict.valueForString(key: CProfession)
                 tblUser.relationship_id = Int64(dict.valueForString(key: "relationship") ) ?? 0
               // tblUser.relationship = dict.valueForString(key: "relationship")
-                tblUser.religion = dict.valueForString(key: "religion")
-                tblUser.short_biography = dict.valueForString(key: CShort_biography)
+                let str_Back_pro = dict.valueForString(key: CProfession).return_replaceBack(replaceBack: dict.valueForString(key: CProfession))
+                tblUser.profession = str_Back_pro
+                let str_Back_religion = dict.valueForString(key: "religion").return_replaceBack(replaceBack: dict.valueForString(key: "religion"))
+                tblUser.religion = str_Back_religion
+                let str_Back_bio = dict.valueForString(key: CShort_biography).return_replaceBack(replaceBack: dict.valueForString(key: CShort_biography))
+            tblUser.short_biography = str_Back_bio
+                        
+//                tblUser.profession = dict.valueForString(key: CProfession)
+//                tblUser.religion = dict.valueForString(key: "religion")
+//                tblUser.short_biography = dict.valueForString(key: CShort_biography)
                 tblUser.total_like = Int64(dict.valueForString(key: "likes")) ?? 0
                 tblUser.user_type = true
                 tblUser.user_types = dict.valueForString(key: "user_type")
@@ -4033,11 +4041,18 @@ extension APIRequest {
             tblUser.latitude = Double(data.valueForString(key: CLatitude)) ?? 0.0
             tblUser.longitude = Double(data.valueForString(key: CLongitude)) ?? 0.0
             tblUser.mobile = data.valueForString(key: CMobile)
-            tblUser.profession = data.valueForString(key: CProfession)
+           
             tblUser.relationship_id = Int64(data.valueForString(key: "relationship") ) ?? 0
             tblUser.relationship = data.valueForString(key: "relationship")
-            tblUser.religion = data.valueForString(key: "religion")
-            tblUser.short_biography = data.valueForString(key: CShort_biography)
+                    let str_Back_pro1 = data.valueForString(key: CProfession).return_replaceBack(replaceBack: data.valueForString(key: CProfession))
+                    tblUser.profession = str_Back_pro1
+                    let str_Back_religion1 = data.valueForString(key: "religion").return_replaceBack(replaceBack: data.valueForString(key: "religion"))
+                    tblUser.religion = str_Back_religion1
+                    let str_Back_bio1 = data.valueForString(key: CShort_biography).return_replaceBack(replaceBack: data.valueForString(key: CShort_biography))
+                tblUser.short_biography = str_Back_bio1
+           // tblUser.religion = data.valueForString(key: "religion")
+           // tblUser.short_biography = data.valueForString(key: CShort_biography)
+          //tblUser.profession = data.valueForString(key: CProfession)
             tblUser.total_like = Int64(data.valueForString(key: "likes")) ?? 0
             tblUser.user_type = true
             tblUser.user_types = data.valueForString(key: "user_type")

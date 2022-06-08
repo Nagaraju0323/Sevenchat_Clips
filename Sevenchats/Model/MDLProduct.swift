@@ -92,9 +92,13 @@ class MDLProduct : NSObject, ProductBaseModel {
         isLike = dictionary["is_like"] as? Int ?? 0
         isSold = dictionary["is_sold"] as? Int ?? 0
         lastName = dictionary["last_name"] as? String ?? ""
-        productDescription = dictionary["description"] as? String ?? ""
-        productPrice = dictionary["cost"] as? String ?? ""
+        let str_Back_desc = dictionary["description"] as? String ?? "".return_replaceBack(replaceBack: dictionary["description"] as? String ?? "")
+        productDescription = str_Back_desc
+       // productDescription = dictionary["description"] as? String ?? ""
+//        productPrice = dictionary["cost"] as? String ?? ""
+        let str_Back_title = dictionary["product_title"] as? String ?? "".return_replaceBack(replaceBack: dictionary["product_title"] as? String ?? "")
         productTitle = dictionary["product_title"] as? String ?? ""
+       // productTitle = dictionary["product_title"] as? String ?? ""
         shareUrl = dictionary["share_url"] as? String ?? ""
         totalComment = dictionary["total_comment"] as? Int ?? 0
         totalLike = dictionary["total_like"] as? Int ?? 0

@@ -321,7 +321,7 @@ extension MIGenericTextFiled {
                 return (txtDelegate?.genericTextField?(textField, shouldChangeCharactersIn: range, replacementString: string))!
                
             }
-            return true
+         return true
         }
 //    override func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 //

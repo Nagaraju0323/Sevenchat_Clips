@@ -162,25 +162,30 @@ extension AddPollViewController {
             self?.resignKeyboard()
             if self?.isValidForAddPost() ?? false{
                 print("Ready for post")
-                var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-                if (self?.txtQuestion.text?.rangeOfCharacter(from: charSet) != nil) || (self?.pollOptionLst?.rangeOfCharacter(from: charSet) != nil)
-                {
-                    print("true")
-                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-                    alertWindow.rootViewController = UIViewController()
-                    let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
-                        alertWindow.isHidden = true
-                        return
-                    }))
-                    
-                    alertWindow.windowLevel = UIWindow.Level.alert + 1;
-                    alertWindow.makeKeyAndVisible()
-                    alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
-                    return
-                }else{
-                    self?.addEditPoll()
-                }
+                self?.addEditPoll()
+
+//                var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//                if (self?.txtQuestion.text?.rangeOfCharacter(from: charSet) != nil) || (self?.pollOptionLst?.rangeOfCharacter(from: charSet) != nil)
+//                {
+//                    print("true")
+//                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+//                    alertWindow.rootViewController = UIViewController()
+//                    let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
+//                    alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+//                        alertWindow.isHidden = true
+//                        return
+//                    }))
+//
+//                    alertWindow.windowLevel = UIWindow.Level.alert + 1;
+//                    alertWindow.makeKeyAndVisible()
+//                    alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+//                    return
+//                }else{
+//                    self?.addEditPoll()
+//                }
+                
+//****************************************************************************************
+                
                 //                if self?.txtQuestion.text != "" && self?.pollOptionLst != "" {
                 //                    let characterset = CharacterSet(charactersIn:SPECIALCHAR)
                 //                    if self?.txtQuestion.text.rangeOfCharacter(from: characterset.inverted) != nil || self?.pollOptionLst?.rangeOfCharacter(from: characterset.inverted) != nil  {
@@ -278,28 +283,28 @@ extension AddPollViewController {
 //        var arrOptions : [String] = []
         for obj in self.arrQuestions{
             if !obj.option.isBlank{
+                arrOptions.append(obj.option.replace_str(replace: obj.option))
                 
-                
-                var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-                if (obj.option.rangeOfCharacter(from: charSet) != nil) || (self.pollOptionLst?.rangeOfCharacter(from: charSet) != nil)
-                {
-                    print("true")
-                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-                    alertWindow.rootViewController = UIViewController()
-                    let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
-                    alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
-                        alertWindow.isHidden = true
-                        return
-                    }))
-                    
-                    alertWindow.windowLevel = UIWindow.Level.alert + 1;
-                    alertWindow.makeKeyAndVisible()
-                    alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
-                    return
-                }else {
-                    arrOptions.append(obj.option)
-                }
-                
+//                var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//                if (obj.option.rangeOfCharacter(from: charSet) != nil) || (self.pollOptionLst?.rangeOfCharacter(from: charSet) != nil)
+//                {
+//                    print("true")
+//                    let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+//                    alertWindow.rootViewController = UIViewController()
+//                    let alertController = UIAlertController(title: "Error", message: CMessageSpecial, preferredStyle: UIAlertController.Style.alert)
+//                    alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+//                        alertWindow.isHidden = true
+//                        return
+//                    }))
+//
+//                    alertWindow.windowLevel = UIWindow.Level.alert + 1;
+//                    alertWindow.makeKeyAndVisible()
+//                    alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+//                    return
+//                }else {
+//                    arrOptions.append(obj.option)
+//                }
+//
                 
                 
                 
@@ -320,16 +325,18 @@ extension AddPollViewController {
             print(replaced4)
             pollOptionLst  = replaced4
             print(replaced4)
-            
+           
         } catch { print(error) }
-        let txtAdv = txtQuestion.text.replace(string: "\n", replacement: "\\n")
+       // let txtAdv = txtQuestion.text.replace(string: "\n", replacement: "\\n")
+        let addpoll_desc = txtQuestion.text.replace_str(replace: txtQuestion.text)
+       
         var dict :[String:Any]  =  [
             "image" : "",
             "age_limit":"13",
             "token" : "1234567890abcdefghijklmnoupqrstuvwxyz",
             "user_id":userID,
             "post_category":categoryDropDownView.txtCategory.text!,
-            "post_title":txtAdv,
+            "post_title":addpoll_desc,
             "options":pollOptionLst as Any,
         ]
         

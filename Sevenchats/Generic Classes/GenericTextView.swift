@@ -255,22 +255,23 @@ class GenericTextView: UITextView, UITextViewDelegate {
                     if str.count <= 5000 {
                         print("done")
                         _ = txtDelegate?.genericTextView?(textView, shouldChangeTextIn: range, replacementText: text)
-                        let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
-
-                        if text.isSingleEmoji{
-                          return (text == text)
-                        }else {
-                            let filtered = text.components(separatedBy: inverted).joined(separator: "")
-                            if (text.isEmpty  && filtered.isEmpty ) {
-                                        let isBackSpace = strcmp(text, "\\b")
-                                        if (isBackSpace == -92) {
-                                            print("Backspace was pressed")
-                                            return (text == filtered)
-                                        }
-                            } else {
-                                return (text != filtered)
-                            }
-                        }
+                        return (text == text)
+//                        let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+//
+//                        if text.isSingleEmoji{
+//                          return (text == text)
+//                        }else {
+//                            let filtered = text.components(separatedBy: inverted).joined(separator: "")
+//                            if (text.isEmpty  && filtered.isEmpty ) {
+//                                        let isBackSpace = strcmp(text, "\\b")
+//                                        if (isBackSpace == -92) {
+//                                            print("Backspace was pressed")
+//                                            return (text == filtered)
+//                                        }
+//                            } else {
+//                                return (text != filtered)
+//                            }
+//                        }
                     }
 
 

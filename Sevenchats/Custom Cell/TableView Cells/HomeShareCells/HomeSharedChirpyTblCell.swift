@@ -107,12 +107,16 @@ extension HomeSharedChirpyTblCell{
                 lblSharedPostDate.text = shared_Date
             //self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
             imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
-            lblMessage.text = postInfo.valueForString(key: CMessage)
+        let str_Back_desc_share = postInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: postInfo.valueForString(key: CMessage))
+        lblMessage.text = str_Back_desc_share
+           // lblMessage.text = postInfo.valueForString(key: CMessage)
       //  }
 
         lblChirpyType.text = CTypeChirpy
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        lblChirpyDescription.text = postInfo.valueForString(key: CContent)
+        let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
+        lblChirpyDescription.text = str_Back_desc
+       // lblChirpyDescription.text = postInfo.valueForString(key: CContent)
         lblChirpyCategory.text = postInfo.valueForString(key: CCategory).uppercased()
         let created_at = postInfo.valueForString(key: CCreated_at)
                 let cnvStr = created_at.stringBefore("G")

@@ -67,7 +67,9 @@ class GroupInfoViewController: ParentViewController {
 extension GroupInfoViewController{
     func setGroupInformation() {
         if let groupInfo = self.iObject as? [String : Any]{
-            self.title = groupInfo.valueForString(key: CGroupTitle)
+            let str_Back_title = groupInfo.valueForString(key: CGroupTitle).return_replaceBack(replaceBack: groupInfo.valueForString(key: CGroupTitle))
+            self.title = str_Back_title
+          //  self.title = groupInfo.valueForString(key: CGroupTitle)
             //            lblGroupType.text = groupInfo.valueForInt(key: CGroupType) == 1 ? CGroupPublic : CGroupPrivate
             lblGroupType.isHidden = true
             

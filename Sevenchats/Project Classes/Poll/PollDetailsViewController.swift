@@ -259,7 +259,9 @@ extension PollDetailsViewController {
                 posted_ID = pollInfo.valueForString(key: "user_id")
             }
             lblUserName.text = pollInfo.valueForString(key: CFirstname) + " " + pollInfo.valueForString(key: CLastname)
-            lblPollTitle.text = pollInfo.valueForString(key: CTitle)
+            let str_Back_title = pollInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: pollInfo.valueForString(key: CTitle))
+            lblPollTitle.text = str_Back_title
+//            lblPollTitle.text = pollInfo.valueForString(key: CTitle)
             
             imgUser.loadImageFromUrl(pollInfo.valueForString(key: CUserProfileImage), true)
             
