@@ -633,20 +633,53 @@ extension CreateChatGroupViewController{
         
         self.presentImagePickerController(allowEditing: false) { (image, info) in
             if image != nil{
-                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                 self.imgGroupIcon.image = image
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
-                self.groupImage = image
-                guard let mobileNum = appDelegate.loginUser?.mobile else {
-                    return
+                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                if let selectedImage = info?[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    let imgName = UUID().uuidString
+                    let documentDirectory = NSTemporaryDirectory()
+                    let localPath = documentDirectory.appending(imgName)
+                    
+                    let data = selectedImage.jpegData(compressionQuality: 0.3)! as NSData
+                    data.write(toFile: localPath, atomically: true)
+                    let photoURL = URL.init(fileURLWithPath: localPath)
+                    print("imageURl\(photoURL)")
+                    
+                    self.imgName = photoURL.absoluteString ?? ""
+                    guard let mobileNum = appDelegate.loginUser?.mobile else {
+                        return
+                    }
+                    MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                    MInioimageupload.shared().callback = { message in
+                        print("UploadImage::::::::::::::\(message)")
+                        MILoader.shared.hideLoader()
+                        self.imgName = message
+                    }
+                    
+                    if self.imgName.isEmpty{
+                        MILoader.shared.hideLoader()
+                    }
+                    
                 }
-                MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                MInioimageupload.shared().callback = { message in
-                MILoader.shared.hideLoader()
-                self.imgName = message
-                }
+                
             }
+//            if image != nil{
+//                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+//                self.imgGroupIcon.image = image
+//                self.viewAddImageContainer.isHidden = true
+//                self.viewUploadedImageContainer.isHidden = false
+//                self.groupImage = image
+//                guard let mobileNum = appDelegate.loginUser?.mobile else {
+//                    return
+//                }
+//                MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+//                MInioimageupload.shared().callback = { message in
+//                MILoader.shared.hideLoader()
+//                self.imgName = message
+//                }
+//            }
         }
     }
     
@@ -657,20 +690,53 @@ extension CreateChatGroupViewController{
                 self.imgGroupIcon.image = image
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
-                self.groupImage = image
+                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                if let selectedImage = info?[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    let imgName = UUID().uuidString
+                    let documentDirectory = NSTemporaryDirectory()
+                    let localPath = documentDirectory.appending(imgName)
+                    
+                    let data = selectedImage.jpegData(compressionQuality: 0.3)! as NSData
+                    data.write(toFile: localPath, atomically: true)
+                    let photoURL = URL.init(fileURLWithPath: localPath)
+                    print("imageURl\(photoURL)")
+                    
+                    self.imgName = photoURL.absoluteString ?? ""
+                    guard let mobileNum = appDelegate.loginUser?.mobile else {
+                        return
+                    }
+                    MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+                    MInioimageupload.shared().callback = { message in
+                        print("UploadImage::::::::::::::\(message)")
+                        MILoader.shared.hideLoader()
+                        self.imgName = message
+                    }
+                    
+                    if self.imgName.isEmpty{
+                        MILoader.shared.hideLoader()
+                    }
+                    
+                }
                 
-                guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
-                    return
-                }
-                self.imgName = imageURL.absoluteString ?? ""
-                guard let mobileNum = appDelegate.loginUser?.mobile else {
-                    return
-                }
-                MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
-                MInioimageupload.shared().callback = { message in
-                self.imgName = message
-                }
             }
+//            if image != nil{
+//                self.imgGroupIcon.image = image
+//                self.viewAddImageContainer.isHidden = true
+//                self.viewUploadedImageContainer.isHidden = false
+//                self.groupImage = image
+//
+//                guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
+//                    return
+//                }
+//                self.imgName = imageURL.absoluteString ?? ""
+//                guard let mobileNum = appDelegate.loginUser?.mobile else {
+//                    return
+//                }
+//                MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
+//                MInioimageupload.shared().callback = { message in
+//                self.imgName = message
+//                }
+//            }
         }
     }
     
