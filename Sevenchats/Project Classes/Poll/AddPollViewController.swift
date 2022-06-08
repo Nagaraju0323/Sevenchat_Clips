@@ -281,6 +281,7 @@ extension AddPollViewController {
         
         apiPara[CPublish_To] = self.selectedInviteType
 //        var arrOptions : [String] = []
+        arrOptions.removeAll()
         for obj in self.arrQuestions{
             if !obj.option.isBlank{
                 arrOptions.append(obj.option.replace_str(replace: obj.option))
@@ -311,6 +312,56 @@ extension AddPollViewController {
                
             }
         }
+        
+        if arrQuestions.count == 2 {
+            if arrOptions[0] == arrOptions[1]{
+                print("first and Second Both are same ")
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and Second Both are same ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                return
+            }
+        }else if arrQuestions.count == 3{
+            if arrOptions[0] == arrOptions[1] {
+                print("first and second match")
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and second match", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                return
+            }else if arrOptions[0] == arrOptions[2]{
+                print("first and third match ")
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and third match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+            }else if arrOptions[1] == arrOptions[2]{
+                print("second and Third Match ")
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "second and Third Match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                return
+            }
+            
+        }else if arrQuestions.count == 4{
+            if arrOptions[0] == arrOptions[1] {
+                print("first and second match")
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and second match", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                return
+            }else if arrOptions[0] == arrOptions[2]{
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and third match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                print("first and third match ")
+            }else if arrOptions[0] == arrOptions[3]{
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and four Match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                print("first and four Match ")
+                return
+            }else if arrOptions[1] == arrOptions[2]{
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "second and third match  ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                print("second and third match  ")
+                return
+            }else if arrOptions[1] == arrOptions[3]{
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "second and four match  ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+              
+                return
+            }else if arrOptions[2] == arrOptions[3]{
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "third and four match  ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+               
+                return
+            }
+        }
+        
+        
+        
         let _:String = "\(arrOptions)"
         apiPara[COptions] = arrOptions
         let strConvertJson = arrJson(arrString:arrOptions)

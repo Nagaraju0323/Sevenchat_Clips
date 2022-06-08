@@ -2779,6 +2779,40 @@ extension APIRequest {
         })
     }
     
+    func getGroupChatListNew(timestamp : Double?, search : String, showLoader : Bool,page:Int, completion : @escaping ClosureCompletion) -> URLSessionTask {
+        
+        if showLoader {
+            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        }
+        
+        let param: [String:Any] = [
+            "page" : page.toString,
+            "limit" : "10"
+        ]
+        
+        
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagGroupsListNew + search, param: param as? [String:AnyObject], successBlock: { (task, response) in
+            
+            MILoader.shared.hideLoader()
+            
+            self.storeGroupChatList(response: response as! [String : Any])
+            completion(response, nil)
+            
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagGroupsListNew, error: error)
+            }
+        })!
+        
+    }
+    
+    
+    
     func exitGroup(group_id : String?,user_id : String?,user_type : Int, completion : @escaping ClosureCompletion) {
         var para = [String : Any]()
         

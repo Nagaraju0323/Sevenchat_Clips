@@ -31,6 +31,7 @@ class GroupsViewController: ParentViewController {
     var apiTask : URLSessionTask?
     var groupType = CGroupTypePublic
     var isSearch : Bool = false
+    var pageNumber = 1
     @IBOutlet weak var lblNoData : UILabel!
     
     /// searchBar for search files in list
@@ -55,6 +56,7 @@ class GroupsViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.fetchGroupListFromLocal()
+        pageNumber = 1
         self.getGroupListFromServer(isNew: true)
     }
     // MARK:- --------- Initialization
@@ -118,36 +120,81 @@ extension GroupsViewController {
     }
     
     
+//    func getGroupListFromServer(isNew : Bool) {
+//
+//        if apiTask?.state == URLSessionTask.State.running {
+//            return
+//        }
+//        guard let userid = appDelegate.loginUser?.user_id else {return}
+//        self.tblGroups.tableFooterView = nil
+//        var apiTimeStamp : Double = 0
+//        apiTask = APIRequest.shared().getGroupChatList(timestamp: apiTimeStamp,search:userid.description , showLoader: true) { [weak self] (response, error) in
+//            guard let self = self else { return }
+//            if response != nil {
+//
+//                self.refreshControl.endRefreshing()
+//                self.tblGroups.tableFooterView = nil
+//
+//                if let arrList = response![CJsonData] as? [[String:Any]] {
+//                    if arrList.count > 0 {
+//                        self.fetchGroupListFromLocal()
+//                    }
+//                    if arrList.isEmpty{
+//                        self.arrGroupList.removeAll()
+//                        self.tblGroups.reloadData()
+//                    }
+//                    DispatchQueue.main.async {
+//                        self.lblNoData.isHidden = self.arrGroupList.count > 0
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
+    
     func getGroupListFromServer(isNew : Bool) {
         
         if apiTask?.state == URLSessionTask.State.running {
             return
         }
+        
+        self.tblGroups.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
         guard let userid = appDelegate.loginUser?.user_id else {return}
         self.tblGroups.tableFooterView = nil
+        
+//        self.arrGroupList.removeAll()
+        
         var apiTimeStamp : Double = 0
-        apiTask = APIRequest.shared().getGroupChatList(timestamp: apiTimeStamp,search:userid.description , showLoader: true) { [weak self] (response, error) in
+        apiTask = APIRequest.shared().getGroupChatListNew(timestamp: apiTimeStamp,search:userid.description , showLoader: true, page: pageNumber) { [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil {
                 
                 self.refreshControl.endRefreshing()
                 self.tblGroups.tableFooterView = nil
                 
-                if let arrList = response![CJsonData] as? [[String:Any]] {
-                    if arrList.count > 0 {
+                
+                if let arrList = response!["data"] as? [[String:Any]]{
+                    
+                    // Remove all data here when page number == 1
+                    if self.pageNumber == 1{
+//                        self.arrGroupList.removeAll()
+//                        self.tblGroups.reloadData()
                         self.fetchGroupListFromLocal()
+//                        self.tblGroups.reloadData()
                     }
-                    if arrList.isEmpty{
-                        self.arrGroupList.removeAll()
-                        self.tblGroups.reloadData()
+                    // Add Data here...
+                    if arrList.count > 0{
+                        self.fetchGroupListFromLocal()
+//                        self.tblGroups.reloadData()
+                        self.pageNumber += 1
                     }
-                    DispatchQueue.main.async {
-                        self.lblNoData.isHidden = self.arrGroupList.count > 0
-                    }
+                    //                    self.lblNoData.isHidden = self.arrUser.count > 0
                 }
             }
         }
     }
+    
+    
     
     func fetchGroupListFromLocal() {
         if let arr = TblChatGroupList.fetch(predicate: nil, orderBy: "group_title", ascending: false) as? [TblChatGroupList] {
@@ -239,6 +286,10 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
             //            if indexPath == tblGroups.lastIndexPath(){
             //            self.getGroupListFromServer(isNew: false)
             //            }
+            
+            if indexPath == tblGroups.lastIndexPath(){
+                self.getGroupListFromServer(isNew: false)
+            }
             return cell
         }
         
