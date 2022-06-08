@@ -128,12 +128,12 @@ extension FeedbackViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CNavAddImage, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
             if self.txtViewFeedbackContent.text != ""{
-                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-                if (self.txtViewFeedbackContent.text?.rangeOfCharacter(from: charSet) != nil) {
-                        print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                        return
-                    }else{
+//                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//                if (self.txtViewFeedbackContent.text?.rangeOfCharacter(from: charSet) != nil) {
+//                        print("true")
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                        return
+//                    }else{
                        
               
 //                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
@@ -172,8 +172,8 @@ extension FeedbackViewController{
                 self.selectCategory = "Need help with"
             }
             
-            
-                    let txtFeedBack = txtViewFeedbackContent.text.replace(string: "\n", replacement: "\\n")
+               let txtFeedBack = txtViewFeedbackContent.text?.replace_str(replace: txtViewFeedbackContent.text ?? "")
+                    //let txtFeedBack = txtViewFeedbackContent.text.replace(string: "\n", replacement: "\\n")
             let feedback : [String :Any] = [
                 "image":feedbackImgUrl,
                 "user_id" : userId.description,
@@ -227,7 +227,7 @@ extension FeedbackViewController{
                     }
                 }
             }
-  }
+ // }
     }
     
         }

@@ -269,8 +269,13 @@ extension EventDetailViewController {
         
         self.lblEventCategory.text = dict.valueForString(key: CCategory).uppercased()
         self.lblEventType.text = CTypeEvent
-        self.lblEventTitle.text = dict.valueForString(key: CTitle)
-        self.lblEventDescription.text = dict.valueForString(key: CContent)
+        let str_Back_title = dict.valueForString(key: CTitle).return_replaceBack(replaceBack: dict.valueForString(key: CTitle))
+        lblEventTitle.text = str_Back_title
+                    
+                     let str_Back_desc = dict.valueForString(key: CContent).return_replaceBack(replaceBack: dict.valueForString(key: CContent))
+        lblEventDescription.text = str_Back_desc
+//        self.lblEventTitle.text = dict.valueForString(key: CTitle)
+//        self.lblEventDescription.text = dict.valueForString(key: CContent)
         
         self.lblStartDate.text = "\(CStartDate)"
         self.lblEndDate.text = "\(CEndDate)"

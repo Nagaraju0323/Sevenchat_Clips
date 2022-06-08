@@ -172,7 +172,9 @@ extension ChirpyDetailsViewController{
             chirpyInformation = chirInfo
             self.lblUserName.text = chirInfo.valueForString(key: CFirstname) + " " + chirInfo.valueForString(key: CLastname)
             self.lblChirpyPostDate.text = DateFormatter.dateStringFrom(timestamp: chirInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
+            let str_Back_desc = chirInfo.valueForString(key: CContent).return_replaceBack(replaceBack: chirInfo.valueForString(key: CContent))
+            lblChirpyDescription.text = str_Back_desc
+           // self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
             
             self.imgUser.loadImageFromUrl(chirInfo.valueForString(key: CUserProfileImage), true)
             self.lblChirpyCategory.text = chirInfo.valueForString(key: CCategory)

@@ -29,8 +29,16 @@ class RegisterViewController: ParentViewController {
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var imgEditIcon : UIImageView!
     @IBOutlet weak var viewContainer : UIView!
-    @IBOutlet weak var txtFirstName : MIGenericTextFiled!
-    @IBOutlet weak var txtLastName : MIGenericTextFiled!
+    @IBOutlet weak var txtFirstName : MIGenericTextFiled!{
+        didSet{
+            self.txtFirstName.txtDelegate = self
+        }
+    }
+    @IBOutlet weak var txtLastName : MIGenericTextFiled!{
+        didSet{
+            self.txtFirstName.txtDelegate = self
+        }
+    }
     @IBOutlet weak var txtEmail : MIGenericTextFiled!
     @IBOutlet weak var txtPWD : MIGenericTextFiled!
     @IBOutlet weak var txtConfirmPWD : MIGenericTextFiled!
@@ -65,8 +73,8 @@ class RegisterViewController: ParentViewController {
     var profileImage = UIImage()
     var apiTask : URLSessionTask?
     var isSelected = false
-    var postFirstName = ""
-    var postLastName = ""
+//    var postFirstName = ""
+//    var postLastName = ""
     var startEventChng = ""
     var chngStringStart = ""
     var chkStatus:Bool = false
@@ -407,8 +415,8 @@ extension RegisterViewController {
         
         let dict : [String : Any] = [
             "user_acc_type":0,
-            CFirstname:postFirstName,
-            CLastname:postLastName,
+            CFirstname:txtFirstName.text! as Any,
+            CLastname:txtLastName.text! as Any,
             "email":Emailtext.lowercased(),
             "password":Password,
             "city_name":CityName,
@@ -641,19 +649,7 @@ extension RegisterViewController{
 extension RegisterViewController: GenericTextFieldDelegate {
     
     @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        if textField == txtMobileNumber{
-            if textField.text?.count ?? 0 >= 15{
-                return false
-            }
-        }else if textField == txtPWD || textField == txtConfirmPWD{
-            if textField.text?.count ?? 0 > 20{
-                return false
-            }
-            let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
-            let filtered = string.components(separatedBy: cs).joined(separator: "")
-            return (string == filtered)
-        }else if textField == txtFirstName || textField == txtLastName {
+        if textField == txtFirstName || textField == txtLastName {
             let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
 
                 let filtered = string.components(separatedBy: inverted).joined(separator: "")
@@ -670,6 +666,17 @@ extension RegisterViewController: GenericTextFieldDelegate {
 //            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
 //            let filtered = string.components(separatedBy: cs).joined(separator: "")
 //            return (string == filtered)
+        } else if textField == txtMobileNumber{
+            if textField.text?.count ?? 0 >= 15{
+                return false
+            }
+        }else if textField == txtPWD || textField == txtConfirmPWD{
+            if textField.text?.count ?? 0 > 20{
+                return false
+            }
+            let cs = NSCharacterSet(charactersIn: PASSWORDALLOWCHAR).inverted
+            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            return (string == filtered)
         }
         return true
     }

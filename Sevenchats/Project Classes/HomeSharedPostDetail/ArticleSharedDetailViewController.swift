@@ -282,8 +282,10 @@ extension ArticleSharedDetailViewController{
             let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
             lblSharedPostDate.text = sharedCreated
                 imgSharedUser.loadImageFromUrl(artInfo.valueForString(key: CUserSharedProfileImage), true)
-                lblMessage.text = artInfo.valueForString(key: CMessage)
-           // }
+            let str_Back_desc_share = artInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: artInfo.valueForString(key: CMessage))
+            lblMessage.text = str_Back_desc_share
+//                lblMessage.text = artInfo.valueForString(key: CMessage)
+//           // }
             
             self.lblUserName.text = artInfo.valueForString(key: CFirstname) + " " + artInfo.valueForString(key: CLastname)
            // self.lblArticlePostDate.text = DateFormatter.dateStringFrom(timestamp: artInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
@@ -291,8 +293,14 @@ extension ArticleSharedDetailViewController{
             let cnvStr = created_At.stringBefore("G")
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             lblArticlePostDate.text = startCreated
-            self.lblArticleTitle.text = artInfo.valueForString(key: CTitle)
-            self.lblArticleDescription.text = artInfo.valueForString(key: CContent)
+            
+            let str_Back_title = artInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: artInfo.valueForString(key: CTitle))
+            self.lblArticleTitle.text = str_Back_title
+            
+             let str_Back_desc = artInfo.valueForString(key: CContent).return_replaceBack(replaceBack: artInfo.valueForString(key: CContent))
+            self.lblArticleDescription.text  = str_Back_desc
+//            self.lblArticleTitle.text = artInfo.valueForString(key: CTitle)
+//            self.lblArticleDescription.text = artInfo.valueForString(key: CContent)
             
             //self.imgArticle.loadImageFromUrl(artInfo.valueForString(key: CImage), false)
             let image = artInfo.valueForString(key: "image")

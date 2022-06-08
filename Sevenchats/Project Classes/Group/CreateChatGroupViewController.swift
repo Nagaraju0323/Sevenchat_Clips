@@ -192,7 +192,9 @@ extension CreateChatGroupViewController {
     
     fileprivate func setGroupInformation(){
         if let groupInfo = self.iObject as? [String : Any]{
-            txtGroupTitle.text = groupInfo.valueForString(key: CGroupTitle)
+            let str_Back_title = groupInfo.valueForString(key: CGroupTitle).return_replaceBack(replaceBack: groupInfo.valueForString(key: CGroupTitle))
+            txtGroupTitle.text = str_Back_title
+            //txtGroupTitle.text = groupInfo.valueForString(key: CGroupTitle)
             txtGroupTitle.updatePlaceholderFrame(true)
             btnSwitch.isOn = groupInfo.valueForString(key: CGroupLink).isBlank ? false : true
             if groupInfo.valueForInt(key: CGroupType) == 1{
@@ -241,7 +243,8 @@ extension CreateChatGroupViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageChatGroupType, btnOneTitle: CBtnOk, btnOneTapped: nil)
         } else if editGroup == true{
             var apiPara = [String : Any]()
-            apiPara[CGroupTitle] = txtGroupTitle.text ?? ""
+            let group_title = txtGroupTitle.text?.replace_str(replace: txtGroupTitle.text ?? "")
+            apiPara[CGroupTitle] = group_title ?? ""
             if imgGroupIcon.image != nil {
                 if self.isSelected == true {
                     apiPara[CGroupImage] = self.imgName
@@ -321,7 +324,8 @@ extension CreateChatGroupViewController{
                      apiPara[CLink] = groupInfo.valueForString(key: CGroupLink)
                  }
              }
-             dict[CGroupTitle] = txtGroupTitle.text
+            let group_title = txtGroupTitle.text?.replace_str(replace: txtGroupTitle.text ?? "")
+             dict[CGroupTitle] = group_title
              if imgGroupIcon.image != nil {
                  dict[CGroupImage] = imgName
              }else {
@@ -521,15 +525,18 @@ extension CreateChatGroupViewController{
     
     @objc fileprivate func btnDoneCLK(_ sender : UIBarButtonItem) {
     
-            
-            let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-            if (self.txtGroupTitle.text?.rangeOfCharacter(from: charSet) != nil) {
-                    print("true")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                    return
-            }else{
-                self.addEditGroup(true)
-            }
+        self.addEditGroup(true)
+//            let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//            if (self.txtGroupTitle.text?.rangeOfCharacter(from: charSet) != nil) {
+//                    print("true")
+//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                    return
+//            }else{
+//                self.addEditGroup(true)
+//            }
+        
+//*********************************************************************************
+        
 //            let characterset = CharacterSet(charactersIn:SPECIALCHAR)
 //            if txtGroupTitle.text?.rangeOfCharacter(from: characterset.inverted) != nil {
 //                print("contains Special charecter")
@@ -676,21 +683,22 @@ extension CreateChatGroupViewController: GenericTextFieldDelegate {
                 return false
             }
             if string.count <= 20{
-                let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
-
-                    let filtered = string.components(separatedBy: inverted).joined(separator: "")
-                
-                    if (string.isEmpty  && filtered.isEmpty ) {
-                                let isBackSpace = strcmp(string, "\\b")
-                                if (isBackSpace == -92) {
-                                    print("Backspace was pressed")
-                                    return (string == filtered)
-                                }
-                    } else {
-                        return (string != filtered)
-                    }
-            }else{
-                return (string == "")
+                return (string == string)
+//                let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+//
+//                    let filtered = string.components(separatedBy: inverted).joined(separator: "")
+//
+//                    if (string.isEmpty  && filtered.isEmpty ) {
+//                                let isBackSpace = strcmp(string, "\\b")
+//                                if (isBackSpace == -92) {
+//                                    print("Backspace was pressed")
+//                                    return (string == filtered)
+//                                }
+//                    } else {
+//                        return (string != filtered)
+//                    }
+//            }else{
+//                return (string == "")
             }
      
         }

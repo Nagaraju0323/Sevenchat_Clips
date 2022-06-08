@@ -197,13 +197,17 @@ extension AddArticleViewController{
         }
         guard let userID = appDelegate.loginUser?.user_id else {return}
         
-        let postcont = txtViewArticleContent.text.replace(string: "\n", replacement: "\\n")
+       // let postcont = txtViewArticleContent.text.replace(string: "\n", replacement: "\\n")
+        let postcont = txtViewArticleContent.text.replace_str(replace: txtViewArticleContent.text)
+        let posttitle = txtArticleTitle.text?.replace_str(replace: txtArticleTitle.text ?? "")
+        
+        
         
         var dict :[String:Any] = [
             CUserId:userID.description,
             "image":profileImgUrl,
-            "post_title":txtArticleTitle.text ?? "", 
-            "post_category": categoryDropDownView.txtCategory.text ?? "" ,
+            "post_title":posttitle ?? "",
+            "post_category": categoryDropDownView.txtCategory.text ?? "",
             "post_content":postcont,
             "age_limit":"16",
         ]
@@ -498,15 +502,17 @@ extension AddArticleViewController{
         else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupArticle, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-            if (txtViewArticleContent.text.rangeOfCharacter(from: charSet) != nil) || (txtArticleTitle.text?.rangeOfCharacter(from: charSet) != nil)
-                {
-                    print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                    return
-                }else{
-                    self.addEditArticle()
-                }
+            self.addEditArticle()
+
+//            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//            if (txtViewArticleContent.text.rangeOfCharacter(from: charSet) != nil) || (txtArticleTitle.text?.rangeOfCharacter(from: charSet) != nil)
+//                {
+//                    print("true")
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                    return
+//                }else{
+//                    self.addEditArticle()
+//                }
         }
         
     }
@@ -540,22 +546,23 @@ extension AddArticleViewController: GenericTextFieldDelegate {
                 return (string == string)
             }else {
                 if string.count <= 20{
-                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
-
-                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
-                    
-                        if (string.isEmpty  && filtered.isEmpty ) {
-                                    let isBackSpace = strcmp(string, "\\b")
-                                    if (isBackSpace == -92) {
-                                        print("Backspace was pressed")
-                                        return (string == filtered)
-                                    }
-                        } else {
-                            return (string != filtered)
-                        }
-
-                }else{
-                    return (string == "")
+                    return (string == string)
+//                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+//
+//                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+//
+//                        if (string.isEmpty  && filtered.isEmpty ) {
+//                                    let isBackSpace = strcmp(string, "\\b")
+//                                    if (isBackSpace == -92) {
+//                                        print("Backspace was pressed")
+//                                        return (string == filtered)
+//                                    }
+//                        } else {
+//                            return (string != filtered)
+//                        }
+//
+//                }else{
+//                    return (string == "")
                 }
          
 //                let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted

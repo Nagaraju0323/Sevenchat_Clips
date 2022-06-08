@@ -178,8 +178,9 @@ extension AddForumViewController{
         apiPara[CCategory_Id] = categoryDropDownView.txtCategory.text
         apiPara[CPost_Detail] = txtViewForumMessage.text
         apiPara[CPublish_To] = self.selectedInviteType
-        let addforum = txtViewForumMessage.text.replace(string: "\n", replacement: "\\n")
-        
+        //let addforum = txtViewForumMessage.text.replace(string: "\n", replacement: "\\n")
+        let addforum_desc = txtViewForumMessage.text.replace_str(replace: txtViewForumMessage.text)
+        let addforum_title = txtForumTitle.text?.replace_str(replace: txtForumTitle.text ?? "")
         // When user editing the article....
         if forumType == .editForum{
             apiPara[CId] = forumID
@@ -188,9 +189,9 @@ extension AddForumViewController{
         var dict :[String:Any]  =  [
             "user_id":userID.description,
             "image":"",
-            "post_title":txtForumTitle.text ?? "",
+            "post_title":addforum_title ?? "",
             "post_category":categoryDropDownView.txtCategory.text!,
-            "post_content":addforum,
+            "post_content":addforum_desc,
             "age_limit":"16",
         ]
         
@@ -437,15 +438,16 @@ extension AddForumViewController{
         else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupForum, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-            if (txtForumTitle.text?.rangeOfCharacter(from: charSet) != nil) || (txtViewForumMessage.text?.rangeOfCharacter(from: charSet) != nil)
-                {
-                    print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                    return
-                }else{
-                    self.addEditForum()
-                }
+            self.addEditForum()
+//            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//            if (txtForumTitle.text?.rangeOfCharacter(from: charSet) != nil) || (txtViewForumMessage.text?.rangeOfCharacter(from: charSet) != nil)
+//                {
+//                    print("true")
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                    return
+//                }else{
+//                    self.addEditForum()
+//                }
      
         }
     }
@@ -501,21 +503,22 @@ extension AddForumViewController: GenericTextFieldDelegate {
                 return (string == string)
             }else {
                 if string.count <= 20{
-                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
-
-                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
-                    
-                        if (string.isEmpty  && filtered.isEmpty ) {
-                                    let isBackSpace = strcmp(string, "\\b")
-                                    if (isBackSpace == -92) {
-                                        print("Backspace was pressed")
-                                        return (string == filtered)
-                                    }
-                        } else {
-                            return (string != filtered)
-                        }
-                }else{
-                    return (string == "")
+                    return (string == string)
+//                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+//
+//                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+//
+//                        if (string.isEmpty  && filtered.isEmpty ) {
+//                                    let isBackSpace = strcmp(string, "\\b")
+//                                    if (isBackSpace == -92) {
+//                                        print("Backspace was pressed")
+//                                        return (string == filtered)
+//                                    }
+//                        } else {
+//                            return (string != filtered)
+//                        }
+//                }else{
+//                    return (string == "")
                 }
             }
         }

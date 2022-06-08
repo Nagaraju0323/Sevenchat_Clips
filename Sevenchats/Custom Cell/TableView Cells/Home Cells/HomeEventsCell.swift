@@ -126,8 +126,12 @@ extension HomeEventsCell{
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        lblEventTitle.text = postInfo.valueForString(key: CTitle)
-        lblEventDescription.text = postInfo.valueForString(key: CContent)
+        let str_Back_title = postInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: postInfo.valueForString(key: CTitle))
+        lblEventTitle.text = str_Back_title
+          let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
+        lblEventDescription.text = str_Back_desc
+//        lblEventTitle.text = postInfo.valueForString(key: CTitle)
+  //      lblEventDescription.text = postInfo.valueForString(key: CContent)
         
         lblStartDate.text = "\(CStartDate)"
         lblEndDate.text = "\(CEndDate)"

@@ -165,8 +165,14 @@ extension HomeEventImageTblCell{
         }
         
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
-        lblEventTitle.text = postInfo.valueForString(key: CTitle)
-        lblEventDescription.text = postInfo.valueForString(key: CContent)
+        let str_Back_title = postInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: postInfo.valueForString(key: CTitle))
+        lblEventTitle.text = str_Back_title
+                    
+                     let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
+        lblEventDescription.text = str_Back_desc
+        
+//        lblEventTitle.text = postInfo.valueForString(key: CTitle)
+//        lblEventDescription.text = postInfo.valueForString(key: CContent)
         let created_At1 = postInfo.valueForString(key: "start_date")
         let cnvStr1 = created_At1.stringBefore("G")
         guard let startCreated1 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr1)  else { return}

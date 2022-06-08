@@ -198,8 +198,8 @@ extension AddChirpyViewController{
             let replaced5 = replaced4.replacingOccurrences(of: "\\/", with: "/")
             self.ImguploadStr = replaced5
         } catch { print(error) }
-        
-        let txtchiripy = txtViewChirpyContent.text.replace(string: "\n", replacement: "\\n")
+        let txtchiripy = txtViewChirpyContent.text.replace_str(replace: txtViewChirpyContent.text)
+        //let txtchiripy = txtViewChirpyContent.text.replace(string: "\n", replacement: "\\n")
         
         guard let userID = appDelegate.loginUser?.user_id else {return}
         var dict :[String:Any]  =  [
@@ -535,15 +535,16 @@ extension AddChirpyViewController{
         }else if (self.selectedInviteType == 1 || self.selectedInviteType == 2) && arrSelectedGroupFriends.count == 0 {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSelectContactGroupChirpy, btnOneTitle: CBtnOk, btnOneTapped: nil)
         }else{
-            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-            if (txtViewChirpyContent.text.rangeOfCharacter(from: charSet) != nil)
-                {
-                    print("true")
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                    return
-                }else{
-                    self.addEditChirpy()
-                }
+            self.addEditChirpy()
+//            var charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//            if (txtViewChirpyContent.text.rangeOfCharacter(from: charSet) != nil)
+//                {
+//                    print("true")
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                    return
+//                }else{
+//                    self.addEditChirpy()
+//                }
          
         }
     }

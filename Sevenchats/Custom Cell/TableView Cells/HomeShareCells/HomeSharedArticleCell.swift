@@ -135,7 +135,9 @@ extension HomeSharedArticleCell{
         let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
         lblSharedPostDate.text = shared_Date
             imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
-            lblMessage.text = postInfo.valueForString(key: CMessage)
+        let str_Back_desc_share = postInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: postInfo.valueForString(key: CMessage))
+        lblMessage.text = str_Back_desc_share
+            //lblMessage.text = postInfo.valueForString(key: CMessage)
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         let created_at = postInfo.valueForString(key: CCreated_at)
         let cnvStr = created_at.stringBefore("G")
@@ -149,8 +151,13 @@ extension HomeSharedArticleCell{
         }
         imgURL = postInfo.valueForString(key: CImage)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
-        lblArticleTitle.text = postInfo.valueForString(key: CTitle)
-        lblArticleDescription.text = postInfo.valueForString(key: CContent)
+        let str_Back_title = postInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: postInfo.valueForString(key: CTitle))
+        self.lblArticleTitle.text = str_Back_title
+        
+         let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
+        self.lblArticleDescription.text  = str_Back_desc
+//        lblArticleTitle.text = postInfo.valueForString(key: CTitle)
+//        lblArticleDescription.text = postInfo.valueForString(key: CContent)
         
         lblArticleType.text = CTypeArticle
         self.lblArticleCategory.text = postInfo.valueForString(key: CCategory).uppercased()

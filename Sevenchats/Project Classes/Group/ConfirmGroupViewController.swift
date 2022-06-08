@@ -163,7 +163,8 @@ extension ConfirmGroupViewController{
             let userIDS = arrSelectedParticipant.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
             var apiPara = [String : Any]()
             apiPara[CGroupUsersId] = userIDS
-            apiPara[CGroupTitle] = txtGroupTitle.text
+            let group_title = txtGroupTitle.text?.replace_str(replace: txtGroupTitle.text ?? "")
+            apiPara[CGroupTitle] = group_title
             apiPara[CGroupLink] = btnSwitch.isOn ? 1 : 0
             apiPara[CGroupType] = btnPublic.isSelected ? 1 : 2
             

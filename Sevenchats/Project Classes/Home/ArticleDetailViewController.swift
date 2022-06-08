@@ -245,8 +245,14 @@ extension ArticleDetailViewController{
             }
             
             self.lblUserName.text = artInfo.valueForString(key: CFirstname) + " " + artInfo.valueForString(key: CLastname)
-            self.lblArticleTitle.text = artInfo.valueForString(key: CTitle)
-            self.lblArticleDescription.text = artInfo.valueForString(key: CContent)
+            
+            let str_Back_title = artInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: artInfo.valueForString(key: CTitle))
+            self.lblArticleTitle.text = str_Back_title
+            
+             let str_Back_desc = artInfo.valueForString(key: CContent).return_replaceBack(replaceBack: artInfo.valueForString(key: CContent))
+            self.lblArticleDescription.text  = str_Back_desc
+//            self.lblArticleTitle.text = artInfo.valueForString(key: CTitle)
+//            self.lblArticleDescription.text = artInfo.valueForString(key: CContent)
             let image = artInfo.valueForString(key: "image")
             if image.isEmpty {
                 blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true

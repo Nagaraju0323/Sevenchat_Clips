@@ -77,15 +77,16 @@ extension SharePostViewController {
             self?.resignKeyboard()
             if self?.isValidForAddPost() ?? false{
                 print("Ready for post")
-                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-                if (self?.textViewMessage.text?.rangeOfCharacter(from: charSet) != nil)
-                    {
-                        print("true")
-                    self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                        return
-                    }else{
-                        self?.apiForSharePost()
-                    }
+                self?.apiForSharePost()
+//                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//                if (self?.textViewMessage.text?.rangeOfCharacter(from: charSet) != nil)
+//                    {
+//                        print("true")
+//                    self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                        return
+//                    }else{
+//                        self?.apiForSharePost()
+//                    }
                 
                
 //
@@ -356,7 +357,8 @@ extension SharePostViewController {
     }
     
     fileprivate func shareArticle(){
-        let message = textViewMessage.text.replace(string: "\n", replacement: "\\n")
+        //let message = textViewMessage.text.replace(string: "\n", replacement: "\\n")
+        let message = textViewMessage.text.replace_str(replace: textViewMessage.text)
         let apiPara = getPostGeneralData()
         //apiPara[CCategory_Id] = postData[CCategory_Id]
 //        print(apiPara)

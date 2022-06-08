@@ -305,13 +305,17 @@ extension PollSharedDetailsViewController {
                         let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
                         lblSharedPostDate.text = sharedCreated
                 imgSharedUser.loadImageFromUrl(pollInfo.valueForString(key: CUserSharedProfileImage), true)
-                lblMessage.text = pollInfo.valueForString(key: CMessage)
+            let str_Back_title = pollInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: pollInfo.valueForString(key: CMessage))
+            lblMessage.text = str_Back_title
+              //  lblMessage.text = pollInfo.valueForString(key: CMessage)
             lblUserName.text = pollInfo.valueForString(key: CFirstname) + " " + pollInfo.valueForString(key: CLastname)
             let created_At = pollInfo.valueForString(key: CCreated_at)
                         let cnvStr = created_At.stringBefore("G")
                         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             lblPollPostDate.text = startCreated
-            lblPollTitle.text = pollInfo.valueForString(key: CTitle)
+            let str_Back_qus = pollInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: pollInfo.valueForString(key: CTitle))
+            lblPollTitle.text = str_Back_qus
+            //lblPollTitle.text = pollInfo.valueForString(key: CTitle)
             imgUser.loadImageFromUrl(pollInfo.valueForString(key: CUserProfileImage), true)
             
             if let pollsData = pollInformation{

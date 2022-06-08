@@ -222,7 +222,10 @@ extension ChirpyImageDetailsViewController{
             }
             chirpyId = chirInfo.valueForString(key: "post_id")
             self.lblUserName.text = chirInfo.valueForString(key: CFirstname) + " " + chirInfo.valueForString(key: CLastname)
-            self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
+            
+           // self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
+            let str_Back_desc = chirInfo.valueForString(key: CContent).return_replaceBack(replaceBack: chirInfo.valueForString(key: CContent))
+            lblChirpyDescription.text = str_Back_desc
             self.imgUser.loadImageFromUrl(chirInfo.valueForString(key: CUserProfileImage), true)
             let image = chirInfo.valueForString(key: "image")
             if image.isEmpty {

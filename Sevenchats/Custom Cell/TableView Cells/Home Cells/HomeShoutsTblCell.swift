@@ -112,6 +112,7 @@ extension HomeShoutsTblCell{
         
         
         lblShoutsDescription.text = str_Back
+        
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         _ = postInfo.valueForString(key: CIsLiked)
         

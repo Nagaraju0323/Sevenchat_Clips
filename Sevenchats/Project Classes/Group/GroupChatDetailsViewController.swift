@@ -2308,7 +2308,10 @@ extension GroupChatDetailsViewController {
     func setGroupDetails() {
         
         if let groupInfo = self.iObject as? [String : Any] {
-            lblTitle.text = groupInfo.valueForString(key: CGroupTitle)
+            let str_Back_desc = groupInfo.valueForString(key: CGroupTitle).return_replaceBack(replaceBack:groupInfo.valueForString(key: CGroupTitle))
+            lblTitle.text = str_Back_desc
+            
+            //lblTitle.text = groupInfo.valueForString(key: CGroupTitle)
             imgGroupIcon.loadImageFromUrl(groupInfo.valueForString(key: CGroupImage), true)
             btnMemberInfo.isHidden = true
             if Int64(groupInfo.valueForString(key: CCreated_By)) == appDelegate.loginUser?.user_id {

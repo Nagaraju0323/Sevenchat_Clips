@@ -413,14 +413,20 @@ extension CompleteProfileViewController{
         guard let txtmobile = appDelegate.loginUser?.mobile else {return}
         guard let txtemail = appDelegate.loginUser?.email else {return}
         
-        let txtshortbio = txtViewBiography.text.replace(string: "\n", replacement: "\\n")
-        let txtprofession = txtProfession.text?.replace(string: "\n", replacement: "\\n")
+        let txtshortbio = txtViewBiography.text?.replace_str(replace: txtViewBiography.text ?? "")
+        let txtprofession = txtProfession.text?.replace_str(replace: txtProfession.text ?? "")
+        let txtreligion = txtReligion.text?.replace_str(replace: txtReligion.text ?? "")
+
+        
+        
+//        let txtshortbio = txtViewBiography.text.replace(string: "\n", replacement: "\\n")
+//        let txtprofession = txtProfession.text?.replace(string: "\n", replacement: "\\n")
         let dictcomp:[String:Any] = [
             "user_acc_type":user_acc_type,
             "first_name":firstName_edit ?? "",
             "last_name":lastName_edit ?? "",
             "gender":gender.toString,
-            "religion":txtReligion.text,
+            "religion":txtreligion,
             "city_name":txtCity,
             "profile_image":appDelegate.loginUser?.profile_img ?? "",
             "cover_image":appDelegate.loginUser?.cover_image ?? "",
@@ -592,15 +598,16 @@ extension CompleteProfileViewController{
     
     @objc fileprivate func btnCompleteClicked(_ sender : UIBarButtonItem) {
         
-        let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-        if (self.txtProfession.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtViewBiography.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtReligion.text?.rangeOfCharacter(from: charSet) != nil)
-            {
-                print("true")
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                return
-            }else{
-                self.completeProfile()
-            }
+        self.completeProfile()
+//        let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+//        if (self.txtProfession.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtViewBiography.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtReligion.text?.rangeOfCharacter(from: charSet) != nil)
+//            {
+//                print("true")
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                return
+//            }else{
+//                self.completeProfile()
+//            }
       
     }
     
@@ -674,22 +681,23 @@ extension CompleteProfileViewController : GenericTextFieldDelegate{
                 return (string == string)
             }else {
                 if string.count <= 20{
-                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
-
-                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
-                    
-                        if (string.isEmpty  && filtered.isEmpty ) {
-                                    let isBackSpace = strcmp(string, "\\b")
-                                    if (isBackSpace == -92) {
-                                        print("Backspace was pressed")
-                                        return (string == filtered)
-                                    }
-                        } else {
-                            return (string != filtered)
-                        }
-
-                }else{
-                    return (string == "")
+                    return (string == string)
+//                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+//
+//                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+//
+//                        if (string.isEmpty  && filtered.isEmpty ) {
+//                                    let isBackSpace = strcmp(string, "\\b")
+//                                    if (isBackSpace == -92) {
+//                                        print("Backspace was pressed")
+//                                        return (string == filtered)
+//                                    }
+//                        } else {
+//                            return (string != filtered)
+//                        }
+//
+//                }else{
+//                    return (string == "")
                 }
             }
         }
@@ -701,22 +709,23 @@ extension CompleteProfileViewController : GenericTextFieldDelegate{
                 return (string == string)
             }else {
                 if string.count <= 20{
-                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
-
-                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
-                    
-                        if (string.isEmpty  && filtered.isEmpty ) {
-                                    let isBackSpace = strcmp(string, "\\b")
-                                    if (isBackSpace == -92) {
-                                        print("Backspace was pressed")
-                                        return (string == filtered)
-                                    }
-                        } else {
-                            return (string != filtered)
-                        }
-
-                }else{
-                    return (string == "")
+                    return (string == string)
+//                    let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
+//
+//                        let filtered = string.components(separatedBy: inverted).joined(separator: "")
+//
+//                        if (string.isEmpty  && filtered.isEmpty ) {
+//                                    let isBackSpace = strcmp(string, "\\b")
+//                                    if (isBackSpace == -92) {
+//                                        print("Backspace was pressed")
+//                                        return (string == filtered)
+//                                    }
+//                        } else {
+//                            return (string != filtered)
+//                        }
+//
+//                }else{
+//                    return (string == "")
                 }
             }
         }

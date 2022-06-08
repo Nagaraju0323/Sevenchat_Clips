@@ -54,7 +54,10 @@ class ProductListCell: UITableViewCell {
             collVImages.arrMedia = product.galleryImages
             lblUserName.text = product.firstName + " " + product.lastName
             lblPrice.text = product.formatedPriceAmount
-            lblName.text = product.productTitle
+            let str_Back_desc_title = product.productTitle.return_replaceBack(replaceBack: product.productTitle)
+            lblName.text = str_Back_desc_title
+//
+//            lblName.text = product.productTitle
             let created_At = product.createdAt
             let cnvStr = created_At?.stringBefore("G")
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
