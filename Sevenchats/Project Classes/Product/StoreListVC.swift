@@ -155,7 +155,17 @@ extension StoreListVC {
         }
         //..Hide the filter icond
 //        self.navigationItem.rightBarButtonItems = [sortBarItem, filterBarItem]
-        self.navigationItem.rightBarButtonItems = [sortBarItem]
+//        self.navigationItem.rightBarButtonItems = [sortBarItem]
+        
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),sortBarItem]
+    }
+    
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "productVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
         
     }
 }

@@ -114,7 +114,10 @@ class HomeViewController: ParentViewController {
         
 //        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
         
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
+//        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
+        
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
+        
         tblEvents.estimatedRowHeight = 250;
         tblEvents.rowHeight = UITableView.automaticDimension;
         tblEvents.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 85, right: 0)
@@ -2727,6 +2730,15 @@ extension HomeViewController: PostTypeSelectionDelegate{
 }
 // MARK:- -------- Action Event
 extension HomeViewController{
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "homeVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
+        
+    }
+    
     @objc fileprivate func btnFilterClicked(_ sender : UIBarButtonItem) {
         
         if let postFilterVC = CStoryboardProfile.instantiateViewController(withIdentifier: "ProfileFilterViewController") as? ProfileFilterViewController {

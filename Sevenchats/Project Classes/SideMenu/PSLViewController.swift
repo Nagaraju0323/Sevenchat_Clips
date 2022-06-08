@@ -67,11 +67,21 @@ class PSLViewController: ParentViewController {
         //...Fetch News Category From local
         self.getNewsCategoryFromLocal()
         
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:)))]
+        
         if IS_iPhone_X_Series {
             cnImgVTopBgHeight.constant = 148 //Nav height + coll height + 34
         }
     }
     
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "pslVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
+        
+    }
     fileprivate func getNewsCategoryFromLocal() {
 
         if let arrData = TblPslCategory.fetch(predicate: nil, orderBy: CCategoryName, ascending: true) {

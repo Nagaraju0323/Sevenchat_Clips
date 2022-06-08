@@ -40,6 +40,8 @@ class ChatListViewController: ParentViewController {
     
     fileprivate var btnfrdsList : UIBarButtonItem!
     
+    fileprivate var helpInfo : UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialization()
@@ -89,7 +91,9 @@ class ChatListViewController: ParentViewController {
             self?.navigationItem.rightBarButtonItems = []
             self?.navigationItem.rightBarButtonItem = self?.cancelBarItem
         }
-        self.navigationItem.rightBarButtonItems = [searchBarItem,btnfrdsList]
+        helpInfo = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:)))
+        
+        self.navigationItem.rightBarButtonItems = [helpInfo,searchBarItem,btnfrdsList]
         ///... For Cancel Search
         self.cancelBarItem = BlockBarButtonItem(title: CBtnCancel, style: .plain, actionHandler: { [weak self] (item) in
             guard let _ = self else {return}
@@ -121,6 +125,14 @@ class ChatListViewController: ParentViewController {
         self.navigationItem.rightBarButtonItem = nil
         self.navigationItem.rightBarButtonItems = [self.searchBarItem,self.btnfrdsList] as? [UIBarButtonItem] ?? []
         self.tblUserChat.reloadData()
+    }
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "chatVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
+        
     }
     
 }

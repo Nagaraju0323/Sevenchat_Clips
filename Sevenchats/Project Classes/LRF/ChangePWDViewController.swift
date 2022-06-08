@@ -39,6 +39,16 @@ class ChangePWDViewController: ParentViewController {
     func Initialization(){
         btnUpdate.layer.cornerRadius = 5
         self.setLanguageText()
+        
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:)))]
+    }
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "changepasswordVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
+        
     }
     
     func setLanguageText() {

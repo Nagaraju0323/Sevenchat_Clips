@@ -73,7 +73,18 @@ class NotificationViewController: ParentViewController {
             self.pageNumber = 1
             self.getNotificationListFromServer(isLoader: true)
         }
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:)))]
     }
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "notificationVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
+        
+    }
+    
+    
 }
 
 // MARK:- ---------- Api Functions

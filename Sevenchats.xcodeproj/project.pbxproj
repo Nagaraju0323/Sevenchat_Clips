@@ -86,6 +86,9 @@
 		18DCA2CF2563E096000199EA /* CreatePostTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DCA2CD2563E096000199EA /* CreatePostTblCell.swift */; };
 		18E1C99726270F4500E9A0D0 /* SwipeReplayIMGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E1C99626270F4500E9A0D0 /* SwipeReplayIMGView.swift */; };
 		18E1C99A26270F5E00E9A0D0 /* SwipeReplayIMGView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18E1C99926270F5E00E9A0D0 /* SwipeReplayIMGView.xib */; };
+		18F87D6B28506895002498ED /* HelpLine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18F87D6A28506895002498ED /* HelpLine.storyboard */; };
+		18F87D6E28506A44002498ED /* HelpLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F87D6D28506A44002498ED /* HelpLineViewController.swift */; };
+		18F87D7028506A75002498ED /* PDFKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F87D6F28506A74002498ED /* PDFKit.framework */; };
 		18F939CF26F0A83A000E95FD /* intrestSubcategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F939CE26F0A83A000E95FD /* intrestSubcategory.swift */; };
 		4541C3D0245AF10E00193914 /* ForwardPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4541C3CC245AF10E00193914 /* ForwardPageViewController.swift */; };
 		4541C3D1245AF10E00193914 /* ForwardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4541C3CD245AF10E00193914 /* ForwardViewController.swift */; };
@@ -669,6 +672,9 @@
 		18DCA2CD2563E096000199EA /* CreatePostTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostTblCell.swift; sourceTree = "<group>"; };
 		18E1C99626270F4500E9A0D0 /* SwipeReplayIMGView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeReplayIMGView.swift; sourceTree = "<group>"; };
 		18E1C99926270F5E00E9A0D0 /* SwipeReplayIMGView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwipeReplayIMGView.xib; sourceTree = "<group>"; };
+		18F87D6A28506895002498ED /* HelpLine.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HelpLine.storyboard; sourceTree = "<group>"; };
+		18F87D6D28506A44002498ED /* HelpLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLineViewController.swift; sourceTree = "<group>"; };
+		18F87D6F28506A74002498ED /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
 		18F939CE26F0A83A000E95FD /* intrestSubcategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = intrestSubcategory.swift; sourceTree = "<group>"; };
 		27804AECFF1A40FF9011865E /* Pods_Sevenchats.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sevenchats.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4541C3CC245AF10E00193914 /* ForwardPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForwardPageViewController.swift; sourceTree = "<group>"; };
@@ -1190,6 +1196,7 @@
 				6225402D240E43E500624F33 /* SystemConfiguration.framework in Frameworks */,
 				6225402B240E43DD00624F33 /* GLKit.framework in Frameworks */,
 				62254029240E43D900624F33 /* CoreTelephony.framework in Frameworks */,
+				18F87D7028506A75002498ED /* PDFKit.framework in Frameworks */,
 				62254025240E43CD00624F33 /* VideoToolbox.framework in Frameworks */,
 				185CE9992847658F00FA159B /* StoreKit.framework in Frameworks */,
 				62254023240E43C700624F33 /* AudioToolbox.framework in Frameworks */,
@@ -1310,6 +1317,14 @@
 			path = SwipeReplay;
 			sourceTree = "<group>";
 		};
+		18F87D6C28506A00002498ED /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				18F87D6D28506A44002498ED /* HelpLineViewController.swift */,
+			);
+			path = Help;
+			sourceTree = "<group>";
+		};
 		217552244C1B964EA806E815 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1334,6 +1349,7 @@
 		62793ACD240E300100E906B7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18F87D6F28506A74002498ED /* PDFKit.framework */,
 				185CE9982847658F00FA159B /* StoreKit.framework */,
 				1838BA70275F350D00A9372C /* SocketIO.framework */,
 				1838BA6E275F30FC00A9372C /* SocketIO.framework */,
@@ -1402,6 +1418,7 @@
 		62E1A394240E2EC4001BD7A8 /* Project Classes */ = {
 			isa = PBXGroup;
 			children = (
+				18F87D6C28506A00002498ED /* Help */,
 				18BD808C25F890E100FE318A /* Stories */,
 				62E1A45E240E2EC4001BD7A8 /* Core Data */,
 				62E1A395240E2EC4001BD7A8 /* Home */,
@@ -1814,6 +1831,7 @@
 				62E1A474240E2EC4001BD7A8 /* SideMenu.storyboard */,
 				62E1A475240E2EC4001BD7A8 /* Rewards.storyboard */,
 				1863D0C12600ACCA00B5BDE8 /* Stories.storyboard */,
+				18F87D6A28506895002498ED /* HelpLine.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -2480,6 +2498,7 @@
 				62E1A692240E2EC5001BD7A8 /* Chat.storyboard in Resources */,
 				1863D0C22600ACCA00B5BDE8 /* Stories.storyboard in Resources */,
 				62E1A725240E2EC5001BD7A8 /* InviteFriendCell.xib in Resources */,
+				18F87D6B28506895002498ED /* HelpLine.storyboard in Resources */,
 				62E1A7C2240E2EC5001BD7A8 /* Poppins-Light.otf in Resources */,
 				18BD809F25F89A7200FE318A /* user-details.json in Resources */,
 				1864F6A025F60773001C69A5 /* PostStoriesCollCell.xib in Resources */,
@@ -2861,6 +2880,7 @@
 				1863D10F2600D3CD00B5BDE8 /* UIImageExtensions.swift in Sources */,
 				62E1A774240E2EC5001BD7A8 /* ExtensionUIView.swift in Sources */,
 				62E1A75C240E2EC5001BD7A8 /* SegmentText.swift in Sources */,
+				18F87D6E28506A44002498ED /* HelpLineViewController.swift in Sources */,
 				62E1A5FF240E2EC5001BD7A8 /* TblSharedFilesDetailsCell.swift in Sources */,
 				62E1A761240E2EC5001BD7A8 /* MIServiceManager.swift in Sources */,
 				62E1A708240E2EC5001BD7A8 /* HomeSharedArticleCell.swift in Sources */,

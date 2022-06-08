@@ -65,9 +65,20 @@ class FeedbackViewController: ParentViewController {
     func Initialization(){
         viewUploadedImageContainer.isHidden = true
         
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddFeedbackClicked(_:)))]
+//        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddFeedbackClicked(_:)))]
+        
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddFeedbackClicked(_:)))]
         
         self.loadCategoryList()
+    }
+    
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "FeedBackVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
+        
     }
     
     fileprivate func loadCategoryList() {

@@ -1,25 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17150" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17122"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Help Line View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HelpLineViewController" id="Y6W-OH-hqX" customClass="HelpLineViewController" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" restorationIdentifier="HelpLineViewController" translatesAutoresizingMaskIntoConstraints="NO" id="e0w-OT-K0f" customClass="PDFView">
+                                <rect key="frame" x="1" y="44" width="375" height="656"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="e0w-OT-K0f" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="1" id="IQc-7a-PRO"/>
+                            <constraint firstItem="e0w-OT-K0f" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="TiP-gm-S4S"/>
+                            <constraint firstItem="e0w-OT-K0f" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="cLj-5T-MAG"/>
+                            <constraint firstItem="e0w-OT-K0f" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="1" id="z8J-YV-KR6"/>
+                        </constraints>
                     </view>
+                    <size key="freeformSize" width="375" height="700"/>
+                    <connections>
+                        <outlet property="pdfView" destination="e0w-OT-K0f" id="uLm-8o-qUk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="35" y="54"/>
         </scene>
     </scenes>
     <resources>

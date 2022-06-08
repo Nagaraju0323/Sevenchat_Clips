@@ -78,7 +78,11 @@ class CreateShoutsViewController: ParentViewController {
        
         textViewMessage.textContainerInset = UIEdgeInsets(top: 8, left: 0, bottom: 20, right: 0)
         
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnCreateShoutsClicked(_:)))]
+//        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnCreateShoutsClicked(_:)))]
+        
+        
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnCreateShoutsClicked(_:)))]
+        
         btnInviteTypeCLK(btnInviteAllFriend)
         
         if shoutsType == .addShouts || shoutsType == .shareQuote {
@@ -458,6 +462,15 @@ extension CreateShoutsViewController{
 
         }
     }
+ 
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "ShoutVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
+        
+    }
+    
 }
 extension CreateShoutsViewController{
 func removeSpecialCharacters(from text: String) -> String {

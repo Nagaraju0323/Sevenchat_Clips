@@ -102,7 +102,11 @@ class AddChirpyViewController: ParentViewController {
         
         setQuoteText()
         viewUploadedImageContainer.isHidden = true
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddChirpyClicked(_:)))]
+//        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddChirpyClicked(_:)))]
+        
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddChirpyClicked(_:)))]
+        
+        
         
         let arrCategory = MIGeneralsAPI.shared().fetchCategoryFromLocalChiripy()
         
@@ -172,6 +176,15 @@ class AddChirpyViewController: ParentViewController {
         categoryDropDownView.txtCategory.placeholder = CChirpyPlaceholderSelecetCategory
         txtViewChirpyContent.placeHolder = CVisiblity
         btnSelectGroupFriend.setTitle(CMessagePostsSelectFriends, for: .normal)
+    }
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "ChirpyVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
+        
     }
 }
 

@@ -46,6 +46,15 @@ class QuotesViewController: ParentViewController {
         tblQuotes.pullToRefreshControl = refreshControl
         
         self.loadQuotes(showLoader: true)
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:)))]
+    }
+    
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "quotesVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
     }
 }
 

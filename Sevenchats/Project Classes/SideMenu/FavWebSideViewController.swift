@@ -32,6 +32,7 @@ class FavWebSideViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.Initialization()
+      
         
     }
     
@@ -61,6 +62,15 @@ class FavWebSideViewController: ParentViewController {
         refreshControl.tintColor = ColorAppTheme
         tblFavWebSite.pullToRefreshControl = refreshControl
         self.getWebSiteListFromServer(true)
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:)))]
+    }
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "favVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
+        
     }
 }
 

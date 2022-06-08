@@ -103,7 +103,9 @@ class AddEventViewController: ParentViewController {
         }
         setQuoteText()
         viewUploadedImageContainer.isHidden = true
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddEventClicked(_:)))]
+//        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddEventClicked(_:)))]
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddEventClicked(_:)))]
+        
         let arrCategory = MIGeneralsAPI.shared().fetchCategoryFromLocalEvent()
         categoryDropDownView.arrDataSource = arrCategory.map({ (obj) -> String in
             return (obj[CCategoryName] as? String ?? "")
@@ -586,6 +588,15 @@ extension AddEventViewController{
 //                    self.addEditEvent()
 //                }
 
+        }
+        
+    }
+    
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "EventVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
         }
         
     }

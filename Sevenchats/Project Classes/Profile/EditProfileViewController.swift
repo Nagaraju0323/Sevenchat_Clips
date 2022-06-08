@@ -107,6 +107,8 @@ class EditProfileViewController: ParentViewController {
         }
         setupCuntryStateCityList()
         self.preFilledUserDetail()
+        
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:)))]
     }
     
     func setLanguageText() {
@@ -226,6 +228,15 @@ class EditProfileViewController: ParentViewController {
             }
         }
     }
+    
+    @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "ediProfileVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
+        
+    }
+    
 }
 //MARK:- Manage Country, State and City
 extension EditProfileViewController {

@@ -204,8 +204,21 @@ extension AddPollViewController {
                 
             }
         }
-        self.navigationItem.rightBarButtonItems = [addMediaBarButtion]
+        
+       let addHelpinfo = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:)))
+        self.navigationItem.rightBarButtonItems = [addHelpinfo,addMediaBarButtion]
     }
+    
+    
+    @objc func btnHelpInfoClicked(_ sender : UIBarButtonItem){
+        if let helpLineVC = CStoryboardHelpLine.instantiateViewController(withIdentifier: "HelpLineViewController") as? HelpLineViewController {
+            helpLineVC.fromVC = "PollVC"
+            self.navigationController?.pushViewController(helpLineVC, animated: true)
+        }
+        
+    }
+    
+    
     
     fileprivate func updateUIAccordingToLanguage(){
         
@@ -327,27 +340,24 @@ extension AddPollViewController {
             }else if arrOptions[0] == arrOptions[2]{
                 print("first and third match ")
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and third match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                return
             }else if arrOptions[1] == arrOptions[2]{
-                print("second and Third Match ")
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "second and Third Match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }
             
         }else if arrQuestions.count == 4{
             if arrOptions[0] == arrOptions[1] {
-                print("first and second match")
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and second match", btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }else if arrOptions[0] == arrOptions[2]{
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and third match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
-                print("first and third match ")
+                return
             }else if arrOptions[0] == arrOptions[3]{
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and four Match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
-                print("first and four Match ")
                 return
             }else if arrOptions[1] == arrOptions[2]{
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "second and third match  ", btnOneTitle: CBtnOk, btnOneTapped: nil)
-                print("second and third match  ")
                 return
             }else if arrOptions[1] == arrOptions[3]{
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "second and four match  ", btnOneTitle: CBtnOk, btnOneTapped: nil)
@@ -355,12 +365,9 @@ extension AddPollViewController {
                 return
             }else if arrOptions[2] == arrOptions[3]{
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "third and four match  ", btnOneTitle: CBtnOk, btnOneTapped: nil)
-               
                 return
             }
         }
-        
-        
         
         let _:String = "\(arrOptions)"
         apiPara[COptions] = arrOptions

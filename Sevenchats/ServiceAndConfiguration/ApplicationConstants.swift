@@ -155,6 +155,8 @@ let CStoryboardLocationPicker = UIStoryboard(name: "LocationPicker", bundle: nil
 let CStoryboardAudioVideo = UIStoryboard(name: "AudioVideo", bundle: nil)
 let CStoryboardRewards = UIStoryboard(name: "Rewards", bundle: nil)
 let CStoryboardForward = UIStoryboard(name: "Forward", bundle: nil)
+let CStoryboardHelpLine = UIStoryboard(name: "HelpLine", bundle: nil)
+
 
 //MARK:- Application Language
 //MARK:-
