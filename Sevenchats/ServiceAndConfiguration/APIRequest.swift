@@ -4584,6 +4584,16 @@ extension APIRequest {
             
             
             //Forgot Screen Messages...
+            tblLanguageText.option_FS = dict?.valueForString(key: "option_FS")
+            tblLanguageText.option_FT = dict?.valueForString(key: "option_FT")
+            tblLanguageText.option_ST = dict?.valueForString(key: "option_ST")
+            tblLanguageText.option_FF = dict?.valueForString(key: "option_FF")
+            tblLanguageText.option_SF = dict?.valueForString(key: "option_SF")
+            tblLanguageText.option_TF = dict?.valueForString(key: "option_TF")
+            
+            
+            
+            
             tblLanguageText.forgot_email_not_registered_with_us = dict?.valueForString(key: "forgot_email_not_registered_with_us")
             tblLanguageText.select_sub_category = dict?.valueForString(key: "select_sub_category")
             

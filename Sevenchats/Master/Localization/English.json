@@ -50,7 +50,13 @@
     "old_password_does_not_match":"Old password does not match",
     "old_new_password_does_match":"Old and New password are same",
     "already_voted":"your Already voted",
-    "cannot_voted":"Your cannot vote on poll created by yourself"
+    "cannot_voted":"Your cannot vote on poll created by yourself",
+   "option_FS": "The first and second options appear to be similar.",
+    "option_FT": "The first and third options appear to be similar.",
+    "option_ST": "The second and third appear to be similar.",
+    "option_FF": "The first and four options appear to be similar.",
+    "option_SF": "The second and four options appear to be similar.",
+    "option_TF": "The third and four options appear to be similar.",
     
     
     

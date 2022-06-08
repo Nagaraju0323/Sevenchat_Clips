@@ -1184,6 +1184,26 @@ var CPleaseSelectPollCategory: String{
     return CLocalize(text: appDelegate.langugaeText?.please_enter_poll_category ?? "Please select poll category.")
 }
 
+var COptionFS: String{
+    return CLocalize(text: appDelegate.langugaeText?.option_FS ?? "The first and second options appear to be similar.")
+}
+var COptionFT: String{
+    return CLocalize(text: appDelegate.langugaeText?.option_FT ?? "The first and third options appear to be similar.")
+}
+var COptionST: String{
+    return CLocalize(text: appDelegate.langugaeText?.option_ST ?? "The second and third appear to be similar.")
+}
+var COptionFF: String{
+    return CLocalize(text: appDelegate.langugaeText?.option_FF ?? "The first and four options appear to be similar.")
+}
+var COptionSF: String{
+    return CLocalize(text: appDelegate.langugaeText?.option_SF ?? "The second and four options appear to be similar.")
+}
+var COptionTF: String{
+    return CLocalize(text: appDelegate.langugaeText?.option_TF ?? "The third and four options appear to be similar.")
+}
+
+
 var CMaintenanceMode: String {
     return CLocalize(text: appDelegate.langugaeText?.maintenance_mode ?? "Sorry for the inconvenience social app is currently down due to some maintenance process going on server. We will be back soon.")
 }
