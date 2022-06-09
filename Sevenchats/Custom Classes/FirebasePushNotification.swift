@@ -625,11 +625,16 @@ extension FirebasePushNotification{
                             
 //                            presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageGroupDeleted, btnOneTitle: CBtnOk, btnOneTapped: nil)
                         }else {
-                        
+                            var group_id = ""
                         if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
                             let eventViewController = appDelegate.getTopMostViewController()
                             groupChatDetailVC.iObject =  groupInfo.first ?? [:]
                             groupChatDetailVC.groupNotfInfo = groupInfo.first ?? [:]
+                            for group_Data in groupInfo{
+                                group_id = group_Data["group_id"] as? String ?? ""
+                                print("groupdID \(group_id)")
+                            }
+                            groupChatDetailVC.group_id = group_id
                             groupChatDetailVC.isCreateNewChat = false
                             groupChatDetailVC.notificationGrp = true
                             eventViewController.navigationController?.pushViewController(groupChatDetailVC, animated: true)

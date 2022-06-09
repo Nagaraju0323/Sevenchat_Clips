@@ -239,13 +239,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
              print("do some background task")
              DispatchQueue.main.async {
                 
-                ChatSocketIo.shared().SocketInitilized()
+//                ChatSocketIo.shared().SocketInitilized()
              }
          }
      }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        ChatSocketIo.shared().SocketInitilized()
+      //  ChatSocketIo.shared().SocketInitilized()
         UIApplication.shared.applicationIconBadgeNumber = 0
         SocketIOManager.shared().establishConnection()
 //        runBackgrounThread()
