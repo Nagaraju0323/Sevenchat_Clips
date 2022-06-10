@@ -116,7 +116,7 @@ extension AddParticipantsViewController{
             self.refreshControl.endRefreshing()            
             self.tblUser.tableFooterView = UIView()
             
-            self.arrUser.removeAll()
+//            self.arrUser.removeAll()
             if response != nil{
                 // if let arrList = response![CJsonData] as? [[String:Any]]{
                 if let arrList = response!["my_friends"] as? [[String:Any]]{
@@ -190,9 +190,9 @@ extension AddParticipantsViewController : UITableViewDelegate, UITableViewDataSo
             cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
             
 //            ..... LOAD MORE DATA.........
-//                        if indexPath == tblUser.lastIndexPath(){
-//                            self.getFriendList(strSearch: self.txtSearch.text ?? "", showLoader: false)
-//                        }
+            if indexPath == tblUser.lastIndexPath(){
+                self.getFriendList(strSearch: self.txtSearch.text ?? "", showLoader: false)
+            }
             
             return cell
         }
@@ -294,15 +294,29 @@ extension AddParticipantsViewController: UITextFieldDelegate {
         
         guard let text = textField.text,
               let textRange = Range(range, in: text) else{
+                 
             return true
         }
-
+       
+         
+//        if textField.text == ""{
+//            self.pageNumber = 1
+//            self.getFriendList(strSearch: "", showLoader: false)
+//        }
+        
         let updatedText = text.replacingCharacters(in: textRange,with: string)
-        self.pageNumber = 1
-        self.getFriendList(strSearch: updatedText, showLoader: false)
-        arrUserList.removeAll()
-        arrUserList =  (arrUser as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
-        tblUser.reloadData()
+        if updatedText == ""{
+            self.pageNumber = 1
+            self.getFriendList(strSearch: "", showLoader: false)
+        }else {
+            arrUserList.removeAll()
+            self.getFriendList(strSearch: updatedText, showLoader: false)
+            
+            arrUserList =  (arrUser as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
+            tblUser.reloadData()
+        }
+//        self.pageNumber = 1
+
         return true
     }
     func textFieldShouldClear(_ textField: UITextField) -> Bool {

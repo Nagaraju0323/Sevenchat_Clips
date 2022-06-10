@@ -41,9 +41,17 @@ class ChatFriendViewController: ParentViewController {
     var userID:Int?
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
-    var arrFriends = [[String:Any]]()
+//    var arrFriends = [[String:Any]]()
     var topicName:String?
     
+    
+    var arrFriends = [[String:Any]]()
+    var arrUser : [[String:Any]] = [[:]] {
+        didSet{
+            self.arrFriends = arrUser
+         
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialization()
@@ -121,22 +129,23 @@ extension ChatFriendViewController {
             
             self.refreshControl.endRefreshing()
             self.tblFriend.tableFooterView = UIView()
-            self.arrFriends.removeAll()
+//            self.arrFriends.removeAll()
             
             if response != nil{
-                if let arrList = response!["my_friends"] as? [[String:Any]]{
+                if let arrLists = response!["my_friends"] as? [[String:Any]]{
                     // Remove all data here when page number == 1
                     if self.pageNumber == 1{
-                        self.arrFriends.removeAll()
+                        self.arrUser.removeAll()
                         self.tblFriend.reloadData()
                     }
                     // Add Data here...
-                    if arrList.count > 0{
-                        self.arrFriends = self.arrFriends + arrList
+                    if arrLists.count > 0{
+                        self.arrUser = self.arrUser + arrLists
                         self.tblFriend.reloadData()
                         self.pageNumber += 1
+                       
                     }
-                    //                    self.lblNoData.isHidden = self.arrUser.count > 0
+//                                        self.lblNoData.isHidden = self.arrUser.count > 0
                 }
             }
         })
@@ -166,9 +175,9 @@ extension ChatFriendViewController : UITableViewDelegate, UITableViewDataSource{
             cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
             
             //..... LOAD MORE DATA.........
-            // if indexPath == tblFriend.lastIndexPath(){
-            // self.getFriendListFromServer(showLoader: false)
-            //  }
+             if indexPath == tblFriend.lastIndexPath(){
+             self.getFriendListFromServer(showLoader: false)
+              }
             
             return cell
         }
@@ -257,10 +266,10 @@ extension ChatFriendViewController{
 // MARK:- ------------ Action Event
 extension ChatFriendViewController{
     
-    @objc fileprivate func btnRefreshClicked(_ sender : UIBarButtonItem) {
-        self.pageNumber = 1
-        self.getFriendListFromServer(showLoader: true)
-    }
+//    @objc fileprivate func btnRefreshClicked(_ sender : UIBarButtonItem) {
+//        self.pageNumber = 1
+//        self.getFriendListFromServer(showLoader: true)
+//    }
     
     @IBAction func btnTextClear(_ sender : UIButton){
         txtSearch.text = nil
@@ -297,6 +306,10 @@ extension ChatFriendViewController{
     
     @IBAction func textFieldDidChanged(_ textFiled : UITextField){
         
+    
+        
+        
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -307,23 +320,34 @@ extension ChatFriendViewController{
 // MARK:- ------------ UITextFieldDelegate
 extension ChatFriendViewController : UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        if apiTask?.state == URLSessionTask.State.running {
-            apiTask?.cancel()
+
+        guard let text = textField.text,
+              let textRange = Range(range, in: text) else{
+                 
+            return true
         }
         
-        if (textField.text?.count)! < 2{
-            pageNumber = 1
-            arrFriends.removeAll()
-            tblFriend.reloadData()
+        let updatedText = text.replacingCharacters(in: textRange,with: string)
+        if updatedText == ""{
+            self.pageNumber = 1
             self.getFriendListFromServer(showLoader: false)
+        }else {
+//            self.pageNumber = 1
+            arrFriends.removeAll()
+//            self.getFriendListFromServer(showLoader: false)
+            
+            arrFriends =  (arrUser as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
+            print("arruser\(arrUser)")
+            tblFriend.reloadData()
+            
         }
-        
-        pageNumber = 1
-        self.getFriendListFromServer(showLoader: false, strSearch: txtSearch.text ?? "")
+//
         return true
     }
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         return textField.resignFirstResponder()
     }
+    
+    
+    
 }

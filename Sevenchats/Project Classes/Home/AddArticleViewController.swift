@@ -393,8 +393,9 @@ extension AddArticleViewController: UICollectionViewDelegate, UICollectionViewDa
 extension AddArticleViewController{
     
     @IBAction func btnUplaodImageCLK(_ sender : UIButton){
-        
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
         self.presentImagePickerController(allowEditing: false) { [weak self](image, info) in
+            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
             guard let self = self else { return }
             if image != nil{
                 self.imgArticle.image = image

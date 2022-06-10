@@ -73,7 +73,7 @@ class NotificationViewController: ParentViewController {
             self.pageNumber = 1
             self.getNotificationListFromServer(isLoader: true)
         }
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:)))]
+//        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:)))]
     }
     
     @objc fileprivate func btnHelpInfoClicked(_ sender : UIBarButtonItem){

@@ -291,8 +291,9 @@ extension CreateChatGroupViewController{
                         }
                     }
                     
+//                    popViewController
                     if moveBack {
-                        self.navigationController?.popViewController(animated: true)
+                        self.navigationController?.popToRootViewController(animated: true)
                         GCDMainThread.async {
                             if let metaInfo = response![CJsonMeta] as? [String : Any]{
                                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: metaInfo.valueForString(key: CJsonMessage), btnOneTitle: CBtnOk, btnOneTapped: nil)
@@ -630,13 +631,13 @@ extension CreateChatGroupViewController{
     }
     
     @IBAction func btnUplaodImageCLK(_ sender : UIButton){
-        
         self.presentImagePickerController(allowEditing: false) { (image, info) in
+            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
             if image != nil{
                 self.imgGroupIcon.image = image
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
-                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+//                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                 if let selectedImage = info?[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                     let imgName = UUID().uuidString
                     let documentDirectory = NSTemporaryDirectory()
@@ -646,6 +647,8 @@ extension CreateChatGroupViewController{
                     data.write(toFile: localPath, atomically: true)
                     let photoURL = URL.init(fileURLWithPath: localPath)
                     print("imageURl\(photoURL)")
+                    
+                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
                     
                     self.imgName = photoURL.absoluteString ?? ""
                     guard let mobileNum = appDelegate.loginUser?.mobile else {

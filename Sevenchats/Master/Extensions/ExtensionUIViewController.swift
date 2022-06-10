@@ -531,6 +531,8 @@ extension UIViewController : UIImagePickerControllerDelegate , UINavigationContr
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
          var completionAutoDelete1: ((_ infoToReturn :Int) ->())?
         picker.dismiss(animated: true) {
+           
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
           if let allowEditing = self.imagePickerController?.allowsEditing {
             var image:UIImage?
             if allowEditing {
@@ -557,7 +559,9 @@ extension UIViewController : UIImagePickerControllerDelegate , UINavigationContr
              imagePickerControllerCompletionHandler(image, info)
             }
           }
+         
         }
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
       }
     
     /// A Delegate method of UIImagePickerControllerDelegate.

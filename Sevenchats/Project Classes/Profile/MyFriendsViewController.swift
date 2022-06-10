@@ -194,6 +194,7 @@ extension MyFriendsViewController{
                         if self.pageNumber == 1{
                             self.arrFriendList.removeAll()
                             self.tblFriendList.reloadData()
+                            
                         }
                         // Add Data here...
                         if arrList.count > 0{
@@ -566,11 +567,12 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
             
              //Load more data...
             if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData {
-                if self.searchStatus == false {
+//                if self.searchStatus == true {
+//                self.getFriendList(txtSearch.text, showLoader: false)
+//                }else {
+//
+//                }
                 self.getFriendList(txtSearch.text, showLoader: false)
-                }else {
-                    
-                }
             }
             
             return cell
@@ -612,6 +614,8 @@ extension MyFriendsViewController {
             break
         case 2:
             txtSearch.text = nil
+            self.pageNumber = 1
+            self.getFriendList(txtSearch.text, showLoader: false)
             break
         default:
             break
@@ -640,36 +644,36 @@ extension MyFriendsViewController : UITextFieldDelegate {
         switch selectedIndexPath.item {
                 case 0:
                     debugPrint("::::::::::this All Friends:::::::")
-                    pageNumber = 1
+//                    pageNumber = 1
                     arrFriendListNew.removeAll()
                     arrFriendListNew =  (arrFriendList as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
-                    tblFriendList.reloadData()
+//                    tblFriendList.reloadData()
                     if (textFiled.text?.isEmpty ?? true){
                         arrFriendListNew = arrFriendList
                     }
-                    pageNumber = 1
+//                    pageNumber = 1
                     tblFriendList.reloadData()
                     
                 case 1:
-                    pageNumber = 1
+//                    pageNumber = 1
                     arrFriendListNew.removeAll()
                     arrFriendListNew =  (arrFriendList as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
-                    tblFriendList.reloadData()
+//                    tblFriendList.reloadData()
                     if (textFiled.text?.isEmpty ?? true){
                         arrFriendListNew = arrFriendList
                     }
-                    pageNumber = 1
+//                    pageNumber = 1
                     tblFriendList.reloadData()
                     debugPrint(":::::::::Request sent::::::::")
                 default:
-                    pageNumber = 1
+//                    pageNumber = 1
                     arrFriendListNew.removeAll()
                     arrFriendListNew =  (arrFriendList as? [[String: AnyObject]])?.filter({($0["first_name"] as? String)?.range(of: txtSearch.text ?? "", options: [.caseInsensitive]) != nil }) ?? []
-                    tblFriendList.reloadData()
+//                    tblFriendList.reloadData()
                     if (textFiled.text?.isEmpty ?? true){
                         arrFriendListNew = arrFriendList
                     }
-                    pageNumber = 1
+//                    pageNumber = 1
                     tblFriendList.reloadData()
                     debugPrint(":::::::::PendingReques::::::::")
                 }

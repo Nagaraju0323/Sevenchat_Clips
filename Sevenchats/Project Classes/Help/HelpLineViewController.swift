@@ -33,7 +33,6 @@ class HelpLineViewController: ParentViewController {
         // Do any additional setup after loading the view.
     }
     func intilization(){
-       
         
         switch fromVC {
         case "homeVC":
@@ -49,7 +48,7 @@ class HelpLineViewController: ParentViewController {
         case "ForumVC":
             infoURL = URL(string:"https://stg.sevenchats.com:3443/sevenchats/ProfilePic/helpScreeninfo_Forum.pdf" )
         case "ShoutVC":
-            infoURL = URL(string:"https://stg.sevenchats.com:3443/sevenchats/ProfilePic/ helpScreeninfo_Shout.pdf" )
+            infoURL = URL(string:"https://stg.sevenchats.com:3443/sevenchats/ProfilePic/helpScreeninfo_Shout.pdf" )
         case "GalleryVC":
             infoURL = URL(string:"https://stg.sevenchats.com:3443/sevenchats/ProfilePic/helpScreeninfo_Gallery.pdf" )
         case "PollVC":
@@ -85,6 +84,8 @@ class HelpLineViewController: ParentViewController {
       
         case "rewardsVC":
             infoURL = URL(string:"https://stg.sevenchats.com:3443/sevenchats/ProfilePic/helpScreeninfo_rewards.pdf" )
+        case "changepasswordVC":
+            infoURL = URL(string:"https://stg.sevenchats.com:3443/sevenchats/ProfilePic/helpScreeninfo_changespwd.pdf" )
       
         default:
             print("Type is something else")

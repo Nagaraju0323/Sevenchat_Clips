@@ -98,7 +98,6 @@ class HomeSearchViewController: ParentViewController {
         tblEvents.register(UINib(nibName: "HomeShoutsTblCell", bundle: nil), forCellReuseIdentifier: "HomeShoutsTblCell")
         tblEvents.register(UINib(nibName: "HomeFourmTblCell", bundle: nil), forCellReuseIdentifier: "HomeFourmTblCell")
         tblEvents.register(UINib(nibName: "HomePollTblCell", bundle: nil), forCellReuseIdentifier: "HomePollTblCell")
-        
         tblEvents.register(UINib(nibName: "HomeSharedArticleCell", bundle: nil), forCellReuseIdentifier: "HomeSharedArticleCell")
         tblEvents.register(UINib(nibName: "HomeSharedGalleryCell", bundle: nil), forCellReuseIdentifier: "HomeSharedGalleryCell")
         tblEvents.register(UINib(nibName: "HomeSharedEventImageTblCell", bundle: nil), forCellReuseIdentifier: "HomeSharedEventImageTblCell")
@@ -187,6 +186,7 @@ extension HomeSearchViewController  {
             param[CPage] = pageNumber
         }
         
+        print("pageNumber\(pageNumber)")
         
         param[CLimitS] = CLimitTW
         param["user_id"] = appDelegate.loginUser?.user_id.description
@@ -194,7 +194,7 @@ extension HomeSearchViewController  {
             guard let self = self else { return }
             self.tblEvents.tableFooterView = nil
             self.refreshControl.endRefreshing()
-            self.arrHomeSearch.removeAll()
+//            self.arrHomeSearch.removeAll()
             GCDMainThread.async {
                 if response != nil && error == nil {
                     if let arrList = response!["users"] as? [[String : Any]] {
@@ -467,7 +467,6 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
 //                                                            self?.tblEvents.reloadRows(at: [indexPath], with: .top)
 //                                                         }
 //                                                     }
-                                                    
 //                                                    self?.navigationController?.popViewController(animated: true)
                                                     
                                                 }
