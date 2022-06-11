@@ -36,7 +36,7 @@ class HelpLineViewController: ParentViewController {
         
         switch fromVC {
         case "homeVC":
-        infoURL = URL(string:"https://stg.sevenchats.com:3443/sevenchats/ProfilePic/helpScreeninfo_Home.pdf" )
+        infoURL = URL(string:"https://stg.sevenchats.com:3443/sevenchats/ProfilePic/helpScreeninfo_home.pdf" )
         case "myProfileVC":
             infoURL = URL(string:"https://stg.sevenchats.com:3443/sevenchats/ProfilePic/helpScreeninfo_Myprofile.pdf" )
         case "ArticleVC":

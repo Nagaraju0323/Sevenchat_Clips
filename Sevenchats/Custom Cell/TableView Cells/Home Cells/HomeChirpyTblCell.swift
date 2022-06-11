@@ -42,6 +42,15 @@ class HomeChirpyTblCell: UITableViewCell {
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
+    var notifcationIsSlected = false
+    var isLikesOthers:Bool?
+    var isLikeSelected = false
+    var isFinalLikeSelected = false
+    var isLikesOthersPage:Bool?
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
+    var notificationInfo = [String:Any]()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -87,9 +96,11 @@ extension HomeChirpyTblCell{
     
     func homeChirpyDataSetup(_ postInfo : [String : Any]){
         
+        notificationInfo = postInfo
         postID = postInfo.valueForString(key: "post_id").toInt ?? 0
         posted_ID = postInfo.valueForString(key: "user_id")
         lblChirpyType.text = CTypeChirpy
+        
         self.lblUserName.text = postInfo.valueForString(key: CFirstname) + " " + postInfo.valueForString(key: CLastname)
         let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
         lblChirpyDescription.text = str_Back_desc
@@ -99,6 +110,12 @@ extension HomeChirpyTblCell{
         let commentCount = postInfo.valueForInt(key: CTotalComment) ?? 0
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
         btnShare.setTitle(CBtnShare, for: .normal)
+        
+        if isLikesOthersPage == true {
+            posted_ID = self.posted_IDOthers
+        }else {
+            posted_ID = postInfo.valueForString(key: "user_id")
+        }
         
         if postInfo.valueForString(key:CIs_Liked) == "Yes"{
             btnLike.isSelected = true

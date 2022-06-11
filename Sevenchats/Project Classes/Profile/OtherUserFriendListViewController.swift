@@ -350,7 +350,7 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
         }
             // Load More data..
             if indexPath == tblFriendList.lastIndexPath() && !self.isRefreshingUserData{
-                //                self.getFriendListFromServer(txtSearch.text)
+                self.getFriendListFromServer(txtSearch.text)
             }
             
             return cell

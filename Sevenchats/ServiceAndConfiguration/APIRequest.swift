@@ -4590,6 +4590,8 @@ extension APIRequest {
             tblLanguageText.option_FF = dict?.valueForString(key: "option_FF")
             tblLanguageText.option_SF = dict?.valueForString(key: "option_SF")
             tblLanguageText.option_TF = dict?.valueForString(key: "option_TF")
+            tblLanguageText.option_message = dict?.valueForString(key: "option_message")
+            
             
             
             

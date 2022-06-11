@@ -1069,9 +1069,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                         return cell
                     }
                 }
-                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
-                    cell.isLikesHomePage = true
-                    cell.homeChirpyImageDataSetup(postInfo)
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyTblCell", for: indexPath) as? HomeChirpyTblCell {
+//                    cell.isLikesHomePage = true
+                    cell.homeChirpyDataSetup(postInfo)
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }
                         self?.btnLikesCountCLK(postInfo.valueForString(key: CPostId).toInt)

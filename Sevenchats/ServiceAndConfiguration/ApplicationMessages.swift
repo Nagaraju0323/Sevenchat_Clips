@@ -1202,7 +1202,9 @@ var COptionSF: String{
 var COptionTF: String{
     return CLocalize(text: appDelegate.langugaeText?.option_TF ?? "The third and four options appear to be similar.")
 }
-
+var COptionMessage: String{
+    return CLocalize(text: appDelegate.langugaeText?.option_message ?? "Poll options cannot be same.")
+}
 
 var CMaintenanceMode: String {
     return CLocalize(text: appDelegate.langugaeText?.maintenance_mode ?? "Sorry for the inconvenience social app is currently down due to some maintenance process going on server. We will be back soon.")

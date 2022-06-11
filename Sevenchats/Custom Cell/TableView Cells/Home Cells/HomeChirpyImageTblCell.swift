@@ -113,6 +113,7 @@ extension HomeChirpyImageTblCell{
         let image = postInfo.valueForString(key: Cimages)
         if image.isEmpty {
             blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+//            blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
         }else{
             blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
         }

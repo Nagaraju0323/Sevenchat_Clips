@@ -57,6 +57,7 @@
     "option_FF": "The first and four options appear to be similar.",
     "option_SF": "The second and four options appear to be similar.",
     "option_TF": "The third and four options appear to be similar.",
+    "option_message": "Poll options cannot be same.",
     
     
     

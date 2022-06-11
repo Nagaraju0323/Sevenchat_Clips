@@ -329,42 +329,42 @@ extension AddPollViewController {
         if arrQuestions.count == 2 {
             if arrOptions[0] == arrOptions[1]{
                 print("first and Second Both are same ")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and Second Both are same ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: COptionMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }
         }else if arrQuestions.count == 3{
             if arrOptions[0] == arrOptions[1] {
                 print("first and second match")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and second match", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: COptionMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }else if arrOptions[0] == arrOptions[2]{
                 print("first and third match ")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and third match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: COptionMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }else if arrOptions[1] == arrOptions[2]{
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "second and Third Match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: COptionMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }
             
         }else if arrQuestions.count == 4{
             if arrOptions[0] == arrOptions[1] {
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and second match", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: COptionMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }else if arrOptions[0] == arrOptions[2]{
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and third match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: COptionMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }else if arrOptions[0] == arrOptions[3]{
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "first and four Match ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: COptionMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }else if arrOptions[1] == arrOptions[2]{
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "second and third match  ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: COptionMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }else if arrOptions[1] == arrOptions[3]{
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "second and four match  ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: COptionMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
               
                 return
             }else if arrOptions[2] == arrOptions[3]{
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "third and four match  ", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: COptionMessage, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 return
             }
         }
