@@ -384,16 +384,17 @@ extension EventSharedDetailImageViewController {
         lblEventDescription.text = str_Back_desc
 //        self.lblEventTitle.text = dict.valueForString(key: CTitle)
 //        self.lblEventDescription.text = dict.valueForString(key: CContent)
-        self.lblStartDate.text = "\(CStartDate)"
-        self.lblEndDate.text = "\(CEndDate)"
+//        self.lblStartDate.text = "\(CStartDate)"
+//        self.lblEndDate.text = "\(CEndDate)"
         let created_At1 = eventInfo.valueForString(key: "start_date")
         let cnvStr1 = created_At1.stringBefore("G")
         guard let startCreated1 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr1)  else { return}
-        self.lblStartDate.text = CStartDate + startCreated1
+      
+        self.lblEventStartDate.text = startCreated1
         let created_At2 = eventInfo.valueForString(key: "end_date")
         let cnvStr2 = created_At2.stringBefore("G")
         guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
-        self.lblEndDate.text = CEndDate + startCreated2
+        self.lblEventEndDate.text =  startCreated2
         self.lblEventAddress.text = dict.valueForString(key: CEvent_Location)
         btnMaybe.setTitle("\(dict.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(dict.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
@@ -597,7 +598,7 @@ extension EventSharedDetailImageViewController {
     }
     func selectedoption(){
         if selectedChoice.toInt == 1 {
-            btnMaybe.isEnabled = false
+            //btnMaybe.isEnabled = false
             btnMaybe.isSelected = false
             btnNotInterested.isSelected = false
             btnInterested.isSelected = true
@@ -618,7 +619,7 @@ extension EventSharedDetailImageViewController {
         if type != eventInfo.valueForInt(key: CIsInterested){
             if eventInfo.valueForInt(key: "selected_choice") == 1 || eventInfo.valueForInt(key: "selected_choice") == 2  || eventInfo.valueForInt(key: "selected_choice") == 3 || eventInfo.valueForInt(key: "friend_selected_choice") == 1  || eventInfo.valueForInt(key: "friend_selected_choice") == 2  ||  eventInfo.valueForInt(key: "friend_selected_choice") == 3 {
                 if selectedChoice.toInt == 1 {
-                    btnMaybe.isEnabled = false
+                   // btnMaybe.isEnabled = false
                     btnMaybe.isSelected = false
                     btnNotInterested.isSelected = false
                     btnInterested.isSelected = true

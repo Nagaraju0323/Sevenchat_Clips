@@ -42,8 +42,6 @@ class HomeChirpyTblCell: UITableViewCell {
     var posted_ID = ""
     var profileImg = ""
     var notifcationIsSlected = false
-    var notifcationIsSlected = false
-    var isLikesOthers:Bool?
     var isLikeSelected = false
     var isFinalLikeSelected = false
     var isLikesOthersPage:Bool?

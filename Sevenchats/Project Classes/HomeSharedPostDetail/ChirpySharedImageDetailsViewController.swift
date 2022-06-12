@@ -272,25 +272,19 @@ extension ChirpySharedImageDetailsViewController{
             lblChirpyPostDate.text = startCreated
             let str_Back_desc = chirInfo.valueForString(key: CContent).return_replaceBack(replaceBack: chirInfo.valueForString(key: CContent))
             lblChirpyDescription.text = str_Back_desc
-           // self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
             let image = chirInfo.valueForString(key: "image")
-            if image.isEmpty {
-                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
-            }else{
-                blurImgView.loadImageFromUrl(chirInfo.valueForString(key: Cimages), false)
-            }
+            blurImgView.loadImageFromUrl(chirInfo.valueForString(key: Cimages), false)
+//            if image.isEmpty {
+//                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+//            }else{
+//                blurImgView.loadImageFromUrl(chirInfo.valueForString(key: Cimages), false)
+//            }
             self.chirpyImgURL = chirInfo.valueForString(key: "image")
            self.imgUser.loadImageFromUrl(chirInfo.valueForString(key: CUserProfileImage), true)
-//
-//            //self.imgChirpy.loadImageFromUrl(chirInfo.valueForString(key: CImage), false)
-//            self.blurImgView.loadImageFromUrl(chirInfo.valueForString(key: CImage), false)
-            
+
             self.chirpyImgURL = chirInfo.valueForString(key: CImage)
             self.lblChirpyCategory.text = chirInfo.valueForString(key: CCategory)
 
-//            self.btnLike.isSelected = chirInfo.valueForInt(key: CIs_Like) == 1
-//            likeCount = chirInfo.valueForInt(key: CTotal_like) ?? 0
-//            self.btnLikeCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
             if isLikesOthersPage == true {
                 if chirInfo.valueForString(key:"friend_liked") == "Yes"  && chirInfo.valueForString(key:"is_liked") == "Yes" {
                     btnLike.isSelected = true
