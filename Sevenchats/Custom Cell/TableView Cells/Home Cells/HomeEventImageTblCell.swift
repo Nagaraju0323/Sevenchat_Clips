@@ -179,8 +179,8 @@ extension HomeEventImageTblCell{
         let created_At2 = postInfo.valueForString(key: "end_date")
         let cnvStr2 = created_At2.stringBefore("G")
         guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
-        self.lblEndDate.text = CEndDate + startCreated2
-        self.lblStartDate.text = CStartDate + startCreated1
+        self.lblEventStartDate.text = startCreated1
+        self.lblEventEndDate.text = startCreated2
         let image = postInfo.valueForString(key: Cimages)
         if image.isEmpty {
             blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true

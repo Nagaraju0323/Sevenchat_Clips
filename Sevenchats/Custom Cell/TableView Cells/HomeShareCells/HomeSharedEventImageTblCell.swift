@@ -208,17 +208,17 @@ extension HomeSharedEventImageTblCell{
                     
                      let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
         lblEventDescription.text = str_Back_desc
-        lblStartDate.text = "\(CStartDate)"
-        lblEndDate.text = "\(CEndDate)"
-        
+//        lblStartDate.text = "\(CStartDate)"
+//        lblEndDate.text = "\(CEndDate)"
+//        
         let created_At1 = postInfo.valueForString(key: "start_date")
         let cnvStr1 = created_At1.stringBefore("G")
         guard let startCreated1 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr1)  else { return}
         let created_At2 = postInfo.valueForString(key: "end_date")
         let cnvStr2 = created_At2.stringBefore("G")
         guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
-        self.lblEndDate.text = CEndDate + startCreated2
-        self.lblStartDate.text = CStartDate + startCreated1
+        self.lblEventEndDate.text =  startCreated2
+        self.lblEventStartDate.text = startCreated1
         let image = postInfo.valueForString(key: Cimages)
         if image.isEmpty {
             blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true

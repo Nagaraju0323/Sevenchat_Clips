@@ -72,6 +72,9 @@ class ChirpySharedDetailsViewController: ParentViewController {
     var likeCount = 0
     var commentCount = 0
     var editCommentId : Int? = nil
+    var isLikesOthersPage:Bool?
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,6 +88,9 @@ class ChirpySharedDetailsViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
+        self.setChirpyDetailData(chirpyInformation)
+        self.getCommentListFromServer()
+        self.openUserProfileScreen()
     }
     
     // MARK:- --------- Initialization
@@ -146,63 +152,66 @@ class ChirpySharedDetailsViewController: ParentViewController {
 extension ChirpySharedDetailsViewController{
     fileprivate func getChirpyDetailsFromServer() {
         
-//        self.parentView.isHidden = true
-//        if let chirID = self.chirpyID {
-//            APIRequest.shared().viewPostDetail(postID: chirID) { [weak self] (response, error) in
-//                guard let self = self else { return }
-//                self.refreshControl.endRefreshing()
-//                if response != nil {
-//                    self.parentView.isHidden = false
-//                    if let chirpInfo = response![CJsonData] as? [String : Any]{
-//                        self.setChirpyDetailData(chirpInfo)
-//                        self.openUserProfileScreen()
-//                    }
-//                }
+        self.parentView.isHidden = true
+        
+        if let chirID = self.chirpyID {
+            guard let userid = appDelegate.loginUser?.user_id else { return }
+            APIRequest.shared().viewPostDetailLatest(postID: chirID, userid: userid.description, apiKeyCall: CAPITagchirpiesDetials){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    self.parentView.isHidden = false
+                    if let Info = response!["data"] as? [[String:Any]]{
+                        for chirpInfo in Info {
+                            self.openUserProfileScreen()
+                        }
+                    }
+                }
 //                self.getCommentListFromServer()
-//            }
-//        }
+            }
+        }
     }
     
     fileprivate func openUserProfileScreen(){
         
         self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.chirpyInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CSharedUserID), self.chirpyInformation.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnSharedUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.chirpyInformation[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CSharedUserID), self.chirpyInformation.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.chirpyInformation.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
         }
         
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.chirpyInformation.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.chirpyInformation.valueForString(key: CUserId), self.chirpyInformation.valueForString(key: CUsermailID), self)
         }
     }
 
     func setChirpyDetailData(_ chirpyInfo : [String : Any]?){
         if let chirInfo = chirpyInfo{
             chirpyInformation = chirInfo
-            if let sharedData = chirInfo[CSharedPost] as? [String:Any]{
-                self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
-                self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-                imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
-                let str_Back_desc_share = sharedData.valueForString(key: CMessage).return_replaceBack(replaceBack: sharedData.valueForString(key: CMessage))
-                lblMessage.text = str_Back_desc_share
-                //lblMessage.text = sharedData.valueForString(key: CMessage)
-            }
+           // if let sharedData = chirInfo[CSharedPost] as? [String:Any]{
+                self.lblSharedUserName.text = chirInfo.valueForString(key: CFullName) + " " + chirInfo.valueForString(key: CLastName)
+               // self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let shared_created_at = chirInfo.valueForString(key: CShared_Created_at)
+                       let shared_cnv_date = shared_created_at.stringBefore("G")
+                       let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
+                       lblSharedPostDate.text = sharedCreated
+            let str_Back_desc_share = chirInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: chirInfo.valueForString(key: CMessage))
+            lblMessage.text = str_Back_desc_share                //lblMessage.text = sharedData.valueForString(key: CMessage)
+       //     }
             self.lblUserName.text = chirInfo.valueForString(key: CFirstname) + " " + chirInfo.valueForString(key: CLastname)
-            self.lblChirpyPostDate.text = DateFormatter.dateStringFrom(timestamp: chirInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let created_At = chirInfo.valueForString(key: CCreated_at)
+                        let cnvStr = created_At.stringBefore("G")
+                        let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+            lblChirpyPostDate.text = startCreated
             let str_Back_desc = chirInfo.valueForString(key: CContent).return_replaceBack(replaceBack: chirInfo.valueForString(key: CContent))
             lblChirpyDescription.text = str_Back_desc
            // self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)

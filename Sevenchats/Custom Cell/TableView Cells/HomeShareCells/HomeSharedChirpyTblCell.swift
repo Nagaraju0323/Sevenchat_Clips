@@ -46,6 +46,10 @@ class HomeSharedChirpyTblCell: UITableViewCell {
     
     var likeCount = 0
     var postID = 0
+    var isLikesOthersPage:Bool?
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
+    var posted_IDOthers = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()

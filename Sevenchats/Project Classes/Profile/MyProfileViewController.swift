@@ -1124,9 +1124,9 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 if isshared == 1{
                     //if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyTblCell", for: indexPath) as? HomeSharedChirpyTblCell {
                     //cell.homeChirpyDataSetup(postInfo)
-                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyTblCell", for: indexPath) as? HomeSharedChirpyTblCell {
                         cell.isLikesMyprofilePage = true
-                        cell.homeChirpyImageDataSetup(postInfo)
+                        cell.homeChirpyDataSetup(postInfo)
 
                         
                         
@@ -1183,10 +1183,10 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         return cell
                     }
                 }
-                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyTblCell", for: indexPath) as? HomeChirpyTblCell {
                     
                     cell.isLikesMyprofilePage = true
-                    cell.homeChirpyImageDataSetup(postInfo)
+                    cell.homeChirpyDataSetup(postInfo)
                     
                     cell.btnLikesCount.touchUpInside { [weak self](sender) in
                         //                        self?.btnLikesCountCLK(postInfo.valueForInt(key: CId))
@@ -1498,7 +1498,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                // let isshared = 0
                 let isshared = (postInfo.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                 if isshared == 1{
-                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell", for: indexPath) as? HomeSharedEventImageTblCell {
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventsCell", for: indexPath) as? HomeSharedEventsCell {
                         cell.isLikesMyprofilePage = true
                         cell.homeEventDataSetup(postInfo)
                         
@@ -1560,7 +1560,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                         return cell
                     }
                 }
-                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventsCell", for: indexPath) as? HomeEventsCell {
                     
                     cell.isLikesMyprofilePage = true
                     
@@ -1936,7 +1936,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 if isShared == 1{
                     let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
-                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedImageDetailsViewController") as? ChirpySharedImageDetailsViewController else {
+                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedDetailsViewController") as? ChirpySharedDetailsViewController else {
                         return
                     }
 //                    viewcontroller.chirpyID = sharedPostId
@@ -1946,7 +1946,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
-                if let chirpyImageVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController{
+                if let chirpyImageVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyDetailsViewController") as? ChirpyDetailsViewController{
                     chirpyImageVC.isLikesMyprofilePage = true
                     chirpyImageVC.chirpyInformation = postInfo
                     chirpyImageVC.chirpyID = postId.toInt
@@ -2011,7 +2011,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                 if isshared == 1{
                     let sharePostData = postInfo[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
-                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailImageViewController") as? EventSharedDetailImageViewController else {
+                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailViewController") as? EventSharedDetailViewController else {
                         return
                     }
                     viewcontroller.isLikesMyprofilePage = true
@@ -2020,7 +2020,7 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
-                if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
+                if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? EventDetailViewController {
                     eventDetailsVC.isLikesMyprofilePage = true
                     eventDetailsVC.eventInfo = postInfo
                     eventDetailsVC.postID = postId.toInt

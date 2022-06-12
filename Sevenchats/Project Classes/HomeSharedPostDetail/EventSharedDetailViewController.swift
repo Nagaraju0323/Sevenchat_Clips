@@ -109,6 +109,19 @@ class EventSharedDetailViewController: ParentViewController {
     var arrConfirmed = [[String : Any]]()
     var arrMaybe = [[String : Any]]()
     var arrDeclined = [[String : Any]]()
+    var Interested = ""
+    var notInterested = ""
+    var mayBe = ""
+    var notificationInfo = [String:Any]()
+    var isSelectedChoice = ""
+    var isLikeSelected = false
+    var selectedChoice = ""
+    var posted_ID = ""
+    var postIDNew : String?
+    var isLikesOthersPage:Bool?
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
+    
     
     let currentDateTime = Date().timeIntervalSince1970
     
@@ -120,6 +133,8 @@ class EventSharedDetailViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
+        self.setEventDetail(dict: eventInfo)
+        self.openUserProfileScreen()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -265,26 +280,22 @@ extension EventSharedDetailViewController {
         
         self.btnSharedProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.eventInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CSharedUserID), self.eventInfo.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnSharedUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            if let userID = (self.eventInfo[CSharedPost] as? [String:Any] ?? [:])[CUserId] as? Int {
-                appDelegate.moveOnProfileScreen(userID.description, self)
-            }
+            appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CSharedUserID), self.eventInfo.valueForString(key: CSharedEmailID), self)
         }
         
         self.btnProfileImg.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.eventInfo.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CUserId), self.eventInfo.valueForString(key: CUsermailID), self)
         }
         
         self.btnUserName.touchUpInside { [weak self] (sender) in
             guard let self = self else { return }
-            appDelegate.moveOnProfileScreen(self.eventInfo.valueForString(key: CUserId), self)
+            appDelegate.moveOnProfileScreenNew(self.eventInfo.valueForString(key: CUserId), self.eventInfo.valueForString(key: CUsermailID), self)
         }
     }
     
@@ -292,17 +303,22 @@ extension EventSharedDetailViewController {
         
         //...Set prefilled event detail here
         eventInfo = dict
-        if let sharedData = dict[CSharedPost] as? [String:Any]{
-            self.lblSharedUserName.text = sharedData.valueForString(key: CFullName)
-            self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: sharedData.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            imgSharedUser.loadImageFromUrl(sharedData.valueForString(key: CUserProfileImage), true)
+       // if let sharedData = dict[CSharedPost] as? [String:Any]{
+            self.lblSharedUserName.text = dict.valueForString(key: CFullName) + " " + dict.valueForString(key: CLastName)
+            let shared_created_at = dict.valueForString(key: CShared_Created_at)
+             let shared_cnv_date = shared_created_at.stringBefore("G")
+             let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
+             lblSharedPostDate.text = sharedCreated
             let str_Back_desc_share = dict.valueForString(key: CMessage).return_replaceBack(replaceBack: dict.valueForString(key: CMessage))
                       lblMessage.text = str_Back_desc_share
            // lblMessage.text = sharedData.valueForString(key: CMessage)
-        }
+       // }
         self.parentView.isHidden = false
         self.lbluserName.text = "\(dict.valueForString(key: CFirstname)) \(dict.valueForString(key: CLastname))"
-        self.lblEventPostDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+        let created_At = dict.valueForString(key: CCreated_at)
+                    let cnvStr = created_At.stringBefore("G")
+                    let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+        lblEventPostDate.text = startCreated
         self.lblEventCategory.text = dict.valueForString(key: CCategory).uppercased()
         self.lblEventType.text = CTypeEvent
         let str_Back_title = dict.valueForString(key: CTitle).return_replaceBack(replaceBack: dict.valueForString(key: CTitle))
@@ -313,16 +329,27 @@ extension EventSharedDetailViewController {
 //        self.lblEventTitle.text = dict.valueForString(key: CTitle)
 //        self.lblEventDescription.text = dict.valueForString(key: CContent)
         
-        self.lblStartDate.text = "\(CStartDate)"
-        self.lblEndDate.text = "\(CEndDate)"
+//        self.lblStartDate.text = "\(CStartDate)"
+//        self.lblEndDate.text = "\(CEndDate)"
         
-        self.lblEventStartDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
-        self.lblEventEndDate.text = DateFormatter.dateStringFrom(timestamp: dict.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
+        let created_At1 = eventInfo.valueForString(key: "start_date")
+        let cnvStr1 = created_At1.stringBefore("G")
+        guard let startCreated1 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr1)  else { return}
+        self.lblEventStartDate.text = startCreated1
+        let created_At2 = eventInfo.valueForString(key: "end_date")
+        let cnvStr2 = created_At2.stringBefore("G")
+        guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
+        self.lblEventEndDate.text = startCreated2
         
         self.lblEventAddress.text = dict.valueForString(key: CEvent_Location)
-        self.btnInterested.setTitle("\(dict.valueForString(key: CTotalInterestedUsers))\n" + CConfirmed, for: .normal)
-        self.btnMaybe.setTitle("\(dict.valueForString(key: CTotalMaybeInterestedUsers))\n" + CMaybe, for: .normal)
-        self.btnNotInterested.setTitle("\(dict.valueForString(key: CTotalNotInterestedUsers))\n" + CDeclined, for: .normal)
+        btnMaybe.setTitle("\(dict.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
+        btnNotInterested.setTitle("\(dict.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
+        btnInterested.setTitle("\(dict.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)
+        self.Interested = dict.valueForString(key: "yes_count")
+        self.notInterested = dict.valueForString(key: "no_count")
+        self.mayBe = dict.valueForString(key: "maybe_count")
+        self.isSelectedChoice = dict.valueForString(key: "selected_choice")
+
         
         /*if dict.valueForString(key: CImage).isBlank{
          //viewEventImage.hide(byHeight: true)
@@ -346,21 +373,50 @@ extension EventSharedDetailViewController {
             btnInterested.isEnabled = Double(currentDateTime) <= endDateTime
         }
         
-        switch dict.valueForInt(key: CIsInterested) {
-        case 1:
-            btnMaybe.isSelected = true
-        case 2:
-            btnInterested.isSelected = true
-        case 3:
-            btnNotInterested.isSelected = true
-        default:
-            break
+        if isLikesOthersPage == true {
+            
+            switch dict.valueForString(key: "friend_selected_choice").toInt ?? 0 {
+            case 3:
+                btnMaybe.isSelected = true
+            case 1:
+                btnInterested.isSelected = true
+            case 2:
+                btnNotInterested.isSelected = true
+            default:
+                break
+            }
+            
+            
+        }else {
+            
+            switch dict.valueForString(key: "selected_choice").toInt ?? 0 {
+            case 3:
+                btnMaybe.isSelected = true
+            case 1:
+                btnInterested.isSelected = true
+            case 2:
+                btnNotInterested.isSelected = true
+            default:
+                break
+            }
+            
         }
-        
+
+        setSelectedButtonStyle(dict)
         setSelectedButtonStyle()
         
+        
         imgUser.loadImageFromUrl(dict.valueForString(key: CUserProfileImage), true)
-        if Int64(dict.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
+        if dict.valueForString(key: "user_email") == appDelegate.loginUser?.email{
+            if self.isHideNavCalenderButton {
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(btnMenuClicked(_:)))
+            }else {
+            }
+        }else{
+        }
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(btnMenuClicked(_:)))
+       /* if Int64(dict.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
             if self.isHideNavCalenderButton {
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(btnMenuClicked(_:)))
             }else {
@@ -370,7 +426,7 @@ extension EventSharedDetailViewController {
             if !self.isHideNavCalenderButton {
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_event_calender"), style: .plain, target: self, action: #selector(btnCalenderClicked(_:)))
             }
-        }
+        }*/
         
         
         self.arrMaybe = dict.valueForJSON(key: "maybe_event_users") as? [[String : Any]] ?? []
@@ -384,7 +440,66 @@ extension EventSharedDetailViewController {
         
         self.tblCommentList.updateHeaderViewHeight(extxtraSpace: 0)
     }
-    
+    func setSelectedButtonStyle(_ dict : [String : Any]?){
+       
+        if isLikesOthersPage == true {
+            selectedChoice = dict?.valueForString(key:"friend_selected_choice") ?? ""
+        }else {
+            selectedChoice = dict?.valueForString(key:"selected_choice") ?? ""
+        }
+//        selectedChoice = dict?.valueForString(key:"selected_choice") ?? ""
+        
+        btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
+        btnInterested.layer.borderWidth = 2
+        btnInterested.backgroundColor =  .clear
+        
+        btnMaybe.layer.borderColor = CRGB(r: 255, g: 237, b: 216).cgColor
+        btnMaybe.layer.borderWidth = 2
+        btnMaybe.backgroundColor =  .clear
+        
+        btnNotInterested.layer.borderColor = CRGB(r: 255, g: 214, b: 214).cgColor
+        btnNotInterested.layer.borderWidth = 2
+        btnNotInterested.backgroundColor =  .clear
+        
+        if isLikesOthersPage == true {
+//            selectedChoice = dict?.valueForString(key:"friend_selected_choice") ?? ""
+            if dict?.valueForString(key:"friend_selected_choice") == "3"{
+                btnMaybe.isSelected = true
+                btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+            }else if dict?.valueForString(key:"friend_selected_choice") == "2"{
+                btnNotInterested.isSelected = true
+                btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+            }else if dict?.valueForString(key:"friend_selected_choice") == "1"{
+                btnInterested.isSelected = true
+                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+            }
+        }else {
+//            selectedChoice = dict?.valueForString(key:"selected_choice") ?? ""
+            if dict?.valueForString(key:"selected_choice") == "3"{
+                btnMaybe.isSelected = true
+                btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+            }else if dict?.valueForString(key:"selected_choice") == "2"{
+                btnNotInterested.isSelected = true
+                btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+            }else if dict?.valueForString(key:"selected_choice") == "1"{
+                btnInterested.isSelected = true
+                btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+            }
+        }
+        
+        
+        
+//        if dict?.valueForString(key:"selected_choice") == "3"{
+//            btnMaybe.isSelected = true
+//            btnMaybe.backgroundColor =  CRGB(r: 255, g: 237, b: 216)
+//        }else if dict?.valueForString(key:"selected_choice") == "2"{
+//            btnNotInterested.isSelected = true
+//            btnNotInterested.backgroundColor =  CRGB(r: 255, g: 214, b: 214)
+//        }else if dict?.valueForString(key:"selected_choice") == "1"{
+//            btnInterested.isSelected = true
+//            btnInterested.backgroundColor =  CRGB(r: 223, g: 234, b: 227)
+//        }
+    }
     func setSelectedButtonStyle(){
         btnInterested.layer.borderColor = CRGB(r: 223, g: 234, b: 227).cgColor
         btnInterested.layer.borderWidth = 2
@@ -409,24 +524,103 @@ extension EventSharedDetailViewController {
             }
         }
     }
-    
+    func selectedoption(){
+        if selectedChoice.toInt == 1 {
+            //btnMaybe.isEnabled = false
+            btnMaybe.isSelected = false
+            btnNotInterested.isSelected = false
+            btnInterested.isSelected = true
+           // onChangeEventStatus?(CTypeInterested)
+        }else if selectedChoice.toInt == 3 {
+            btnMaybe.isSelected = true
+            btnNotInterested.isSelected = false
+            btnInterested.isSelected = false
+           // onChangeEventStatus?(CTypeMayBeInterested)
+        }else if selectedChoice.toInt == 2 {
+            btnMaybe.isSelected = false
+            btnNotInterested.isSelected = true
+            btnInterested.isSelected = false
+           // onChangeEventStatus?(CTypeNotInterested)
+        }
+    }
     fileprivate func btnInterestedNotInterestedMayBeCLK(_ type : Int?){
         
         if type != eventInfo.valueForInt(key: CIsInterested){
-            
-            // Update existing count here...
-            let totalIntersted = eventInfo.valueForInt(key: CTotalInterestedUsers)
-            let totalNotIntersted = eventInfo.valueForInt(key: CTotalNotInterestedUsers)
-            let totalMaybe = eventInfo.valueForInt(key: CTotalMaybeInterestedUsers)
+            if eventInfo.valueForInt(key: "selected_choice") == 1 || eventInfo.valueForInt(key: "selected_choice") == 2  || eventInfo.valueForInt(key: "selected_choice") == 3 || eventInfo.valueForInt(key: "friend_selected_choice") == 1  || eventInfo.valueForInt(key: "friend_selected_choice") == 2  ||  eventInfo.valueForInt(key: "friend_selected_choice") == 3 {
+                if selectedChoice.toInt == 1 {
+                   // btnMaybe.isEnabled = false
+                    btnMaybe.isSelected = false
+                    btnNotInterested.isSelected = false
+                    btnInterested.isSelected = true
+                   // onChangeEventStatus?(CTypeInterested)
+                }else if selectedChoice.toInt == 3 {
+                    btnMaybe.isSelected = true
+                    btnNotInterested.isSelected = false
+                    btnInterested.isSelected = false
+                   // onChangeEventStatus?(CTypeMayBeInterested)
+                }else if selectedChoice.toInt == 2 {
+                    btnMaybe.isSelected = false
+                    btnNotInterested.isSelected = true
+                    btnInterested.isSelected = false
+                   // onChangeEventStatus?(CTypeNotInterested)
+                }
+                return
+            }else {
+
+            //MARK:- NEW
+            let totalIntersted = eventInfo.valueForString(key: "yes_count")
+            let totalNotIntersted = eventInfo.valueForString(key:"no_count")
+            let totalMaybe = eventInfo.valueForString(key: "maybe_count")
+                guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+                guard let firstName = appDelegate.loginUser?.first_name else {return}
+                guard let lastName = appDelegate.loginUser?.last_name else {return}
+                print(self.posted_ID)
             switch eventInfo.valueForInt(key: CIsInterested) {
             case CTypeInterested:
-                eventInfo[CTotalInterestedUsers] = totalIntersted! - 1
+                
+                if self.posted_ID == user_ID {
+                    eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+                }else {
+                    if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 || isSelectedChoice == "null"{
+                        var intrestCount = self.Interested.toInt ?? 0
+                        intrestCount = +1
+                        notificationInfo["yes_count"] = intrestCount.toString
+                        notificationInfo["selected_choice"] = "1"
+                      MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Accept event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo,shareLink: "sendEventChLink")
+                    }
+                    eventInfo["yes_count"] = totalIntersted.toInt ?? 0 - 1
+                }
                 break
             case CTypeNotInterested:
-                eventInfo[CTotalNotInterestedUsers] = totalNotIntersted! - 1
+                    if self.posted_ID == user_ID {
+                        eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+                    }else {
+                        
+                        if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 || isSelectedChoice == "null"{
+                            var notIntrestCount = self.notInterested.toInt ?? 0
+                            notIntrestCount = +1
+                            notificationInfo["no_count"] = notIntrestCount
+                            notificationInfo["selected_choice"] = "2"
+
+                        MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Decline event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: notificationInfo,shareLink: "sendEventChLink")
+                        }
+                        eventInfo["no_count"] = totalNotIntersted.toInt ?? 0 - 1
+                    }
                 break
             case CTypeMayBeInterested:
-                eventInfo[CTotalMaybeInterestedUsers] = totalMaybe! - 1
+                
+                if self.posted_ID == user_ID {
+                    eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+                }else {
+                    if self.Interested.toInt == 0 && self.notInterested.toInt == 0 && self.mayBe.toInt == 0 || isSelectedChoice == "null"{
+                        var maybeCount = self.mayBe.toInt ?? 0
+                        maybeCount = +1
+                        notificationInfo["maybe_count"] = maybeCount
+                        notificationInfo["selected_choice"] = "3"
+                        MIGeneralsAPI.shared().sendNotification(self.posted_ID, userID: user_ID, subject: " has tentatively Maybe event", MsgType: "EVENT_CHOICE", MsgSent: "", showDisplayContent: "has tentatively Accept event", senderName: firstName + lastName, post_ID: [:],shareLink: "sendEventChLink")
+                    }
+                    eventInfo["maybe_count"] = totalMaybe.toInt ?? 0 - 1
+                }
                 break
             default:
                 break
@@ -435,45 +629,64 @@ extension EventSharedDetailViewController {
             
             switch type {
             case CTypeInterested:
-                eventInfo[CTotalInterestedUsers] = totalIntersted! + 1
+               // selectedoption()
+                let yesCount = totalIntersted.toInt ?? 0
+                let totalCnt = (yesCount + 1).toString
+                eventInfo["yes_count"] = totalCnt.toInt ?? 0 - 1
                 break
             case CTypeNotInterested:
-                eventInfo[CTotalNotInterestedUsers] = totalNotIntersted! + 1
+               // selectedoption()
+                let yesCount = totalNotIntersted.toInt ?? 0
+                let totalCnt = (yesCount + 1).toString
+                eventInfo["no_count"] = totalCnt.toInt ?? 0 - 1
                 break
             case CTypeMayBeInterested:
-                eventInfo[CTotalMaybeInterestedUsers] = totalMaybe! + 1
+               // selectedoption()
+                let yesCount = totalMaybe.toInt ?? 0
+                let totalCnt = (yesCount + 1).toString
+                eventInfo["maybe_count"] = totalCnt.toInt ?? 0 - 1
                 break
             default:
                 break
             }
-            var postId = eventInfo.valueForInt(key: CId)
-            let isSharedPost = eventInfo.valueForInt(key: CIsSharedPost)
-            if isSharedPost == 1{
-                postId = eventInfo[COriginalPostId] as? Int ?? 0
-            }
-            MIGeneralsAPI.shared().interestNotInterestMayBe(postId, type!, viewController: self)
+            //var postId = postInfo.valueForInt(key: CId)
+            let postId = eventInfo.valueForString(key: "post_id")
+            _ = eventInfo.valueForInt(key: CIsSharedPost)
             self.setEventDetail(dict: eventInfo)
-            
+            MIGeneralsAPI.shared().interestNotInterestMayBe(postId.toInt, type!, viewController: self)
+            }
         }
         
     }
     
     func deletePost() {
-//        APIRequest.shared().removePost(postID: self.postID) { [weak self] (response, error) in
-//            guard let self = self else { return }
-//            if response != nil {
-//
-//                for vwController in (self.navigationController?.viewControllers)! {
-//                    if vwController.isKind(of: EventListViewController .classForCoder()) {
-//                        let eventVC = vwController as? EventListViewController
-//                        eventVC?.currentPage = 1
-//                        eventVC?.loadEventList(showLoader: false)
-//                        break
-//                    }
-//                }
-//                self.navigationController?.popViewController(animated: true)
-//            }
-//        }
+        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+            
+            let postTypeDelete = "post_event"
+            let dict =
+                [
+                    "post_id": self?.eventInfo.valueForString(key: "post_id"),
+                    "image": self?.eventInfo.valueForString(key: "image"),
+                    "post_title": self?.eventInfo.valueForString(key: "post_title"),
+                    "post_category": self?.eventInfo.valueForString(key: "post_category"),
+                    "post_content": self?.eventInfo.valueForString(key: "post_content"),
+                    "age_limit": self?.eventInfo.valueForString(key: "age_limit"),
+                    "latitude": self?.eventInfo.valueForString(key: "latitude"),
+                    "longitude": self?.eventInfo.valueForString(key: "longitude"),
+                    "start_date": self?.eventInfo.valueForString(key: "start_date"),
+                    "end_date": self?.eventInfo.valueForString(key: "end_date"),
+                    "targeted_audience": self?.eventInfo.valueForString(key: "targeted_audience"),
+                    "selected_persons": self?.eventInfo.valueForString(key: "selected_persons"),
+                    "status_id": "3"
+                ]
+            APIRequest.shared().deletePostNew(postDetials: dict as [String : Any], apiKeyCall: postTypeDelete, completion: { [weak self](response, error) in
+                guard let self = self else { return }
+                if response != nil && error == nil{
+                    self.navigationController?.popViewController(animated: true)
+                    // MIGeneralsAPI.shared().refreshPostRelatedScreens(nil, chirID, self, .deletePost)
+                }
+            })
+        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
     }
 }
 

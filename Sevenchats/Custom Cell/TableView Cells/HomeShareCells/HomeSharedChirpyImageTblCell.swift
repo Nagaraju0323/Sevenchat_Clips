@@ -144,11 +144,13 @@ extension HomeSharedChirpyImageTblCell{
         lblChirpyDescription.text = str_Back_desc
        // lblChirpyDescription.text = postInfo.valueForString(key: CContent)
         let image = postInfo.valueForString(key: Cimages)
-        if image.isEmpty {
-            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
-        }else{
-            blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
-        }
+        blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+    
+//        if image.isEmpty {
+//            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+//        }else{
+//            blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+//        }
         chirpyImgURL = postInfo.valueForString(key: CPostImage)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         

@@ -999,10 +999,10 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 if (postInfo?.valueForString(key: CImage).isBlank)!{
                     let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                     if isshared == 1{
-                        if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyImageTblCell", for: indexPath) as? HomeSharedChirpyImageTblCell {
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedChirpyTblCell", for: indexPath) as? HomeSharedChirpyTblCell {
                             cell.isLikesOthersPage = true
                             cell.posted_IDOthers = userIDNew ?? ""
-                            cell.homeChirpyImageDataSetup(postInfo!)
+                            cell.homeChirpyDataSetup(postInfo!)
                             
                             cell.btnLikesCount.touchUpInside { [weak self](sender) in
                                 self?.btnLikesCountCLK(postInfo?.valueForInt(key: CId))
@@ -1048,10 +1048,10 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             return cell
                         }
                     }
-                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyImageTblCell", for: indexPath) as? HomeChirpyImageTblCell {
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyTblCell", for: indexPath) as? HomeChirpyTblCell {
                         cell.isLikesOthersPage = true
                         
-                        cell.homeChirpyImageDataSetup(postInfo!)
+                        cell.homeChirpyDataSetup(postInfo!)
                         
                         cell.btnLikesCount.touchUpInside { [weak self](sender) in
                             self?.btnLikesCountCLK(postInfo?.valueForString(key: CPostId).toInt)
@@ -1347,7 +1347,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 if (postInfo?.valueForString(key: CImage).isBlank)!{
                     let isshared = (postInfo?.valueForString(key: "shared_type") != "N/A") ? 1 : 0
                     if isshared == 1{
-                        if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventImageTblCell", for: indexPath) as? HomeSharedEventImageTblCell {
+                        if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedEventsCell", for: indexPath) as? HomeSharedEventsCell {
                             cell.posted_IDOthers = userIDNew ?? ""
                             cell.isLikesOthersPage = true
                             cell.homeEventDataSetup(postInfo!)
@@ -1400,7 +1400,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             return cell
                         }
                     }
-                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventImageTblCell", for: indexPath) as? HomeEventImageTblCell {
+                    if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeEventsCell", for: indexPath) as? HomeEventsCell {
                        
                         cell.isLikesOthersPage = true
                         cell.posted_IDOthers = userIDNew ?? ""
@@ -1730,7 +1730,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 if isshared == 1{
                     let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
-                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedImageDetailsViewController") as? ChirpySharedImageDetailsViewController else {
+                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "ChirpySharedDetailsViewController") as? ChirpySharedDetailsViewController else {
                         return
                     }
 //                    viewcontroller.isLikesOthersPage = true
@@ -1740,7 +1740,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
-                if let chirpyDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyImageDetailsViewController") as? ChirpyImageDetailsViewController{
+                if let chirpyDetailsVC = CStoryboardHome.instantiateViewController(withIdentifier: "ChirpyDetailsViewController") as? ChirpyDetailsViewController{
                     chirpyDetailsVC.isLikesOthersPage = true
                     chirpyDetailsVC.posted_IDOthers = userIDNew ?? ""
                     chirpyDetailsVC.chirpyInformation = postInfo ?? [:]
@@ -1839,7 +1839,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 if isshared == 1{
                     let sharePostData = postInfo?[CSharedPost] as? [String:Any] ?? [:]
                     let sharedPostId = sharePostData[CId] as? Int ?? 0
-                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailImageViewController") as? EventSharedDetailImageViewController else {
+                    guard let viewcontroller = CStoryboardSharedPost.instantiateViewController(withIdentifier: "EventSharedDetailViewController") as? EventSharedDetailViewController else {
                         return
                     }
 //                    viewcontroller.isLikesOthersPage = true
@@ -1851,7 +1851,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     self.navigationController?.pushViewController(viewcontroller, animated: true)
                     break
                 }
-                if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailImageViewController") as? EventDetailImageViewController {
+                if let eventDetailsVC = CStoryboardEvent.instantiateViewController(withIdentifier: "EventDetailViewController") as? EventDetailViewController {
                     eventDetailsVC.isLikesOthersPage = true
                     eventDetailsVC.eventInfo = postInfo ?? [:]
                     eventDetailsVC.postID =  postId?.toInt

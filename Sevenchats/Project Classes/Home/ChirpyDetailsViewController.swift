@@ -67,7 +67,12 @@ class ChirpyDetailsViewController: ParentViewController {
     var editCommentId : Int? = nil
     var posted_ID = ""
     var profileImg = ""
-    var notifcationIsSlected = false 
+    var notifcationIsSlected = false
+    var isLikesOthersPage:Bool?
+    var isLikesHomePage:Bool?
+    var isLikesMyprofilePage:Bool?
+    var chirpyId : String?
+    var posted_IDOthers = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,7 +85,7 @@ class ChirpyDetailsViewController: ParentViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setChirpyDetailData(chirpyInfo)
+        self.setChirpyDetailData(chirpyInformation)
         self.updateUIAccordingToLanguage()
     }
     
@@ -137,20 +142,38 @@ extension ChirpyDetailsViewController{
     
     fileprivate func getChirpyDetailsFromServer() {
         
+//        self.parentView.isHidden = true
+//        if let chirID = self.chirpyID {
+//            APIRequest.shared().viewPostDetailNew(postID: chirID, apiKeyCall: CAPITagchirpiesDetials){ [weak self] (response, error) in
+//                guard let self = self else { return }
+//                if response != nil {
+//                    self.parentView.isHidden = false
+//                    if let Info = response!["data"] as? [[String:Any]]{
+//                        print(Info as Any)
+//                        for chirpInfo in Info {
+//                            self.openUserProfileScreen()
+//                        }
+//                    }
+//                }
+//                self.getCommentListFromServer()
+//            }
+//        }
+        
         self.parentView.isHidden = true
+        
         if let chirID = self.chirpyID {
-            APIRequest.shared().viewPostDetailNew(postID: chirID, apiKeyCall: CAPITagchirpiesDetials){ [weak self] (response, error) in
+            guard let userid = appDelegate.loginUser?.user_id else { return }
+            APIRequest.shared().viewPostDetailLatest(postID: chirID,userid: userid.description, apiKeyCall: "chirpies"){ [weak self] (response, error) in
                 guard let self = self else { return }
                 if response != nil {
                     self.parentView.isHidden = false
                     if let Info = response!["data"] as? [[String:Any]]{
-                        print(Info as Any)
                         for chirpInfo in Info {
                             self.openUserProfileScreen()
                         }
                     }
                 }
-                self.getCommentListFromServer()
+//                self.getCommentListFromServer()
             }
         }
     }
@@ -171,7 +194,11 @@ extension ChirpyDetailsViewController{
         if let chirInfo = chirpyInfo{
             chirpyInformation = chirInfo
             self.lblUserName.text = chirInfo.valueForString(key: CFirstname) + " " + chirInfo.valueForString(key: CLastname)
-            self.lblChirpyPostDate.text = DateFormatter.dateStringFrom(timestamp: chirInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
+            let created_At = chirInfo.valueForString(key: CCreated_at)
+            let cnvStr = created_At.stringBefore("G")
+            let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
+            lblChirpyPostDate.text = startCreated
+           // self.lblChirpyPostDate.text = DateFormatter.dateStringFrom(timestamp: chirInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
             let str_Back_desc = chirInfo.valueForString(key: CContent).return_replaceBack(replaceBack: chirInfo.valueForString(key: CContent))
             lblChirpyDescription.text = str_Back_desc
            // self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
@@ -431,7 +458,8 @@ extension ChirpyDetailsViewController{
             MIGeneralsAPI.shared().likeUnlikePostWebsite(post_id: self.chirpyID, rss_id: nil, type: 1, likeStatus: btnLike.isSelected ? 1 : 0, viewController: self)
         }else{
             if let likeVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "LikeViewController") as? LikeViewController{
-                likeVC.postID = self.chirpyID
+                //likeVC.postID = self.shoutID
+                likeVC.postIDNew = self.chirpyId
                 self.navigationController?.pushViewController(likeVC, animated: true)
             }
         }
