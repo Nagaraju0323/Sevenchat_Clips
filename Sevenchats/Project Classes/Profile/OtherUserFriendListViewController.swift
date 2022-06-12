@@ -112,7 +112,9 @@ extension OtherUserFriendListViewController {
         }else{
             self.tblFriendList.tableFooterView = nil
         }
-        apiTask = APIRequest.shared().getOtherUserFriendListNew(user_id: userIDNew) { (response, error) in
+        apiTask = APIRequest.shared().getOtherUserFriendListNew(user_id: userIDNew,pageNumber:self.pageNumber) { (response, error) in
+        
+//        apiTask = APIRequest.shared().getOtherUserFriendListNew(user_id: userIDNew) { (response, error) in
             self.refreshControl.endRefreshing()
             self.tblFriendList.tableFooterView = nil
             

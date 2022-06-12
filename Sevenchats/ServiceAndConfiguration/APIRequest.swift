@@ -2084,12 +2084,13 @@ extension APIRequest {
         
     }
     
-    func getOtherUserFriendListNew(user_id : String?, completion : @escaping ClosureCompletion) -> URLSessionTask{
+    func getOtherUserFriendListNew(user_id : String?,pageNumber:Int, completion : @escaping ClosureCompletion) -> URLSessionTask{
+//    func getOtherUserFriendListNew(user_id : String?, completion : @escaping ClosureCompletion) -> URLSessionTask{
         var para = [String : Any]()
         para["user_id"] = appDelegate.loginUser?.user_id.description
         para["friend_user_id"] = user_id
         para["limit"] = CLimitTW
-        para["page"] = "1"
+        para["page"] = pageNumber.description
         
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagFriendOfFriends, param: para as [String : AnyObject], successBlock: { (task, response) in
             
@@ -4429,7 +4430,9 @@ extension APIRequest {
     func storeGroupChatList(response : [String : Any]) {
         TblChatGroupList.deleteAllObjects()
         CoreData.saveContext()
-        if let items = response.valueForJSON(key: "data") as? [[String : Any]] {
+        
+        let itemsreponse = response.valueForJSON(key: "groups") as? [String : Any]
+       if let items = itemsreponse?.valueForJSON(key: "data") as? [[String : Any]] {
             for item in items{
                 let chatInfo = TblChatGroupList.findOrCreate(dictionary: [CGroupId:item.valueForString(key: CGroupId)]) as! TblChatGroupList
                 chatInfo.group_id = item.valueForString(key: CGroupId)
