@@ -1202,7 +1202,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChirpyTblCell", for: indexPath) as? HomeChirpyTblCell {
-//                    cell.isLikesHomePage = true
+                    cell.isLikesHomePage = true
                     cell.homeChirpyDataSetup(postInfo)
                     cell.btnLikesCount.touchUpInside { [weak self] (sender) in
                         guard let _ = self else { return }

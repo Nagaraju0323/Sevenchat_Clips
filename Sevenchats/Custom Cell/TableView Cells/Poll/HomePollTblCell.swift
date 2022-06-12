@@ -161,10 +161,10 @@ extension HomePollTblCell{
             
             dispatchGroup.enter()
             DispatchQueue.global().async {
-                self.getPollDetailsFromServer(postID:self.postID,completion: { [self] success,result,totalVotesCount   in
+                self.getPollDetailsFromServer(postID:self.postID,completion: { [self] success,resultData,totalVotesCount   in
                     if success == true {
                         print("frames success")
-                        self.tblVAnswre.dictArray = result
+                        self.tblVAnswre.dictArray = resultData
                         self.tblVAnswre.pollIsSelected = self.pollIsSelected
                         self.tblVAnswre.totalVotes = totalVotesCount.toInt ?? 0
 
@@ -176,8 +176,8 @@ extension HomePollTblCell{
                         if polltextCnt == 1{
                             
                         }else if polltextCnt == 2{
-                            let poll_Text1 = result[0] ?? "0"
-                            let poll_Text2 = result[1] ?? "0"
+                            let poll_Text1 = resultData[0] ?? "0"
+                            let poll_Text2 = resultData[1] ?? "0"
                             let poll_Res1 = Int(poll_Text1) ?? 0
                             let poll_Res2 = Int(poll_Text2) ?? 0
                             
@@ -207,9 +207,9 @@ extension HomePollTblCell{
                         }else if polltextCnt == 3{
                             print("count\(polltextCnt)")
                             
-                            let poll_Text1 = result[0] ?? "0"
-                            let poll_Text2 = result[1] ?? "0"
-                            let poll_Text3 = result[2] ?? "0"
+                            let poll_Text1 = resultData[0] ?? "0"
+                            let poll_Text2 = resultData[1] ?? "0"
+                            let poll_Text3 = resultData[2] ?? "0"
                             let poll_Res1 = Int(poll_Text1) ?? 0
                             let poll_Res2 = Int(poll_Text2) ?? 0
                             let poll_Res3 = Int(poll_Text3) ?? 0
@@ -261,10 +261,10 @@ extension HomePollTblCell{
                         }else if polltextCnt == 4 {
                             print("count\(polltextCnt)")
                             
-                            let poll_Text1 = result[0] ?? "0"
-                            let poll_Text2 = result[1] ?? "0"
-                            let poll_Text3 = result[2] ?? "0"
-                            let poll_Text4 = result[3] ?? "0"
+                            let poll_Text1 = resultData[0] ?? "0"
+                            let poll_Text2 = resultData[1] ?? "0"
+                            let poll_Text3 = resultData[2] ?? "0"
+                            let poll_Text4 = resultData[3] ?? "0"
                             let poll_Res1 = Int(poll_Text1) ?? 0
                             let poll_Res2 = Int(poll_Text2) ?? 0
                             let poll_Res3 = Int(poll_Text3) ?? 0
@@ -487,7 +487,7 @@ extension HomePollTblCell {
     @IBAction func onMorePressed(_ sender:UIButton){
         onMorePressed?(sender.tag)
     }
-    func getPollDetailsFromServer(postID:Int,completion:@escaping(_ success:Bool,_ result:[String],_ totalVotesCout:String) -> Void ) {
+    func getPollDetailsFromServer(postID:Int,completion:@escaping(_ success:Bool,_ resultData:[String],_ totalVotesCout:String) -> Void ) {
         
         guard let userID = appDelegate.loginUser?.user_id else { return }
         APIRequest.shared().viewPostDetailLatest(postID: postID,userid: userID.description , apiKeyCall: "polls"){ [weak self] (response, error) in
@@ -527,8 +527,8 @@ extension HomePollTblCell {
                             if obj.count == 1 {
                                 self.arrPostList =  obj
                                 for (key, value) in obj {
-                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
-//                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
+//                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
+                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
                                     if indexOfA == 0{
                                         self.arr = ["\(value)","0","0","0"]
                                     }else if indexOfA == 1{
@@ -542,8 +542,8 @@ extension HomePollTblCell {
                             }else {
                                 self.arrPostList =  obj
                                 for (key, value) in obj {
-                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
-//                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
+//                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
+                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
                                     arrayData.remove(at: indexOfA ?? 0)
                                     arrayData.insert("\(value)", at: indexOfA ?? 0)
                                 }

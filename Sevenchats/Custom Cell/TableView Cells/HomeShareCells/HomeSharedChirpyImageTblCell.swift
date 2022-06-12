@@ -143,7 +143,7 @@ extension HomeSharedChirpyImageTblCell{
         let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
         lblChirpyDescription.text = str_Back_desc
        // lblChirpyDescription.text = postInfo.valueForString(key: CContent)
-        let image = postInfo.valueForString(key: Cimages)
+//        let image = postInfo.valueForString(key: Cimages)
         blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
     
 //        if image.isEmpty {

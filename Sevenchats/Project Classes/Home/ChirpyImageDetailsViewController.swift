@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Nagaraju K and Chandrika R                                 *
+ * Author  : Nagaraju K and Chandrika R                  *
  * Model   : ChirpyImageDetailsViewController            *
  * Changes :                                             *
  * Show chiripy Details,Like and comments to post        *
@@ -272,6 +272,7 @@ extension ChirpyImageDetailsViewController{
             }
             
             self.tblCommentList.updateHeaderViewHeight(extxtraSpace: 0)
+            
             let created_At = chirInfo.valueForString(key: CCreated_at)
             let cnvStr = created_At.stringBefore("G")
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)

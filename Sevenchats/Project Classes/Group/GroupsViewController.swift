@@ -58,10 +58,19 @@ class GroupsViewController: ParentViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.fetchGroupListFromLocal()
-        pageNumber = 1
+//        self.fetchGroupListFromLocal()
+//        pageNumber = 1
         self.getGroupListFromServer(isNew: true)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        pageNumber = 1
+        
+    }
+    
+    
+    
     // MARK:- --------- Initialization
     
     func Initialization(){
@@ -187,8 +196,9 @@ extension GroupsViewController {
                 self.refreshControl.endRefreshing()
                 self.tblGroups.tableFooterView = nil
                 
-                
-                if let arrList = response!["data"] as? [[String:Any]]{
+                let itemsreponse = response?["groups"] as? [String : Any]
+              
+                if let arrList = itemsreponse!["data"] as? [[String:Any]]{
                     
                     // Remove all data here when page number == 1
                     if self.pageNumber == 1{

@@ -941,14 +941,47 @@ extension MIGeneralsAPI {
                 
                 if viewController.isKind(of: ChirpyDetailsViewController.classForCoder()){
                     if let detailPost = viewController as? ChirpyDetailsViewController{
+//                        switch postAction {
+//                        case .likePost?:
+//                            detailPost.chirpyInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+//                            detailPost.chirpyInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+//                            detailPost.setChirpyDetailData(detailPost.chirpyInformation)
+//                            break
+//                        default: break
+//                        }
+                        
                         switch postAction {
                         case .likePost?:
-                            detailPost.chirpyInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                            detailPost.chirpyInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            //                            detailPost.chirpyInformation[CLikes] = postInfo?.valueForString(key: "likes")
+                            //                            detailPost.chirpyInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            //                            detailPost.setChirpyDetailData(detailPost.chirpyInformation)
+                            //                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            
+                            
+                            
+                            if rss_id == 1{
+                                detailPost.chirpyInformation["friend_liked"] = "Yes"
+                                detailPost.chirpyInformation[CIsLiked] = "No"
+                            }else if rss_id == 2 {
+                                detailPost.chirpyInformation[CIsLiked] = "No"
+                                detailPost.chirpyInformation["friend_liked"]  = "No"
+                            }
+                            if rss_id == 3 {
+                                detailPost.chirpyInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            }
+                            
+                            detailPost.chirpyInformation[CLikes] = postInfo?.valueForString(key: "likes")
+                            //                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setChirpyDetailData(detailPost.chirpyInformation)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+                            
+                            
+                            
                             break
                         default: break
                         }
+                        
                     }
                 }
                 
@@ -1053,10 +1086,28 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? EventDetailViewController{
                         switch postAction {
                         case .likePost?:
+                            
+//                            detailPost.eventInfo[CLikes] = postInfo?.valueForString(key: "likes")
+//                            detailPost.eventInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+//                            detailPost.setEventDetail(dict: detailPost.eventInfo)
+//                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            
+                            if rss_id == 1{
+                                detailPost.eventInfo["friend_liked"] = "Yes"
+                                detailPost.eventInfo[CIsLiked] = "No"
+                            }else if rss_id == 2 {
+                                detailPost.eventInfo[CIsLiked] = "No"
+                                detailPost.eventInfo["friend_liked"]  = "No"
+                            }
+                            if rss_id == 3 {
+                                detailPost.eventInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            }
+                            
                             detailPost.eventInfo[CLikes] = postInfo?.valueForString(key: "likes")
-                            detailPost.eventInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            //                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setEventDetail(dict: detailPost.eventInfo)
                             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
                             
                             break
                         default: break
@@ -1217,9 +1268,29 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? ChirpySharedDetailsViewController{
                         switch postAction {
                         case .likePost?:
-                            detailPost.chirpyInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                            detailPost.chirpyInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+                            
+                            if rss_id == 1{
+                                detailPost.chirpyInformation["friend_liked"] = "Yes"
+                                detailPost.chirpyInformation[CIsLiked] = "No"
+                            }else if rss_id == 2 {
+                                detailPost.chirpyInformation[CIsLiked] = "No"
+                                detailPost.chirpyInformation["friend_liked"]  = "No"
+                            }
+                            if rss_id == 3 {
+                                detailPost.chirpyInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            }
+                            
+                            detailPost.chirpyInformation[CLikes] = postInfo?.valueForString(key: "likes")
+                            //                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setChirpyDetailData(detailPost.chirpyInformation)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+                            
+                            
+                            
+//                            detailPost.chirpyInformation[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+//                            detailPost.chirpyInformation[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+//                            detailPost.setChirpyDetailData(detailPost.chirpyInformation)
                             break
                         case .editPost?:
                             detailPost.setChirpyDetailData(postInfo)
@@ -1344,9 +1415,30 @@ extension MIGeneralsAPI {
                     if let detailPost = viewController as? EventSharedDetailViewController{
                         switch postAction {
                         case .likePost?:
-                            detailPost.eventInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
-                            detailPost.eventInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+//                            detailPost.eventInfo[CIs_Like] = postInfo?.valueForInt(key: CIs_Like)
+//                            detailPost.eventInfo[CTotal_like] = postInfo?.valueForInt(key: CTotal_like)
+//                            detailPost.setEventDetail(dict: detailPost.eventInfo)
+                            
+                            
+                            
+                            if rss_id == 1{
+                                detailPost.eventInfo["friend_liked"] = "Yes"
+                                detailPost.eventInfo[CIsLiked] = "No"
+                            }else if rss_id == 2 {
+                                detailPost.eventInfo[CIsLiked] = "No"
+                                detailPost.eventInfo["friend_liked"]  = "No"
+                            }
+                            if rss_id == 3 {
+                                detailPost.eventInfo[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
+                            }
+                            
+                            detailPost.eventInfo[CLikes] = postInfo?.valueForString(key: "likes")
+                            //                            detailPost.forumInformation[CIsLiked] = postInfo?.valueForString(key: CIsLiked)
                             detailPost.setEventDetail(dict: detailPost.eventInfo)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadOtherProfile"), object: nil)
+                            
+                            
                             break
                         case .editPost?:
                             detailPost.setEventDetail(dict: postInfo ?? [:])

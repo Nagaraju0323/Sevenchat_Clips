@@ -49,6 +49,7 @@ class HomeChirpyTblCell: UITableViewCell {
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
     var notificationInfo = [String:Any]()
+    var likeFromNotify:Bool?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -105,7 +106,8 @@ extension HomeChirpyTblCell{
        // lblChirpyDescription.text = postInfo.valueForString(key: CContent)
         lblChirpyCategory.text = postInfo.valueForString(key: CCategory).uppercased()
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
-        let commentCount = postInfo.valueForInt(key: CTotalComment) ?? 0
+
+        let commentCount = postInfo.valueForInt(key: "comments") ?? 0
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
         btnShare.setTitle(CBtnShare, for: .normal)
         
@@ -115,11 +117,39 @@ extension HomeChirpyTblCell{
             posted_ID = postInfo.valueForString(key: "user_id")
         }
         
-        if postInfo.valueForString(key:CIs_Liked) == "Yes"{
-            btnLike.isSelected = true
-        }else {
-            btnLike.isSelected = false
-        }
+         if isLikesOthersPage == true {
+             if postInfo.valueForString(key:"friend_liked") == "Yes"  && postInfo.valueForString(key:"is_liked") == "Yes" {
+                 btnLike.isSelected = true
+                 if postInfo.valueForString(key:"is_liked") == "No"{
+                     isLikeSelected = false
+                 }
+             }else {
+                 if postInfo.valueForString(key:"is_liked") == "No" && postInfo.valueForString(key:"friend_liked") == "No" {
+                     isLikeSelected = true
+                 }
+                 btnLike.isSelected = false
+             }
+             
+             if postInfo.valueForString(key:"is_liked") == "Yes" && postInfo.valueForString(key:"friend_liked") == "No" {
+                 isLikeSelected = true
+                 btnLike.isSelected = false
+             }else if postInfo.valueForString(key:"is_liked") == "No" && postInfo.valueForString(key:"friend_liked") == "Yes"{
+                 
+                 isLikeSelected = false
+                 btnLike.isSelected = true
+
+             }
+         }
+         
+         
+         if isLikesHomePage == true  || isLikesMyprofilePage == true {
+             if postInfo.valueForString(key:CIs_Liked) == "Yes"{
+                 btnLike.isSelected = true
+             }else {
+                 btnLike.isSelected = false
+             }
+         }
+        
 
         likeCount = postInfo.valueForString(key: CLikes).toInt ?? 0
         btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
@@ -138,27 +168,80 @@ extension HomeChirpyTblCell {
     
     @IBAction func onLikePressed(_ sender:UIButton){
 
+//        self.btnLike.isSelected = !self.btnLike.isSelected
+//        if self.btnLike.isSelected == true{
+//            likeCount = 1
+//            like = 1
+//            notifcationIsSlected = true
+//        }else {
+//            likeCount = 2
+//            like = 0
+//
+//        }
+//        guard let userID = appDelegate.loginUser?.user_id else {
+//            return
+//        }
+//        APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: Int(self.postID), isLike: likeCount){ [weak self](response, error) in
+//            guard let _ = self else { return }
+//            if response != nil {
+//                GCDMainThread.async {
+//
+//                    let infodatass = response![CJsonData] as? [[String:Any]] ?? [[:]]
+//                    for infora in infodatass{
+//                    self?.info = infora
+//                    }
+//                    let data = response![CJsonMeta] as? [String:Any] ?? [:]
+//                    let stausLike = data["status"] as? String ?? "0"
+//                    if stausLike == "0"{
+//                        self?.likeCountfromSever(productId: Int((self?.self.postID)!),likeCount:self?.likeCount ?? 0, postInfo: self?.info ?? [:],like:self?.like ?? 0)
+//                    }
+//                }
+//            }
+//        }
+        
+        
+        
         self.btnLike.isSelected = !self.btnLike.isSelected
+        
         if self.btnLike.isSelected == true{
             likeCount = 1
             like = 1
             notifcationIsSlected = true
+            
+            if isLikesOthersPage  == true {
+                if isLikeSelected == true{
+                    self.isFinalLikeSelected = true
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }else {
             likeCount = 2
             like = 0
-           
+            
+            if isLikesOthersPage == true {
+                if isLikeSelected == false{
+                    self.isFinalLikeSelected = false
+                    isLikeSelected = false
+                }else {
+                    self.isFinalLikeSelected = false
+                }
+            }
         }
+        
+        
         guard let userID = appDelegate.loginUser?.user_id else {
             return
         }
-        APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: Int(self.postID), isLike: likeCount){ [weak self](response, error) in
+        APIRequest.shared().likeUnlikeProducts(userId: Int(userID), productId: Int(self.postID) , isLike: likeCount){ [weak self](response, error) in
             guard let _ = self else { return }
             if response != nil {
                 GCDMainThread.async {
                     
                     let infodatass = response![CJsonData] as? [[String:Any]] ?? [[:]]
                     for infora in infodatass{
-                    self?.info = infora
+                        self?.info = infora
                     }
                     let data = response![CJsonMeta] as? [String:Any] ?? [:]
                     let stausLike = data["status"] as? String ?? "0"
@@ -168,8 +251,32 @@ extension HomeChirpyTblCell {
                 }
             }
         }
+        
     }
     
+//    
+//    func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){
+//        APIRequest.shared().likeUnlikeProductCount(productId: Int(self.postID) ){ [weak self](response, error) in
+//            guard let _ = self else { return }
+//            if response != nil {
+//                GCDMainThread.async { [self] in
+//                    self?.likeTotalCount = response?["likes_count"] as? Int ?? 0
+//                    self?.btnLikesCount.setTitle(appDelegate.getLikeString(like: self?.likeTotalCount ?? 0), for: .normal)
+//                    guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
+//                    guard let firstName = appDelegate.loginUser?.first_name else {return}
+//                    guard let lastName = appDelegate.loginUser?.last_name else {return}
+//                    if self?.notifcationIsSlected == true{
+//                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:],shareLink: "shareLikes")
+//                        self?.notifcationIsSlected = false
+//                    }
+//                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+//                }
+//            }
+//
+//        }
+//
+//
+//    }
     
     func likeCountfromSever(productId: Int,likeCount:Int,postInfo:[String:Any],like:Int){
         APIRequest.shared().likeUnlikeProductCount(productId: Int(self.postID) ){ [weak self](response, error) in
@@ -181,17 +288,46 @@ extension HomeChirpyTblCell {
                     guard let user_ID = appDelegate.loginUser?.user_id.description else { return }
                     guard let firstName = appDelegate.loginUser?.first_name else {return}
                     guard let lastName = appDelegate.loginUser?.last_name else {return}
+                    
                     if self?.notifcationIsSlected == true{
-                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: [:],shareLink: "shareLikes")
-                        self?.notifcationIsSlected = false 
+                        
+                        if self?.posted_ID == user_ID {
+                            
+                        }else {
+                        if self?.isLikesOthersPage == true {
+                            self?.notificationInfo["friend_liked"] = "Yes"
+                        }
+                        if self?.isLikesHomePage == true  || self?.isLikesMyprofilePage == true {
+                            self?.notificationInfo["is_liked"] = "Yes"
+                        }
+                        self?.notificationInfo["likes"] = self?.likeTotalCount.toString
+                        MIGeneralsAPI.shared().sendNotification(self?.posted_ID, userID: user_ID, subject: "liked your Post", MsgType: "COMMENT", MsgSent: "", showDisplayContent: "liked your Post", senderName: firstName + lastName, post_ID: self?.notificationInfo ?? [:],shareLink: "shareLikes")
+                        if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                            let stausLike = metaInfo["status"] as? String ?? "0"
+                            if stausLike == "0" {
+
+                            }
+                        }
                     }
-                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 0, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+                        self?.notifcationIsSlected = false
+                    }
+                    
+                    if self?.isLikesOthersPage == true {
+                    if self?.isFinalLikeSelected == true{
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 1, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+                        self?.isLikeSelected = false
+                    }else {
+                        MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 2, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+
+                    }
+                   }
+                    if  self?.isLikesHomePage == true || self?.isLikesMyprofilePage == true {
+                    MIGeneralsAPI.shared().likeUnlikePostWebsites(post_id: Int(self?.postID ?? 0), rss_id: 3, type: 1, likeStatus: self?.like ?? 0 ,info:postInfo, viewController: self?.viewController)
+                    }
                 }
             }
-          
+            
         }
-       
-        
     }
     
 }
