@@ -27,7 +27,7 @@ class HomeSearchViewController: ParentViewController {
     @IBOutlet weak var tblEvents : UITableView!
     @IBOutlet weak var btnBack : UIButton!
     @IBOutlet weak var searchView : UIView!
-
+    
     var isRefreshingUserData = false
     var arrHomeSearch = [[String:Any]]()
     var arrBlockList = [[String : Any]?]()
@@ -59,20 +59,25 @@ class HomeSearchViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
-       
+        
         NotificationCenter.default.addObserver(self, selector: #selector(NotificationRecivedFrends), name: NSNotification.Name(rawValue: "NotificationFrndRequest"), object: nil)
     }
     //..Notification Frdns Request
-
+    
     @objc func NotificationRecivedFrends(){
         DispatchQueue.main.async {
             self.arrHomeSearch.removeAll()
             let searchKey = self.prefs.value(forKey: "searchKey")
             self.getSearchDataFromServer(searchKey as! String, "new",searchTxtOther:true)
         }
-     
-      
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.arrHomeSearch.removeAll()
+        
+    }
+    
     
     // MARK:- --------- Initialization
     func Initialization(){
@@ -133,7 +138,7 @@ class HomeSearchViewController: ParentViewController {
     }
     
     func updateUIAccordingToLanguage() {
-    
+        
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
             // Reverse Flow...
             btnBack.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
@@ -159,7 +164,7 @@ extension HomeSearchViewController  {
         if apiTask?.state == URLSessionTask.State.running {
             apiTask?.cancel()
         }
-        
+        self.arrHomeSearch.removeAll()
         timeStamp = nil
         isPost = nil
         self.getSearchDataFromServer(txtSearch.text, "new",searchTxtOther:true)
@@ -188,13 +193,13 @@ extension HomeSearchViewController  {
         
         print("pageNumber\(pageNumber)")
         
-        param[CLimitS] = CLimitTW
+        param[CLimitS] = "3000"
         param["user_id"] = appDelegate.loginUser?.user_id.description
         APIRequest.shared().userSearchDetail(Param: param){ [weak self] (response, error) in
             guard let self = self else { return }
             self.tblEvents.tableFooterView = nil
             self.refreshControl.endRefreshing()
-//            self.arrHomeSearch.removeAll()
+            //            self.arrHomeSearch.removeAll()
             GCDMainThread.async {
                 if response != nil && error == nil {
                     if let arrList = response!["users"] as? [[String : Any]] {
@@ -222,7 +227,7 @@ extension HomeSearchViewController  {
     
     // Update Friend status Friend/Unfriend/Cancel Request
     func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?, completion:@escaping  (Bool) -> ()) {
-//    func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?){
+        //    func friendStatusApi(_ userInfo : [String : Any], _ userid : Int?,  _ status : Int?){
         let friend_ID = userInfo.valueForString(key: "user_id")
         guard let user_ID = appDelegate.loginUser?.user_id else { return }
         
@@ -247,26 +252,26 @@ extension HomeSearchViewController  {
                         guard let user_ID =  appDelegate.loginUser?.user_id.description else { return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                      
+                        
                         MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "send you a Friends Request", MsgType: "FRIEND_REQUEST", MsgSent:"", showDisplayContent: "send you a Friends Request", senderName: firstName + " " + lastName, post_ID: dict,shareLink:"sendFrdRequestLink")
                     }
                     completion(true)
                 }
                 
                 var frndInfo = userInfo
-//                if let data = response![CJsonData] as? [String : Any]{
-//                    frndInfo[CFriend_status] = data.valueForInt(key: CFriend_status)
-//
-//                    if let index = self.arrHomeSearch.firstIndex(where: {$0[CUserId] as? Int == userid && $0[CSearchType]  as? Int == CStaticSearchUserTypeId}){
-//                        DispatchQueue.main.async {
-//                            self.arrHomeSearch.remove(at: index)
-//                            self.arrHomeSearch.insert(frndInfo, at: index)
-//                            self.isRefreshingUserData = true
-//                            self.tblEvents.reloadData()
-//                            self.isRefreshingUserData = false
-//                        }
-//                    }
-//                }
+                //                if let data = response![CJsonData] as? [String : Any]{
+                //                    frndInfo[CFriend_status] = data.valueForInt(key: CFriend_status)
+                //
+                //                    if let index = self.arrHomeSearch.firstIndex(where: {$0[CUserId] as? Int == userid && $0[CSearchType]  as? Int == CStaticSearchUserTypeId}){
+                //                        DispatchQueue.main.async {
+                //                            self.arrHomeSearch.remove(at: index)
+                //                            self.arrHomeSearch.insert(frndInfo, at: index)
+                //                            self.isRefreshingUserData = true
+                //                            self.tblEvents.reloadData()
+                //                            self.isRefreshingUserData = false
+                //                        }
+                //                    }
+                //                }
             }
         })
     }
@@ -356,18 +361,79 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeAddFrdTblCell", for: indexPath) as? HomeAddFrdTblCell {
             
+            
             if appDelegate.loginUser?.user_id == Int64(searchInfo.valueForString(key: CUserId)){
-//                cell.btnAddFrd.isHidden = true
-//                cell.btnAccept.isHidden = false
-//                cell.btnReject.isHidden = false
+                //                cell.btnAddFrd.isHidden = true
+                //                cell.btnAccept.isHidden = false
+                //                cell.btnReject.isHidden = false
                 cell.lblUserName.text = searchInfo.valueForString(key: CFirstname) + " " + searchInfo.valueForString(key: CLastname)
                 cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
                 
             }else{
                 cell.btnAddFrd.isHidden = false
-                cell.setupCell(loan: searchInfo)
+                //.............
+                let user_id = appDelegate.loginUser?.user_id
+                if searchInfo.valueForString(key: "block_status") == "1" && searchInfo.valueForString(key: "blocked_id") == appDelegate.loginUser?.user_id.description {
+                    Friend_status = 7
+                }else if searchInfo.valueForString(key: "block_status") == "1"  {
+                    Friend_status = 6
+                } else if searchInfo.valueForString(key: "friend_status") == "1"{
+                    Friend_status = 5
+                }else if searchInfo.valueForString(key: "request_status") == "1" && searchInfo.valueForString(key: "senders_id") == user_id?.description {
+                    Friend_status = 1
+                }else if searchInfo.valueForString(key: "request_status") == "0" &&  searchInfo.valueForString(key: "friend_status") == "0" && searchInfo.valueForString(key: "reject_status") == "0" && searchInfo.valueForString(key: "cancel_status") == "0" && searchInfo.valueForString(key: "unfriend_status") == "0" || searchInfo.valueForString(key: "unfriend_status") == "1" &&  searchInfo.valueForString(key: "request_status") == "0" && searchInfo.valueForString(key: "friend_status") == "0" || searchInfo.valueForString(key: "unfriend_status") == "0" &&  searchInfo.valueForString(key: "request_status") == "1" && searchInfo.valueForString(key: "cancel_status") == "1" {
+                    Friend_status = 0
+                }else if searchInfo.valueForString(key: "request_status")  == "1" && searchInfo.valueForString(key: "senders_id") != user_id?.description {
+                    Friend_status = 2
+                    
+                }else if searchInfo.valueForString(key: "unfriend_status") == "0" &&  searchInfo.valueForString(key: "request_status") == "0" && searchInfo.valueForString(key: "cancel_status") == "1" || searchInfo.valueForString(key: "senders_id").isEmpty {
+                    Friend_status = 0
+                }
+                
+                if searchInfo.valueForString(key: "request_status") == "1" && searchInfo.valueForString(key: "senders_id") != user_id?.description{
+                    Friend_status = 2
+                }
+                
+                if searchInfo.valueForString(key: "request_status") == "0" &&  searchInfo.valueForString(key: "friend_status") == "0" && searchInfo.valueForString(key: "reject_status") == "1" && searchInfo.valueForString(key: "cancel_status") == "1" &&   searchInfo.valueForString(key: "senders_id") == "0" {
+                    Friend_status = 0
+                }
+                
+                
+                
+                if Friend_status == 2 {
+                    cell.btnAddFrd.isHidden = true
+                    cell.viewAcceptReject.isHidden = false
+                    cell.btnAccept.isHidden = false
+                    cell.btnReject.isHidden = false
+                    
+                }else{
+                    cell.btnAddFrd.isHidden = false
+                    cell.btnAccept.isHidden = true
+                    cell.btnReject.isHidden = true
+                    cell.viewAcceptReject.isHidden = true
+                    
+                    switch Friend_status{
+                    case 0:
+                        cell.btnAddFrd.setTitle("  \(CBtnAddFriend)  ", for: .normal)
+                    case 1:
+                        cell.btnAddFrd.setTitle("  \(CBtnCancelRequest)  ", for: .normal)
+                    case 5:
+                        cell.btnAddFrd.setTitle("  \(CBtnUnfriend)  ", for: .normal)
+                    case 6:
+                        cell.btnAddFrd.setTitle("  \(CBlockedUser)  ", for: .normal)
+                    case 7:
+                        cell.btnAddFrd.setTitle("  \(CBtnUnblockUser)  ", for: .normal)
+                    default:
+                        break
+                    }
+                }
+                //.............
+                
+                //                cell.setupCell(loan: searchInfo)
                 cell.lblUserName.text = searchInfo.valueForString(key: CFirstname) + " " + searchInfo.valueForString(key: CLastname)
                 cell.imgUser.loadImageFromUrl(searchInfo.valueForString(key: CImage), true)
+                
+                
             }
             
             cell.setupImgTapGestures(loan: searchInfo)
@@ -378,108 +444,108 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
             cell.btnAddFrd.touchUpInside {[weak self] (sender) in
                 guard let self = self else { return }
                 self.view.endEditing(true)
-//                let buttonPostion = sender.convert(sender.bounds.origin, to: tableView)
-//                if let indexPaths = tableView.indexPathForRow(at: buttonPostion) {
-//                    let searchInfos = self.searchInfo[indexPath.row]
-                    let friendID = searchInfo.valueForString(key: "user_id")
-                    let dict :[String:Any]  =  [
-                        "user_id":  appDelegate.loginUser?.user_id.description ?? "",
-                        "friend_user_id": friendID
-                    ]
-                    APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
-                        if response != nil && error == nil{
-//                            MILoader.shared.hideLoader()
-                            GCDMainThread.async {
-                                if let arrList = response!["data"] as? [[String:Any]]{
-                                    for arrLst in arrList{
-                                        let user_id = appDelegate.loginUser?.user_id
-                                        if arrLst.valueForString(key: "block_status") == "1" && arrLst.valueForString(key: "blocked_id") == appDelegate.loginUser?.user_id.description {
-                                            self?.Friend_status = 7
-                                        }else if arrLst.valueForString(key: "block_status") == "1"  {
-                                            self?.Friend_status = 6
-                                        } else if arrLst.valueForString(key: "friend_status") == "1"{
-                                            self?.Friend_status = 5
-                                        }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
-                                            self?.Friend_status = 1
-                                        }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "0" && arrLst.valueForString(key: "cancel_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
-                                            self?.Friend_status = 0
-                                        }else if arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "senders_id") == "0" {
-                                            self?.Friend_status = 0
-                                        }
-                                        
-                                        
-                                        var frndStatus = 1
-                                        var isShowAlert = true
-                                        var alertMessage = ""
-                                        let first_name = searchInfo.valueForString(key: "first_name")
-                                        let last_name = searchInfo.valueForString(key: "last_name")
-                                        switch self?.Friend_status {
-                                        case 0:
-                                            frndStatus = CFriendRequestSent
-                                            isShowAlert = true
-                                            cell.btnAddFrd.isHidden = false
-                                            alertMessage =  CAlertMessageForSendRequest + " " + first_name + " " + last_name
-                                            
-                                        case 1:
-                                            frndStatus = CFriendRequestCancel
-                                            isShowAlert = true
-                                            cell.btnAddFrd.isHidden = false
-                                            alertMessage = CMessageCancelRequest
-                                            
-                                        case 5:
-                                            frndStatus = CFriendRequestUnfriend
-                                            cell.btnAddFrd.isHidden = false
-                                            isShowAlert = true
-                                            alertMessage =  CMessageUnfriend + " " + first_name + " " + last_name
-                                        case 6:
-                                            //                                            cell.btnAddFrd.isEnabled = false
-                                            cell.btnAddFrd.isUserInteractionEnabled = false
-                                            isShowAlert = false
-                                        case 7:
-                                            frndStatus = CFriendUnblock
-                                            cell.btnAddFrd.isHidden = false
-                                            isShowAlert = true
-                                            alertMessage = CMessageUnBlockUser
-                                            
-                                        default:
-                                            break
-                                        }
-                                        if isShowAlert{
-                                            self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
-                                                guard let self = self else { return }
-                                               
-                                               
-                                                self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus, completion:{(success) -> Void in
-                                                    if success {
-                                                        cell.setupCell(loan: searchInfo)
-                                                    }
-                                                })
-                                            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-                                        }else{
-//                                            self?.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
-                                            
-                                            self?.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus, completion:{(success) -> Void in
-                                                if success {
-                                                    cell.setupCell(loan: searchInfo)
-//                                                     let indexPath = IndexPath(item: indexPath.row, section: 0)
-//                                                    if let visibleIndexPaths = self?.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
-//                                                         if visibleIndexPaths != NSNotFound {
-//                                                            self?.tblEvents.reloadRows(at: [indexPath], with: .top)
-//                                                         }
-//                                                     }
-//                                                    self?.navigationController?.popViewController(animated: true)
-                                                    
-                                                }
-                                            })
-                                        }
+                //                let buttonPostion = sender.convert(sender.bounds.origin, to: tableView)
+                //                if let indexPaths = tableView.indexPathForRow(at: buttonPostion) {
+                //                    let searchInfos = self.searchInfo[indexPath.row]
+                let friendID = searchInfo.valueForString(key: "user_id")
+                let dict :[String:Any]  =  [
+                    "user_id":  appDelegate.loginUser?.user_id.description ?? "",
+                    "friend_user_id": friendID
+                ]
+                APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
+                    if response != nil && error == nil{
+                        //                            MILoader.shared.hideLoader()
+                        GCDMainThread.async {
+                            if let arrList = response!["data"] as? [[String:Any]]{
+                                for arrLst in arrList{
+                                    let user_id = appDelegate.loginUser?.user_id
+                                    if arrLst.valueForString(key: "block_status") == "1" && arrLst.valueForString(key: "blocked_id") == appDelegate.loginUser?.user_id.description {
+                                        self?.Friend_status = 7
+                                    }else if arrLst.valueForString(key: "block_status") == "1"  {
+                                        self?.Friend_status = 6
+                                    } else if arrLst.valueForString(key: "friend_status") == "1"{
+                                        self?.Friend_status = 5
+                                    }else if arrLst.valueForString(key: "request_status") == "1" && arrLst.valueForString(key: "senders_id") == user_id?.description {
+                                        self?.Friend_status = 1
+                                    }else if arrLst.valueForString(key: "request_status") == "0" &&  arrLst.valueForString(key: "friend_status") == "0" && arrLst.valueForString(key: "reject_status") == "0" && arrLst.valueForString(key: "cancel_status") == "0" && arrLst.valueForString(key: "unfriend_status") == "0" || arrLst.valueForString(key: "unfriend_status") == "1" &&  arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "friend_status") == "0"{
+                                        self?.Friend_status = 0
+                                    }else if arrLst.valueForString(key: "request_status") == "0" && arrLst.valueForString(key: "senders_id") == "0" {
+                                        self?.Friend_status = 0
                                     }
                                     
+                                    
+                                    var frndStatus = 1
+                                    var isShowAlert = true
+                                    var alertMessage = ""
+                                    let first_name = searchInfo.valueForString(key: "first_name")
+                                    let last_name = searchInfo.valueForString(key: "last_name")
+                                    switch self?.Friend_status {
+                                    case 0:
+                                        frndStatus = CFriendRequestSent
+                                        isShowAlert = true
+                                        cell.btnAddFrd.isHidden = false
+                                        alertMessage =  CAlertMessageForSendRequest + " " + first_name + " " + last_name
+                                        
+                                    case 1:
+                                        frndStatus = CFriendRequestCancel
+                                        isShowAlert = true
+                                        cell.btnAddFrd.isHidden = false
+                                        alertMessage = CMessageCancelRequest
+                                        
+                                    case 5:
+                                        frndStatus = CFriendRequestUnfriend
+                                        cell.btnAddFrd.isHidden = false
+                                        isShowAlert = true
+                                        alertMessage =  CMessageUnfriend + " " + first_name + " " + last_name
+                                    case 6:
+                                        //                                            cell.btnAddFrd.isEnabled = false
+                                        cell.btnAddFrd.isUserInteractionEnabled = false
+                                        isShowAlert = false
+                                    case 7:
+                                        frndStatus = CFriendUnblock
+                                        cell.btnAddFrd.isHidden = false
+                                        isShowAlert = true
+                                        alertMessage = CMessageUnBlockUser
+                                        
+                                    default:
+                                        break
+                                    }
+                                    if isShowAlert{
+                                        self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
+                                            guard let self = self else { return }
+                                            
+                                            
+                                            self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus, completion:{(success) -> Void in
+                                                if success {
+                                                    cell.setupCell(loan: searchInfo)
+                                                }
+                                            })
+                                        }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+                                    }else{
+                                        //                                            self?.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
+                                        
+                                        self?.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus, completion:{(success) -> Void in
+                                            if success {
+                                                cell.setupCell(loan: searchInfo)
+                                                //                                                     let indexPath = IndexPath(item: indexPath.row, section: 0)
+                                                //                                                    if let visibleIndexPaths = self?.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
+                                                //                                                         if visibleIndexPaths != NSNotFound {
+                                                //                                                            self?.tblEvents.reloadRows(at: [indexPath], with: .top)
+                                                //                                                         }
+                                                //                                                     }
+                                                //                                                    self?.navigationController?.popViewController(animated: true)
+                                                
+                                            }
+                                        })
+                                    }
                                 }
                                 
                             }
+                            
                         }
-                    })
-//                }
+                    }
+                })
+                //                }
             }
             
             cell.btnAccept.touchUpInside {[weak self] (sender) in
@@ -487,26 +553,26 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForAcceptRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                     guard let self = self else { return }
-//                    cell.btnAccept.isHidden = false
-//                    cell.btnReject.isHidden = false
+                    //                    cell.btnAccept.isHidden = false
+                    //                    cell.btnReject.isHidden = false
                     
                     self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 5, completion:{(success) -> Void in
                         if success {
                             cell.setupCell(loan: searchInfo)
-//                             let indexPath = IndexPath(item: indexPath.row, section: 0)
-//                             if let visibleIndexPaths = self.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
-//                                 if visibleIndexPaths != NSNotFound {
-//                                     tableView.reloadRows(at: [indexPath], with: .fade)
-//                                 }
-//                             }
-//                              self.navigationController?.popViewController(animated: true)
+                            //                             let indexPath = IndexPath(item: indexPath.row, section: 0)
+                            //                             if let visibleIndexPaths = self.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
+                            //                                 if visibleIndexPaths != NSNotFound {
+                            //                                     tableView.reloadRows(at: [indexPath], with: .fade)
+                            //                                 }
+                            //                             }
+                            //                              self.navigationController?.popViewController(animated: true)
                             
                         }
                     })
                     
                     
                     
-//                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 5)
+                    //                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 5)
                 }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             }
             
@@ -515,19 +581,19 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                 guard let self = self else { return }
                 self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                     guard let self = self else { return }
-//                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 3)
+                    //                    self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 3)
                     self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 3
                                          , completion:{(success) -> Void in
                         if success {
                             
-//                             let indexPath = IndexPath(item: indexPath.row, section: 0)
-//                             if let visibleIndexPaths = self.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
-//                                 if visibleIndexPaths != NSNotFound {
-//                                     tableView.reloadRows(at: [indexPath], with: .fade)
-//                                 }
-//                             }
+                            //                             let indexPath = IndexPath(item: indexPath.row, section: 0)
+                            //                             if let visibleIndexPaths = self.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
+                            //                                 if visibleIndexPaths != NSNotFound {
+                            //                                     tableView.reloadRows(at: [indexPath], with: .fade)
+                            //                                 }
+                            //                             }
                             cell.setupCell(loan: searchInfo)
-//                            self.navigationController?.popViewController(animated: true)
+                            //                            self.navigationController?.popViewController(animated: true)
                             
                         }
                     })
