@@ -376,7 +376,9 @@ extension ForumDetailViewController: UITableViewDelegate, UITableViewDataSource{
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
             
-            var commentText = commentInfo.valueForString(key: "comment")
+           // var commentText = commentInfo.valueForString(key: "comment")
+            let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))
+            var commentText = str_Back_comment
             cell.lblCommentText.enabledTypes.removeAll()
             cell.viewDevider.isHidden = ((arrCommentList.count - 1) == indexPath.row)
             if Int64(commentInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
@@ -518,7 +520,7 @@ extension ForumDetailViewController{
         }else{
             if let forId = self.forumID{
                 // Get Final text for comment..
-                let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
+                let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)?.replace_str(replace: viewUserSuggestion.stringToBeSendInComment(txtViewComment) ?? "")
                 
                 // Get Mention user's Ids..
                 let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
@@ -722,7 +724,9 @@ extension ForumDetailViewController{
     func deleteComment(_ index:Int){
         let commentInfo = self.arrCommentList[index]
         let commentId = commentInfo.valueForString(key: "updated_at")
-        let strComment = commentInfo.valueForString(key: "comment")
+        let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))
+        var strComment = str_Back_comment
+       // let strComment = commentInfo.valueForString(key: "comment")
         guard let userID = appDelegate.loginUser?.user_id else{return}
         let userId = userID.description
         APIRequest.shared().deleteProductCommentNew(productId:forumIDNew ?? "", commentId : commentId, comment: strComment, include_user_id: userId)  { [weak self] (response, error) in

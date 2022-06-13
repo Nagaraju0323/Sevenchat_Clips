@@ -189,7 +189,9 @@ extension FavWebSiteDetailViewController: UITableViewDelegate, UITableViewDataSo
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
             cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
             
-            var commentText = commentInfo.valueForString(key: "comment")
+          //  var commentText = commentInfo.valueForString(key: "comment")
+            let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))
+            var commentText = str_Back_comment
             cell.lblCommentText.enabledTypes.removeAll()
             cell.viewDevider.isHidden = ((arrCommentList.count - 1) == indexPath.row)
             
