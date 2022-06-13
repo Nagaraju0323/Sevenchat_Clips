@@ -152,6 +152,7 @@ class ArticleDetailViewController: ParentViewController {
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblArticleCategory.layer.cornerRadius = 3
            // self.lblArticleDescription.adjustsFontSizeToFitWidth = true
+            
         }
         
         GCDMainThread.async {

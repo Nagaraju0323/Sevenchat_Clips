@@ -144,11 +144,12 @@ extension HomeSharedArticleCell{
         let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblArticlePostDate.text = Created_Date
         let image = postInfo.valueForString(key: "image")
-        if image.isEmpty {
-            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
-        }else{
-            blurImgView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
-        }
+        blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+//        if image.isEmpty {
+//            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+//        }else{
+//            blurImgView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
+//        }
         imgURL = postInfo.valueForString(key: CImage)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         let str_Back_title = postInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: postInfo.valueForString(key: CTitle))

@@ -124,6 +124,7 @@ class HomeViewController: ParentViewController {
         
         //        tblEvents.register(UINib(nibName: "CreatePostTblCell", bundle: nil), forCellReuseIdentifier: "CreatePostTblCell")
         tblEvents.register(UINib(nibName: "HomeArticleCell", bundle: nil), forCellReuseIdentifier: "HomeArticleCell")
+        tblEvents.register(UINib(nibName: "HomeArticleImageCell", bundle: nil), forCellReuseIdentifier: "HomeArticleImageCell")
         tblEvents.register(UINib(nibName: "HomeGalleryCell", bundle: nil), forCellReuseIdentifier: "HomeGalleryCell")
         tblEvents.register(UINib(nibName: "HomeEventImageTblCell", bundle: nil), forCellReuseIdentifier: "HomeEventImageTblCell")
         tblEvents.register(UINib(nibName: "HomeEventsCell", bundle: nil), forCellReuseIdentifier: "HomeEventsCell")
@@ -133,6 +134,7 @@ class HomeViewController: ParentViewController {
         tblEvents.register(UINib(nibName: "HomeFourmTblCell", bundle: nil), forCellReuseIdentifier: "HomeFourmTblCell")
         tblEvents.register(UINib(nibName: "HomePollTblCell", bundle: nil), forCellReuseIdentifier: "HomePollTblCell")
         tblEvents.register(UINib(nibName: "HomeSharedArticleCell", bundle: nil), forCellReuseIdentifier: "HomeSharedArticleCell")
+        tblEvents.register(UINib(nibName: "HomeSharedArticleImageCell", bundle: nil), forCellReuseIdentifier: "HomeSharedArticleImageCell")
         tblEvents.register(UINib(nibName: "HomeSharedGalleryCell", bundle: nil), forCellReuseIdentifier: "HomeSharedGalleryCell")
         tblEvents.register(UINib(nibName: "HomeSharedEventImageTblCell", bundle: nil), forCellReuseIdentifier: "HomeSharedEventImageTblCell")
         tblEvents.register(UINib(nibName: "HomeSharedEventsCell", bundle: nil), forCellReuseIdentifier: "HomeSharedEventsCell")
@@ -878,7 +880,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
            // let isshared = 0
             let isdelete = 1
             if isShared == 1 && isdelete == 1{
-                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedArticleCell", for: indexPath) as? HomeSharedArticleCell {
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeSharedArticleImageCell", for: indexPath) as? HomeSharedArticleImageCell {
                     cell.isLikesHomePage = true
                     cell.homeArticleDataSetup(postInfo)
                     
@@ -946,7 +948,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
             }
             
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeArticleCell", for: indexPath) as? HomeArticleCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeArticleImageCell", for: indexPath) as? HomeArticleImageCell {
                
                 cell.isLikesHomePage = true
                 cell.homeArticleDataSetup(postInfo)
