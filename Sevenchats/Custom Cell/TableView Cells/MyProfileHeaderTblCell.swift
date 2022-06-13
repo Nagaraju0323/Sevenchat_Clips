@@ -55,6 +55,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
     var apiTask : URLSessionTask?
     var totalFriendsCnt = 0
     var arrFriends = [[String : Any]]()
+    var friends_count = 0
     
     var arrUpdateStates = [
         [CStates:(appDelegate.loginUser?.total_post)! as Any,
@@ -67,6 +68,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.friendsListFromServer()
+        self.myUserDetails()
         
         GCDMainThread.async {
             
@@ -385,7 +387,31 @@ extension MyProfileHeaderTblCell{
                 GCDMainThread.async{
                     let totalCnt = response?["total_my_friends"] as? Int
                     self?.totalFriendsCnt = totalCnt ?? 0
-                    self?.btnTotalFriend.setTitle(self?.totalFriendsCnt.toString, for: .normal)
+                   // self?.btnTotalFriend.setTitle(self?.totalFriendsCnt.toString, for: .normal)
+                }
+            }
+        }
+    }
+    
+    func myUserDetails(){
+        if let userID = appDelegate.loginUser?.user_id{
+            let dict:[String:Any] = [
+                CEmail_Mobile : appDelegate.loginUser?.email ?? ""
+            ]
+            APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
+
+                if response != nil && error == nil {
+                    let data = response!["data"] as? [[String:Any]]
+                    for Info in data ?? [[:]] {
+                        GCDMainThread.async{
+                            let friends_no = Info["friends"] as? [[String:Any]]
+                            self.friends_count = friends_no?.count ?? 0
+                            self.btnTotalFriend.setTitle(self.friends_count.toString, for: .normal)
+                        }
+   
+                    }
+                    
+                    
                 }
             }
         }

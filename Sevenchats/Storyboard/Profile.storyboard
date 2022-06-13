@@ -956,7 +956,7 @@
                                                         <rect key="frame" x="20" y="473" width="339" height="116.5"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pEr-l2-dXv" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="339" height="50.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="340.5" height="51"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="pEr-l2-dXv" secondAttribute="height" multiplier="67:10" id="4LX-th-9oH"/>
                                                                 </constraints>
@@ -968,7 +968,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2uz-Jd-WTW" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="65.5" width="340.5" height="51"/>
+                                                                <rect key="frame" x="0.0" y="66" width="339" height="50.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="2uz-Jd-WTW" secondAttribute="height" multiplier="67:10" id="HVr-U6-P91"/>
                                                                 </constraints>
@@ -980,7 +980,7 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GUA-l2-D4M">
-                                                                <rect key="frame" x="316.5" y="65.5" width="24" height="51"/>
+                                                                <rect key="frame" x="315" y="66" width="24" height="50.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="24" id="cOt-Ru-8UX"/>
                                                                 </constraints>
