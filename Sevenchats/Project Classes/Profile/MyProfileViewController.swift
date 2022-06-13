@@ -142,6 +142,7 @@ extension MyProfileViewController{
 //            APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
                 self.refreshControl.endRefreshing()
                 if response != nil && error == nil {
+                    let data = response!["data"] as? [[String:Any]]
                     self.tblUser.reloadData()
                     // Call post list api here........
                     self.getPostListFromServer()

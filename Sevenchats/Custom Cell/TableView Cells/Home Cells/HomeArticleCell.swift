@@ -173,11 +173,12 @@ extension HomeArticleCell{
         print("printImagevalues\(postInfo.valueForString(key: "image"))")
         
         let image = postInfo.valueForString(key: "image")
-        if image.isEmpty {
-            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
-        }else{
-            blurImgView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
-        }
+        blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+//        if image.isEmpty {
+//            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+//        }else{
+//            blurImgView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
+//        }
         imgURL = postInfo.valueForString(key: CImage)
         
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)

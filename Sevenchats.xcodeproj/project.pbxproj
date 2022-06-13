@@ -583,6 +583,10 @@
 		62E1A7D2240E2EC5001BD7A8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 62E1A5D1240E2EC4001BD7A8 /* GoogleService-Info.plist */; };
 		62E1A7D3240E2EC5001BD7A8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5D2240E2EC4001BD7A8 /* AppDelegate.swift */; };
 		62E1A7D5240E2EC5001BD7A8 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62E1A5D5240E2EC4001BD7A8 /* SwiftyJSON.swift */; };
+		7CE9ACA02856EE2800E299B9 /* HomeArticleImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE9AC9E2856EE2800E299B9 /* HomeArticleImageCell.swift */; };
+		7CE9ACA12856EE2800E299B9 /* HomeArticleImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE9AC9F2856EE2800E299B9 /* HomeArticleImageCell.xib */; };
+		7CE9ACA42856F0C100E299B9 /* HomeSharedArticleImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE9ACA22856F0C100E299B9 /* HomeSharedArticleImageCell.swift */; };
+		7CE9ACA52856F0C100E299B9 /* HomeSharedArticleImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7CE9ACA32856F0C100E299B9 /* HomeSharedArticleImageCell.xib */; };
 		7CF3E7E7278D335B0054E394 /* PSLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7E6278D335B0054E394 /* PSLViewController.swift */; };
 		7CF3E7E9278D337C0054E394 /* PSLCategoryCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7E8278D337C0054E394 /* PSLCategoryCollCell.swift */; };
 		7CF3E7EB278D339B0054E394 /* PSLTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */; };
@@ -1177,6 +1181,10 @@
 		62E1A5D3240E2EC4001BD7A8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		62E1A5D5240E2EC4001BD7A8 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		73E644783A520D4D99BA5145 /* Pods-Sevenchats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.debug.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.debug.xcconfig"; sourceTree = "<group>"; };
+		7CE9AC9E2856EE2800E299B9 /* HomeArticleImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeArticleImageCell.swift; sourceTree = "<group>"; };
+		7CE9AC9F2856EE2800E299B9 /* HomeArticleImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeArticleImageCell.xib; sourceTree = "<group>"; };
+		7CE9ACA22856F0C100E299B9 /* HomeSharedArticleImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSharedArticleImageCell.swift; sourceTree = "<group>"; };
+		7CE9ACA32856F0C100E299B9 /* HomeSharedArticleImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeSharedArticleImageCell.xib; sourceTree = "<group>"; };
 		7CF3E7E6278D335B0054E394 /* PSLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLViewController.swift; sourceTree = "<group>"; };
 		7CF3E7E8278D337C0054E394 /* PSLCategoryCollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLCategoryCollCell.swift; sourceTree = "<group>"; };
 		7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLTblCell.swift; sourceTree = "<group>"; };
@@ -1969,6 +1977,8 @@
 				62E1A49D240E2EC4001BD7A8 /* HomeShoutsTblCell.xib */,
 				62E1A49E240E2EC4001BD7A8 /* HomeHeaderTblCell.swift */,
 				62E1A49F240E2EC4001BD7A8 /* HomeArticleCell.swift */,
+				7CE9AC9E2856EE2800E299B9 /* HomeArticleImageCell.swift */,
+				7CE9AC9F2856EE2800E299B9 /* HomeArticleImageCell.xib */,
 				62E1A4A0240E2EC4001BD7A8 /* PrivateAccountTblCell.swift */,
 				62E1A4A1240E2EC4001BD7A8 /* HomeEventsCell.xib */,
 				62E1A4A2240E2EC4001BD7A8 /* HomeChirpyTblCell.xib */,
@@ -2049,6 +2059,8 @@
 				62E1A4EE240E2EC4001BD7A8 /* HomeSharedEventImageTblCell.swift */,
 				62E1A4EF240E2EC4001BD7A8 /* HomeSharedChirpyTblCell.swift */,
 				62E1A4F0240E2EC4001BD7A8 /* HomeSharedArticleCell.swift */,
+				7CE9ACA22856F0C100E299B9 /* HomeSharedArticleImageCell.swift */,
+				7CE9ACA32856F0C100E299B9 /* HomeSharedArticleImageCell.xib */,
 				62E1A4F1240E2EC4001BD7A8 /* HomeSharedPollTblCell.swift */,
 				62E1A4F2240E2EC4001BD7A8 /* PostDeletedCell.xib */,
 				62E1A4F3240E2EC4001BD7A8 /* HomeSharedShoutsTblCell.xib */,
@@ -2475,11 +2487,13 @@
 				62E1A787240E2EC5001BD7A8 /* Localizable.strings (Base) in Resources */,
 				62E1A6FD240E2EC5001BD7A8 /* HomeSharedChirpyTblCell.xib in Resources */,
 				62E1A605240E2EC5001BD7A8 /* CreateFileTableCell.xib in Resources */,
+				7CE9ACA52856F0C100E299B9 /* HomeSharedArticleImageCell.xib in Resources */,
 				62E1A705240E2EC5001BD7A8 /* HomeSharedEventImageTblCell.xib in Resources */,
 				62E1A7CA240E2EC5001BD7A8 /* Poppins-Bold.otf in Resources */,
 				62E1A7CF240E2EC5001BD7A8 /* Poppins-ExtraBold.otf in Resources */,
 				62E1A737240E2EC5001BD7A8 /* Home Post in Resources */,
 				62E1A6AE240E2EC5001BD7A8 /* ImageZoomCollCell.xib in Resources */,
+				7CE9ACA12856EE2800E299B9 /* HomeArticleImageCell.xib in Resources */,
 				62E1A69D240E2EC5001BD7A8 /* HomeEventGalleryCell.xib in Resources */,
 				1863D1052600D3CD00B5BDE8 /* BottomSheetViewController.xib in Resources */,
 				62E1A6D8240E2EC5001BD7A8 /* MessageDetailUserCell.xib in Resources */,
@@ -2810,6 +2824,7 @@
 				62E1A760240E2EC5001BD7A8 /* APIRequest.swift in Sources */,
 				62E1A622240E2EC5001BD7A8 /* GroupChatDetailsViewController.swift in Sources */,
 				4541C3D2245AF10E00193914 /* GroupForwardViewController.swift in Sources */,
+				7CE9ACA42856F0C100E299B9 /* HomeSharedArticleImageCell.swift in Sources */,
 				62E1A684240E2EC5001BD7A8 /* PollDetailsViewController.swift in Sources */,
 				62E1A5DD240E2EC5001BD7A8 /* AddMediaViewController.swift in Sources */,
 				62E1A61E240E2EC5001BD7A8 /* AdvertiseViewController.swift in Sources */,
@@ -2946,6 +2961,7 @@
 				62E1A6E8240E2EC5001BD7A8 /* GroupSuggetionTblCell.swift in Sources */,
 				62E1A7D5240E2EC5001BD7A8 /* SwiftyJSON.swift in Sources */,
 				62E1A77B240E2EC5001BD7A8 /* ExtensionUIImage.swift in Sources */,
+				7CE9ACA02856EE2800E299B9 /* HomeArticleImageCell.swift in Sources */,
 				182A8DD42799D4DE00543C65 /* ProductListCell.swift in Sources */,
 				62E1A76F240E2EC5001BD7A8 /* ExtensionUIApplication.swift in Sources */,
 				1863D1092600D3CD00B5BDE8 /* WatermarkCompositionInstruction.swift in Sources */,

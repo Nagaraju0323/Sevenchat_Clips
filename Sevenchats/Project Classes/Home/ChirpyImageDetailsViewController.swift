@@ -119,12 +119,27 @@ class ChirpyImageDetailsViewController: ParentViewController {
         self.btnShare.setTitle(CBtnShare, for: .normal)
         self.lblChirpyType.text = CTypeChirpy
         
+        
         GCDMainThread.async {
             self.imgUser.layer.cornerRadius = self.imgUser.CViewWidth/2
             self.imgUser.layer.borderWidth = 2
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.viewCommentContainer.shadow(color: ColorAppTheme, shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)
             self.lblChirpyType.layer.cornerRadius = 3
+          
+           
+            //set the text and style if any.
+           
+            self.lblChirpyDescription.numberOfLines = 0
+            var maximumLabelSize: CGSize = CGSize(width: 280, height: 9999)
+            var expectedLabelSize: CGSize =  self.lblChirpyDescription.sizeThatFits(maximumLabelSize)
+            // create a frame that is filled with the UILabel frame data
+            var newFrame: CGRect =  self.lblChirpyDescription.frame
+            // resizing the frame to calculated size
+            newFrame.size.height = expectedLabelSize.height
+            // put calculated frame into UILabel frame
+            self.lblChirpyDescription.frame = newFrame
+             
         }
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(self.btnMenuClicked(_:)))]

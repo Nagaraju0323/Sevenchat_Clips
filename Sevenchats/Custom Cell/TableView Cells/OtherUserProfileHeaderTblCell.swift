@@ -48,6 +48,7 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
     var frdList = [[String : Any]?]()
     var Friend_status : Int?
     var userProfileImg = ""
+    var friends_count = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -162,10 +163,12 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
 //        imgUserCover.loadImageFromUrl(userInfo.valueForString(key: "cover_image"), true)
         let user_id = userInfo.valueForString(key: "user_id")
         self.getFriendListFromServer(user_id)
+        self.myUserDetails(userInfo.valueForString(key: "email"))
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) {
             
             let totalFriend = self.frdsofFrds.count
-            self.btnTotalFriend.setTitle("\(totalFriend)", for: .normal)
+           // self.btnTotalFriend.setTitle("\(totalFriend)", for: .normal)
             self.viewFriendFirst.hide(byWidth: true)
             self.viewFriendSecond.hide(byWidth: true)
             _ = self.viewFriendSecond.setConstraintConstant(0, edge: .leading, ancestor: true)
@@ -335,6 +338,30 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                 if let arrList = list[CJsonData] as? [[String:Any]] {
                     print(":::::::::friendsofFreinds\(arrList)")
                     self.frdsofFrds = arrList
+                }
+            }
+        }
+    }
+    
+    func myUserDetails(_ email : String?){
+        if let userID = appDelegate.loginUser?.user_id{
+            let dict:[String:Any] = [
+                CEmail_Mobile : appDelegate.loginUser?.email ?? ""
+            ]
+            APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
+
+                if response != nil && error == nil {
+                    let data = response!["data"] as? [[String:Any]]
+                    for Info in data ?? [[:]] {
+                        GCDMainThread.async{
+                            let friends_no = Info["friends"] as? [[String:Any]]
+                            self.friends_count = friends_no?.count ?? 0
+                            self.btnTotalFriend.setTitle(self.friends_count.toString, for: .normal)
+                        }
+
+                    }
+
+
                 }
             }
         }
