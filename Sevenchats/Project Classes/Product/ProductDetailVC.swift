@@ -243,7 +243,9 @@ extension ProductDetailVC {
             self.commentsInfo = commentInfo
             
             self.index_Row = index
-            var commentText = commentInfo.valueForString(key: "comment")
+           // var commentText = commentInfo.valueForString(key: "comment")
+            let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))
+            var commentText = str_Back_comment
             DispatchQueue.main.async {
                 self.viewUserSuggestion.resetData()
                 self.editComment = commentInfo.valueForString(key: "user_id")
@@ -328,7 +330,9 @@ extension ProductDetailVC : UITableViewDelegate, UITableViewDataSource{
                 cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
                 cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImages), true)
                 
-                var commentText = commentInfo.valueForString(key: "comment")
+                //var commentText = commentInfo.valueForString(key: "comment")
+                let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))
+                var commentText = str_Back_comment
                 cell.lblCommentText.enabledTypes.removeAll()
                 cell.viewDevider.isHidden = ((arrCommentList.count - 1) == indexPath.row)
                 if Int64(commentInfo.valueForString(key: CUserId)) == appDelegate.loginUser?.user_id{
@@ -563,7 +567,7 @@ extension ProductDetailVC {
     func addEditComment(){
         
         // Get Final text for comment..
-        let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)
+        let strComment = viewUserSuggestion.stringToBeSendInComment(txtViewComment)?.replace_str(replace: viewUserSuggestion.stringToBeSendInComment(txtViewComment) ?? "")
         // Get Mention user's Ids..
         let includedUser = viewUserSuggestion.arrSelectedUser.map({$0.valueForString(key: CUserId) }).joined(separator: ",")
         guard let userID = appDelegate.loginUser?.user_id else{
@@ -631,7 +635,9 @@ extension ProductDetailVC {
         
         let commentInfo = self.arrCommentList[index]
         let commentId = commentInfo.valueForString(key: "updated_at")
-        let strComment = commentInfo.valueForString(key: "comment")
+        let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))
+        var strComment = str_Back_comment
+        //let strComment = commentInfo.valueForString(key: "comment")
         
         guard let userID = appDelegate.loginUser?.user_id else{return}
         let userId = userID.description
