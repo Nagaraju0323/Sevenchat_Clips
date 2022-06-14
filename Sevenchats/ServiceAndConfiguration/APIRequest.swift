@@ -2091,9 +2091,9 @@ extension APIRequest {
         para["friend_user_id"] = user_id
         para["limit"] = CLimitTW
         para["page"] = pageNumber.description
-        
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagFriendOfFriends, param: para as [String : AnyObject], successBlock: { (task, response) in
-            
+            MILoader.shared.hideLoader()
             //  return Networking.sharedInstance.POSTJSON(apiTag: CAPITagFriendOfFriends, param: para as [String : AnyObject],successBlock: { (task, response) in
             completion(response, nil)
             
