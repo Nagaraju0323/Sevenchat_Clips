@@ -390,7 +390,9 @@ extension LoginViewController{
         APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:accessToken,viewType:1) { (response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
+                    UserDefaults.standard.set(userEmailId, forKey: "email")
                     self.redirectAfterLogin(response: response, socialDetail: [:])
+                    
                 }
             }
         }
@@ -405,6 +407,7 @@ extension LoginViewController{
 //        APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
+                    UserDefaults.standard.set(userEmailId, forKey: "mobile")
                     self.redirectAfterLogin(response: response, socialDetail: [:])
                 }
             }

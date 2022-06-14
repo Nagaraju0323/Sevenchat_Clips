@@ -699,7 +699,10 @@ extension AppDelegate {
             CoreData.saveContext()
             CUserDefaults.removeObject(forKey: UserDefaultUserID)
             CUserDefaults.removeObject(forKey: UserDefaultDeviceToken)
+            CUserDefaults.removeObject(forKey: "mobile")
+            CUserDefaults.removeObject(forKey: "email")
             CUserDefaults.synchronize()
+            
             
             appDelegate.initLoginViewController()
             appDelegate.hideSidemenu()

@@ -198,7 +198,7 @@ extension GroupsViewController {
                 
                 let itemsreponse = response?["groups"] as? [String : Any]
               
-                if let arrList = itemsreponse!["data"] as? [[String:Any]]{
+                if let arrList = itemsreponse?["data"] as? [[String:Any]]{
                     
                     // Remove all data here when page number == 1
                     if self.pageNumber == 1{

@@ -81,6 +81,8 @@ class OtherUserProfileViewController: ParentViewController {
     var isPullToRefresh = true
     var strUserImg = ""
     var usersotherID : String?
+    var loginMobileNo = ""
+    var loginEmailID = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,6 +151,14 @@ class OtherUserProfileViewController: ParentViewController {
         }
 //        NotificationCenter.default.addObserver(self, selector: #selector(loadOtherProfile), name: NSNotification.Name(rawValue: "loadOtherIntrest"), object: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(polls_others), name: NSNotification.Name(rawValue: "polls_others"), object: nil)
+        
+        if UserDefaults.standard.value(forKey: "mobile") != nil {
+            loginMobileNo = UserDefaults.standard.value(forKey: "mobile") as! String
+        }
+        if UserDefaults.standard.value(forKey: "email") != nil {
+            loginEmailID = UserDefaults.standard.value(forKey: "mobile") as! String
+        }
+        
     }
     
     @objc func loadOtherProfile(){

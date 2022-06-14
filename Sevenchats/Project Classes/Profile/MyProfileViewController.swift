@@ -32,12 +32,17 @@ class MyProfileViewController: ParentViewController {
     var arrFriends = [[String : Any]]()
     var postTypeDelete = ""
     var dict = [String:Any]()
+    var isEmailID = false
+    var ismobileNumber  = false
+    var loginMobileNo = ""
+    var loginEmailID = ""
     fileprivate var arrSelectedFilterOption = [[String : Any]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         Initialization()
-        NotificationCenter.default.addObserver(self, selector: #selector(loadMyprofile), name: NSNotification.Name(rawValue: "loadMyprofile"), object: nil)
+        
+     
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,6 +53,7 @@ class MyProfileViewController: ParentViewController {
         //load data here
         self.tblUser.reloadData()
     }
+    
     
 // MARK:- ---------- Initialization
     
@@ -85,8 +91,8 @@ class MyProfileViewController: ParentViewController {
             self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
             self.refreshControl.tintColor = ColorAppTheme
             self.tblUser.pullToRefreshControl = self.refreshControl
-            
         }
+        
         
 //        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_filter"), style: .plain, target: self, action: #selector(btnFilterClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_edit_profile"), style: .plain, target: self, action: #selector(btnEditProfileClicked(_:)))]
         
@@ -107,7 +113,17 @@ class MyProfileViewController: ParentViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.TableviewReloads), name: NSNotification.Name(rawValue: "newDataNotificationForItemupdate"),object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadMyprofile), name: NSNotification.Name(rawValue: "loadMyprofile"), object: nil)
+        
+        if UserDefaults.standard.value(forKey: "mobile") != nil {
+            loginMobileNo = UserDefaults.standard.value(forKey: "mobile") as! String
+        }
+        if UserDefaults.standard.value(forKey: "email") != nil {
+            loginEmailID = UserDefaults.standard.value(forKey: "mobile") as! String
+        }
+        
+        
     }
+    
     
     @objc func TableviewReload(){
         tblUser.reloadData()
