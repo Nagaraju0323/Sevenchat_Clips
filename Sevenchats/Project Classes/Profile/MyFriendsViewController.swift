@@ -36,6 +36,7 @@ class MyFriendsViewController: ParentViewController {
     var isRefreshingUserData = false
 //    var arrFriendList = [[String:Any]]()
     var pageNumber = 1
+    var strEmptyMessage = ""
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
     var isFromSideMenu = false
@@ -63,6 +64,7 @@ class MyFriendsViewController: ParentViewController {
         self.getFriendList(txtSearch.text, showLoader: true)
         self.getListFriends("", showLoader: true)
         self.getRequestList("", showLoader: true)
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(NotificationRecived), name: NSNotification.Name(rawValue: "NotificationRecived"), object: nil)
     }
@@ -187,6 +189,7 @@ extension MyFriendsViewController{
             guard let self = self else { return }
             self.refreshControl.endRefreshing()
             self.tblFriendList.tableFooterView = nil
+           // MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
             if response != nil{
                 if reqType == 0 {
                     if let arrList = response!["my_friends"] as? [[String:Any]]{
@@ -239,6 +242,13 @@ extension MyFriendsViewController{
                         }
                     }
                 }
+            }
+            if self.arrFriendList.isEmpty{
+                MILoader.shared.hideLoader()
+                self.tblFriendList.setEmptyMessage(self.strEmptyMessage)
+            }else{
+                MILoader.shared.hideLoader()
+                self.tblFriendList.restore()
             }
         })
         
@@ -414,7 +424,7 @@ extension MyFriendsViewController: UICollectionViewDelegate, UICollectionViewDat
         arrFriendList.removeAll()
         tblFriendList.reloadData()
         pageNumber = 1
-        self.getFriendList(txtSearch.text, showLoader: false)
+        self.getFriendList(txtSearch.text, showLoader: true)
     }
 }
 
@@ -425,7 +435,7 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var strEmptyMessage = ""
+        
         switch selectedIndexPath.item {
         case 0:
             strEmptyMessage = CNoFriendsFound
@@ -435,7 +445,7 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
             strEmptyMessage = CNoPendingRequestYet
         }
         if arrFriendList.isEmpty{
-            self.tblFriendList.setEmptyMessage(strEmptyMessage)
+           // self.tblFriendList.setEmptyMessage(strEmptyMessage)
         }else{
             self.tblFriendList.restore()
         }

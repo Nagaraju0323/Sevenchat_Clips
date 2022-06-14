@@ -139,6 +139,13 @@ extension OtherUserFriendListViewController {
                     }
                 }
             }
+            if self.arrFriendList.isEmpty{
+                MILoader.shared.hideLoader()
+                self.tblFriendList.setEmptyMessage(CNoFriendsFound)
+            }else{
+                MILoader.shared.hideLoader()
+                self.tblFriendList.restore()
+            }
         }
     }
     //MARK:- GET BLOCK LIST
