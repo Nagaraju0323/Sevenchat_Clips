@@ -59,6 +59,72 @@ class ChatUserListTblCell: UITableViewCell {
 
 extension ChatUserListTblCell {
     
+    func groupChatCellConfigurations(_ groupInfo : [String:Any]) {
+        
+//        for groupInfo in groupInfos{
+       let group_titile = groupInfo["group_title"] as? String
+        
+        let str_Back_desc_share = group_titile?.return_replaceBack(replaceBack: group_titile ?? "")
+        lblUserName.text = str_Back_desc_share
+       // lblUserName.text = groupInfo.group_title
+//        lblMessage.text = groupInfo.last_message
+        imgUser.loadImageFromUrl(groupInfo["group_image"] as? String, true)
+        
+//
+//        if JSON(rawValue: groupInfo.status_id!) ?? "" == 2 || JSON(rawValue: groupInfo.status_id!) ?? "" == 3 {
+//            self.lblMessage.textColor = UIColor.lightGray
+//            self.lblMessage.font = CFontPoppins(size: 12, type: .boldItalic).setUpAppropriateFont()
+//            self.lblMessage.text = JSON(rawValue: groupInfo.status_id!) ?? "" == 3 ? CDeleteMessageByAdmin : CDeleteMessageByUser
+//        } else {
+//            self.lblMessage.textColor = CRGB(r: 122, g: 115, b: 115)
+//            self.lblMessage.font = CFontPoppins(size: 12, type: .light).setUpAppropriateFont()
+//
+//            groupInfo.msg_type
+//            switch groupInfo.msg_type {
+//            case 1: // TEXT
+//                self.lblMessage.text = CTypeImage
+//            case 2:// IMAGE
+//                self.lblMessage.text = CTypeImage
+//            case 3: // VIDEO
+//                self.lblMessage.text = CBtnVideo
+//            case 4: // AUDIO
+//                self.lblMessage.text = CBtnAudio
+//            case 6: // SHARED LOCATION
+//                self.lblMessage.text = CLocation
+//            default:
+//                self.lblMessage.text = ""
+//            }
+//        }
+        
+        lblUnreadCount.isHidden = true
+        self.lblMessage.isHidden = true 
+        
+//        if groupInfo.unread_count > 0 {
+//            lblUnreadCount.isHidden = false
+//            lblUnreadCount.text = "\(groupInfo.unread_count)"
+//        }else {
+//            lblUnreadCount.isHidden = true
+//        }
+        
+        //        self.lblMessageTime.text = DateFormatter.dateStringFrom(timestamp: groupInfo.datetime, withFormate: "HH:mm")
+//        self.lblMessageTime.text = DateFormatter.shared().durationString(duration: "\(groupInfo.chat_time)")
+        
+        btnMemberInfo.isHidden = true
+        //olde code replace later
+//        if groupInfo.created_at == appDelegate.loginUser?.user_id{
+//            btnMemberInfo.isHidden = !(groupInfo.pending_request > 0)
+//        }
+        //ChangeLatter
+        btnMemberInfo.isHidden = true
+        if "166183056" == "166183056"{
+//            btnMemberInfo.isHidden = !(JSON(rawValue: groupInfo.pending_request!) ?? "" > 0)
+        }
+//        }
+        
+    }
+    
+    
+    
     func groupChatCellConfiguration(_ groupInfo : TblChatGroupList) {
         let str_Back_desc_share = groupInfo.group_title?.return_replaceBack(replaceBack: groupInfo.group_title ?? "")
         lblUserName.text = str_Back_desc_share

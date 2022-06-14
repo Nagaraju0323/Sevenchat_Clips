@@ -4431,8 +4431,8 @@ extension APIRequest {
         TblChatGroupList.deleteAllObjects()
         CoreData.saveContext()
         
-        let itemsreponse = response.valueForJSON(key: "groups") as? [String : Any]
-       if let items = itemsreponse?.valueForJSON(key: "data") as? [[String : Any]] {
+//        let itemsreponse = response.valueForJSON(key: "groups") as? [String : Any]
+        if let items = response.valueForJSON(key: "data") as? [[String : Any]] {
             for item in items{
                 let chatInfo = TblChatGroupList.findOrCreate(dictionary: [CGroupId:item.valueForString(key: CGroupId)]) as! TblChatGroupList
                 chatInfo.group_id = item.valueForString(key: CGroupId)

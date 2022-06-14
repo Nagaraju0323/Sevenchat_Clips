@@ -1,3 +1,4 @@
+
 //
 //  GroupsViewController.swift
 //  Sevenchats
@@ -23,14 +24,25 @@ class GroupsViewController: ParentViewController {
     @IBOutlet weak var showImg: UIImageView!
     @IBOutlet weak var activeLbl: UILabel!
     
-
-
     var arrGroupList = [TblChatGroupList]()
     var arrGroupSearchList = [TblChatGroupList]()
+    
+    
+   
+    var arrUserList = [[String:Any]]()
+    var arrUser : [[String:Any]] = [[:]] {
+        didSet{
+            self.arrUserList = arrUser
+         
+        }
+    }
+    
+    
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
     var groupType = CGroupTypePublic
     var isSearch : Bool = false
+    var isLoadMoreCompleted =  false
     var pageNumber = 1
     @IBOutlet weak var lblNoData : UILabel!
     
@@ -59,8 +71,8 @@ class GroupsViewController: ParentViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 //        self.fetchGroupListFromLocal()
-//        pageNumber = 1
-        self.getGroupListFromServer(isNew: true)
+        pageNumber = 1
+      
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -118,12 +130,21 @@ class GroupsViewController: ParentViewController {
             self.tblGroups.pullToRefreshControl = self.refreshControl
         }
         
+        self.getGroupListFromServer(isNew: true)
+        
     }
     
     func setCancelBarButton(){
         self.navigationItem.titleView = nil
         self.navigationItem.rightBarButtonItem = nil
         self.navigationItem.rightBarButtonItems = [self.searchBarItem,self.btnfrdsList] as? [UIBarButtonItem] ?? []
+        searchBar.text = ""
+        isSearch = false
+
+        self.pageNumber = 1
+                arrUserList.removeAll()
+        self.getGroupListFromServer(isNew: false)
+//        arrUserList.removeAll()
         self.tblGroups.reloadData()
     }
     
@@ -196,25 +217,60 @@ extension GroupsViewController {
                 self.refreshControl.endRefreshing()
                 self.tblGroups.tableFooterView = nil
                 
-                let itemsreponse = response?["groups"] as? [String : Any]
-              
-                if let arrList = itemsreponse?["data"] as? [[String:Any]]{
-                    
-                    // Remove all data here when page number == 1
-                    if self.pageNumber == 1{
-//                        self.arrGroupList.removeAll()
-//                        self.tblGroups.reloadData()
-                        self.fetchGroupListFromLocal()
-//                        self.tblGroups.reloadData()
+                if let arrList = response!["data"] as? [[String:Any]] {
+                    if self.pageNumber == 1 {
+                        self.arrUser.removeAll()
+                        self.tblGroups.reloadData()
                     }
+                    
+                    self.isLoadMoreCompleted = self.arrUser.isEmpty
+                    
                     // Add Data here...
                     if arrList.count > 0{
-                        self.fetchGroupListFromLocal()
-//                        self.tblGroups.reloadData()
+                        self.arrUser = self.arrUser + arrList
+                        self.tblGroups.reloadData()
                         self.pageNumber += 1
                     }
-                    //                    self.lblNoData.isHidden = self.arrUser.count > 0
                 }
+                
+                
+//                let itemsreponse = response?["groups"] as? [String : Any]
+              
+//                if let arrList = response?["data"] as? [[String:Any]]{
+//
+//                    // Remove all data here when page number == 1
+////                    if self.pageNumber == 1{
+////                        self.arrGroupList.removeAll()
+//////                        self.tblGroups.reloadData()
+//////                        self.fetchGroupListFromLocal()
+////                        self.tblGroups.reloadData()
+////                    }
+////                    // Add Data here...
+////                    if arrList.count > 0{
+////                        self.fetchGroupListFromLocal()
+//////                        self.tblGroups.reloadData()
+////                        self.pageNumber += 1
+////                    }
+//
+//
+//
+//                    if let arrList = response!["comments"] as? [[String:Any]] {
+//                        if self.pageNumber == 1 {
+//                            self.arrGroupList_New.removeAll()
+//                            self.tblGroups.reloadData()
+//                        }
+//                        // Add Data here...
+//                        if arrList.count > 0{
+//                            self.arrGroupList_New = self.arrGroupList_New + arrList
+//                            self.tblGroups.reloadData()
+//                            self.pageNumber += 1
+//                        }
+//                    }
+//
+//
+//
+//                    //self.lblNoData.isHidden = self.arrUser.count > 0
+//                }
             }
         }
     }
@@ -241,16 +297,16 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
         
         //return arrGroupList.count
         if(isSearch) {
-            if self.arrGroupSearchList.isEmpty{
+            if self.arrUserList.isEmpty{
 //                self.tblGroups.setEmptyMessage(CThereIsNoOnGoingChat)
                 self.tblGroups.setImage(url: URL(string: "ic_2_onboarding_new.png")!)
                 
             }else{
                 self.tblGroups.restore()
             }
-            return arrGroupSearchList.count
+            return arrUserList.count
         }else{
-            if self.arrGroupList.isEmpty{
+            if self.arrUserList.isEmpty{
                 showImg.isHidden = false
                 activeLbl.text = CMessageNoGroupList
                 activeLbl.isHidden = false
@@ -265,7 +321,7 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
             }
 //            showImg.isHidden = true
 //            activeLbl.isHidden = true
-            return arrGroupList.count
+            return arrUserList.count
            
             
         }
@@ -280,19 +336,23 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUserListTblCell", for: indexPath) as? ChatUserListTblCell {
             
-            let groupInfo = arrGroupList[indexPath.row]
+            let groupInfo = arrUserList[indexPath.row]
             if (isSearch)    {
-                let groupInfo = arrGroupSearchList[indexPath.row]
-                cell.groupChatCellConfiguration(groupInfo)
+                let groupInfo = arrUserList[indexPath.row]
+                
+                cell.groupChatCellConfigurations(groupInfo)
             }
             else {
-                let groupInfo = arrGroupList[indexPath.row]
-                cell.groupChatCellConfiguration(groupInfo)
+                let groupInfo = arrUserList[indexPath.row]
+                cell.groupChatCellConfigurations(groupInfo)
             }
             cell.btnMemberInfo.touchUpInside { [weak self] (sender) in
                 guard let _ = self else { return }
                 
-                let grpInfo = groupInfo.dictionaryWithValues(forKeys: Array((groupInfo.entity.attributesByName.keys)))
+//                let grpInfo = groupInfo.dictionaryWithValues(forKeys: Array((groupInfo.entity.attributesByName.keys)))
+                
+                let grpInfo = self?.arrUserList[indexPath.row]
+                
                 if let groupMemberVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupMemberRequestViewController") as? GroupMemberRequestViewController {
                     groupMemberVC.iObject = grpInfo
                     self?.navigationController?.pushViewController(groupMemberVC, animated: true)
@@ -301,7 +361,8 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
             
             cell.btngroupInfo.touchUpInside { [weak self] (sender) in
                 guard let _ = self else { return }
-                let grpInfo = groupInfo.dictionaryWithValues(forKeys: Array((groupInfo.entity.attributesByName.keys)))
+//                let grpInfo = groupInfo.dictionaryWithValues(forKeys: Array((groupInfo.entity.attributesByName.keys)))
+                let grpInfo = self?.arrUserList[indexPath.row]
                 if let groupMemberVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupInfoViewController") as? GroupInfoViewController {
                     groupMemberVC.iObject = grpInfo
                     self?.navigationController?.pushViewController(groupMemberVC, animated: true)
@@ -312,7 +373,7 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
             //            self.getGroupListFromServer(isNew: false)
             //            }
             
-            if indexPath == tblGroups.lastIndexPath(){
+            if indexPath == tblGroups.lastIndexPath() && !self.isLoadMoreCompleted{
                 self.getGroupListFromServer(isNew: false)
             }
             return cell
@@ -322,20 +383,26 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let groupInfo = arrGroupList[indexPath.row]
+      
+        var groupInfo = arrUserList[indexPath.row]
         
         if let groupChatDetailsVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
-            let grpInfo = groupInfo.dictionaryWithValues(forKeys: Array((groupInfo.entity.attributesByName.keys)))
+           
+            
+//            let grpInfo = groupInfo.dictionaryWithValues(forKeys: Array((groupInfo.entity.attributesByName.keys)))
+            
+//            let grpInfo = groupInfo.dictionaryWithValues(forKeys: Array((groupInfo.entity.attributesByName.keys)))
             groupChatDetailsVC.setBlock { [weak self] (object, message) in
                 self?.getGroupListFromServer(isNew: true)
             }
             
-            if let grpID = groupInfo.group_id{
+            
+            if let grpID = groupInfo["group_id"] as? String{
                 groupChatDetailsVC.group_id = grpID
             }
-            groupChatDetailsVC.iObject = grpInfo
-            groupChatDetailsVC.groupInfo = grpInfo
-            groupChatDetailsVC.groupInfoLatest = grpInfo
+            groupChatDetailsVC.iObject = groupInfo
+            groupChatDetailsVC.groupInfo = groupInfo
+            groupChatDetailsVC.groupInfoLatest = groupInfo
             
             groupChatDetailsVC.isCreateNewChat = false
             self.navigationController?.pushViewController(groupChatDetailsVC, animated: true)
@@ -363,7 +430,7 @@ extension GroupsViewController: UISearchBarDelegate{
     //MARK: UISearchbar delegate
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         isSearch = false
-        arrGroupSearchList.removeAll()
+//        arrUserList.removeAll()
         self.tblGroups.reloadData()
         
     }
@@ -377,8 +444,11 @@ extension GroupsViewController: UISearchBarDelegate{
         //           searchBar.resignFirstResponder()
         searchBar.text = ""
         isSearch = false
-        arrGroupSearchList.removeAll()
-        self.tblGroups.reloadData()
+        self.pageNumber = 1
+////        arrUserList.removeAll()
+////        self.getGroupListFromServer(isNew: true)
+//        self.tblGroups.reloadData()
+        self.getGroupListFromServer(isNew: true)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -391,17 +461,17 @@ extension GroupsViewController: UISearchBarDelegate{
             isSearch = false
             self.tblGroups.reloadData()
         } else {
-            arrGroupSearchList = arrGroupList.filter({ (text) -> Bool in
-                let tmp: NSString = (text.group_title ?? "") as NSString
+            arrUserList = arrUser.filter({ (text) -> Bool in
+                let tmp: NSString = (text["group_title"] ?? "") as? NSString ?? ""
                 let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
                 return range.location != NSNotFound
             })
-            if(arrGroupSearchList.count == 0) || self.searchBar.text == ""{
+            if(arrUserList.count == 0) || self.searchBar.text == ""{
                 isSearch = true
-                arrGroupSearchList = arrGroupList.filter() {
-                    let strGameName = $0.group_title
+                arrUserList = arrUser.filter() {
+                    let strGameName = $0.valueForString(key: "group_title")
                     let stringToCompare = searchBar.text!
-                    if let range = strGameName?.range(of: stringToCompare) {
+                    if let range = strGameName.range(of: stringToCompare) {
                         isSearch = false
                         return true
                     } else {
