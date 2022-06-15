@@ -235,9 +235,9 @@ class GroupChatDetailsViewController: ParentViewController,MIAudioPlayerDelegate
     }
     //...Stomp Socket Intilization
     private func initStomp(){
-        let url = URL(string: "https://beta.sevenchats.com:443/ws-chat/websocket/")!
+        let url = URL(string: SocketIoUrl)!
         
-        self.swiftStomp = SwiftStomp(host: url, headers: ["Authorization" : "Bearer 5c09614a-22dc-4ccd-89c1-5c78338f45e9"])
+        self.swiftStomp = SwiftStomp(host: url, headers: ["Authorization" : "Bearer cc74fda667531daeb37a4f5233496072956573a9"])
         self.swiftStomp.enableLogging = true
         self.swiftStomp.delegate = self
         self.swiftStomp.autoReconnect = true

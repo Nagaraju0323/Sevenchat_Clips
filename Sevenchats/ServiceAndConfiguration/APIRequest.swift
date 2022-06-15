@@ -81,9 +81,26 @@ let BASEURLMINIO: String = "https://stg.sevenchats.com:3443"
 //let BASEURLSOCKETNOTF: String = "https://qay.sevenchats.com:7444"
 
 
+
+//Sevenchats
+
+
+var BASEURLNEW: String      =   "https://sevenchats.com/admin/"
+let BASEMSGURL:String       =   "https://sevenchats.com/"
+var BASEMASTERURL           = "https://sevenchats.com/auth/"
+var BASEURLCHATLASTMSG: String   =  "https://sevenchats.com/"
+var BASEURLOTP: String     =   "https://sevenchats.com/"
+var BASEEMAILOTP:String    =   "https://sevenchats.com/"
+var BASEAUTH:String         =   "https://sevenchats.com/"
+var BASEURLNOTIFICATION: String  = "https://sevenchats.com/"
+var BASEURLSENDNOTIF : String  =  "https://sevenchats.com/"
+let SocketIoUrl = "https://sevenchats.com/ws-chat/websocket/"
+let BASEURLSOCKETNOTF: String = "https://sevenchats.com/"
+let BASEURL_Rew: String = "https://sevenchats.com/"
+
 //Beta server
 
-var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
+/*var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
 let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
 var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
 var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
@@ -93,9 +110,9 @@ var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
 var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
 var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
 let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
-let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
-
-let BASEURL_Rew: String = "QAY"
+let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"*/
+//
+//let BASEURL_Rew: String = "QAY"
 
 
 let CAPIVesrion                     = "v1"
@@ -1562,7 +1579,7 @@ extension APIRequest {
     //    }
     
     func userDetails(para:[String:AnyObject],access_Token:String,viewType:Int, completion : @escaping ClosureCompletion) {
-        
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         self.saveUserDetail(response: [:], accessToken: access_Token, ViewController: viewType)
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersDetails, param: para , successBlock: { (task, response) in
             
@@ -1653,10 +1670,11 @@ extension APIRequest {
     //        })
     //    }
     
-    func userDetailsMobile(para:[String:AnyObject],access_Token:String,viewType:Int, completion : @escaping ClosureCompletion) {
+    func userDetailsMobile(para:[String:AnyObject],access_Token:String,
+                           viewType:Int, completion : @escaping ClosureCompletion) {
         
         //    func userDetailsMobile(para:[String:AnyObject], completion : @escaping ClosureCompletion) {
-        
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersMobileDetails, param: para , successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
@@ -2338,7 +2356,7 @@ extension APIRequest {
     }
     
     func getUserPostList(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-        
+       
         var para = [String : Any]()
         para[CPage] = page
         para[CPer_page] = CLimit
@@ -2358,7 +2376,9 @@ extension APIRequest {
             
         ]
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserPostNew, param: dict as [String : AnyObject], successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserPost) {
+                
                 completion(response, nil)
             }
         }, failureBlock: { (task, message, error) in

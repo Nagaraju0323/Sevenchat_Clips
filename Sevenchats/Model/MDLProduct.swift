@@ -95,7 +95,7 @@ class MDLProduct : NSObject, ProductBaseModel {
         let str_Back_desc = dictionary["description"] as? String ?? "".return_replaceBack(replaceBack: dictionary["description"] as? String ?? "")
         productDescription = str_Back_desc
        // productDescription = dictionary["description"] as? String ?? ""
-//        productPrice = dictionary["cost"] as? String ?? ""
+       productPrice = dictionary["cost"] as? String ?? ""
         let str_Back_title = dictionary["product_title"] as? String ?? "".return_replaceBack(replaceBack: dictionary["product_title"] as? String ?? "")
         productTitle = dictionary["product_title"] as? String ?? ""
        // productTitle = dictionary["product_title"] as? String ?? ""
