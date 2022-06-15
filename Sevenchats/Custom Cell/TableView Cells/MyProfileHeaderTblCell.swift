@@ -56,6 +56,8 @@ class MyProfileHeaderTblCell: UITableViewCell {
     var totalFriendsCnt = 0
     var arrFriends = [[String : Any]]()
     var friends_count = 0
+    var loginMobileNo = ""
+    var loginEmailID = ""
     
     var arrUpdateStates = [
         [CStates:(appDelegate.loginUser?.total_post)! as Any,
@@ -68,7 +70,14 @@ class MyProfileHeaderTblCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.friendsListFromServer()
-        self.myUserDetails()
+        if UserDefaults.standard.value(forKey: "mobile") != nil {
+            loginMobileNo = UserDefaults.standard.value(forKey: "mobile") as! String
+            self.myUserDetailsMobile()
+        }else if UserDefaults.standard.value(forKey: "email") != nil {
+            loginEmailID = UserDefaults.standard.value(forKey: "email") as! String
+            self.myUserDetails()
+        }
+        
         
         GCDMainThread.async {
             
@@ -407,6 +416,32 @@ extension MyProfileHeaderTblCell{
                             let friends_no = Info["friends"] as? [[String:Any]]
                             self.friends_count = friends_no?.count ?? 0
                             self.btnTotalFriend.setTitle(self.friends_count.toString, for: .normal)
+                            MILoader.shared.hideLoader()
+                        }
+   
+                    }
+                    
+                    
+                }
+            }
+        }
+    }
+    
+    func myUserDetailsMobile(){
+        if let userID = appDelegate.loginUser?.user_id{
+            let dict:[String:Any] = [
+                "mobile" : appDelegate.loginUser?.mobile ?? ""
+            ]
+            APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
+
+                if response != nil && error == nil {
+                    let data = response!["data"] as? [[String:Any]]
+                    for Info in data ?? [[:]] {
+                        GCDMainThread.async{
+                            let friends_no = Info["friends"] as? [[String:Any]]
+                            self.friends_count = friends_no?.count ?? 0
+                            self.btnTotalFriend.setTitle(self.friends_count.toString, for: .normal)
+                            MILoader.shared.hideLoader()
                         }
    
                     }

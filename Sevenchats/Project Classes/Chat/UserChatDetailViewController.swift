@@ -197,9 +197,9 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate{
     //MARK:- Stomo Notification
     
     private func initStomp(){
-        let url = URL(string: "https://beta.sevenchats.com:443/ws-chat/websocket/")!
+        let url = URL(string: SocketIoUrl)!
         
-        self.swiftStomp = SwiftStomp(host: url, headers: ["Authorization" : "Bearer c650abcbc40440419eee20315ceade3b857fbb6e"])
+        self.swiftStomp = SwiftStomp(host: url, headers: ["Authorization" : "Bearer cc74fda667531daeb37a4f5233496072956573a9"])
         self.swiftStomp.enableLogging = true
         self.swiftStomp.delegate = self
         self.swiftStomp.autoReconnect = true
@@ -1311,6 +1311,8 @@ extension UserChatDetailViewController {
                     guard let self = self else { return }
                     self.tblChat.tableFooterView = UIView()
                     if response != nil && error == nil {
+                        self.fetchHome.loadData()
+
                         DispatchQueue.main.async{
                             guard let arrList = response as? [String:Any] else { return }
 //                            self.fetchHome.loadData()
@@ -1324,7 +1326,7 @@ extension UserChatDetailViewController {
 //                                self.fetchHome.loadData()
 //                                self.refreshControl.addTarget(self, action: #selector(self.pullToRefreshLoad), for: .valueChanged)
 //                                self.loadlatestDataFromSever()
-                                self.fetchHome.loadData()
+//                                self.fetchHome.loadData()
                                 
                             }
                         }

@@ -486,7 +486,7 @@ extension AddEditProductVC {
 //        self.txtProductDesc.text = _product.productDescription
       let str_Back_title = _product.productTitle.return_replaceBack(replaceBack:_product.productTitle)
         self.txtProductTitle.text = str_Back_title
-   let str_Back_desc = _product.productTitle.return_replaceBack(replaceBack:_product.productTitle)
+   let str_Back_desc =  _product.productDescription.return_replaceBack(replaceBack: _product.productDescription)
         self.txtProductDesc.text = str_Back_desc
         self.txtProductPrice.text = _product.productPrice.description
         self.txtCurrencyList.text = _product.currencyName

@@ -123,7 +123,7 @@ extension ProductDetailVC {
         let moreBarItem = BlockBarButtonItem(image: UIImage(named: "ic_btn_nav_more"), style: .plain) { [weak self] (_) in
             guard let _ = self else { return }
             DispatchQueue.main.async {
-                if (self?.product?.userId.description == appDelegate.loginUser?.user_id.description){
+                if (self?.product?.productUserID.description == appDelegate.loginUser?.user_id.description){
                     self?.editDeleteProduct()
                 }else{
                     self?.pushToProductReport()
@@ -136,6 +136,7 @@ extension ProductDetailVC {
         self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CReport, btnOneStyle: .default) { [weak self] (alert) in
             guard let _ = self else { return }
             if let productReport : ProductReportVC = CStoryboardProduct.instantiateViewController(withIdentifier: "ProductReportVC") as? ProductReportVC{
+               
                 productReport.productId = self?.product?.id ?? 0
                 self?.navigationController?.pushViewController(productReport, animated: true)
             }
@@ -148,6 +149,7 @@ extension ProductDetailVC {
             guard let addEditProduct = CStoryboardProduct.instantiateViewController(withIdentifier: "AddEditProductVC") as? AddEditProductVC else{
                 return
             }
+            addEditProduct.myeditStart = "editCLK"
             addEditProduct.isEdit = "addEditProduct"
             addEditProduct.product = self?.product
             self?.navigationController?.pushViewController(addEditProduct, animated: true)
@@ -155,12 +157,29 @@ extension ProductDetailVC {
             guard let _ = self else { return }
             self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeleteProduct, btnOneTitle: CBtnYes, btnOneTapped: { [weak self] (alert) in
                 guard let _ = self else { return }
-                ProductHelper<UIViewController>.deleteProduct(
-                    controller: self,
-                    refreshCnt: [StoreListVC.self,ProductSearchVC.self],
-                    productID: (self?.product?.id ?? 0),
-                    isLoader: true
-                )
+                APIRequest.shared().deleteProduct(productId:self?.product?.productID ?? ""){ [weak self](response, error) in
+                    guard let _ = self else { return }
+                    if response != nil {
+                        GCDMainThread.async {
+                            
+                            ProductHelper<UIViewController>.deleteProduct(
+                                controller: self?.viewController,
+                                refreshCnt: [StoreListVC.self,ProductSearchVC.self],
+                                productID: (self?.product?.productID.toInt ?? 0),
+                                isLoader: true
+                            )
+                            
+                            
+                        }
+                    }
+                }
+//                guard let _ = self else { return }
+//                ProductHelper<UIViewController>.deleteProduct(
+//                    controller: self,
+//                    refreshCnt: [StoreListVC.self,ProductSearchVC.self],
+//                    productID: (self?.product?.id ?? 0),
+//                    isLoader: true
+//                )
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
         }
     }

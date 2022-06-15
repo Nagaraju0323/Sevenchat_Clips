@@ -118,7 +118,7 @@ class MyProfileViewController: ParentViewController {
             loginMobileNo = UserDefaults.standard.value(forKey: "mobile") as! String
         }
         if UserDefaults.standard.value(forKey: "email") != nil {
-            loginEmailID = UserDefaults.standard.value(forKey: "mobile") as! String
+            loginEmailID = UserDefaults.standard.value(forKey: "email") as! String
         }
         
         
@@ -207,6 +207,7 @@ extension MyProfileViewController{
                             self.tblUser.reloadData()
                             self.pageNumber += 1
                         }
+                        MILoader.shared.hideLoader()
                     }
                 }else {
                     
