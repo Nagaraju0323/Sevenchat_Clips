@@ -73,8 +73,8 @@ class RegisterViewController: ParentViewController {
     var profileImage = UIImage()
     var apiTask : URLSessionTask?
     var isSelected = false
-//    var postFirstName = ""
-//    var postLastName = ""
+    //    var postFirstName = ""
+    //    var postLastName = ""
     var startEventChng = ""
     var chngStringStart = ""
     var chkStatus:Bool = false
@@ -365,32 +365,32 @@ extension RegisterViewController {
         
         
         if self.txtDob.text?.range(of:"ಜನವರಿ") != nil{
-                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಜನವರಿ", with: "Jan") ?? ""
-              }else if self.txtDob.text?.range(of:"ಫೆಬ್ರವರಿ") != nil{
-                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಫೆಬ್ರವರಿ", with: "Feb") ?? ""
-              } else if self.txtDob.text?.range(of:"ಮಾರ್ಚ್") != nil{
-                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಮಾರ್ಚ್", with: "Mar") ?? ""
-              }else if self.txtDob.text?.range(of:"ಏಪ್ರಿ") != nil{
-                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಏಪ್ರಿ", with: "Apr") ?? ""
-              }else if self.txtDob.text?.range(of:"ಮೇ") != nil{
-                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಮೇ", with: "May") ?? ""
-              }else if self.txtDob.text?.range(of:"ಜೂನ್") != nil{
-                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಜೂನ್", with: "Jun") ?? ""
-              }else if self.txtDob.text?.range(of:"ಜುಲೈ") != nil{
-                  startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಜುಲೈ", with: "Jul") ?? ""
-              }else if txtDob.text?.range(of:"ಆಗ") != nil{
-                  startEventChng = txtDob.text?.replacingOccurrences(of: "ಆಗ", with: "Aug") ?? ""
-              }else if txtDob.text?.range(of:"ಸೆಪ್ಟೆಂ") != nil{
-                  startEventChng = txtDob.text?.replacingOccurrences(of: "ಸೆಪ್ಟೆಂ", with: "Sep") ?? ""
-              }else if txtDob.text?.range(of:"ಅಕ್ಟೋ") != nil{
-                  startEventChng = txtDob.text?.replacingOccurrences(of: "ಅಕ್ಟೋ", with: "Oct") ?? ""
-              } else if txtDob.text?.range(of:"ನವೆಂ") != nil{
-                  startEventChng = txtDob.text?.replacingOccurrences(of: "ನವೆಂ", with: "Nov") ?? ""
-              }else if txtDob.text?.range(of:"ಡಿಸೆಂ") != nil{
-                  startEventChng = txtDob.text?.replacingOccurrences(of: "ಡಿಸೆಂ", with: "Dec") ?? ""
-              }else {
-                  chngStringStart = self.txtDob.text ?? ""
-              }
+            startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಜನವರಿ", with: "Jan") ?? ""
+        }else if self.txtDob.text?.range(of:"ಫೆಬ್ರವರಿ") != nil{
+            startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಫೆಬ್ರವರಿ", with: "Feb") ?? ""
+        } else if self.txtDob.text?.range(of:"ಮಾರ್ಚ್") != nil{
+            startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಮಾರ್ಚ್", with: "Mar") ?? ""
+        }else if self.txtDob.text?.range(of:"ಏಪ್ರಿ") != nil{
+            startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಏಪ್ರಿ", with: "Apr") ?? ""
+        }else if self.txtDob.text?.range(of:"ಮೇ") != nil{
+            startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಮೇ", with: "May") ?? ""
+        }else if self.txtDob.text?.range(of:"ಜೂನ್") != nil{
+            startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಜೂನ್", with: "Jun") ?? ""
+        }else if self.txtDob.text?.range(of:"ಜುಲೈ") != nil{
+            startEventChng = self.txtDob.text?.replacingOccurrences(of: "ಜುಲೈ", with: "Jul") ?? ""
+        }else if txtDob.text?.range(of:"ಆಗ") != nil{
+            startEventChng = txtDob.text?.replacingOccurrences(of: "ಆಗ", with: "Aug") ?? ""
+        }else if txtDob.text?.range(of:"ಸೆಪ್ಟೆಂ") != nil{
+            startEventChng = txtDob.text?.replacingOccurrences(of: "ಸೆಪ್ಟೆಂ", with: "Sep") ?? ""
+        }else if txtDob.text?.range(of:"ಅಕ್ಟೋ") != nil{
+            startEventChng = txtDob.text?.replacingOccurrences(of: "ಅಕ್ಟೋ", with: "Oct") ?? ""
+        } else if txtDob.text?.range(of:"ನವೆಂ") != nil{
+            startEventChng = txtDob.text?.replacingOccurrences(of: "ನವೆಂ", with: "Nov") ?? ""
+        }else if txtDob.text?.range(of:"ಡಿಸೆಂ") != nil{
+            startEventChng = txtDob.text?.replacingOccurrences(of: "ಡಿಸೆಂ", with: "Dec") ?? ""
+        }else {
+            chngStringStart = self.txtDob.text ?? ""
+        }
         if startEventChng.range(of:"ಅಪರಾಹ್ನ") != nil{
             chngStringStart = startEventChng.replacingOccurrences(of: "ಅಪರಾಹ್ನ", with: "PM")
         }
@@ -594,43 +594,54 @@ extension RegisterViewController{
             return
         }
         
-        let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + txtEmail.text! + "\n" + txtMobileNumber.text!
-        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
-            
-            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-            let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-            if (self.txtFirstName.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtLastName.text?.rangeOfCharacter(from: charSet) != nil) {
-                    print("true")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                MILoader.shared.hideLoader()
-                    return
-            }else{
-                self.signup()
+        
+        singupemailValidation(userEmailId:txtEmail.text ?? ""){ success,resultInfos in
+            if success == true {
+                DispatchQueue.main.async {
+                    self.singupmobileValidation(usermobileNo:self.txtMobileNumber.text ?? ""){ success,resultInfos in
+                        if success == true {
+                            
+                            let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + self.txtEmail.text! + "\n" + self.txtMobileNumber.text!
+                            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
+                                
+                                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+                                if (self.txtFirstName.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtLastName.text?.rangeOfCharacter(from: charSet) != nil) {
+                                    print("true")
+                                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                                    MILoader.shared.hideLoader()
+                                    return
+                                }else{
+                                    self.signup()
+                                }
+                            }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
+                        }
+                    }
+                }
             }
-//            if self.txtFirstName.text != "" || self.txtLastName.text != ""{
-//                let characterset = CharacterSet(charactersIn:SPECIALCHAR)
-//                if self.txtFirstName.text?.rangeOfCharacter(from: characterset.inverted) != nil || self.txtLastName.text?.rangeOfCharacter(from: characterset.inverted) != nil {
-//                    print("contains Special charecter")
-//                    self.postFirstName = self.removeSpecialCharacters(from: self.txtFirstName.text ?? "")
-//                    self.postLastName = self.removeSpecialCharacters(from: self.txtLastName.text ?? "")
-//                     self.signup()
-//
-//                } else {
-//                    self.postFirstName = self.txtFirstName.text ?? ""
-//                    self.postLastName = self.txtLastName.text ?? ""
-//                   print("false")
-//                    self.signup()
-//                }
-//            }
-//            self.signup()
-            //            self.redirectToVerificationScreen()
-        }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
+        }
+        
+        //
+        //        let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + txtEmail.text! + "\n" + txtMobileNumber.text!
+        //        self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
+        //
+        //            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+        //            let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+        //            if (self.txtFirstName.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtLastName.text?.rangeOfCharacter(from: charSet) != nil) {
+        //                    print("true")
+        //                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+        //                MILoader.shared.hideLoader()
+        //                    return
+        //            }else{
+        //                self.signup()
+        //            }
+        //        }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
     }
     
     
-  
+    
     @IBAction func btnChktermCLK(_ sender : UIButton){
-     
+        
         if (btnChkterm.isSelected == true){
             btnChkterm.setBackgroundImage(UIImage(named: "dry-clean"), for:.normal)
             chkStatus = false
@@ -639,7 +650,7 @@ extension RegisterViewController{
             btnChkterm.setBackgroundImage(UIImage(named: "checked-4"), for:.normal)
             chkStatus = true
             btnChkterm.isSelected = true;
-           }
+        }
     }
     
     
@@ -651,21 +662,21 @@ extension RegisterViewController: GenericTextFieldDelegate {
     @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == txtFirstName || textField == txtLastName {
             let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
-
-                let filtered = string.components(separatedBy: inverted).joined(separator: "")
             
-                if (string.isEmpty  && filtered.isEmpty ) {
-                            let isBackSpace = strcmp(string, "\\b")
-                            if (isBackSpace == -92) {
-                                print("Backspace was pressed")
-                                return (string == filtered)
-                            }
-                } else {
-                    return (string != filtered)
+            let filtered = string.components(separatedBy: inverted).joined(separator: "")
+            
+            if (string.isEmpty  && filtered.isEmpty ) {
+                let isBackSpace = strcmp(string, "\\b")
+                if (isBackSpace == -92) {
+                    print("Backspace was pressed")
+                    return (string == filtered)
                 }
-//            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
-//            let filtered = string.components(separatedBy: cs).joined(separator: "")
-//            return (string == filtered)
+            } else {
+                return (string != filtered)
+            }
+            //            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
+            //            let filtered = string.components(separatedBy: cs).joined(separator: "")
+            //            return (string == filtered)
         } else if textField == txtMobileNumber{
             if textField.text?.count ?? 0 >= 15{
                 return false
@@ -714,7 +725,7 @@ extension RegisterViewController{
             }else {
                 guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
                 let errorMsg = errorUserinfo.stringAfter(":")
-//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                //                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
         }
@@ -742,7 +753,7 @@ extension RegisterViewController{
                 
                 guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
                 let errorMsg = errorUserinfo.stringAfter(":")
-//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                //                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePhNoExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
@@ -758,5 +769,109 @@ extension RegisterViewController{
         return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
     }
     
+    
+}
+
+extension RegisterViewController{
+    
+    func singupemailValidation(userEmailId:String,completion:@escaping(_ success:Bool,_ resultInfo:String) -> Void){
+        
+        let url = URL(string: "\(BASEMASTERURL)users/validate-email?email=\(userEmailId)")
+        var request : URLRequest = URLRequest(url: url!)
+        request.httpMethod = "GET"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
+        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) in
+            if let error = error{
+                print("somethis\(error)")
+            }
+            else if let response = response {
+            }else if let data = data{
+            }
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            _ = JSONDecoder()
+            let token_type = (String(data: responseData, encoding: .utf8))
+            do {
+                let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                
+                let error =  dict?["error"] as? String
+                if error == "This email is already present!"{
+                    DispatchQueue.main.async {
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        })
+                    }
+                }
+                if let metaInfo = dict![CJsonMeta] as? [String : Any] {
+                    print("userMessage\(metaInfo)")
+                    let stausLike = metaInfo["message"] as? String ?? ""
+                    if stausLike == "Success"{
+                        completion(true,stausLike)
+                    }
+                    
+                }
+            }catch let error  {
+                print("error trying to convert data to \(error)")
+            }
+        })
+        task.resume()
+    }
+    
+    func singupmobileValidation(usermobileNo:String,completion:@escaping(_ success:Bool,_ resultInfo:String) -> Void){
+        
+        let url = URL(string:"\(BASEMASTERURL)users/validate-mobile?mobile=\(usermobileNo)")
+        
+        var request : URLRequest = URLRequest(url: url!)
+        request.httpMethod = "GET"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
+        request.setValue(NSLocalizedString("lang", comment: ""), forHTTPHeaderField:"Accept-Language");
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let task = session.dataTask(with: request, completionHandler: {
+            (data, response, error) in
+            if let error = error{
+                print("somethis\(error)")
+            }
+            else if let response = response {
+            }else if let data = data{
+            }
+            guard let responseData = data else {
+                print("Error: did not receive data")
+                return
+            }
+            _ = JSONDecoder()
+            let token_type = (String(data: responseData, encoding: .utf8))
+            do {
+                let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                
+                
+                let error =  dict?["error"] as? String
+                if error == "This mobile is already present!"{
+                    DispatchQueue.main.async {
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePhNoExists, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                            self.dismiss(animated: true, completion: nil)
+                        })
+                    }
+                }
+                
+                if let metaInfo = dict![CJsonMeta] as? [String : Any] {
+                    print("userMessage\(metaInfo)")
+                    let stausLike = metaInfo["message"] as? String ?? ""
+                    if stausLike == "Success" {
+                        completion(true,stausLike)
+                    }
+                }
+            }catch let error  {
+                print("error trying to convert data to \(error)")
+            }
+        })
+        task.resume()
+    }
     
 }

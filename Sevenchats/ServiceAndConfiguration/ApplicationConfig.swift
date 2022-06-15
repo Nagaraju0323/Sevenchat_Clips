@@ -10,5 +10,6 @@ import Foundation
 
 //let CAppStoreURI = "https://itunes.apple.com/us/genre/ios/id007?mt=8"
 //let CAppStoreURI = "https://apps.apple.com/us/app/sevenchats/id1460122350"
-let CAppStoreURI = "https://apps.apple.com/in/app/sevenchats/id1460122350"
+//let CAppStoreURI = "https://apps.apple.com/in/app/sevenchats/id1460122350"
+let CAppStoreURI = "https://testflight.apple.com/join/nozdwRAl"
 
