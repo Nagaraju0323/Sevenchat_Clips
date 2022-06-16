@@ -243,6 +243,7 @@ extension VerifyEmailMobileViewController: GenericTextFieldDelegate {
 extension VerifyEmailMobileViewController{
     
     func convertStringToDictionary(text: String) -> [String:AnyObject]? {
+        print("test string::::::::::::\(text)")
         if let data = text.data(using: .utf8) {
             do {
                 let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject]
@@ -273,7 +274,7 @@ extension VerifyEmailMobileViewController{
                    
                 } else {
                     let dict = response?.value(forKey: CJsonData) as! [String : AnyObject]
-                    self.uploadUserProfile(userID: dict.valueForInt(key: CUserId)!, signUpResponse: response, imageEmpty:false)
+                 //   self.uploadUserProfile(userID: dict.valueForInt(key: CUserId)!, signUpResponse: response, imageEmpty:false)
                     if isVerifySataus == 1{
                         self.registerUserEmail(username:self.userEmail,password:self.passwordStr)
                     }else if isVerifySataus == 2{
@@ -311,8 +312,10 @@ extension VerifyEmailMobileViewController{
             }
             _ = JSONDecoder()
             let token_type = (String(data: responseData, encoding: .utf8))
+            print("::::::registerUserEmail::::\(token_type)")
             do {
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                print("::::::registerUserEmail::::\(dict)")
                 guard let userMsg = dict?["message"] as? String else { return }
                 if userMsg == "Success!!"{
                     DispatchQueue.main.async {
@@ -347,6 +350,18 @@ extension VerifyEmailMobileViewController{
                         dispatchGroup.leave()
                         semaphore.signal()
                     }
+                    dispatchGroup.enter()
+                                     concurrentQueue.async {
+                                         semaphore.wait()
+                                         let userid = appDelegate.loginUser?.user_id
+                                         self.uploadWithPic(userId:userid?.description ?? "",completion: { [self] success in
+                                             if success == true {
+                                                 dispatchGroup.leave()
+                                                 semaphore.signal()
+                                             }
+                                         })
+                                     }
+                    
                 }else {
                     DispatchQueue.main.async {
                         let alertWindow = UIWindow(frame: UIScreen.main.bounds)
@@ -416,7 +431,9 @@ extension VerifyEmailMobileViewController{
             _ = JSONDecoder()
             let token_type = (String(data: responseData, encoding: .utf8))
             do {
+                print("::::::registerUserMobile::::\(token_type)")
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                print("::::::registerUserMobile::::\(token_type)")
                 guard let userMsg = dict?["message"] as? String else { return }
                 print("errorMsg\(userMsg)")
                 
@@ -598,8 +615,11 @@ extension VerifyEmailMobileViewController{
             }
             _ = JSONDecoder()
             let token_type = (String(data: responseData, encoding: .utf8))
+            print("::::::singupWithUserEmailOrMobile::::\(token_type)")
             do {
+             
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                print("::::::singupWithUserEmailOrMobile::::\(dict)")
                 guard let userMsg = dict?["message"] as? String else { return }
                 if userMsg == "verification_failed"{
                     DispatchQueue.main.async {
@@ -649,7 +669,7 @@ extension VerifyEmailMobileViewController{
     
     func LoginWithToken (userEmailId:String,completion:@escaping(_ success:Bool) -> Void ){
         let txtEmailid = userEmailId.lowercased()
-        let data : Data = "username=\(txtEmailid )&password=\(passwordStr)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
+        let data : Data = "username=\(txtEmailid)&password=\(passwordStr)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
         let url = URL(string: "\(BASEAUTH)auth/login")
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "POST"
@@ -667,7 +687,9 @@ extension VerifyEmailMobileViewController{
             else if response != nil {
             }else if data != nil{
             }
-            DispatchQueue.main.async { [self] in
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.10) {
+//            DispatchQueue.main.async { [self] in
                 guard let responseData = data else {
                     print("Error: did not receive data")
                     return
@@ -675,7 +697,9 @@ extension VerifyEmailMobileViewController{
                 _ = JSONDecoder()
                 let token_type = (String(data: responseData, encoding: .utf8))
                 do {
+                    print("::::::LoginWithToken::::\(token_type)")
                     let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                    print("::::::LoginWithToken::::\(dict)")
                     guard let usertoken = dict?["token_type"] as? String else { return  }
                     guard let access_token = dict?["access_token"] as? String else { return }
                     CUserDefaults.setValue(access_token, forKey: UserDefaultDeviceToken)
@@ -727,6 +751,19 @@ extension VerifyEmailMobileViewController{
             }
         }
     }
+    
+    func uploadWithPic(userId:String,completion:@escaping(_ success:Bool) -> Void ){
+           
+            let dict : [String : Any] =  [
+                "user_id":userId,
+                "profile_image":profileImgUrlupdate
+            ]
+            APIRequest.shared().uploadUserProfile(userID: userId.toInt ?? 0, para:dict,profileImgName:profileImgUrlupdate) { (response, error) in
+                if response != nil && error == nil {
+                    completion(true)
+                }
+            }
+        }
 }
 
 
@@ -762,8 +799,10 @@ extension VerifyEmailMobileViewController{
             }
             _ = JSONDecoder()
             let token_type = (String(data: responseData, encoding: .utf8))
+            print("::::::singupValidation::::\(token_type)")
             do {
                 let dict = try self.convertStringToDictionary(text: token_type ?? "")
+                print("::::::singupValidation::::\(token_type)")
                 if let metaInfo = dict![CJsonMeta] as? [String : Any] {
                     print("userMessage\(metaInfo)")
                     let stausLike = metaInfo["status"] as? String ?? "0"

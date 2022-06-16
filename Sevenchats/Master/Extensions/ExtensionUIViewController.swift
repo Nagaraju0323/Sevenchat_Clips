@@ -561,7 +561,7 @@ extension UIViewController : UIImagePickerControllerDelegate , UINavigationContr
           }
          
         }
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+      //  MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
       }
     
     /// A Delegate method of UIImagePickerControllerDelegate.
