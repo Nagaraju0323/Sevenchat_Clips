@@ -1579,7 +1579,7 @@ extension APIRequest {
     //    }
     
     func userDetails(para:[String:AnyObject],access_Token:String,viewType:Int, completion : @escaping ClosureCompletion) {
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+       // MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         self.saveUserDetail(response: [:], accessToken: access_Token, ViewController: viewType)
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersDetails, param: para , successBlock: { (task, response) in
             

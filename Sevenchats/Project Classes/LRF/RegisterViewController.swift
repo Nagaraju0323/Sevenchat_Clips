@@ -500,6 +500,7 @@ extension RegisterViewController{
             self.presentActionsheetWithThreeButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CRegisterChooseFromPhone, btnOneStyle: .default, btnOneTapped: { (action) in
                 self.presentImagePickerControllerForGallery(imagePickerControllerCompletionHandler: { (image, info) in
                     if image != nil{
+                        MILoader.shared.hideLoader()
                         self.imgEditIcon.isHidden = false
                         self.imgUser.image = image
                         self.profileImage = image ?? #imageLiteral(resourceName: "ic_sidemenu_normal_profile")
@@ -509,12 +510,14 @@ extension RegisterViewController{
             }, btnTwoTitle: CRegisterTakePhoto, btnTwoStyle: .default, btnTwoTapped: { (action) in
                 self.presentImagePickerControllerForCamera(imagePickerControllerCompletionHandler: { (image, info) in
                     if image != nil{
+                        MILoader.shared.hideLoader()
                         self.imgEditIcon.isHidden = false
                         self.imgUser.image = image
                         self.profileImage = image ?? #imageLiteral(resourceName: "ic_sidemenu_normal_profile")
                     }
                 })
             }, btnThreeTitle: CRegisterRemovePhoto, btnThreeStyle: .default) { (action) in
+                MILoader.shared.hideLoader()
                 self.imgUser.image = nil
                 self.imgEditIcon.isHidden = true
             }
@@ -523,6 +526,7 @@ extension RegisterViewController{
             
             self.presentImagePickerController(allowEditing: true) { [self] (image, info) in
                 if image != nil{
+                    MILoader.shared.hideLoader()
                     self.imgEditIcon.isHidden = false
                     self.imgUser.image = image
                     self.profileImage = image ?? #imageLiteral(resourceName: "ic_sidemenu_normal_profile")
@@ -600,6 +604,7 @@ extension RegisterViewController{
                 DispatchQueue.main.async {
                     self.singupmobileValidation(usermobileNo:self.txtMobileNumber.text ?? ""){ success,resultInfos in
                         if success == true {
+                            DispatchQueue.main.async {
                             
                             let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + self.txtEmail.text! + "\n" + self.txtMobileNumber.text!
                             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
@@ -616,6 +621,7 @@ extension RegisterViewController{
                                 }
                             }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
                         }
+                    }
                     }
                 }
             }
@@ -720,6 +726,7 @@ extension RegisterViewController{
                     objVerify.dictSingupdatas = self.dictSinup ?? [:]
                     objVerify.userMobile = self.txtMobileNumber.text ?? ""
                     objVerify.isEmailVerify = true
+                    objVerify.profileImgUrlupdate = self.profileImgUrlupdate
                     self.navigationController?.pushViewController(objVerify, animated: true)
                 }
             }else {
@@ -743,6 +750,7 @@ extension RegisterViewController{
                     objVerify.userMobile = self.txtMobileNumber.text ?? ""
                     objVerify.passwordStr = self.txtPWD.text ?? ""
                     objVerify.isEmailVerify = false
+                    objVerify.profileImgUrlupdate = self.profileImgUrlupdate
                     self.navigationController?.pushViewController(objVerify, animated: true)
                 }
                 
