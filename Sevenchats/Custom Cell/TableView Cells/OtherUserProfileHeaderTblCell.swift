@@ -346,9 +346,9 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
     func myUserDetails(_ email : String?){
         if let userID = appDelegate.loginUser?.user_id{
             let dict:[String:Any] = [
-                CEmail_Mobile : appDelegate.loginUser?.email ?? ""
+                CEmail_Mobile : email
             ]
-            APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
+            APIRequest.shared().otheruserDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
 
                 if response != nil && error == nil {
                     let data = response!["data"] as? [[String:Any]]

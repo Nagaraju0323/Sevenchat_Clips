@@ -1578,6 +1578,54 @@ extension APIRequest {
     //        })
     //    }
     
+    
+    //TODO: --------------OTHER PROFILE API--------------
+    
+    func otheruserDetails(para:[String:AnyObject],access_Token:String,viewType:Int, completion : @escaping ClosureCompletion) {
+       // MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        self.saveUserDetail(response: [:], accessToken: access_Token, ViewController: viewType)
+        _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersDetails, param: para , successBlock: { (task, response) in
+            
+            MILoader.shared.hideLoader()
+            let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
+            guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {
+                completion(nil, nil)
+                return
+            }
+            guard let _response = response as? [String : AnyObject] else {
+                completion(nil, nil)
+                return
+            }
+            
+            guard let responseData = _response.valueForJSON(key: CJsonData) as? [[String : AnyObject]] else {
+                completion(_response as AnyObject, nil)
+                return
+            }
+            for response in responseData{
+               // self.saveUserDetail(response: _response, accessToken: access_Token, ViewController: viewType)
+                if (response.valueForString(key: "user_id")) == appDelegate.loginUser?.user_id.description {
+                  //  self.saveUserDetail(response: _response, accessToken:access_Token, ViewController: viewType)
+                }
+            }
+            
+            if metaData.valueForString(key: CJsonStatus) == CStatusZeros && !isAppLaunchHere {
+                CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
+                CUserDefaults.synchronize()
+                appDelegate.initHomeViewController()
+            }
+            completion(response, nil)
+            
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagUser, error: error)
+            }
+        })
+    }
     func userDetails(para:[String:AnyObject],access_Token:String,viewType:Int, completion : @escaping ClosureCompletion) {
        // MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         self.saveUserDetail(response: [:], accessToken: access_Token, ViewController: viewType)
