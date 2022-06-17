@@ -99,24 +99,45 @@ class AboutUsViewController: ParentViewController {
 //                }
                 
                 //Modified Code
+                var aboutus : Bool?
                 switch self.cmsType.rawValue {
                 case CMSType.aboutUS.rawValue :
                     if let index = self.titles.firstIndex(of: "aboutus") {
-                        content = data![index]["description"] as! String
+//                        content = data![index]["description"] as! String
+                        content = "https://about.sevenchats.com"
+                        aboutus = true
                     }
                 case CMSType.termsAndConditions.rawValue :
                     if let index = self.titles.firstIndex(of: "termsandconditions") {
                         content = data![index]["description"] as! String
+                        aboutus = false
                     }
                 default :
                     if let index = self.titles.firstIndex(of: "privacypolicy") {
                         content = data![index]["description"] as! String
+                        aboutus = false
                     }
                 }
                 
-                var htmString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no', shrink-to-fit=YES></header>"
-                htmString += content
-                self.webView.loadHTMLString(htmString, baseURL: nil)
+                if aboutus == true {
+                    
+                    let url = URL(string: "https://about.sevenchats.com")
+                     let requestObj = URLRequest(url: url! as URL)
+                    self.webView.load(requestObj)
+                    aboutus = false
+                    
+                }else{
+                    var htmString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no', shrink-to-fit=YES></header>"
+                    htmString += content
+                    self.webView.loadHTMLString(htmString, baseURL: nil)
+                    aboutus = false
+                }
+                
+                
+                
+                
+                
+                
             }
         }
     }

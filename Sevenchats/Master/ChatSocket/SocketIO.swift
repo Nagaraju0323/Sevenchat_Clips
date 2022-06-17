@@ -77,6 +77,33 @@ class SocketIOManager: NSObject {
     }
     
     func registerForRemoteNotifictionViaSocket() {
+        
+        guard let userId = appDelegate.loginUser?.user_id.description else { return}
+        socketIOClient?.onAny { event in
+             print("Got event: \(event.event), with items: \(event.items)")
+            self.socketIOClient?.on(userId) { data, ack in
+                var dict = [String:Any]()
+                var postInfoConent = [String:Any]()
+                if let notifications = data as? [[String:AnyObject]]{
+                    for notify in notifications{
+                        let content = notify["content"] as? String
+                        let contentConvert = content?.replace(string: "\\", replacement: "")
+                        let dictNot =  self.convertToDictionaryToConent(from: contentConvert ?? "")
+                        var postInfo = dictNot["postInfo"] as? [String:Any] ?? [:]
+                        let  senderName = dictNot["senderName"] as? String ?? ""
+                        postInfoConent["content"] = content
+                        self.scheduleNotification(notificationType: notify["subject"] as? String ?? "",senderName:senderName,postInfo:postInfoConent)
+                        dict["subject"] = notify["subject"] as? String
+                        dict["sender"] = notify["sender"] as? String
+                       print("this is calling observer")
+                        NotificationCenter.default.post(name: Notification.Name("LoadMsgData"), object: nil,userInfo: nil)
+                    }
+                }
+            }
+            
+        }
+        socketIOClient?.connect()
+        
         guard let userId = appDelegate.loginUser?.user_id.description else { return}
         socketIOClient?.on(userId) { data, ack in
             var dict = [String:Any]()

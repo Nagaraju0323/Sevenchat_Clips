@@ -365,7 +365,7 @@ extension LoginViewController{
 //            CWebSiteLink = "https://sevenchats.com/forgot_password"
 //
 //        }
-        BASEURL_Rew
+//        BASEURL_Rew
         CWebSiteLink = "\(BASEURL_Rew)forgot_password"
         
         if UIApplication.shared.canOpenURL(URL(string: CWebSiteLink)!){

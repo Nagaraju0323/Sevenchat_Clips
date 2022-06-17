@@ -272,6 +272,31 @@ extension HomeSearchViewController  {
                 //                        }
                 //                    }
                 //                }
+                
+                
+                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+//                    if  metaData.valueForString(key: "message") == "Request accepted successfully"{\\
+                    let totalPoints = metaData.valueForString(key: "total_points")
+                    if  totalPoints == "" && metaData.valueForString(key: "message") == "Request accepted successfully" {
+                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                        guard let image = appDelegate.loginUser?.profile_img else { return }
+                        guard let firstName = appDelegate.loginUser?.first_name else {return}
+                        guard let lastName = appDelegate.loginUser?.last_name else {return}
+                        guard let userID = appDelegate.loginUser?.user_id else { return }
+                        MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:],shareLink: "sendFrdAcceptLink")
+                        
+                        MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:"Friends request accept",type:CFriendsrequestaccept,title:"",name:name,icon:image, detail_text: "friend_point",target_id: userid ?? 0)
+                        completion(true)
+                    }else if totalPoints != "" && metaData.valueForString(key: "message") == "Request accepted successfully" {
+                        guard let userID = appDelegate.loginUser?.user_id else { return }
+                        
+                        guard let firstName = appDelegate.loginUser?.first_name else {return}
+                        guard let lastName = appDelegate.loginUser?.last_name else {return}
+                        MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:],shareLink: "sendFrdAcceptLink")
+                        completion(true)
+                        
+                    }
+                }
             }
         })
     }

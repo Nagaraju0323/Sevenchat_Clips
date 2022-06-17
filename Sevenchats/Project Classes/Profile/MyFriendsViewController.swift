@@ -294,7 +294,7 @@ extension MyFriendsViewController{
         let dict :[String:Any]  =  [
             "user_id":  user_ID,
             "friend_user_id": friend_ID,
-            "request_type": status?.toString as Any
+            "request_type": status?.toString ?? "0"
         ]
         APIRequest.shared().friendRquestStatus(dict: dict, completion: { [weak self] (response, error) in
             guard let self = self else { return }
@@ -308,14 +308,15 @@ extension MyFriendsViewController{
                         guard let image = appDelegate.loginUser?.profile_img else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:],shareLink: "sendFrdAcceptLink")
+                        guard let userID = appDelegate.loginUser?.user_id else {return}
+                        MIGeneralsAPI.shared().sendNotification(friend_ID, userID: userID.description, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:],shareLink: "sendFrdAcceptLink")
                         
-                        MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:"Friends request accept",type:CFriendsrequestaccept,title:"",name:name,icon:image, detail_text: "friend_point",target_id: 0)
+                        MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:"Friends request accept",type:CFriendsrequestaccept,title:"",name:name,icon:image, detail_text: "friend_point",target_id: friend_ID.toInt ?? 0)
                     }else if totalPoints != "" && metaData.valueForString(key: "message") == "Request accepted successfully" {
-                        
+                        guard let userID = appDelegate.loginUser?.user_id else {return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        MIGeneralsAPI.shared().sendNotification(friend_ID, userID: friend_ID, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:],shareLink: "sendFrdAcceptLink")
+                        MIGeneralsAPI.shared().sendNotification(friend_ID, userID: user_ID.description, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:],shareLink: "sendFrdAcceptLink")
                         
                     }
                 }
