@@ -1,3 +1,4 @@
+
 //
 //  SocketIO.swift
 //  Sevenchats
@@ -58,7 +59,7 @@ class SocketIOManager: NSObject {
         guard let userId = appDelegate.loginUser?.user_id.description else { return}
         self.socketIOClient?.on(userId, callback: { (data, ack) in
             if let notification = data.first as? Dictionary<AnyHashable , Any>, let jobID = notification["jobId"] {
-                let userInfo = [ "JobID" : "\(jobID)"]
+                _ = [ "JobID" : "\(jobID)"]
             }
         })
     }
@@ -81,26 +82,27 @@ class SocketIOManager: NSObject {
         guard let userId = appDelegate.loginUser?.user_id.description else { return}
         socketIOClient?.onAny { event in
              print("Got event: \(event.event), with items: \(event.items)")
-            self.socketIOClient?.on(userId) { data, ack in
+            
+            let eventNotificationInfo = event.items ?? []
+            guard let userID = appDelegate.loginUser?.user_id else { return }
+            if event.event == userID.description{
+            for evntinfo in eventNotificationInfo{
                 var dict = [String:Any]()
                 var postInfoConent = [String:Any]()
-                if let notifications = data as? [[String:AnyObject]]{
-                    for notify in notifications{
-                        let content = notify["content"] as? String
-                        let contentConvert = content?.replace(string: "\\", replacement: "")
-                        let dictNot =  self.convertToDictionaryToConent(from: contentConvert ?? "")
-                        var postInfo = dictNot["postInfo"] as? [String:Any] ?? [:]
-                        let  senderName = dictNot["senderName"] as? String ?? ""
-                        postInfoConent["content"] = content
-                        self.scheduleNotification(notificationType: notify["subject"] as? String ?? "",senderName:senderName,postInfo:postInfoConent)
-                        dict["subject"] = notify["subject"] as? String
-                        dict["sender"] = notify["sender"] as? String
-                       print("this is calling observer")
-                        NotificationCenter.default.post(name: Notification.Name("LoadMsgData"), object: nil,userInfo: nil)
-                    }
-                }
+                let eventConvertObj = evntinfo as? [String:Any] ?? [:]
+                let content = eventConvertObj["content"] as? String
+                let contentConvert = content?.replace(string: "\\", replacement: "")
+                let dictNot =  self.convertToDictionaryToConent(from: contentConvert ?? "")
+                var postInfo = dictNot["postInfo"] as? [String:Any] ?? [:]
+                let  senderName = dictNot["senderName"] as? String ?? ""
+                postInfoConent["content"] = content
+                self.scheduleNotification(notificationType: eventConvertObj["subject"] as? String ?? "",senderName:senderName,postInfo:postInfoConent)
+                dict["subject"] = eventConvertObj["subject"] as? String
+                dict["sender"] = eventConvertObj["sender"] as? String
+                print("this is onAny observer")
+                NotificationCenter.default.post(name: Notification.Name("LoadMsgData"), object: nil,userInfo: nil)
             }
-            
+        }
         }
         socketIOClient?.connect()
         
@@ -113,7 +115,6 @@ class SocketIOManager: NSObject {
                     let content = notify["content"] as? String
                     let contentConvert = content?.replace(string: "\\", replacement: "")
                     let dictNot =  self.convertToDictionaryToConent(from: contentConvert ?? "")
-                    var postInfo = dictNot["postInfo"] as? [String:Any] ?? [:]
                     let  senderName = dictNot["senderName"] as? String ?? ""
                     postInfoConent["content"] = content
                     self.scheduleNotification(notificationType: notify["subject"] as? String ?? "",senderName:senderName,postInfo:postInfoConent)

@@ -2580,9 +2580,9 @@ extension MIGeneralsAPI {
         
         var points_config_id:String?
         var max_points:String?
-        
-        guard var userID = appDelegate.loginUser?.user_id else {return}
-        var targetID:Int?
+        var dict = [String:Any]()
+        guard let userID = appDelegate.loginUser?.user_id else {return}
+//        var targetID:Int?
 
         if let arrMessageList : [TblPointsConfig] = TblPointsConfig .fetch(predicate: NSPredicate(format: "\("points_config_name") == %@",points_config_idName ), orderBy: CCreated_at, ascending: true) as? [TblPointsConfig] {
             if arrMessageList.count > 0 {
@@ -2595,25 +2595,32 @@ extension MIGeneralsAPI {
         }
 
         if detail_text == "friend_point"{
-            userID = Int64(target_id)
-            targetID = 0
+             dict = [
+                "user_id":target_id,
+                "points_config_id":points_config_id ?? "" ,
+                "target_id":userID.description,
+                "points":max_points ?? "",
+                "message":message,
+                "detail_text":detail_text,
+                "type":type,
+                "title":title,
+                "name":name,
+                "icon":icon
+            ]
         }else {
-            targetID = target_id
+           dict = [
+                "user_id":userID.description,
+                "points_config_id":points_config_id ?? "" ,
+                "target_id":target_id ,
+                "points":max_points ?? "",
+                "message":message,
+                "detail_text":detail_text,
+                "type":type,
+                "title":title,
+                "name":name,
+                "icon":icon
+            ]
         }
-        
-        
-        let dict:[String:Any] = [
-            "user_id":userID.description,
-            "points_config_id":points_config_id ?? "" ,
-            "target_id":targetID ?? 0,
-            "points":max_points ?? "",
-            "message":message,
-            "detail_text":detail_text,
-            "type":type,
-            "title":title,
-            "name":name,
-            "icon":icon
-        ]
         
         print("dict\(dict)")
         APIRequest.shared().rewardsAdding(param: dict) { (response, error) in

@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Nagaraju K and Chandrika R                                 *
+ * Author  : Nagaraju K and Chandrika R                  *
  * Model   : APIRequest                                  *
  * Description : All Api call                            *
  *                                                       *
@@ -1632,7 +1632,7 @@ extension APIRequest {
         self.saveUserDetail(response: [:], accessToken: access_Token, ViewController: viewType)
         _ = Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUsersDetails, param: para , successBlock: { (task, response) in
             
-            MILoader.shared.hideLoader()
+//            MILoader.shared.hideLoader()
             let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
             guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {
                 completion(nil, nil)

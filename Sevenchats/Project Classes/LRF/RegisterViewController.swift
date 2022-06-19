@@ -340,16 +340,22 @@ extension RegisterViewController {
     func signup(){
         
         if imgUser.image == nil{
-            MInioimageupload.shared().uploadMinioimages(mobileNo: txtMobileNumber.text ?? "", ImageSTt: #imageLiteral(resourceName: "ic_sidemenu_normal_profile"),isFrom:"",uploadFrom:"")
-            MInioimageupload.shared().callback = { message in
-                print("UploadImage::::::::::::::\(message)")
-                self.profileImgUrlupdate = message
-            }
+            //            MInioimageupload.shared().uploadMinioimages(mobileNo: txtMobileNumber.text ?? "", ImageSTt: #imageLiteral(resourceName: "ic_sidemenu_normal_profile"),isFrom:"",uploadFrom:"")
+            //            MInioimageupload.shared().callback = { message in
+            //                print("UploadImage::::::::::::::\(message)")
+            //                self.profileImgUrlupdate = "https://stg.sevenchats.com:3443/sevenchats/ProfilePic/profile.png"
+            //            }
+            self.profileImgUrlupdate = "https://stg.sevenchats.com:3443/sevenchats/ProfilePic/user_placeholder.png"
         }else {
-            MInioimageupload.shared().uploadMinioimages(mobileNo: txtMobileNumber.text ?? "", ImageSTt: self.profileImage,isFrom:"",uploadFrom:"")
-            MInioimageupload.shared().callback = { message in
-                print("UploadImage::::::::::::::\(message)")
-                self.profileImgUrlupdate = message
+            DispatchQueue.main.async {
+                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                
+                MInioimageupload.shared().uploadMinioimages(mobileNo: self.txtMobileNumber.text ?? "", ImageSTt: self.profileImage,isFrom:"",uploadFrom:"")
+                MInioimageupload.shared().callback = { message in
+                    MILoader.shared.hideLoader()
+                    print("UploadImage::::::::::::::\(message)")
+                    self.profileImgUrlupdate = message
+                }
             }
         }
         
@@ -504,6 +510,7 @@ extension RegisterViewController{
                         self.imgEditIcon.isHidden = false
                         self.imgUser.image = image
                         self.profileImage = image ?? #imageLiteral(resourceName: "ic_sidemenu_normal_profile")
+                        //                        self.profileImage = image ?? #imageLiteral(resourceName: "ic_sidemenu_normal_profile")
                     }
                 })
                 
@@ -605,23 +612,23 @@ extension RegisterViewController{
                     self.singupmobileValidation(usermobileNo:self.txtMobileNumber.text ?? ""){ success,resultInfos in
                         if success == true {
                             DispatchQueue.main.async {
-                            
-                            let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + self.txtEmail.text! + "\n" + self.txtMobileNumber.text!
-                            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
                                 
-                                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
-                                let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
-                                if (self.txtFirstName.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtLastName.text?.rangeOfCharacter(from: charSet) != nil) {
-                                    print("true")
-                                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                                    MILoader.shared.hideLoader()
-                                    return
-                                }else{
-                                    self.signup()
-                                }
-                            }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
+                                let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + self.txtEmail.text! + "\n" + self.txtMobileNumber.text!
+                                self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
+                                    
+                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                                    let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+                                    if (self.txtFirstName.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtLastName.text?.rangeOfCharacter(from: charSet) != nil) {
+                                        print("true")
+                                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                                        MILoader.shared.hideLoader()
+                                        return
+                                    }else{
+                                        self.signup()
+                                    }
+                                }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
+                            }
                         }
-                    }
                     }
                 }
             }

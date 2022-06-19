@@ -282,13 +282,13 @@ extension HomeSearchViewController  {
                         guard let image = appDelegate.loginUser?.profile_img else { return }
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
-                        guard let userID = appDelegate.loginUser?.user_id else { return }
+//                        guard let userID = appDelegate.loginUser?.user_id else { return }
                         MIGeneralsAPI.shared().sendNotification(userid?.toString ?? "", userID: user_ID.description, subject: "accepted your friend request", MsgType: "FRIEND_ACCEPT", MsgSent:"", showDisplayContent: "accepted your friend request", senderName: firstName + lastName, post_ID: [:],shareLink: "sendFrdAcceptLink")
                         
                         MIGeneralsAPI.shared().addRewardsPoints(CFriendsrequestaccept,message:"Friends request accept",type:CFriendsrequestaccept,title:"",name:name,icon:image, detail_text: "friend_point",target_id: userid ?? 0)
                         completion(true)
                     }else if totalPoints != "" && metaData.valueForString(key: "message") == "Request accepted successfully" {
-                        guard let userID = appDelegate.loginUser?.user_id else { return }
+//                        guard let userID = appDelegate.loginUser?.user_id else { return }
                         
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}
@@ -547,19 +547,9 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                                             })
                                         }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                                     }else{
-                                        //                                            self?.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus)
-                                        
                                         self?.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), frndStatus, completion:{(success) -> Void in
                                             if success {
                                                 cell.setupCell(loan: searchInfo)
-                                                //                                                     let indexPath = IndexPath(item: indexPath.row, section: 0)
-                                                //                                                    if let visibleIndexPaths = self?.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
-                                                //                                                         if visibleIndexPaths != NSNotFound {
-                                                //                                                            self?.tblEvents.reloadRows(at: [indexPath], with: .top)
-                                                //                                                         }
-                                                //                                                     }
-                                                //                                                    self?.navigationController?.popViewController(animated: true)
-                                                
                                             }
                                         })
                                     }
@@ -584,13 +574,6 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                     self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 5, completion:{(success) -> Void in
                         if success {
                             cell.setupCell(loan: searchInfo)
-                            //                             let indexPath = IndexPath(item: indexPath.row, section: 0)
-                            //                             if let visibleIndexPaths = self.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
-                            //                                 if visibleIndexPaths != NSNotFound {
-                            //                                     tableView.reloadRows(at: [indexPath], with: .fade)
-                            //                                 }
-                            //                             }
-                            //                              self.navigationController?.popViewController(animated: true)
                             
                         }
                     })
@@ -610,15 +593,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                     self.friendStatusApi(searchInfo, searchInfo.valueForInt(key: CUserId), 3
                                          , completion:{(success) -> Void in
                         if success {
-                            
-                            //                             let indexPath = IndexPath(item: indexPath.row, section: 0)
-                            //                             if let visibleIndexPaths = self.tblEvents.indexPathsForVisibleRows?.index(of: indexPath as IndexPath) {
-                            //                                 if visibleIndexPaths != NSNotFound {
-                            //                                     tableView.reloadRows(at: [indexPath], with: .fade)
-                            //                                 }
-                            //                             }
                             cell.setupCell(loan: searchInfo)
-                            //                            self.navigationController?.popViewController(animated: true)
                             
                         }
                     })

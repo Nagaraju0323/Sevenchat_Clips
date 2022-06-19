@@ -7,7 +7,7 @@
 //
 
 /*********************************************************
- * Author  : Nagaraju K and Chandrika R                                 *
+ * Author  : Nagaraju K and Chandrika R                  *
  * Model   : LoginViewController                         *
  * Changes :                                             *
  * Login With Mobile Number (or) Emaild ID               *
@@ -37,6 +37,11 @@ class LoginViewController: ParentViewController {
     var isEmailMobile = false
     var country_id = 356
     var CWebSiteLink = ""
+    var isLogindone:Bool?
+    var userID:String?
+    var profileImgUrlupdate:String?
+    var categoryID = ""
+    
     
     
     override func viewDidLoad() {
@@ -62,6 +67,9 @@ class LoginViewController: ParentViewController {
     
     // MARK:- -------------Initialization
     func Initialization(){
+        
+      
+        
         btnSignIn.layer.cornerRadius = 5
         txtCountryCode.text = "--"
         self.loadCountryList()
@@ -159,8 +167,8 @@ extension LoginViewController:GenericTextFieldDelegate{
         
         guard let text = textField.text,
               let textRange = Range(range, in: text) else{
-            return true
-        }
+                  return true
+              }
         let updatedText = text.replacingCharacters(in: textRange,with: string)
         if string.isBlank{
             if updatedText.isValidPhoneNo && !updatedText.isEmpty{
@@ -216,9 +224,9 @@ extension LoginViewController{
                 if let userInfo = userInfo as? NSDictionary {
                     
                     let dict = [CSocialid : userInfo.value(forKey: "id") as? String ?? "",
-                                CEmail : userInfo.value(forKey: "email") as? String ?? "",
-                                CAccounttype: CFacebook,
-                                CFirstname : userInfo.value(forKey: "first_name") as? String ?? "",
+                                   CEmail : userInfo.value(forKey: "email") as? String ?? "",
+                              CAccounttype: CFacebook,
+                               CFirstname : userInfo.value(forKey: "first_name") as? String ?? "",
                                 CLastname : userInfo.value(forKey: "last_name") as? String ?? ""
                     ] as [String : Any]
                     
@@ -251,9 +259,9 @@ extension LoginViewController{
                         let firstName = String(describing:userInfo.fullName?.givenName ?? "")
                         let lastName = String(describing:userInfo.fullName?.familyName ?? "" )
                         let dict = [CSocialid : id,
-                                    CEmail : email,
-                                    CAccounttype: CApple,
-                                    CFirstname : firstName,
+                                       CEmail : email,
+                                  CAccounttype: CApple,
+                                   CFirstname : firstName,
                                     CLastname : lastName
                         ] as [String : Any]
                         
@@ -274,9 +282,9 @@ extension LoginViewController{
             if error == nil {
                 
                 let dict = [CSocialid : (info as? GIDGoogleUser)?.userID ?? "",
-                            CEmail : (info as? GIDGoogleUser)?.profile.email ?? "",
-                            CAccounttype: CGoogle,
-                            CFirstname : (info as? GIDGoogleUser)?.profile.name ?? "",
+                               CEmail : (info as? GIDGoogleUser)?.profile.email ?? "",
+                          CAccounttype: CGoogle,
+                           CFirstname : (info as? GIDGoogleUser)?.profile.name ?? "",
                             CLastname : (info as? GIDGoogleUser)?.profile.familyName ?? ""
                 ] as [String : Any]
                 
@@ -356,16 +364,6 @@ extension LoginViewController{
     
     @IBAction func btnForgotCLK(_ sender : UIButton){
         
-        
-//        if BASEURL_Rew == "QA"{
-//            CWebSiteLink = "https://qa.sevenchats.com:7444/forgot_password"
-//        }else if BASEURL_Rew == "DEV"{
-//            CWebSiteLink = "https://dev.sevenchats.com:7443/forgot_password"
-//        }else {
-//            CWebSiteLink = "https://sevenchats.com/forgot_password"
-//
-//        }
-//        BASEURL_Rew
         CWebSiteLink = "\(BASEURL_Rew)forgot_password"
         
         if UIApplication.shared.canOpenURL(URL(string: CWebSiteLink)!){
@@ -379,7 +377,7 @@ extension LoginViewController{
 extension LoginViewController{
     
     func loginUser(){
-
+        
         self.LoginWithToken(userEmailId:txtEmail.text!)
         
     }
@@ -392,6 +390,7 @@ extension LoginViewController{
         APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:accessToken,viewType:1) { (response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
+                  
                     UserDefaults.standard.set(userEmailId, forKey: "email")
                     self.redirectAfterLogin(response: response, socialDetail: [:])
                     
@@ -406,8 +405,9 @@ extension LoginViewController{
             CMobile : userEmailId,
         ]
         APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject],access_Token:accessToken,viewType:1) { (response, error) in
-//        APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject]) { (response, error) in
+            //        APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
+                
                 DispatchQueue.main.async {
                     UserDefaults.standard.set(userEmailId, forKey: "mobile")
                     self.redirectAfterLogin(response: response, socialDetail: [:])
@@ -433,6 +433,9 @@ extension LoginViewController{
     func redirectAfterLogin(response : AnyObject?, socialDetail : [String : AnyObject]) {
         //...Load Common api
         MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
+        
+        self.getRewardPointsConfigID()
+        
         
         let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject]
         
@@ -468,6 +471,8 @@ extension LoginViewController{
                     }
                 })
             } else {
+
+                UserDefaults.standard.removeObject(forKey: "ProfileImg")
                 appDelegate.initHomeViewController()
             }
         }
@@ -537,4 +542,45 @@ extension LoginViewController{
         }
         return nil
     }
+    
+    //...Reward Points categorys
+    func getRewardPointsConfigID(){
+        var dict = [String:Any]()
+        guard let userID = appDelegate.loginUser?.user_id.description else { return }
+        dict[CUserId] = userID
+        APIRequest.shared().rewardsSummaryNew(dict:dict,showLoader: true) { [weak self] (response, error) in
+            let points = response?["total_points"] as? String ?? ""
+            if points.toInt == 0{
+                let userPic = UserDefaults.standard.value(forKey: "prfileImageLoad")
+                if userPic == nil{
+                    self?.uploadWithPic(userId:userID,profileImg:userPic as? String ?? "",completion: { success in
+                    })
+                }else {
+                    self?.uploadWithPic(userId:userID,profileImg:userPic as? String ?? "",completion: { success in
+                    })
+                }
+                let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                let profileIcon = "https://stg.sevenchats.com:3443/sevenchats/ProfilePic/user_placeholder.png"
+                MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:profileIcon, detail_text: "Register_profile",target_id: 0)
+                
+            }else {
+                return
+            }
+        }
+    }
+    //..profileImageUpdate from Singup
+    func uploadWithPic(userId:String,profileImg:String,completion:@escaping(_ success:Bool) -> Void ){
+           
+            let dict : [String : Any] =  [
+                "user_id":userId,
+                "profile_image":profileImg
+            ]
+        APIRequest.shared().uploadUserProfile(userID: userId.toInt ?? 0, para:dict,profileImgName:profileImgUrlupdate ?? "") { (response, error) in
+                if response != nil && error == nil {
+//                    CUserDefaults.removeObject(forKey: "updateProfileImg")
+                    completion(true)
+                }
+            }
+        }
+    
 }
