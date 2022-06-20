@@ -90,7 +90,8 @@ extension MIGeneralsAPI {
         self.loadInterestListGallery()
         self.loadInterestListPoll()
         self.loadInterestListEvent()
-        self.loadPointsConfigs()
+//        self.loadPointsConfigs()
+        self.loadPointsConfigsLoad()
         self.loadRewardsCategory()
         self.loadProductCategory()
         self.loadUserRewardPoings()
@@ -100,7 +101,7 @@ extension MIGeneralsAPI {
        
             self.laodLoginUserDetail()
             self.loadCountryList()
-            self.loadPointsConfigs()
+//            self.loadPointsConfigs()
             self.getLanguageListMaster()
     }
     
@@ -178,7 +179,7 @@ extension MIGeneralsAPI {
         }
     }
     
-    func loadPointsConfigs() {
+    func loadPointsConfigsLoad() {
         
         //...Load country list from server
         let timestamp : TimeInterval = 0

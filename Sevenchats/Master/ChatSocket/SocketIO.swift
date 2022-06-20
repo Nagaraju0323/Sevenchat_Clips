@@ -1,4 +1,4 @@
-
+//
 //
 //  SocketIO.swift
 //  Sevenchats
@@ -79,7 +79,7 @@ class SocketIOManager: NSObject {
     
     func registerForRemoteNotifictionViaSocket() {
         
-        guard let userId = appDelegate.loginUser?.user_id.description else { return}
+      //  guard let userId = appDelegate.loginUser?.user_id.description else { return}
         socketIOClient?.onAny { event in
              print("Got event: \(event.event), with items: \(event.items)")
             

@@ -1058,9 +1058,29 @@ extension APIRequest {
     //        })
     //    }
     
+//    func loadPointsConfigs(timestamp : AnyObject, completion: @escaping ClosureCompletion) {
+//        
+//        _ = Networking.sharedInstance.GETNEWMASTER(apiTag: CAPITagPointsConfigs, param: ["timestamp":timestamp], successBlock: { (task, response) in
+//            
+//            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCountry){
+//                self.storePointsConfigsInLocal(response: response as! [String : AnyObject])
+//                completion(response, nil)
+//            }
+//            
+//        }, failureBlock: { (task, message, error) in
+//            completion(nil, error)
+//            if error?.code == CStatus405{
+//                appDelegate.logOut()
+//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+//            } else {
+//                self.loadPointsConfigs(timestamp: timestamp, completion: completion)
+//            }
+//        })
+//    }
+    
     func loadPointsConfigs(timestamp : AnyObject, completion: @escaping ClosureCompletion) {
         
-        _ = Networking.sharedInstance.GETNEWMASTER(apiTag: CAPITagPointsConfigs, param: ["timestamp":timestamp], successBlock: { (task, response) in
+        _ = Networking.sharedInstance.GETNEW(apiTag: CAPITagPointsConfigs, param: ["timestamp":timestamp], successBlock: { (task, response) in
             
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCountry){
                 self.storePointsConfigsInLocal(response: response as! [String : AnyObject])
@@ -1077,6 +1097,9 @@ extension APIRequest {
             }
         })
     }
+    
+    
+    
     
     
     //

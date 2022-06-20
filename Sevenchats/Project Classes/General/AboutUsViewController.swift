@@ -97,15 +97,18 @@ class AboutUsViewController: ParentViewController {
 //                default :
 //                    content = data![3]["description"] as! String
 //                }
-                
+                MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
                 //Modified Code
                 var aboutus : Bool?
                 switch self.cmsType.rawValue {
+                    dispatchq
+                
                 case CMSType.aboutUS.rawValue :
                     if let index = self.titles.firstIndex(of: "aboutus") {
 //                        content = data![index]["description"] as! String
                         content = "https://about.sevenchats.com"
                         aboutus = true
+                        MILoader.shared.hideLoader()
                     }
                     
                     let url = URL(string: "https://about.sevenchats.com")

@@ -434,6 +434,7 @@ extension LoginViewController{
         //...Load Common api
         MIGeneralsAPI.shared().fetchAllGeneralDataFromServer()
         
+        
         self.getRewardPointsConfigID()
         
         
@@ -559,9 +560,14 @@ extension LoginViewController{
                     self?.uploadWithPic(userId:userID,profileImg:userPic as? String ?? "",completion: { success in
                     })
                 }
-                let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
-                let profileIcon = "https://stg.sevenchats.com:3443/sevenchats/ProfilePic/user_placeholder.png"
-                MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:profileIcon, detail_text: "Register_profile",target_id: 0)
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    // your code here
+                    let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                    let profileIcon = "https://stg.sevenchats.com:3443/sevenchats/ProfilePic/user_placeholder.png"
+                    MIGeneralsAPI.shared().addRewardsPoints(CRegisterprofile,message:"Register_profile",type:CRegisterprofile,title:"Register profile",name:name,icon:profileIcon, detail_text: "Register_profile",target_id: 0)
+                }
+                
                 
             }else {
                 return
