@@ -830,6 +830,9 @@ extension UserChatDetailViewController {
 //            print("topicname\(topcName)")
             strChannelId = topcName ?? ""
         }
+//        if strChannelId == nil{
+//            return
+//        }
         fetchHome = self.fetchController(listView: tblChat,
                                          entity: "TblMessages",
                                          sortDescriptors: [NSSortDescriptor.init(key: CCreated_at, ascending: false)],
@@ -1318,6 +1321,12 @@ extension UserChatDetailViewController {
 //                            self.fetchHome.loadData()
 //                            print("this message is Called multiple times")
                             if let arrStatus = arrList["message"] as? String{
+                                
+                                
+                                self.chatInfoNot["first_name"] = firstName
+                                   self.chatInfoNot["last_name"] = lastName
+                                    let email = appDelegate.loginUser?.email
+                                  self.chatInfoNot["email"] = email
                                 guard let userid = appDelegate.loginUser?.user_id else { return}
                                 guard let firstName = appDelegate.loginUser?.first_name else {return}
                                 guard let lastName = appDelegate.loginUser?.last_name else {return}
@@ -1901,7 +1910,10 @@ extension UserChatDetailViewController{
                         guard let arrList = response as? [String:Any] else { return }
                         self.fetchHome.loadData()
 //                        ChatSocketIo.shared().socketDelegate = self
-                        
+                        self.chatInfoNot["first_name"] = firstName
+                        self.chatInfoNot["last_name"] = lastName
+                         let email = appDelegate.loginUser?.email
+                         self.chatInfoNot["email"] = email
                         guard let userid = appDelegate.loginUser?.user_id else { return}
                         guard let firstName = appDelegate.loginUser?.first_name else {return}
                         guard let lastName = appDelegate.loginUser?.last_name else {return}

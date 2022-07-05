@@ -526,7 +526,14 @@ extension MIGeneralsAPI {
                             homeVC.getPostListFromServer(showLoader: false)
                             homeVC.tblEvents.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                         case .editPost?:
-                            if let index = homeVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postInfo!.valueForInt(key: CId)}) {
+                            if homeVC.apiTask?.state == URLSessionTask.State.running {
+                                homeVC.apiTask?.cancel()
+                            }
+                            
+                            homeVC.pageNumber = 1
+                            homeVC.getPostListFromServer(showLoader: false)
+                            homeVC.tblEvents.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                            /*if let index = homeVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postInfo!.valueForInt(key: CId)}) {
                                 homeVC.arrPostList.remove(at: index)
                                 homeVC.arrPostList.insert(postInfo!, at: index)
                                 UIView.performWithoutAnimation {
@@ -535,7 +542,7 @@ extension MIGeneralsAPI {
                                         homeVC.tblEvents.reloadRows(at: [indexPath], with: .none)
                                     }
                                 }
-                            }
+                            }*/
                             break
                         case .reportPost?:
                             if let index = homeVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postId}) {
@@ -1633,7 +1640,10 @@ extension MIGeneralsAPI {
                             myProfileVC.getPostListFromServer()
                             myProfileVC.tblUser.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                         case .editPost?:
-                            if let index = myProfileVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postInfo!.valueForInt(key: CId)}) {
+                            myProfileVC.pageNumber = 1
+                            myProfileVC.getPostListFromServer()
+                            myProfileVC.tblUser.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                           /* if let index = myProfileVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postInfo!.valueForInt(key: CId)}) {
                                 myProfileVC.arrPostList.remove(at: index)
                                 myProfileVC.arrPostList.insert(postInfo!, at: index)
                                 UIView.performWithoutAnimation {
@@ -1643,7 +1653,7 @@ extension MIGeneralsAPI {
                                     }
                                 }
                             }
-                            break
+                            break*/
                         case .deletePost?:
                             if let index = myProfileVC.arrPostList.firstIndex(where: { $0[CId] as? Int == postId}) {
                                 myProfileVC.arrPostList.remove(at: index)
@@ -2453,7 +2463,17 @@ extension MIGeneralsAPI {
         let postID_str = post_ID.valueForString(key:"post_id")
         var links = ""
         let shareLink = shareLinks(rawValue: shareLink)
+        var sentMsg = ""
 
+        if MsgType == "CHAT_MESSAGE"{
+            sentMsg = MsgSent?.replace_str(replace: MsgSent ?? "") ?? ""
+             
+        }else {
+            sentMsg = MsgSent ?? ""
+        }
+        
+        
+        
         switch (shareLink){
         
         case .shareComment:
@@ -2527,7 +2547,7 @@ extension MIGeneralsAPI {
             "subject":subject as Any,
             "senderName": senderName,
             //"content":"<b>\(firstName) \(lastName)</b> &nbsp\(showDisplayContent ?? "")<br>\(MsgSent ?? "")",
-            "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")\(" ")\(MsgSent ?? "")",
+            "content":"<b>\(firstName) \(lastName)</b> \(showDisplayContent ?? "")\(" ")\(sentMsg ?? "")",
             "link":links as Any,
             "type":MsgType as Any,
             "postInfo":post_ID,
@@ -2566,7 +2586,7 @@ extension MIGeneralsAPI {
             "receiver":receiverID ?? "",
             "sender":userID ?? "",
             "type":1,
-            "subject":"\(userName) \(" ") \(subject ?? "") \(" ") \(MsgSent ?? "")",
+            "subject":"\(userName) \(" ") \(subject ?? "") \(" ") \(sentMsg)",
             "content":contentStr,
             "icon":profileImg
             

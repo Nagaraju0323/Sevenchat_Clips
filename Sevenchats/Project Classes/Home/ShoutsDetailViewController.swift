@@ -605,11 +605,35 @@ extension ShoutsDetailViewController{
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
         
         if shoutInformation.valueForString(key: "user_email") == appDelegate.loginUser?.email{
-            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
+            
+            
+           /* self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
                 guard let _ = self else {return}
                 DispatchQueue.main.async {
                     self?.deleteShoutPost(self?.shoutInformation)
                 }
+            }*/
+            
+            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self] (alert) in
+                guard let self = self else { return }
+              //  if let shoID = self.shoutID{
+                    if let createShoutsVC = CStoryboardHome.instantiateViewController(withIdentifier: "CreateShoutsViewController") as? CreateShoutsViewController{
+                        createShoutsVC.setBlock(block: { (objetInfo, message) in
+                            if let shoutInfo = objetInfo as? [String : Any]{
+                                self.setShoutsDetailData(shoutInfo)
+                            }
+                        })
+                        createShoutsVC.shoutsType = .editShouts
+                      //  createShoutsVC.shoutID = shoID
+                        createShoutsVC.editPost_id = self.shoutInformation.valueForString(key: "post_id")
+                        createShoutsVC.quoteDesc = self.shoutInformation.valueForString(key: "post_detail")
+                        self.navigationController?.pushViewController(createShoutsVC, animated: true)
+                    }
+               // }
+                
+            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
+                guard let self = self else { return }
+                self.deleteShoutPost(self.shoutInformation)
             }
         }else{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {

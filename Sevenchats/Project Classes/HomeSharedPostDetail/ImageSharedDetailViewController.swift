@@ -277,7 +277,9 @@ extension ImageSharedDetailViewController{
                         let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
                         lblSharedPostDate.text = sharedCreated
             imgSharedUser.loadImageFromUrl(galInfo.valueForString(key: CUserSharedProfileImage), true)
-                lblMessage.text = galInfo.valueForString(key: CMessage)
+             //   lblMessage.text = galInfo.valueForString(key: CMessage)
+            let str_Back_desc = galInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: galInfo.valueForString(key: CMessage))
+            lblMessage.text = str_Back_desc
             if galInfo.valueForString(key: CCategory) == "0"{
                 self.lblGalleryCategory.text = ""
             }else{
@@ -506,13 +508,16 @@ extension ImageSharedDetailViewController: UICollectionViewDelegate, UICollectio
         if (mediaType == "video") || (mediaType == "vidoe"){
             if let url = URL(string: imgInfo) {
                 if let thumbnailImage = getThumbnailImage(forUrl: url) {
-                    cell.blurImgView.image = thumbnailImage
+                    cell.ImgView.image = thumbnailImage
                 }
             }
             cell.imgVideoIcon.isHidden =  false
         }else {
-            cell.blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
-            cell.blurImgView.loadImageFromUrl(imgInfo, false)
+            
+            //cell.blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+            cell.ImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+            cell.ImgView.loadImageFromUrl(imgInfo, false)
+           // cell.blurImgView.loadImageFromUrl(imgInfo, false)
             cell.imgVideoIcon.isHidden =  true
         }
         return cell

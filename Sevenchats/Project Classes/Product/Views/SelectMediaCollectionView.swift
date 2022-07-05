@@ -37,6 +37,8 @@ class SelectMediaCollectionView: UICollectionView {
     var arrDeletedApiImages : [String] = []
     var isConfirmAlertOnDelete = false
     
+    
+    
     override var contentSize:CGSize {
         didSet {
             self.invalidateIntrinsicContentSize()

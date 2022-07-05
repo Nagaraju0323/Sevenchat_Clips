@@ -46,6 +46,7 @@ class EventSharedDetailViewController: ParentViewController {
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var lbluserName : UILabel!
     @IBOutlet weak var tblUserList : UITableView!
+    @IBOutlet weak var viewtoblockaction : UIView!
     
     @IBOutlet weak var tblCommentList : UITableView! {
         didSet {
@@ -380,6 +381,21 @@ extension EventSharedDetailViewController {
         self.lblEventEndDate.text = startCreated2
         
         self.lblEventAddress.text = dict.valueForString(key: CEvent_Location)
+        
+        
+        //TODO: --------------Experied Event--------------
+        let currentDatetime = Date().timeIntervalSince1970
+        let cnvStr5 = dict.valueForString(key: "end_date").stringBefore("G")
+                guard let endDate = DateFormatter.shared().convertDatereversLatestEdit(strDate: cnvStr5)  else { return}
+                guard let endDateTime = DateFormatter.shared().convertGMTtoUnix(strDate: endDate)  else { return}
+                
+                if currentDatetime >= endDateTime {
+                    self.viewtoblockaction.isHidden = false
+                }else{
+                    self.viewtoblockaction.isHidden = true
+                }
+
+        
         btnMaybe.setTitle("\(dict.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(dict.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
         btnInterested.setTitle("\(dict.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)

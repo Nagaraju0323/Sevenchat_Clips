@@ -21,6 +21,7 @@ import Lightbox
 class ArticleDetailViewController: ParentViewController {
     
     @IBOutlet weak var blurImgView : BlurImageView!
+    @IBOutlet weak var imgView : UIImageView!
     @IBOutlet weak var lblArticleCategory : UILabel!
     @IBOutlet weak var lblArticleType : UILabel!
     @IBOutlet weak var lblArticleTitle : UILabel!
@@ -169,7 +170,8 @@ class ArticleDetailViewController: ParentViewController {
         
         self.btnArticleImg.touchUpInside(genericTouchUpInsideHandler: { [weak self](_) in            
             let lightBoxHelper = LightBoxControllerHelper()
-            lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self)
+//            lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self)
+            lightBoxHelper.openSingleImage(image: self?.imgView?.image, viewController: self)
         })
     }
     
@@ -256,9 +258,11 @@ extension ArticleDetailViewController{
 //            self.lblArticleDescription.text = artInfo.valueForString(key: CContent)
             let image = artInfo.valueForString(key: "image")
             if image.isEmpty {
-                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+               // blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+                imgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             }else{
-                blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+                //blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+                imgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
             }
             self.articleImgURL = artInfo.valueForString(key: Cimages)
             self.imgUser.loadImageFromUrl(artInfo.valueForString(key: CUserProfileImage), true)
@@ -347,12 +351,35 @@ extension ArticleDetailViewController{
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) { weak var weakSelf = self
         
         if articleInformation.valueForString(key: "user_email") == appDelegate.loginUser?.email {
-            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
-                guard let _ = self else {return}
-                DispatchQueue.main.async {
-                    self?.deleteArticlePost(self?.articleInformation)
+            
+            weakSelf?.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { (alert) in
+                if let artId = weakSelf?.articleID{
+                    
+                    if let editArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddArticleViewController") as? AddArticleViewController{
+                        editArticleVC.setBlock(block: { (articleInfo, message) in
+                            if let artInfo = articleInfo as? [String : Any]{
+                                weakSelf?.setArticleDetails(artInfo)
+                            }
+                        })
+                        editArticleVC.articleType = .editArticle
+                        editArticleVC.articleID = artId
+                        editArticleVC.quoteDesc = self.articleInformation.valueForString(key: "post_detail")
+                        editArticleVC.articleInfo = self.articleInformation
+                        editArticleVC.postID = self.articleInformation.valueForString(key: "post_id")
+                        weakSelf?.navigationController?.pushViewController(editArticleVC, animated: true)
+                    }
                 }
+            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { (alert) in
+                DispatchQueue.main.async {
+                    self.deleteArticlePost(self.articleInformation)
+                                }
             }
+//            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
+//                guard let _ = self else {return}
+//                DispatchQueue.main.async {
+//                    self?.deleteArticlePost(self?.articleInformation)
+//                }
+//            }
         }else{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportArticle

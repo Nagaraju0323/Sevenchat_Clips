@@ -40,6 +40,7 @@ class EventDetailImageViewController: ParentViewController {
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var lbluserName : UILabel!
     @IBOutlet weak var tblUserList : UITableView!
+    @IBOutlet weak var viewtoblockaction : UIView!
     
     @IBOutlet weak var tblCommentList : UITableView! {
         didSet {
@@ -76,6 +77,7 @@ class EventDetailImageViewController: ParentViewController {
     }
     @IBOutlet weak var btnEventImg : UIButton!
     @IBOutlet weak var blurImgView : BlurImageView!
+    @IBOutlet weak var imgEventView : UIImageView!
     
     @IBOutlet weak var btnProfileImg : UIButton!
     @IBOutlet weak var btnUserName : UIButton!
@@ -150,6 +152,7 @@ class EventDetailImageViewController: ParentViewController {
         imgUser.layer.cornerRadius = imgUser.frame.size.width / 2
         self.imgUser.layer.borderWidth = 2
         self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+        //self.viewtoblockaction.isHidden = true
 
         lblEventType.layer.cornerRadius = 3
         self.view.backgroundColor = CRGB(r: 249, g: 250, b: 250)
@@ -170,7 +173,8 @@ class EventDetailImageViewController: ParentViewController {
         self.loadEventDetailFromServer()
         self.btnEventImg.touchUpInside(genericTouchUpInsideHandler: { [weak self](_) in
             let lightBoxHelper = LightBoxControllerHelper()
-            lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self)
+            //lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self)
+            lightBoxHelper.openSingleImage(image: self?.imgEventView?.image, viewController: self)
         })
     }
     
@@ -345,13 +349,24 @@ extension EventDetailImageViewController {
         
         let image = dict.valueForString(key: "image")
         if image.isEmpty {
-            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+//            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+            imgEventView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
         }else{
-            blurImgView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
+//            blurImgView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
+            imgEventView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
         }
         self.eventImgURL = dict.valueForString(key: "image")
         let is_Liked = dict.valueForString(key: CIsLiked)
-        
+        //TODO: --------------Experied Event--------------
+              let cnvStr5 = dict.valueForString(key: "end_date").stringBefore("G")
+              guard let endDate = DateFormatter.shared().convertDatereversLatestEdit(strDate: cnvStr5)  else { return}
+              guard let endDateTime = DateFormatter.shared().convertGMTtoUnix(strDate: endDate)  else { return}
+              
+              if (Double(currentDateTime) >= endDateTime){
+                  self.viewtoblockaction.isHidden = false
+              }else{
+                  self.viewtoblockaction.isHidden = true
+              }
         if isLikesOthersPage == true {
             if dict.valueForString(key:"friend_liked") == "Yes"  && dict.valueForString(key:"is_liked") == "Yes" {
                 btnLike.isSelected = true
@@ -1019,7 +1034,11 @@ extension EventDetailImageViewController{
     
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
         if eventInfo.valueForString(key: "user_email") == appDelegate.loginUser?.email {
-            if let endDateTime = eventInfo.valueForDouble(key: CEvent_End_Date), (Double(currentDateTime) > endDateTime) {
+           // if let endDateTime = eventInfo.valueForDouble(key: CEvent_End_Date), (Double(currentDateTime) > endDateTime) {
+            let cnvStr1 = self.eventInfo.valueForString(key: "end_date").stringBefore("G")
+            guard let endDate = DateFormatter.shared().convertDatereversLatestEdit(strDate: cnvStr1)  else { return}
+            guard let endDateTime = DateFormatter.shared().convertGMTtoUnix(strDate: endDate)  else { return}
+            if (Double(currentDateTime) >= endDateTime){
                 
                 self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
                     guard let `self` = self else { return }
@@ -1031,14 +1050,33 @@ extension EventDetailImageViewController{
                     }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
                 }
             } else {
-                
-                
-                self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
+                self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self] (alert) in
+                    guard let self = self else { return }
+                    //...Edit Post
+                    let addEventVC:AddEventViewController = CStoryboardEvent.instantiateViewController(withIdentifier: "AddEventViewController") as! AddEventViewController
+                    addEventVC.eventID = self.postID
+                    addEventVC.eventType = .editEvent
+                    addEventVC.eventInfo = self.eventInfo
+                    addEventVC.editPost_id = self.eventInfo.valueForString(key: "post_id")
+                    addEventVC.quoteDesc = self.eventInfo.valueForString(key: "post_detail")
+                    self.navigationController?.pushViewController(addEventVC, animated: true)
+                }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
+                    guard let self = self else { return }
                     
-                    guard let `self` = self else { return }
-                    self.deletePost(self.eventInfo)
+                    //...Delete Post
+                    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnOk, btnOneTapped: { [weak self] (action) in
+                        guard let `self` = self else { return }
+                        self.deletePost(self.eventInfo)
+                        }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
                 }
             }
+//
+//                self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
+//
+//                    guard let `self` = self else { return }
+//                    self.deletePost(self.eventInfo)
+//                }
+//            }
         }else {
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportEvent

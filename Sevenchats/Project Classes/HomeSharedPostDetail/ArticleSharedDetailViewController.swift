@@ -19,7 +19,7 @@ import Lightbox
 
 class ArticleSharedDetailViewController: ParentViewController {
     
-    //@IBOutlet weak var imgArticle : UIImageView!
+    @IBOutlet weak var imgArticle : UIImageView!
     @IBOutlet weak var blurImgView : BlurImageView!
     
     @IBOutlet weak var lblArticleCategory : UILabel!
@@ -185,7 +185,8 @@ class ArticleSharedDetailViewController: ParentViewController {
         self.btnArticleImg.touchUpInside(genericTouchUpInsideHandler: { [weak self](_) in
             let lightBoxHelper = LightBoxControllerHelper()
             //lightBoxHelper.openSingleImageFromURL(imgURL: self?.articleImgURL, viewController: self?.viewController)
-            lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self?.viewController)
+//            lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self?.viewController)
+            lightBoxHelper.openSingleImage(image: self?.imgArticle?.image, viewController: self?.viewController)
         })
         
         
@@ -305,9 +306,11 @@ extension ArticleSharedDetailViewController{
             //self.imgArticle.loadImageFromUrl(artInfo.valueForString(key: CImage), false)
             let image = artInfo.valueForString(key: "image")
             if image.isEmpty {
-                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+//                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+                imgArticle.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             }else{
-                blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+//                blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+                imgArticle.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
             }
             self.articleImgURL = artInfo.valueForString(key: Cimages)
 //            self.blurImgView.loadImageFromUrl(artInfo.valueForString(key: CImage), false)

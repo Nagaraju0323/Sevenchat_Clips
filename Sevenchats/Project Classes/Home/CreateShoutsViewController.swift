@@ -50,6 +50,7 @@ class CreateShoutsViewController: ParentViewController {
     var quoteDesc = ""
     var postContent = ""
     var post_ID :String?
+    var editPost_id = ""
     
     
     override func viewDidLoad() {
@@ -171,9 +172,94 @@ extension CreateShoutsViewController{
 //        print("return\(return_Str)")
 //        let values = textViewMessage.text.folding(options: .diacriticInsensitive, locale: .current)
         
-      
- 
-        
+        if shoutsType == .editShouts{
+            
+            guard let userid = appDelegate.loginUser?.user_id else {return}
+            let userID = userid.description
+    //        let txtshout = textViewMessage.text.replace(string: "\n", replacement: "\\n")
+            let txtshout = textViewMessage.text.replace_str(replace: textViewMessage.text)
+            var dict :[String:Any]  =  [
+                    "post_id": editPost_id,
+                    "image": "",
+                    "post_title": "",
+                    "post_content": txtshout,
+                    "age_limit": "",
+                    "targeted_audience": "",
+                    "selected_persons": "",
+                    "status_id": "1"
+            ]
+            
+            if btnInviteGroup.isSelected{
+                // For group...
+                apiPara[CPublish_To] = 1
+                let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
+                apiParaGroups = groupIDS.components(separatedBy: ",")
+                
+            }else if btnInviteContacts.isSelected{
+                // For Contact...
+                apiPara[CPublish_To] = 2
+                let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
+                apiParaFriends = userIDS.components(separatedBy: ",")
+                
+            }else{
+                // For All Friend...
+                apiPara[CPublish_To] = 3
+            }
+            
+            if apiParaGroups.isEmpty == false {
+                dict[CTargetAudiance] = apiParaGroups
+            }else {
+                dict[CTargetAudiance] = "none"
+            }
+            
+            if apiParaFriends.isEmpty == false {
+                dict[CSelectedPerson] = apiParaFriends
+            }else {
+                dict[CSelectedPerson] = "none"
+            }
+            
+            APIRequest.shared().editPost(para: dict, image: nil, apiKeyCall: CAPITagEditshouts) { [weak self] (response, error) in
+                if response != nil && error == nil{
+                    
+                    if let responseData = response![CJsonData] as? [[String : Any]] {
+
+                    }
+//MARK:- Rewards point
+                    
+//                    if let metaInfo = response![CJsonMeta] as? [String : Any] {
+//                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+//                        guard let image = appDelegate.loginUser?.profile_img else { return }
+//                        let stausLike = metaInfo["status"] as? String ?? "0"
+//                        if stausLike == "0" {
+//                           // MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"shout",title: self?.textViewMessage.text! ?? "",name:name,icon:image, detail_text: "post_point",target_id: self?.post_ID?.toInt ?? 0)
+//                        }
+//                    }
+                    if self?.shoutsType == .shareQuote{
+                        (appDelegate.sideMenuController.leftViewController as? SideMenuViewController)?.selectIndex(0)
+                        appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardHome.instantiateViewController(withIdentifier: "HomeViewController"))
+                    }else{
+                        //self?.navigationController?.popViewController(animated: true)
+                        self?.navigationController?.popToRootViewController(animated: true)
+                    }
+                    var message = ""
+                    if self?.shoutsType == .editShouts{
+                        message = CMessageShoutPostUpdated
+                    }else if self?.shoutsType == .shareQuote{
+                        message = CPostHasBeenShared
+                    }else{
+                        message = CMessageShoutPostUpload
+                    }
+                    
+                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: message, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    if let shoutInfo = response!["meta"] as? [String : Any]{
+                        if shoutInfo.valueForString(key: "status")  == "0" {
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(shoutInfo,self?.shoutID, self!, self?.shoutsType == .editShouts ? .editPost : .addPost, rss_id: 0)
+                        }
+                    }
+                }
+            }
+
+        }else{
         guard let userid = appDelegate.loginUser?.user_id else {return}
         let userID = userid.description
 //        let txtshout = textViewMessage.text.replace(string: "\n", replacement: "\\n")
@@ -259,6 +345,7 @@ extension CreateShoutsViewController{
             }
         }
     }
+    }
     
     fileprivate func loadShoutDetailFromServer(){
         if let shoutID = self.shoutID{
@@ -284,7 +371,8 @@ extension CreateShoutsViewController{
         if strQuote.count > 5000{
             strQuote = strQuote[0..<5000]
         }
-        self.textViewMessage.text = strQuote
+        let str_Back = strQuote.return_replaceBack(replaceBack: strQuote)
+        self.textViewMessage.text = str_Back
         self.lblTextCount.text = "\(strQuote.count)/150"
         
         GCDMainThread.async {

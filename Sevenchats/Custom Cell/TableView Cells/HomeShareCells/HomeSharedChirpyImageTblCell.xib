@@ -295,6 +295,12 @@
                                             <constraint firstAttribute="height" constant="200" id="8b4-F6-er2"/>
                                         </constraints>
                                     </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N46-eJ-wTv">
+                                        <rect key="frame" x="0.0" y="262" width="364" height="203"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="203" id="QyN-dW-eUV"/>
+                                        </constraints>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGl-HZ-G6s">
                                         <rect key="frame" x="0.0" y="262" width="364" height="200"/>
                                         <connections>
@@ -443,14 +449,18 @@
                                     <constraint firstItem="0sW-DR-FA7" firstAttribute="leading" secondItem="CQM-CT-KLF" secondAttribute="leading" constant="8" id="Qap-dn-62M"/>
                                     <constraint firstItem="AGl-HZ-G6s" firstAttribute="leading" secondItem="dMs-hL-NG0" secondAttribute="leading" id="Tuq-S1-x8g"/>
                                     <constraint firstAttribute="trailing" secondItem="49f-GG-TXH" secondAttribute="trailing" id="UdS-Wa-8tk"/>
+                                    <constraint firstAttribute="trailing" secondItem="N46-eJ-wTv" secondAttribute="trailing" id="W7W-Nn-1mx"/>
                                     <constraint firstItem="AGl-HZ-G6s" firstAttribute="top" secondItem="dMs-hL-NG0" secondAttribute="top" id="ddr-dv-DWR"/>
                                     <constraint firstAttribute="trailing" secondItem="xHc-dW-6lM" secondAttribute="trailing" constant="8" id="dm9-43-jTN"/>
                                     <constraint firstItem="49f-GG-TXH" firstAttribute="leading" secondItem="CQM-CT-KLF" secondAttribute="leading" id="eLl-6P-m3l"/>
+                                    <constraint firstItem="N46-eJ-wTv" firstAttribute="top" secondItem="0sW-DR-FA7" secondAttribute="bottom" constant="5" id="ee3-Mg-lWY"/>
+                                    <constraint firstItem="N46-eJ-wTv" firstAttribute="leading" secondItem="CQM-CT-KLF" secondAttribute="leading" id="jR0-af-SWD"/>
                                     <constraint firstItem="49f-GG-TXH" firstAttribute="top" secondItem="CQM-CT-KLF" secondAttribute="top" id="oMx-Fc-plR"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="xHc-dW-6lM" secondAttribute="bottom" id="qhi-Md-3FT"/>
                                     <constraint firstItem="AGl-HZ-G6s" firstAttribute="trailing" secondItem="dMs-hL-NG0" secondAttribute="trailing" id="qy9-4w-vCL"/>
                                     <constraint firstItem="dMs-hL-NG0" firstAttribute="leading" secondItem="CQM-CT-KLF" secondAttribute="leading" id="vg7-0j-bZb"/>
                                     <constraint firstItem="dMs-hL-NG0" firstAttribute="top" secondItem="0sW-DR-FA7" secondAttribute="bottom" constant="5" id="wpA-Yq-APO"/>
+                                    <constraint firstItem="flt-xs-e1A" firstAttribute="top" secondItem="N46-eJ-wTv" secondAttribute="bottom" constant="5" id="yrP-QJ-X6F"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -484,6 +494,7 @@
                 <outlet property="btnSharedProfileImg" destination="CMR-cl-Xmu" id="bkP-A5-nuo"/>
                 <outlet property="btnSharedUserName" destination="wqV-zf-hy5" id="Zup-ah-j3s"/>
                 <outlet property="btnUserName" destination="ME4-4z-fpg" id="ttF-Y4-7ZN"/>
+                <outlet property="imgChirpyView" destination="N46-eJ-wTv" id="Zoa-VK-ifF"/>
                 <outlet property="imgSharedUser" destination="mzP-C7-Fgj" id="Mzg-qL-B8c"/>
                 <outlet property="imgUser" destination="aZ9-PG-zo4" id="y5d-3L-Hst"/>
                 <outlet property="lblChirpyCategory" destination="NYk-fW-J2n" id="3xU-MX-pjo"/>

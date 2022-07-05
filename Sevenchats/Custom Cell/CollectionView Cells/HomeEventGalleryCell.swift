@@ -11,6 +11,7 @@ import UIKit
 class HomeEventGalleryCell: UICollectionViewCell {
     
     @IBOutlet weak var blurImgView : BlurImageView!
+    @IBOutlet weak var ImgView : UIImageView!
     @IBOutlet weak var imgVideoIcon : UIImageView!
     @IBOutlet weak var vwBackgroundImg : MIGenericView!
     

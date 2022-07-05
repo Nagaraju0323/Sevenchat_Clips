@@ -39,6 +39,7 @@ class EventDetailViewController: ParentViewController {
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var lbluserName : UILabel!
     @IBOutlet weak var tblUserList : UITableView!
+    @IBOutlet weak var viewtoblockaction : UIView!
     
     @IBOutlet weak var tblCommentList : UITableView! {
         didSet {
@@ -165,6 +166,7 @@ class EventDetailViewController: ParentViewController {
         self.refreshControl.tintColor = ColorAppTheme
         self.tblCommentList.pullToRefreshControl = self.refreshControl
         self.pageNumber = 1
+       // self.viewtoblockaction.isHidden = true
         
         self.loadEventDetailFromServer()
     }
@@ -332,7 +334,18 @@ extension EventDetailViewController {
         //        self.commentCount = dict.valueForInt(key: CTotalComment) ?? 0
         //        btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
         
-        
+        //TODO: --------------Experied Event--------------
+        let currentDatetime = Date().timeIntervalSince1970
+        let cnvStr5 = dict.valueForString(key: "end_date").stringBefore("G")
+                guard let endDate = DateFormatter.shared().convertDatereversLatestEdit(strDate: cnvStr5)  else { return}
+                guard let endDateTime = DateFormatter.shared().convertGMTtoUnix(strDate: endDate)  else { return}
+                
+                if currentDatetime >= endDateTime {
+                    self.viewtoblockaction.isHidden = false
+                }else{
+                    self.viewtoblockaction.isHidden = true
+                }
+
         btnMaybe.setTitle("\(dict.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(dict.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
         btnInterested.setTitle("\(dict.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)
@@ -1113,7 +1126,13 @@ extension EventDetailViewController{
     
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
         if eventInfo.valueForString(key: "user_email") == appDelegate.loginUser?.email {
-            if let endDateTime = eventInfo.valueForDouble(key: CEvent_End_Date), (Double(currentDateTime) > endDateTime) {
+            
+            
+           // if let endDateTime = eventInfo.valueForDouble(key: CEvent_End_Date), (Double(currentDateTime) > endDateTime) {
+            let cnvStr1 = self.eventInfo.valueForString(key: "end_date").stringBefore("G")
+            guard let endDate = DateFormatter.shared().convertDatereversLatestEdit(strDate: cnvStr1)  else { return}
+            guard let endDateTime = DateFormatter.shared().convertGMTtoUnix(strDate: endDate)  else { return}
+            if (Double(currentDateTime) >= endDateTime) {
                 
                 self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
                     guard let `self` = self else { return }
@@ -1125,14 +1144,34 @@ extension EventDetailViewController{
                     }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
                 }
             } else {
-                
-                
-                self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
+                self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self] (alert) in
+                    guard let self = self else { return }
+                    //...Edit Post
+                    let addEventVC:AddEventViewController = CStoryboardEvent.instantiateViewController(withIdentifier: "AddEventViewController") as! AddEventViewController
+                    addEventVC.eventID = self.postID
+                    addEventVC.eventType = .editEvent
+                    addEventVC.eventInfo = self.eventInfo
+                    addEventVC.editPost_id = self.eventInfo.valueForString(key: "post_id")
+                    addEventVC.quoteDesc = self.eventInfo.valueForString(key: "post_detail")
+                    self.navigationController?.pushViewController(addEventVC, animated: true)
+                }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
+                    guard let self = self else { return }
                     
-                    guard let `self` = self else { return }
-                    self.deletePost(self.eventInfo)
+                    //...Delete Post
+                    self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeletePost, btnOneTitle: CBtnOk, btnOneTapped: { [weak self] (action) in
+                        guard let `self` = self else { return }
+                        self.deletePost(self.eventInfo)
+                        }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
                 }
             }
+//
+                
+//                self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
+//
+//                    guard let `self` = self else { return }
+//                    self.deletePost(self.eventInfo)
+//                }
+//            }
         }else {
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportEvent

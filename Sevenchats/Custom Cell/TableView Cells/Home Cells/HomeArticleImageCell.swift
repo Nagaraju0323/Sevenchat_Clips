@@ -37,6 +37,7 @@ class HomeArticleImageCell: UITableViewCell {
     @IBOutlet weak var btnIconShare : UIButton!
     @IBOutlet weak var lblArticleCategory : UILabel!
     @IBOutlet weak var blurImgView : BlurImageView!
+    @IBOutlet weak var imgeView: UIImageView!
     
     var likeCount = 0
     var imgURL = ""
@@ -72,6 +73,7 @@ class HomeArticleImageCell: UITableViewCell {
             self.lblArticleType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
             self.lblArticleDescription.adjustsFontSizeToFitWidth = true
+           // self.blurImgView.isBlurBackgroundEnable = false
         }
     }
     
@@ -174,7 +176,8 @@ extension HomeArticleImageCell{
         print("printImagevalues\(postInfo.valueForString(key: "image"))")
         
         let image = postInfo.valueForString(key: "image")
-        blurImgView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
+        //blurImgView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
+        imgeView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
 //        if image.isEmpty {
 //            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
 //        }else{
@@ -199,7 +202,8 @@ extension HomeArticleImageCell{
     @IBAction func onImageTapped(_ sender:UIButton){
         let lightBoxHelper = LightBoxControllerHelper()
         weak var weakSelf = self.viewController
-        lightBoxHelper.openSingleImage(image: blurImgView.image, viewController: weakSelf)
+//        lightBoxHelper.openSingleImage(image: blurImgView.image, viewController: weakSelf)
+        lightBoxHelper.openSingleImage(image: imgeView.image, viewController: weakSelf)
     }
     
     @IBAction func onLikePressed(_ sender:UIButton){

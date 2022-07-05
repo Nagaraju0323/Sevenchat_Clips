@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -475,20 +476,28 @@ Declined</string>
                                                     <constraint firstAttribute="height" constant="40" id="9R9-mw-Rly"/>
                                                 </constraints>
                                             </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="284-k8-S7e">
+                                                <rect key="frame" x="10" y="258" width="309" height="40"/>
+                                                <color key="backgroundColor" systemColor="placeholderTextColor"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="q5r-Uw-Ou6" firstAttribute="leading" secondItem="4Nl-fX-0lS" secondAttribute="leading" id="1hn-Hw-iuU"/>
                                             <constraint firstItem="aWu-cm-vd3" firstAttribute="trailing" secondItem="g8Q-v5-ojZ" secondAttribute="trailing" id="3Ni-KY-fD9"/>
+                                            <constraint firstAttribute="trailing" secondItem="284-k8-S7e" secondAttribute="trailing" id="3gQ-aO-E9a"/>
                                             <constraint firstItem="Ffd-ng-ejq" firstAttribute="top" secondItem="R6N-2e-NHf" secondAttribute="top" constant="8" id="3jB-Cy-uAh"/>
                                             <constraint firstItem="4Nl-fX-0lS" firstAttribute="trailing" secondItem="ouq-qd-19o" secondAttribute="trailing" id="5Cf-El-bDd"/>
+                                            <constraint firstItem="284-k8-S7e" firstAttribute="leading" secondItem="R6N-2e-NHf" secondAttribute="leading" constant="10" id="5kI-gm-IyQ"/>
                                             <constraint firstItem="Ffd-ng-ejq" firstAttribute="leading" secondItem="R6N-2e-NHf" secondAttribute="leading" id="7t0-7u-9o0"/>
                                             <constraint firstItem="4Nl-fX-0lS" firstAttribute="leading" secondItem="ouq-qd-19o" secondAttribute="leading" id="800-kh-bXr"/>
                                             <constraint firstItem="4Nl-fX-0lS" firstAttribute="top" secondItem="ouq-qd-19o" secondAttribute="bottom" constant="5" id="85n-E5-fdU"/>
+                                            <constraint firstItem="284-k8-S7e" firstAttribute="top" secondItem="4Nl-fX-0lS" secondAttribute="bottom" constant="8" symbolic="YES" id="9cz-8e-v83"/>
                                             <constraint firstItem="aWu-cm-vd3" firstAttribute="leading" secondItem="g8Q-v5-ojZ" secondAttribute="leading" id="C3r-9d-Pea"/>
                                             <constraint firstItem="q5r-Uw-Ou6" firstAttribute="trailing" secondItem="4Nl-fX-0lS" secondAttribute="trailing" id="DCw-4V-iEw"/>
                                             <constraint firstItem="4i1-c9-6vg" firstAttribute="top" secondItem="R6N-2e-NHf" secondAttribute="top" id="HVJ-Le-RWx"/>
                                             <constraint firstAttribute="trailing" secondItem="aWu-cm-vd3" secondAttribute="trailing" id="JIS-Mb-kLU"/>
+                                            <constraint firstItem="284-k8-S7e" firstAttribute="bottom" secondItem="q5r-Uw-Ou6" secondAttribute="bottom" id="MKt-PV-TDU"/>
                                             <constraint firstItem="aWu-cm-vd3" firstAttribute="top" secondItem="g8Q-v5-ojZ" secondAttribute="bottom" constant="5" id="MZ4-KQ-isO"/>
                                             <constraint firstItem="g8Q-v5-ojZ" firstAttribute="top" secondItem="4i1-c9-6vg" secondAttribute="bottom" id="P0P-KJ-PSY"/>
                                             <constraint firstItem="g8Q-v5-ojZ" firstAttribute="leading" secondItem="4i1-c9-6vg" secondAttribute="leading" id="RGL-Qg-r1A"/>
@@ -510,6 +519,12 @@ Declined</string>
                                             <constraint firstAttribute="height" constant="200" id="DdY-aZ-Pe8"/>
                                         </constraints>
                                     </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="k31-7e-903">
+                                        <rect key="frame" x="0.0" y="442" width="335" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="gjP-BN-IT4"/>
+                                        </constraints>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJA-d1-w9w">
                                         <rect key="frame" x="0.0" y="442" width="335" height="200"/>
                                         <connections>
@@ -640,10 +655,12 @@ Declined</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Nec-xl-gce" secondAttribute="bottom" id="33t-pH-QDL"/>
+                                    <constraint firstAttribute="trailing" secondItem="k31-7e-903" secondAttribute="trailing" id="5nf-2B-JT7"/>
                                     <constraint firstItem="ZJA-d1-w9w" firstAttribute="top" secondItem="HpT-b2-Q53" secondAttribute="top" id="6H9-f8-pjE"/>
                                     <constraint firstItem="Nec-xl-gce" firstAttribute="leading" secondItem="Xdq-nc-Wtn" secondAttribute="leading" constant="8" id="B2e-CZ-Lum"/>
                                     <constraint firstItem="ZJA-d1-w9w" firstAttribute="trailing" secondItem="HpT-b2-Q53" secondAttribute="trailing" id="Fe3-G8-ZJK"/>
                                     <constraint firstItem="HpT-b2-Q53" firstAttribute="leading" secondItem="Xdq-nc-Wtn" secondAttribute="leading" id="Fww-VC-QSd"/>
+                                    <constraint firstItem="Nec-xl-gce" firstAttribute="top" secondItem="k31-7e-903" secondAttribute="bottom" constant="5" id="IUo-IU-zfQ"/>
                                     <constraint firstItem="c7N-zh-tMy" firstAttribute="top" secondItem="Xdq-nc-Wtn" secondAttribute="top" id="K1L-wD-Yy5"/>
                                     <constraint firstItem="HpT-b2-Q53" firstAttribute="top" secondItem="R6N-2e-NHf" secondAttribute="bottom" constant="5" id="K2x-e7-N8c"/>
                                     <constraint firstItem="ZJA-d1-w9w" firstAttribute="leading" secondItem="HpT-b2-Q53" secondAttribute="leading" id="NFC-1f-6v0"/>
@@ -656,6 +673,8 @@ Declined</string>
                                     <constraint firstItem="Nec-xl-gce" firstAttribute="top" secondItem="HpT-b2-Q53" secondAttribute="bottom" constant="5" id="ch3-tT-7up"/>
                                     <constraint firstItem="R6N-2e-NHf" firstAttribute="leading" secondItem="Xdq-nc-Wtn" secondAttribute="leading" constant="8" id="ivM-6G-6qQ"/>
                                     <constraint firstItem="ZJA-d1-w9w" firstAttribute="bottom" secondItem="HpT-b2-Q53" secondAttribute="bottom" id="rDn-QE-2v8"/>
+                                    <constraint firstItem="k31-7e-903" firstAttribute="top" secondItem="R6N-2e-NHf" secondAttribute="bottom" constant="5" id="rDy-zq-ajF"/>
+                                    <constraint firstItem="k31-7e-903" firstAttribute="leading" secondItem="Xdq-nc-Wtn" secondAttribute="leading" id="rhc-2q-rWQ"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -692,6 +711,7 @@ Declined</string>
                 <outlet property="btnSharedProfileImg" destination="gCc-3J-fN7" id="S8M-Ds-QU1"/>
                 <outlet property="btnSharedUserName" destination="G89-uN-jKj" id="UJQ-7v-z3B"/>
                 <outlet property="btnUserName" destination="FLb-Jh-Sm2" id="sK6-gi-wgg"/>
+                <outlet property="imgEventView" destination="k31-7e-903" id="SNI-7j-cI7"/>
                 <outlet property="imgSharedUser" destination="OfQ-L9-6TW" id="urp-eJ-wbu"/>
                 <outlet property="imgUser" destination="ldg-Jj-xHr" id="v3s-q5-lLW"/>
                 <outlet property="lblEndDate" destination="itH-6B-Tlf" id="B96-NM-tuw"/>
@@ -711,6 +731,7 @@ Declined</string>
                 <outlet property="lblUserName" destination="4ln-Yo-Muz" id="bLg-Z4-ygB"/>
                 <outlet property="viewMainContainer" destination="7eZ-r6-Sjh" id="XJe-YR-DDX"/>
                 <outlet property="viewSubContainer" destination="Xdq-nc-Wtn" id="tFc-By-wzu"/>
+                <outlet property="viewtoblockaction" destination="284-k8-S7e" id="zo8-XU-cZP"/>
             </connections>
             <point key="canvasLocation" x="132.60869565217394" y="232.70089285714283"/>
         </tableViewCell>
@@ -732,5 +753,8 @@ Declined</string>
         <image name="ic_thumps_maybe_selected" width="23" height="18"/>
         <image name="ic_thumps_up_selected" width="18.5" height="15"/>
         <image name="user_placeholder.png" width="300" height="300"/>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

@@ -51,6 +51,7 @@ class HomeSharedEventsCell: UITableViewCell {
     @IBOutlet weak var btnSharedUserName : UIButton!
     @IBOutlet weak var lblMessage : UILabel!
     @IBOutlet weak var lblSharedPostType : UILabel!
+    @IBOutlet weak var viewtoblockaction : UIView!
     
     var onChangeEventStatus : ((Int) -> Void)? = nil
     
@@ -104,6 +105,7 @@ class HomeSharedEventsCell: UITableViewCell {
             self.imgSharedUser.layer.cornerRadius = self.imgSharedUser.frame.size.width/2
             self.imgSharedUser.layer.borderWidth = 2
             self.imgSharedUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.viewtoblockaction.isHidden = true
         }
     }
     
@@ -277,6 +279,17 @@ extension HomeSharedEventsCell{
         btnInterested.isSelected = false
         
         let currentDateTime = Date().timeIntervalSince1970
+        
+          //TODO: --------------Experied Event--------------
+          let cnvStr5 = postInfo.valueForString(key: "end_date").stringBefore("G")
+          guard let endDate = DateFormatter.shared().convertDatereversLatestEdit(strDate: cnvStr5)  else { return}
+          guard let endDateTime = DateFormatter.shared().convertGMTtoUnix(strDate: endDate)  else { return}
+          
+          if (Double(currentDateTime) >= endDateTime){
+              self.viewtoblockaction.isHidden = false
+          }else{
+              self.viewtoblockaction.isHidden = true
+          }
         
         if let endDateTime = postInfo.valueForDouble(key: CEvent_End_Date) {
             

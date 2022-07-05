@@ -66,7 +66,8 @@ class AddForumViewController: ParentViewController {
     var postContent = ""
     var postTxtFieldContent = ""
     var post_ID:String?
-    
+    var editPost_id = ""
+    var forumInfo = [String:Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,6 +90,7 @@ class AddForumViewController: ParentViewController {
     func Initialization(){
         if forumType == .editForum{
             self.loadForumDetailFromServer()
+            self.setForumDetail(forumInfo)
         }
         setQuoteText()
         
@@ -133,7 +135,8 @@ class AddForumViewController: ParentViewController {
         if strQuote.count > 5000{
             strQuote = strQuote[0..<5000]
         }
-        self.txtViewForumMessage.text = strQuote
+        let str_Back = strQuote.return_replaceBack(replaceBack: strQuote)
+        self.txtViewForumMessage.text = str_Back
         self.lblTextCount.text = "\(strQuote.count)/5000"
         
         GCDMainThread.async {
@@ -188,6 +191,82 @@ extension AddForumViewController{
             apiPara[CId] = forumID
         }
         guard let userID = appDelegate.loginUser?.user_id else { return }
+        if forumType == .editForum{
+            var dict :[String:Any]  =  [
+               
+                
+                "post_id": editPost_id,
+                    "image": "",
+                    "post_title": addforum_title ?? "",
+                    "post_category": categoryDropDownView.txtCategory.text!,
+                    "post_content": addforum_desc,
+                    "age_limit": "4",
+                    "targeted_audience": "",
+                    "selected_persons": "",
+                    "status_id": "1"
+            ]
+            
+            if self.selectedInviteType == 1{
+                let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
+                apiParaGroups = groupIDS.components(separatedBy: ",")
+                
+            }else if self.selectedInviteType == 2{
+                let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
+                apiParaFriends = userIDS.components(separatedBy: ",")
+            }
+            
+            if apiParaGroups.isEmpty == false {
+                dict[CTargetAudiance] = apiParaGroups
+            }else {
+                dict[CTargetAudiance] = "none"
+            }
+            
+            if apiParaFriends.isEmpty == false {
+                dict[CSelectedPerson] = apiParaFriends
+            }else {
+                dict[CSelectedPerson] = "none"
+            }
+            
+            
+            APIRequest.shared().editPost(para: dict, image: nil, apiKeyCall: CAPITagEditforums) { [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil && error == nil{
+                    
+                    
+                    if let responseData = response![CJsonData] as? [[String : Any]] {
+//                        for data in responseData{
+//                            self.post_ID = data.valueForString(key: "post_id")
+//                        }
+                    }
+                    
+                    
+                    if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                        guard let image = appDelegate.loginUser?.profile_img else { return }
+                        let stausLike = metaInfo["status"] as? String ?? "0"
+                        if stausLike == "0" {
+     
+                           // MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"forum",title: self.txtForumTitle.text! ,name:name,icon:image, detail_text: "post_point",target_id: self.post_ID?.toInt ?? 0)
+
+                            MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self.forumID, self,.addPost, rss_id: 0)
+                            
+                        }
+                    }
+                    
+                    //self.navigationController?.popViewController(animated: true)
+                    self.navigationController?.popToRootViewController(animated: true)
+                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.forumType == .editForum ? CMessageForumPostUpdated : CMessageForumPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    
+                    if let forumInfo = response![CJsonData] as? [String : Any]{
+    //                    MIGeneralsAPI.shared().refreshPostRelatedScreens(forumInfo,self.forumID, self, self.forumType == .editForum ? .editPost : .addPost, rss_id: 0)
+                        
+                        APIRequest.shared().saveNewInterest(interestID: forumInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: forumInfo.valueForString(key: CCategory))
+                    }
+                }
+            }
+
+        }else{
+            
         var dict :[String:Any]  =  [
             "user_id":userID.description,
             "image":"",
@@ -253,6 +332,7 @@ extension AddForumViewController{
                     APIRequest.shared().saveNewInterest(interestID: forumInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: forumInfo.valueForString(key: CCategory))
                 }
             }
+        }
         }
     }
     

@@ -576,12 +576,37 @@ extension ForumDetailViewController{
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
         
         if forumInformation.valueForString(key: "user_email") == appDelegate.loginUser?.email{
-            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
-                guard let _ = self else {return}
-                DispatchQueue.main.async {
-                    self?.deleteForumPost(self?.forumInformation)
+            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self] (alert) in
+                guard let self = self else { return }
+                if let forID = self.forumID{
+                    if let addFourmVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddForumViewController") as? AddForumViewController{
+                        addFourmVC.setBlock(block: { (forumInfo, message) in
+                            if let forInfo = forumInfo as? [String : Any]{
+                                self.setForumDetailData(forInfo)
+                            }
+                        })
+                        addFourmVC.forumType = .editForum
+                        addFourmVC.forumID = forID
+                        addFourmVC.quoteDesc = self.forumInformation.valueForString(key: "post_detail")
+                        addFourmVC.forumInfo = self.forumInformation
+                        addFourmVC.editPost_id = self.forumInformation.valueForString(key: "post_id")
+                        self.navigationController?.pushViewController(addFourmVC, animated: true)
+                    }
+                    
                 }
+                
+            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
+                guard let self = self else { return }
+                                DispatchQueue.main.async {
+                                    self.deleteForumPost(self.forumInformation)
+                                }
             }
+//            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
+//                guard let _ = self else {return}
+//                DispatchQueue.main.async {
+//                    self?.deleteForumPost(self?.forumInformation)
+//                }
+//            }
         }else{
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportForum

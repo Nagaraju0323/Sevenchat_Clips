@@ -270,9 +270,12 @@ extension EditProfileViewController {
             txtCountrys.setPickerData(arrPickerData: arrCountryName!, selectedPickerDataHandler: { [weak self] (select, index, component) in
                 guard let self = self else { return }
                 let dict = arrCountry![index] as AnyObject
-                let countryID = dict.value(forKey: CCountry_id) as? Int
-                if countryID != self.countryID{
-                    self.countryID = dict.value(forKey: CCountry_id) as? Int
+                let countryName = dict.value(forKey: CCountryName) as? String
+                if countryName == self.countryName {
+                    self.countryName = dict.value(forKey: CCountryName) as? String
+              //  let countryID = dict.value(forKey: CCountry_id) as? Int
+//                if countryID != self.countryID{
+//                    self.countryID = dict.value(forKey: CCountry_id) as? Int
                     self.txtStates.text = ""
                     self.txtCitys.text = ""
                     self.stateID = nil
@@ -292,8 +295,8 @@ extension EditProfileViewController {
             let states = arrState.compactMap({$0.stateName})
             self.txtStates.setPickerData(arrPickerData: states as [Any], selectedPickerDataHandler: { [weak self](text, row, component) in
                 guard let self = self else {return}
-                if arrState[row].stateId != self.stateID{
-                    self.stateID = arrState[row].stateId
+                if arrState[row].stateName != self.stateName{
+                    self.stateName = arrState[row].stateName
                     self.txtCitys.isEnabled = false
                     self.txtCitys.text = ""
                     self.showHideCountryStateCityFileds()

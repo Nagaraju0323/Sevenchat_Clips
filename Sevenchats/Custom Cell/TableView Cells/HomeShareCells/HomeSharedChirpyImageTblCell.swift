@@ -19,7 +19,7 @@ class HomeSharedChirpyImageTblCell: UITableViewCell {
     
     @IBOutlet weak var viewMainContainer : UIView!
     @IBOutlet weak var viewSubContainer : UIView!
-    //@IBOutlet weak var imgChirpy : UIImageView!
+    @IBOutlet weak var imgChirpyView : UIImageView!
     @IBOutlet weak var blurImgView : BlurImageView!
     @IBOutlet weak var lblChirpyDescription : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
@@ -142,9 +142,10 @@ extension HomeSharedChirpyImageTblCell{
         lblChirpyPostDate.text = startCreated
         let str_Back_desc = postInfo.valueForString(key: CContent).return_replaceBack(replaceBack: postInfo.valueForString(key: CContent))
         lblChirpyDescription.text = str_Back_desc
-       // lblChirpyDescription.text = postInfo.valueForString(key: CContent)
-//        let image = postInfo.valueForString(key: Cimages)
-        blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+
+      //  blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+    
+        imgChirpyView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
     
 //        if image.isEmpty {
 //            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
@@ -202,7 +203,8 @@ extension HomeSharedChirpyImageTblCell{
     @IBAction func onImageTapped(_ sender:UIButton){
         let lightBoxHelper = LightBoxControllerHelper()
         weak var weakSelf = self.viewController
-        lightBoxHelper.openSingleImage(image: blurImgView.image, viewController: weakSelf)
+       // lightBoxHelper.openSingleImage(image: blurImgView.image, viewController: weakSelf)
+        lightBoxHelper.openSingleImage(image: imgChirpyView.image, viewController: weakSelf)
     }
     
     @IBAction func onLikePressed(_ sender:UIButton){

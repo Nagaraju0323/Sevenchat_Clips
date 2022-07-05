@@ -218,13 +218,14 @@ extension HomeGalleryCell: UICollectionViewDelegate, UICollectionViewDataSource,
         if (mediaType == "video") || (mediaType == "vidoe"){
             if let url = URL(string: imageInfo.valueForString(key: "image_path")) {
                 if let thumbnailImage = getThumbnailImage(forUrl: url) {
-                    cell.blurImgView.image = thumbnailImage
+                    cell.ImgView.image = thumbnailImage
                 }
             }
             cell.imgVideoIcon.isHidden =  false
         }else{
             print(" imageInfo.valueForString(key: CImage)  \(imageInfo.valueForString(key: "image_path"))")
-            cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
+           // cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
+            cell.ImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
             cell.imgVideoIcon.isHidden =  true
         }
         return cell

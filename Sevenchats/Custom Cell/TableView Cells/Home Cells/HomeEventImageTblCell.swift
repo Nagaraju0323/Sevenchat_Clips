@@ -46,6 +46,9 @@ class HomeEventImageTblCell: UITableViewCell {
     @IBOutlet weak var lblEventEndDate : UILabel!
     @IBOutlet weak var lblEventLocation : UILabel!
     @IBOutlet weak var blurImgView : BlurImageView!
+    @IBOutlet weak var imgEventView : UIImageView!
+    @IBOutlet weak var stackview : UIStackView!
+    @IBOutlet weak var viewtoblockaction : UIView!
     
     var likeCount = 0
     var imgURL = ""
@@ -96,6 +99,8 @@ class HomeEventImageTblCell: UITableViewCell {
             self.lblEventType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
           self.lblEventDescription.adjustsFontSizeToFitWidth = true
+            self.viewtoblockaction.isHidden = true
+           
         }
     }
     
@@ -183,9 +188,11 @@ extension HomeEventImageTblCell{
         self.lblEventEndDate.text = startCreated2
         let image = postInfo.valueForString(key: Cimages)
         if image.isEmpty {
-            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+//            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+            imgEventView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
         }else{
-            blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+//            blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+            imgEventView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
         }
         imgURL = postInfo.valueForString(key: CImage)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
@@ -193,7 +200,7 @@ extension HomeEventImageTblCell{
         lblEventType.text = CTypeEvent
         lblEventCategory.text = postInfo.valueForString(key: CCategory).uppercased()
 //        let is_Liked = postInfo.valueForString(key: CIsLiked)
-       
+
         
         if isLikesOthersPage == true {
             if postInfo.valueForString(key:"friend_liked") == "Yes"  && postInfo.valueForString(key:"is_liked") == "Yes" {
@@ -249,6 +256,19 @@ extension HomeEventImageTblCell{
         
         
         let currentDateTime = Date().timeIntervalSince1970
+        
+        //TODO: --------------Experied Event--------------
+        
+        let cnvStr5 = postInfo.valueForString(key: "end_date").stringBefore("G")
+        guard let endDate = DateFormatter.shared().convertDatereversLatestEdit(strDate: cnvStr5)  else { return}
+        guard let endDateTime = DateFormatter.shared().convertGMTtoUnix(strDate: endDate)  else { return}
+        
+        if (Double(currentDateTime) >= endDateTime){
+            self.viewtoblockaction.isHidden = false
+        }else{
+            self.viewtoblockaction.isHidden = true
+        }
+        
         if let endDateTime = postInfo.valueForDouble(key: CEvent_End_Date) {
             btnMaybe.isEnabled = Double(currentDateTime) <= endDateTime
             btnNotInterested.isEnabled = Double(currentDateTime) <= endDateTime
@@ -382,7 +402,8 @@ extension HomeEventImageTblCell{
     @IBAction func onImageTapped(_ sender:UIButton){
         let lightBoxHelper = LightBoxControllerHelper()
         weak var weakSelf = self.viewController
-        lightBoxHelper.openSingleImage(image: blurImgView.image, viewController: weakSelf)
+        //lightBoxHelper.openSingleImage(image: blurImgView.image, viewController: weakSelf)
+        lightBoxHelper.openSingleImage(image: imgEventView.image, viewController: weakSelf)
     }
     
     @IBAction func onLikePressed(_ sender:UIButton){

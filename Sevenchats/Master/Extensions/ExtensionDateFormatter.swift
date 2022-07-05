@@ -91,6 +91,40 @@ extension DateFormatter{
         return dateFormatter.string(from: convertedDate)
     }
     
+    func convertDatereversLatestEdit(strDate: String?) -> String?{
+        
+        
+        let dateFormatter = DateFormatter()
+      
+        dateFormatter.dateStyle = DateFormatter.Style.long
+        dateFormatter.dateFormat = "E MM d yyyy HH:mm:ss"
+        dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT") as TimeZone?
+        guard let convertedDate = dateFormatter.date(from: strDate ?? "") else {
+            return nil
+        }
+       
+        dateFormatter.dateFormat = "dd MMM yyyy, hh:mm a"
+        dateFormatter.timeZone = TimeZone.current
+        return dateFormatter.string(from: convertedDate)
+    }
+    
+    func convertGMTtoUnix(strDate: String) -> Double?{
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "dd MMM yyyy, hh:mm a"
+        let date = dateFormatter.date(from:strDate)!
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day, .hour], from: date)
+        let finalDate = calendar.date(from:components)
+        print(finalDate)
+        let endDateTime = finalDate!.timeIntervalSince1970
+        print(endDateTime)
+        
+        return endDateTime
+    
+    }
+    
     func convertDatereversLatestsell(strDate: String?) -> String?{
         
         let dateFormatter = DateFormatter()
