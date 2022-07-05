@@ -488,6 +488,85 @@ extension HomePollTblCell {
         onMorePressed?(sender.tag)
     }
     func getPollDetailsFromServer(postID:Int,completion:@escaping(_ success:Bool,_ resultData:[String],_ totalVotesCout:String) -> Void ) {
+            
+            guard let userID = appDelegate.loginUser?.user_id else { return }
+            APIRequest.shared().viewPostDetailLatest(postID: postID,userid: userID.description , apiKeyCall: "polls"){ [weak self] (response, error) in
+    //        APIRequest.shared().viewPollDetailNew(postID: postID){ [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil {
+                    if let Info = response!["data"] as? [[String:Any]]{
+                        for articleInfo in Info {
+                            self.totalVotesNew = articleInfo["total_count"] as? String ?? "0"
+                            self.pollIsSelected = articleInfo["is_selected"] as? String ?? ""
+                            let pollstring = articleInfo["options"] as? String
+                            let poll_Str = pollstring?.return_replaceBack(replaceBack: pollstring ?? "")
+                            let rplstr_Frirst = poll_Str?.replacingOccurrences(of: "\"", with: "")
+                            let rplstr_Second = rplstr_Frirst?.replacingOccurrences(of: "[", with: "")
+                            let rplstr_Three = rplstr_Second?.replacingOccurrences(of: "]", with: "")
+                            self.chngString = rplstr_Three
+                            let fullNameArr:[String] = self.chngString?.components(separatedBy:",") ?? []
+                            var dictionary = [String: String]()
+                            for player in fullNameArr {
+                                dictionary["poll_text"] = player
+                                self.polls.append(MDLPollOption(fromDictionary: dictionary))
+                            }
+                        }
+                    }
+                    self.arr.removeAll()
+                    
+                    var arrayData  = ["0","0","0","0"]
+                    if let data = response![CData] as? [[String:Any]]{
+                        if data.count == 1 {
+                            for datas in data{
+                                self.polls = []
+                                _ = (datas["options"] as? String ?? "" ).replace(string: "\"", replacement: "")
+                                
+                                print(datas["options"] as? String ?? "")
+                                self.pollOptionArr =  self.jsonToStringConvert(pollString:(datas["options"] as? String ?? ""))
+                                print("self.pollarra\(self.pollOptionArr)")
+                                
+                                let obj = datas["results"] as? [String : AnyObject] ?? [:]
+                                if obj.count == 1 {
+                                    self.arrPostList =  obj
+                                    for (key, value) in obj {
+                                        
+                                        let indexOfA  = self.pollOptionArr.firstIndex(of: key.components(separatedBy:.whitespacesAndNewlines).filter { $0.count > 0 }.joined(separator: " ")
+    )
+    //                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
+    //                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
+                                        if indexOfA == 0{
+                                            self.arr = ["\(value)","0","0","0"]
+                                        }else if indexOfA == 1{
+                                            self.arr = ["0","\(value)","0","0"]
+                                        }else if indexOfA == 2{
+                                            self.arr = ["0","0","\(value)","0"]
+                                        }else if indexOfA == 3{
+                                            self.arr = ["0","0","0","\(value)",]
+                                        }
+                                    }
+                                }else {
+                                    self.arrPostList =  obj
+                                    for (key, value) in obj {
+                                        let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
+    //                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
+                                        arrayData.remove(at: indexOfA ?? 0)
+                                        arrayData.insert("\(value)", at: indexOfA ?? 0)
+                                    }
+                                    self.arr += arrayData
+                                }
+                                
+                                self.dictArray = self.arr
+                                self.totalVotes = datas["total_count"] as? String ?? "0"
+                                print("TotalVotesBefore::::::\(self.totalVotes)")
+                            }
+                            completion(true,self.dictArray,self.totalVotes)
+                        }
+                        
+                    }
+                }
+            }
+        }
+   /* func getPollDetailsFromServer(postID:Int,completion:@escaping(_ success:Bool,_ resultData:[String],_ totalVotesCout:String) -> Void ) {
         
         guard let userID = appDelegate.loginUser?.user_id else { return }
         APIRequest.shared().viewPostDetailLatest(postID: postID,userid: userID.description , apiKeyCall: "polls"){ [weak self] (response, error) in
@@ -527,8 +606,11 @@ extension HomePollTblCell {
                             if obj.count == 1 {
                                 self.arrPostList =  obj
                                 for (key, value) in obj {
+                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
+
+                                  //  let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
 //                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
-                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
+//                                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
                                     if indexOfA == 0{
                                         self.arr = ["\(value)","0","0","0"]
                                     }else if indexOfA == 1{
@@ -560,7 +642,7 @@ extension HomePollTblCell {
                 }
             }
         }
-    }
+    }*/
 }
 
 extension HomePollTblCell{
@@ -581,7 +663,12 @@ extension HomePollTblCell{
         let data = pollString.data(using: .utf8)!
         do {
             if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [String]{
-                jsonStrPoll = jsonArray
+//                jsonStrPoll = jsonArray
+                jsonStrPoll.removeAll()
+                jsonArray.forEach { friends_ID in
+                 let appendArr = friends_ID.trimmingCharacters(in: .whitespacesAndNewlines)
+                 jsonStrPoll.append(appendArr)
+                 }
             } else {
                 print("bad json")
             }

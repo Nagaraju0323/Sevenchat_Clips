@@ -309,6 +309,12 @@
                                             <constraint firstAttribute="height" constant="200" id="Oag-XH-1jZ"/>
                                         </constraints>
                                     </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0lV-j3-JVk">
+                                        <rect key="frame" x="0.0" y="313" width="371" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="h7h-2Z-o1N"/>
+                                        </constraints>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9bg-Yu-PqV">
                                         <rect key="frame" x="0.0" y="313" width="371" height="200"/>
                                         <connections>
@@ -443,9 +449,13 @@
                                     <constraint firstItem="RGq-W1-RA3" firstAttribute="top" secondItem="4Ug-IH-iTC" secondAttribute="bottom" id="5DS-KL-CDK"/>
                                     <constraint firstItem="9bg-Yu-PqV" firstAttribute="trailing" secondItem="Uis-3Z-Gi6" secondAttribute="trailing" id="HYs-4N-Pye"/>
                                     <constraint firstItem="9bg-Yu-PqV" firstAttribute="bottom" secondItem="Uis-3Z-Gi6" secondAttribute="bottom" id="IK9-81-Apl"/>
+                                    <constraint firstItem="0lV-j3-JVk" firstAttribute="leading" secondItem="YLH-eD-PtT" secondAttribute="leading" id="ITG-jn-fSc"/>
                                     <constraint firstAttribute="trailing" secondItem="Eny-h4-5ka" secondAttribute="trailing" constant="8" id="Kkc-tJ-Zb1"/>
+                                    <constraint firstAttribute="trailing" secondItem="0lV-j3-JVk" secondAttribute="trailing" id="Mpf-hD-leT"/>
                                     <constraint firstAttribute="trailing" secondItem="4Ug-IH-iTC" secondAttribute="trailing" id="NV2-ZC-4uY"/>
                                     <constraint firstItem="4Ug-IH-iTC" firstAttribute="top" secondItem="YLH-eD-PtT" secondAttribute="top" id="PJq-Ty-al3"/>
+                                    <constraint firstItem="Eny-h4-5ka" firstAttribute="top" secondItem="0lV-j3-JVk" secondAttribute="bottom" constant="10" id="Sow-EB-Onl"/>
+                                    <constraint firstItem="0lV-j3-JVk" firstAttribute="top" secondItem="RGq-W1-RA3" secondAttribute="bottom" constant="8" symbolic="YES" id="XWd-DW-dbK"/>
                                     <constraint firstAttribute="trailing" secondItem="RGq-W1-RA3" secondAttribute="trailing" constant="8" id="cUL-l5-123"/>
                                     <constraint firstItem="RGq-W1-RA3" firstAttribute="leading" secondItem="YLH-eD-PtT" secondAttribute="leading" constant="8" id="ckH-lQ-YEf"/>
                                     <constraint firstItem="Uis-3Z-Gi6" firstAttribute="leading" secondItem="YLH-eD-PtT" secondAttribute="leading" id="hrf-ad-YAp"/>
@@ -489,6 +499,7 @@
                 <outlet property="btnSharedUserName" destination="Sdh-oN-lKa" id="HSU-YH-JRT"/>
                 <outlet property="btnUserName" destination="ZN5-oX-GMw" id="BEa-t1-ei6"/>
                 <outlet property="imgSharedUser" destination="oan-iC-aBe" id="HId-Uh-xnN"/>
+                <outlet property="imgSharedView" destination="0lV-j3-JVk" id="GiH-uF-JN4"/>
                 <outlet property="imgUser" destination="str-t8-7Nu" id="Bvz-Gp-1tc"/>
                 <outlet property="lblArticleCategory" destination="nJ8-rk-13U" id="tmg-kW-arP"/>
                 <outlet property="lblArticleDescription" destination="4mw-Dl-Oir" id="Gga-i5-tkE"/>

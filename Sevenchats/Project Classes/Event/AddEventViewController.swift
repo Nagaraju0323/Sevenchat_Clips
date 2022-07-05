@@ -78,9 +78,11 @@ class AddEventViewController: ParentViewController {
     
     var post_ID:String?
     var startEventChng = ""
-       var endEventChng = ""
-       var chngStringStart = ""
-       var chngStringEnd = ""
+    var endEventChng = ""
+    var chngStringStart = ""
+    var chngStringEnd = ""
+    var editPost_id = ""
+    var eventInfo = [String:Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,12 +99,29 @@ class AddEventViewController: ParentViewController {
     
     // MARK:- --------- Initialization
     func Initialization(){
+        
+        if eventType == .editEvent {
+            if eventInfo.valueForString(key: "image") != ""{
+                viewUploadedImageContainer.isHidden = false
+                viewAddImageContainer.isHidden = true
+                profileImgUrl = eventInfo.valueForString(key: "image")
+                
+            }else{
+                viewUploadedImageContainer.isHidden = true
+                viewAddImageContainer.isHidden = false
+            }
+        }else{
+            viewUploadedImageContainer.isHidden = true
+            viewAddImageContainer.isHidden = false
+        }
+        
         txtEventTitle.txtDelegate = self
         if eventType == .editEvent{
             self.loadEventDetailFromServer()
+            self.setEventDetail(eventInfo)
         }
         setQuoteText()
-        viewUploadedImageContainer.isHidden = true
+        //viewUploadedImageContainer.isHidden = true
 //        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddEventClicked(_:)))]
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddEventClicked(_:)))]
         
@@ -150,7 +169,8 @@ class AddEventViewController: ParentViewController {
         if strQuote.count > 5000{
             strQuote = strQuote[0..<5000]
         }
-        self.txtViewContent.text = strQuote
+        let str_Back = strQuote.return_replaceBack(replaceBack: strQuote)
+        self.txtViewContent.text = str_Back
         self.lblTextCount.text = "\(strQuote.count)/5000"
         
         GCDMainThread.async {
@@ -186,22 +206,32 @@ extension AddEventViewController{
         txtEventTitle.text = eventInfo.valueForString(key: CTitle)
         categoryDropDownView.txtCategory.text = eventInfo.valueForString(key: CCategory)
         txtViewContent.text = eventInfo.valueForString(key: CContent)
-        txtEventStartDate.text = DateFormatter.dateStringFrom(timestamp: eventInfo.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
-        txtEventEndDate.text = DateFormatter.dateStringFrom(timestamp: eventInfo.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
+        let created_At1 = eventInfo.valueForString(key: "start_date")
+        let cnvStr1 = created_At1.stringBefore("G")
+        guard let startCreated1 = DateFormatter.shared().convertDatereversLatestEdit(strDate: cnvStr1)  else { return}
+        let created_At2 = eventInfo.valueForString(key: "end_date")
+        let cnvStr2 = created_At2.stringBefore("G")
+        guard let startCreated2 = DateFormatter.shared().convertDatereversLatestEdit(strDate: cnvStr2) else { return}
+        txtEventStartDate.text = startCreated1
+        txtEventEndDate.text = startCreated2
+        
+       // txtEventStartDate.text = DateFormatter.dateStringFrom(timestamp: eventInfo.valueForDouble(key: CEvent_Start_Date), withFormate: CDateFormat)
+     //   txtEventEndDate.text = DateFormatter.dateStringFrom(timestamp: eventInfo.valueForDouble(key: CEvent_End_Date), withFormate: CDateFormat)
         txtLocation.text = eventInfo.valueForString(key: CEvent_Location)
         
         self.latitude = eventInfo.valueForDouble(key: "latitude") ?? 0.0
         self.longitude = eventInfo.valueForDouble(key: "longitude") ?? 0.0
         
         //...Set Event image
-        if eventInfo.valueForString(key: CImage) != "" {
-            imgEvent.loadImageFromUrl(eventInfo.valueForString(key: CImage), false)
-            self.viewAddImageContainer.isHidden = true
-            self.viewUploadedImageContainer.isHidden = false
-            self.isApiEventImage = true
-        } else {
-            self.isApiEventImage = false
-        }
+        imgEvent.loadImageFromUrl(eventInfo.valueForString(key: CPostImage), false)
+//        if eventInfo.valueForString(key: CImage) != "" {
+//            imgEvent.loadImageFromUrl(eventInfo.valueForString(key: CImage), false)
+//            self.viewAddImageContainer.isHidden = true
+//            self.viewUploadedImageContainer.isHidden = false
+//            self.isApiEventImage = true
+//        } else {
+//            self.isApiEventImage = false
+//        }
         
         //...Set invite type
         self.selectedInviteType = eventInfo.valueForInt(key: CPublish_To) ?? 3
@@ -319,6 +349,87 @@ extension AddEventViewController{
         let addevent_desc = txtViewContent.text.replace_str(replace: txtViewContent.text)
         let addevent_title = txtEventTitle.text?.replace_str(replace: txtEventTitle.text ?? "")
         //let txtAdv = txtViewContent.text.replace(string: "\n", replacement: "\\n")
+        
+        if eventType == .editEvent{
+            var dict:[String:Any] = [
+                
+                "post_id": editPost_id,
+                    "image": profileImgUrl,
+                    "post_title": addevent_title,
+                    "post_category": categoryDropDownView.txtCategory.text ?? "",
+                    "post_content": addevent_desc,
+                    "age_limit": "16",
+                    "latitude": self.latitude,
+                    "longitude": self.longitude,
+                    "start_date": startchg,
+                    "end_date": endchg,
+                    "address_line1": txtLocation.text ?? "",
+                    "targeted_audience": "",
+                    "selected_persons": "",
+                    "status_id": "1"
+            ]
+            
+            if self.selectedInviteType == 1{
+                let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
+                apiParaGroups = groupIDS.components(separatedBy: ",")
+                
+            }else if self.selectedInviteType == 2{
+                let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
+                apiParaFriends = userIDS.components(separatedBy: ",")
+            }
+            
+            if apiParaGroups.isEmpty == false {
+                dict[CTargetAudiance] = apiParaGroups
+            }else {
+                dict[CTargetAudiance] = "none"
+            }
+            
+            if apiParaFriends.isEmpty == false {
+                dict[CSelectedPerson] = apiParaFriends
+            }else {
+                dict[CSelectedPerson] = "none"
+            }
+            
+            
+            APIRequest.shared().editPost(para: dict, image: imgEvent.image, apiKeyCall: CAPITagEditevents) { [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil && error == nil{
+                    
+                    if let eventInfo = response![CJsonData] as? [String : Any]{
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(eventInfo,self.eventID, self, self.eventType == .editEvent ? .editPost : .addPost, rss_id: 0)
+                        
+                        APIRequest.shared().saveNewInterest(interestID: eventInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: eventInfo.valueForString(key: CCategory))
+                        
+                    }
+                    
+                    
+                    if let responseData = response![CJsonData] as? [[String : Any]] {
+                        for data in responseData{
+                            self.post_ID = data.valueForString(key: "post_id")
+                        }
+                    }
+                    
+                    if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                        guard let image = appDelegate.loginUser?.profile_img else { return }
+                        let stausLike = metaInfo["status"] as? String ?? "0"
+                        if stausLike == "0" {
+
+                          //  MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"event",title: self.txtEventTitle.text ?? "",name:name,icon:image, detail_text: "post_point",target_id: self.post_ID?.toInt ?? 0)
+                            
+                            MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self.eventID, self,.addPost, rss_id: 0)
+                            
+                        }
+                    }
+                    self.navigationController?.popToRootViewController(animated: true)
+                    //self.navigationController?.popViewController(animated: true)
+                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.eventType == .editEvent ? CMessageEventPostUpdated : CMessageEventPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    
+                    
+                }
+            }
+        }else{
+            
         var dict:[String:Any] = [
             "user_id":userID,
             "image":profileImgUrl,
@@ -391,11 +502,13 @@ extension AddEventViewController{
                 
             }
         }
+            
+        }
     }
     
     func loadEventDetailFromServer(){
         
-        APIRequest.shared().viewPostDetailNew(postID: self.eventID!, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in
+        APIRequest.shared().viewPostDetailNew(postID: self.editPost_id.toInt ?? 0, apiKeyCall: CAPITageventsDetials){ [weak self] (response, error) in
             guard let self = self else { return }
             if response != nil {
                 self.parentView.isHidden = false
@@ -515,6 +628,10 @@ extension AddEventViewController{
         if eventType == .editEvent && self.isApiEventImage {
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeleteImage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](action) in
                 guard let self = self else { return }
+                self.viewUploadedImageContainer.isHidden = true
+                self.viewAddImageContainer.isHidden = false
+                self.imgEvent.image = nil
+                self.profileImgUrl = ""
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
             
         } else {

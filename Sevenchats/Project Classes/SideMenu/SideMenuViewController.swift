@@ -54,6 +54,8 @@ class SideMenuViewController: ParentViewController {
             [CTitle:CSideQuotes as Any, CImage:#imageLiteral(resourceName: "ic_quotes"), CImageSelected:#imageLiteral(resourceName: "ic_quotes"), kNotificationCount:0],
             [CTitle:CMyRewards as Any, CImage:#imageLiteral(resourceName: "ic_rewards"), CImageSelected:#imageLiteral(resourceName: "ic_rewards"), kNotificationCount:0],
             [CTitle:CSideFavWebSites as Any, CImage:#imageLiteral(resourceName: "ic_favorite"), CImageSelected:#imageLiteral(resourceName: "ic_favorite"), kNotificationCount:0],
+            [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
+            [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
             [CTitle:CSideSettings as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
             [CTitle:CSideLogout as Any, CImage:#imageLiteral(resourceName: "ic_logout"), CImageSelected:#imageLiteral(resourceName: "ic_logout"), kNotificationCount:0]
         ]
@@ -146,6 +148,8 @@ extension SideMenuViewController {
             [CTitle:CSideQuotes as Any, CImage:#imageLiteral(resourceName: "ic_quotes"), CImageSelected:#imageLiteral(resourceName: "ic_quotes"), kNotificationCount:0],
             [CTitle:CMyRewards as Any, CImage:#imageLiteral(resourceName: "ic_rewards"), CImageSelected:#imageLiteral(resourceName: "ic_rewards"), kNotificationCount:0],
             [CTitle:CSideFavWebSites as Any, CImage:#imageLiteral(resourceName: "ic_favorite"), CImageSelected:#imageLiteral(resourceName: "ic_favorite"), kNotificationCount:0],
+            [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
+            [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
             [CTitle:CSideSettings as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
             [CTitle:CSideLogout as Any, CImage:#imageLiteral(resourceName: "ic_logout"), CImageSelected:#imageLiteral(resourceName: "ic_logout"), kNotificationCount:0]
         ]
@@ -357,6 +361,19 @@ extension SideMenuViewController : UITableViewDataSource, UITableViewDelegate {
                     appDelegate.hideSidemenu()
                 }
             }
+            break
+        case CSidePostAds:
+            self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessagePostAds, btnOneTitle: CBtnCancel, btnOneTapped: { [weak self](alert) in
+                guard let _ = self else { return }
+            }, btnTwoTitle: CBtnGoToWebsite, btnTwoTapped:  { [weak self] (alert) in
+                guard let _ = self else { return }
+                if UIApplication.shared.canOpenURL(URL(string: CWebSiteLink)!){
+                    UIApplication.shared.open(URL(string: CWebSiteLink)!, options: [:], completionHandler: nil)
+                }})
+            break
+        case CSideEventCalendar:
+            appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardEvent.instantiateViewController(withIdentifier: "EventListViewController"))
+            appDelegate.hideSidemenu()
             break
         case CSideSettings:
             appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardSetting.instantiateViewController(withIdentifier: "SettingViewController"))

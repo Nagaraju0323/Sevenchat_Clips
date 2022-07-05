@@ -101,7 +101,7 @@ class AboutUsViewController: ParentViewController {
                 //Modified Code
                 var aboutus : Bool?
                 switch self.cmsType.rawValue {
-                    dispatchq
+                    
                 
                 case CMSType.aboutUS.rawValue :
                     if let index = self.titles.firstIndex(of: "aboutus") {

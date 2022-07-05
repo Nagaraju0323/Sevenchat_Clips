@@ -419,13 +419,13 @@ extension ImageDetailViewController: UICollectionViewDelegate, UICollectionViewD
         if (mediaType == "video") || (mediaType == "vidoe"){
             if let url = URL(string: imgInfo) {
                 if let thumbnailImage = getThumbnailImage(forUrl: url) {
-                    cell.blurImgView.image = thumbnailImage
+                    cell.ImgView.image = thumbnailImage
                 }
             }
             cell.imgVideoIcon.isHidden =  false
         }else {
-            cell.blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
-            cell.blurImgView.loadImageFromUrl(imgInfo, false)
+           // cell.blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+            cell.ImgView.loadImageFromUrl(imgInfo, false)
             cell.imgVideoIcon.isHidden =  true
         }
         

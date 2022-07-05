@@ -74,6 +74,9 @@ class AddMediaViewController: ParentViewController {
     var imgUpoloadUrl = ""
     var imageString = ""
     var post_ID:String?
+    var editPost_id = ""
+    var galleryInfo = [String:Any]()
+    var content = [String:Any]()
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -168,7 +171,56 @@ extension AddMediaViewController {
     
     
     fileprivate func loadGalleryDetailFromServer(){
-        if let imgID = self.imgPostId{
+        
+        self.categoryDropDownView.txtCategory.text = galleryInfo.valueForString(key: CCategory)
+
+        let arrGallerys = galleryInfo.valueForString(key: "image")
+        let dict = arrGallerys.convertToDictionary()
+        let arrDictGallery = dict ?? []
+        print("arrGallerys\(arrDictGallery)")
+        for imgData in arrDictGallery {
+           
+            let imgID = imgData.valueForString(key: CId)
+            let media = MDLAddMedia(mediaID: imgID)
+            media.isFromGallery = false
+            media.uploadMediaStatus = .Succeed
+            media.assetType = AssetTypes(rawValue: imgData.valueForInt(key: CType) ?? 0) ?? AssetTypes.Image
+            if media.assetType == .Video ||  imgData.valueForString(key: "mime") == "video"{
+                media.serverImgURL = imgData.valueForString(key: "image_path")
+                media.url = imgData.valueForString(key: "image_path")
+            }else{
+                media.serverImgURL = imgData.valueForString(key: "image_path")
+                print("imagepath:::::::",imgData.valueForString(key: "image_path"))
+            }
+            self.arrMedia.append(media)
+          //  self.arrImagesVideo.append(imgData.valueForString(key: "image_path"))
+        }
+        
+        
+//        for imgData in arrImg{
+//            let imgID = imgData.valueForString(key: CId)
+//            let media = MDLAddMedia(mediaID: imgID)
+//            media.isFromGallery = false
+//            media.uploadMediaStatus = .Succeed
+//            media.assetType = AssetTypes(rawValue: imgData.valueForInt(key: CType) ?? 0) ?? AssetTypes.Image
+//            if media.assetType == .Video{
+//                media.serverImgURL = imgData.valueForString(key: CThumbNail)
+//                media.url = imgData.valueForString(key: CImage)
+//            }else{
+//                media.serverImgURL = imgData.valueForString(key: CImage)
+//            }
+//            self.arrMedia.append(media)
+//        }
+//        GCDMainThread.async {
+//            self.colVMedia.reloadData()
+//        }
+        
+        
+        
+        
+    
+        
+   /*     if let imgID = self.imgPostId{
             
             APIRequest.shared().viewPostDetailNew(postID: imgID, apiKeyCall: CAPITagsgalleryDetials){ [weak self] (response, error) in
                 //  APIRequest.shared().viewPostDetail(postID: shouID) { [weak self] (response, error) in
@@ -232,7 +284,7 @@ extension AddMediaViewController {
                     }
                 }
             }
-        }
+        }*/
     }
     fileprivate func addEditImagePost(){
         
@@ -262,6 +314,73 @@ extension AddMediaViewController {
             
         } catch { print(error) }
         guard let userID = appDelegate.loginUser?.user_id else { return }
+        
+        
+        
+        if imagePostType == .editImagePost{
+            var dict :[String:Any]  =  [
+                "post_id": editPost_id,
+                  "post_category":categoryDropDownView.txtCategory.text ?? "",
+                  "images":imgUpoloadUrl,
+                  "targeted_audience":"",
+                  "selected_persons":"",
+                   "status_id": "1"
+            ]
+            if self.selectedInviteType == 1{
+                let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
+                apiParaGroups = groupIDS.components(separatedBy: ",")
+                
+            }else if self.selectedInviteType == 2{
+                let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
+                apiParaFriends = userIDS.components(separatedBy: ",")
+            }
+            
+            if apiParaGroups.isEmpty == false {
+                dict[CTargetAudiance] = apiParaGroups
+            }else {
+                dict[CTargetAudiance] = "none"
+            }
+            
+            if apiParaFriends.isEmpty == false {
+                dict[CSelectedPerson] = apiParaFriends
+            }else {
+                dict[CSelectedPerson] = "none"
+            }
+            
+            APIRequest.shared().editPost(para: dict, image: nil, apiKeyCall: CAPITagEditgallery) { [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil && error == nil{
+                    
+                    if let responseData = response![CJsonData] as? [[String : Any]] {
+                        for data in responseData{
+                            self.post_ID = data.valueForString(key: "post_id")
+                        }
+                    }
+                    
+                    if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                        guard let image = appDelegate.loginUser?.profile_img else { return }
+                        let stausLike = metaInfo["status"] as? String ?? "0"
+                        if stausLike == "0" {
+                            
+                            MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"gallery",title: self.categoryDropDownView.txtCategory.text!,name:name,icon:image, detail_text: "post_point", target_id: self.post_ID?.toInt ?? 0)
+                            
+                            MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self.imgPostId, self,.addPost, rss_id: 0)
+                            
+                        }
+                    }
+                    
+                    if let imgInfo = response![CJsonData] as? [String : Any]{
+                        //                    MIGeneralsAPI.shared().refreshPostRelatedScreens(imgInfo,self.imgPostId, self, self.imagePostType == .editImagePost ? .editPost : .addPost, rss_id: 0)
+                        
+                        APIRequest.shared().saveNewInterest(interestID: imgInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: imgInfo.valueForString(key: CCategory))
+                    }
+                    self.navigationController?.popToRootViewController(animated: true)
+                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.imagePostType == .editImagePost ? CMessageImagePostUpdated : CGalleryHasBeenPosted, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                }
+            }
+        }else{
+        
         var dict :[String:Any]  =  [
             "user_id":userID.description,
             "post_category":categoryDropDownView.txtCategory.text ?? "",
@@ -321,7 +440,7 @@ extension AddMediaViewController {
             }
         }
     }
-    
+    }
 }
 
 
@@ -360,11 +479,46 @@ extension AddMediaViewController: UICollectionViewDelegate, UICollectionViewData
                 guard let _ = self else {return}
                 if (self?.imagePostType == .editImagePost) {
                     self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAreYouSureToDeleteThisMedia, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
-                        let obj = self?.arrMedia[sender.tag]
-                        if let mediaId = obj?.mediaID{
-                            self?.arrDeletedApiImages.append(mediaId)
-                        }
+//                        let obj = self?.arrMedia[sender.tag]
+//                        if let mediaId = obj?.mediaID{
+//                            self?.arrDeletedApiImages.append(mediaId)
+//                        }
+//                        self?.arrMedia.remove(at: sender.tag)
+//                        self?.colVMedia.reloadData()
+                        
                         self?.arrMedia.remove(at: sender.tag)
+                        for mediafile in self?.arrMedia ?? [] {
+                            
+                            let imgExt = mediafile.serverImgURL ?? "".fileExtension()
+                            
+                            if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
+                                self?.content = [
+                                    "mime": "video",
+                                    "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                    "image_path":mediafile.serverImgURL ?? ""
+                                ]
+                            }else {
+                                self?.content = [
+                                    "mime": "image",
+                                    "media": "http://localhost:3000/589fd493-401f-4c7c-867c-1938e16d7b68",
+                                    "image_path":mediafile.serverImgURL ?? ""
+                                ]
+                                
+                                do {
+                                    let jsonData = try JSONSerialization.data(withJSONObject: self?.content as Any, options: .prettyPrinted)
+                                    let jsonString = String(data: jsonData, encoding: String.Encoding.ascii)
+                                    let trimmedString = jsonString?.components(separatedBy: .whitespacesAndNewlines).joined()
+                                    let replaced1 = trimmedString?.replacingOccurrences(of: "\\", with: "")
+                                    //                                        print("replace1\(replaced1)")
+                                    self?.imageString = replaced1!
+                                } catch {
+                                    print(error.localizedDescription)
+                                }
+                            }
+                            self?.arrImagesVideo.append(self?.imageString ?? "")
+                            
+                        }
+
                         self?.colVMedia.reloadData()
                         
                     }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
@@ -1164,4 +1318,3 @@ extension AddMediaViewController{
         return arrCategory
     }
 }
-

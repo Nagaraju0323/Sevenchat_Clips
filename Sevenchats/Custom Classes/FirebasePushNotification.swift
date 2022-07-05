@@ -206,7 +206,8 @@ extension FirebasePushNotification {
                         userDetailVC.notifcationStatus = true
                         userDetailVC.iObject = postInfo
                         userDetailVC.isCreateNewChat = true
-                        userDetailVC.self.userID = userID.toInt
+                        let userid = dict.valueForString(key: "sender_id") as? String ?? ""
+                        userDetailVC.self.userID = userid.toInt
                         //                        userDetailVC.userID = notificationInfo.valueForInt(key: CFriendId)
                         appDelegate.getTopMostViewController().navigationController?.pushViewController(userDetailVC, animated: true)
                     }

@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -394,7 +395,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Enter start date &amp; time"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calender" translatesAutoresizingMaskIntoConstraints="NO" id="eOt-lF-wM0">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eOt-lF-wM0">
                                                         <rect key="frame" x="330" y="425" width="25" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="25" id="gIY-Xw-soZ"/>
@@ -412,7 +413,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Enter end date &amp; time"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calender" translatesAutoresizingMaskIntoConstraints="NO" id="ssQ-zS-kBI">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ssQ-zS-kBI">
                                                         <rect key="frame" x="330" y="490" width="25" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="ssQ-zS-kBI" secondAttribute="height" multiplier="1:2" id="W21-Ra-Nbd"/>
@@ -844,18 +845,26 @@ Declined</string>
                                                                                         <constraint firstAttribute="height" constant="40" id="bt3-pH-Qs8"/>
                                                                                     </constraints>
                                                                                 </stackView>
+                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DX1-Zn-s1V">
+                                                                                    <rect key="frame" x="0.0" y="81" width="335" height="43"/>
+                                                                                    <color key="backgroundColor" systemColor="placeholderTextColor"/>
+                                                                                </view>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
+                                                                                <constraint firstAttribute="trailing" secondItem="DX1-Zn-s1V" secondAttribute="trailing" id="4vk-jm-E1m"/>
                                                                                 <constraint firstItem="fxw-ln-r46" firstAttribute="top" secondItem="YhA-bN-bfK" secondAttribute="bottom" constant="5" id="AV7-kZ-SvS"/>
                                                                                 <constraint firstItem="lVV-fw-9Nj" firstAttribute="leading" secondItem="IbP-0v-eDb" secondAttribute="leading" id="DK5-1e-f56"/>
                                                                                 <constraint firstAttribute="bottom" secondItem="lVV-fw-9Nj" secondAttribute="bottom" id="GJd-aq-bPo"/>
                                                                                 <constraint firstItem="lVV-fw-9Nj" firstAttribute="top" secondItem="bpM-Lc-Exe" secondAttribute="bottom" constant="10" id="L4X-dQ-5FQ"/>
                                                                                 <constraint firstItem="bpM-Lc-Exe" firstAttribute="leading" secondItem="IbP-0v-eDb" secondAttribute="leading" id="WNb-yO-g9D"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="lVV-fw-9Nj" secondAttribute="trailing" id="eLY-gU-kgu"/>
+                                                                                <constraint firstItem="DX1-Zn-s1V" firstAttribute="leading" secondItem="IbP-0v-eDb" secondAttribute="leading" id="jiV-vY-efK"/>
                                                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YhA-bN-bfK" secondAttribute="trailing" constant="10" id="oCi-zi-ABz"/>
+                                                                                <constraint firstItem="DX1-Zn-s1V" firstAttribute="centerY" secondItem="lVV-fw-9Nj" secondAttribute="centerY" id="tVU-XO-MME"/>
                                                                                 <constraint firstItem="YhA-bN-bfK" firstAttribute="leading" secondItem="IbP-0v-eDb" secondAttribute="leading" id="tqM-Ls-BVe"/>
                                                                                 <constraint firstItem="fxw-ln-r46" firstAttribute="leading" secondItem="YhA-bN-bfK" secondAttribute="leading" id="vqb-Jv-orr"/>
+                                                                                <constraint firstItem="DX1-Zn-s1V" firstAttribute="top" secondItem="bpM-Lc-Exe" secondAttribute="bottom" constant="8.5" id="x61-hg-03G"/>
                                                                                 <constraint firstItem="YhA-bN-bfK" firstAttribute="top" secondItem="IbP-0v-eDb" secondAttribute="top" id="xtL-RV-jBN"/>
                                                                                 <constraint firstItem="bpM-Lc-Exe" firstAttribute="top" secondItem="fxw-ln-r46" secondAttribute="bottom" constant="5" id="ycM-xD-M02"/>
                                                                             </constraints>
@@ -1193,11 +1202,12 @@ Declined</string>
                         <outlet property="txtViewComment" destination="lnQ-fu-b4H" id="KmV-fn-4CI"/>
                         <outlet property="viewCommentContainer" destination="cDy-NK-N2W" id="fIV-Wv-O1o"/>
                         <outlet property="viewUserSuggestion" destination="kUW-u7-bwd" id="N7c-rW-uJz"/>
+                        <outlet property="viewtoblockaction" destination="DX1-Zn-s1V" id="dsV-ue-uJS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g5K-pE-6oi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1096.8" y="43.178410794602705"/>
+            <point key="canvasLocation" x="1096.376811594203" y="42.857142857142854"/>
         </scene>
         <!--Event Invitees View Controller-->
         <scene sceneID="6dn-e0-Kga">
@@ -1584,6 +1594,10 @@ Declined</string>
                                                                                         <constraint firstAttribute="height" constant="40" id="VW9-x8-vAQ"/>
                                                                                     </constraints>
                                                                                 </stackView>
+                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K0b-jq-F8A">
+                                                                                    <rect key="frame" x="0.0" y="81" width="335" height="43"/>
+                                                                                    <color key="backgroundColor" systemColor="placeholderTextColor"/>
+                                                                                </view>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
@@ -1594,6 +1608,10 @@ Declined</string>
                                                                                 <constraint firstItem="Tau-5h-DMF" firstAttribute="top" secondItem="4aY-Om-1nf" secondAttribute="bottom" constant="5" id="XkN-l5-WIG"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="lKa-RL-buw" secondAttribute="trailing" id="YBT-Y2-vca"/>
                                                                                 <constraint firstAttribute="bottom" secondItem="lKa-RL-buw" secondAttribute="bottom" id="gCN-Pf-Zy6"/>
+                                                                                <constraint firstItem="K0b-jq-F8A" firstAttribute="top" secondItem="Tau-5h-DMF" secondAttribute="bottom" constant="8.5" id="h77-SU-Hiv"/>
+                                                                                <constraint firstItem="K0b-jq-F8A" firstAttribute="centerY" secondItem="lKa-RL-buw" secondAttribute="centerY" id="hXA-dS-7ww"/>
+                                                                                <constraint firstAttribute="trailing" secondItem="K0b-jq-F8A" secondAttribute="trailing" id="l5b-1E-awz"/>
+                                                                                <constraint firstItem="K0b-jq-F8A" firstAttribute="leading" secondItem="nuP-f0-zle" secondAttribute="leading" id="n1q-WU-bKX"/>
                                                                                 <constraint firstItem="4aY-Om-1nf" firstAttribute="top" secondItem="TGZ-IU-AS9" secondAttribute="bottom" constant="5" id="o06-IR-xN2"/>
                                                                                 <constraint firstItem="lKa-RL-buw" firstAttribute="leading" secondItem="nuP-f0-zle" secondAttribute="leading" id="sbA-di-K7w"/>
                                                                                 <constraint firstItem="TGZ-IU-AS9" firstAttribute="top" secondItem="nuP-f0-zle" secondAttribute="top" id="uZ5-nO-OeX"/>
@@ -1607,6 +1625,12 @@ Declined</string>
                                                                                 <constraint firstAttribute="height" constant="200" id="vVi-3O-if7"/>
                                                                             </constraints>
                                                                         </view>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RkV-Sf-hco">
+                                                                            <rect key="frame" x="8" y="295" width="333" height="202"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="202" id="fNB-0T-ZfY"/>
+                                                                            </constraints>
+                                                                        </imageView>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVn-Km-t8i">
                                                                             <rect key="frame" x="8" y="297" width="335" height="200"/>
                                                                         </button>
@@ -1750,12 +1774,15 @@ Declined</string>
                                                                         <constraint firstItem="hKb-7U-u10" firstAttribute="top" secondItem="nuP-f0-zle" secondAttribute="bottom" constant="10" id="5jX-Ap-kTu"/>
                                                                         <constraint firstItem="Rlr-DL-Tus" firstAttribute="leading" secondItem="J56-h9-9C6" secondAttribute="leading" constant="8" id="67C-54-VaR"/>
                                                                         <constraint firstItem="zgd-Au-ae9" firstAttribute="trailing" secondItem="qhI-Wh-dzy" secondAttribute="trailing" id="69j-o8-BDu"/>
+                                                                        <constraint firstItem="okl-dE-TsF" firstAttribute="top" secondItem="RkV-Sf-hco" secondAttribute="bottom" constant="10" id="6Ej-Mx-UEK"/>
                                                                         <constraint firstItem="8Ms-WR-e0j" firstAttribute="height" secondItem="0l3-5E-DwV" secondAttribute="height" id="6qZ-KI-HR1"/>
                                                                         <constraint firstItem="5XO-5E-ERU" firstAttribute="leading" secondItem="0l3-5E-DwV" secondAttribute="trailing" constant="8" id="AzE-g4-1Z7"/>
                                                                         <constraint firstItem="nuP-f0-zle" firstAttribute="top" secondItem="Dgu-qx-mXM" secondAttribute="bottom" constant="8" id="D4i-rV-IOE"/>
+                                                                        <constraint firstItem="RkV-Sf-hco" firstAttribute="leading" secondItem="J56-h9-9C6" secondAttribute="leading" constant="8" id="GFU-9d-FAa"/>
                                                                         <constraint firstItem="hKb-7U-u10" firstAttribute="leading" secondItem="J56-h9-9C6" secondAttribute="leading" constant="8" id="Isx-eu-Rxa"/>
                                                                         <constraint firstItem="MVn-Km-t8i" firstAttribute="bottom" secondItem="hKb-7U-u10" secondAttribute="bottom" id="IxR-4R-AJ1"/>
                                                                         <constraint firstItem="nuP-f0-zle" firstAttribute="leading" secondItem="J56-h9-9C6" secondAttribute="leading" constant="8" id="KpK-Tg-Cm6"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="RkV-Sf-hco" secondAttribute="trailing" constant="10" id="Lcc-1j-GjI"/>
                                                                         <constraint firstItem="Dgu-qx-mXM" firstAttribute="top" secondItem="Rlr-DL-Tus" secondAttribute="bottom" constant="8" id="Mk3-9U-MZI"/>
                                                                         <constraint firstItem="9dX-A9-2dM" firstAttribute="top" secondItem="0l3-5E-DwV" secondAttribute="bottom" constant="15" id="N3K-Rf-fWJ"/>
                                                                         <constraint firstItem="Aia-KG-Dxb" firstAttribute="top" secondItem="QDs-UK-lvt" secondAttribute="bottom" constant="5" id="N3m-58-IZk"/>
@@ -1771,6 +1798,7 @@ Declined</string>
                                                                         <constraint firstItem="8Ms-WR-e0j" firstAttribute="centerX" secondItem="0l3-5E-DwV" secondAttribute="centerX" id="cLM-VC-7uX"/>
                                                                         <constraint firstAttribute="trailing" secondItem="okl-dE-TsF" secondAttribute="trailing" constant="8" id="drn-CE-nSy"/>
                                                                         <constraint firstItem="QDs-UK-lvt" firstAttribute="top" secondItem="9dX-A9-2dM" secondAttribute="top" id="gve-ni-8Vn"/>
+                                                                        <constraint firstItem="RkV-Sf-hco" firstAttribute="top" secondItem="nuP-f0-zle" secondAttribute="bottom" constant="8" symbolic="YES" id="hff-lk-b5e"/>
                                                                         <constraint firstItem="0l3-5E-DwV" firstAttribute="leading" secondItem="J56-h9-9C6" secondAttribute="leading" constant="8" id="ioc-tM-v86"/>
                                                                         <constraint firstItem="MVn-Km-t8i" firstAttribute="trailing" secondItem="hKb-7U-u10" secondAttribute="trailing" id="jyq-pM-u3j"/>
                                                                         <constraint firstItem="QDs-UK-lvt" firstAttribute="leading" secondItem="9dX-A9-2dM" secondAttribute="trailing" constant="15" id="kX4-3Y-mhE"/>
@@ -1935,6 +1963,7 @@ Declined</string>
                         <outlet property="btnShare" destination="W6S-8Q-hJu" id="rlX-ok-M71"/>
                         <outlet property="btnUserName" destination="zgd-Au-ae9" id="iyA-Cf-q1s"/>
                         <outlet property="cnTextViewHeight" destination="nq9-8R-fbF" id="fA2-bS-WV4"/>
+                        <outlet property="imgEventView" destination="RkV-Sf-hco" id="C80-v4-51w"/>
                         <outlet property="imgUser" destination="0l3-5E-DwV" id="hWZ-x9-ndK"/>
                         <outlet property="lblEndDate" destination="68l-2G-Hm7" id="mU3-Lf-3mc"/>
                         <outlet property="lblEventAddress" destination="xmj-wg-KUT" id="r56-Gf-NDl"/>
@@ -1953,11 +1982,12 @@ Declined</string>
                         <outlet property="txtViewComment" destination="yVM-N7-scv" id="sgq-8w-kyA"/>
                         <outlet property="viewCommentContainer" destination="kOd-80-ckc" id="RrT-4d-Itk"/>
                         <outlet property="viewUserSuggestion" destination="LIS-5c-Tb1" id="9xF-99-Req"/>
+                        <outlet property="viewtoblockaction" destination="K0b-jq-F8A" id="kr7-Bs-fW6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YlE-jD-J1G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1758" y="42"/>
+            <point key="canvasLocation" x="1757.2463768115942" y="41.517857142857139"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Ynq-Q9-zbg">
@@ -2284,7 +2314,7 @@ Declined</string>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Enter start date &amp; time"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calender" translatesAutoresizingMaskIntoConstraints="NO" id="7dN-NW-rlf">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7dN-NW-rlf">
                                                         <rect key="frame" x="330" y="540" width="25" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="25" id="XMD-n9-5ge"/>
@@ -2302,7 +2332,7 @@ Declined</string>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Enter end date &amp; time"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calender" translatesAutoresizingMaskIntoConstraints="NO" id="68S-MR-lyq">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="68S-MR-lyq">
                                                         <rect key="frame" x="330" y="605" width="25" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="68S-MR-lyq" secondAttribute="height" multiplier="1:2" id="1eh-ir-JF0"/>
@@ -2451,7 +2481,6 @@ Declined</string>
         </scene>
     </scenes>
     <resources>
-        <image name="ic_calender" width="32" height="29.5"/>
         <image name="ic_close_add" width="18" height="18"/>
         <image name="ic_comment_count" width="15" height="15"/>
         <image name="ic_comment_send" width="30" height="30"/>
@@ -2477,5 +2506,8 @@ Declined</string>
         <namedColor name="AppDefault">
             <color red="0.0" green="0.75294117647058822" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

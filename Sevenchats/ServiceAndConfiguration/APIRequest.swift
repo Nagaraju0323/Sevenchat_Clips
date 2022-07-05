@@ -85,34 +85,34 @@ let BASEURLMINIO: String = "https://stg.sevenchats.com:3443"
 //Sevenchats
 
 
-var BASEURLNEW: String      =   "https://sevenchats.com/admin/"
-let BASEMSGURL:String       =   "https://sevenchats.com/"
-var BASEMASTERURL           = "https://sevenchats.com/auth/"
-var BASEURLCHATLASTMSG: String   =  "https://sevenchats.com/"
-var BASEURLOTP: String     =   "https://sevenchats.com/"
-var BASEEMAILOTP:String    =   "https://sevenchats.com/"
-var BASEAUTH:String         =   "https://sevenchats.com/"
-var BASEURLNOTIFICATION: String  = "https://sevenchats.com/"
-var BASEURLSENDNOTIF : String  =  "https://sevenchats.com/"
-let SocketIoUrl = "https://sevenchats.com/ws-chat/websocket/"
-let BASEURLSOCKETNOTF: String = "https://sevenchats.com/"
-let BASEURL_Rew: String = "https://sevenchats.com/"
+//var BASEURLNEW: String      =   "https://sevenchats.com/admin/"
+//let BASEMSGURL:String       =   "https://sevenchats.com/"
+//var BASEMASTERURL           = "https://sevenchats.com/auth/"
+//var BASEURLCHATLASTMSG: String   =  "https://sevenchats.com/"
+//var BASEURLOTP: String     =   "https://sevenchats.com/"
+//var BASEEMAILOTP:String    =   "https://sevenchats.com/"
+//var BASEAUTH:String         =   "https://sevenchats.com/"
+//var BASEURLNOTIFICATION: String  = "https://sevenchats.com/"
+//var BASEURLSENDNOTIF : String  =  "https://sevenchats.com/"
+//let SocketIoUrl = "https://sevenchats.com/ws-chat/websocket/"
+//let BASEURLSOCKETNOTF: String = "https://sevenchats.com/"
+//let BASEURL_Rew: String = "https://sevenchats.com/"
 
 //Beta server
 
-//var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
-//let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
-//var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
-//var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
-//var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
-//var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
-//var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
-//var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
-//var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
-//let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
-//let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
-//let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
-//
+var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
+let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
+var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
+var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
+var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
+var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
+var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
+var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
+var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
+let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
+let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
+let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
+
 //let BASEURL_Rew: String = "QAY"
 
 
@@ -297,6 +297,15 @@ let CAPITagforums = "forums/add"
 let CAPITagshouts = "shouts/add"
 let CAPITagsgallery = "galleries/add"
 let CAPITagpolls = "polls/add"
+
+let CAPITagEditarticles = "articles/update"
+let CAPITagEditchirpies = "chirpies/update"
+let CAPITagEditevents = "events/update"
+let CAPITagEditforums = "forums/update"
+let CAPITagEditshouts = "shouts/update"
+let CAPITagEditgallery = "galleries/update"
+let CAPITagEditpolls = "polls/update"
+
 let CAPITagshared = "internalsharing"
 let CProductListNew = "products"
 let CPollUsers = "polls/users"
@@ -2661,6 +2670,34 @@ extension APIRequest {
             }
         })
     }
+    
+    
+    
+    func editPost(para : [String : Any], image : UIImage?,apiKeyCall: String, completion : @escaping ClosureCompletion) {
+        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        print("print\(para)")
+        var CAPITagurl = ""
+        if CAPITagEditarticles == apiKeyCall || CAPITagEditchirpies == apiKeyCall || CAPITagEditevents == apiKeyCall  || CAPITagEditforums == apiKeyCall || CAPITagEditgallery == apiKeyCall || CAPITagpolls == apiKeyCall  || CAPITagEditshouts == apiKeyCall{
+            CAPITagurl = apiKeyCall
+        }
+       _ = Networking.sharedInstance.PUTJSON(apiTag:CAPITagurl , param: para, successBlock: { (task, response) in
+       // _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagurl, param: para, successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            
+            //            self.saveUserDetail(response: response as! [String : AnyObject])
+            completion(response, nil)
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagurl, error: error)
+            }
+        })
+    }
+    
     func addEditPost(para : [String : Any], image : UIImage?,apiKeyCall: String, completion : @escaping ClosureCompletion) {
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         print("print\(para)")

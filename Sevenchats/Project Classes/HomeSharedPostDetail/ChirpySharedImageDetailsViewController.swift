@@ -44,7 +44,7 @@ class ChirpySharedImageDetailsViewController: ParentViewController {
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var txtViewComment : GenericTextView!
     @IBOutlet weak var cnTextViewHeight : NSLayoutConstraint!
-    //@IBOutlet weak var imgChirpy : UIImageView!
+   @IBOutlet weak var imgChirpy : UIImageView!
     @IBOutlet weak var blurImgView : BlurImageView!
     
     @IBOutlet weak var btnChirpyImg : UIButton!
@@ -151,7 +151,8 @@ class ChirpySharedImageDetailsViewController: ParentViewController {
         self.btnChirpyImg.touchUpInside(genericTouchUpInsideHandler: { [weak self](_) in
             let lightBoxHelper = LightBoxControllerHelper()
             //lightBoxHelper.openSingleImageFromURL(imgURL: self?.chirpyImgURL, viewController: self?.viewController)
-            lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self?.viewController)
+//            lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self?.viewController)
+            lightBoxHelper.openSingleImage(image: self?.imgChirpy.image, viewController: self?.viewController)
         })
         
     }
@@ -273,7 +274,8 @@ extension ChirpySharedImageDetailsViewController{
             let str_Back_desc = chirInfo.valueForString(key: CContent).return_replaceBack(replaceBack: chirInfo.valueForString(key: CContent))
             lblChirpyDescription.text = str_Back_desc
             let image = chirInfo.valueForString(key: "image")
-            blurImgView.loadImageFromUrl(chirInfo.valueForString(key: Cimages), false)
+//            blurImgView.loadImageFromUrl(chirInfo.valueForString(key: Cimages), false)
+            imgChirpy.loadImageFromUrl(chirInfo.valueForString(key: Cimages), false)
 //            if image.isEmpty {
 //                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
 //            }else{

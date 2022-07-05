@@ -45,6 +45,7 @@ class HomeViewController: ParentViewController {
     var postTypeDelete = ""
     var dict = [String:Any]()
     var shoutsType : ShoutsType!
+    var endTimeDate : Double?
     
 
     override func viewDidLoad() {
@@ -115,8 +116,10 @@ class HomeViewController: ParentViewController {
 //        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
         
 //        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
-        
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
+//********************************** LANGUAGE *****************************************************************
+      //  self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_home_btn_language"), style: .plain, target: self, action: #selector(btnTranslateClicked(_:))),navSearchbtn]
+ //***************************************************************************************************
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_chat_white"), style: .plain, target: self, action: #selector(btnChatClicked(_:))),navSearchbtn]
         
         tblEvents.estimatedRowHeight = 250;
         tblEvents.rowHeight = UITableView.automaticDimension;
@@ -2455,6 +2458,7 @@ extension HomeViewController {
         let postId = sharePostData[CId] as? Int ?? 0
         let postType = postInfo.valueForInt(key: CPostType)
         let currentDateTime = Date().timeIntervalSince1970
+        
         if let endDateTime = postInfo.valueForDouble(key: CEvent_End_Date), (postType == CStaticEventId), (Double(currentDateTime) > endDateTime) {
             self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
                 
@@ -2509,89 +2513,122 @@ extension HomeViewController {
             }
         }
     }
+    
+    //TODO: --------------EDIT POST--------------
+    
+    
     fileprivate func btnMoreCLK(_ index : Int?, _ postInfo : [String : Any]){
         let postId = postInfo.valueForInt(key: CId)
         
-        let postType = postInfo.valueForInt(key: CPostType)
+        let postType = postInfo.valueForString(key: "type")
         let currentDateTime = Date().timeIntervalSince1970
+        let postID = postInfo.valueForString(key: "user_id")
         
         let userID = appDelegate.loginUser?.user_id.description
         
-        if userID == postInfo.valueForString(key: "user_id"){
+       /* if userID == postInfo.valueForString(key: "user_id"){
             self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (alert) in
                 guard let _ = self else { return }
                 let postID = postInfo.valueForString(key: "user_id")
                 // self?.deletePost(postID, index, postType as! String)
                 self?.deletePostNew(postID.toInt ?? 0, index ?? 0 , postInfo)
             }
+        }*/
+        //  if let endDateTime = postInfo.valueForDouble(key: "end_date"), (postType == CStaticEventIdNew), (Double(currentDateTime) > endDateTime) {
+        
+        if postInfo.valueForString(key: "end_date") != ""{
+            let cnvStr1 = postInfo.valueForString(key: "end_date").stringBefore("G")
+            guard let endDate = DateFormatter.shared().convertDatereversLatestEdit(strDate: cnvStr1)  else { return}
+            guard let endDate = DateFormatter.shared().convertGMTtoUnix(strDate: endDate)  else { return}
+            endTimeDate = endDate
         }
         
-//        if let endDateTime = postInfo.valueForDouble(key: CEvent_End_Date), (postType == CStaticEventId), (Double(currentDateTime) > endDateTime) {
-//
-//            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
-//
-//                guard let `self` = self else { return }
-//                self.deletePost(postId ?? 0, index ?? 0)
-//            }
-//        } else {
-//
-//            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self](alert) in
-//                guard let _ = self else { return }
-//                switch postInfo.valueForInt(key: CPostType){
-//                case CStaticArticleId:
-//                    if let addArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddArticleViewController") as? AddArticleViewController{
-//                        addArticleVC.articleType = .editArticle
-//                        addArticleVC.articleID = postId
-//                        self?.navigationController?.pushViewController(addArticleVC, animated: true)
-//                    }
-//                case CStaticGalleryId:
-//                    /*if let galleyVC = CStoryboardImage.instantiateViewController(withIdentifier: "GalleryPreviewViewController") as? GalleryPreviewViewController{
-//                     galleyVC.imagePostType = .editImagePost
-//                     galleyVC.imgPostId = postId
-//                     self.navigationController?.pushViewController(galleyVC, animated: true)
-//                     }*/
-//                    if let galleryListVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddMediaViewController") as? AddMediaViewController{
-//                        galleryListVC.imagePostType = .editImagePost
-//                        galleryListVC.imgPostId = postId
-//                        self?.navigationController?.pushViewController(galleryListVC, animated: true)
-//                    }
-//
-//                case CStaticChirpyId:
-//                    if let addChirpyVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddChirpyViewController") as? AddChirpyViewController{
-//                        addChirpyVC.chirpyType = .editChirpy
-//                        addChirpyVC.chirpyID = postId
-//                        self?.navigationController?.pushViewController(addChirpyVC, animated: true)
-//                    }
-//                case CStaticShoutId:
-//                    if let createShoutsVC = CStoryboardHome.instantiateViewController(withIdentifier: "CreateShoutsViewController") as? CreateShoutsViewController{
-//                        createShoutsVC.shoutsType = .editShouts
-//                        createShoutsVC.shoutID = postId
-//                        self?.navigationController?.pushViewController(createShoutsVC, animated: true)
-//                    }
-//
-//                case CStaticForumId:
-//                    if let addForumVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddForumViewController") as? AddForumViewController{
-//                        addForumVC.forumType = .editForum
-//                        addForumVC.forumID = postId
-//                        self?.navigationController?.pushViewController(addForumVC, animated: true)
-//                    }
-//
-//                case CStaticEventId:
-//                    if let addEventVC = CStoryboardEvent.instantiateViewController(withIdentifier: "AddEventViewController") as? AddEventViewController{
-//                        addEventVC.eventType = .editEvent
-//                        addEventVC.eventID = postId
-//                        self?.navigationController?.pushViewController(addEventVC, animated: true)
-//                    }
-//                default:
-//                    break
-//                }
-//
-//            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](alert) in
-//                guard let _ = self else { return }
-//                self?.deletePost(postId!, index!)
-//            }
-//        }
+        if (Double(currentDateTime) >= endTimeDate ?? 0.0), (postType == CStaticEventIdNew){
+            
+            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
+
+                guard let `self` = self else { return }
+                self.deletePostNew(postID.toInt ?? 0, index ?? 0 , postInfo)
+            }
+        } else {
+
+            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self](alert) in
+                guard let _ = self else { return }
+                switch postInfo.valueForString(key: "type"){
+                case CStaticArticleIdNew:
+                    if let addArticleVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddArticleViewController") as? AddArticleViewController{
+                        addArticleVC.articleType = .editArticle
+                        addArticleVC.articleID = postId
+                        addArticleVC.quoteDesc = postInfo.valueForString(key: "post_detail")
+                        addArticleVC.articleInfo = postInfo
+                        addArticleVC.postID = postInfo.valueForString(key: "post_id")
+                        self?.navigationController?.pushViewController(addArticleVC, animated: true)
+                    }
+                case CStaticGalleryIdNew:
+                    /*if let galleyVC = CStoryboardImage.instantiateViewController(withIdentifier: "GalleryPreviewViewController") as? GalleryPreviewViewController{
+                     galleyVC.imagePostType = .editImagePost
+                     galleyVC.imgPostId = postId
+                     self.navigationController?.pushViewController(galleyVC, animated: true)
+                     }*/
+                    if let galleryListVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddMediaViewController") as? AddMediaViewController{
+                        galleryListVC.imagePostType = .editImagePost
+                        galleryListVC.imgPostId = postId
+                        galleryListVC.editPost_id = postInfo.valueForString(key: "post_id")
+                        galleryListVC.galleryInfo = postInfo
+                        self?.navigationController?.pushViewController(galleryListVC, animated: true)
+                    }
+
+                case CStaticChirpyIdNew:
+                    if let addChirpyVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddChirpyViewController") as? AddChirpyViewController{
+                        addChirpyVC.chirpyType = .editChirpy
+                        addChirpyVC.chirpyID = postId
+                        addChirpyVC.chipryInfo = postInfo
+                        addChirpyVC.editPost_id = postInfo.valueForString(key: "post_id")
+                        addChirpyVC.quoteDesc = postInfo.valueForString(key: "post_detail")
+                        self?.navigationController?.pushViewController(addChirpyVC, animated: true)
+                    }
+                case CStaticShoutIdNew:
+                    if let createShoutsVC = CStoryboardHome.instantiateViewController(withIdentifier: "CreateShoutsViewController") as? CreateShoutsViewController{
+                        createShoutsVC.shoutsType = .editShouts
+                        createShoutsVC.editPost_id = postInfo.valueForString(key: "post_id")
+                        createShoutsVC.quoteDesc = postInfo.valueForString(key: "post_detail")
+                        self?.navigationController?.pushViewController(createShoutsVC, animated: true)
+                    }
+
+                case CStaticForumIdNew:
+                    if let addForumVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddForumViewController") as? AddForumViewController{
+                        addForumVC.forumType = .editForum
+                        addForumVC.forumID = postId
+                        addForumVC.forumInfo = postInfo
+                        addForumVC.editPost_id = postInfo.valueForString(key: "post_id")
+                        addForumVC.quoteDesc = postInfo.valueForString(key: "post_detail")
+                        self?.navigationController?.pushViewController(addForumVC, animated: true)
+                    }
+
+                case CStaticEventIdNew:
+                    if let addEventVC = CStoryboardEvent.instantiateViewController(withIdentifier: "AddEventViewController") as? AddEventViewController{
+                        addEventVC.eventType = .editEvent
+                        addEventVC.eventID = postId
+                        addEventVC.eventInfo = postInfo
+                        addEventVC.editPost_id = postInfo.valueForString(key: "post_id")
+                        addEventVC.quoteDesc = postInfo.valueForString(key: "post_detail")
+                        self?.navigationController?.pushViewController(addEventVC, animated: true)
+                    }
+                default:
+                    break
+                }
+
+            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](alert) in
+                guard let _ = self else { return }
+                self?.deletePostNew(postID.toInt ?? 0, index ?? 0 , postInfo)
+            }
+        }
     }
+    
+    
+    
+    
+    
     /*fileprivate func btnMoreCLK(_ index : Int?, _ postInfo : [String : Any]){
         let postId = postInfo.valueForInt(key: CId)
         
@@ -2900,6 +2937,13 @@ extension HomeViewController{
     @objc fileprivate func btnTranslateClicked(_ sender : UIBarButtonItem) {
         if let langVC = CStoryboardLRF.instantiateViewController(withIdentifier: "SelectLanguageViewController") as? SelectLanguageViewController{
             langVC.isBackButton = true
+            self.navigationController?.pushViewController(langVC, animated: true)
+        }
+    }
+//------------------------------- CHAT ---------------------------------------------------
+    @objc fileprivate func btnChatClicked(_ sender : UIBarButtonItem) {
+        if let langVC = CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController") as? ChatListViewController{
+           // langVC.isBackButton = true
             self.navigationController?.pushViewController(langVC, animated: true)
         }
     }

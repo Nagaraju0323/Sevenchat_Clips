@@ -136,6 +136,12 @@
                                             <constraint firstAttribute="height" constant="200" id="6lH-mn-FXe"/>
                                         </constraints>
                                     </view>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1WE-TC-Ixz">
+                                        <rect key="frame" x="0.0" y="242" width="280" height="200"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="200" id="dfh-gI-PfB"/>
+                                        </constraints>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfK-my-bVI">
                                         <rect key="frame" x="0.0" y="241.5" width="280" height="200"/>
                                         <connections>
@@ -266,6 +272,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="gwS-Xg-6Q3" firstAttribute="top" secondItem="dh6-iR-dFa" secondAttribute="bottom" constant="6" id="0VZ-SC-Xbv"/>
+                                    <constraint firstItem="yLU-tJ-iJu" firstAttribute="top" secondItem="1WE-TC-Ixz" secondAttribute="bottom" constant="7.5" id="1U0-PH-HGE"/>
                                     <constraint firstItem="Skr-a5-MTU" firstAttribute="leading" secondItem="jWO-qi-vEh" secondAttribute="trailing" constant="8" id="1gl-Xw-rBG"/>
                                     <constraint firstItem="jWO-qi-vEh" firstAttribute="top" secondItem="02d-7a-4iB" secondAttribute="top" constant="8" id="61c-N0-b90"/>
                                     <constraint firstItem="TyH-Cr-mUd" firstAttribute="centerX" secondItem="jWO-qi-vEh" secondAttribute="centerX" id="6xN-IV-YB3"/>
@@ -292,6 +299,7 @@
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yLU-tJ-iJu" secondAttribute="bottom" id="XgD-3r-yLd"/>
                                     <constraint firstItem="zZT-Av-Q8m" firstAttribute="leading" secondItem="02d-7a-4iB" secondAttribute="leading" constant="8" id="YNG-AP-VLm"/>
                                     <constraint firstAttribute="trailing" secondItem="yLU-tJ-iJu" secondAttribute="trailing" constant="8" id="Yxv-Hl-s09"/>
+                                    <constraint firstAttribute="trailing" secondItem="1WE-TC-Ixz" secondAttribute="trailing" id="ZBI-1I-5qX"/>
                                     <constraint firstItem="Apn-7T-uci" firstAttribute="leading" secondItem="02d-7a-4iB" secondAttribute="leading" constant="8" id="ZTU-5K-7eH"/>
                                     <constraint firstItem="dh6-iR-dFa" firstAttribute="top" secondItem="hfZ-6H-sdD" secondAttribute="top" id="ZwM-4L-fml"/>
                                     <constraint firstItem="jWO-qi-vEh" firstAttribute="leading" secondItem="02d-7a-4iB" secondAttribute="leading" constant="8" id="bXl-VP-0GE"/>
@@ -300,9 +308,11 @@
                                     <constraint firstItem="dh6-iR-dFa" firstAttribute="leading" secondItem="hfZ-6H-sdD" secondAttribute="trailing" constant="14" id="g1A-61-Ynv"/>
                                     <constraint firstItem="TyH-Cr-mUd" firstAttribute="width" secondItem="jWO-qi-vEh" secondAttribute="width" id="hBQ-9w-SCI"/>
                                     <constraint firstItem="yLU-tJ-iJu" firstAttribute="top" secondItem="xc3-Hc-lYU" secondAttribute="bottom" constant="8" id="iVq-Lh-JSA"/>
+                                    <constraint firstItem="1WE-TC-Ixz" firstAttribute="leading" secondItem="02d-7a-4iB" secondAttribute="leading" id="jkI-8O-OkZ"/>
                                     <constraint firstItem="XmF-cW-jkL" firstAttribute="leading" secondItem="Skr-a5-MTU" secondAttribute="trailing" constant="5" id="jmb-7m-IJj"/>
                                     <constraint firstItem="XmF-cW-jkL" firstAttribute="top" secondItem="bMg-vl-q71" secondAttribute="bottom" constant="1.5" id="n0P-GT-aVg"/>
                                     <constraint firstAttribute="trailing" secondItem="zZT-Av-Q8m" secondAttribute="trailing" constant="8" id="oex-kr-vX3"/>
+                                    <constraint firstItem="1WE-TC-Ixz" firstAttribute="top" secondItem="Apn-7T-uci" secondAttribute="bottom" constant="8.5" id="oey-OE-1RB"/>
                                     <constraint firstItem="bMg-vl-q71" firstAttribute="top" secondItem="02d-7a-4iB" secondAttribute="top" constant="8" id="osZ-Ub-QiR"/>
                                     <constraint firstItem="xfK-my-bVI" firstAttribute="bottom" secondItem="xc3-Hc-lYU" secondAttribute="bottom" id="qxJ-3b-0zo"/>
                                     <constraint firstItem="TyH-Cr-mUd" firstAttribute="centerY" secondItem="jWO-qi-vEh" secondAttribute="centerY" id="sLK-db-jLZ"/>
@@ -340,6 +350,7 @@
                 <outlet property="btnShare" destination="BuY-6R-4Kx" id="KYu-u1-cI7"/>
                 <outlet property="btnUserName" destination="uPn-Q9-NGH" id="EWy-QQ-wPL"/>
                 <outlet property="imgUser" destination="jWO-qi-vEh" id="bWy-pO-FnW"/>
+                <outlet property="imgeView" destination="1WE-TC-Ixz" id="6bg-Mt-u1I"/>
                 <outlet property="lblArticleCategory" destination="dh6-iR-dFa" id="DZG-zE-HSy"/>
                 <outlet property="lblArticleDescription" destination="Apn-7T-uci" id="DJV-ld-a7s"/>
                 <outlet property="lblArticlePostDate" destination="XmF-cW-jkL" id="UYx-Lp-jmp"/>
@@ -349,7 +360,7 @@
                 <outlet property="viewMainContainer" destination="PCh-8p-3ev" id="QkO-N7-QIK"/>
                 <outlet property="viewSubContainer" destination="02d-7a-4iB" id="TED-dB-biA"/>
             </connections>
-            <point key="canvasLocation" x="81.599999999999994" y="178.56071964017991"/>
+            <point key="canvasLocation" x="81.159420289855078" y="178.45982142857142"/>
         </tableViewCell>
     </objects>
     <resources>

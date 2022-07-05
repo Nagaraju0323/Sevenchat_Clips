@@ -1114,7 +1114,9 @@ extension PollSharedDetailsViewController{
                 self.arrPostList =  obj
                 for (key, value) in obj {
 //                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
-                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
+//                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
+                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.components(separatedBy:.whitespacesAndNewlines).filter { $0.count > 0 }.joined(separator: " "))
+                    
                     if indexOfA == 0{
                         self.arr = ["\(value)","0","0","0"]
                     }else if indexOfA == 1{
@@ -1129,7 +1131,8 @@ extension PollSharedDetailsViewController{
                 self.arrPostList =  obj
                 for (key, value) in obj {
 //                    let indexOfA  = self.pollOptionArr.firstIndex(of: key)
-                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
+//                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: CharacterSet.whitespaces))
+                    let indexOfA  = self.pollOptionArr.firstIndex(of: key.trimmingCharacters(in: .whitespacesAndNewlines))
                     arrayData.remove(at: indexOfA ?? 0)
                     arrayData.insert("\(value)", at: indexOfA ?? 0)
                 }
@@ -1161,7 +1164,12 @@ extension PollSharedDetailsViewController{
         let data = pollString.data(using: .utf8)!
         do {
             if let jsonArray = try JSONSerialization.jsonObject(with: data, options : .allowFragments) as? [String]{
-                jsonStrPoll = jsonArray
+//                jsonStrPoll = jsonArray
+                jsonStrPoll.removeAll()
+                jsonArray.forEach { friends_ID in
+                 let appendArr = friends_ID.trimmingCharacters(in: .whitespacesAndNewlines)
+                 jsonStrPoll.append(appendArr)
+                 }
             } else {
                 print("bad json")
             }

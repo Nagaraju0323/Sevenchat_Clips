@@ -38,6 +38,7 @@ class HomeSharedArticleImageCell: UITableViewCell {
     @IBOutlet weak var lblArticleCategory : UILabel!
     
     @IBOutlet weak var blurImgView : BlurImageView!
+    @IBOutlet weak var imgSharedView : UIImageView!
     
     @IBOutlet weak var lblSharedPostDate : UILabel!
     @IBOutlet weak var imgSharedUser : UIImageView!
@@ -143,7 +144,8 @@ extension HomeSharedArticleImageCell{
         let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblArticlePostDate.text = Created_Date
         let image = postInfo.valueForString(key: "image")
-        blurImgView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
+       // blurImgView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
+        imgSharedView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
 //        if image.isEmpty {
 //            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
 //        }else{
@@ -218,7 +220,8 @@ extension HomeSharedArticleImageCell{
     @IBAction func onImageTapped(_ sender:UIButton){
         let lightBoxHelper = LightBoxControllerHelper()
         weak var weakSelf = self.viewController
-        lightBoxHelper.openSingleImage(image: blurImgView.image, viewController: weakSelf)
+        //lightBoxHelper.openSingleImage(image: blurImgView.image, viewController: weakSelf)
+        lightBoxHelper.openSingleImage(image: imgSharedView.image, viewController: weakSelf)
     }
     
     @IBAction func onLikePressed(_ sender:UIButton){

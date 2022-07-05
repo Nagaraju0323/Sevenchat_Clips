@@ -586,6 +586,7 @@ extension InviteAndConnectViewController{
 //                            self.openMessageComposer(number: cell.lblUserInfo.text, body: strInviteText)
                             let strInviteText = "Let's chat on Sevenchats! It's a fast, simple, and secure app we can use to message, sale and buy products, and do many things for free. Get it at.\n" + CAppStoreURI
                                                         self.openMessageComposer(number: cell.lblUserInfo.text, body: strInviteText)
+                            
                         } else {
                             var frndStatus = 0
                             var isShowAlert = false

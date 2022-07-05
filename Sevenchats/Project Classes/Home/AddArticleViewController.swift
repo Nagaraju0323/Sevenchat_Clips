@@ -78,6 +78,8 @@ class AddArticleViewController: ParentViewController {
     var postContent = ""
     var postTxtFieldContent = ""
     var post_ID:String?
+    var articleInfo = [String:Any]()
+    var postID = ""
     
     
     override func viewDidLoad() {
@@ -99,12 +101,27 @@ class AddArticleViewController: ParentViewController {
     
     // MARK:- --------- Initialization
     func Initialization(){
-        
+        if articleType == .editArticle {
+            if articleInfo.valueForString(key: "image") != ""{
+                viewUploadedImageContainer.isHidden = false
+                viewAddImageContainer.isHidden = true
+                profileImgUrl = articleInfo.valueForString(key: "image")
+                
+            }else{
+                viewUploadedImageContainer.isHidden = true
+                viewAddImageContainer.isHidden = false
+            }
+        }else{
+            viewUploadedImageContainer.isHidden = true
+            viewAddImageContainer.isHidden = false
+        }
         txtArticleTitle.txtDelegate = self
         if articleType == .editArticle {
+            self.setEventDetail(articleInfo)
             self.loadArticleDetailFromServer()
+            
         }
-        viewUploadedImageContainer.isHidden = true
+
 //        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddArticleClicked(_:)))]
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddArticleClicked(_:)))]
@@ -146,7 +163,8 @@ class AddArticleViewController: ParentViewController {
         if strQuote.count > 5000{
             strQuote = strQuote[0..<5000]
         }
-        self.txtViewArticleContent.text = strQuote
+        let str_Back = strQuote.return_replaceBack(replaceBack: strQuote)
+        self.txtViewArticleContent.text = str_Back
         self.lblTextCount.text = "\(strQuote.count)/5000"
         
         GCDMainThread.async {
@@ -203,7 +221,57 @@ extension AddArticleViewController{
         let postcont = txtViewArticleContent.text.replace_str(replace: txtViewArticleContent.text)
         let posttitle = txtArticleTitle.text?.replace_str(replace: txtArticleTitle.text ?? "")
         
-        
+        if articleType == .editArticle{
+            var dict :[String:Any] = [
+                 "post_id": postID,
+                   "image": profileImgUrl,
+                   "post_title": posttitle ?? "",
+                   "post_category": categoryDropDownView.txtCategory.text ?? "",
+                   "post_content": postcont,
+                   "age_limit": "3",
+                   "targeted_audience": "",
+                   "selected_persons": "",
+                   "status_id": "1"
+            ]
+            
+            if self.selectedInviteType == 1{
+                let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
+                apiParaGroups = groupIDS.components(separatedBy: ",")
+                
+            }else if self.selectedInviteType == 2{
+                let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
+                apiParaFriends = userIDS.components(separatedBy: ",")
+            }
+            
+            if apiParaGroups.isEmpty == false {
+                dict[CTargetAudiance] = apiParaGroups
+            }else {
+                dict[CTargetAudiance] = "none"
+            }
+            if apiParaFriends.isEmpty == false {
+                dict[CSelectedPerson] = apiParaFriends
+            }else {
+                dict[CSelectedPerson] = "none"
+            }
+            APIRequest.shared().editPost(para: dict, image: nil, apiKeyCall: CAPITagEditarticles) { [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil && error == nil{
+                    
+                   // self.navigationController?.popViewController(animated: true)
+                    self.navigationController?.popToRootViewController(animated: true)
+                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.articleType == .editArticle ? CMessageArticlePostUpdated : CMessageArticlePostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    
+                 
+                    if let shoutInfo = response!["meta"] as? [String : Any]{
+                        if shoutInfo.valueForString(key: "status")  == "0" {
+                            MIGeneralsAPI.shared().refreshPostRelatedScreens(shoutInfo,self.articleID, self,.addPost, rss_id: 0)
+                        }
+                    }
+
+                }
+            }
+        }else{
+            
         
         var dict :[String:Any] = [
             CUserId:userID.description,
@@ -248,7 +316,8 @@ extension AddArticleViewController{
                 //Add rewards Points
                 MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"article",title: self.txtArticleTitle.text!,name:name,icon:image, detail_text: "post_point",target_id: self.post_ID?.toInt ?? 0)
                 
-                self.navigationController?.popViewController(animated: true)
+                //self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popToRootViewController(animated: true)
                 CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.articleType == .editArticle ? CMessageArticlePostUpdated : CMessageArticlePostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 
              
@@ -259,6 +328,7 @@ extension AddArticleViewController{
                 }
 
             }
+        }
         }
     }
     
@@ -286,13 +356,18 @@ extension AddArticleViewController{
         self.categorysubName = articleInfo.valueForString(key: CinterestLevel2)
         txtArticleTitle.text = articleInfo.valueForString(key: CTitle)
         categoryDropDownView.txtCategory.text = articleInfo.valueForString(key: CCategory)
-        txtViewArticleContent.text = articleInfo.valueForString(key: CContent)
+        txtViewArticleContent.text = articleInfo.valueForString(key: "post_detail")
         //...Set Event image
-        if articleInfo.valueForString(key: CImage) != "" {
-            imgArticle.loadImageFromUrl(articleInfo.valueForString(key: CImage), false)
-            self.viewAddImageContainer.isHidden = true
-            self.viewUploadedImageContainer.isHidden = false
-        }
+        self.imgArticle.loadImageFromUrl(articleInfo.valueForString(key: "image"), true)
+      /*  if articleInfo.valueForString(key: CImage) != "" {
+        
+        profileImgUrl = articleInfo.valueForString(key: "image")
+            //        self.viewAddImageContainer.isHidden = true
+            //        self.viewUploadedImageContainer.isHidden = false
+                    
+        }*/
+
+       
         
         self.selectedInviteType = articleInfo.valueForInt(key: CPublish_To) ?? 3
         //...Set invite type
@@ -393,7 +468,7 @@ extension AddArticleViewController: UICollectionViewDelegate, UICollectionViewDa
 extension AddArticleViewController{
     
     @IBAction func btnUplaodImageCLK(_ sender : UIButton){
-        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+       // MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
         self.presentImagePickerController(allowEditing: false) { [weak self](image, info) in
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
             guard let self = self else { return }
@@ -441,6 +516,7 @@ extension AddArticleViewController{
                 self.viewUploadedImageContainer.isHidden = true
                 self.viewAddImageContainer.isHidden = false
                 self.imgArticle.image = nil
+                self.profileImgUrl = ""
                 
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
         } else {

@@ -252,12 +252,24 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        var contentInfo = ""
         let notificationInfo = arrNotiificationList[indexPath.row]
+        print("::::::::::::\(notificationInfo)")
         let dict = notificationInfo.valueForString(key: "content")
         let stringCovt = dict.replace(string: "\\", replacement: "\"")
         let notificationDict = convertToDictionary(from: stringCovt)
         let notifcationContent = notificationDict.valueForString(key:"content")
+        let senderType = notificationDict.valueForString(key:"type")
+        
+        if senderType == "CHAT_MESSAGE"
+        {
+            let str_Back_desc = notifcationContent.return_replaceBack(replaceBack: notifcationContent)
+            contentInfo = str_Back_desc
+            
+            
+        }else {
+            contentInfo = notifcationContent
+        }
         let created_At = notificationInfo.valueForString(key: "timestamp")
         let cnvStr = created_At.stringBefore("G")
         let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
@@ -266,7 +278,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
             cell.lblDate.text = startCreated
             cell.imgUser.loadImageFromUrl(notificationInfo.valueForString(key: "icon"), true)
             cell.lblNotificationDetails.font = CFontPoppins(size: 14, type: .light).setUpAppropriateFont()
-            cell.lblNotificationDetails.attributedText = self.htmlToAttributedString(notifcationContent, cell.lblNotificationDetails.font)
+            cell.lblNotificationDetails.attributedText = self.htmlToAttributedString(contentInfo, cell.lblNotificationDetails.font)
             let readStatus = notificationInfo.valueForString(key:"read_status")
             if readStatus.toInt == 1 {
                 cell.contentView.backgroundColor = .white
@@ -561,6 +573,10 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         var notifKey = ""
         let notificationInfo = arrNotiificationList[indexPath.row]
         let notfiContent = notificationInfo.valueForString(key: "content")
+        let subjectName = notificationInfo.valueForString(key: "subject")
+//        let senderName = subjectName.stringBefore("send")
+      //  print("senderName:\(senderName)")
+        
         userID = notificationInfo.valueForString(key: "sender")
         
         userID = notificationInfo.valueForString(key: "sender") as? String ?? ""
@@ -595,6 +611,8 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
                 }else {
                     if let userChatDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
                         userChatDetailVC.iObject =  self.postInfo
+                       // userChatDetailVC.isFromNotification = true
+                        
                         userChatDetailVC.notifcationStatus = true
                         userChatDetailVC.self.userID = userID.toInt
                         userChatDetailVC.isCreateNewChat = true
@@ -983,10 +1001,21 @@ extension NotificationViewController{
                         }else {
                             self.iObject = groupInfo
                             if let groupChatDetailVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
+//                                groupChatDetailVC.iObject =  groupInfo.first ?? [:]
+//                                groupChatDetailVC.groupNotfInfo = groupInfo.first ?? [:]
+//                                groupChatDetailVC.isCreateNewChat = false
+//                                groupChatDetailVC.notificationGrp = true
+                                
+                                
                                 groupChatDetailVC.iObject =  groupInfo.first ?? [:]
                                 groupChatDetailVC.groupNotfInfo = groupInfo.first ?? [:]
                                 groupChatDetailVC.isCreateNewChat = false
+                                groupChatDetailVC.topcName = groupID
+                                groupChatDetailVC.group_id = groupID
+                                groupChatDetailVC.groupInfo = groupInfo.first ?? [:]
                                 groupChatDetailVC.notificationGrp = true
+                                
+                                
                                 self.navigationController?.pushViewController(groupChatDetailVC, animated: true)
                             }
                             

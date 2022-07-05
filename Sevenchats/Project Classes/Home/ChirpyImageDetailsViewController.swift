@@ -45,6 +45,7 @@ class ChirpyImageDetailsViewController: ParentViewController {
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var txtViewComment : GenericTextView!
     @IBOutlet weak var blurImgView : BlurImageView!
+    @IBOutlet weak var imgChirpyView : UIImageView!
     @IBOutlet weak var cnTextViewHeight : NSLayoutConstraint!
     @IBOutlet weak var btnChirpyImg : UIButton!
     
@@ -153,7 +154,8 @@ class ChirpyImageDetailsViewController: ParentViewController {
         
         self.btnChirpyImg.touchUpInside(genericTouchUpInsideHandler: { [weak self](_) in
             let lightBoxHelper = LightBoxControllerHelper()
-            lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self)
+//            lightBoxHelper.openSingleImage(image: self?.blurImgView?.image, viewController: self)
+            lightBoxHelper.openSingleImage(image: self?.imgChirpyView?.image, viewController: self)
         })
     }
     
@@ -244,9 +246,11 @@ extension ChirpyImageDetailsViewController{
             self.imgUser.loadImageFromUrl(chirInfo.valueForString(key: CUserProfileImage), true)
             let image = chirInfo.valueForString(key: "image")
             if image.isEmpty {
-                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+               // blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+                imgChirpyView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             }else{
-                blurImgView.loadImageFromUrl(chirInfo.valueForString(key: Cimages), false)
+//                blurImgView.loadImageFromUrl(chirInfo.valueForString(key: Cimages), false)
+                imgChirpyView.loadImageFromUrl(chirInfo.valueForString(key: Cimages), false)
             }
             self.chirpyImgURL = chirInfo.valueForString(key: "image")
             self.lblChirpyCategory.text = chirInfo.valueForString(key: CCategory)
@@ -614,12 +618,36 @@ extension ChirpyImageDetailsViewController{
     @objc fileprivate func btnMenuClicked(_ sender : UIBarButtonItem) {
         
         if chirpyInformation.valueForString(key: "user_email") == appDelegate.loginUser?.email{
-            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
-                guard let _ = self else {return}
-                DispatchQueue.main.async {
-                    self?.deleteChirpyPost(self?.chirpyInformation)
+            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self] (alert) in
+                guard let self = self else { return }
+                if let chirpId = self.chirpyID{
+                    if let addChirpyVC = CStoryboardHome.instantiateViewController(withIdentifier: "AddChirpyViewController") as? AddChirpyViewController{
+                        addChirpyVC.setBlock(block: {  [weak self] (chirpInfo, message) in
+                            guard let self = self else { return }
+                            if let chiInfo = chirpInfo as? [String : Any]{
+                                self.setChirpyDetailData(chiInfo)
+                            }
+                        })
+                        addChirpyVC.chirpyType = .editChirpy
+                        addChirpyVC.chirpyID = chirpId
+                        addChirpyVC.quoteDesc = self.chirpyInformation.valueForString(key: "post_detail")
+                        addChirpyVC.chipryInfo = self.chirpyInformation
+                        addChirpyVC.editPost_id = self.chirpyInformation.valueForString(key: "post_id")
+                        self.navigationController?.pushViewController(addChirpyVC, animated: true)
+                    }
                 }
+            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self] (alert) in
+                guard let self = self else { return }
+                                DispatchQueue.main.async {
+                                    self.deleteChirpyPost(self.chirpyInformation)
+                                }
             }
+//            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (_) in
+//                guard let _ = self else {return}
+//                DispatchQueue.main.async {
+//                    self?.deleteChirpyPost(self?.chirpyInformation)
+//                }
+//            }
         }else {
             if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
                 reportVC.reportType = .reportChirpy

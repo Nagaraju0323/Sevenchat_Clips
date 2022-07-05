@@ -156,7 +156,9 @@ extension HomeSharedGalleryCell {
                 lblSharedPostDate.text = shared_Date
            // self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
             imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
-            lblMessage.text = postInfo.valueForString(key: CMessage)
+        let str_Back_desc = postInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: postInfo.valueForString(key: CMessage))
+        lblMessage.text = str_Back_desc
+          //  lblMessage.text = postInfo.valueForString(key: CMessage)
        // }
         
         if let arrImg = postInfo["image"] as? String {
@@ -260,13 +262,14 @@ extension HomeSharedGalleryCell: UICollectionViewDelegate, UICollectionViewDataS
         if (mediaType == "video") || (mediaType == "vidoe"){
             if let url = URL(string: imageInfo.valueForString(key: "image_path")) {
                 if let thumbnailImage = getThumbnailImage(forUrl: url) {
-                    cell.blurImgView.image = thumbnailImage
+                    cell.ImgView.image = thumbnailImage
                 }
             }
             cell.imgVideoIcon.isHidden =  false
         }else{
             print(" imageInfo.valueForString(key: CImage)  \(imageInfo.valueForString(key: "image_path"))")
-            cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
+            //cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
+            cell.ImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
             cell.imgVideoIcon.isHidden =  true
         }
 //        let mediaType = imageInfo.valueForInt(key: CType) ?? 1

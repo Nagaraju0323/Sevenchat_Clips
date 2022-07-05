@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -475,6 +476,10 @@ Declined</string>
                                                     <constraint firstAttribute="height" constant="40" id="zfD-Wm-mvV"/>
                                                 </constraints>
                                             </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4CK-yX-Rhq">
+                                                <rect key="frame" x="8" y="258" width="311" height="40"/>
+                                                <color key="backgroundColor" systemColor="placeholderTextColor"/>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -482,11 +487,14 @@ Declined</string>
                                             <constraint firstAttribute="trailing" secondItem="WO2-Lh-JWM" secondAttribute="trailing" id="1fV-Wq-w73"/>
                                             <constraint firstItem="v4U-rA-fEB" firstAttribute="leading" secondItem="RQj-G9-iHJ" secondAttribute="leading" id="3Io-u6-wFk"/>
                                             <constraint firstItem="7Yd-XP-gtO" firstAttribute="leading" secondItem="bXJ-qE-2ZQ" secondAttribute="leading" id="GAn-zr-LOH"/>
+                                            <constraint firstAttribute="trailing" secondItem="4CK-yX-Rhq" secondAttribute="trailing" id="NDM-bc-UuM"/>
                                             <constraint firstItem="qET-vj-Pwc" firstAttribute="top" secondItem="DDK-EC-Dlo" secondAttribute="top" constant="8" id="PRa-wd-qSu"/>
                                             <constraint firstItem="WO2-Lh-JWM" firstAttribute="top" secondItem="zaO-hc-HoZ" secondAttribute="bottom" id="Pys-k8-3rd"/>
+                                            <constraint firstItem="4CK-yX-Rhq" firstAttribute="bottom" secondItem="v4U-rA-fEB" secondAttribute="bottom" id="Uux-Hn-rvD"/>
                                             <constraint firstItem="7Yd-XP-gtO" firstAttribute="trailing" secondItem="bXJ-qE-2ZQ" secondAttribute="trailing" id="Why-ck-qM6"/>
                                             <constraint firstAttribute="trailing" secondItem="bXJ-qE-2ZQ" secondAttribute="trailing" id="Zyt-It-Hcy"/>
                                             <constraint firstAttribute="bottom" secondItem="v4U-rA-fEB" secondAttribute="bottom" constant="8" id="ebu-NV-lDq"/>
+                                            <constraint firstItem="4CK-yX-Rhq" firstAttribute="leading" secondItem="DDK-EC-Dlo" secondAttribute="leading" constant="8" id="flE-RK-ZqH"/>
                                             <constraint firstItem="RQj-G9-iHJ" firstAttribute="top" secondItem="7Yd-XP-gtO" secondAttribute="bottom" constant="5" id="iVc-ra-6EL"/>
                                             <constraint firstItem="bXJ-qE-2ZQ" firstAttribute="trailing" secondItem="WO2-Lh-JWM" secondAttribute="trailing" id="ioa-vL-PUl"/>
                                             <constraint firstItem="RQj-G9-iHJ" firstAttribute="trailing" secondItem="7Yd-XP-gtO" secondAttribute="trailing" id="jXH-X2-XIH"/>
@@ -499,6 +507,7 @@ Declined</string>
                                             <constraint firstItem="bXJ-qE-2ZQ" firstAttribute="leading" secondItem="WO2-Lh-JWM" secondAttribute="leading" id="uWv-PQ-1N5"/>
                                             <constraint firstItem="bXJ-qE-2ZQ" firstAttribute="top" secondItem="WO2-Lh-JWM" secondAttribute="bottom" constant="5" id="weX-mJ-OKc"/>
                                             <constraint firstAttribute="trailing" secondItem="zaO-hc-HoZ" secondAttribute="trailing" id="wyQ-Ek-VCn"/>
+                                            <constraint firstItem="4CK-yX-Rhq" firstAttribute="top" secondItem="RQj-G9-iHJ" secondAttribute="bottom" constant="8" symbolic="YES" id="xfx-Li-8rJ"/>
                                             <constraint firstItem="v4U-rA-fEB" firstAttribute="top" secondItem="RQj-G9-iHJ" secondAttribute="bottom" constant="8" id="yCi-sP-wNv"/>
                                             <constraint firstItem="zaO-hc-HoZ" firstAttribute="top" secondItem="DDK-EC-Dlo" secondAttribute="top" id="yDM-Us-hnY"/>
                                         </constraints>
@@ -690,6 +699,7 @@ Declined</string>
                 <outlet property="lblUserName" destination="sp6-bz-eLv" id="j8f-nc-ug5"/>
                 <outlet property="viewMainContainer" destination="nB1-LV-nPK" id="lKk-yq-0Zh"/>
                 <outlet property="viewSubContainer" destination="6dN-t3-DDX" id="WIL-ur-xYI"/>
+                <outlet property="viewtoblockaction" destination="4CK-yX-Rhq" id="Am9-6f-9pd"/>
             </connections>
             <point key="canvasLocation" x="136.95652173913044" y="132.58928571428572"/>
         </tableViewCell>
@@ -711,5 +721,8 @@ Declined</string>
         <image name="ic_thumps_maybe_selected" width="23" height="18"/>
         <image name="ic_thumps_up_selected" width="18.5" height="15"/>
         <image name="user_placeholder.png" width="300" height="300"/>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

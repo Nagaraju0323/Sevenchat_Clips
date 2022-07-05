@@ -43,6 +43,8 @@ class HomeEventsCell: UITableViewCell {
     @IBOutlet weak var lblEndDate : UILabel!
     @IBOutlet weak var lblEventStartDate : UILabel!
     @IBOutlet weak var lblEventEndDate : UILabel!
+    @IBOutlet weak var stackview : UIStackView!
+    @IBOutlet weak var viewtoblockaction : UIView!
     
     var onChangeEventStatus : ((Int) -> Void)? = nil
     
@@ -90,6 +92,9 @@ class HomeEventsCell: UITableViewCell {
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblEventType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
+            self.viewtoblockaction.isHidden = true
+            
+            
         }
     }
     
@@ -239,7 +244,18 @@ extension HomeEventsCell{
         self.mayBe = postInfo.valueForString(key: "maybe_count")
         self.isSelectedChoice = postInfo.valueForString(key: "selected_choice")
         
+      
+        //TODO: --------------Experied Event--------------
         let currentDateTime = Date().timeIntervalSince1970
+        let cnvStr5 = postInfo.valueForString(key: "end_date").stringBefore("G")
+        guard let endDate = DateFormatter.shared().convertDatereversLatestEdit(strDate: cnvStr5)  else { return}
+        guard let endDateTime = DateFormatter.shared().convertGMTtoUnix(strDate: endDate)  else { return}
+        
+        if (Double(currentDateTime) >= endDateTime){
+            self.viewtoblockaction.isHidden = false
+        }else{
+            self.viewtoblockaction.isHidden = true
+        }
         
         if let endDateTime = postInfo.valueForDouble(key: CEvent_End_Date) {
 

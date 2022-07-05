@@ -75,6 +75,8 @@ class AddChirpyViewController: ParentViewController {
     var quoteDesc = ""
     var postContent = ""
     var post_ID:String?
+    var editPost_id = ""
+    var chipryInfo = [String:Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,14 +96,30 @@ class AddChirpyViewController: ParentViewController {
     // MARK:- --------- Initialization
     func Initialization(){
         
+        
+        if chirpyType == .editChirpy {
+            if chipryInfo.valueForString(key: "image") != ""{
+                viewUploadedImageContainer.isHidden = false
+                viewAddImageContainer.isHidden = true
+                uploadImgUrl = chipryInfo.valueForString(key: "image")
+            }else{
+                viewUploadedImageContainer.isHidden = true
+                viewAddImageContainer.isHidden = false
+            }
+        }else{
+            viewUploadedImageContainer.isHidden = true
+            viewAddImageContainer.isHidden = false
+        }
+        
         if chirpyType == .editChirpy{
             self.loadChirpyDetailFromServer()
+            self.setChirpyDetail(chipryInfo)
         }
         
         txtViewChirpyContent.genericDelegate  = self
         
         setQuoteText()
-        viewUploadedImageContainer.isHidden = true
+       // viewUploadedImageContainer.isHidden = true
 //        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddChirpyClicked(_:)))]
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_tint"), style: .plain, target: self, action: #selector(btnHelpInfoClicked(_:))),UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_post"), style: .plain, target: self, action: #selector(btnAddChirpyClicked(_:)))]
@@ -145,7 +163,8 @@ class AddChirpyViewController: ParentViewController {
         if strQuote.count > 5000{
             strQuote = strQuote[0..<5000]
         }
-        self.txtViewChirpyContent.text = strQuote
+        let str_Back = strQuote.return_replaceBack(replaceBack: strQuote)
+        self.txtViewChirpyContent.text = str_Back
         self.lblTextCount.text = "\(strQuote.count)/5000"
         
         GCDMainThread.async {
@@ -215,6 +234,99 @@ extension AddChirpyViewController{
         //let txtchiripy = txtViewChirpyContent.text.replace(string: "\n", replacement: "\\n")
         
         guard let userID = appDelegate.loginUser?.user_id else {return}
+        if chirpyType == .editChirpy{
+            var dict :[String:Any]  =  [
+
+                "post_id": editPost_id,
+                    "image": uploadImgUrl,
+                    "post_title": "",
+                    "post_category": categoryDropDownView.txtCategory.text ?? "",
+                    "post_content": txtchiripy,
+                    "targeted_audience": "",
+                    "selected_persons": "",
+                    "status_id": "1"
+            ]
+            
+            if self.selectedInviteType == 1{
+                let groupIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CGroupId) }).joined(separator: ",")
+                apiParaGroups = groupIDS.components(separatedBy: ",")
+                
+            }else if self.selectedInviteType == 2{
+                let userIDS = arrSelectedGroupFriends.map({$0.valueForString(key: CFriendUserID) }).joined(separator: ",")
+                apiParaFriends = userIDS.components(separatedBy: ",")
+            }
+            
+            if apiParaGroups.isEmpty == false {
+                dict[CTargetAudiance] = apiParaGroups
+            }else {
+                dict[CTargetAudiance] = "none"
+            }
+            
+            if apiParaFriends.isEmpty == false {
+                dict[CSelectedPerson] = apiParaFriends
+            }else {
+                dict[CSelectedPerson] = "none"
+            }
+            
+            APIRequest.shared().editPost(para: dict, image: imgChirpy.image, apiKeyCall: CAPITagEditchirpies) { [weak self] (response, error) in
+                guard let self = self else { return }
+                if response != nil && error == nil{
+                    
+                    if let chirpyInfo = response![CJsonData] as? [String : Any]{
+                        MIGeneralsAPI.shared().refreshPostRelatedScreens(chirpyInfo,self.chirpyID, self,self.chirpyType == .editChirpy ? .editPost : .addPost, rss_id: 0)
+                        
+                        
+                        APIRequest.shared().saveNewInterest(interestID: chirpyInfo.valueForInt(key: CCategory_Id) ?? 0, interestName: chirpyInfo.valueForString(key: CCategory))
+                        
+                        if self.chirpyType == .editChirpy{
+                            for vwController in (self.navigationController?.viewControllers)! {
+                                if vwController.isKind(of: HomeViewController.classForCoder()) {
+                                    
+                                    //...Redirect on Home list screen when come from Home flow
+                                    let homeVC = vwController as? HomeViewController
+                                    self.navigationController?.popToViewController(homeVC!, animated: true)
+                                    break
+                                    
+                                } else if vwController.isKind(of: MyProfileViewController.classForCoder()) {
+                                    
+                                    //...Redirect on My Profile screen when come from My Profile flow
+                                    let profileVC = vwController as? MyProfileViewController
+                                    self.navigationController?.popToViewController(profileVC!, animated: true)
+                                    break
+                                }
+                            }
+                        } else {
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
+
+                    if let responseData = response![CJsonData] as? [[String : Any]] {
+                        for data in responseData{
+                            self.post_ID = data.valueForString(key: "post_id")
+                        }
+                    }
+
+                    if let metaInfo = response![CJsonMeta] as? [String : Any] {
+                        let name = (appDelegate.loginUser?.first_name ?? "") + " " + (appDelegate.loginUser?.last_name ?? "")
+                        guard let image = appDelegate.loginUser?.profile_img else { return }
+                        let stausLike = metaInfo["status"] as? String ?? "0"
+                        if stausLike == "0" {
+                          //  MIGeneralsAPI.shared().addRewardsPoints(CPostcreate,message:CPostcreate,type:"chirpy",title: self.categoryDropDownView.txtCategory.text ?? "",name:name,icon:image, detail_text: "post_point",target_id: self.post_ID?.toInt ?? 0)
+                            
+                            MIGeneralsAPI.shared().refreshPostRelatedScreens(metaInfo,self.chirpyID, self,.addPost, rss_id: self.post_ID?.toInt ?? 0)
+                            
+                        }
+                    }
+                    
+                   // self.navigationController?.popViewController(animated: true)
+                    self.navigationController?.popToRootViewController(animated: true)
+                    CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: self.chirpyType == .editChirpy ? CMessageChirpyPostUpdated : CMessageChirpyPostUpload, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                    
+                }
+            }
+        }else{
+            
+       
         var dict :[String:Any]  =  [
             "user_id":userID.description,
             "image":uploadImgUrl,
@@ -300,6 +412,7 @@ extension AddChirpyViewController{
                 
             }
         }
+        }
     }
     
     fileprivate func removeChirpyImage() {
@@ -335,14 +448,17 @@ extension AddChirpyViewController{
         txtViewChirpyContent.text = chirpyInfo.valueForString(key: CContent)
         lblTextCount.text = "\(txtViewChirpyContent.text.count)/5000"
         //...Set Chirpy image
-        if chirpyInfo.valueForString(key: CImage) != "" {
-            imgChirpy.loadImageFromUrl(chirpyInfo.valueForString(key: CImage), false)
-            isApiChirpyImage = true
-            self.viewAddImageContainer.isHidden = true
-            self.viewUploadedImageContainer.isHidden = false
-        }else{
-            isApiChirpyImage = false
-        }
+        imgChirpy.loadImageFromUrl(chirpyInfo.valueForString(key: CPostImage), false)
+        
+//        if chirpyInfo.valueForString(key: CImage) != "" {
+//            imgChirpy.loadImageFromUrl(chirpyInfo.valueForString(key: CPostImage), false)
+//            isApiChirpyImage = true
+////            self.viewAddImageContainer.isHidden = true
+////            self.viewUploadedImageContainer.isHidden = false
+//        }else{
+//            isApiChirpyImage = false
+//        }
+        
         
         //...Set invite type
         self.selectedInviteType = chirpyInfo.valueForInt(key: CPublish_To) ?? 3
@@ -476,7 +592,11 @@ extension AddChirpyViewController{
         if self.chirpyType == .editChirpy && self.isApiChirpyImage {
             self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageDeleteImage, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](action) in
                 guard let self = self else { return }
-                self.removeChirpyImage()
+                self.viewUploadedImageContainer.isHidden = true
+                self.viewAddImageContainer.isHidden = false
+                self.imgChirpy.image = nil
+                self.uploadImgUrl = ""
+              //  self.removeChirpyImage()
             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
         } else {
             self.viewUploadedImageContainer.isHidden = true
