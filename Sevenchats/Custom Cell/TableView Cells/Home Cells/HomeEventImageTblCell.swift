@@ -245,7 +245,8 @@ extension HomeEventImageTblCell{
         self.lblEventPostDate.text = startCreated
         
         print("postinfo.location\(postInfo.valueForString(key: "address_line1"))")
-        lblEventLocation.text = postInfo.valueForString(key:CEvent_Location)
+        let str_Back_loction = postInfo.valueForString(key: CEvent_Location).return_replaceBack(replaceBack: postInfo.valueForString(key: CEvent_Location))
+        lblEventLocation.text = str_Back_loction
         btnMaybe.setTitle("\(postInfo.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(postInfo.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)
         btnInterested.setTitle("\(postInfo.valueForString(key: "yes_count"))\n" + CConfirmed, for: .normal)

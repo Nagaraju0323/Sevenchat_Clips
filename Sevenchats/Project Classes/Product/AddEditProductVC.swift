@@ -729,6 +729,7 @@ extension AddEditProductVC {
 //            let txtproductDesc = txtProductDesc.text.replace(string: "\n", replacement: "\\n")
             let txtproductDesc = txtProductDesc.text?.replace_str(replace: txtProductDesc.text ?? "")
             let txtProductTitle = txtProductTitle.text?.replace_str(replace: txtProductTitle.text ?? "")
+            let txtProductLocation = txtLocation.text?.replace_str(replace: txtLocation.text ?? "")
             apiTag = CEditProductNew
             dict = [
                 "product_id": prouductID,
@@ -741,7 +742,7 @@ extension AddEditProductVC {
                 "cost":self.txtProductPrice.text ?? "0",
                 "currency_name":currencyName,
                 "last_date_selling":self.strSellingDate,
-                "location":self.txtLocation.text ?? "",
+                "location":txtProductLocation,
                 "latitude":"60",
                 "longitude":"80",
                 "status_id":"1",
@@ -811,6 +812,7 @@ extension AddEditProductVC {
             }
             let txtproductDesc = txtProductDesc.text?.replace_str(replace: txtProductDesc.text ?? "")
             let txtProductTitle = txtProductTitle.text?.replace_str(replace: txtProductTitle.text ?? "")
+            let txtProductLocation = txtLocation.text?.replace_str(replace: txtLocation.text ?? "")
             //let txtproductDesc =  postContent.replace(string: "\n", replacement: "\\n")
 //            let txtproductDesc = txtProductDesc.text.replace(string: "\n", replacement: "\\n")
             apiTag = CAddProductNew
@@ -827,7 +829,7 @@ extension AddEditProductVC {
                 "cost":self.txtProductPrice.text ?? "0",
                 "currency_name":currencyName,
                 "last_date_selling":self.strSellingDate,
-                "location":self.txtLocation.text ?? "",
+                "location":txtProductLocation,
                 "latitude":latitude,
                 "longitude":longitude,
                 "status_id":"1",

@@ -91,8 +91,10 @@ class SocketIOManager: NSObject {
                 var postInfoConent = [String:Any]()
                 let eventConvertObj = evntinfo as? [String:Any] ?? [:]
                 let content = eventConvertObj["content"] as? String
-                let contentConvert = content?.replace(string: "\\", replacement: "")
+//                let contentConvert = content?.replace(string: "\\", replacement: "")
+                let contentConvert = content?.replace(string: "\\", replacement: "").return_replaceBack(replaceBack:content ?? "")
                 let dictNot =  self.convertToDictionaryToConent(from: contentConvert ?? "")
+                
                 var postInfo = dictNot["postInfo"] as? [String:Any] ?? [:]
                 let  senderName = dictNot["senderName"] as? String ?? ""
                 postInfoConent["content"] = content

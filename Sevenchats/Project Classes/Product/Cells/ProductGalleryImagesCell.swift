@@ -10,7 +10,7 @@ import UIKit
 
 class ProductGalleryImagesCell: UICollectionViewCell {
     
-    //@IBOutlet weak var imgGalleryEvent : UIImageView!
+  @IBOutlet weak var imgProduct : UIImageView!
     @IBOutlet weak var blurImgView : BlurImageView!
     
     @IBOutlet weak var imgVideoIcon : UIImageView!

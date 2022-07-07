@@ -472,12 +472,12 @@ extension ImageSharedDetailViewController: UICollectionViewDelegate, UICollectio
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return arrGalleryImage.count
+        return arrGalleryImageLatest.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //return CGSize(width:clGallery.frame.size.width, height: clGallery.frame.size.width)
-        if arrGalleryImage.count > 1{
+        if arrGalleryImageLatest.count > 1{
             var width = clGallery.frame.size.width
             width = width - ((width * 30) / 100)
             return CGSize(width:width, height: clGallery.bounds.height)
@@ -515,7 +515,7 @@ extension ImageSharedDetailViewController: UICollectionViewDelegate, UICollectio
         }else {
             
             //cell.blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
-            cell.ImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+           // cell.ImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             cell.ImgView.loadImageFromUrl(imgInfo, false)
            // cell.blurImgView.loadImageFromUrl(imgInfo, false)
             cell.imgVideoIcon.isHidden =  true
@@ -527,7 +527,7 @@ extension ImageSharedDetailViewController: UICollectionViewDelegate, UICollectio
         
         let lightBoxHelper = LightBoxControllerHelper()
         weak var weakSelf = self
-        lightBoxHelper.openMultipleImagesWithVideo(arrGalleryImage: arrGalleryImage, controller: weakSelf,selectedIndex: indexPath.row)
+        lightBoxHelper.openMultipleImagesWithVideos(arrGalleryImage: arrGalleryImage, controller: weakSelf,selectedIndex: indexPath.row)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

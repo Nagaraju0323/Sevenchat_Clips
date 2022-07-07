@@ -348,6 +348,7 @@ extension AddEventViewController{
         guard let userID = appDelegate.loginUser?.user_id else { return }
         let addevent_desc = txtViewContent.text.replace_str(replace: txtViewContent.text)
         let addevent_title = txtEventTitle.text?.replace_str(replace: txtEventTitle.text ?? "")
+        let addevent_location = txtLocation.text?.replace_str(replace: txtEventTitle.text ?? "")
         //let txtAdv = txtViewContent.text.replace(string: "\n", replacement: "\\n")
         
         if eventType == .editEvent{
@@ -363,7 +364,7 @@ extension AddEventViewController{
                     "longitude": self.longitude,
                     "start_date": startchg,
                     "end_date": endchg,
-                    "address_line1": txtLocation.text ?? "",
+                    "address_line1": addevent_location,
                     "targeted_audience": "",
                     "selected_persons": "",
                     "status_id": "1"
@@ -441,7 +442,7 @@ extension AddEventViewController{
             "longitude":self.longitude,
             "start_date":startchg,
             "end_date":endchg,
-            "address_line1": txtLocation.text ?? ""
+            "address_line1": addevent_location
         ]
         
         if self.selectedInviteType == 1{
