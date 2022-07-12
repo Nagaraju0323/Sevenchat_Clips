@@ -111,11 +111,13 @@ extension ProductMediaCollectionView: UICollectionViewDelegate, UICollectionView
             if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
                 if let urlVideo = URL(string: model.serverImgURL ?? ""){
                     self.getThumbnailImageFromVideoUrl(url: urlVideo) { (thumbNailImage) in
-                        cell.blurImgView.image = thumbNailImage
+                       // cell.blurImgView.image = thumbNailImage
+                        cell.imgProduct.image = thumbNailImage
                     }
                 }
             }else {
-                cell.blurImgView.loadImageFromUrl(model.serverImgURL, false)
+//                cell.blurImgView.loadImageFromUrl(model.serverImgURL, false)
+                cell.imgProduct.loadImageFromUrl(model.serverImgURL, false)
             }
             
             cell.imgVideoIcon.isHidden = !(model.assetType == .Video)
@@ -128,11 +130,13 @@ extension ProductMediaCollectionView: UICollectionViewDelegate, UICollectionView
             if imgExt == "mp4" ||  imgExt == "mov" ||  imgExt == "MOV"{
                 if let urlVideo = URL(string: model.serverImgURL ?? ""){
                     self.getThumbnailImageFromVideoUrl(url: urlVideo) { (thumbNailImage) in
-                        cell.blurImgView.image = thumbNailImage
+//                        cell.blurImgView.image = thumbNailImage
+                        cell.imgProduct.image = thumbNailImage
                     }
                 }
             }else {
-                cell.blurImgView.loadImageFromUrl(model.serverImgURL, false)
+//                cell.blurImgView.loadImageFromUrl(model.serverImgURL, false)
+                cell.imgProduct.loadImageFromUrl(model.serverImgURL, false)
             }
             cell.showLabelCount.isHidden = true
             cell.showImageBlur.isHidden = true

@@ -174,10 +174,10 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
             cell.btnLikeCount.setTitle(strLikeCount, for: .normal)
             cell.commentCounts = dicFavWeSite.valueForString(key: "comments")
             let strCommentCount = appDelegate.getCommentCountString(comment: Int(cell.commentCounts) ?? 0)
-//            cell.btnComment.setTitle(strCommentCount, for: .normal)
-            cell.btnComment.isHidden = true
-            cell.btnShare.setTitle(strCommentCount, for: .normal)
-//            cell.btnShare.setTitle(CBtnShare, for: .normal)
+            cell.btnComment.setTitle(strCommentCount, for: .normal)
+//            cell.btnComment.isHidden = true
+//            cell.btnShare.setTitle(strCommentCount, for: .normal)
+            cell.btnShare.setTitle(CBtnShare, for: .normal)
             weak var weakCell = cell
             cell.btnLike.touchUpInside { [weak self] (sender) in
                 guard let _ = self else { return }
@@ -226,10 +226,10 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
             
             cell.btnComment.touchUpInside { [weak self] (sender) in
                 guard let _ = self else { return }
-//                if let commentVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController{
-//                    commentVC.rssID = dicFavWeSite.valueForString(key: CfavWebID)
-//                    self?.navigationController?.pushViewController(commentVC, animated: true)
-//                }
+                if let commentVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController{
+                    commentVC.rssID = dicFavWeSite.valueForString(key: CfavWebID)
+                    self?.navigationController?.pushViewController(commentVC, animated: true)
+                }
             }
             
             cell.btnReport.touchUpInside { [weak self] (sender) in
@@ -245,11 +245,11 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
             
             cell.btnShare.touchUpInside { [weak self] (sender) in
                 guard let _ = self else { return }
-//                self?.presentActivityViewController(mediaData: dicFavWeSite.valueForString(key: "favourite_website_url"), contentTitle: CShareWebsiteContentMsg)
-                if let commentVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController{
-                    commentVC.rssID = dicFavWeSite.valueForString(key: CfavWebID)
-                    self?.navigationController?.pushViewController(commentVC, animated: true)
-                }
+                self?.presentActivityViewController(mediaData: dicFavWeSite.valueForString(key: "favourite_website_url"), contentTitle: CShareWebsiteContentMsg)
+//                if let commentVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "CommentViewController") as? CommentViewController{
+//                    commentVC.rssID = dicFavWeSite.valueForString(key: CfavWebID)
+//                    self?.navigationController?.pushViewController(commentVC, animated: true)
+//                }
             }
             
             // Load More data......

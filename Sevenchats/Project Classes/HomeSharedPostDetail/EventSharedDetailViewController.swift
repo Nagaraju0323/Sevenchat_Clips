@@ -380,7 +380,9 @@ extension EventSharedDetailViewController {
         guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
         self.lblEventEndDate.text = startCreated2
         
-        self.lblEventAddress.text = dict.valueForString(key: CEvent_Location)
+//        self.lblEventAddress.text = dict.valueForString(key: CEvent_Location)
+        let str_Back_loction = dict.valueForString(key: CEvent_Location).return_replaceBack(replaceBack: dict.valueForString(key: CEvent_Location))
+        self.lblEventAddress.text = str_Back_loction
         
         
         //TODO: --------------Experied Event--------------

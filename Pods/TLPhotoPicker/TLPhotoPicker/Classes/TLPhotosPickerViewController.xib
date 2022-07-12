@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -123,7 +123,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7qj-q4-rHC">
-                                    <rect key="frame" x="29.5" y="105" width="41.5" height="20.5"/>
+                                    <rect key="frame" x="29" y="105" width="42" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -192,7 +192,6 @@
                     </connections>
                 </view>
             </subviews>
-            <viewLayoutGuide key="safeArea" id="HLR-WT-D3I"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="HPm-Vc-F86" firstAttribute="bottom" secondItem="HLR-WT-D3I" secondAttribute="bottom" id="0AS-35-SWm"/>
@@ -213,6 +212,7 @@
                 <constraint firstItem="4gR-Bn-quP" firstAttribute="bottom" secondItem="HLR-WT-D3I" secondAttribute="bottom" id="qqE-w2-Tsc"/>
                 <constraint firstAttribute="trailing" secondItem="X8O-Gg-slz" secondAttribute="trailing" id="yWV-L2-0f4"/>
             </constraints>
+            <viewLayoutGuide key="safeArea" id="HLR-WT-D3I"/>
             <point key="canvasLocation" x="33.5" y="53.5"/>
         </view>
     </objects>

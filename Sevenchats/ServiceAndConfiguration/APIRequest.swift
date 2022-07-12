@@ -41,14 +41,14 @@ import LGSideMenuController
 ////let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
 //let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
 ////https://dev.sevenchats.com:4443/ws-chat/websocket
-//
-////////MARK:- NotificationSocket
-////let BASEURLSOCKETNOTF: String = "wss://dev.sevenchats.com:2443/"
+////
+//////////MARK:- NotificationSocket
+//////let BASEURLSOCKETNOTF: String = "wss://dev.sevenchats.com:2443/"
 //let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
 //let BASEURL_Rew: String = "Dev"
-
-//////MARK:- MINIO
-//let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
+//
+////////MARK:- MINIO
+////let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 let BASEURLMINIO: String = "https://stg.sevenchats.com:3443"
 
 

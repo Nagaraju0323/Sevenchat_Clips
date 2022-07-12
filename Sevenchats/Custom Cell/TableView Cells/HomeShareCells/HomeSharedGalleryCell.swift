@@ -289,7 +289,7 @@ extension HomeSharedGalleryCell: UICollectionViewDelegate, UICollectionViewDataS
         
         let lightBoxHelper = LightBoxControllerHelper()
         weak var weakSelf = self.viewController
-        lightBoxHelper.openMultipleImagesWithVideo(arrGalleryImage: arrGalleryImage, controller: weakSelf,selectedIndex: indexPath.row)
+        lightBoxHelper.openMultipleImagesWithVideos(arrGalleryImage: arrGalleryImage, controller: weakSelf,selectedIndex: indexPath.row)
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

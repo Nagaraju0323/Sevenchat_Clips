@@ -172,8 +172,9 @@ extension HomeEventsCell{
         guard let startCreated2 = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr2) else { return}
         lblEventStartDate.text = startCreated1
         lblEventEndDate.text =  startCreated2
+        let str_Back_loction = postInfo.valueForString(key: CEvent_Location).return_replaceBack(replaceBack: postInfo.valueForString(key: CEvent_Location))
+        lblEventLocation.text = str_Back_loction
         
-        lblEventLocation.text = postInfo.valueForString(key: CEvent_Location)
         imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         lblEventType.text = CTypeEvent
         lblEventCategory.text = postInfo.valueForString(key: CCategory).uppercased()

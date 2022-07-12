@@ -148,9 +148,9 @@ extension LoginViewController:GenericTextFieldDelegate{
     func genericTextFieldDidChange(_ textField : UITextField){
         if textField == txtEmail{
             if (txtEmail.text?.isValidPhoneNo)! && !(txtEmail.text?.isBlank)!{
-                
+               
                 cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
-                txtCountryCode.isHidden = true
+                txtCountryCode.isHidden = false
             }else{
                 cnTxtEmailLeading.constant = 20
                 txtCountryCode.isHidden = true
@@ -172,8 +172,9 @@ extension LoginViewController:GenericTextFieldDelegate{
         let updatedText = text.replacingCharacters(in: textRange,with: string)
         if string.isBlank{
             if updatedText.isValidPhoneNo && !updatedText.isEmpty{
-                cnTxtEmailLeading.constant = 20
-                txtCountryCode.isHidden = true
+                cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+              //  cnTxtEmailLeading.constant = 20
+                txtCountryCode.isHidden = false
             }else{
                 cnTxtEmailLeading.constant = 20
                 txtCountryCode.isHidden = true
@@ -190,8 +191,9 @@ extension LoginViewController:GenericTextFieldDelegate{
                 if textField.text?.count ?? 0 >= 15{
                     return false
                 }
-                cnTxtEmailLeading.constant = 20
-                txtCountryCode.isHidden = true
+                cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+               // cnTxtEmailLeading.constant = 20
+                txtCountryCode.isHidden = false
             }else{
                 cnTxtEmailLeading.constant = 20
                 txtCountryCode.isHidden = true
