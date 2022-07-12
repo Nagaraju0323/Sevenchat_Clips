@@ -28,7 +28,7 @@ class NewsTblCell: UITableViewCell {
         super.awakeFromNib()
        
         GCDMainThread.async {
-            self.btnShare.isHidden = true
+            self.btnShare.isHidden = false
             self.vwSubContainer.layer.cornerRadius = 8
             self.vwMainContainer.layer.cornerRadius = 8
             self.vwMainContainer.shadow(color: CRGB(r: 237, g: 236, b: 226), shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)

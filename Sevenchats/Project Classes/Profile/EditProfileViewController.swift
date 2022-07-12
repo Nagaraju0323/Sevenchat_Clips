@@ -29,6 +29,7 @@ class EditProfileViewController: ParentViewController {
     @IBOutlet weak var CoverEditIcon : UIImageView!
     @IBOutlet weak var txtFirstName : MIGenericTextFiled!
     @IBOutlet weak var txtLastName : MIGenericTextFiled!
+    @IBOutlet weak var txtUserId : MIGenericTextFiled!
     @IBOutlet weak var txtEmail : MIGenericTextFiled!
     @IBOutlet weak var txtMobileNumber : MIGenericTextFiled!
     @IBOutlet weak var txtCountryCode : MIGenericTextFiled!
@@ -89,6 +90,7 @@ class EditProfileViewController: ParentViewController {
     func Initialization(){
         txtFirstName.txtDelegate = self
         txtLastName.txtDelegate = self
+        txtUserId.txtDelegate = self
         btnUpdate.layer.cornerRadius = 5
         btnUpdateComplete.layer.cornerRadius = 5
         btnUpdateComplete.layer.borderWidth = 1

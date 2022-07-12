@@ -23,32 +23,32 @@ import LGSideMenuController
 /// Live
 //var BASEURL: String          =   "http://dev1.sevenchats.com:2020/api/v1/"
 //MARK: - Dev
-var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
-let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
-var BASEMASTERURL           = "http://dev.sevenchats.com:3001/auth/"
-//////MARK: - CHAT
-//var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
-var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
-//////MARK: - OTP
-var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
-var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
-//////MARK: - AUTHENTICATION
-var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
-//////MARK: - Notification
-var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
-var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
-//////MARK:- SockeIO key
-//let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
-let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
-//https://dev.sevenchats.com:4443/ws-chat/websocket
+//var BASEURLNEW: String      =   "https://dev.sevenchats.com:8443/admin/"
+//let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
+//var BASEMASTERURL           = "http://dev.sevenchats.com:3001/auth/"
+////////MARK: - CHAT
+////var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
+//var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
+////////MARK: - OTP
+//var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
+//var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
+////////MARK: - AUTHENTICATION
+//var BASEAUTH:String         =   "http://dev.sevenchats.com:3001/"
+////////MARK: - Notification
+//var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:1924/"
+//var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:9480/"
+////////MARK:- SockeIO key
+////let SocketIoUrl = "http://dev.sevenchats.com:8080/ws-chat/websocket"
+//let SocketIoUrl = "https://dev.sevenchats.com:4443/ws-chat/websocket"
+////https://dev.sevenchats.com:4443/ws-chat/websocket
+////
+//////////MARK:- NotificationSocket
+//////let BASEURLSOCKETNOTF: String = "wss://dev.sevenchats.com:2443/"
+//let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
+//let BASEURL_Rew: String = "Dev"
 //
-////////MARK:- NotificationSocket
-////let BASEURLSOCKETNOTF: String = "wss://dev.sevenchats.com:2443/"
-let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
-let BASEURL_Rew: String = "Dev"
-
-//////MARK:- MINIO
-//let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
+////////MARK:- MINIO
+////let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
 let BASEURLMINIO: String = "https://stg.sevenchats.com:3443"
 
 
@@ -100,18 +100,18 @@ let BASEURLMINIO: String = "https://stg.sevenchats.com:3443"
 
 //Beta server
 
-//var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
-//let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
-//var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
-//var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
-//var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
-//var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
-//var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
-//var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
-//var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
-//let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
-//let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
-//let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
+var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
+let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
+var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
+var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
+var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
+var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
+var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
+var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
+var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
+let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
+let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
+let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
 
 //let BASEURL_Rew: String = "QAY"
 

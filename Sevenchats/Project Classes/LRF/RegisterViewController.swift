@@ -29,6 +29,8 @@ class RegisterViewController: ParentViewController {
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var imgEditIcon : UIImageView!
     @IBOutlet weak var viewContainer : UIView!
+    @IBOutlet weak var conturyviewContainer : UIView!
+    @IBOutlet var cnTxtEmailLeading : NSLayoutConstraint!
     @IBOutlet weak var txtFirstName : MIGenericTextFiled!{
         didSet{
             self.txtFirstName.txtDelegate = self
@@ -52,7 +54,7 @@ class RegisterViewController: ParentViewController {
     @IBOutlet weak var txtStates : MIGenericTextFiled!
     @IBOutlet weak var txtCitys : MIGenericTextFiled!
     @IBOutlet weak var btnChkterm:UIButton!
-    
+    @IBOutlet weak var viewCountryCode:UIView!
     
     
     var countryID : Int?
@@ -95,6 +97,12 @@ class RegisterViewController: ParentViewController {
     
     // MARK:- --------- Initialization
     func Initialization(){
+        
+        self.viewCountryCode.isHidden = true
+        self.txtEmail.isHidden = true
+        self.txtCountrys.isHidden = true
+        self.conturyviewContainer.isHidden = true
+        
         txtPWD.txtDelegate = self
         txtConfirmPWD.txtDelegate = self
         txtMobileNumber.txtDelegate = self
@@ -671,8 +679,61 @@ extension RegisterViewController{
 
 // MARK:- -------- UITextFieldDelegate
 extension RegisterViewController: GenericTextFieldDelegate {
+    func genericTextFieldClearText(_ textField: UITextField){
+        if textField == txtMobileNumber{
+            cnTxtEmailLeading.constant = 20
+            txtCountryCode.isHidden = true
+            self.view.layoutIfNeeded()
+            GCDMainThread.async {
+                self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+            }
+        }
+    }
+    func genericTextFieldDidChange(_ textField : UITextField){
+        if textField == txtMobileNumber{
+            if (txtMobileNumber.text?.isValidPhoneNo)! && !(txtMobileNumber.text?.isBlank)!{
+                self.viewCountryCode.isHidden = false
+                cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+                txtCountryCode.isHidden = false
+            }else{
+                cnTxtEmailLeading.constant = 20
+                txtCountryCode.isHidden = true
+            }
+            self.view.layoutIfNeeded()
+            
+            GCDMainThread.async {
+                self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+            }
+        }
+    }
+
     
     @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text,
+              let textRange = Range(range, in: text) else{
+                  return true
+              }
+        let updatedText = text.replacingCharacters(in: textRange,with: string)
+        if string.isBlank{
+            if updatedText.isValidPhoneNo && !updatedText.isEmpty{
+                self.viewCountryCode.isHidden = false
+                cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+              //  cnTxtEmailLeading.constant = 20
+                txtCountryCode.isHidden = false
+            }else{
+                cnTxtEmailLeading.constant = 20
+                txtCountryCode.isHidden = true
+                self.viewCountryCode.isHidden = true
+            }
+            self.view.layoutIfNeeded()
+            
+            GCDMainThread.async {
+                self.txtEmail.updateBottomLineAndPlaceholderFrame()
+            }
+            return true
+        }
+
+        
         if textField == txtFirstName || textField == txtLastName {
             let inverted = NSCharacterSet(charactersIn: SPECIALCHARNOTALLOWED).inverted
             
@@ -690,11 +751,35 @@ extension RegisterViewController: GenericTextFieldDelegate {
             //            let cs = NSCharacterSet(charactersIn: SPECIALCHAR).inverted
             //            let filtered = string.components(separatedBy: cs).joined(separator: "")
             //            return (string == filtered)
-        } else if textField == txtMobileNumber{
-            if textField.text?.count ?? 0 >= 15{
-                return false
+//        } else if textField == txtMobileNumber{
+//            if textField.text?.count ?? 0 >= 15{
+//                return false
+//            }
+//
+//        }
+    } else if textField == txtMobileNumber{
+        
+            if updatedText.isValidPhoneNo && !updatedText.isBlank{
+                if textField.text?.count ?? 0 >= 15{
+                    return false
+                }
+                self.viewCountryCode.isHidden = false
+                cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+               // cnTxtEmailLeading.constant = 20
+                txtCountryCode.isHidden = false
+            }else{
+                cnTxtEmailLeading.constant = 20
+                txtCountryCode.isHidden = true
+                self.viewCountryCode.isHidden = true
             }
-        }else if textField == txtPWD || textField == txtConfirmPWD{
+            self.view.layoutIfNeeded()
+           
+            GCDMainThread.async {
+                self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+            }
+        }
+
+        else if textField == txtPWD || textField == txtConfirmPWD{
             if textField.text?.count ?? 0 > 20{
                 return false
             }
@@ -702,7 +787,54 @@ extension RegisterViewController: GenericTextFieldDelegate {
             let filtered = string.components(separatedBy: cs).joined(separator: "")
             return (string == filtered)
         }
+        
+        
+        
+//        guard let text = textField.text,
+//              let textRange = Range(range, in: text) else{
+//                  return true
+//              }
+//        let updatedText = text.replacingCharacters(in: textRange,with: string)
+//        if string.isBlank{
+//            if updatedText.isValidPhoneNo && !updatedText.isEmpty{
+//                cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+//              //  cnTxtEmailLeading.constant = 20
+//                txtCountryCode.isHidden = false
+//            }else{
+//                cnTxtEmailLeading.constant = 20
+//                txtCountryCode.isHidden = true
+//            }
+//            self.view.layoutIfNeeded()
+//
+//            GCDMainThread.async {
+//                self.txtEmail.updateBottomLineAndPlaceholderFrame()
+//            }
+//            return true
+//        }
+//        if textField == txtMobileNumber{
+//            if updatedText.isValidPhoneNo && !updatedText.isBlank{
+//                if textField.text?.count ?? 0 >= 15{
+//                    return false
+//                }
+//                cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+//               // cnTxtEmailLeading.constant = 20
+//                txtCountryCode.isHidden = false
+//            }else{
+//                cnTxtEmailLeading.constant = 20
+//                txtCountryCode.isHidden = true
+//            }
+//            self.view.layoutIfNeeded()
+//
+//            GCDMainThread.async {
+//                self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+//            }
+//        }
+        
         return true
+    }
+    
+    func genericTextField(_ textField: UITextField, shouldChangeCharactersInForEmpty range: NSRange, replacementString string: String) -> Bool {
+        return self.genericTextField(textField, shouldChangeCharactersIn: range, replacementString: string)
     }
 }
 
@@ -890,3 +1022,4 @@ extension RegisterViewController{
     }
     
 }
+

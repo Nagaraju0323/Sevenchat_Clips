@@ -81,7 +81,7 @@ class HomeSearchViewController: ParentViewController {
     
     // MARK:- --------- Initialization
     func Initialization(){
-        self.searchView.isHidden = true
+        //self.searchView.isHidden = true
         cnNavigationHeight.constant = IS_iPhone_X_Series ? 84 : 64
         txtSearch.becomeFirstResponder()
         
@@ -116,7 +116,20 @@ class HomeSearchViewController: ParentViewController {
         tblEvents.register(UINib(nibName: "PostDeletedCell", bundle: nil), forCellReuseIdentifier: "PostDeletedCell")
         
         var arrSearchType = [[String : Any]]()
+//        arrSearchType = [
+//            [CCategoryType:CTypeUser,CCategoryId:CStaticSearchUserTypeId]
+//        ]
+        
+//MARK:- NEW
         arrSearchType = [
+            [CCategoryType:CTypeAll,CCategoryId:CStaticSearchAllType],
+            [CCategoryType:CTypeArticle,CCategoryId:CStaticArticleId],
+            [CCategoryType:CTypeChirpy,CCategoryId:CStaticChirpyId],
+            [CCategoryType:CTypeEvent,CCategoryId:CStaticEventId],
+            [CCategoryType:CTypeForum,CCategoryId:CStaticForumId],
+            //[CCategoryType:CTypeGallery,CCategoryId:CStaticGalleryId],
+            [CCategoryType:CTypePoll,CCategoryId:CStaticPollId],
+            [CCategoryType:CTypeShout,CCategoryId:CStaticShoutId],
             [CCategoryType:CTypeUser,CCategoryId:CStaticSearchUserTypeId]
         ]
         
