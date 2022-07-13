@@ -270,6 +270,7 @@ let CStaticShoutId     = 7
 let CStaticForumId     = 4
 let CStaticEventId     = 3
 let CStaticSearchUserTypeId     = 7
+let CStaticSearchPostTypeId     = 9
 let CStaticPollId     = 6
 let CStaticSearchAllType     = 0
 
