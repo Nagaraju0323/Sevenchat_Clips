@@ -273,6 +273,7 @@ extension HomeSearchViewController  {
             param["user_id"] = appDelegate.loginUser?.user_id.description
             APIRequest.shared().userSearchDetails(Param: param){ [weak self] (response, error) in
                 guard let self = self else { return }
+                
                 self.tblEvents.tableFooterView = nil
                 self.refreshControl.endRefreshing()
                 //            self.arrHomeSearch.removeAll()

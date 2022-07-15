@@ -348,7 +348,7 @@ extension AddEventViewController{
         guard let userID = appDelegate.loginUser?.user_id else { return }
         let addevent_desc = txtViewContent.text.replace_str(replace: txtViewContent.text)
         let addevent_title = txtEventTitle.text?.replace_str(replace: txtEventTitle.text ?? "")
-        let addevent_location = txtLocation.text?.replace_str(replace: txtEventTitle.text ?? "")
+        let addevent_location = txtLocation.text?.replace_str(replace: txtLocation.text ?? "")
         //let txtAdv = txtViewContent.text.replace(string: "\n", replacement: "\\n")
         
         if eventType == .editEvent{
