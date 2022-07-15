@@ -102,6 +102,7 @@ let BASEURLMINIO: String = "https://stg.sevenchats.com:3443"
 
 var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
 let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
+let BASEMSGURLS:String       =   "https://beta.sevenchats.com"
 var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
 var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
 var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
@@ -297,6 +298,7 @@ let CAPITagforums = "forums/add"
 let CAPITagshouts = "shouts/add"
 let CAPITagsgallery = "galleries/add"
 let CAPITagpolls = "polls/add"
+let CAPITagSearchUser = "/es/search"
 
 let CAPITagEditarticles = "articles/update"
 let CAPITagEditchirpies = "chirpies/update"
@@ -622,6 +624,14 @@ extension Networking {
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task
     }
+    
+    func POSTSearch(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
+          let uRequest = SessionManager.default.request((BASEMSGURLS + tag), method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: internalheaders ?? headers)
+          self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+          return uRequest.task
+      }
+    
+    
     
     func POSTPARA(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
         let uRequest = SessionManager.default.request((BASEURLNEW + tag), method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: internalheaders ?? headers)
@@ -2522,6 +2532,29 @@ extension APIRequest {
             }
         })
     }
+    
+    
+    //user search
+    func userSearchDetails(Param:[String:Any], completion : @escaping ClosureCompletion) {
+           //        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+           _ = Networking.sharedInstance.POSTSearch(apiTag: CAPITagSearchUser, param: Param as [String : AnyObject], successBlock: { (task, response) in
+               MILoader.shared.hideLoader()
+               completion(response, nil)
+           },failureBlock: { (task, message, error) in
+               MILoader.shared.hideLoader()
+               completion(nil, error)
+               if error?.code == CStatus405{
+                   appDelegate.logOut()
+               } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+               } else {
+                   self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagViewPost, error: error)
+               }
+           })
+       }
+ 
+    
+    
+    
     
     //========================================NEWCODE==========================================
     
