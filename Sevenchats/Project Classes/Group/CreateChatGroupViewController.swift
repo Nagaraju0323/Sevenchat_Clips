@@ -286,7 +286,7 @@ extension CreateChatGroupViewController{
                     for viewController in (self.navigationController?.viewControllers)! {
                         if viewController.isKind(of: GroupsViewController.classForCoder()){
                             let groupVC = viewController as? GroupsViewController
-                            groupVC!.getGroupListFromServer(isNew: true)
+                            groupVC!.getGroupListFromServer(isNew: true, txtChange: false)
                             break
                         }
                     }
@@ -378,7 +378,7 @@ extension CreateChatGroupViewController{
                      for viewController in (self.navigationController?.viewControllers)! {
                          if viewController.isKind(of: GroupsViewController.classForCoder()){
                              let groupVC = viewController as? GroupsViewController
-                             groupVC!.getGroupListFromServer(isNew: true)
+                             groupVC!.getGroupListFromServer(isNew: true, txtChange: false)
                              break
                          }
                      }

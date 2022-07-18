@@ -2537,6 +2537,7 @@ extension APIRequest {
     //user search
     func userSearchDetails(Param:[String:Any], completion : @escaping ClosureCompletion) {
            //        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+             print("paramval\(Param)")
            _ = Networking.sharedInstance.POSTSearch(apiTag: CAPITagSearchUser, param: Param as [String : AnyObject], successBlock: { (task, response) in
                MILoader.shared.hideLoader()
                completion(response, nil)

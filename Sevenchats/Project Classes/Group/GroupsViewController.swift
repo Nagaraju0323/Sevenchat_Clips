@@ -37,13 +37,23 @@ class GroupsViewController: ParentViewController {
         }
     }
     
+//    var arrUserList = [[String:Any]]()
+//    var arrUser : [[String:Any]] = [[:]] {
+//        didSet{
+//            self.arrUserList = arrUser
+//
+//        }
+//    }
+    
     
     var refreshControl = UIRefreshControl()
     var apiTask : URLSessionTask?
     var groupType = CGroupTypePublic
     var isSearch : Bool = false
     var isLoadMoreCompleted =  false
+    var txtSearch = ""
     var pageNumber = 1
+    var pageNumberSearch = 1
     @IBOutlet weak var lblNoData : UILabel!
     
     
@@ -130,7 +140,7 @@ class GroupsViewController: ParentViewController {
             self.tblGroups.pullToRefreshControl = self.refreshControl
         }
         
-        self.getGroupListFromServer(isNew: true)
+        self.getGroupListFromServer(isNew: true,txtChange:false)
         
     }
     
@@ -143,7 +153,7 @@ class GroupsViewController: ParentViewController {
 
         self.pageNumber = 1
                 arrUserList.removeAll()
-        self.getGroupListFromServer(isNew: false)
+        self.getGroupListFromServer(isNew: false, txtChange: false)
 //        arrUserList.removeAll()
         self.tblGroups.reloadData()
     }
@@ -161,7 +171,7 @@ class GroupsViewController: ParentViewController {
 extension GroupsViewController {
     @objc func pullToRefresh() {
         refreshControl.beginRefreshing()
-        self.getGroupListFromServer(isNew: true)
+        self.getGroupListFromServer(isNew: true,txtChange:false)
     }
     
     
@@ -197,7 +207,7 @@ extension GroupsViewController {
 //    }
     
     
-    func getGroupListFromServer(isNew : Bool) {
+    func getGroupListFromServer(isNew : Bool,txtChange:Bool) {
         
         if apiTask?.state == URLSessionTask.State.running {
             return
@@ -207,8 +217,10 @@ extension GroupsViewController {
         guard let userid = appDelegate.loginUser?.user_id else {return}
         self.tblGroups.tableFooterView = nil
         
-//        self.arrGroupList.removeAll()
-        
+
+        if txtChange == true {
+            pageNumber = 1
+        }
         var apiTimeStamp : Double = 0
         apiTask = APIRequest.shared().getGroupChatListNew(timestamp: apiTimeStamp,search:userid.description , showLoader: true, page: pageNumber) { [weak self] (response, error) in
             guard let self = self else { return }
@@ -337,6 +349,7 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUserListTblCell", for: indexPath) as? ChatUserListTblCell {
             
             let groupInfo = arrUserList[indexPath.row]
+            print("groupinfo\(groupInfo)")
             if (isSearch)    {
                 let groupInfo = arrUserList[indexPath.row]
                 
@@ -358,7 +371,7 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
                     self?.navigationController?.pushViewController(groupMemberVC, animated: true)
                 }
             }
-            
+
             cell.btngroupInfo.touchUpInside { [weak self] (sender) in
                 guard let _ = self else { return }
 //                let grpInfo = groupInfo.dictionaryWithValues(forKeys: Array((groupInfo.entity.attributesByName.keys)))
@@ -374,7 +387,12 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
             //            }
             
             if indexPath == tblGroups.lastIndexPath() && !self.isLoadMoreCompleted{
-                self.getGroupListFromServer(isNew: false)
+                if isSearch == true{
+                    self.getSearchDataFromServer(txtSearch, "new",searchTxtOther:false)
+                }else {
+                    self.getGroupListFromServer(isNew: false,txtChange:false)
+                }
+               
             }
             return cell
         }
@@ -387,13 +405,9 @@ extension GroupsViewController : UITableViewDelegate, UITableViewDataSource{
         var groupInfo = arrUserList[indexPath.row]
         
         if let groupChatDetailsVC = CStoryboardGroup.instantiateViewController(withIdentifier: "GroupChatDetailsViewController") as? GroupChatDetailsViewController {
-           
-            
-//            let grpInfo = groupInfo.dictionaryWithValues(forKeys: Array((groupInfo.entity.attributesByName.keys)))
-            
-//            let grpInfo = groupInfo.dictionaryWithValues(forKeys: Array((groupInfo.entity.attributesByName.keys)))
+  
             groupChatDetailsVC.setBlock { [weak self] (object, message) in
-                self?.getGroupListFromServer(isNew: true)
+                self?.getGroupListFromServer(isNew: true,txtChange:false)
             }
             
             
@@ -419,7 +433,7 @@ extension GroupsViewController{
         
         if let createGroupVC = CStoryboardGroup.instantiateViewController(withIdentifier: "CreateChatGroupViewController") as? CreateChatGroupViewController {
             createGroupVC.setBlock { [weak self] (object, message) in
-                self?.getGroupListFromServer(isNew: true)
+                self?.getGroupListFromServer(isNew: true,txtChange:false)
             }
             self.navigationController?.pushViewController(createGroupVC, animated: true)
         }
@@ -429,10 +443,9 @@ extension GroupsViewController{
 extension GroupsViewController: UISearchBarDelegate{
     //MARK: UISearchbar delegate
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        isSearch = false
-//        arrUserList.removeAll()
-        self.tblGroups.reloadData()
-        
+        isSearch = true
+        arrUserList.removeAll()
+    
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -444,11 +457,8 @@ extension GroupsViewController: UISearchBarDelegate{
         //           searchBar.resignFirstResponder()
         searchBar.text = ""
         isSearch = false
-        self.pageNumber = 1
-////        arrUserList.removeAll()
-////        self.getGroupListFromServer(isNew: true)
-//        self.tblGroups.reloadData()
-        self.getGroupListFromServer(isNew: true)
+        arrUserList.removeAll()
+        self.getGroupListFromServer(isNew: true,txtChange:false)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -459,32 +469,81 @@ extension GroupsViewController: UISearchBarDelegate{
         
         if searchText.count == 0 {
             isSearch = false
-            self.tblGroups.reloadData()
+            self.getGroupListFromServer(isNew: true,txtChange:true)
         } else {
-            arrUserList = arrUser.filter({ (text) -> Bool in
-                let tmp: NSString = (text["group_title"] ?? "") as? NSString ?? ""
-                let range = tmp.range(of: searchText, options: NSString.CompareOptions.caseInsensitive)
-                return range.location != NSNotFound
-            })
-            if(arrUserList.count == 0) || self.searchBar.text == ""{
-                isSearch = true
-                arrUserList = arrUser.filter() {
-                    let strGameName = $0.valueForString(key: "group_title")
-                    let stringToCompare = searchBar.text!
-                    if let range = strGameName.range(of: stringToCompare) {
-                        isSearch = false
-                        return true
-                    } else {
-                        isSearch = true
-                        return false
-                    }
-                }
-                tblGroups.reloadData()
-            } else {
-                isSearch = true
-            }
-            self.tblGroups.reloadData()
+            self.txtSearch = searchText
+            self.getSearchDataFromServer(self.txtSearch , "new",searchTxtOther:true)
+            isSearch = true
         }
     }
+    
+}
+
+//MARK:-  uiSearch delegate
+extension GroupsViewController{
+ 
+    func getSearchDataFromServer(_ searchText : String?, _ typeLook : String?,searchTxtOther:Bool){
+      
+        var param = [String:Any]()
+        
+            if apiTask?.state == URLSessionTask.State.running {
+                return
+            }
+            if self.pageNumber > 2 {
+                self.tblGroups.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+            }else{
+                self.tblGroups.tableFooterView = nil
+            }
+        let serchTextStr = searchText
+        param["search_text"] = serchTextStr?.lowercased()
+
+            if searchTxtOther == true {
+                param[CPage] = 1
+            }else {
+                param[CPage] = pageNumberSearch
+            }
+        
+            param["search_type"] = "group"
+
+            param[CLimitS] = "10"
+            param["user_id"] = appDelegate.loginUser?.user_id.description
+            APIRequest.shared().userSearchDetails(Param: param){ [weak self] (response, error) in
+                guard let self = self else { return }
+               
+                self.tblGroups.tableFooterView = nil
+                self.refreshControl.endRefreshing()
+
+                GCDMainThread.async {
+                    if response != nil && error == nil {
+                        self.arrUserList.removeAll()
+                        self.arrUser.removeAll()
+                        let arrLists = response!["data"] as? [[String : Any]] ?? [[:]]
+                        for arrLst in arrLists{
+                            if let arrList = arrLst["groups"] as? [[String : Any]] {
+                                if self.pageNumberSearch == 1 {
+                                    self.arrUser.removeAll()
+                                    self.tblGroups.reloadData()
+                                }
+                                // Add Data here...
+                                if arrList.count > 0 {
+                                    self.arrUser = self.arrUser + arrList
+                                    self.tblGroups.reloadData()
+                                    self.pageNumberSearch += 1
+                                }
+                            }
+                        }
+
+                    }else{
+                        self.arrUser.removeAll()
+                        self.tblGroups.reloadData()
+                       
+                        
+                    }
+                }
+            }
+        }
+    
+    
+    
     
 }

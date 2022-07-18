@@ -236,7 +236,7 @@ extension FirebasePushNotification {
                     let groupViewController = appDelegate.getTopMostViewController()
                     if let groupVC = groupViewController as? GroupsViewController {
                         groupChatDetailsVC.setBlock { (object, message) in
-                            groupVC.getGroupListFromServer(isNew: true)
+                            groupVC.getGroupListFromServer(isNew: true, txtChange: false)
                         }
                     }
                     let groupID = postInfo.valueForString(key: "group_id")
@@ -256,7 +256,7 @@ extension FirebasePushNotification {
                     let groupViewController = appDelegate.getTopMostViewController()
                     if let groupVC = groupViewController as? GroupsViewController {
                         groupChatDetailsVC.setBlock { (object, message) in
-                            groupVC.getGroupListFromServer(isNew: true)
+                            groupVC.getGroupListFromServer(isNew: true, txtChange: false)
                         }
                     }
                     let groupID = postInfo.valueForString(key: "group_id")
@@ -921,7 +921,7 @@ extension FirebasePushNotification {
                 let groupViewController = appDelegate.getTopMostViewController()
                 if let groupVC = groupViewController as? GroupsViewController {
                     groupChatDetailsVC.setBlock { (object, message) in
-                        groupVC.getGroupListFromServer(isNew: true)
+                        groupVC.getGroupListFromServer(isNew: true, txtChange: false)
                     }
                 }
                 
