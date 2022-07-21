@@ -56,10 +56,14 @@ class AllProductListVC: UIViewController {
     var apiTask : URLSessionTask?
     var allProduct : [MDLProduct] = []
     var pageNumber = 1
+    var pageNumbersearch = 1
     var isLoadMoreCompleted = false
     var noProductsFound = ""
     var isFromSearch = false
     var param = [String:Any]()
+    var searchStrFrm = ""
+    var isSearchItems = ""
+    
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -100,10 +104,18 @@ extension AllProductListVC {
     @objc func pullToRefresh() {
         self.refreshControl.beginRefreshing()
         self.pageNumber = 1
+        self.pageNumbersearch = 1
         self.isLoadMoreCompleted = false
         self.apiTask?.cancel()
-        self.allProductList(isLoader: false)
-    }
+        
+        if isSearchItems == "searhItems"{
+            self.pageNumbersearch = 1
+            self.allProductListSearch(isLoader:true,SearchStr: searchStrFrm)
+
+        }else {
+            self.allProductList(isLoader: false)
+        }
+ }
 }
 
 //MARK: - UITableView Delegates & DataSource
@@ -126,8 +138,17 @@ extension AllProductListVC: UITableViewDelegate, UITableViewDataSource {
         }
         cell.product = allProduct[indexPath.row]
         //         Load more data....
+        
         if (indexPath == tblProductList.lastIndexPath()) && !self.isLoadMoreCompleted {
-            // self.allProductList(isLoader: false)
+            
+//          self.allProductList(isLoader: false)
+            
+            if isSearchItems == "searhItems"{
+                self.allProductListSearch(isLoader:true,SearchStr: searchStrFrm)
+
+            }else {
+                self.allProductList(isLoader: false)
+            }
         }
         return cell
     }
@@ -190,7 +211,7 @@ extension AllProductListVC {
                         self?.noProductsFound = CNoProductFound
                         self?.isLoadMoreCompleted = true
                     }else{
-                        self?.pageNumber += 1
+//                        self?.pageNumber += 1
                     }
                     print(arrData)
                     for obj in arrData{
@@ -198,10 +219,12 @@ extension AllProductListVC {
                     }
                     if self?.tblProductList != nil{
                         self?.tblProductList.reloadData()
-                        if self?.pageNumber == 2 && !(self?.isLoadMoreCompleted ?? false){
-                            let indexPath = IndexPath(row: 0,section: 0)
-                            self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
-                        }
+                        self?.pageNumber += 1
+//                        if self?.pageNumber == 2 && !(self?.isLoadMoreCompleted ?? false){
+//                            let indexPath = IndexPath(row: 0,section: 0)
+//                            self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//                        }
+                       
                     }
                 }
             }else{
@@ -223,8 +246,8 @@ extension AllProductListVC {
             self.refreshControl.endRefreshing()
             self.pageNumber = 1
             self.isLoadMoreCompleted = false
-            self.allProduct.removeAll()
-            self.tblProductList.reloadData()
+//            self.allProduct.removeAll()
+//            self.tblProductList.reloadData()
             return
         }
         var para = [String : Any]()
@@ -233,7 +256,7 @@ extension AllProductListVC {
         para["user_id"] = userid.description
         
         
-        param[CPage] = 1
+        param[CPage] = pageNumbersearch
         param["search_type"] = "all_products"
         
         param[CLimitS] = "10"
@@ -250,21 +273,22 @@ extension AllProductListVC {
                         if let arrData = arrDatass["products"] as? [[String : Any]] {
                             // let arrData = arrDatass["products"] as? [[String : Any]] ?? []
                             self.isLoadMoreCompleted = (arrData.count == 0)
-                            if self.pageNumber == 1{
+                            if self.pageNumbersearch == 1{
                                 self.allProduct.removeAll()
                             }
                             if arrData.count == 0{
                                 self.noProductsFound = CNoProductFound
                                 self.isLoadMoreCompleted = true
                             }else{
-                                self.pageNumber += 1
+//                                self.pageNumber += 1
                             }
-                            print(arrData)
+                            print("allproduct",arrData)
                             for obj in arrData{
                                 self.allProduct.append(MDLProduct(fromDictionary: obj))
                             }
                             if self.tblProductList != nil{
                                 self.tblProductList.reloadData()
+                                self.pageNumbersearch += 1
                                 if self.pageNumber == 2 && !(self.isLoadMoreCompleted ?? false){
                                     let indexPath = IndexPath(row: 0,section: 0)
                                     self.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
@@ -280,43 +304,6 @@ extension AllProductListVC {
             }
             
         }
-        
-        //        apiTask = APIRequest.shared().getProductListSearch(param:para,showLoader: isLoader, completion:{ [weak self](response, error) in
-        //            guard let _ = self else { return }
-        //            self?.refreshControl.endRefreshing()
-        //            if response != nil {
-        //                GCDMainThread.async {
-        //                    let arrDatass = response!["products"] as? [String : Any] ?? [:]
-        //                    let arrData = arrDatass["products"] as? [[String : Any]] ?? []
-        //
-        //                    self?.isLoadMoreCompleted = (arrData.count == 0)
-        //                    if self?.pageNumber == 1{
-        //                        self?.allProduct.removeAll()
-        //                    }
-        //                    if arrData.count == 0{
-        //                        self?.noProductsFound = CNoProductFound
-        //                        self?.isLoadMoreCompleted = true
-        //                    }else{
-        //                        self?.pageNumber += 1
-        //                    }
-        //                    print(arrData)
-        //                    for obj in arrData{
-        //                        self?.allProduct.append(MDLProduct(fromDictionary: obj))
-        //                    }
-        //                    if self?.tblProductList != nil{
-        //                        self?.tblProductList.reloadData()
-        //                        if self?.pageNumber == 2 && !(self?.isLoadMoreCompleted ?? false){
-        //                            let indexPath = IndexPath(row: 0,section: 0)
-        //                            self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        //                        }
-        //                    }
-        //                }
-        //            }else{
-        //                self?.noProductsFound = CNoProductFound
-        //                MILoader.shared.hideLoader()
-        //                self?.tblProductList.reloadData()
-        //            }
-        //        })
     }
     
     func allProductListFilter(isLoader:Bool = true,category:String) {

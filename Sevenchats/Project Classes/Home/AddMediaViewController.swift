@@ -177,7 +177,7 @@ extension AddMediaViewController {
         let arrGallerys = galleryInfo.valueForString(key: "image")
         let dict = arrGallerys.convertToDictionary()
         let arrDictGallery = dict ?? []
-        print("arrGallerys\(arrDictGallery)")
+//        print("arrGallerys\(arrDictGallery)")
         for imgData in arrDictGallery {
            
             let imgID = imgData.valueForString(key: CId)
@@ -190,7 +190,7 @@ extension AddMediaViewController {
                 media.url = imgData.valueForString(key: "image_path")
             }else{
                 media.serverImgURL = imgData.valueForString(key: "image_path")
-                print("imagepath:::::::",imgData.valueForString(key: "image_path"))
+//                print("imagepath:::::::",imgData.valueForString(key: "image_path"))
             }
             self.arrMedia.append(media)
           //  self.arrImagesVideo.append(imgData.valueForString(key: "image_path"))

@@ -168,6 +168,7 @@ extension ProductSearchVC: UITextFieldDelegate {
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        print("textfielclear")
         searchTextProductList("")
         return true
     }
@@ -196,15 +197,20 @@ extension ProductSearchVC : PageViewControllerDelegate {
             if self.allProductVC?.filterObj.search != self.filterObj.search{
                 self.allProductVC?.filterObj.search = self.filterObj.search
                 isChangeFiler = true
+                print("this is for search1")
             }
             if self.allProductVC?.filterObj.status != self.filterObj.status{
                 self.allProductVC?.filterObj.status = self.filterObj.status
+                print("this is for search2")
                 isChangeFiler = true
             }
             if isChangeFiler{
                 self.allProductVC?.isLoadMoreCompleted = false
                 self.allProductVC?.pageNumber = 1
                 self.allProductVC?.apiTask?.cancel()
+                self.allProductVC?.isSearchItems = "searhItems"
+                self.allProductVC?.searchStrFrm = self.filterObj.search
+                print("this is for search3")
                 self.allProductVC?.allProductListSearch(isLoader:true,SearchStr: self.filterObj.search)
             }
             
@@ -222,6 +228,9 @@ extension ProductSearchVC : PageViewControllerDelegate {
                 self.myProductVC?.isLoadMoreCompleted = false
                 self.myProductVC?.pageNumber = 1
                 self.myProductVC?.apiTask?.cancel()
+                self.myProductVC?.isSearchItems = "searhItems"
+                self.myProductVC?.searchStrFrm = self.filterObj.search
+                
                 self.myProductVC?.myProductListSearch(isLoader:true,SearchStr: self.filterObj.search)
             }
         }

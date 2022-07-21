@@ -52,11 +52,16 @@ class MyProductListVC: UIViewController {
     /// handle API request on search
     var apiTask : URLSessionTask?
     var allMyProduct : [MDLProduct] = []
+    var allMyProductSearch : [MDLProduct] = []
     var pageNumber = 1
+    var pageNumbersearch = 1
     var isLoadMoreCompleted = false
     var noProductsFound = ""
     var isFromSearch = false
     var param = [String:Any]()
+    var searchStrFrm = ""
+    var isSearchItems = ""
+    
     
     //MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -110,9 +115,17 @@ extension MyProductListVC {
     @objc func pullToRefresh() {
         self.refreshControl.beginRefreshing()
         self.pageNumber = 1
+        self.pageNumbersearch = 1
+        
         self.isLoadMoreCompleted = false
         self.apiTask?.cancel()
-        myProductList(isLoader: false)
+        if isSearchItems == "searhItems"{
+            myProductListSearch(isLoader:true,SearchStr:searchStrFrm)
+            
+        }else {
+            myProductList(isLoader: false)
+        }
+        
     }
 }
 
@@ -138,7 +151,15 @@ extension MyProductListVC: UITableViewDelegate, UITableViewDataSource {
         cell.product = allMyProduct[indexPath.row]
         // Load more data....
         if (indexPath == tblProductList.lastIndexPath()) && !self.isLoadMoreCompleted {
-            self.myProductList(isLoader: false)
+
+            if isSearchItems == "searhItems"{
+                myProductListSearch(isLoader:true,SearchStr:searchStrFrm)
+            }else {
+                self.myProductList(isLoader: false)
+            }
+            
+         
+//
         }
         return cell
     }
@@ -195,17 +216,19 @@ extension MyProductListVC {
                         self?.isLoadMoreCompleted = true
                         self?.noProductsFound = (self?.isFromSearch ?? false) ? CNoProductFound : CNoProductAddedInMyProductList
                     }else{
-                        self?.pageNumber += 1
+//                        self?.pageNumber += 1
                     }
                     for obj in arrData{
                         self?.allMyProduct.append(MDLProduct(fromDictionary: obj))
                     }
                     if self?.tblProductList != nil{
                         self?.tblProductList.reloadData()
+                        self?.pageNumber += 1
                         if self?.pageNumber == 2 && !(self?.isLoadMoreCompleted ?? true){
                             let indexPath = IndexPath(row: 0,section: 0)
                             self?.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
                         }
+//                        self?.pageNumber += 1
                     }
                 }
             }else{
@@ -225,7 +248,7 @@ extension MyProductListVC {
         if isFromSearch && filterObj.search.count <= 2 {
             self.noProductsFound = ""
             self.refreshControl.endRefreshing()
-            self.pageNumber = 1
+            self.pageNumbersearch = 1
             self.isLoadMoreCompleted = false
             self.allMyProduct.removeAll()
             self.tblProductList.reloadData()
@@ -237,13 +260,8 @@ extension MyProductListVC {
         guard let userid = appDelegate.loginUser?.user_id else {return}
         para["title"] = SearchStr
         para["user_id"] = userid.description
-        
-//        if searchTxtOther == true {
-//            param[CPage] = 1
-//        }else {
-//            param[CPage] = pageNumber
-//        }
-        param[CPage] = 1
+
+        param[CPage] = pageNumbersearch
         param["search_type"] = "my_products"
    
         param[CLimitS] = "10"
@@ -258,39 +276,38 @@ extension MyProductListVC {
                                 let arrLists = response!["data"] as? [[String : Any]] ?? [[:]]
                                 for arrDatass in arrLists{
                                     if let arrData = arrDatass["products"] as? [[String : Any]] {
-                               // let arrData = arrDatass["products"] as? [[String : Any]] ?? []
-                                if self.pageNumber == 1{
+                                if self.pageNumbersearch == 1{
                                     self.allMyProduct.removeAll()
                                 }
                                 if arrData.count == 0{
                                     self.isLoadMoreCompleted = true
                                     self.noProductsFound = (self.isFromSearch ?? false) ? CNoProductFound : CNoProductAddedInMyProductList
                                 }else{
-                                    self.pageNumber += 1
+//                                    self.pageNumbersearch += 1
                                 }
                                 for obj in arrData{
                                     self.allMyProduct.append(MDLProduct(fromDictionary: obj))
                                 }
                                 if self.tblProductList != nil{
                                     self.tblProductList.reloadData()
-                                    if self.pageNumber == 2 && !(self.isLoadMoreCompleted ?? true){
-                                        let indexPath = IndexPath(row: 0,section: 0)
-                                        self.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
-                                    }
+                                    self.pageNumbersearch += 1
+                                    
+//                                    if self.pageNumber == 2 && !(self.isLoadMoreCompleted ){
+//                                        let indexPath = IndexPath(row: 0,section: 0)
+//                                        self.tblProductList.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//                                    }
+//                                    self.pageNumbersearch += 1
+                                 }
                                 }
-                            }
-                                }
+                              }
                             }
                         }else{
                             MILoader.shared.hideLoader()
                             self.noProductsFound = (self.isFromSearch ?? false) ? CNoProductFound : CNoProductAddedInMyProductList
+                            
                             self.tblProductList.reloadData()
                         }
             
-            
-            
-            
-        
 //            GCDMainThread.async {
 //                if response != nil && error == nil {
 //                    let arrLists = response!["data"] as? [[String : Any]] ?? [[:]]

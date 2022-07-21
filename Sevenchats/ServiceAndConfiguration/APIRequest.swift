@@ -3671,7 +3671,7 @@ extension APIRequest {
     }
     
     func getProductList(param : [String : Any],userID:String, showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
-        
+        print("productList",param)
         if showLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         }
@@ -3692,6 +3692,7 @@ extension APIRequest {
     
     
     func getProductListCategory(param : [String : Any],category:String, showLoader : Bool, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
+       
         let categories = category.replace(string: " ", replacement: "%20")
         return Networking.sharedInstance.GETNEWPR(apiTag: CProductListuser + categories, param: param as [String : AnyObject], successBlock: { (task, reponse) in
             MILoader.shared.hideLoader()

@@ -145,7 +145,7 @@ class MDLProduct : NSObject, ProductBaseModel {
         galleyimagesArray = dictionary["product_image"] as? String
         let dict = arrGallerys?.convertToDictionary()
         let arrDictGallery = dict ?? []
-        print("arrGallerys\(arrDictGallery)")
+//        print("arrGallerys\(arrDictGallery)")
         for imgData in arrDictGallery{
             let imgID = imgData.valueForString(key: CId)
             let media = MDLAddMedia(mediaID: imgID)
@@ -157,7 +157,7 @@ class MDLProduct : NSObject, ProductBaseModel {
                 media.url = imgData.valueForString(key: "image_path")
             }else{
                 media.serverImgURL = imgData.valueForString(key: "image_path")
-                print("imagepath:::::::",imgData.valueForString(key: "image_path"))
+//                print("imagepath:::::::",imgData.valueForString(key: "image_path"))
             }
             self.galleryImages.append(media)
         }
