@@ -111,7 +111,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooV-cd-HXM">
                                         <rect key="frame" x="0.0" y="98" width="335" height="200"/>
                                         <subviews>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HVD-fA-MEJ">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HVD-fA-MEJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="200"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -148,10 +148,16 @@
                                                     <constraint firstAttribute="trailing" secondItem="tML-Wb-n5N" secondAttribute="trailing" constant="12" id="p5k-mY-KvM"/>
                                                 </constraints>
                                             </view>
+                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="xj7-gn-POQ">
+                                                <rect key="frame" x="109.5" y="172" width="116" height="26"/>
+                                                <color key="pageIndicatorTintColor" red="1" green="0.50048158600000003" blue="0.54799150370000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </pageControl>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="xj7-gn-POQ" firstAttribute="centerX" secondItem="ooV-cd-HXM" secondAttribute="centerX" id="524-7c-i9m"/>
                                             <constraint firstAttribute="bottom" secondItem="gUY-vg-qnB" secondAttribute="bottom" constant="8" id="5DT-GR-AV7"/>
+                                            <constraint firstItem="xj7-gn-POQ" firstAttribute="centerY" secondItem="ooV-cd-HXM" secondAttribute="centerY" constant="85" id="J35-ph-0np"/>
                                             <constraint firstAttribute="bottom" secondItem="HVD-fA-MEJ" secondAttribute="bottom" id="Poq-Do-YxH"/>
                                             <constraint firstAttribute="trailing" secondItem="HVD-fA-MEJ" secondAttribute="trailing" id="jVb-oA-IyF"/>
                                             <constraint firstItem="HVD-fA-MEJ" firstAttribute="top" secondItem="ooV-cd-HXM" secondAttribute="top" id="joN-XY-nTb"/>
@@ -351,6 +357,7 @@
                 <outlet property="lblGalleryPostDate" destination="6Iq-6Z-m9X" id="TzO-1v-O9h"/>
                 <outlet property="lblGalleryType" destination="0kx-le-ed1" id="sBM-qO-ih1"/>
                 <outlet property="lblUserName" destination="c2v-j6-n2v" id="5f9-qa-hV6"/>
+                <outlet property="pageControl" destination="xj7-gn-POQ" id="rHv-cL-xoF"/>
                 <outlet property="viewMainContainer" destination="iNG-rP-bVM" id="rFi-53-Trz"/>
                 <outlet property="viewSubContainer" destination="lpP-88-CC5" id="Rix-bo-JZ8"/>
                 <outlet property="vwCountImage" destination="gUY-vg-qnB" id="51W-f5-eGg"/>
