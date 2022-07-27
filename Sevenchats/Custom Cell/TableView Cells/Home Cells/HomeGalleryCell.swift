@@ -293,7 +293,7 @@ extension HomeGalleryCell: UICollectionViewDelegate, UICollectionViewDataSource,
 //                self.pageControl?.currentPage = counter
 //          counter = 1
 
-            }
+  //          }
           
         }
     }
