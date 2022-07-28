@@ -31,7 +31,7 @@ class ImageDetailViewController: ParentViewController {
     @IBOutlet weak var clGallery : UICollectionView!{
         didSet{
             clGallery.register(UINib(nibName: "HomeEventGalleryCell", bundle: nil), forCellWithReuseIdentifier: "HomeEventGalleryCell")
-            clGallery.isPagingEnabled = false
+            clGallery.isPagingEnabled = true
             clGallery.delegate = self
             clGallery.dataSource = self
         }
@@ -78,6 +78,7 @@ class ImageDetailViewController: ParentViewController {
     
     @IBOutlet weak var btnProfileImg : UIButton!
     @IBOutlet weak var btnUserName : UIButton!
+    @IBOutlet var pageControl: UIPageControl!
     
     var imageIndex:Int = 0
     var arrCommentList = [[String:Any]]()
@@ -112,6 +113,7 @@ class ImageDetailViewController: ParentViewController {
     var posted_IDOthers = ""
     var notificationInfo = [String:Any]()
     var likeFromNotify:Bool?
+    var counter = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,6 +151,7 @@ class ImageDetailViewController: ParentViewController {
         self.pageNumber = 1
         
         self.vwCountImage.layer.cornerRadius = 4
+        self.vwCountImage.isHidden = true
         self.getGalleryDetailsFromServer()
         
     }
@@ -254,6 +257,7 @@ extension ImageDetailViewController{
                 let dict = arrImg.convertToDictionary()
                 let arrDictGallery = dict ?? []
                 arrGalleryImage = arrDictGallery
+                pageControl.numberOfPages = arrGalleryImage.count
                 for imgData in arrDictGallery{
                     let imagepath = imgData.valueForString(key: "image_path")
                     let imagepathtype = imgData.valueForString(key: "mime")
@@ -262,7 +266,7 @@ extension ImageDetailViewController{
                 }
             }
             
-            self.vwCountImage.isHidden = (arrGalleryImage.count <= 1)
+           // self.vwCountImage.isHidden = (arrGalleryImage.count <= 1)
             let is_Liked = galleryInfo.valueForString(key: CIsLiked)
 
             if isLikesOthersPage == true {
@@ -396,16 +400,16 @@ extension ImageDetailViewController: UICollectionViewDelegate, UICollectionViewD
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        pageControl.isHidden = !(arrGalleryImage.count > 1)
         return arrGalleryImageLatest.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if arrGalleryImageLatest.count > 1{
-            var width = clGallery.frame.size.width
-            width = width - ((width * 30) / 100)
-            return CGSize(width:width, height: clGallery.bounds.height)
-        }
+//        if arrGalleryImageLatest.count > 1{
+//            var width = clGallery.frame.size.width
+//            width = width - ((width * 30) / 100)
+//            return CGSize(width:width, height: clGallery.bounds.height)
+//        }
         return CGSize(width:clGallery.bounds.width, height: clGallery.bounds.height)
     }
     
@@ -427,6 +431,7 @@ extension ImageDetailViewController: UICollectionViewDelegate, UICollectionViewD
            // cell.blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             cell.ImgView.loadImageFromUrl(imgInfo, false)
             cell.imgVideoIcon.isHidden =  true
+            pagecontroll()
         }
         
         return cell
@@ -439,7 +444,14 @@ extension ImageDetailViewController: UICollectionViewDelegate, UICollectionViewD
         _ = self.viewController
         lightBoxHelper.openMultipleImagesWithVideos(arrGalleryImage: arrGalleryImage, controller: weakSelf,selectedIndex: indexPath.row)
     }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+        
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         setCurrentImageCount()
     }
@@ -452,8 +464,31 @@ extension ImageDetailViewController: UICollectionViewDelegate, UICollectionViewD
         if let indexPath: IndexPath = self.clGallery.indexPathForItem(at: visiblePoint){
             _ = indexPath.row + 1
             self.lblCountImage.text = ""
+            counter = Int(indexPath.row)
         }
     }
+    func pagecontroll() {
+        if counter == (arrGalleryImage.count - 1) {
+            print("over")
+            counter = 0
+            let index = IndexPath.init(item: counter, section: 0)
+            self.clGallery?.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
+            self.pageControl?.currentPage = counter
+            counter = 1
+        }else{
+            print("cont")
+        }
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+
+        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+    
 }
 
 // MARK:- --------- UITableView Datasources/Delegate

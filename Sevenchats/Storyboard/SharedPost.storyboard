@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -234,13 +235,13 @@
                                                                                     <subviews>
                                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Article" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mP0-Sg-Hl9" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                                             <rect key="frame" x="0.0" y="5" width="60" height="25"/>
-                                                                                            <color key="backgroundColor" red="0.8784313725490196" green="0.85882352941176465" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="25" id="X6C-9L-rbI"/>
                                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="nVv-MS-Lvb"/>
                                                                                             </constraints>
                                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                                            <nil key="textColor"/>
+                                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bYL-XX-8L6">
@@ -253,7 +254,7 @@
                                                                                         </label>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ipz-D9-oWw">
                                                                                             <rect key="frame" x="74" y="28" width="54" height="2"/>
-                                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="2" id="maH-5p-r2C"/>
                                                                                             </constraints>
@@ -855,13 +856,13 @@
                                                                                     <subviews>
                                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gallery" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P2c-pX-lBd" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                                             <rect key="frame" x="0.0" y="5" width="60" height="25"/>
-                                                                                            <color key="backgroundColor" red="0.87843137250000003" green="0.85882352939999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="Azv-8e-58f"/>
                                                                                                 <constraint firstAttribute="height" constant="25" id="P5k-PJ-uHl"/>
                                                                                             </constraints>
                                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                                            <nil key="textColor"/>
+                                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d6X-n5-KO6">
@@ -874,7 +875,7 @@
                                                                                         </label>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ls-1K-fzQ">
                                                                                             <rect key="frame" x="74" y="23" width="54" height="2"/>
-                                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="2" id="acG-01-Qdo"/>
                                                                                             </constraints>
@@ -910,9 +911,9 @@
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XvO-3C-P1L">
                                                                             <rect key="frame" x="0.0" y="213.5" width="351" height="180"/>
                                                                             <subviews>
-                                                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="thh-g2-4Xr">
+                                                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="thh-g2-4Xr">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="351" height="180"/>
-                                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="180" id="5sU-8a-t2P"/>
                                                                                     </constraints>
@@ -942,12 +943,17 @@
                                                                                         <constraint firstAttribute="trailing" secondItem="zlt-8L-RgB" secondAttribute="trailing" constant="12" id="j4I-oc-ttc"/>
                                                                                     </constraints>
                                                                                 </view>
+                                                                                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="2eE-Zi-45n">
+                                                                                    <rect key="frame" x="117.5" y="147" width="116" height="26"/>
+                                                                                </pageControl>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="bottom" secondItem="thh-g2-4Xr" secondAttribute="bottom" id="0Le-36-8Am"/>
                                                                                 <constraint firstItem="vcy-2U-ecj" firstAttribute="leading" secondItem="XvO-3C-P1L" secondAttribute="leading" constant="8" id="Imb-dI-16W"/>
+                                                                                <constraint firstItem="2eE-Zi-45n" firstAttribute="centerX" secondItem="XvO-3C-P1L" secondAttribute="centerX" id="Jig-Oa-NYh"/>
                                                                                 <constraint firstAttribute="bottom" secondItem="vcy-2U-ecj" secondAttribute="bottom" constant="8" id="RIm-7d-nK1"/>
+                                                                                <constraint firstItem="2eE-Zi-45n" firstAttribute="centerY" secondItem="XvO-3C-P1L" secondAttribute="centerY" constant="70" id="W0y-qX-joV"/>
                                                                                 <constraint firstItem="thh-g2-4Xr" firstAttribute="top" secondItem="XvO-3C-P1L" secondAttribute="top" id="Y4f-I8-SHj"/>
                                                                                 <constraint firstAttribute="trailing" secondItem="thh-g2-4Xr" secondAttribute="trailing" id="iDZ-WJ-hp6"/>
                                                                                 <constraint firstItem="thh-g2-4Xr" firstAttribute="leading" secondItem="XvO-3C-P1L" secondAttribute="leading" id="o8j-f7-FrF"/>
@@ -1255,6 +1261,7 @@
                         <outlet property="lblSharedPostType" destination="y9Q-wD-3C1" id="PLv-l2-el3"/>
                         <outlet property="lblSharedUserName" destination="P6f-EL-Lm7" id="iKQ-TW-bP0"/>
                         <outlet property="lblUserName" destination="R7N-q1-guK" id="PyF-FT-sW3"/>
+                        <outlet property="pageControl" destination="2eE-Zi-45n" id="WUZ-jc-2p7"/>
                         <outlet property="parentView" destination="hwh-q2-NHP" id="b9m-nZ-v8L"/>
                         <outlet property="tblCommentList" destination="1CT-EE-i2q" id="aDp-06-O5j"/>
                         <outlet property="txtViewComment" destination="H6D-eu-D8O" id="xQz-HP-7r0"/>
@@ -1476,13 +1483,13 @@
                                                                                     <subviews>
                                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chirpy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fH5-Vk-pyN" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                                             <rect key="frame" x="0.0" y="5" width="60" height="25"/>
-                                                                                            <color key="backgroundColor" red="0.87843137250000003" green="0.85882352939999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="5Eg-Xa-iLL"/>
                                                                                                 <constraint firstAttribute="height" constant="25" id="7sq-hq-5GG"/>
                                                                                             </constraints>
                                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                                            <nil key="textColor"/>
+                                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9R-AE-agy">
@@ -1495,7 +1502,7 @@
                                                                                         </label>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rnq-Dd-bxJ">
                                                                                             <rect key="frame" x="74" y="28" width="54" height="2"/>
-                                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="2" id="2bV-Xt-y96"/>
                                                                                             </constraints>
@@ -2068,13 +2075,13 @@
                                                                                     <subviews>
                                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chirpy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFn-jB-VpW" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                                             <rect key="frame" x="0.0" y="5" width="60" height="25"/>
-                                                                                            <color key="backgroundColor" red="0.87843137250000003" green="0.85882352939999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="25" id="442-9h-MyY"/>
                                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="U9f-dT-9Uu"/>
                                                                                             </constraints>
                                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                                            <nil key="textColor"/>
+                                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3M-6R-zjh">
@@ -2087,7 +2094,7 @@
                                                                                         </label>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QtI-h7-l6a">
                                                                                             <rect key="frame" x="74" y="28" width="54" height="2"/>
-                                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="2" id="m6b-Si-gRO"/>
                                                                                             </constraints>
@@ -2689,13 +2696,13 @@
                                                                                     <subviews>
                                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shouts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8yt-Qd-T94" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                                             <rect key="frame" x="0.0" y="5" width="60" height="25"/>
-                                                                                            <color key="backgroundColor" red="0.87843137250000003" green="0.85882352939999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="25" id="5P4-wc-dav"/>
                                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="pKE-IA-20J"/>
                                                                                             </constraints>
                                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                                            <nil key="textColor"/>
+                                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PG8-oz-odM">
@@ -2704,11 +2711,12 @@
                                                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" id="k0C-Fz-EBr"/>
                                                                                             </constraints>
                                                                                             <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
+                                                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lx2-1M-6Qi">
                                                                                             <rect key="frame" x="74" y="28" width="54" height="2"/>
-                                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="2" id="xXe-D1-6iS"/>
                                                                                             </constraints>
@@ -3436,13 +3444,13 @@
                                                                                     <subviews>
                                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forum" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6B-tH-f5f" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                                             <rect key="frame" x="0.0" y="5" width="60" height="25"/>
-                                                                                            <color key="backgroundColor" red="0.87843137250000003" green="0.85882352939999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="25" id="Szi-dT-JAE"/>
                                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="VqX-kK-crY"/>
                                                                                             </constraints>
                                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                                            <nil key="textColor"/>
+                                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fAw-ef-Yg2">
@@ -3455,7 +3463,7 @@
                                                                                         </label>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CAT-ac-bLi">
                                                                                             <rect key="frame" x="74" y="28" width="54" height="2"/>
-                                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="2" id="1fF-nI-f8y"/>
                                                                                             </constraints>
@@ -4040,13 +4048,13 @@
                                                                                     <subviews>
                                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BxE-hN-vsH" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                                             <rect key="frame" x="0.0" y="5" width="60" height="25"/>
-                                                                                            <color key="backgroundColor" red="0.87843137250000003" green="0.85882352939999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="mPR-TZ-xcu"/>
                                                                                                 <constraint firstAttribute="height" constant="25" id="wAA-UB-yfh"/>
                                                                                             </constraints>
                                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                                            <nil key="textColor"/>
+                                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="30T-Ln-vRb">
@@ -4059,7 +4067,7 @@
                                                                                         </label>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AxM-CP-BmW">
                                                                                             <rect key="frame" x="74" y="28" width="54" height="2"/>
-                                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="2" id="eIL-xM-vTQ"/>
                                                                                             </constraints>
@@ -4881,13 +4889,13 @@ Declined</string>
                                                                                     <subviews>
                                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXl-oi-kPF" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                                             <rect key="frame" x="0.0" y="5" width="60" height="25"/>
-                                                                                            <color key="backgroundColor" red="0.87843137250000003" green="0.85882352939999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="25" id="1bu-3S-dGX"/>
                                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="Nz9-65-I8y"/>
                                                                                             </constraints>
                                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                                            <nil key="textColor"/>
+                                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxp-pe-COI">
@@ -4900,7 +4908,7 @@ Declined</string>
                                                                                         </label>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1tJ-mD-riv">
                                                                                             <rect key="frame" x="74" y="28" width="54" height="2"/>
-                                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="2" id="pW2-vH-crA"/>
                                                                                             </constraints>
@@ -5692,13 +5700,13 @@ Declined</string>
                                                                                     <subviews>
                                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Poll" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOP-vr-ZUz" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                                             <rect key="frame" x="0.0" y="5" width="60" height="25"/>
-                                                                                            <color key="backgroundColor" red="0.87843137250000003" green="0.85882352939999995" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="25" id="0gp-tU-hc5"/>
                                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="fD0-wz-Cjj"/>
                                                                                             </constraints>
                                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                                            <nil key="textColor"/>
+                                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvB-iA-Kyr">
@@ -5711,7 +5719,7 @@ Declined</string>
                                                                                         </label>
                                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fmA-If-bAM">
                                                                                             <rect key="frame" x="74" y="28" width="54" height="2"/>
-                                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                                             <constraints>
                                                                                                 <constraint firstAttribute="height" constant="2" id="dff-aT-IFo"/>
                                                                                             </constraints>
@@ -6325,6 +6333,9 @@ Declined</string>
         <image name="ic_thumps_maybe_selected" width="23" height="18"/>
         <image name="ic_thumps_up_selected" width="18.5" height="15"/>
         <image name="user_placeholder.png" width="300" height="300"/>
+        <namedColor name="AppDefault">
+            <color red="0.0" green="0.75294117647058822" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="placeholderTextColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

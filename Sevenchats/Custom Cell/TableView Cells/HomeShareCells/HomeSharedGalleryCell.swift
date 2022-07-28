@@ -51,6 +51,7 @@ class HomeSharedGalleryCell: UITableViewCell {
     @IBOutlet weak var btnSharedUserName : UIButton!
     @IBOutlet weak var lblMessage : UILabel!
     @IBOutlet weak var lblSharedPostType : UILabel!
+    @IBOutlet var pageControl: UIPageControl!
     
     var arrGalleryImage :[[String : Any]] = []
     
@@ -72,6 +73,7 @@ class HomeSharedGalleryCell: UITableViewCell {
     var isLikesMyprofilePage:Bool?
     var posted_IDOthers = ""
     var notificationInfo = [String:Any]()
+    var counter = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -94,11 +96,13 @@ class HomeSharedGalleryCell: UITableViewCell {
             self.vwCountImage.layer.cornerRadius = 4
             self.vwCountImage.isHidden = true
             self.lblMessage.adjustsFontSizeToFitWidth = true
+           
+
             
         }
         
         clGallery.register(UINib(nibName: "HomeEventGalleryCell", bundle: nil), forCellWithReuseIdentifier: "HomeEventGalleryCell")
-        clGallery.isPagingEnabled = false
+      //  clGallery.isPagingEnabled = true
     }
     
     override func layoutSubviews() {
@@ -165,6 +169,7 @@ extension HomeSharedGalleryCell {
             let dict = arrImg.convertToDictionary()
             let arrDictGallery = dict ?? []
             arrGalleryImage = arrDictGallery
+            pageControl.numberOfPages = arrGalleryImage.count
             clGallery.reloadData()
             setCurrentImageCount()
         }
@@ -236,17 +241,18 @@ extension HomeSharedGalleryCell: UICollectionViewDelegate, UICollectionViewDataS
         return 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        pageControl.isHidden = !(arrGalleryImage.count > 1)
         return arrGalleryImage.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if arrGalleryImage.count > 1{
-            var width = clGallery.frame.size.width
-            width = width - ((width * 30) / 100)
-            return CGSize(width:width, height: clGallery.bounds.height)
-        }
+//        if arrGalleryImage.count > 1{
+//            var width = clGallery.frame.size.width
+//            width = width - ((width * 30) / 100)
+//            return CGSize(width:width, height: clGallery.bounds.height)
+//        }
         //return CGSize(width:clGallery.frame.size.width, height: clGallery.frame.size.width)
+       // return CGSize(width:clGallery.bounds.width, height: clGallery.bounds.height)
         return CGSize(width:clGallery.bounds.width, height: clGallery.bounds.height)
     }
     
@@ -271,6 +277,7 @@ extension HomeSharedGalleryCell: UICollectionViewDelegate, UICollectionViewDataS
             //cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
             cell.ImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
             cell.imgVideoIcon.isHidden =  true
+            pagecontroll()
         }
 //        let mediaType = imageInfo.valueForInt(key: CType) ?? 1
 //        if (mediaType == 2){
@@ -298,12 +305,12 @@ extension HomeSharedGalleryCell: UICollectionViewDelegate, UICollectionViewDataS
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
+        return 0
         
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 2
+        return 0
     }
     
     
@@ -319,8 +326,32 @@ extension HomeSharedGalleryCell: UICollectionViewDelegate, UICollectionViewDataS
         let visiblePoint = CGPoint(x: CGFloat(visibleRect.midX), y: CGFloat(visibleRect.midY))
         if let indexPath: IndexPath = self.clGallery.indexPathForItem(at: visiblePoint){
             let index = indexPath.row + 1
+            counter = Int(indexPath.row)
 //            self.lblCountImage.text =  "\(index)" + " / " + "\(self.arrGalleryImage.count)"
         }
+    }
+    func pagecontroll() {
+        if counter == (arrGalleryImage.count - 1) {
+            print("over")
+            counter = 0
+            let index = IndexPath.init(item: counter, section: 0)
+            self.clGallery?.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
+            self.pageControl?.currentPage = counter
+            counter = 1
+        }else{
+            print("cont")
+        }
+    }
+    
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+
+        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+
+        pageControl?.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
 }
 
