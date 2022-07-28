@@ -123,7 +123,7 @@ class ShoutsSharedDetailViewController: ParentViewController {
         lblSharedPostType.text = CSharedShout
         self.parentView.backgroundColor = .clear
         self.tblCommentList.backgroundColor = .clear
-        
+        self.btnShare.isHidden = true
         self.btnShare.setTitle(CBtnShare, for: .normal)
         self.lblShoutsType.text = CTypeShout
         GCDMainThread.async {

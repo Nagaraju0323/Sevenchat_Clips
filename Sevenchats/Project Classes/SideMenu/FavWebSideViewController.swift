@@ -177,6 +177,7 @@ extension FavWebSideViewController: UITableViewDelegate, UITableViewDataSource{
             cell.btnComment.setTitle(strCommentCount, for: .normal)
 //            cell.btnComment.isHidden = true
 //            cell.btnShare.setTitle(strCommentCount, for: .normal)
+            cell.btnShare.isHidden = true
             cell.btnShare.setTitle(CBtnShare, for: .normal)
             weak var weakCell = cell
             cell.btnLike.touchUpInside { [weak self] (sender) in

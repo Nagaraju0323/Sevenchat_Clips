@@ -200,6 +200,7 @@ class PollSharedDetailsViewController: ParentViewController {
             self.refreshControl.tintColor = ColorAppTheme
             self.tblCommentList.pullToRefreshControl = self.refreshControl
             self.pageNumber = 1
+            self.btnShare.isHidden = true
             self.btnShare.setTitle(CBtnShare, for: .normal)
             self.sizeToFitHeader()
         }
@@ -561,7 +562,7 @@ extension PollSharedDetailsViewController {
             
             self.tblCommentList.updateHeaderViewHeight(extxtraSpace: 0)
             
-
+            self.btnShare.isHidden = true
             btnShare.setTitle(CBtnShare, for: .normal)
             tblVAnswre.layoutIfNeeded()
             self.view.layoutIfNeeded()

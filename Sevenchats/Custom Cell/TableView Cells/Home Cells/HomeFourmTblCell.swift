@@ -117,6 +117,7 @@ extension HomeFourmTblCell{
         self.lblFourmCategory.text = postInfo.valueForString(key: CCategory).uppercased()
         let commentCount = postInfo.valueForString(key: "comments").toInt
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount ?? 0), for: .normal)
+        self.btnShare.isHidden = true
         btnShare.setTitle(CBtnShare, for: .normal)
        
         if isLikesOthersPage == true {

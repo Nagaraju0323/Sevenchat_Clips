@@ -177,7 +177,7 @@ class EventSharedDetailViewController: ParentViewController {
         setupInterestButton(sender: btnInterested)
         setupInterestButton(sender: btnNotInterested)
         setupInterestButton(sender: btnMaybe)
-        
+        self.btnShare.isHidden = true
         self.btnShare.setTitle(CBtnShare, for: .normal)
         
         self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)

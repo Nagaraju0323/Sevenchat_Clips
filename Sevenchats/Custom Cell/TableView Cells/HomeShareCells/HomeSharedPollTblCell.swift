@@ -388,6 +388,7 @@ extension HomeSharedPollTblCell{
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
         
         self.tblVAnswre.reloadData()
+        self.btnShare.isHidden = true
         btnShare.setTitle(CBtnShare, for: .normal)
         self.layoutIfNeeded()
         

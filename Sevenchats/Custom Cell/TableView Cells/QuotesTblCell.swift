@@ -26,6 +26,7 @@ class QuotesTblCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         GCDMainThread.async {
+            self.btnShare.isHidden = true
             self.btnShare.setTitle("  " + CBtnShare, for: .normal)
             self.viewContainer.layer.cornerRadius = 8
             self.viewContainer.shadow(color: CRGB(r: 237, g: 236, b: 226), shadowOffset: CGSize(width: 0, height: 3), shadowRadius: 8.0, shadowOpacity: 5.0)

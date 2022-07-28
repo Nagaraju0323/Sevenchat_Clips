@@ -124,6 +124,7 @@ class ChirpySharedImageDetailsViewController: ParentViewController {
         lblSharedPostType.text = CSharedChirpy
         self.parentView.backgroundColor = .clear
         self.tblCommentList.backgroundColor = .clear
+        self.btnShare.isHidden = true
         self.btnShare.setTitle(CBtnShare, for: .normal)
         self.lblChirpyType.text = CTypeChirpy
         

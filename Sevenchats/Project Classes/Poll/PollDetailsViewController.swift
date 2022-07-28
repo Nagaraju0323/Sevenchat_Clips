@@ -174,6 +174,7 @@ class PollDetailsViewController: ParentViewController {
             self.refreshControl.tintColor = ColorAppTheme
             self.tblCommentList.pullToRefreshControl = self.refreshControl
             self.pageNumber = 1
+            self.btnShare.isHidden = true
             self.btnShare.setTitle(CBtnShare, for: .normal)
             self.sizeToFitHeader()
             self.getPollDetailsFromServer()
@@ -505,6 +506,7 @@ extension PollDetailsViewController {
             let cnvStr = created_At.stringBefore("G")
             let startCreated = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
             lblPollPostDate.text = startCreated
+            self.btnShare.isHidden = true
             btnShare.setTitle(CBtnShare, for: .normal)
             tblVAnswre.layoutIfNeeded()
             self.view.layoutIfNeeded()

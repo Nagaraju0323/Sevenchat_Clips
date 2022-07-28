@@ -162,6 +162,7 @@ class ImageSharedDetailViewController: ParentViewController {
         self.lblGalleryType.layer.cornerRadius = 3
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(self.btnMenuClicked(_:)))]
+        self.btnShare.isHidden = true
         self.btnShare.setTitle(CBtnShare, for: .normal)
         
         self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
@@ -481,12 +482,12 @@ extension ImageSharedDetailViewController: UICollectionViewDelegate, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //return CGSize(width:clGallery.frame.size.width, height: clGallery.frame.size.width)
-//        if arrGalleryImageLatest.count > 1{
-//            var width = clGallery.frame.size.width
-//            width = width - ((width * 30) / 100)
-//            return CGSize(width:width, height: clGallery.bounds.height)
-//        }
-        return CGSize(width:clGallery.bounds.width, height: clGallery.bounds.height)
+        if arrGalleryImage.count > 1{
+            var width = clGallery.frame.size.width
+            width = width - ((width * 30) / 100)
+            return CGSize(width:clGallery.frame.size.width, height: clGallery.bounds.height)
+        }
+        return CGSize(width:clGallery.frame.size.width, height: clGallery.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

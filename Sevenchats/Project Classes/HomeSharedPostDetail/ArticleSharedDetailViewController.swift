@@ -177,6 +177,7 @@ class ArticleSharedDetailViewController: ParentViewController {
             self.refreshControl.tintColor = ColorAppTheme
             self.tblCommentList.pullToRefreshControl = self.refreshControl
             self.pageNumber = 1
+            self.btnShare.isHidden = true
             self.btnShare.setTitle(CBtnShare, for: .normal)
         }
         
@@ -306,7 +307,7 @@ extension ArticleSharedDetailViewController{
             //self.imgArticle.loadImageFromUrl(artInfo.valueForString(key: CImage), false)
             let image = artInfo.valueForString(key: "image")
             if image.isEmpty {
-//                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+               blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
                 imgArticle.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             }else{
 //                blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)

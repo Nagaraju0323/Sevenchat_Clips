@@ -179,6 +179,7 @@ extension HomeSharedShoutsTblCell{
         
         let commentCount = postInfo.valueForString(key: "comments").toInt ?? 0
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
+        self.btnShare.isHidden = true
         btnShare.setTitle(CBtnShare, for: .normal)
     }
     

@@ -189,6 +189,7 @@ extension HomeGalleryCell {
         btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
         let commentCount = postInfo.valueForString(key: "comments").toInt
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount ?? 0), for: .normal)
+        self.btnShare.isHidden = true
         btnShare.setTitle(CBtnShare, for: .normal)
         let created_At = postInfo.valueForString(key: CCreated_at)
         let cnvStr = created_At.stringBefore("G")
@@ -211,11 +212,11 @@ extension HomeGalleryCell: UICollectionViewDelegate, UICollectionViewDataSource,
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        if arrGalleryImage.count > 1{
-//            var width = clGallery.frame.size.width
-//            width = width - ((width * 30) / 100)
-//            return CGSize(width:width, height: clGallery.bounds.height)
-//        }
+        if arrGalleryImage.count > 1{
+            var width = clGallery.frame.size.width
+            width = width - ((width) / 100)
+            return CGSize(width:clGallery.frame.size.width, height: clGallery.bounds.height)
+        }
         return CGSize(width:clGallery.frame.size.width, height: clGallery.frame.height)
     }
     

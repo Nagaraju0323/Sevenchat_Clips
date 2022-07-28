@@ -109,6 +109,7 @@ extension HomeChirpyTblCell{
 
         let commentCount = postInfo.valueForInt(key: "comments") ?? 0
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
+        self.btnShare.isHidden = true
         btnShare.setTitle(CBtnShare, for: .normal)
         
         if isLikesOthersPage == true {
