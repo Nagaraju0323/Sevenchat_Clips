@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -95,7 +96,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sahred" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlY-o9-mPE" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="138" y="6" width="57" height="22.5"/>
+                                                <rect key="frame" x="138" y="5.5" width="57" height="23"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="2" id="jtC-qh-0ki"/>
                                                 </constraints>
@@ -224,13 +225,13 @@
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gallery" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="41U-2E-uU6" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="5" width="60" height="25"/>
-                                                        <color key="backgroundColor" red="0.85098039219999999" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="backgroundColor" name="AppDefault"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="LIB-bA-lAD"/>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="sU4-VB-tU4"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                        <nil key="textColor"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRL-sE-blF">
@@ -243,7 +244,7 @@
                                                     </label>
                                                     <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTI-9w-KYy">
                                                         <rect key="frame" x="74" y="28" width="54" height="2"/>
-                                                        <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" name="AppDefault"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="2" id="yOh-Jl-XVv"/>
                                                         </constraints>
@@ -279,9 +280,9 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooV-cd-HXM">
                                         <rect key="frame" x="0.0" y="215" width="367" height="186"/>
                                         <subviews>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HVD-fA-MEJ">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HVD-fA-MEJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="367" height="186"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="HVD-fA-MEJ" secondAttribute="height" multiplier="67:34" id="aR9-aI-o5l"/>
                                                 </constraints>
@@ -315,11 +316,17 @@
                                                     <constraint firstAttribute="bottom" secondItem="Obw-gu-Yv2" secondAttribute="bottom" constant="2" id="rqb-mA-qPb"/>
                                                 </constraints>
                                             </view>
+                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="rQK-iM-4bD">
+                                                <rect key="frame" x="125.5" y="150" width="116" height="26"/>
+                                            </pageControl>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="HVD-fA-MEJ" firstAttribute="top" secondItem="ooV-cd-HXM" secondAttribute="top" id="1hI-V2-xlc"/>
                                             <constraint firstAttribute="trailing" secondItem="HVD-fA-MEJ" secondAttribute="trailing" id="6Gm-aN-4Ma"/>
+                                            <constraint firstItem="rQK-iM-4bD" firstAttribute="centerY" secondItem="ooV-cd-HXM" secondAttribute="centerY" constant="70" id="9hw-3e-n1f"/>
+                                            <constraint firstItem="rQK-iM-4bD" firstAttribute="centerX" secondItem="ooV-cd-HXM" secondAttribute="centerX" id="FhL-hp-3Q1"/>
+                                            <constraint firstAttribute="bottom" secondItem="rQK-iM-4bD" secondAttribute="bottom" constant="10" id="USo-H9-7vj"/>
                                             <constraint firstItem="BFG-Ur-fXR" firstAttribute="leading" secondItem="ooV-cd-HXM" secondAttribute="leading" constant="8" id="aAd-eW-Rd5"/>
                                             <constraint firstAttribute="bottom" secondItem="BFG-Ur-fXR" secondAttribute="bottom" constant="8" id="eif-vI-KLp"/>
                                             <constraint firstItem="HVD-fA-MEJ" firstAttribute="leading" secondItem="ooV-cd-HXM" secondAttribute="leading" id="q0S-9Y-QBa"/>
@@ -506,6 +513,7 @@
                 <outlet property="lblSharedPostType" destination="hlY-o9-mPE" id="LKI-ds-ROQ"/>
                 <outlet property="lblSharedUserName" destination="ZaW-ed-oJe" id="fML-eF-4v5"/>
                 <outlet property="lblUserName" destination="NPJ-qk-p65" id="WeI-XF-KVj"/>
+                <outlet property="pageControl" destination="rQK-iM-4bD" id="eJf-MN-TBG"/>
                 <outlet property="viewMainContainer" destination="iNG-rP-bVM" id="rFi-53-Trz"/>
                 <outlet property="viewSubContainer" destination="lpP-88-CC5" id="Rix-bo-JZ8"/>
                 <outlet property="vwCountImage" destination="BFG-Ur-fXR" id="GXY-7X-LX5"/>
@@ -522,5 +530,8 @@
         <image name="ic_post_event" width="20" height="20.5"/>
         <image name="ic_share_posts" width="170" height="170"/>
         <image name="user_placeholder.png" width="300" height="300"/>
+        <namedColor name="AppDefault">
+            <color red="0.0" green="0.75294117647058822" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

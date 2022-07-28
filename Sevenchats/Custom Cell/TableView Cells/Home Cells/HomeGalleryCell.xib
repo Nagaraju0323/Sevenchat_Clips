@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -84,13 +85,13 @@
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gallery" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0kx-le-ed1" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                         <rect key="frame" x="8" y="65" width="60" height="25"/>
-                                        <color key="backgroundColor" red="0.85098039219999999" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" name="AppDefault"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="06N-FG-Dne"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="3Sf-9e-NSN"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FUNNY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGY-Ou-lb2" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
@@ -103,7 +104,7 @@
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n9p-tc-dbv">
                                         <rect key="frame" x="83" y="85.5" width="36" height="2"/>
-                                        <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" name="AppDefault"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="wBG-aT-yy2"/>
                                         </constraints>
@@ -111,18 +112,17 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ooV-cd-HXM">
                                         <rect key="frame" x="0.0" y="98" width="335" height="200"/>
                                         <subviews>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HVD-fA-MEJ">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HVD-fA-MEJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="200"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="R6n-ZP-E5d"/>
                                                 </constraints>
-                                                <inset key="scrollIndicatorInsets" minX="1" minY="1" maxX="0.0" maxY="1"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="oFz-Gy-6gA">
                                                     <size key="itemSize" width="335" height="220"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                    <inset key="sectionInset" minX="15" minY="10" maxX="15" maxY="10"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells/>
                                                 <connections>
@@ -148,13 +148,21 @@
                                                     <constraint firstAttribute="trailing" secondItem="tML-Wb-n5N" secondAttribute="trailing" constant="12" id="p5k-mY-KvM"/>
                                                 </constraints>
                                             </view>
+                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="xj7-gn-POQ">
+                                                <rect key="frame" x="109.5" y="167" width="116" height="26"/>
+                                            </pageControl>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="xj7-gn-POQ" firstAttribute="centerX" secondItem="ooV-cd-HXM" secondAttribute="centerX" id="524-7c-i9m"/>
                                             <constraint firstAttribute="bottom" secondItem="gUY-vg-qnB" secondAttribute="bottom" constant="8" id="5DT-GR-AV7"/>
+                                            <constraint firstItem="xj7-gn-POQ" firstAttribute="centerY" secondItem="ooV-cd-HXM" secondAttribute="centerY" constant="80" id="J35-ph-0np"/>
+                                            <constraint firstAttribute="trailing" secondItem="xj7-gn-POQ" secondAttribute="trailing" constant="109.5" id="Obl-zr-coD"/>
                                             <constraint firstAttribute="bottom" secondItem="HVD-fA-MEJ" secondAttribute="bottom" id="Poq-Do-YxH"/>
+                                            <constraint firstItem="xj7-gn-POQ" firstAttribute="leading" secondItem="gUY-vg-qnB" secondAttribute="trailing" constant="77.5" id="gD1-dW-9YC"/>
                                             <constraint firstAttribute="trailing" secondItem="HVD-fA-MEJ" secondAttribute="trailing" id="jVb-oA-IyF"/>
                                             <constraint firstItem="HVD-fA-MEJ" firstAttribute="top" secondItem="ooV-cd-HXM" secondAttribute="top" id="joN-XY-nTb"/>
+                                            <constraint firstAttribute="bottom" secondItem="xj7-gn-POQ" secondAttribute="bottom" constant="7" id="mv4-Mj-xrn"/>
                                             <constraint firstItem="gUY-vg-qnB" firstAttribute="leading" secondItem="ooV-cd-HXM" secondAttribute="leading" constant="8" id="q0P-9V-o2o"/>
                                             <constraint firstItem="HVD-fA-MEJ" firstAttribute="leading" secondItem="ooV-cd-HXM" secondAttribute="leading" id="rFo-X8-GBd"/>
                                         </constraints>
@@ -351,6 +359,7 @@
                 <outlet property="lblGalleryPostDate" destination="6Iq-6Z-m9X" id="TzO-1v-O9h"/>
                 <outlet property="lblGalleryType" destination="0kx-le-ed1" id="sBM-qO-ih1"/>
                 <outlet property="lblUserName" destination="c2v-j6-n2v" id="5f9-qa-hV6"/>
+                <outlet property="pageControl" destination="xj7-gn-POQ" id="rHv-cL-xoF"/>
                 <outlet property="viewMainContainer" destination="iNG-rP-bVM" id="rFi-53-Trz"/>
                 <outlet property="viewSubContainer" destination="lpP-88-CC5" id="Rix-bo-JZ8"/>
                 <outlet property="vwCountImage" destination="gUY-vg-qnB" id="51W-f5-eGg"/>
@@ -366,5 +375,8 @@
         <image name="ic_like_selected" width="17.5" height="17.5"/>
         <image name="ic_post_event" width="20" height="20.5"/>
         <image name="user_placeholder.png" width="300" height="300"/>
+        <namedColor name="AppDefault">
+            <color red="0.0" green="0.75294117647058822" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

@@ -1203,13 +1203,13 @@
                                                                         </label>
                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Article" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hI5-Ai-cof" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                             <rect key="frame" x="8" y="68" width="60" height="25"/>
-                                                                            <color key="backgroundColor" red="0.85098039219999999" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="25" id="UwP-Xr-Mad"/>
                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="fSL-rb-4Ll"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                            <nil key="textColor"/>
+                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cR6-sw-PXG">
@@ -1222,7 +1222,7 @@
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nUh-L8-rWn">
                                                                             <rect key="frame" x="82" y="91" width="54" height="2"/>
-                                                                            <color key="backgroundColor" red="0.61176470588235299" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="2" id="4iE-ye-gjx"/>
                                                                             </constraints>
@@ -2087,13 +2087,13 @@
                                                                         </label>
                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chirpy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A7C-1F-J5s" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                             <rect key="frame" x="8" y="63" width="60" height="25"/>
-                                                                            <color key="backgroundColor" red="0.85098039219999999" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="25" id="17X-EG-ryM"/>
                                                                                 <constraint firstAttribute="width" constant="60" id="VgO-zl-nTZ"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                            <nil key="textColor"/>
+                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HXp-sx-NKc" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
@@ -2107,7 +2107,7 @@
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sYw-R1-1Qt">
                                                                             <rect key="frame" x="83" y="85" width="54" height="2"/>
-                                                                            <color key="backgroundColor" red="0.61176470588235299" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="2" id="GrJ-rh-GKP"/>
                                                                             </constraints>
@@ -2523,13 +2523,13 @@
                                                                         </label>
                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chirpy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjh-SE-Uab" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                             <rect key="frame" x="8" y="63" width="60" height="25"/>
-                                                                            <color key="backgroundColor" red="0.85098039219999999" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="60" id="f3U-Pw-hyk"/>
                                                                                 <constraint firstAttribute="height" constant="25" id="s95-uh-MeY"/>
                                                                             </constraints>
                                                                             <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="13"/>
-                                                                            <nil key="textColor"/>
+                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIFESTYLE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fEO-GJ-Z6S" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
@@ -2543,7 +2543,7 @@
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RWV-wX-UZC">
                                                                             <rect key="frame" x="83" y="85" width="54" height="2"/>
-                                                                            <color key="backgroundColor" red="0.61176470588235299" green="0.60392156862745094" blue="0.60392156862745094" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="2" id="lwS-o5-NIT"/>
                                                                             </constraints>
@@ -3300,7 +3300,7 @@
                                                                         </label>
                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forum" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csh-sm-U9E" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                             <rect key="frame" x="8" y="68" width="60" height="25"/>
-                                                                            <color key="backgroundColor" red="0.85098039219999999" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="3LE-32-sjG"/>
                                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="Zfw-bR-oQW"/>
@@ -3320,7 +3320,7 @@
                                                                         </label>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qqc-17-MLu">
                                                                             <rect key="frame" x="83" y="90" width="54" height="2"/>
-                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="2" id="qji-7F-WUH"/>
                                                                             </constraints>
@@ -4658,7 +4658,7 @@
                                                                         </label>
                                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shouts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S8V-3o-eJH" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                                             <rect key="frame" x="8" y="65" width="60" height="25"/>
-                                                                            <color key="backgroundColor" red="0.85098039219999999" green="0.82745098039999998" blue="0.82745098039999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="3iY-PQ-XUN"/>
                                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="i9e-sW-0br"/>
@@ -4678,7 +4678,7 @@
                                                                         </label>
                                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ib-c8-1sy">
                                                                             <rect key="frame" x="83" y="87" width="54" height="2"/>
-                                                                            <color key="backgroundColor" red="0.61176470589999998" green="0.60392156860000001" blue="0.60392156860000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <color key="backgroundColor" name="AppDefault"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="2" id="Dx9-cG-3J1"/>
                                                                             </constraints>
