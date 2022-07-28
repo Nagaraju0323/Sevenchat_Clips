@@ -152,7 +152,8 @@ extension HomeShoutsTblCell{
         btnLikesCount.setTitle(appDelegate.getLikeString(like: likeCount), for: .normal)
         let commentCount = postInfo.valueForString(key: "comments").toInt
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount ?? 0), for: .normal)
-        btnShare.setTitle(CBtnShare, for: .normal)
+        self.btnShare.isHidden = true
+       btnShare.setTitle(CBtnShare, for: .normal)
         
         //Dateconvert
         let created_At = postInfo.valueForString(key: CCreated_at)

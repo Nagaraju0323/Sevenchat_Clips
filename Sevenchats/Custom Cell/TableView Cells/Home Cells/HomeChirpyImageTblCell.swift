@@ -126,6 +126,7 @@ extension HomeChirpyImageTblCell{
         
         let commentCount = postInfo.valueForString(key: "comments").toInt ?? 0
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
+        self.btnShare.isHidden = true
         btnShare.setTitle(CBtnShare, for: .normal)
             if isLikesOthersPage == true {
                 if postInfo.valueForString(key:"friend_liked") == "Yes"  && postInfo.valueForString(key:"is_liked") == "Yes" {

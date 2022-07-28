@@ -120,7 +120,8 @@ class ShoutsDetailViewController: ParentViewController {
         self.parentView.backgroundColor = .clear
         self.tblCommentList.backgroundColor = .clear
         
-        self.btnShare.setTitle(CBtnShare, for: .normal)
+      self.btnShare.setTitle(CBtnShare, for: .normal)
+        self.btnShare.isHidden = true
         self.lblShoutsType.text = CTypeShout
         GCDMainThread.async {
             self.imgUser.layer.cornerRadius = self.imgUser.CViewWidth/2

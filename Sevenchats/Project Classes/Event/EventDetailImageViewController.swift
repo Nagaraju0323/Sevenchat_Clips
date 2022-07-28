@@ -158,6 +158,7 @@ class EventDetailImageViewController: ParentViewController {
         self.view.backgroundColor = CRGB(r: 249, g: 250, b: 250)
         self.parentView.backgroundColor = .clear
         self.tblCommentList.backgroundColor = .clear
+        self.btnShare.isHidden = true
         self.btnShare.setTitle(CBtnShare, for: .normal)
         func setupInterestButton(sender:UIButton){
             sender.layer.cornerRadius = 4

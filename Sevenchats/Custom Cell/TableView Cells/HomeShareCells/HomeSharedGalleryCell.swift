@@ -231,6 +231,7 @@ extension HomeSharedGalleryCell {
         let commentCount = postInfo.valueForString(key: "comments").toInt ?? 0
 //        let commentCount = postInfo.valueForInt(key: CTotalComment) ?? 0
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
+        self.btnShare.isHidden = true
         btnShare.setTitle(CBtnShare, for: .normal)
     }
 }
@@ -246,14 +247,13 @@ extension HomeSharedGalleryCell: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        if arrGalleryImage.count > 1{
-//            var width = clGallery.frame.size.width
-//            width = width - ((width * 30) / 100)
-//            return CGSize(width:width, height: clGallery.bounds.height)
-//        }
-        //return CGSize(width:clGallery.frame.size.width, height: clGallery.frame.size.width)
-       // return CGSize(width:clGallery.bounds.width, height: clGallery.bounds.height)
-        return CGSize(width:clGallery.bounds.width, height: clGallery.bounds.height)
+        if arrGalleryImage.count > 1{
+            var width = clGallery.frame.size.width
+            width = width - ((width * 30) / 100)
+            clGallery.reloadData()
+            return CGSize(width:clGallery.frame.size.width, height: clGallery.bounds.height)
+        }
+        return CGSize(width:clGallery.frame.size.width, height: clGallery.frame.height)
     }
     
     
@@ -337,10 +337,12 @@ extension HomeSharedGalleryCell: UICollectionViewDelegate, UICollectionViewDataS
             let index = IndexPath.init(item: counter, section: 0)
             self.clGallery?.scrollToItem(at: index, at: .centeredHorizontally, animated: false)
             self.pageControl?.currentPage = counter
+            
             counter = 1
         }else{
             print("cont")
         }
+        
     }
     
     

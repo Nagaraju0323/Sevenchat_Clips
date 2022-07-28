@@ -737,20 +737,33 @@ extension AppDelegate {
         if totalLikeCount < 0{
             totalLikeCount = 0
         }
+//        if totalLikeCount > 99{
+//            strLikeCount = "\(totalLikeCount)+ \(CNavLikes)"
+//        }
+//        strLikeCount = "\(totalLikeCount) \(CNavLikes)"
+//        if totalLikeCount == 1{
+//            strLikeCount = "\(totalLikeCount) \(CLike)"
+//        }
+        
         if totalLikeCount > 99{
-            strLikeCount = "\(totalLikeCount)+ \(CNavLikes)"
+            strLikeCount = "\(totalLikeCount)"
         }
-        strLikeCount = "\(totalLikeCount) \(CNavLikes)"
+        strLikeCount = "\(totalLikeCount)"
         if totalLikeCount == 1{
-            strLikeCount = "\(totalLikeCount) \(CLike)"
+            strLikeCount = "\(totalLikeCount)"
         }
         return strLikeCount
     }
     
     func getCommentCountString(comment:Int) -> String{
-        var strCommentCount = "\(comment) \(CNavComments)"
+//        var strCommentCount = "\(comment) \(CNavComments)"
+//        if comment == 1{
+//            strCommentCount = "\(comment) \(CComment)"
+//        }
+        
+        var strCommentCount = "\(comment)"
         if comment == 1{
-            strCommentCount = "\(comment) \(CComment)"
+            strCommentCount = "\(comment)"
         }
         return strCommentCount
     }

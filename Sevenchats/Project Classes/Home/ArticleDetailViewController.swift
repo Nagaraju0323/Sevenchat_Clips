@@ -257,9 +257,10 @@ extension ArticleDetailViewController{
 //            self.lblArticleTitle.text = artInfo.valueForString(key: CTitle)
 //            self.lblArticleDescription.text = artInfo.valueForString(key: CContent)
             let image = artInfo.valueForString(key: "image")
+            imgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             if image.isEmpty {
-               // blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
-                imgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+               blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+               // imgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             }else{
                 //blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
                 imgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)

@@ -264,7 +264,7 @@ extension HomeSharedEventsCell{
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount ?? 0), for: .normal)
         
         
-        
+        self.btnShare.isHidden = true
         btnShare.setTitle(CBtnShare, for: .normal)
         btnMaybe.setTitle("\(postInfo.valueForString(key: "maybe_count"))\n" + CMaybe, for: .normal)
         btnNotInterested.setTitle("\(postInfo.valueForString(key: "no_count"))\n" + CDeclined, for: .normal)

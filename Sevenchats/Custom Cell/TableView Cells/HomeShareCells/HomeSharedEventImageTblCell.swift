@@ -286,6 +286,7 @@ extension HomeSharedEventImageTblCell{
 
 //        let commentCount = postInfo.valueForInt(key: CTotalComment) ?? 0
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)
+        self.btnShare.isHidden = true
         btnShare.setTitle(CBtnShare, for: .normal)
         
         lblEventLocation.text = postInfo.valueForString(key: CEvent_Location)
