@@ -15,25 +15,6 @@
  *                                                       *
  ********************************************************/
 
-//
-
-
-//
-//  VerifyEmailMobileViewController.swift
-//  Sevenchats
-//
-//  Created by mac-0005 on 08/08/18.
-//  Copyright © 2018 mac-0005. All rights reserved.
-//
-
-/*********************************************************
- * Author  : Nagaraju K and Chandrika R                                 *
- * Model   : VerifyEmailMobileViewController             *
- * Changes :                                             *
- * verify OTP with Auth Server once user Enter valid OTP *
- * Registration is completed                             *
- *                                                       *
- ********************************************************/
 
 import UIKit
 

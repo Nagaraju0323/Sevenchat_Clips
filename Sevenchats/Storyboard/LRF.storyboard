@@ -16,6 +16,9 @@
         <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
         </array>
+        <array key="Poppins-Bold.otf">
+            <string>Poppins-Bold</string>
+        </array>
         <array key="Poppins-Light.otf">
             <string>Poppins-Light</string>
         </array>
@@ -2786,13 +2789,115 @@
             </objects>
             <point key="canvasLocation" x="3744" y="749"/>
         </scene>
+        <!--Pass Word View Controller-->
+        <scene sceneID="vHM-Jh-Rek">
+            <objects>
+                <viewController storyboardIdentifier="PassWordViewController" id="Q6N-1s-VCY" customClass="PassWordViewController" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" tag="101" contentMode="scaleToFill" id="0QC-P3-tSx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Xy-ZT-Tws">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <subviews>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Chose Strong Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YXB-a0-hou" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="15" width="335" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="YXB-a0-hou" secondAttribute="height" multiplier="67:10" id="0B3-Y3-zxs"/>
+                                        </constraints>
+                                        <color key="textColor" name="AppDefault"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                    </textField>
+                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="igN-e2-9Jk" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="80" width="335" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="igN-e2-9Jk" secondAttribute="height" multiplier="67:10" id="985-VC-boX"/>
+                                        </constraints>
+                                        <color key="textColor" name="AppDefault"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="New password"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="genericTextFieldDelegate" destination="Q6N-1s-VCY" id="KXC-7u-aIp"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lka-1D-mgb" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="145" width="335" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="lka-1D-mgb" secondAttribute="height" multiplier="67:10" id="rb4-nr-EE3"/>
+                                        </constraints>
+                                        <color key="textColor" name="AppDefault"/>
+                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Confirm password"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="genericTextFieldDelegate" destination="Q6N-1s-VCY" id="U1d-jT-TyM"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lB-Xa-Ogv" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="235" width="335" height="45"/>
+                                        <color key="backgroundColor" red="0.51764705879999995" green="0.60392156860000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="9lB-Xa-Ogv" secondAttribute="height" multiplier="67:9" id="REX-AP-6iE"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="18"/>
+                                        <state key="normal" title="NEXT" backgroundImage="ic_btn_bg"/>
+                                        <connections>
+                                            <action selector="btnNextCLK:" destination="Q6N-1s-VCY" eventType="touchUpInside" id="lJj-Ra-KqJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="lka-1D-mgb" firstAttribute="top" secondItem="igN-e2-9Jk" secondAttribute="bottom" constant="15" id="06T-qh-hce"/>
+                                    <constraint firstAttribute="trailing" secondItem="9lB-Xa-Ogv" secondAttribute="trailing" constant="20" id="SWx-jB-GCB"/>
+                                    <constraint firstItem="YXB-a0-hou" firstAttribute="top" secondItem="8Xy-ZT-Tws" secondAttribute="top" constant="15" id="bBa-cU-bdf"/>
+                                    <constraint firstAttribute="trailing" secondItem="lka-1D-mgb" secondAttribute="trailing" constant="20" id="eCZ-PC-yl5"/>
+                                    <constraint firstItem="9lB-Xa-Ogv" firstAttribute="top" secondItem="lka-1D-mgb" secondAttribute="bottom" constant="40" id="kEs-kL-fqZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="igN-e2-9Jk" secondAttribute="trailing" constant="20" id="lPg-TY-tyF"/>
+                                    <constraint firstItem="9lB-Xa-Ogv" firstAttribute="leading" secondItem="8Xy-ZT-Tws" secondAttribute="leading" constant="20" id="mWr-ZO-hVT"/>
+                                    <constraint firstItem="YXB-a0-hou" firstAttribute="leading" secondItem="8Xy-ZT-Tws" secondAttribute="leading" constant="20" id="oV8-E9-FC9"/>
+                                    <constraint firstItem="lka-1D-mgb" firstAttribute="leading" secondItem="8Xy-ZT-Tws" secondAttribute="leading" constant="20" id="sMq-hD-Hnf"/>
+                                    <constraint firstAttribute="trailing" secondItem="YXB-a0-hou" secondAttribute="trailing" constant="20" id="tZL-x6-BpY"/>
+                                    <constraint firstItem="igN-e2-9Jk" firstAttribute="leading" secondItem="8Xy-ZT-Tws" secondAttribute="leading" constant="20" id="yEm-bv-ya5"/>
+                                    <constraint firstItem="igN-e2-9Jk" firstAttribute="top" secondItem="YXB-a0-hou" secondAttribute="bottom" constant="15" id="yZs-mK-xhx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="C7X-3l-OyI"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="8Xy-ZT-Tws" firstAttribute="bottom" secondItem="C7X-3l-OyI" secondAttribute="bottom" id="Je6-8T-h7f"/>
+                            <constraint firstItem="8Xy-ZT-Tws" firstAttribute="leading" secondItem="C7X-3l-OyI" secondAttribute="leading" id="uxz-KD-082"/>
+                            <constraint firstItem="8Xy-ZT-Tws" firstAttribute="top" secondItem="C7X-3l-OyI" secondAttribute="top" id="vGb-x7-2jz"/>
+                            <constraint firstItem="8Xy-ZT-Tws" firstAttribute="trailing" secondItem="C7X-3l-OyI" secondAttribute="trailing" id="vWz-AJ-DtB"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                    <connections>
+                        <outlet property="btnNext" destination="9lB-Xa-Ogv" id="ewO-sr-YxC"/>
+                        <outlet property="parentView" destination="8Xy-ZT-Tws" id="8eg-f7-02V"/>
+                        <outlet property="txtConfirmPWD" destination="lka-1D-mgb" id="Saj-Ch-kSN"/>
+                        <outlet property="txtPWD" destination="igN-e2-9Jk" id="fSA-2e-NbU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CDF-2s-DuC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2096" y="532"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="AEM-Lq-5JL">
-            <size key="intrinsicContentSize" width="395.5" height="15.5"/>
+            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
         </designable>
         <designable name="S3X-nm-tel">
-            <size key="intrinsicContentSize" width="395.5" height="15.5"/>
+            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
         </designable>
     </designables>
     <resources>

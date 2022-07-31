@@ -23,6 +23,7 @@ class ProfilePreferenceViewController: ParentViewController {
     @IBOutlet var btnUnknowsBasic : UIButton!
     @IBOutlet var btnUnknowsComplete : UIButton!
     @IBOutlet var btnBlockedUser : UIButton!
+    @IBOutlet var btnDeleteUser : UIButton!
     @IBOutlet var lblBasic : UILabel!
     @IBOutlet var lblUnknown : UILabel!
     @IBOutlet var lblBlockedUser : UILabel!
@@ -195,6 +196,14 @@ extension ProfilePreferenceViewController{
         }
         
     }
+    
+    @IBAction func btnDeleteUserCLK(_ sender : UIButton){
+        if let blockUserVC = CStoryboardSetting.instantiateViewController(withIdentifier: "DeleteUserViewController") as? DeleteUserViewController{
+            self.navigationController?.pushViewController(blockUserVC, animated: true)
+        }
+        
+    }
+    
 }
 
 

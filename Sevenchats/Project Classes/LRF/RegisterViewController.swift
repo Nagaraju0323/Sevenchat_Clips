@@ -858,9 +858,9 @@ extension RegisterViewController{
         APIRequest.shared().verifyEmail(api: api,email : txtEmail.text ?? "", verifyCode: txtEmail.text!) { (response, error) in
             if response != nil && error == nil{
                 
-                if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
+                if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "PassWordViewController") as? PassWordViewController{
                     objVerify.userEmail = (self.txtEmail.text ?? "").lowercased()
-                    objVerify.passwordStr = self.txtPWD.text ?? ""
+//                    objVerify.passwordStr = self.txtPWD.text ?? ""
                     objVerify.isEmail_Mobile = true
                     objVerify.dictSingupdatas = self.dictSinup ?? [:]
                     objVerify.userMobile = self.txtMobileNumber.text ?? ""
@@ -882,12 +882,12 @@ extension RegisterViewController{
         let api = CAPITagVerifyMobile
         APIRequest.shared().verifyMobile(api : api, email : txtEmail.text ?? "", mobile: txtMobileNumber.text ?? "") { (response, error) in
             if response != nil && error == nil{
-                if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
+                if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "PassWordViewController") as? PassWordViewController{
                     objVerify.userEmail = (self.txtEmail.text ?? "").lowercased()
                     objVerify.isEmail_Mobile = false
                     objVerify.dictSingupdatas = self.dictSinup ?? [:]
                     objVerify.userMobile = self.txtMobileNumber.text ?? ""
-                    objVerify.passwordStr = self.txtPWD.text ?? ""
+//                    objVerify.passwordStr = self.txtPWD.text ?? ""
                     objVerify.isEmailVerify = false
                     objVerify.profileImgUrlupdate = self.profileImgUrlupdate
                     self.navigationController?.pushViewController(objVerify, animated: true)

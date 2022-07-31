@@ -591,6 +591,14 @@
 		7CF3E7E7278D335B0054E394 /* PSLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7E6278D335B0054E394 /* PSLViewController.swift */; };
 		7CF3E7E9278D337C0054E394 /* PSLCategoryCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7E8278D337C0054E394 /* PSLCategoryCollCell.swift */; };
 		7CF3E7EB278D339B0054E394 /* PSLTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */; };
+		EC5A45C42896DB6D00BEC5F0 /* PassWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5A45C32896DB6D00BEC5F0 /* PassWordViewController.swift */; };
+		ECB732162897063A00C00907 /* DeleteUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB732152897063A00C00907 /* DeleteUserViewController.swift */; };
+		ECB7321828970CD600C00907 /* OwnerShipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB7321728970CD600C00907 /* OwnerShipViewController.swift */; };
+		ECB7321A289717B800C00907 /* ManageFrdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB73219289717B800C00907 /* ManageFrdsViewController.swift */; };
+		ECB7321C28972EF300C00907 /* DeactiveDelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB7321B28972EF300C00907 /* DeactiveDelViewController.swift */; };
+		ECB7321E289736CD00C00907 /* EnterPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB7321D289736CD00C00907 /* EnterPasswordViewController.swift */; };
+		ECB73220289736E800C00907 /* AccountDeactivateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB7321F289736E800C00907 /* AccountDeactivateViewController.swift */; };
+		ECB73222289736FE00C00907 /* ConfirmDeactiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB73221289736FE00C00907 /* ConfirmDeactiveViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1188,6 +1196,14 @@
 		7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLTblCell.swift; sourceTree = "<group>"; };
 		92127F46DEF4AD40C3BD3698 /* Pods_Sevenchats.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sevenchats.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAB21F24095B360D5B6F471B /* Pods-Sevenchats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.release.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.release.xcconfig"; sourceTree = "<group>"; };
+		EC5A45C32896DB6D00BEC5F0 /* PassWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassWordViewController.swift; sourceTree = "<group>"; };
+		ECB732152897063A00C00907 /* DeleteUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserViewController.swift; sourceTree = "<group>"; };
+		ECB7321728970CD600C00907 /* OwnerShipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerShipViewController.swift; sourceTree = "<group>"; };
+		ECB73219289717B800C00907 /* ManageFrdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFrdsViewController.swift; sourceTree = "<group>"; };
+		ECB7321B28972EF300C00907 /* DeactiveDelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeactiveDelViewController.swift; sourceTree = "<group>"; };
+		ECB7321D289736CD00C00907 /* EnterPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordViewController.swift; sourceTree = "<group>"; };
+		ECB7321F289736E800C00907 /* AccountDeactivateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeactivateViewController.swift; sourceTree = "<group>"; };
+		ECB73221289736FE00C00907 /* ConfirmDeactiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeactiveViewController.swift; sourceTree = "<group>"; };
 		FE1E09332120EA45B0CFE58F /* Pods-Sevenchats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.debug.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1476,6 +1492,7 @@
 			isa = PBXGroup;
 			children = (
 				62E1A3A5240E2EC4001BD7A8 /* ResetPWDViewController.swift */,
+				EC5A45C32896DB6D00BEC5F0 /* PassWordViewController.swift */,
 				62E1A3A6240E2EC4001BD7A8 /* ForgotPWDViewController.swift */,
 				62E1A3A7240E2EC4001BD7A8 /* InviteAndConnectViewController.swift */,
 				62E1A3A8240E2EC4001BD7A8 /* SelectLanguageViewController.swift */,
@@ -1752,6 +1769,13 @@
 			isa = PBXGroup;
 			children = (
 				62E1A441240E2EC4001BD7A8 /* SettingViewController.swift */,
+				ECB73219289717B800C00907 /* ManageFrdsViewController.swift */,
+				ECB7321B28972EF300C00907 /* DeactiveDelViewController.swift */,
+				ECB7321728970CD600C00907 /* OwnerShipViewController.swift */,
+				ECB7321D289736CD00C00907 /* EnterPasswordViewController.swift */,
+				ECB7321F289736E800C00907 /* AccountDeactivateViewController.swift */,
+				ECB73221289736FE00C00907 /* ConfirmDeactiveViewController.swift */,
+				ECB732152897063A00C00907 /* DeleteUserViewController.swift */,
 				62E1A442240E2EC4001BD7A8 /* FeedbackViewController.swift */,
 				62E1A443240E2EC4001BD7A8 /* ProfilePreferenceViewController.swift */,
 			);
@@ -2844,6 +2868,7 @@
 				62E1A66E240E2EC5001BD7A8 /* ProfilePreferenceViewController.swift in Sources */,
 				62E1A6C5240E2EC5001BD7A8 /* HomeEventsCell.swift in Sources */,
 				62E1A655240E2EC5001BD7A8 /* EarnedPointsCell.swift in Sources */,
+				ECB73222289736FE00C00907 /* ConfirmDeactiveViewController.swift in Sources */,
 				1801383F2756C42B001A21BA /* UserDefault+Helper.swift in Sources */,
 				62E1A750240E2EC5001BD7A8 /* ChatListHeaderView.swift in Sources */,
 				62E1A5E8240E2EC5001BD7A8 /* SelectLanguageViewController.swift in Sources */,
@@ -2862,9 +2887,12 @@
 				62E1A79B240E2EC5001BD7A8 /* MDLPollUserList.swift in Sources */,
 				62E1A64E240E2EC5001BD7A8 /* AllProductListVC.swift in Sources */,
 				62E1A66B240E2EC5001BD7A8 /* GalleryListViewController.swift in Sources */,
+				ECB732162897063A00C00907 /* DeleteUserViewController.swift in Sources */,
+				ECB7321828970CD600C00907 /* OwnerShipViewController.swift in Sources */,
 				62E1A65F240E2EC5001BD7A8 /* OtherUserCompleteProfileViewController.swift in Sources */,
 				18DA1C6026CE54350086CED3 /* MinioImgsave.swift in Sources */,
 				62E1A7AD240E2EC5001BD7A8 /* ProductHelper.swift in Sources */,
+				ECB7321A289717B800C00907 /* ManageFrdsViewController.swift in Sources */,
 				62E1A5FA240E2EC5001BD7A8 /* CreateFolderVC.swift in Sources */,
 				62E1A71B240E2EC5001BD7A8 /* EventInviteesAcceptedTblCell.swift in Sources */,
 				62E1A6BF240E2EC5001BD7A8 /* HomeChirpyTblCell.swift in Sources */,
@@ -2880,6 +2908,7 @@
 				62E1A5DB240E2EC5001BD7A8 /* SharePostViewController.swift in Sources */,
 				1863D0C62600AD3A00B5BDE8 /* showCameraViewController.swift in Sources */,
 				1863D1032600D3CD00B5BDE8 /* ViewGestures.swift in Sources */,
+				ECB73220289736E800C00907 /* AccountDeactivateViewController.swift in Sources */,
 				62E1A71F240E2EC5001BD7A8 /* HomePollTblCell.swift in Sources */,
 				62E1A776240E2EC5001BD7A8 /* ExtensionUIResponder.swift in Sources */,
 				184E1848260872A300E1D5D7 /* CountryHolidayList.swift in Sources */,
@@ -2956,6 +2985,7 @@
 				62E1A6F9240E2EC5001BD7A8 /* HomeSharedFourmTblCell.swift in Sources */,
 				62E1A785240E2EC5001BD7A8 /* MasterConstant.swift in Sources */,
 				62E1A61B240E2EC5001BD7A8 /* CommentViewController.swift in Sources */,
+				EC5A45C42896DB6D00BEC5F0 /* PassWordViewController.swift in Sources */,
 				62E1A783240E2EC5001BD7A8 /* ExtensionUIViewController.swift in Sources */,
 				62E1A6C7240E2EC5001BD7A8 /* NotificationGeneralTblCell.swift in Sources */,
 				62E1A6E8240E2EC5001BD7A8 /* GroupSuggetionTblCell.swift in Sources */,
@@ -3028,6 +3058,7 @@
 				62E1A6AA240E2EC5001BD7A8 /* NewsCategoryCollCell.swift in Sources */,
 				62E1A633240E2EC5001BD7A8 /* ProductFilterCell.swift in Sources */,
 				62E1A602240E2EC5001BD7A8 /* UpgradeStoragePopUpView.swift in Sources */,
+				ECB7321E289736CD00C00907 /* EnterPasswordViewController.swift in Sources */,
 				62E1A5DA240E2EC5001BD7A8 /* ForumDetailViewController.swift in Sources */,
 				62E1A6B4240E2EC5001BD7A8 /* HomeChirpyImageTblCell.swift in Sources */,
 				62E1A70D240E2EC5001BD7A8 /* HomeSharedEventsCell.swift in Sources */,
@@ -3086,6 +3117,7 @@
 				184E1804260867BD00E1D5D7 /* ColorCollectionViewCell.swift in Sources */,
 				62E1A67B240E2EC5001BD7A8 /* AddEventViewController.swift in Sources */,
 				62E1A793240E2EC5001BD7A8 /* OnboardingModel.swift in Sources */,
+				ECB7321C28972EF300C00907 /* DeactiveDelViewController.swift in Sources */,
 				62E1A78C240E2EC5001BD7A8 /* MDLFileList.swift in Sources */,
 				62E1A7B3240E2EC5001BD7A8 /* SharePostHelper.swift in Sources */,
 				62E1A60D240E2EC5001BD7A8 /* TblFilesCell.swift in Sources */,
