@@ -294,26 +294,40 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KtD-b5-OKj">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="680"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="674.5"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_login" translatesAutoresizingMaskIntoConstraints="NO" id="CxU-Ca-e4l">
-                                                        <rect key="frame" x="137.5" y="89.5" width="100" height="100"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKw-Nj-Vf4">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="290"/>
+                                                        <subviews>
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Vector" translatesAutoresizingMaskIntoConstraints="NO" id="CxU-Ca-e4l">
+                                                                <rect key="frame" x="137.5" y="78" width="100" height="100"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="100" id="1I3-bf-vVp"/>
+                                                                    <constraint firstAttribute="height" constant="100" id="rmI-6X-NS6"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sevenchats" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VyR-ms-lv7" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="193" width="375" height="34"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="34" id="dtg-uz-LpH"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="Gobold" family="Gobold" pointSize="30"/>
+                                                                <color key="textColor" name="Color"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" name="AppDefault"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="100" id="1I3-bf-vVp"/>
-                                                            <constraint firstAttribute="height" constant="100" id="rmI-6X-NS6"/>
+                                                            <constraint firstItem="VyR-ms-lv7" firstAttribute="leading" secondItem="DKw-Nj-Vf4" secondAttribute="leading" id="4Tl-kE-frS"/>
+                                                            <constraint firstItem="CxU-Ca-e4l" firstAttribute="centerY" secondItem="DKw-Nj-Vf4" secondAttribute="centerY" multiplier="0.41" constant="68.550000000000011" id="Bdy-ch-zmt"/>
+                                                            <constraint firstItem="CxU-Ca-e4l" firstAttribute="top" secondItem="DKw-Nj-Vf4" secondAttribute="top" constant="78" id="J5n-HK-iUK"/>
+                                                            <constraint firstItem="CxU-Ca-e4l" firstAttribute="centerX" secondItem="DKw-Nj-Vf4" secondAttribute="centerX" id="Qg8-dq-O0U"/>
+                                                            <constraint firstItem="VyR-ms-lv7" firstAttribute="top" secondItem="CxU-Ca-e4l" secondAttribute="bottom" constant="15" id="evH-o0-tMS"/>
+                                                            <constraint firstAttribute="trailing" secondItem="VyR-ms-lv7" secondAttribute="trailing" id="gem-xP-0GD"/>
                                                         </constraints>
-                                                    </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sevenchats" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VyR-ms-lv7" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="204.5" width="375" height="34"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="34" id="dtg-uz-LpH"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="Gobold" family="Gobold" pointSize="30"/>
-                                                        <color key="textColor" name="AppDefault"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
+                                                    </view>
                                                     <textField hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gJs-Yu-Q8E" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="268.5" width="60" height="50"/>
+                                                        <rect key="frame" x="20" y="318.5" width="60" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="8aA-xt-6xP"/>
                                                         </constraints>
@@ -325,7 +339,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNJ-Sp-afB" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="268.5" width="335" height="50"/>
+                                                        <rect key="frame" x="20" y="318.5" width="335" height="50"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
@@ -338,7 +352,7 @@
                                                         </connections>
                                                     </textField>
                                                     <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wSy-60-Mby" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="333.5" width="335" height="50"/>
+                                                        <rect key="frame" x="20" y="383.5" width="335" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="wSy-60-Mby" secondAttribute="height" multiplier="67:10" id="b0P-Bn-d4F"/>
                                                         </constraints>
@@ -350,7 +364,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAp-aI-5kD" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="427" width="335" height="45"/>
+                                                        <rect key="frame" x="20" y="463.5" width="335" height="45"/>
                                                         <color key="backgroundColor" name="AppDefault"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="OAp-aI-5kD" secondAttribute="height" multiplier="67:9" id="aLH-F1-Vgb"/>
@@ -361,32 +375,17 @@
                                                             <action selector="btnSignInCLK:" destination="9CC-Gl-OGO" eventType="touchUpInside" id="2oK-bz-zCM"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iuo-4v-bGt" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="193" y="386" width="162" height="29"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="162" id="N2N-aU-Hy0"/>
-                                                            <constraint firstAttribute="height" constant="29" id="Ppg-va-mn0"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
-                                                        <state key="normal" title="Forgot Password?">
-                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="btnForgotCLK:" destination="9CC-Gl-OGO" eventType="touchUpInside" id="aO4-Hw-auM"/>
-                                                        </connections>
-                                                    </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t have an account?  Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8S-7J-HJH" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="522" width="335" height="20"/>
+                                                        <rect key="frame" x="20" y="578.5" width="335" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="UVK-db-MjO"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
+                                                        <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="13"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gnt-4x-m3N">
-                                                        <rect key="frame" x="107.5" y="562" width="160" height="40"/>
+                                                        <rect key="frame" x="107.5" y="648.5" width="160" height="40"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4p-ki-JeJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -430,7 +429,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t have an account?  Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jz9-aG-iZA" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="75" y="634" width="225.5" height="20"/>
+                                                        <rect key="frame" x="75" y="628.5" width="225.5" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" id="3F3-5Q-y8J"/>
                                                             <constraint firstAttribute="height" constant="20" id="pOY-XV-4kr"/>
@@ -439,8 +438,26 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iuo-4v-bGt" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
+                                                        <rect key="frame" x="98" y="518.5" width="162" height="29"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="162" id="N2N-aU-Hy0"/>
+                                                            <constraint firstAttribute="height" constant="29" id="Ppg-va-mn0"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="Poppins-Bold" family="Poppins" pointSize="13"/>
+                                                        <state key="normal" title="Forgot Password?">
+                                                            <color key="titleColor" name="AppDefault"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btnForgotCLK:" destination="9CC-Gl-OGO" eventType="touchUpInside" id="aO4-Hw-auM"/>
+                                                        </connections>
+                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-02-dox">
-                                                        <rect key="frame" x="75" y="627" width="225.5" height="34"/>
+                                                        <rect key="frame" x="75" y="623" width="235" height="29"/>
+                                                        <color key="backgroundColor" name="AppDefault"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                        <state key="normal" title="Create New Sevenchats Account"/>
                                                         <connections>
                                                             <action selector="btnSignUpCLK:" destination="9CC-Gl-OGO" eventType="touchUpInside" id="A9V-s8-lKv"/>
                                                         </connections>
@@ -450,36 +467,36 @@
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="wSy-60-Mby" secondAttribute="trailing" constant="20" id="2hx-iL-IN5"/>
                                                     <constraint firstItem="gNJ-Sp-afB" firstAttribute="height" secondItem="wSy-60-Mby" secondAttribute="height" id="5Tj-fm-q2t"/>
-                                                    <constraint firstAttribute="trailing" secondItem="VyR-ms-lv7" secondAttribute="trailing" id="5ah-6s-cD8"/>
+                                                    <constraint firstItem="DKw-Nj-Vf4" firstAttribute="leading" secondItem="KtD-b5-OKj" secondAttribute="leading" id="7qA-5x-NQc"/>
                                                     <constraint firstAttribute="trailing" secondItem="gNJ-Sp-afB" secondAttribute="trailing" constant="20" id="8kF-8b-zJW"/>
                                                     <constraint firstItem="jz9-aG-iZA" firstAttribute="centerX" secondItem="KtD-b5-OKj" secondAttribute="centerX" id="9MC-YI-4xL"/>
-                                                    <constraint firstItem="Jec-02-dox" firstAttribute="trailing" secondItem="jz9-aG-iZA" secondAttribute="trailing" id="Agb-77-EUY"/>
-                                                    <constraint firstItem="Jec-02-dox" firstAttribute="centerY" secondItem="jz9-aG-iZA" secondAttribute="centerY" id="Ayi-D1-Ogd"/>
+                                                    <constraint firstItem="Jec-02-dox" firstAttribute="trailing" secondItem="jz9-aG-iZA" secondAttribute="trailing" constant="9.5" id="Agb-77-EUY"/>
+                                                    <constraint firstItem="Jec-02-dox" firstAttribute="centerY" secondItem="jz9-aG-iZA" secondAttribute="centerY" constant="-1" id="Ayi-D1-Ogd"/>
                                                     <constraint firstItem="Jec-02-dox" firstAttribute="leading" secondItem="jz9-aG-iZA" secondAttribute="leading" id="B0j-c6-utx"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" id="BiZ-9e-JEj"/>
-                                                    <constraint firstItem="OAp-aI-5kD" firstAttribute="top" secondItem="Iuo-4v-bGt" secondAttribute="bottom" constant="12" id="CF0-b8-itV"/>
+                                                    <constraint firstItem="Iuo-4v-bGt" firstAttribute="centerX" secondItem="OAp-aI-5kD" secondAttribute="centerX" constant="-8.5" id="DSg-wc-t2k"/>
                                                     <constraint firstItem="wSy-60-Mby" firstAttribute="leading" secondItem="KtD-b5-OKj" secondAttribute="leading" constant="20" id="IT7-fg-okn"/>
                                                     <constraint firstAttribute="trailing" secondItem="u8S-7J-HJH" secondAttribute="trailing" constant="20" id="JxR-w7-rIu"/>
-                                                    <constraint firstItem="CxU-Ca-e4l" firstAttribute="centerX" secondItem="KtD-b5-OKj" secondAttribute="centerX" id="NNe-Mu-hpA"/>
+                                                    <constraint firstItem="DKw-Nj-Vf4" firstAttribute="top" secondItem="KtD-b5-OKj" secondAttribute="top" id="LJn-wd-6Fc"/>
                                                     <constraint firstItem="gnt-4x-m3N" firstAttribute="centerX" secondItem="KtD-b5-OKj" secondAttribute="centerX" id="OFD-Iw-88W"/>
-                                                    <constraint firstItem="gnt-4x-m3N" firstAttribute="top" secondItem="u8S-7J-HJH" secondAttribute="bottom" constant="20" id="RCt-lk-dcw"/>
-                                                    <constraint firstItem="gNJ-Sp-afB" firstAttribute="top" secondItem="VyR-ms-lv7" secondAttribute="bottom" constant="30" id="UvD-9R-1Xk"/>
+                                                    <constraint firstItem="Iuo-4v-bGt" firstAttribute="centerX" secondItem="u8S-7J-HJH" secondAttribute="centerX" constant="-8.5" id="PcC-kM-0Vw"/>
+                                                    <constraint firstItem="gnt-4x-m3N" firstAttribute="top" secondItem="u8S-7J-HJH" secondAttribute="bottom" constant="50" id="RCt-lk-dcw"/>
+                                                    <constraint firstItem="gJs-Yu-Q8E" firstAttribute="top" secondItem="DKw-Nj-Vf4" secondAttribute="bottom" constant="28.5" id="YJy-e8-nTO"/>
                                                     <constraint firstItem="gNJ-Sp-afB" firstAttribute="leading" secondItem="KtD-b5-OKj" secondAttribute="leading" constant="20" id="ZBd-XB-ONV"/>
-                                                    <constraint firstItem="Iuo-4v-bGt" firstAttribute="top" secondItem="wSy-60-Mby" secondAttribute="bottom" constant="2.5" id="Zhm-ZK-8NP"/>
+                                                    <constraint firstItem="Iuo-4v-bGt" firstAttribute="top" secondItem="OAp-aI-5kD" secondAttribute="bottom" constant="10" id="Zhm-ZK-8NP"/>
                                                     <constraint firstItem="wSy-60-Mby" firstAttribute="top" secondItem="gNJ-Sp-afB" secondAttribute="bottom" constant="15" id="aiJ-Li-Fbw"/>
+                                                    <constraint firstItem="OAp-aI-5kD" firstAttribute="top" secondItem="wSy-60-Mby" secondAttribute="bottom" constant="30" id="dFf-lw-APE"/>
                                                     <constraint firstAttribute="trailing" secondItem="OAp-aI-5kD" secondAttribute="trailing" constant="20" id="fBm-qT-rCl"/>
-                                                    <constraint firstItem="jz9-aG-iZA" firstAttribute="top" secondItem="gnt-4x-m3N" secondAttribute="bottom" constant="32" id="gVk-z5-L3e"/>
+                                                    <constraint firstItem="jz9-aG-iZA" firstAttribute="top" secondItem="OAp-aI-5kD" secondAttribute="bottom" constant="120" id="gVk-z5-L3e"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DKw-Nj-Vf4" secondAttribute="trailing" id="j5q-cc-a9Y"/>
                                                     <constraint firstItem="gJs-Yu-Q8E" firstAttribute="height" secondItem="gNJ-Sp-afB" secondAttribute="height" id="kOp-WG-hY4"/>
+                                                    <constraint firstItem="Iuo-4v-bGt" firstAttribute="centerX" secondItem="KtD-b5-OKj" secondAttribute="centerX" constant="-8.5" id="l8P-TM-d6n"/>
                                                     <constraint firstItem="OAp-aI-5kD" firstAttribute="leading" secondItem="KtD-b5-OKj" secondAttribute="leading" constant="20" id="lGP-jg-dof"/>
                                                     <constraint firstItem="u8S-7J-HJH" firstAttribute="leading" secondItem="KtD-b5-OKj" secondAttribute="leading" constant="20" id="n5S-Kd-fyN"/>
-                                                    <constraint firstItem="VyR-ms-lv7" firstAttribute="leading" secondItem="KtD-b5-OKj" secondAttribute="leading" id="nF7-ah-CM3"/>
                                                     <constraint firstItem="gJs-Yu-Q8E" firstAttribute="leading" secondItem="KtD-b5-OKj" secondAttribute="leading" constant="20" id="pE5-NY-mqA"/>
                                                     <constraint firstItem="gJs-Yu-Q8E" firstAttribute="centerY" secondItem="gNJ-Sp-afB" secondAttribute="centerY" id="pdy-Ec-LRX"/>
-                                                    <constraint firstItem="CxU-Ca-e4l" firstAttribute="centerY" secondItem="KtD-b5-OKj" secondAttribute="centerY" multiplier="0.41" id="qED-fo-pEu"/>
-                                                    <constraint firstItem="Iuo-4v-bGt" firstAttribute="trailing" secondItem="wSy-60-Mby" secondAttribute="trailing" id="uU4-N3-nW5"/>
-                                                    <constraint firstItem="VyR-ms-lv7" firstAttribute="top" secondItem="CxU-Ca-e4l" secondAttribute="bottom" constant="15" id="xEI-N4-8PX"/>
                                                     <constraint firstAttribute="bottom" secondItem="jz9-aG-iZA" secondAttribute="bottom" constant="26" id="yFd-Vt-qey"/>
-                                                    <constraint firstItem="u8S-7J-HJH" firstAttribute="top" secondItem="OAp-aI-5kD" secondAttribute="bottom" constant="50" id="zyj-by-Vh0"/>
+                                                    <constraint firstItem="u8S-7J-HJH" firstAttribute="top" secondItem="OAp-aI-5kD" secondAttribute="bottom" constant="70" id="zyj-by-Vh0"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -528,7 +545,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uJj-AM-TEW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-308" y="33.733133433283363"/>
+            <point key="canvasLocation" x="-309.4202898550725" y="33.147321428571431"/>
         </scene>
         <!--Select Language View Controller-->
         <scene sceneID="tvl-4p-Guz">
@@ -1087,7 +1104,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="1122"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MBy-M3-zM3">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="716"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="586"/>
                                         <subviews>
                                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Px4-Ng-72m">
                                                 <rect key="frame" x="137.5" y="15" width="100" height="100"/>
@@ -1171,7 +1188,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lJt-1p-ZYt">
-                                                <rect key="frame" x="20" y="390" width="70" height="50"/>
+                                                <rect key="frame" x="20" y="260" width="70" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcC-AE-N9P" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="10"/>
@@ -1224,7 +1241,7 @@
                                                 </constraints>
                                             </view>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YGs-zy-sKh" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="390" width="335" height="50"/>
+                                                <rect key="frame" x="20" y="260" width="335" height="50"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -1233,7 +1250,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n5H-tk-45g" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="455" width="335" height="50"/>
+                                                <rect key="frame" x="20" y="325" width="335" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="n5H-tk-45g" secondAttribute="height" multiplier="67:10" id="ud0-lW-yXn"/>
                                                 </constraints>
@@ -1245,13 +1262,13 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_dropdown_grey" translatesAutoresizingMaskIntoConstraints="NO" id="Rj0-Do-JEp">
-                                                <rect key="frame" x="339" y="455" width="11" height="50"/>
+                                                <rect key="frame" x="339" y="325" width="11" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="11" id="MmU-FP-PuJ"/>
                                                 </constraints>
                                             </imageView>
                                             <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HZJ-B4-Cl0" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="520" width="335" height="50"/>
+                                                <rect key="frame" x="20" y="390" width="335" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="HZJ-B4-Cl0" secondAttribute="height" multiplier="67:10" id="W3r-EL-YbL"/>
                                                 </constraints>
@@ -1263,13 +1280,13 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gSJ-hq-YgL">
-                                                <rect key="frame" x="330" y="520" width="25" height="50"/>
+                                                <rect key="frame" x="330" y="390" width="25" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="oNF-MX-kKR"/>
                                                 </constraints>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="HwR-f7-di3">
-                                                <rect key="frame" x="20" y="590" width="335" height="180"/>
+                                                <rect key="frame" x="20" y="460" width="335" height="180"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tWO-lH-ly0">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
@@ -1373,7 +1390,7 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zJB-Iy-K7d">
-                                                <rect key="frame" x="20" y="585" width="335" height="42"/>
+                                                <rect key="frame" x="20" y="455" width="335" height="42"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="I accept all the terns and conditions including all the privacy policies" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S3X-nm-tel" customClass="ActiveLabel" customModule="ActiveLabel">
                                                         <rect key="frame" x="34" y="0.0" width="301" height="40"/>
@@ -1408,7 +1425,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KcO-Ay-HT0" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="642" width="335" height="45"/>
+                                                <rect key="frame" x="20" y="512" width="335" height="45"/>
                                                 <color key="backgroundColor" red="0.51764705879999995" green="0.60392156860000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="KcO-Ay-HT0" secondAttribute="height" multiplier="67:9" id="jFB-cr-xYi"/>
@@ -1447,7 +1464,7 @@
                                             <constraint firstItem="2Co-60-b8X" firstAttribute="centerY" secondItem="wfp-lq-X1l" secondAttribute="centerY" constant="15" id="ZEe-hC-zpO"/>
                                             <constraint firstItem="YGs-zy-sKh" firstAttribute="height" secondItem="CcN-Qf-lMh" secondAttribute="height" id="bxs-nf-RLi"/>
                                             <constraint firstItem="sDm-3o-ONw" firstAttribute="leading" secondItem="MBy-M3-zM3" secondAttribute="leading" constant="20" id="cOH-zl-IME"/>
-                                            <constraint firstItem="YGs-zy-sKh" firstAttribute="top" secondItem="RGB-B2-cAz" secondAttribute="bottom" constant="15" id="ceM-s7-ErG"/>
+                                            <constraint firstItem="YGs-zy-sKh" firstAttribute="top" secondItem="BXd-kV-PSB" secondAttribute="bottom" constant="15" id="ceM-s7-ErG"/>
                                             <constraint firstItem="sDm-3o-ONw" firstAttribute="top" secondItem="Px4-Ng-72m" secondAttribute="bottom" constant="15" id="cfh-Um-9o0"/>
                                             <constraint firstItem="BXd-kV-PSB" firstAttribute="leading" secondItem="MBy-M3-zM3" secondAttribute="leading" constant="20" id="dTb-Sb-Mgl"/>
                                             <constraint firstItem="lJt-1p-ZYt" firstAttribute="top" secondItem="YGs-zy-sKh" secondAttribute="top" id="dsu-Pq-UR1"/>
@@ -2894,13 +2911,14 @@
     </scenes>
     <designables>
         <designable name="AEM-Lq-5JL">
-            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="441" height="20"/>
         </designable>
         <designable name="S3X-nm-tel">
-            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="441" height="20"/>
         </designable>
     </designables>
     <resources>
+        <image name="Vector" width="100" height="100"/>
         <image name="ic_Headerss" width="1242" height="345"/>
         <image name="ic_add_user" width="512" height="512"/>
         <image name="ic_back" width="22.5" height="14"/>
@@ -2927,6 +2945,9 @@
         <image name="icons8-apple-logo-50" width="50" height="50"/>
         <namedColor name="AppDefault">
             <color red="0.0" green="0.75294117647058822" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Color">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

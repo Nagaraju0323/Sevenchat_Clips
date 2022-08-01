@@ -100,6 +100,8 @@ class RegisterViewController: ParentViewController {
         
         self.viewCountryCode.isHidden = true
         self.txtEmail.isHidden = true
+        self.txtPWD.isHidden = true
+        self.txtConfirmPWD.isHidden = true
         self.txtCountrys.isHidden = true
         self.conturyviewContainer.isHidden = true
         
@@ -149,7 +151,7 @@ class RegisterViewController: ParentViewController {
         txtGender.placeHolder = CRegisterPlaceholderGender
         txtDob.placeHolder = CRegisterPlaceholderDob
         lblCode.text = CRegisterPlaceholderCode
-        btnSingUp.setTitle(CRegisterSignup, for: .normal)
+        btnSingUp.setTitle(CBtnContinue, for: .normal)
         txtGender.setPickerData(arrPickerData: [CRegisterGenderMale, CRegisterGenderFemale ,CRegisterGenderOther], selectedPickerDataHandler: { (text, row, component) in
         }, defaultPlaceholder: "")
         txtCountrys.placeHolder = CCountryPlaceholder
@@ -453,7 +455,7 @@ extension RegisterViewController {
         ] as [String : Any]
         
         self.dictSinup = dict
-        self.redirectToVerificationScreen()
+//        self.redirectToVerificationScreen()
         
     }
     
@@ -563,42 +565,238 @@ extension RegisterViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertLastNameBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
-        if (txtEmail.text?.isBlank)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertEmailBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            return
-        }
-        if !(txtEmail.text?.isValidEmail)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidEmail, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            return
-        }
-        if !isSocialSignup && (txtPWD.text?.isBlank)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertPasswordBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            return
-        }
-        if !isSocialSignup && !(txtPWD.text?.isValidPassword ?? false) {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterPasswordMinLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            return
-        }
-        if !isSocialSignup && (txtConfirmPWD.text?.isBlank)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertConfirmPasswordBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            return
-        }
-        if !isSocialSignup && txtPWD.text != txtConfirmPWD.text{
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertPasswordConfirmPasswordNotMatch, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            return
-        }
+//        if (txtEmail.text?.isBlank)! {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertEmailBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            return
+//        }
+//        if !(txtEmail.text?.isValidEmail)! {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidEmail, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            return
+//        }
+//        if !isSocialSignup && (txtPWD.text?.isBlank)! {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertPasswordBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            return
+//        }
+//        if !isSocialSignup && !(txtPWD.text?.isValidPassword ?? false) {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterPasswordMinLimit, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            return
+//        }
+//        if !isSocialSignup && (txtConfirmPWD.text?.isBlank)! {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertConfirmPasswordBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            return
+//        }
+//        if !isSocialSignup && txtPWD.text != txtConfirmPWD.text{
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertPasswordConfirmPasswordNotMatch, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            return
+//        }
         if (txtCountryCode.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertCountryCodeBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
-        if (txtMobileNumber.text?.isBlank)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertMobileNumberBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
+   
+        
+     /*   if (txtMobileNumber.text?.isBlank)!{
+            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CLoginAlertEmailMobileBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
+        }else{
+            if self.txtMobileNumber.text?.range(of:"@") != nil || self.txtMobileNumber.text?.rangeOfCharacter(from: CharacterSet.letters) != nil  {
+                if !(self.txtMobileNumber.text?.isValidEmail)! {
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CLoginAlertValidEmail, btnOneTitle: CBtnOk , btnOneTapped: nil)
+                    return
+                }else {
+                    self.singupemailValidation(userEmailId:self.txtMobileNumber.text ?? ""){ success,resultInfos in
+                        if success == true {
+                            DispatchQueue.main.async {
+                                
+                                let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + self.txtEmail.text! + "\n" + self.txtMobileNumber.text!
+                                self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
+                                    
+                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                                    let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+                                    if (self.txtFirstName.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtLastName.text?.rangeOfCharacter(from: charSet) != nil) {
+                                        print("true")
+                                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                                        MILoader.shared.hideLoader()
+                                        return
+                                    }else{
+                                        if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "PassWordViewController") as? PassWordViewController{
+                                            objVerify.userEmail = (self.txtEmail.text ?? "").lowercased()
+                        //                    objVerify.passwordStr = self.txtPWD.text ?? ""
+                                            objVerify.isEmail_Mobile = true
+                                            objVerify.dictSingupdatas = self.dictSinup ?? [:]
+                                            objVerify.userMobile = self.txtMobileNumber.text ?? ""
+                                            objVerify.isEmailVerify = true
+                                            objVerify.profileImgUrlupdate = self.profileImgUrlupdate
+                                            self.navigationController?.pushViewController(objVerify, animated: true)
+                                        }
+                                    }
+                                }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
+                            }
+                        }
+                    }
+                }
+            }else{
+                if !(self.txtMobileNumber.text?.isValidPhoneNo)! || ((self.txtMobileNumber.text?.count)! > 10 || (self.txtMobileNumber.text?.count)! < 6) {
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CLoginAlertValidMobileNumber, btnOneTitle: CBtnOk , btnOneTapped: nil)
+                    return
+                }else {
+                    self.singupmobileValidation(usermobileNo:self.txtMobileNumber.text ?? ""){ success,resultInfos in
+                        if success == true {
+                            DispatchQueue.main.async {
+                                
+                                let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + self.txtEmail.text! + "\n" + self.txtMobileNumber.text!
+                                self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
+                                    
+                                    MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                                    let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+                                    if (self.txtFirstName.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtLastName.text?.rangeOfCharacter(from: charSet) != nil) {
+                                        print("true")
+                                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                                        MILoader.shared.hideLoader()
+                                        return
+                                    }else{
+//                                              self.signup()
+                                        
+                                        if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "PassWordViewController") as? PassWordViewController{
+                                            objVerify.userEmail = (self.txtEmail.text ?? "").lowercased()
+                                            objVerify.isEmail_Mobile = false
+                                            objVerify.dictSingupdatas = self.dictSinup ?? [:]
+                                            objVerify.userMobile = self.txtMobileNumber.text ?? ""
+                        //                    objVerify.passwordStr = self.txtPWD.text ?? ""
+                                            objVerify.isEmailVerify = false
+                                            objVerify.profileImgUrlupdate = self.profileImgUrlupdate
+                                            self.navigationController?.pushViewController(objVerify, animated: true)
+                                        }
+                                        
+                                    }
+                                }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
+                            }
+                        }
+                    }
+                }
+            }
+        }*/
+
+        
+        
+        
+        
+        
+        
+        
+        
+        if self.txtMobileNumber.text?.range(of:"@") != nil || self.txtMobileNumber.text?.rangeOfCharacter(from: CharacterSet.letters) != nil   {
+            print("exists")
+            
+            if (txtMobileNumber.text?.isBlank)! {
+                       self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertEmailBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                      // return
+                   }
+                   if !(txtMobileNumber.text?.isValidEmail)! {
+                       self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidEmail, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                      // return
+                   }
+//
+//            singupemailValidation(userEmailId:txtMobileNumber.text ?? ""){ success,resultInfos in
+//                  if success == true {
+//                      DispatchQueue.main.async {
+                          self.singupemailValidation(userEmailId:self.txtMobileNumber.text ?? ""){ success,resultInfos in
+                              if success == true {
+                                  DispatchQueue.main.async {
+                                      
+                                      let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + self.txtEmail.text! + "\n" + self.txtMobileNumber.text!
+                                      self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
+                                          
+                                          MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                                          let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+                                          if (self.txtFirstName.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtLastName.text?.rangeOfCharacter(from: charSet) != nil) {
+                                              print("true")
+                                              self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                                              MILoader.shared.hideLoader()
+                                              return
+                                          }else{
+                                              if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "PassWordViewController") as? PassWordViewController{
+                                                  objVerify.userEmail = (self.txtEmail.text ?? "").lowercased()
+                              //                    objVerify.passwordStr = self.txtPWD.text ?? ""
+                                                  objVerify.isEmail_Mobile = true
+                                                  objVerify.dictSingupdatas = self.dictSinup ?? [:]
+                                                  objVerify.userMobile = self.txtMobileNumber.text ?? ""
+                                                  objVerify.isEmailVerify = true
+                                                  objVerify.profileImgUrlupdate = self.profileImgUrlupdate
+                                                  self.navigationController?.pushViewController(objVerify, animated: true)
+                                              }
+                                          }
+                                      }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
+                                  }
+                              }
+                          }
+//                      }
+//                  }
+             // }
+            
+        }else {
+            
+
+            if (txtMobileNumber.text?.isBlank)! {
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertMobileNumberBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
+               // return
+            }
+            if !(self.txtMobileNumber.text?.isValidPhoneNo)! || ((self.txtMobileNumber.text?.count)! > 10 || (self.txtMobileNumber.text?.count)! < 6) {
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidMobileNumber, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                //return
+            }
+            
+//            singupemailValidation(userEmailId:txtMobileNumber.text ?? ""){ success,resultInfos in
+//                  if success == true {
+//                      DispatchQueue.main.async {
+                          self.singupmobileValidation(usermobileNo:self.txtMobileNumber.text ?? ""){ success,resultInfos in
+                              if success == true {
+                                  DispatchQueue.main.async {
+                                      
+                                      let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + self.txtEmail.text! + "\n" + self.txtMobileNumber.text!
+                                      self.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: comfirmationMessage, btnOneTitle: CBtnConfirm, btnOneTapped: { (alert) in
+                                          
+                                          MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: CMessagePleaseWait)
+                                          let charSet = CharacterSet.init(charactersIn: SPECIALCHARNOTALLOWED)
+                                          if (self.txtFirstName.text?.rangeOfCharacter(from: charSet) != nil) || (self.txtLastName.text?.rangeOfCharacter(from: charSet) != nil) {
+                                              print("true")
+                                              self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageSpecial, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                                              MILoader.shared.hideLoader()
+                                              return
+                                          }else{
+//                                              self.signup()
+                                              
+                                              if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "PassWordViewController") as? PassWordViewController{
+                                                  objVerify.userEmail = (self.txtEmail.text ?? "").lowercased()
+                                                  objVerify.isEmail_Mobile = false
+                                                  objVerify.dictSingupdatas = self.dictSinup ?? [:]
+                                                  objVerify.userMobile = self.txtMobileNumber.text ?? ""
+                              //                    objVerify.passwordStr = self.txtPWD.text ?? ""
+                                                  objVerify.isEmailVerify = false
+                                                  objVerify.profileImgUrlupdate = self.profileImgUrlupdate
+                                                  self.navigationController?.pushViewController(objVerify, animated: true)
+                                              }
+                                              
+                                          }
+                                      }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
+                                  }
+                              }
+                          }
+//                      }
+//                  }
+//              }
+//
         }
-        if !(self.txtMobileNumber.text?.isValidPhoneNo)! || ((self.txtMobileNumber.text?.count)! > 10 || (self.txtMobileNumber.text?.count)! < 6) {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidMobileNumber, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            return
-        }
+        
+        
+//        if (txtMobileNumber.text?.isBlank)! {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertMobileNumberBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            return
+//        }
+//        if !(self.txtMobileNumber.text?.isValidPhoneNo)! || ((self.txtMobileNumber.text?.count)! > 10 || (self.txtMobileNumber.text?.count)! < 6) {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidMobileNumber, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            return
+//        }
         if (txtGender.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertGenderBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
@@ -612,9 +810,14 @@ extension RegisterViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CProductTermsAndCondition, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
+       // self.signup()
         
         
-        singupemailValidation(userEmailId:txtEmail.text ?? ""){ success,resultInfos in
+//        if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "PassWordViewController") as? PassWordViewController{
+//            self.navigationController?.pushViewController(objVerify, animated: true)
+//        }
+        
+      /*singupemailValidation(userEmailId:txtEmail.text ?? ""){ success,resultInfos in
             if success == true {
                 DispatchQueue.main.async {
                     self.singupmobileValidation(usermobileNo:self.txtMobileNumber.text ?? ""){ success,resultInfos in
@@ -640,7 +843,7 @@ extension RegisterViewController{
                     }
                 }
             }
-        }
+        }*/
         
         //
         //        let comfirmationMessage = CRegisterAlertConfirmedEmailMobile + "\n" + txtEmail.text! + "\n" + txtMobileNumber.text!
