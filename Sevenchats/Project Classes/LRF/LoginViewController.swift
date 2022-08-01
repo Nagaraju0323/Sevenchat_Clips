@@ -53,11 +53,11 @@ class LoginViewController: ParentViewController {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
         socialStackView.isHidden = true
-        btnSignUpButton.isHidden = true
-        lblSignUp.isHidden = true
+      //  btnSignUpButton.isHidden = true
+       // lblSignUp.isHidden = true
         lblSocialogin.isUserInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.btnSignupCLK_lbl))
-        lblSocialogin.addGestureRecognizer(tap)
+//        let tap = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.btnSignupCLK_lbl))
+//        lblSocialogin.addGestureRecognizer(tap)
         
         
     }
@@ -71,6 +71,7 @@ class LoginViewController: ParentViewController {
       
         
         btnSignIn.layer.cornerRadius = 5
+        btnSignUpButton.layer.cornerRadius = 5
         txtCountryCode.text = "--"
         self.loadCountryList()
         GCDMainThread.async {
@@ -87,7 +88,7 @@ class LoginViewController: ParentViewController {
                       NSAttributedString.Key.foregroundColor: CRGB(r: 33, g: 191, b: 166)]
         let attributedString = NSMutableAttributedString(string: CLoginDontHaveAccount, attributes:attrs)
         let normalString = NSMutableAttributedString(string: " \(CRegisterSignup)", attributes:attrs1)
-        attributedString.append(normalString)
+      //  attributedString.append(normalString)
         lblSocialogin.attributedText = attributedString
     }
     

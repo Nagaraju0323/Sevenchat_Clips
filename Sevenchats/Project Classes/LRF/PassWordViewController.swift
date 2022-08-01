@@ -91,36 +91,110 @@ extension PassWordViewController: GenericTextFieldDelegate {
 
 //MARK:- API Cals
 extension PassWordViewController{
-    
-   func Singup(){
-       
-       dictSinup = ["password":self.txtPWD.text ?? ""]
+    func Singup(){
         
-        if isEmail_Mobile == true{
-            if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
-                objVerify.userEmail = userEmail.lowercased()
-                objVerify.passwordStr = self.txtPWD.text ?? ""
-                objVerify.isEmail_Mobile = true
-                objVerify.dictSingupdatas = dictSinup ?? [:]
-                objVerify.userMobile = userMobile
-                objVerify.isEmailVerify = true
-                objVerify.profileImgUrlupdate = self.profileImgUrlupdate
-                self.navigationController?.pushViewController(objVerify, animated: true)
-            }
+        if isEmail_Mobile == true {
+            verifyEmail()
         }else {
-            
-            
-            if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
-                objVerify.userEmail = userEmail.lowercased()
-                objVerify.isEmail_Mobile = false
-                objVerify.dictSingupdatas = self.dictSinup ?? [:]
-                objVerify.userMobile = userMobile
-                objVerify.passwordStr = self.txtPWD.text ?? ""
-                objVerify.isEmailVerify = false
-                objVerify.profileImgUrlupdate = self.profileImgUrlupdate
-                self.navigationController?.pushViewController(objVerify, animated: true)
+            verifyMobile()
+        }
+    func verifyEmail() {
+        let api  = CAPITagverifyEmailOTP
+        APIRequest.shared().verifyEmail(api: api,email :userEmail, verifyCode: userEmail) { (response, error) in
+            if response != nil && error == nil{
+                self.dictSinup = ["password":self.txtPWD.text ?? ""]
+                
+                if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
+                    objVerify.userEmail = self.userEmail.lowercased()
+//                    objVerify.passwordStr = self.txtPWD.text ?? ""
+                    objVerify.isEmail_Mobile = true
+                    objVerify.dictSingupdatas = self.dictSinup ?? [:]
+                    objVerify.userMobile = ""
+                    objVerify.isEmailVerify = true
+                    objVerify.profileImgUrlupdate = self.profileImgUrlupdate
+                    self.navigationController?.pushViewController(objVerify, animated: true)
+                }
+            }else {
+                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+                let errorMsg = errorUserinfo.stringAfter(":")
+                //                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
-            
         }
     }
+    
+    
+    func verifyMobile() {
+        let api = CAPITagVerifyMobile
+        APIRequest.shared().verifyMobile(api : api, email :userMobile , mobile: userMobile) { [self] (response, error) in
+            if response != nil && error == nil{
+                dictSinup = ["password":self.txtPWD.text ?? ""]
+                
+                if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
+                    objVerify.userEmail = ""
+                    objVerify.isEmail_Mobile = false
+                    objVerify.dictSingupdatas = self.dictSinup ?? [:]
+                    objVerify.userMobile = self.userMobile
+//                    objVerify.passwordStr = self.txtPWD.text ?? ""
+                    objVerify.isEmailVerify = false
+                    objVerify.profileImgUrlupdate = self.profileImgUrlupdate
+                    self.navigationController?.pushViewController(objVerify, animated: true)
+                }
+                
+                if let responseData = response?.value(forKey: CJsonData) as? [String : AnyObject] {
+                    _ = responseData.valueForInt(key: "step") ?? 0
+                }
+            }else {
+                
+                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+                let errorMsg = errorUserinfo.stringAfter(":")
+                //                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessagePhNoExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
+            }
+        }
+    }
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+//   func Singup(){
+//
+//       dictSinup = ["password":self.txtPWD.text ?? ""]
+//
+//        if isEmail_Mobile == true{
+//            if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
+//                objVerify.userEmail = userEmail.lowercased()
+//                objVerify.passwordStr = self.txtPWD.text ?? ""
+//                objVerify.isEmail_Mobile = true
+//                objVerify.dictSingupdatas = dictSinup ?? [:]
+//                objVerify.userMobile = userMobile
+//                objVerify.isEmailVerify = true
+//                objVerify.profileImgUrlupdate = self.profileImgUrlupdate
+//                self.navigationController?.pushViewController(objVerify, animated: true)
+//            }
+//        }else {
+//
+//
+//            if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
+//                objVerify.userEmail = userEmail.lowercased()
+//                objVerify.isEmail_Mobile = false
+//                objVerify.dictSingupdatas = self.dictSinup ?? [:]
+//                objVerify.userMobile = userMobile
+//                objVerify.passwordStr = self.txtPWD.text ?? ""
+//                objVerify.isEmailVerify = false
+//                objVerify.profileImgUrlupdate = self.profileImgUrlupdate
+//                self.navigationController?.pushViewController(objVerify, animated: true)
+//            }
+//
+//        }
+//    }
 }
