@@ -677,25 +677,24 @@ extension RegisterViewController{
             }
         }*/
 
+      
         
         
+//        if self.txtMobileNumber.text?.range(of:"@") != nil || self.txtMobileNumber.text?.rangeOfCharacter(from: CharacterSet.letters) != nil   {
+        print("textmobile\(txtMobileNumber.text)")
+        signup()
         
-        
-        
-        
-        
-        
-        if self.txtMobileNumber.text?.range(of:"@") != nil || self.txtMobileNumber.text?.rangeOfCharacter(from: CharacterSet.letters) != nil   {
+        if (!txtMobileNumber.text!.isValidPhoneNo){
             print("exists")
             
             if (txtMobileNumber.text?.isBlank)! {
                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertEmailBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
                       // return
                    }
-                   if !(txtMobileNumber.text?.isValidEmail)! {
-                       self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidEmail, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                      // return
-                   }
+//                   if !(txtMobileNumber.text?.isValidEmail)! {
+//                       self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidEmail, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                      // return
+//                   }
 //
 //            singupemailValidation(userEmailId:txtMobileNumber.text ?? ""){ success,resultInfos in
 //                  if success == true {
@@ -716,15 +715,16 @@ extension RegisterViewController{
                                               return
                                           }else{
                                               if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "PassWordViewController") as? PassWordViewController{
-                                                  objVerify.userEmail = (self.txtEmail.text ?? "").lowercased()
+                                                  objVerify.userEmail = (self.txtMobileNumber.text ?? "").lowercased()
                               //                    objVerify.passwordStr = self.txtPWD.text ?? ""
                                                   objVerify.isEmail_Mobile = true
                                                   objVerify.dictSingupdatas = self.dictSinup ?? [:]
-                                                  objVerify.userMobile = self.txtMobileNumber.text ?? ""
+                                                  objVerify.userMobile = ""
                                                   objVerify.isEmailVerify = true
                                                   objVerify.profileImgUrlupdate = self.profileImgUrlupdate
                                                   self.navigationController?.pushViewController(objVerify, animated: true)
                                               }
+                                              MILoader.shared.hideLoader()
                                           }
                                       }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
                                   }
@@ -741,10 +741,10 @@ extension RegisterViewController{
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertMobileNumberBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
                // return
             }
-            if !(self.txtMobileNumber.text?.isValidPhoneNo)! || ((self.txtMobileNumber.text?.count)! > 10 || (self.txtMobileNumber.text?.count)! < 6) {
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidMobileNumber, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                //return
-            }
+//            if !(self.txtMobileNumber.text?.isValidPhoneNo)! || ((self.txtMobileNumber.text?.count)! > 10 || (self.txtMobileNumber.text?.count)! < 6) {
+//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidMobileNumber, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                //return
+//            }
             
 //            singupemailValidation(userEmailId:txtMobileNumber.text ?? ""){ success,resultInfos in
 //                  if success == true {
@@ -767,15 +767,17 @@ extension RegisterViewController{
 //                                              self.signup()
                                               
                                               if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "PassWordViewController") as? PassWordViewController{
-                                                  objVerify.userEmail = (self.txtEmail.text ?? "").lowercased()
+                                                  objVerify.userEmail = ""
                                                   objVerify.isEmail_Mobile = false
                                                   objVerify.dictSingupdatas = self.dictSinup ?? [:]
                                                   objVerify.userMobile = self.txtMobileNumber.text ?? ""
                               //                    objVerify.passwordStr = self.txtPWD.text ?? ""
                                                   objVerify.isEmailVerify = false
+                                                  
                                                   objVerify.profileImgUrlupdate = self.profileImgUrlupdate
                                                   self.navigationController?.pushViewController(objVerify, animated: true)
                                               }
+                                              MILoader.shared.hideLoader()
                                               
                                           }
                                       }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)

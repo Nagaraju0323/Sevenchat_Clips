@@ -29,6 +29,7 @@ class PassWordViewController: ParentViewController {
         super.viewDidLoad()
 
         intilization()
+        print("consoleput\(dictSingupdatas)")
         // Do any additional setup after loading the view.
     }
     
@@ -93,22 +94,28 @@ extension PassWordViewController: GenericTextFieldDelegate {
 extension PassWordViewController{
     func Singup(){
         
+//        print("ismobile\(isEmail_Mobile)")
         if isEmail_Mobile == true {
+            print("::::::::this is calling is isEamail")
             verifyEmail()
         }else {
+            print("::::::::this is calling is Mobile")
             verifyMobile()
         }
+        
+        
+        
     func verifyEmail() {
         let api  = CAPITagverifyEmailOTP
         APIRequest.shared().verifyEmail(api: api,email :userEmail, verifyCode: userEmail) { (response, error) in
             if response != nil && error == nil{
-                self.dictSinup = ["password":self.txtPWD.text ?? ""]
+                self.dictSingupdatas["password"] = self.txtPWD.text ?? ""
                 
                 if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
-                    objVerify.userEmail = self.userEmail.lowercased()
+                    objVerify.userEmail = self.userEmail
 //                    objVerify.passwordStr = self.txtPWD.text ?? ""
                     objVerify.isEmail_Mobile = true
-                    objVerify.dictSingupdatas = self.dictSinup ?? [:]
+                    objVerify.dictSingupdatas = self.dictSingupdatas ?? [:]
                     objVerify.userMobile = ""
                     objVerify.isEmailVerify = true
                     objVerify.profileImgUrlupdate = self.profileImgUrlupdate
@@ -128,12 +135,12 @@ extension PassWordViewController{
         let api = CAPITagVerifyMobile
         APIRequest.shared().verifyMobile(api : api, email :userMobile , mobile: userMobile) { [self] (response, error) in
             if response != nil && error == nil{
-                dictSinup = ["password":self.txtPWD.text ?? ""]
+                self.dictSingupdatas["password"] = self.txtPWD.text ?? ""
                 
                 if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
                     objVerify.userEmail = ""
                     objVerify.isEmail_Mobile = false
-                    objVerify.dictSingupdatas = self.dictSinup ?? [:]
+                    objVerify.dictSingupdatas = self.dictSingupdatas ?? [:]
                     objVerify.userMobile = self.userMobile
 //                    objVerify.passwordStr = self.txtPWD.text ?? ""
                     objVerify.isEmailVerify = false

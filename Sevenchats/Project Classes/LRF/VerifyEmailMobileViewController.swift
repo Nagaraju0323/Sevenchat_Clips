@@ -59,7 +59,6 @@ class VerifyEmailMobileViewController: ParentViewController {
         
         profileImg = profileImgUrlupdate
         
-        print("profileImage\(profileImg)")
         txtVerificationCode.text = otpCode
         GCDMainThread.async {
             self.txtVerificationCode.updatePlaceholderFrame(true)
@@ -305,6 +304,7 @@ extension VerifyEmailMobileViewController{
                 guard let userMsg = dict?["message"] as? String else { return }
                 if userMsg == "verification_failed"{
                     DispatchQueue.main.async {
+                        MILoader.shared.hideLoader()
                         self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CWRONGOTP, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                             self.dismiss(animated: true, completion: nil)
                         })
@@ -327,6 +327,7 @@ extension VerifyEmailMobileViewController{
                     }else {
                         
                         DispatchQueue.main.async {
+                            MILoader.shared.hideLoader()
                             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CWRONGOTP, btnOneTitle: CBtnOk, btnOneTapped: { (action) in
                                 self.dismiss(animated: true, completion: nil)
                             })
