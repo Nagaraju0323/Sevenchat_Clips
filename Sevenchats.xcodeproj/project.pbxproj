@@ -593,6 +593,7 @@
 		7CF3E7EB278D339B0054E394 /* PSLTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */; };
 		EC15E2B028993E1C005194BB /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15E2AF28993E1C005194BB /* PopupView.swift */; };
 		EC5A45C42896DB6D00BEC5F0 /* PassWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5A45C32896DB6D00BEC5F0 /* PassWordViewController.swift */; };
+		EC934D47289BEEDF00FD440E /* Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC934D46289BEEDF00FD440E /* Encryption.swift */; };
 		ECB732162897063A00C00907 /* DeleteUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB732152897063A00C00907 /* DeleteUserViewController.swift */; };
 		ECB7321828970CD600C00907 /* OwnerShipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB7321728970CD600C00907 /* OwnerShipViewController.swift */; };
 		ECB7321A289717B800C00907 /* ManageFrdsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB73219289717B800C00907 /* ManageFrdsViewController.swift */; };
@@ -1200,6 +1201,7 @@
 		CAB21F24095B360D5B6F471B /* Pods-Sevenchats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.release.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.release.xcconfig"; sourceTree = "<group>"; };
 		EC15E2AF28993E1C005194BB /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		EC5A45C32896DB6D00BEC5F0 /* PassWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassWordViewController.swift; sourceTree = "<group>"; };
+		EC934D46289BEEDF00FD440E /* Encryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encryption.swift; sourceTree = "<group>"; };
 		ECB732152897063A00C00907 /* DeleteUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserViewController.swift; sourceTree = "<group>"; };
 		ECB7321728970CD600C00907 /* OwnerShipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerShipViewController.swift; sourceTree = "<group>"; };
 		ECB73219289717B800C00907 /* ManageFrdsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFrdsViewController.swift; sourceTree = "<group>"; };
@@ -2309,6 +2311,7 @@
 				62E1A57A240E2EC4001BD7A8 /* ExtensionUIViewController.swift */,
 				62E1A57B240E2EC4001BD7A8 /* ExtensionArray.swift */,
 				1801383E2756C42B001A21BA /* UserDefault+Helper.swift */,
+				EC934D46289BEEDF00FD440E /* Encryption.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2927,6 +2930,7 @@
 				62E1A776240E2EC5001BD7A8 /* ExtensionUIResponder.swift in Sources */,
 				184E1848260872A300E1D5D7 /* CountryHolidayList.swift in Sources */,
 				62E1A647240E2EC5001BD7A8 /* AllProductVC.swift in Sources */,
+				EC934D47289BEEDF00FD440E /* Encryption.swift in Sources */,
 				62E1A5EA240E2EC5001BD7A8 /* LoginViewController.swift in Sources */,
 				62E1A70E240E2EC5001BD7A8 /* LikesTblCell.swift in Sources */,
 				62E1A5E2240E2EC5001BD7A8 /* AddArticleViewController.swift in Sources */,

@@ -483,6 +483,13 @@ extension LoginViewController{
     }
     
     func LoginWithToken(userEmailId:String){
+        
+//        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: "EnterEncryptString")
+        
+        
+        
+        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: "EnterEncryptString")
+        
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         let txtEmailid = txtEmail.text?.lowercased()
         let data : Data = "username=\(txtEmailid?.description ?? "")&password=\(txtPWD.text!)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
