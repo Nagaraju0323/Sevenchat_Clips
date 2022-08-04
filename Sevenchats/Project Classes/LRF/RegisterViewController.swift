@@ -724,6 +724,10 @@ extension RegisterViewController{
                                                   objVerify.profileImgUrlupdate = self.profileImgUrlupdate
                                                   self.navigationController?.pushViewController(objVerify, animated: true)
                                               }
+                                              
+      
+                                              
+                                              
                                               MILoader.shared.hideLoader()
                                           }
                                       }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)

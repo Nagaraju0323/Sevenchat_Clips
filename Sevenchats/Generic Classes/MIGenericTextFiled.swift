@@ -170,24 +170,24 @@ class MIGenericTextFiled: UITextField {
     
     // MARK:- --------Cleate Text button
     func clearTextButtonSetup(){
-        btnClearText.frame = CGRect(x: 0.0, y: 0, width: 30, height: self.frame.size.height)
-        btnClearText.isHidden = true
-        btnClearText.setImage(#imageLiteral(resourceName: "ic_cancle"), for: .normal)
-        btnClearText.setTitleColor(CRGB(r: 131, g: 147, b: 98), for: .normal)
-        self.rightViewMode = .always
-        self.rightView = btnClearText
-        
-        btnClearText.touchUpInside { [weak self](sender) in
-            guard let `self` = self else {return}
-            self.text = ""
-            self.btnClearText.isHidden = true
-            self.updatePlaceholderFrame(false)
-            self.resignFirstResponder()
-            
-            if self.txtDelegate != nil{
-                _ = self.txtDelegate?.genericTextFieldClearText?(self)
-            }
-        }
+//        btnClearText.frame = CGRect(x: 0.0, y: 0, width: 30, height: self.frame.size.height)
+//        btnClearText.isHidden = true
+//        btnClearText.setImage(#imageLiteral(resourceName: "ic_cancle"), for: .normal)
+//        btnClearText.setTitleColor(CRGB(r: 131, g: 147, b: 98), for: .normal)
+//        self.rightViewMode = .always
+//        self.rightView = btnClearText
+//        
+//        btnClearText.touchUpInside { [weak self](sender) in
+//            guard let `self` = self else {return}
+//            self.text = ""
+//            self.btnClearText.isHidden = true
+//            self.updatePlaceholderFrame(false)
+//            self.resignFirstResponder()
+//            
+//            if self.txtDelegate != nil{
+//                _ = self.txtDelegate?.genericTextFieldClearText?(self)
+//            }
+//        }
     }
     
     func showHideClearTextButton(){
