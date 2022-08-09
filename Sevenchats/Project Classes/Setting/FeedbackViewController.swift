@@ -185,9 +185,10 @@ extension FeedbackViewController{
             
                let txtFeedBack = txtViewFeedbackContent.text?.replace_str(replace: txtViewFeedbackContent.text ?? "")
                     //let txtFeedBack = txtViewFeedbackContent.text.replace(string: "\n", replacement: "\\n")
+                let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userId.description)
             let feedback : [String :Any] = [
                 "image":feedbackImgUrl,
-                "user_id" : userId.description,
+                "user_id" :encryptUser,
                 "category":self.selectCategory,
                 "message":txtFeedBack,
                 "platform":"IOS",

@@ -95,8 +95,9 @@ class SideMenuViewController: ParentViewController {
     
     func userDetailsApi(){
             if let userID = appDelegate.loginUser?.user_id{
+                let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.email ?? "")
                 let dict:[String:Any] = [
-                    CEmail_Mobile : appDelegate.loginUser?.email ?? ""
+                    CEmail_Mobile : encryptResult
                 ]
                 let token = CUserDefaults.string(forKey: UserDefaultDeviceToken)
                 APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token: token ?? "",viewType: 1) {(response, error) in

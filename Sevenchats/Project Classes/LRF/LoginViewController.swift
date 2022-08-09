@@ -356,8 +356,25 @@ extension LoginViewController{
     }
     
     @IBAction func btnSignUpCLK(_ sender : UIButton){
-        let objSingUp = CStoryboardLRF.instantiateViewController(withIdentifier: "RegisterViewController")
-        self.navigationController?.pushViewController(objSingUp, animated: true)
+        PopupController
+            .create(self)
+            .customize(
+                [
+                    .animation(.slideUp),
+                    .scrollable(false),
+                    .backgroundStyle(.blackFilter(alpha: 0.7))
+                ]
+            )
+            .didShowHandler { _ in
+                print("showed popup!")
+            }
+            .didCloseHandler { _ in
+                print("closed popup!")
+            }
+            .show(DemoPopupViewController2.instance())
+        
+//        let objSingUp = CStoryboardLRF.instantiateViewController(withIdentifier: "RegisterViewController")
+//        self.navigationController?.pushViewController(objSingUp, animated: true)
     }
     
     @objc func btnSignupCLK_lbl(_ sender : UIButton){
@@ -387,8 +404,10 @@ extension LoginViewController{
     
     //UserDetails featch from Back
     func UserDetailsfeath(userEmailId:String,accessToken:String) {
+        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userEmailId ?? "")
+        
         let dict:[String:Any] = [
-            CEmail_Mobile : userEmailId,
+            CEmail_Mobile : encryptResult,
         ]
         APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:accessToken,viewType:1) { (response, error) in
             if response != nil && error == nil {
@@ -404,6 +423,7 @@ extension LoginViewController{
     
     
     func UserDetailsfeathMobile(userEmailId:String,accessToken:String) {
+        let encryptMobile = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userEmailId)
         let dict:[String:Any] = [
             CMobile : userEmailId,
         ]
@@ -488,12 +508,13 @@ extension LoginViewController{
         
         
         
-        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: "EnterEncryptString")
+//        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtPWD.text ?? "" )
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+        
         let txtEmailid = txtEmail.text?.lowercased()
-        let data : Data = "username=\(txtEmailid?.description ?? "")&password=\(txtPWD.text!)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
-        let url = URL(string: "\(BASEAUTH)auth/login")
+        let data : Data = "username=\(txtEmailid?.description ?? "")&password=\(txtPWD.text ?? "")&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
+        let url = URL(string: "\(BASEAUTHLOGIN)auth/login")
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
@@ -586,9 +607,9 @@ extension LoginViewController{
     }
     //..profileImageUpdate from Singup
     func uploadWithPic(userId:String,profileImg:String,completion:@escaping(_ success:Bool) -> Void ){
-           
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userId.description)
             let dict : [String : Any] =  [
-                "user_id":userId,
+                "user_id":encryptUser,
                 "profile_image":profileImg
             ]
         APIRequest.shared().uploadUserProfile(userID: userId.toInt ?? 0, para:dict,profileImgName:profileImgUrlupdate ?? "") { (response, error) in

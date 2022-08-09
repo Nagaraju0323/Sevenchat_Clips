@@ -90,7 +90,7 @@ class EditProfileViewController: ParentViewController {
     func Initialization(){
         txtFirstName.txtDelegate = self
         txtLastName.txtDelegate = self
-        txtUserId.txtDelegate = self
+       // txtUserId.txtDelegate = self
         btnUpdate.layer.cornerRadius = 5
         btnUpdateComplete.layer.cornerRadius = 5
         btnUpdateComplete.layer.borderWidth = 1
@@ -456,6 +456,12 @@ extension EditProfileViewController {
         let dobupdateUserDtls = DateFormatter.shared().convertDatereveruserDetails(strDate: chngDate)
         let chgtimeFormat = "\(dobupdateUserDtls?.description ?? "" ) \(" GMT+0000 (Coordinated Universal Time)")"
         
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description)
+        let encryptEmail = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtEmail.text ?? "")
+        let encryptPhoneNo = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtMobileNumber.text ?? "")
+
+        
+        
         let dict :[String:Any]  =  [
             "user_acc_type":"1",
             "first_name":txtFirstName.text ?? "",
@@ -479,7 +485,8 @@ extension EditProfileViewController {
             "user_type": "1",
             "employment_status": appDelegate.loginUser?.employment_status ?? 0,
             "lang_name": langName,
-            "status_id":"1"
+            "status_id":"1",
+            
         ]
         
         let dictUserDetails :[String:Any]  =  [
@@ -555,11 +562,13 @@ extension EditProfileViewController {
     
     func uploadProfilePic() {
         isSelectedprofile = true
+        
         guard let userID = appDelegate.loginUser?.user_id else {
             return
         }
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description)
         let dict :[String:Any]  =  [
-            CUserId: userID.description,
+            CUserId: encryptUser,
             CProfileImage: profileImgUrl
         ]
         APIRequest.shared().uploadUserProfile(userID:Int(userID),para: dict as [String : AnyObject],profileImgName: profileImgUrl) { [weak self] (response, error) in
@@ -578,10 +587,12 @@ extension EditProfileViewController {
     
     func uploadCoverPic() {
         isSelectedCover = true
-        
         guard let userID = appDelegate.loginUser?.user_id else {return}
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description)
+        
+       
         let dict :[String:Any]  =  [
-            CUserId: userID.description,
+            CUserId: encryptUser,
             CCoverImage: coverImgUrl
         ]
         APIRequest.shared().uploadUserCover(dict: dict as [String : AnyObject], coverImage: coverImgUrl) { [weak self] (response, error) in

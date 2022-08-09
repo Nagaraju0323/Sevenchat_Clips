@@ -29,10 +29,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Edit Profile View Controller-->
         <scene sceneID="D04-LI-OOt">
             <objects>
-                <viewController id="g0E-aM-yJe" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditProfileViewController" id="g0E-aM-yJe" customClass="EditProfileViewController" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" tag="101" contentMode="scaleToFill" id="53J-4S-NPH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4403,10 +4403,10 @@
             </objects>
             <point key="canvasLocation" x="-653.97196261682234" y="-1101.5118790496761"/>
         </scene>
-        <!--Edit Profile View Controller-->
+        <!--View Controller-->
         <scene sceneID="geZ-eb-BLp">
             <objects>
-                <viewController storyboardIdentifier="EditProfileViewController" id="jRT-XK-hkz" customClass="EditProfileViewController" customModule="Sevenchats" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jRT-XK-hkz" sceneMemberID="viewController">
                     <view key="view" tag="101" contentMode="scaleToFill" id="rcN-eX-9Hb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

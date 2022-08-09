@@ -186,12 +186,15 @@ extension AddForumViewController{
         //let addforum = txtViewForumMessage.text.replace(string: "\n", replacement: "\\n")
         let addforum_desc = txtViewForumMessage.text.replace_str(replace: txtViewForumMessage.text)
         let addforum_title = txtForumTitle.text?.replace_str(replace: txtForumTitle.text ?? "")
+       
         // When user editing the article....
         if forumType == .editForum{
             apiPara[CId] = forumID
         }
         guard let userID = appDelegate.loginUser?.user_id else { return }
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
         if forumType == .editForum{
+            
             var dict :[String:Any]  =  [
                
                 
@@ -266,9 +269,9 @@ extension AddForumViewController{
             }
 
         }else{
-            
+           
         var dict :[String:Any]  =  [
-            "user_id":userID.description,
+            "user_id":encryptUser,
             "image":"",
             "post_title":addforum_title ?? "",
             "post_category":categoryDropDownView.txtCategory.text!,

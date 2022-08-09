@@ -127,9 +127,9 @@ extension ProfilePreferenceViewController{
     
     func changeProfilePrefrences(friend_visible : Int, unknown_visible : Int) {
         guard let userId = appDelegate.loginUser?.user_id else {return }
-        
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userId.description)
         let dict :[String:Any]  = [
-            "user_id":userId.description,
+            "user_id":encryptUser,
             "push_notify":"1",
             "email_notify":"1",
             "visible_to_friend":friend_visible.description,
@@ -141,8 +141,9 @@ extension ProfilePreferenceViewController{
                     let status  = metaInfo.valueForString(key: "status")
                     if status == "0"{
                         guard let useremail = appDelegate.loginUser?.email else {return }
+                        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: useremail ?? "")
                         let dict:[String:Any] = [
-                            CEmail_Mobile : useremail
+                            CEmail_Mobile : encryptResult
                         ]
                         
                         APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0) { (response, error) in

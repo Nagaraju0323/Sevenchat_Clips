@@ -288,6 +288,9 @@ extension AddMediaViewController {
     }
     fileprivate func addEditImagePost(){
         
+        guard let userID = appDelegate.loginUser?.user_id else { return }
+        
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
         var apiPara = [String : Any]()
         var apiParaGroups = [String]()
         var apiParaFriends = [String]()
@@ -313,8 +316,6 @@ extension AddMediaViewController {
             self.imgUpoloadUrl = replaced5
             
         } catch { print(error) }
-        guard let userID = appDelegate.loginUser?.user_id else { return }
-        
         
         
         if imagePostType == .editImagePost{
@@ -380,9 +381,9 @@ extension AddMediaViewController {
                 }
             }
         }else{
-        
+            
         var dict :[String:Any]  =  [
-            "user_id":userID.description,
+            "user_id":encryptUser,
             "post_category":categoryDropDownView.txtCategory.text ?? "",
             "images": imgUpoloadUrl,
         ]

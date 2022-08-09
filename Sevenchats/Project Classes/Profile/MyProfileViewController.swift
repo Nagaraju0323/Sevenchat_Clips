@@ -154,8 +154,9 @@ extension MyProfileViewController{
     //MARK:- NEW CODE
     func myUserDetails(){
         if let userID = appDelegate.loginUser?.user_id{
+            let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.email ?? "")
             let dict:[String:Any] = [
-                CEmail_Mobile : appDelegate.loginUser?.email ?? ""
+                CEmail_Mobile : encryptResult
             ]
             APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
 //            APIRequest.shared().userDetails(para: dict as [String : AnyObject]) { (response, error) in
@@ -489,8 +490,9 @@ extension MyProfileViewController{
     func uploadProfilePic() {
         
         guard let userID = appDelegate.loginUser?.user_id else {return}
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description)
         var dict = [String:Any]()
-        dict[CUserId] = userID
+        dict[CUserId] = encryptUser
         dict[CProfileImage] = profileImgUrl
         
         APIRequest.shared().uploadUserProfile(userID: Int(userID), para:dict,profileImgName:profileImgUrl){ [weak self] (response, error) in
@@ -512,8 +514,9 @@ extension MyProfileViewController{
     func uploadCoverPic() {
         
         guard let userID = appDelegate.loginUser?.user_id else {return}
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description)
         var dict = [String:Any]()
-        dict[CUserId] = userID
+        dict[CUserId] = encryptUser
         dict[CCoverImage] = coverImgUrl
         
         //  keepchange later

@@ -837,7 +837,8 @@ extension AddEditProductVC {
             ]
             
             if (userID ) != ""{
-                dict["user_id"] = userID
+                let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description)
+                dict["user_id"] = encryptUser
             }
             if (cityName ?? "") != ""{
                 dict["city_name"] = self.cityName!

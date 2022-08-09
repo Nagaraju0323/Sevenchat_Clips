@@ -495,8 +495,9 @@ extension AppDelegate {
             }
             if (loginUser?.mobile?.isEmpty ?? true)  && (loginUser?.email?.isEmpty ?? true) {
                 let userId = CUserDefaults.object(forKey: UserDefaultUserID) as? Int ?? 0
+                let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userId.toString)
                 
-                APIRequest.shared().userDetailNew(userID: userId.toString, apiKeyCall: "users/id/") { (_, _) in}
+                APIRequest.shared().userDetailNew(userID: encryptResult, apiKeyCall: "users/v1/id/") { (_, _) in}
             }
             self.initHomeViewController()
             
@@ -618,7 +619,7 @@ extension AppDelegate {
                }else {
                    if let otherProfileVC = CStoryboardProfile.instantiateViewController(withIdentifier: "OtherUserProfileViewController") as? OtherUserProfileViewController {
                        otherProfileVC.isSelected = true
-                       otherProfileVC.useremail = userEmail
+                       otherProfileVC.useremail = ""
                        otherProfileVC.userIDNew = userID
                        viewController?.navigationController?.pushViewController(otherProfileVC, animated: true)
                    }

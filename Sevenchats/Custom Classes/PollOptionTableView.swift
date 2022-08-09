@@ -278,11 +278,12 @@ extension PollOptionTableView {
     //    (completion: (success: Bool) -> Void)
     func apiForVoteForPoll(_ optionText:String,optionID:Int,completion: @escaping (_ success: Bool,_ result:Int,_ totalCount:Int) -> Void){
         //    func apiForVoteForPoll(_ optiontext:String){
-        
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
         var apiPara = [String : Any]()
         apiPara[CPostId] = optionID.toString
         apiPara["option"] = optionText.replace_str(replace: optionText)
-        apiPara["user_id"] = appDelegate.loginUser?.user_id.description
+        apiPara["user_id"] = encryptUser
+        
         APIRequest.shared().voteForPoll(para: apiPara) { [weak self] (response, error) in
             guard let _ = self else {return}
             if response != nil && error == nil{

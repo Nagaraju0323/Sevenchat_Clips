@@ -505,8 +505,13 @@ extension MyFriendsViewController : UITableViewDelegate, UITableViewDataSource{
                     let first_name = userinfos?.valueForString(key: "first_name") ?? ""
                     let last_name = userinfos?.valueForString(key: "last_name") ?? ""
                     
-                    let friendID = userinfos?.valueForString(key: "friend_user_id")
-                    let userID = userinfos?.valueForString(key: "user_id")
+                    
+                    let userID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userinfos?.valueForString(key: "friend_user_id") ?? "")
+                     let friendID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userinfos?.valueForString(key: "user_id") ?? "")
+                    
+                    
+//                    let friendID = userinfos?.valueForString(key: "friend_user_id")
+//                    let userID = userinfos?.valueForString(key: "user_id")
                     let dict :[String:Any]  =  [
                         "user_id": userID as Any,
                         "friend_user_id": friendID as Any

@@ -345,8 +345,9 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
     
     func myUserDetails(_ email : String?){
         if let userID = appDelegate.loginUser?.user_id{
+            let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: email ?? "")
             let dict:[String:Any] = [
-                CEmail_Mobile : email
+                CEmail_Mobile : encryptUser
             ]
             APIRequest.shared().otheruserDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
 

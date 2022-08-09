@@ -283,6 +283,7 @@ extension AddPollViewController {
 extension AddPollViewController {
     
     fileprivate func addEditPoll(){
+       
         
         var apiPara = [String : Any]()
         var apiParaGroups = [String]()
@@ -387,12 +388,12 @@ extension AddPollViewController {
         } catch { print(error) }
        // let txtAdv = txtQuestion.text.replace(string: "\n", replacement: "\\n")
         let addpoll_desc = txtQuestion.text.replace_str(replace: txtQuestion.text)
-       
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
         var dict :[String:Any]  =  [
             "image" : "",
             "age_limit":"13",
             "token" : "1234567890abcdefghijklmnoupqrstuvwxyz",
-            "user_id":userID,
+            "user_id":encryptUser,
             "post_category":categoryDropDownView.txtCategory.text!,
             "post_title":addpoll_desc,
             "options":pollOptionLst as Any,

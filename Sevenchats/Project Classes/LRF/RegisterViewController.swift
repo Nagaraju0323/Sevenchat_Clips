@@ -460,11 +460,13 @@ extension RegisterViewController {
     }
     
     func uploadUserProfile(userID : Int, signUpResponse : AnyObject?,imageEmpty:Bool) {
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description)
+        
         if imageEmpty == true{
             print("image empty convert text to image")
         }else {
             let dict : [String : Any] =  [
-                "user_id":userID,
+                "user_id":encryptUser,
                 "profile_image":profileImgUrlupdate
             ]
             //Profileimage Upload Image

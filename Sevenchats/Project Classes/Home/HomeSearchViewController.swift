@@ -2049,9 +2049,12 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
                     //                let buttonPostion = sender.convert(sender.bounds.origin, to: tableView)
                     //                if let indexPaths = tableView.indexPathForRow(at: buttonPostion) {
                     //                    let searchInfos = self.searchInfo[indexPath.row]
-                    let friendID = searchInfo.valueForString(key: "user_id")
+                    
+                    let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+                    let friendID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: searchInfo.valueForString(key: "user_id"))
+                    //let friendID = searchInfo.valueForString(key: "user_id")
                     let dict :[String:Any]  =  [
-                        "user_id":  appDelegate.loginUser?.user_id.description ?? "",
+                        "user_id":  encryptUser,
                         "friend_user_id": friendID
                     ]
                     APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in

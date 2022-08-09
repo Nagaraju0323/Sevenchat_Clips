@@ -325,10 +325,10 @@ extension AddChirpyViewController{
                 }
             }
         }else{
-            
+            let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
        
         var dict :[String:Any]  =  [
-            "user_id":userID.description,
+            "user_id":encryptUser,
             "image":uploadImgUrl,
             "post_title": "",
             "post_category":categoryDropDownView.txtCategory.text ?? "",

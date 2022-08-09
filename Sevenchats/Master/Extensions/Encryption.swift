@@ -42,6 +42,7 @@ class EncryptDecrypt: NSObject{
         return encryptDecrypt
     }()
     static func shared() ->EncryptDecrypt {
+        
         return encryptDecrypt
     }
     override init() {
@@ -49,6 +50,7 @@ class EncryptDecrypt: NSObject{
     }
     
     func encryptDecryptModel(userResultStr:String) -> String{
+    
         
         let  PRIVATE_KEY = "nallath cheythaal nallath kittum"
         let letters = PRIVATE_KEY.map { String($0) }
@@ -64,6 +66,7 @@ class EncryptDecrypt: NSObject{
         string1 = userResultStr
         let numberSum = unitcode.reduce (0, { x, y in x ^ y})
         privateVal = [numberSum]
+        globalFinaldecrypt.removeAll()
         for str in string1 {
             if str.isNumber{
                 emptyArr.append(numberSum)
@@ -85,11 +88,13 @@ class EncryptDecrypt: NSObject{
         }
         
         print("decimal value.......\(globalFinaldecrypt)")
+        finalEncrypt = ""
         for data in globalFinaldecrypt{
             let xor = zip(privateVal, [data]).map {( $0 ^ $1)}
             print("XOR----------\(xor)")
             hexavalues = xor.map{String(format:"%02x", $0)}.joined(separator: "")
             print("FinalEcrypt--------------\(hexavalues)")
+            
             finalEncrypt.append(hexavalues)
             
         }

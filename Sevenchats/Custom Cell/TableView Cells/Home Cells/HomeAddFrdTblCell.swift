@@ -57,11 +57,17 @@ class HomeAddFrdTblCell: UITableViewCell {
     }
     
     func setupCell(loan:[String:Any]) {
+        
+        let userID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+         let friendID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: loan.valueForString(key: "user_id"))
+                                                                 
+                                                                 
         var Friend_status:Int?
-        let user_id = appDelegate.loginUser?.user_id
-        let friendID = loan.valueForString(key: "user_id")
+        
+     let user_id = appDelegate.loginUser?.user_id
+       // let friendID = loan.valueForString(key: "user_id")
         let dict :[String:Any]  =  [
-            "user_id":  appDelegate.loginUser?.user_id ?? "",
+            "user_id":  userID,
             "friend_user_id": friendID
         ]
         APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in

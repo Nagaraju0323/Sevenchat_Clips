@@ -2013,12 +2013,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 }
                 cell.btnProfileImg.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
+                    appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: "user_id"), postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnUserName.touchUpInside { [weak self] (sender) in
                     guard let _ = self else { return }
-                    appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: CUserId), postInfo.valueForString(key: CUsermailID), self)
+                    appDelegate.moveOnProfileScreenNew(postInfo.valueForString(key: "user_id"), postInfo.valueForString(key: CUsermailID), self)
                 }
                 
                 cell.btnShare.touchUpInside { [weak self] (sender) in

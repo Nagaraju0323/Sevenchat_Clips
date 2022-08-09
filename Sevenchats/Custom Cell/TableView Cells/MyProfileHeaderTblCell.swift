@@ -404,8 +404,10 @@ extension MyProfileHeaderTblCell{
     
     func myUserDetails(){
         if let userID = appDelegate.loginUser?.user_id{
+            let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.email ?? "")
+            
             let dict:[String:Any] = [
-                CEmail_Mobile : appDelegate.loginUser?.email ?? ""
+                CEmail_Mobile : encryptResult
             ]
             APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
 
@@ -429,8 +431,10 @@ extension MyProfileHeaderTblCell{
     
     func myUserDetailsMobile(){
         if let userID = appDelegate.loginUser?.user_id{
+            let encryptMobile = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.mobile ?? "")
+            
             let dict:[String:Any] = [
-                "mobile" : appDelegate.loginUser?.mobile ?? ""
+                "mobile" : encryptMobile
             ]
             APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject],access_Token:"",viewType: 0) {(response, error) in
 

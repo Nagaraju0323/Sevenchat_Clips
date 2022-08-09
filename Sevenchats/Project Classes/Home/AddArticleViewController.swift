@@ -222,6 +222,7 @@ extension AddArticleViewController{
         let posttitle = txtArticleTitle.text?.replace_str(replace: txtArticleTitle.text ?? "")
         
         if articleType == .editArticle{
+            
             var dict :[String:Any] = [
                  "post_id": postID,
                    "image": profileImgUrl,
@@ -272,9 +273,9 @@ extension AddArticleViewController{
             }
         }else{
             
-        
+            let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
         var dict :[String:Any] = [
-            CUserId:userID.description,
+            CUserId:encryptUser,
             "image":profileImgUrl,
             "post_title":posttitle ?? "",
             "post_category": categoryDropDownView.txtCategory.text ?? "",

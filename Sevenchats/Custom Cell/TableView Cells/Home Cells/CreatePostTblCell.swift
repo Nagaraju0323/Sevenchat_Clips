@@ -107,8 +107,9 @@ class CreatePostTblCell: UITableViewCell{
     
     func userDetailsApiCall(){
         if let userID = appDelegate.loginUser?.user_id{
+            let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.email ?? "")
             let dict:[String:Any] = [
-                CEmail_Mobile : appDelegate.loginUser?.email ?? ""
+                CEmail_Mobile : encryptResult
             ]
             let token = CUserDefaults.string(forKey: UserDefaultDeviceToken)
             APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token: token ?? "",viewType: 1) {(response, error) in
@@ -305,6 +306,7 @@ extension CreatePostTblCell{
         let apiParaFriends = [String]()
 
         guard let userid = appDelegate.loginUser?.user_id else {return}
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userid.description ?? "")
 
         // When user editing the article....
         if shoutsType == .editShouts{
@@ -313,8 +315,9 @@ extension CreatePostTblCell{
        
         //let txtshout = textViewMessage.text.replace(string: "\n", replacement: "\\n")
         let txtshout = textViewMessage.text.replace_str(replace: textViewMessage.text)
+       
         var dict = [String:Any]()
-        dict[CUserId] = userid.description
+        dict[CUserId] = encryptUser
         dict[Cimages] = ""
         dict[CTitle] = ""
         dict[CpostContent] = txtshout

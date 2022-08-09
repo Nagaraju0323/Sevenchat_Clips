@@ -766,8 +766,10 @@ extension VerifyEmailMobileViewController{
     //Featch From UserEamild
     //..Userdetails Feath with Useremaiid
     func UserDetailsfeath(userEmailId:String,accessToken:String,completion:@escaping(_ success:Bool) -> Void ) {
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userEmailId ?? "")
+        
         let dict:[String:Any] = [
-            CEmail_Mobile : userEmailId,
+            CEmail_Mobile : encryptUser,
         ]
         DispatchQueue.main.async{
             APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:accessToken,viewType:1) { (response, error) in
@@ -781,8 +783,9 @@ extension VerifyEmailMobileViewController{
     //Featch From Mobilenumber
     //..Userdetails Feath with Mobile
     func UserDetailsfeathMobile(userEmailId:String,accessToken:String,completion:@escaping(_ success:Bool) -> Void ) {
+        let encryptMobile = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userEmailId ?? "")
         let dict:[String:Any] = [
-            CMobile : userEmailId,
+            CMobile : encryptMobile,
         ]
         DispatchQueue.main.async{
             APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject],access_Token:accessToken,viewType:1) { (response, error) in
@@ -795,9 +798,9 @@ extension VerifyEmailMobileViewController{
     
     //...UserDetails featch from Back
     func uploadWithPic(userId:String,completion:@escaping(_ success:Bool) -> Void ){
-        
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userId.description)
         let dict : [String : Any] =  [
-            "user_id":userId,
+            "user_id":encryptUser,
             "profile_image":profileImgUrlupdate
         ]
         APIRequest.shared().uploadUserProfile(userID: userId.toInt ?? 0, para:dict,profileImgName:profileImgUrlupdate ) { (response, error) in

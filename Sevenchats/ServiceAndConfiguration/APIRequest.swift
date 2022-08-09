@@ -108,6 +108,7 @@ var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
 var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
 var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
 var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
+var BASEAUTHLOGIN:String         =   "https://beta.sevenchats.com/"
 var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
 var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
 let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
@@ -140,15 +141,19 @@ let CAPITagResendVerification       = "resend-verification"
 let CAPITagResendEditVerification   = "edit-resend-verification-code"
 let CAPITagForgotPassword           = "forgot-password"
 let CAPITaglanguages                = "languages"
-let CAPITagEditProfile              = "users/update"
+//let CAPITagEditProfile              = "users/update"
+let CAPITagEditProfile              = "users/v1/update"
 let CAPITagUser                     = "user"
 let CAPITagUsers                    = "users/id"
-let CAPITagUsersDetails             = "user/details"
-let CAPITagUsersMobileDetails       = "user/details/mobile"
+//let CAPITagUsersDetails             = "user/details"
+let CAPITagUsersDetails             = "user/details/v1/"
+//let CAPITagUsersMobileDetails       = "user/details/mobile"
+let CAPITagUsersMobileDetails       = "user/details/mobile/v1/"
 let CAPITagUserNew                  = "users/"
 let CAPITagUserBlockUnblock         = "user-block-unblock"
 let CAPITagFriendStatus             = "friends/handleRequest"
-let CAPITagGetFriendStatus          = "friendstatus"
+let CAPITagGetFriendStatus          = "friendstatus/v1/"
+//let CAPITagGetFriendStatus          = "friendstatus"
 let CAPITagConnectInviteStatus      = "connect-invite-status"
 let CAPITagConnectAll               = "connect-all"
 let CAPITagAddInterest              = "add-interest"
@@ -158,7 +163,8 @@ let CAPITagProductcategory          = "productcategory"
 let CAPITagCategoryType             = "categories/type/"
 let CAPITagChangePassword           = "change-password"
 let CAPITagChangeProfilePreferences = "change-profile-preferences"
-let CAPITagChangeProfilePreferencesNew = "users/saveuserpreferences"
+//let CAPITagChangeProfilePreferencesNew = "users/saveuserpreferences"
+let CAPITagChangeProfilePreferencesNew = "users/v1/saveuserpreferences"
 let CAPITagChangeNotificationStatus = "change-notification-status"
 let CAPITagFavWeb = "fav-web"
 let CAPITagCommentList = "comments"
@@ -166,23 +172,29 @@ let CAPITagAddComment = "add-comment"
 let CAPITagDeleteComment = "delete-comment/"
 let CAPITagLikeUnlike = "like-unlike"
 let CAPITagEventInterest = "events/choice"
+//let CAPITagEventInterest = "events/v1/choice"
 let CAPITagAdvertisementList = "advertisement-list"
 let CAPITagDeviceToken = "device-token"
 let CAPITagHomeSearch = "search-by-type1"
 let CAPITagHomeSearchUsers = "users"
 let CAPITagSearchUsers = "user/details/name"
 let CAPITagSearchGroups = "search/group"
-let CAPITagHomePosts = "postlisting/home"
+//let CAPITagHomePosts = "postlisting/home"
+let CAPITagHomePosts = "postlisting/v1/home"
 let CAPITagHomePostsNew = "postlisting/"
 let CAPITagUserPost = "user-post"
-let CAPITagUserPostNew = "mypost/post"
+//let CAPITagUserPostNew = "mypost/post"
+let CAPITagUserPostNew = "mypost/v1/post/"
 let CAPITagUserPostFilter = "mypost/"
 let CAPITagUserFriendPostNew = "mypost/post"
 let CAPITagUserFriendPostFilter = "mypost/"
-let CAPITagUserMyfriendList = "friends/myfriends"
+//let CAPITagUserMyfriendList = "friends/myfriends"
+let CAPITagUserMyfriendList = "friends/v1/myfriends"
 let CAPITagFriendsList = "friends-list"
 let CAPITagBlockUsers = "friends/block"
-let CAPITagFriendOfFriends = "friendsOfFriends"
+//let CAPITagFriendOfFriends = "friendsOfFriends"
+let CAPITagFriendOfFriends = "friendsOfFriends/v1/"
+
 let CAPITagAddEditGroup = "add-edit-group"
 let CAPITagAddEditGroupNew = "groups/add"
 let CAPITagEditGroup = "groups/update"
@@ -197,7 +209,7 @@ let CAPITagUserChatDetails = "user-chat-details"
 let CAPITagUserChatLstDetails = "api/getLastMessages"
 let CAPITagGroupChatDetails = "group-chat-details"
 let CAPITagReadUser = "read-user"
-let CAPITagLikes = "likes/"
+let CAPITagLikes = "likes/v1/"
 let CAPITagNotificationUnreadCount = "unread-count"
 let CAPITagPendingGroupRequest = "pending-group-request"
 let CAPITagGroupsDetail             = "group-details"
@@ -248,15 +260,18 @@ let CProductCategoriesList = "categories-list?"
 let CProductCategoriesListNew = "categories"
 let CProductCategories = "/type/Product"
 let CAddEditProduct = "add-edit/product"
-let CAddProductNew  = "products/add"
+//let CAddProductNew  = "products/add"
+let CAddProductNew  = "products/v1/add"
 let CAddProductDetail  = "products/id"
 let CEditProductNew = "products/update"
 let CCurrencies = "currencies"
 let CProductList = "product-list"
 let CDeleteProduct = "product/delete/"
 let CLikeUnlikeProduct = "like-product"
-let CLikeUnlikeProducts = "likes/add"
-let CLikeUnlikeProductCount = "likes/"
+//let CLikeUnlikeProducts = "likes/add"
+let CLikeUnlikeProducts = "likes/v1/add"
+//let CLikeUnlikeProductCount = "likes/"
+let CLikeUnlikeProductCount = "likes/v1/"
 let CdeleteProduct = "products/delete/"
 let CReportProduct = "report-product"
 let CReportProductNew = "reportproduct/add"
@@ -285,30 +300,50 @@ let CAPITagState         = "states/countries/"
 let CAPITagCity          = "cities/states/"
 let CAPITagSignUp        = "users/signup"
 let CAPITagRegister      = "auth/login"
-let CAPITagSaveProfileImg = "users/saveprofile"
+//let CAPITagSaveProfileImg = "users/saveprofile"
+let CAPITagSaveProfileImg = "users/v1/saveprofile"
 let CAPITagFeedback = "feedbacks/add"
 let CAPITagFavWebsites = "websites/all"
 let CAPITagFavWebsitesNew = "websites/user/"
 let CAPITagPSLWebsites = "websites/type/category"
 let CAPITagReportUserNew = "reports/add"
-let CAPITagarticles = "articles/add"
-let CAPITagchirpies = "chirpies/add"
-let CAPITagevents = "events/add"
-let CAPITagforums = "forums/add"
-let CAPITagshouts = "shouts/add"
-let CAPITagsgallery = "galleries/add"
-let CAPITagpolls = "polls/add"
+
+//let CAPITagarticles = "articles/add"
+//let CAPITagchirpies = "chirpies/add"
+//let CAPITagevents = "events/add"
+//let CAPITagforums = "forums/add"
+//let CAPITagshouts = "shouts/add"
+//let CAPITagsgallery = "galleries/add"
+//let CAPITagpolls = "polls/add"
+
+let CAPITagarticles = "articles/v1/add"
+let CAPITagchirpies = "chirpies/v1/add"
+let CAPITagevents = "events/v1/add"
+let CAPITagforums = "forums/v1/add"
+let CAPITagshouts = "shouts/v1/add"
+let CAPITagsgallery = "galleries/v1/add"
+let CAPITagpolls = "polls/v1/add"
+
 let CAPITagSearchUser = "/es/search"
 
-let CAPITagEditarticles = "articles/update"
-let CAPITagEditchirpies = "chirpies/update"
-let CAPITagEditevents = "events/update"
-let CAPITagEditforums = "forums/update"
-let CAPITagEditshouts = "shouts/update"
-let CAPITagEditgallery = "galleries/update"
-let CAPITagEditpolls = "polls/update"
+//let CAPITagEditarticles = "articles/update"
+//let CAPITagEditchirpies = "chirpies/update"
+//let CAPITagEditevents = "events/update"
+//let CAPITagEditforums = "forums/update"
+//let CAPITagEditshouts = "shouts/update"
+//let CAPITagEditgallery = "galleries/update"
+//let CAPITagEditpolls = "polls/update"
+
+let CAPITagEditarticles = "articles/v1/update"
+let CAPITagEditchirpies = "chirpies/v1/update"
+let CAPITagEditevents = "events/v1/update"
+let CAPITagEditforums = "forums/v1/update"
+let CAPITagEditshouts = "shouts/v1/update"
+let CAPITagEditgallery = "galleries/v1/update"
+let CAPITagEditpolls = "polls/v1/update"
 
 let CAPITagshared = "internalsharing"
+//let CProductListNew = "products"
 let CProductListNew = "products"
 let CPollUsers = "polls/users"
 let CProductListusers = "products/user/"
@@ -318,10 +353,13 @@ let CAPITagFriendsListNew = "friends/"
 let CAPITagFriendsofFrd = "friends/"
 let CAPITagChatMsg = "api/send"
 let CAPITagGroupsListNew = "groups/user/"
-let CProductCommentListAPINew = "comments/"
-let CCommentOnProductnew = "comments/add"
+//let CProductCommentListAPINew = "comments/"
+let CProductCommentListAPINew = "comments/v1/"
+//let CCommentOnProductnew = "comments/add"
+let CCommentOnProductnew = "comments/v1/add"
 let CCommentdelProductnew = "comments/delete"
-let CAPITagSaveCoverImg = "users/savecover"
+//let CAPITagSaveCoverImg = "users/savecover"
+let CAPITagSaveCoverImg = "users/v1/savecover"
 let CAPITagarticlesDelete = "articles/update"
 let CAPITagchirpiesDelete = "chirpies/update"
 let CAPITageventsDelete = "events/update"
@@ -336,7 +374,8 @@ let CAPITagforumsDetials = "forums/"
 let CAPITagshoutsDetials = "shouts/"
 let CAPITagsgalleryDetials = "galleries/"
 let CAPITagpollsDetials = "polls/details"
-let CAPITagUserIdNew    = "users/id/"
+//let CAPITagUserIdNew    = "users/id/"
+let CAPITagUserIdNew    = "users/v1/id/"
 let CAPITagGroups   = "groups/"
 let CAPITFriendsList = "friends_list"
 let CAPITsendOTP = "sendOTP"
@@ -1855,11 +1894,13 @@ extension APIRequest {
     
     func userDetailNew(userID : String, apiKeyCall: String, completion : @escaping ClosureCompletion) {
         
+        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description)
+        
         var apiTag = ""
         if CAPITagUserNew == apiKeyCall {
-            apiTag = CAPITagUserNew + userID.description
+            apiTag = CAPITagUserNew + encryptResult
         } else if CAPITagUserIdNew == apiKeyCall {
-            apiTag = CAPITagUserIdNew + userID.description
+            apiTag = CAPITagUserIdNew + encryptResult
         }
         _ = Networking.sharedInstance.GETNEW(apiTag: apiTag, param: nil, successBlock: { (task, response) in
             
@@ -2078,18 +2119,19 @@ extension APIRequest {
         var  ApiTag = CAPITagFriendsofFrd
         switch request_type {
         case 0:
-            ApiTag = CAPITagFriendsofFrd  + "myfriends"
+            ApiTag = CAPITagFriendsofFrd  + "v1/myfriends"
         case 1:
-            ApiTag = CAPITagFriendsofFrd  + "request"
+            ApiTag = CAPITagFriendsofFrd  + "v1/request"
         case 2:
-            ApiTag = CAPITagFriendsofFrd  + "pending"
+            ApiTag = CAPITagFriendsofFrd  + "v1/pending"
         default:
             print("defauts:::::::")
         }
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: group_id?.description ?? "" )
         var para = [String : Any]()
         para[CPage] = page?.description
         para[CPer_limit] = CLimitTW
-        para["user_id"] = group_id?.description
+        para["user_id"] = encryptUser
         
         
         if showLoader {
@@ -2141,14 +2183,16 @@ extension APIRequest {
         
     }
     func getChatFriendsAdd(user_id:String?,friend_user_id:String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: user_id ?? "")
+        let friendID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: friend_user_id ?? "")
         
         var dict = [String:Any]()
-        dict[CUserId] = user_id
-        dict[CFriendID] = friend_user_id
+        dict[CUserId] = encryptUser
+        dict[CFriendID] = friendID
         dict[CFriend_status] = "1"
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        return Networking.sharedInstance.POSTJSON(apiTag: CAPITagUserChatList + "add", param: dict, successBlock: { (task, response) in
+        return Networking.sharedInstance.POSTJSON(apiTag: CAPITagUserChatList + "v1/add", param: dict, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {
             //                completion(response, nil)
@@ -2195,9 +2239,13 @@ extension APIRequest {
     
     func getOtherUserFriendListNew(user_id : String?,pageNumber:Int, completion : @escaping ClosureCompletion) -> URLSessionTask{
 //    func getOtherUserFriendListNew(user_id : String?, completion : @escaping ClosureCompletion) -> URLSessionTask{
+        
+        let userID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+         let friendID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: user_id ?? "")
+        
         var para = [String : Any]()
-        para["user_id"] = appDelegate.loginUser?.user_id.description
-        para["friend_user_id"] = user_id
+        para["user_id"] = userID
+        para["friend_user_id"] = friendID
         para["limit"] = CLimitTW
         para["page"] = pageNumber.description
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
@@ -2377,8 +2425,9 @@ extension APIRequest {
         if filter != nil{
             para[CFilterPost] = filter
         }
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description  ?? "")
         var dict = [String:Any] ()
-        dict[CUserId] = userID.description
+        dict[CUserId] = encryptUser
         dict[CPage] = page?.description
         dict[CPer_limit] = CLimitTT.description
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagHomePosts, param: dict as [String : AnyObject], successBlock: { (task, response) in
@@ -2397,9 +2446,10 @@ extension APIRequest {
     }
     //----------------------------------------NEW CODE----------------------------------------------
     func getMyfriendList(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
-        
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: user_id?.description  ?? "")
+
         let dict : [String:Any]  =  [
-            "user_id":user_id?.description as Any,
+            "user_id":encryptUser,
             "page" : page as Any,
             "limit" : CLimitTW]
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagUserMyfriendList, param: dict as [String : AnyObject], successBlock: { (task, response) in
@@ -2459,9 +2509,10 @@ extension APIRequest {
         if search_type != nil{
             para[CSearchType] = search_type
         }
-        
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: user_id?.description ?? "")
+        print(encryptUser)
         let dict : [String:Any]  =  [
-            "user_id":user_id?.description as Any,
+            "user_id":encryptUser.description as Any,
             "page" : page as Any,
             "limit" : CLimitTT
             
@@ -2711,7 +2762,7 @@ extension APIRequest {
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         print("print\(para)")
         var CAPITagurl = ""
-        if CAPITagEditarticles == apiKeyCall || CAPITagEditchirpies == apiKeyCall || CAPITagEditevents == apiKeyCall  || CAPITagEditforums == apiKeyCall || CAPITagEditgallery == apiKeyCall || CAPITagpolls == apiKeyCall  || CAPITagEditshouts == apiKeyCall{
+        if CAPITagEditarticles == apiKeyCall || CAPITagEditchirpies == apiKeyCall || CAPITagEditevents == apiKeyCall  || CAPITagEditforums == apiKeyCall || CAPITagEditgallery == apiKeyCall || CAPITagEditshouts == apiKeyCall{
             CAPITagurl = apiKeyCall
         }
        _ = Networking.sharedInstance.PUTJSON(apiTag:CAPITagurl , param: para, successBlock: { (task, response) in
@@ -3343,14 +3394,23 @@ extension APIRequest {
     }
     
     func interestMayBeNotInterest(post_id : Int?, type : Int?, completion : @escaping ClosureCompletion) {
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+      
+           // para["post_id"] = post_id?.description
+//            let encryptPost = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: post_id?.description ?? "")
+        
+       
         var para = [String : Any]()
         para["choice"] = type?.description
-        para["user_id"] = appDelegate.loginUser?.user_id
-        
-        // To add comment on Post...
+      para["user_id"] = appDelegate.loginUser?.user_id
+       // para["user_id"] = encryptUser
+       // para["post_id"] = encryptPost
         if post_id != nil{
             para["post_id"] = post_id?.description
         }
+        
+        // To add comment on Post...
+        
         
         _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagEventInterest, param: para as [String : AnyObject], successBlock: { (task, response) in
             
@@ -3866,11 +3926,13 @@ extension APIRequest {
     }
     
     func likeUnlikeProducts(userId:Int,productId : Int, isLike : Int, completion : @escaping ClosureCompletion) {
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userId.description)
+        
         let isLikes = String(isLike)
         let isproductID = String(productId)
         var para = [String : Any]()
         
-        para["user_id"] = userId.description
+        para["user_id"] = encryptUser
         para["element_id"] = isproductID.description
         para["like_status"] = isLikes.description
         
@@ -3972,7 +4034,8 @@ extension APIRequest {
         para["comment"] = comment
         para["element_id"] = productId
         if include_user_id != nil{
-            para["user_id"] = include_user_id
+            let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: include_user_id?.description ?? "")
+            para["user_id"] = encryptUser
         }
         
         if (commentId ?? 0) != 0{

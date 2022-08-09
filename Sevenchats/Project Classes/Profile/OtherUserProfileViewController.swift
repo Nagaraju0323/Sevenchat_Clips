@@ -197,17 +197,18 @@ extension OtherUserProfileViewController{
     }
     
     func otherUserDetails(isLoader:Bool) {
+        
         if let email = useremail {
             if email.isValidEmail{
                 userid = email
                 postype = "users/"
             }else{
                 self.userid = userIDNew ?? ""
-                postype = "users/id/"
+                postype = "users/v1/id/"
             }
         }else{
             self.userid = userIDNew ?? ""
-            postype = "users/id/"
+            postype = "users/v1/id/"
         }
         if isLoader{
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
@@ -456,9 +457,12 @@ extension OtherUserProfileViewController{
     //MARK:- GET BLOCK LIST
     func getFriendStatus() {
         
+        let userID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+        let friendID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:userIDNew ?? "")
+        
         let dict :[String:Any]  =  [
-            "user_id":  appDelegate.loginUser?.user_id ?? "",
-            "friend_user_id": userIDNew ?? ""
+            "user_id": userID,
+            "friend_user_id": friendID
         ]
         APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
             self?.refreshControl.endRefreshing()
@@ -472,10 +476,12 @@ extension OtherUserProfileViewController{
         })
     }
     func  getFriendStatusNew(completion: @escaping (_ success: Bool) -> Void) {
+        let userID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+        let friendID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:userIDNew ?? "")
         
         let dict :[String:Any]  =  [
-            "user_id":  appDelegate.loginUser?.user_id ?? "",
-            "friend_user_id": userIDNew ?? ""
+            "user_id":  userID,
+            "friend_user_id": friendID
         ]
         APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
             self?.refreshControl.endRefreshing()

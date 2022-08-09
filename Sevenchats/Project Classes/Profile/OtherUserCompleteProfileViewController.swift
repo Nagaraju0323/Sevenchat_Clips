@@ -157,7 +157,10 @@ extension OtherUserCompleteProfileViewController{
     
     func loadUserDetail() {
         if let userid = userID{
-            APIRequest.shared().userDetailNew(userID: userid.toString,apiKeyCall: "users/id/") { [weak self] (response, error) in
+            let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userid.toString)
+
+            
+            APIRequest.shared().userDetailNew(userID: encryptResult,apiKeyCall: "users/v1/id/") { [weak self] (response, error) in
                 if response != nil && error == nil {
                     if let Info = response!["data"] as? [[String:Any]]{
                         for userInfo in Info {

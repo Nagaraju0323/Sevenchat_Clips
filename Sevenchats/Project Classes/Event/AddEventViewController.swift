@@ -349,6 +349,7 @@ extension AddEventViewController{
         let addevent_desc = txtViewContent.text.replace_str(replace: txtViewContent.text)
         let addevent_title = txtEventTitle.text?.replace_str(replace: txtEventTitle.text ?? "")
         let addevent_location = txtLocation.text?.replace_str(replace: txtLocation.text ?? "")
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
         //let txtAdv = txtViewContent.text.replace(string: "\n", replacement: "\\n")
         
         if eventType == .editEvent{
@@ -430,9 +431,9 @@ extension AddEventViewController{
                 }
             }
         }else{
-            
+           
         var dict:[String:Any] = [
-            "user_id":userID,
+            "user_id":encryptUser,
             "image":profileImgUrl,
             "post_title":addevent_title,
             "post_category":categoryDropDownView.txtCategory.text ?? "",

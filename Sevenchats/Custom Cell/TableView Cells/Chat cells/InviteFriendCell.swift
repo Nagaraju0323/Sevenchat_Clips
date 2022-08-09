@@ -99,9 +99,13 @@ class InviteFriendCell: UITableViewCell {
                 btnInviteConnect.isHidden = false
                 
             }
+            
+            let userId = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+            let friendID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userIDs.description)
+            
             let dict :[String:Any]  =  [
-                "user_id":  appDelegate.loginUser?.user_id.description ?? "",
-                "friend_user_id": userIDs.description
+                "user_id": userId,
+                "friend_user_id": friendID
             ]
             let user_id = appDelegate.loginUser?.user_id
             

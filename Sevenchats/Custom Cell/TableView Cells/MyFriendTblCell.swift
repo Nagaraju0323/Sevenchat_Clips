@@ -34,11 +34,18 @@ class MyFriendTblCell: UITableViewCell {
         }
     }
     func setupCell(loan:[String:Any]) {
+        
+        let userId = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+        let friendID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: loan.valueForString(key: "id"))
+        
         var Friend_status:Int?
-        let user_id = appDelegate.loginUser?.user_id
-        let friendID = loan.valueForString(key: "id")
+       let user_id = appDelegate.loginUser?.user_id
+    //    let friendID = loan.valueForString(key: "id")
+        
+
+        
         let dict :[String:Any]  =  [
-            "user_id":  appDelegate.loginUser?.user_id ?? "",
+            "user_id": userId,
             "friend_user_id": friendID
         ]
         APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in

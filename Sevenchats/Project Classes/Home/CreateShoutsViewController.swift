@@ -264,8 +264,9 @@ extension CreateShoutsViewController{
         let userID = userid.description
 //        let txtshout = textViewMessage.text.replace(string: "\n", replacement: "\\n")
         let txtshout = textViewMessage.text.replace_str(replace: textViewMessage.text)
+          let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
         var dict :[String:Any]  =  [
-            "user_id":userID,
+            "user_id":encryptUser,
             "image":"none", 
             "post_title":"none",
             "post_content":txtshout,

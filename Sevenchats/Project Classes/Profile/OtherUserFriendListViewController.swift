@@ -150,10 +150,12 @@ extension OtherUserFriendListViewController {
     }
     //MARK:- GET BLOCK LIST
     func getFriendStatus(user_id : String?) {
-        
+        let userID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+        let friendID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: user_id ?? "")
+                                                                 
         let dict :[String:Any]  =  [
-            "user_id":  appDelegate.loginUser?.user_id ?? "",
-            "friend_user_id": user_id ?? ""
+            "user_id": userID,
+            "friend_user_id": friendID
             
         ]
         APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
@@ -305,9 +307,13 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
             cell.btnUnfriendCancelRequest.touchUpInside { [weak self] (sender) in
                 guard let self = self else { return }
                 let user_id = userInfo.valueForString(key: "id")
+                
+                let userID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+                 let friendID = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: user_id)
+                
                 let dict :[String:Any]  =  [
-                    "user_id":  appDelegate.loginUser?.user_id ?? "",
-                    "friend_user_id": user_id
+                    "user_id":  userID,
+                    "friend_user_id": friendID
                     
                 ]
                 APIRequest.shared().getFriendStatus(dict: dict, completion: { [weak self] (response, error) in
