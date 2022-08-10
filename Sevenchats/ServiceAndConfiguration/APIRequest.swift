@@ -25,7 +25,7 @@ import LGSideMenuController
 //MARK: - Dev
 var BASEURLNEW: String      =   "https://dev.sevenchats.com:7444/admin/"
 let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
-var BASEMASTERURL           = "http://dev.sevenchats.com:7444/auth/"
+var BASEMASTERURL           = "https://dev.sevenchats.com:7444/auth/"
 //////MARK: - CHAT
 //var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
 var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
@@ -149,8 +149,8 @@ let CAPITagUser                     = "user"
 let CAPITagUsers                    = "users/id"
 //let CAPITagUsersDetails             = "user/details"
 let CAPITagUsersDetails             = "user/details/v1/"
-let CAPITagUsersMobileDetails       = "user/details/mobile"
-//let CAPITagUsersMobileDetails       = "user/details/mobile/v1/"
+//let CAPITagUsersMobileDetails       = "user/details/mobile"
+let CAPITagUsersMobileDetails       = "user/details/v1/mobile/"
 let CAPITagUserNew                  = "users/"
 let CAPITagUserBlockUnblock         = "user-block-unblock"
 let CAPITagFriendStatus             = "friends/handleRequest"
@@ -4762,6 +4762,25 @@ extension APIRequest {
             
             let dict = data.valueForJSON(key: "language_text") as? [String : AnyObject]
             let tblLanguageText = TblLanguageText.findOrCreate(dictionary: [CLang_code : (data.valueForString(key: "lang_code"))]) as! TblLanguageText
+            
+            
+            //RULES
+            
+            tblLanguageText.rule_1 = dict?.valueForString(key: "rule_1")
+            tblLanguageText.rule_2 = dict?.valueForString(key: "rule_2")
+            tblLanguageText.rule_3 = dict?.valueForString(key: "rule_3")
+            tblLanguageText.rule_4 = dict?.valueForString(key: "rule_4")
+            tblLanguageText.rule_5 = dict?.valueForString(key: "rule_5")
+            tblLanguageText.rule_6 = dict?.valueForString(key: "rule_6")
+            tblLanguageText.accept_rules = dict?.valueForString(key: "accept_rules")
+            tblLanguageText.rules_conditions = dict?.valueForString(key: "rules_conditions")
+            tblLanguageText.deactivate_account = dict?.valueForString(key: "deactivate_account")
+            tblLanguageText.delete_account = dict?.valueForString(key: "delete_account")
+            tblLanguageText.deactivate_content = dict?.valueForString(key: "deactivate_content")
+            tblLanguageText.delete_content = dict?.valueForString(key: "delete_content")
+            
+            
+            
             //REGISTER
             
             tblLanguageText.select_your_choice = dict?.valueForString(key: "select_your_choice")

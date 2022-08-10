@@ -31,6 +31,21 @@ var CBtnGoToWebsite: String{ return appDelegate.langugaeText?.go_to_website ?? "
 var CDeniedCameraPermission: String{ return "Camera access is required to perform this action."}
 var CDeniedAlbumsPermission: String{ return "Albums access is required to perform this action."}
 
+//MARK: - rules
+
+var CRule_1: String{ return appDelegate.langugaeText?.rule_1 ?? "Rule 1:Avoid creating, posting, supporting, sharing or promoting harmful, illegal or unlawful posts againstany individual, castes or groups." }
+var CRule_2: String{ return appDelegate.langugaeText?.rule_2 ?? "Rule 2:These posts could create serious harm to the individual, castes or groups and to the Sevenchats platform." }
+var CRule_3: String{ return appDelegate.langugaeText?.rule_3 ?? "Rule 3:Help and partnership in building a healthier and happier social media/digital platform which prioritizes safety, inclusion, authenticity and reliability." }
+var CRule_4: String{ return appDelegate.langugaeText?.rule_4 ?? "Rule 4:Any negative impact, including health, mental health or other issues to the Users is from posts created, shared or promoted by other Users." }
+var CRule_5: String{ return appDelegate.langugaeText?.rule_5 ?? "Rule 5:I (User) will do my best to Protect the Mental Health of all Users." }
+var CRule_6: String{ return appDelegate.langugaeText?.rule_6 ?? "I (User) will take time to read Digital Millennium Copyright Act and the Communications Decency Act." }
+var CAcceptRules: String{ return appDelegate.langugaeText?.accept_rules ?? "Accept below rules" }
+var CAcceptConditions: String{ return appDelegate.langugaeText?.rules_conditions ?? "Do you understand and accept the above conditions (Y/N)" }
+var CDeleteAcc: String{ return appDelegate.langugaeText?.rules_conditions ?? "Delete account" }
+var CDeactiveAcc: String{ return appDelegate.langugaeText?.rules_conditions ?? "Deactivate account" }
+var CDeleteContent: String{ return appDelegate.langugaeText?.rules_conditions ?? "Deleting your acount is parmanent.When you delete your account. you wont be able to retrieve the content or information that you have shared on sevenchat. All of your messages posts will be deleted." }
+var CDeactiveContent: String{ return appDelegate.langugaeText?.rules_conditions ?? "Deactivating your account is temporary. Your account will be disabled and your name and photos will be removed from most things you have shared." }
+
 //MARK:- Navigation Title
 var CNavLikes: String{ return appDelegate.langugaeText?.likes ?? "Likes" }
 var CProfileLikes: String{ return appDelegate.langugaeText?.likes ?? "Likes" }

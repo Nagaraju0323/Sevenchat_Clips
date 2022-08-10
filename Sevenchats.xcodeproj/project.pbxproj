@@ -591,8 +591,8 @@
 		7CF3E7E7278D335B0054E394 /* PSLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7E6278D335B0054E394 /* PSLViewController.swift */; };
 		7CF3E7E9278D337C0054E394 /* PSLCategoryCollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7E8278D337C0054E394 /* PSLCategoryCollCell.swift */; };
 		7CF3E7EB278D339B0054E394 /* PSLTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */; };
-		7CFDDB7028A264D200B73773 /* DemoPopupViewController2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CFDDB6E28A264D200B73773 /* DemoPopupViewController2.storyboard */; };
-		7CFDDB7128A264D200B73773 /* DemoPopupViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFDDB6F28A264D200B73773 /* DemoPopupViewController2.swift */; };
+		7CFAE97428A37BE1009DEC9F /* DemoPopupViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFAE97128A37BE0009DEC9F /* DemoPopupViewController1.swift */; };
+		7CFAE97628A37BE1009DEC9F /* DemoPopupViewController1.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CFAE97328A37BE1009DEC9F /* DemoPopupViewController1.storyboard */; };
 		EC15E2B028993E1C005194BB /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15E2AF28993E1C005194BB /* PopupView.swift */; };
 		EC5A45C42896DB6D00BEC5F0 /* PassWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5A45C32896DB6D00BEC5F0 /* PassWordViewController.swift */; };
 		EC934D47289BEEDF00FD440E /* Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC934D46289BEEDF00FD440E /* Encryption.swift */; };
@@ -1198,8 +1198,8 @@
 		7CF3E7E6278D335B0054E394 /* PSLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLViewController.swift; sourceTree = "<group>"; };
 		7CF3E7E8278D337C0054E394 /* PSLCategoryCollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLCategoryCollCell.swift; sourceTree = "<group>"; };
 		7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLTblCell.swift; sourceTree = "<group>"; };
-		7CFDDB6E28A264D200B73773 /* DemoPopupViewController2.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DemoPopupViewController2.storyboard; sourceTree = "<group>"; };
-		7CFDDB6F28A264D200B73773 /* DemoPopupViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoPopupViewController2.swift; sourceTree = "<group>"; };
+		7CFAE97128A37BE0009DEC9F /* DemoPopupViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoPopupViewController1.swift; sourceTree = "<group>"; };
+		7CFAE97328A37BE1009DEC9F /* DemoPopupViewController1.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DemoPopupViewController1.storyboard; sourceTree = "<group>"; };
 		92127F46DEF4AD40C3BD3698 /* Pods_Sevenchats.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sevenchats.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAB21F24095B360D5B6F471B /* Pods-Sevenchats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.release.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.release.xcconfig"; sourceTree = "<group>"; };
 		EC15E2AF28993E1C005194BB /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
@@ -2458,8 +2458,8 @@
 		7CFDDB6D28A264BB00B73773 /* pop */ = {
 			isa = PBXGroup;
 			children = (
-				7CFDDB6E28A264D200B73773 /* DemoPopupViewController2.storyboard */,
-				7CFDDB6F28A264D200B73773 /* DemoPopupViewController2.swift */,
+				7CFAE97328A37BE1009DEC9F /* DemoPopupViewController1.storyboard */,
+				7CFAE97128A37BE0009DEC9F /* DemoPopupViewController1.swift */,
 			);
 			path = pop;
 			sourceTree = "<group>";
@@ -2578,6 +2578,7 @@
 				62E1A7C9240E2EC5001BD7A8 /* Poppins-LightItalic.otf in Resources */,
 				180A6A5026CD89A100C1F3F2 /* Kannada.json in Resources */,
 				62E1A712240E2EC5001BD7A8 /* EventListTblCell.xib in Resources */,
+				7CFAE97628A37BE1009DEC9F /* DemoPopupViewController1.storyboard in Resources */,
 				45B6D5D6243F21D600590569 /* AudioVideoButtonCell.xib in Resources */,
 				62E1A696240E2EC5001BD7A8 /* SideMenu.storyboard in Resources */,
 				1878AE5F261190C4004CE9A6 /* SwipeReplayMsgView.xib in Resources */,
@@ -2633,7 +2634,6 @@
 				184E183E2608712E00E1D5D7 /* EventHldListTblCell.xib in Resources */,
 				18E1C99A26270F5E00E9A0D0 /* SwipeReplayIMGView.xib in Resources */,
 				62E1A7BC240E2EC5001BD7A8 /* Poppins-SemiBoldItalic.otf in Resources */,
-				7CFDDB7028A264D200B73773 /* DemoPopupViewController2.storyboard in Resources */,
 				62E1A652240E2EC5001BD7A8 /* EarnedPointsCell.xib in Resources */,
 				62E1A6B8240E2EC5001BD7A8 /* HomeShoutsTblCell.xib in Resources */,
 				62E1A6DD240E2EC5001BD7A8 /* AudioReceiverTblCell.xib in Resources */,
@@ -2903,7 +2903,6 @@
 				62E1A5E8240E2EC5001BD7A8 /* SelectLanguageViewController.swift in Sources */,
 				180A6F8F256782BA00912A8F /* BubbleWithCancelCollCells.swift in Sources */,
 				1863D0D72600C30600B5BDE8 /* SwiftyCamButton.swift in Sources */,
-				7CFDDB7128A264D200B73773 /* DemoPopupViewController2.swift in Sources */,
 				62E1A5F5240E2EC5001BD7A8 /* FriendsVC.swift in Sources */,
 				62E1A724240E2EC5001BD7A8 /* PollVotesListTblCell.swift in Sources */,
 				18DCA2CF2563E096000199EA /* CreatePostTblCell.swift in Sources */,
@@ -2945,6 +2944,7 @@
 				62E1A647240E2EC5001BD7A8 /* AllProductVC.swift in Sources */,
 				EC934D47289BEEDF00FD440E /* Encryption.swift in Sources */,
 				62E1A5EA240E2EC5001BD7A8 /* LoginViewController.swift in Sources */,
+				7CFAE97428A37BE1009DEC9F /* DemoPopupViewController1.swift in Sources */,
 				62E1A70E240E2EC5001BD7A8 /* LikesTblCell.swift in Sources */,
 				62E1A5E2240E2EC5001BD7A8 /* AddArticleViewController.swift in Sources */,
 				62E1A67D240E2EC5001BD7A8 /* EventListViewController.swift in Sources */,

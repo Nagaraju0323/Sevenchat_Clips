@@ -587,7 +587,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="hId-YI-qBZ"/>
                                 </constraints>
-                                <mutableString key="text">Choose someone  to manage your profile after you pass away.They can help let friends and familly know about details such as a memorial service.You can also tell them your wishes about how long to keep your account active.and they can delete it after that time</mutableString>
+                                <string key="text">Choose someone  to manage your profile after you pass away.They can help let friends and familly know about details such as a memorial service.You can also tell them your wishes about how long to keep your account active.and they can delete it after that time</string>
                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1100,7 +1100,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="74" id="9fi-RV-YyF"/>
                                                             </constraints>
-                                                            <mutableString key="text">Deactivation your  account will  disable your profile  and remove  your name  and photos from most things that you have shared in platfrom.some information may still be visible to others such as your name in their friends list and message that you have  sent.</mutableString>
+                                                            <string key="text">Deactivation your  account will  disable your profile  and remove  your name  and photos from most things that you have shared in platfrom.some information may still be visible to others such as your name in their friends list and message that you have  sent.</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>

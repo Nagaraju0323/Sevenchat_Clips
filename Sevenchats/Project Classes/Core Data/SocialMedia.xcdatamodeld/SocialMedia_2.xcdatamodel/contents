@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G624" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="TblAdvertise" representedClassName="TblAdvertise" syncable="YES" codeGenerationType="class">
         <attribute name="ads_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="ads_image" optional="YES" attributeType="String"/>
@@ -118,6 +118,7 @@
         <attribute name="abusive_language" optional="YES" attributeType="String"/>
         <attribute name="accept" optional="YES" attributeType="String"/>
         <attribute name="accept_all_tems_and_conditions" optional="YES" attributeType="String"/>
+        <attribute name="accept_rules" optional="YES" attributeType="String"/>
         <attribute name="account_privacy_msg" optional="YES" attributeType="String"/>
         <attribute name="ad_free_subscription" optional="YES" attributeType="String"/>
         <attribute name="add_article" optional="YES" attributeType="String"/>
@@ -260,9 +261,13 @@
         <attribute name="data_upload" optional="YES" attributeType="String"/>
         <attribute name="day_ago" optional="YES" attributeType="String"/>
         <attribute name="days_ago" optional="YES" attributeType="String"/>
+        <attribute name="deactivate_account" optional="YES" attributeType="String"/>
+        <attribute name="deactivate_content" optional="YES" attributeType="String"/>
         <attribute name="decline" optional="YES" attributeType="String"/>
         <attribute name="declined" optional="YES" attributeType="String"/>
         <attribute name="delete" optional="YES" attributeType="String"/>
+        <attribute name="delete_account" optional="YES" attributeType="String"/>
+        <attribute name="delete_content" optional="YES" attributeType="String"/>
         <attribute name="delete_for_everyone" optional="YES" attributeType="String"/>
         <attribute name="delete_for_me" optional="YES" attributeType="String"/>
         <attribute name="delete_group" optional="YES" attributeType="String"/>
@@ -693,6 +698,13 @@
         <attribute name="retry" optional="YES" attributeType="String"/>
         <attribute name="reviews" optional="YES" attributeType="String"/>
         <attribute name="ringing_" optional="YES" attributeType="String"/>
+        <attribute name="rule_1" optional="YES" attributeType="String"/>
+        <attribute name="rule_2" optional="YES" attributeType="String"/>
+        <attribute name="rule_3" optional="YES" attributeType="String"/>
+        <attribute name="rule_4" optional="YES" attributeType="String"/>
+        <attribute name="rule_5" optional="YES" attributeType="String"/>
+        <attribute name="rule_6" optional="YES" attributeType="String"/>
+        <attribute name="rules_conditions" optional="YES" attributeType="String"/>
         <attribute name="save" optional="YES" attributeType="String"/>
         <attribute name="search" optional="YES" attributeType="String"/>
         <attribute name="search_buy_seller_and_product_name" optional="YES" attributeType="String"/>
@@ -1034,7 +1046,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11174"/>
+        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11354"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>

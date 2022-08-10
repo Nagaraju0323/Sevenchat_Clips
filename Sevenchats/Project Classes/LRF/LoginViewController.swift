@@ -356,25 +356,10 @@ extension LoginViewController{
     }
     
     @IBAction func btnSignUpCLK(_ sender : UIButton){
-        PopupController
-            .create(self)
-            .customize(
-                [
-                    .animation(.slideUp),
-                    .scrollable(false),
-                    .backgroundStyle(.blackFilter(alpha: 0.7))
-                ]
-            )
-            .didShowHandler { _ in
-                print("showed popup!")
-            }
-            .didCloseHandler { _ in
-                print("closed popup!")
-            }
-            .show(DemoPopupViewController2.instance())
+
         
-//        let objSingUp = CStoryboardLRF.instantiateViewController(withIdentifier: "RegisterViewController")
-//        self.navigationController?.pushViewController(objSingUp, animated: true)
+        let objSingUp = CStoryboardLRF.instantiateViewController(withIdentifier: "RegisterViewController")
+        self.navigationController?.pushViewController(objSingUp, animated: true)
     }
     
     @objc func btnSignupCLK_lbl(_ sender : UIButton){
@@ -425,7 +410,7 @@ extension LoginViewController{
     func UserDetailsfeathMobile(userEmailId:String,accessToken:String) {
         let encryptMobile = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userEmailId)
         let dict:[String:Any] = [
-            CMobile : userEmailId,
+            CMobile : encryptMobile,
         ]
         APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject],access_Token:accessToken,viewType:1) { (response, error) in
             //        APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject]) { (response, error) in
@@ -503,16 +488,16 @@ extension LoginViewController{
     }
     
     func LoginWithToken(userEmailId:String){
-        
-//        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: "EnterEncryptString")
-        
-        
-        
-//        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtPWD.text ?? "" )
-        
+        let txtEmailid = txtEmail.text?.lowercased()
+//        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtEmailid?.description ?? "")
+//        
+//        
+//        
+//        let encryptPassword = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtPWD.text ?? "" )
+//        
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
-        let txtEmailid = txtEmail.text?.lowercased()
+       // let txtEmailid = txtEmail.text?.lowercased()
         let data : Data = "username=\(txtEmailid?.description ?? "")&password=\(txtPWD.text ?? "")&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
         let url = URL(string: "\(BASEAUTHLOGIN)/auth/login")
         var request : URLRequest = URLRequest(url: url!)

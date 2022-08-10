@@ -58,6 +58,20 @@
     "option_SF": "The second and four options appear to be similar.",
     "option_TF": "The third and four options appear to be similar.",
     "option_message": "Poll options cannot be same.",
+    "rule_1": "Rule 1:Avoid creating, posting, supporting, sharing or promoting harmful, illegal or unlawful posts againstany individual, castes or groups.",
+    "rule_2": "Rule 2:These posts could create serious harm to the individual, castes or groups and to the Sevenchats platform.",
+    "rule_3": "Rule 3:Help and partnership in building a healthier and happier social media/digital platform which prioritizes safety, inclusion, authenticity and reliability.",
+    "rule_4": "Rule 4:Any negative impact, including health, mental health or other issues to the Users is from posts created, shared or promoted by other Users.",
+    "rule_5": "Rule 5:I (User) will do my best to Protect the Mental Health of all Users.",
+    "rule_6": "Rule 6:I (User) will take time to read Digital Millennium Copyright Act and the Communications Decency Act.",
+    "accept_rules": "Accept below rules",
+    "rules_conditions": "Do you understand and accept the above conditions (Y/N)",
+    
+    "deactivate_account":"Deactivate account",
+    "delete_account":"Delete account",
+    "deactivate_content": "Deactivating your account is temporary. Your account will be disabled and your name and photos will be removed from most things you have shared.",
+    "delete_content": "Deleting your acount is parmanent.When you delete your account. you wont be able to retrieve the content or information that you have shared on sevenchat. All of your messages posts will be deleted."
+    
     
     
     

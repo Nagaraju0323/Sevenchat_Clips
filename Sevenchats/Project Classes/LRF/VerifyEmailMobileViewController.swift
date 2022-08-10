@@ -435,10 +435,13 @@ extension VerifyEmailMobileViewController{
     //..EmailID Or Mobiele Register For Database
     //..Register With EmailID
     func registerUserEmail(username:String,password:String){
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: username.description ?? "")
+        
+        let encryptPassword = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: password.description ?? "" )
         
         let dispatchGroup = DispatchGroup()
-        let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
-        let url = URL(string: "\(BASEAUTH)auth/register")
+        let data : Data = "username=\(encryptUser)&password=\(encryptPassword)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
+        let url = URL(string: "\(BASEAUTH)auth/register/v1")
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
@@ -570,11 +573,14 @@ extension VerifyEmailMobileViewController{
     //..Register With EmailID
     
     func registerUserMobile(username:String,password:String){
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: username.description ?? "")
+        
+        let encryptPassword = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: password.description ?? "" )
         
         let dispatchGroup = DispatchGroup()
         
-        let data : Data = "username=\(username)&password=\(password)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
-        let url = URL(string: "\(BASEAUTH)auth/register")
+        let data : Data = "username=\(encryptUser)&password=\(encryptPassword)&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
+        let url = URL(string: "\(BASEAUTH)auth/register/v1")
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");

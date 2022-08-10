@@ -34,19 +34,32 @@ class PassWordViewController: ParentViewController {
     }
     
     func intilization(){
-        
+        self.title = CRegisterTitle
         txtPWD.txtDelegate = self
         txtConfirmPWD.txtDelegate = self
         txtPWD.placeHolder = CRegisterPlaceholderPassword
         txtConfirmPWD.placeHolder = CRegisterPlaceholderConfirmPassword
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifier"), object: nil)
+    }
 
+    @objc func methodOfReceivedNotification(notification: Notification) {
+        
+        self.Singup()
+        
+        
+    }
+    
+    
     //MARK:- Next Button Action
 
     @IBAction func btnNextCLK(_ sender : UIButton){
         
-        if  (txtPWD.text?.isBlank)! {
+      /*  if  (txtPWD.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertPasswordBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
@@ -61,10 +74,33 @@ class PassWordViewController: ParentViewController {
         if txtPWD.text != txtConfirmPWD.text{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertPasswordConfirmPasswordNotMatch, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
-        }
-       Singup()
-        
+        }*/
+        PopupController
+            .create(self)
+            .customize(
+                [
+                    .animation(.slideUp),
+                    .scrollable(false),
+                    .backgroundStyle(.blackFilter(alpha: 0.7))
+                ]
+            )
+            .didShowHandler { _ in
+                print("showed popup!")
+            }
+            .didCloseHandler { _ in
+                print("closed popup!")
+                self.Singup()
+            }
+            .show(DemoPopupViewController1.instance())
+       
+       
+       
+//        DemoPopupViewController1.isselectedHandler = { isselected in
+//                   print("isselected\(isselected)")
+//               }
     }
+    
+    
  
 }
 
