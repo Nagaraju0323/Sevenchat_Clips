@@ -683,7 +683,7 @@ extension RegisterViewController{
         
         
 //        if self.txtMobileNumber.text?.range(of:"@") != nil || self.txtMobileNumber.text?.rangeOfCharacter(from: CharacterSet.letters) != nil   {
-        print("textmobile\(txtMobileNumber.text)")
+       
         signup()
         
         if (!txtMobileNumber.text!.isValidPhoneNo){
@@ -726,10 +726,6 @@ extension RegisterViewController{
                                                   objVerify.profileImgUrlupdate = self.profileImgUrlupdate
                                                   self.navigationController?.pushViewController(objVerify, animated: true)
                                               }
-                                              
-      
-                                              
-                                              
                                               MILoader.shared.hideLoader()
                                           }
                                       }, btnTwoTitle: CBtnCancel, btnTwoTapped: nil)
@@ -747,14 +743,7 @@ extension RegisterViewController{
                 self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertMobileNumberBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
                // return
             }
-//            if !(self.txtMobileNumber.text?.isValidPhoneNo)! || ((self.txtMobileNumber.text?.count)! > 10 || (self.txtMobileNumber.text?.count)! < 6) {
-//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidMobileNumber, btnOneTitle: CBtnOk, btnOneTapped: nil)
-//                //return
-//            }
-            
-//            singupemailValidation(userEmailId:txtMobileNumber.text ?? ""){ success,resultInfos in
-//                  if success == true {
-//                      DispatchQueue.main.async {
+
                           self.singupmobileValidation(usermobileNo:self.txtMobileNumber.text ?? ""){ success,resultInfos in
                               if success == true {
                                   DispatchQueue.main.async {
