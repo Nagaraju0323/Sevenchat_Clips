@@ -53,11 +53,11 @@ class LoginViewController: ParentViewController {
         super.viewWillAppear(animated)
         self.updateUIAccordingToLanguage()
         socialStackView.isHidden = true
-      //  btnSignUpButton.isHidden = true
-       // lblSignUp.isHidden = true
+        //  btnSignUpButton.isHidden = true
+        // lblSignUp.isHidden = true
         lblSocialogin.isUserInteractionEnabled = true
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.btnSignupCLK_lbl))
-//        lblSocialogin.addGestureRecognizer(tap)
+        //        let tap = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.btnSignupCLK_lbl))
+        //        lblSocialogin.addGestureRecognizer(tap)
         
         
     }
@@ -68,7 +68,7 @@ class LoginViewController: ParentViewController {
     // MARK:- -------------Initialization
     func Initialization(){
         
-      
+        
         
         btnSignIn.layer.cornerRadius = 5
         btnSignUpButton.layer.cornerRadius = 5
@@ -88,7 +88,7 @@ class LoginViewController: ParentViewController {
                       NSAttributedString.Key.foregroundColor: CRGB(r: 33, g: 191, b: 166)]
         let attributedString = NSMutableAttributedString(string: CLoginDontHaveAccount, attributes:attrs)
         let normalString = NSMutableAttributedString(string: " \(CRegisterSignup)", attributes:attrs1)
-      //  attributedString.append(normalString)
+        //  attributedString.append(normalString)
         lblSocialogin.attributedText = attributedString
     }
     
@@ -149,7 +149,7 @@ extension LoginViewController:GenericTextFieldDelegate{
     func genericTextFieldDidChange(_ textField : UITextField){
         if textField == txtEmail{
             if (txtEmail.text?.isValidPhoneNo)! && !(txtEmail.text?.isBlank)!{
-               
+                
                 cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
                 txtCountryCode.isHidden = false
             }else{
@@ -168,13 +168,13 @@ extension LoginViewController:GenericTextFieldDelegate{
         
         guard let text = textField.text,
               let textRange = Range(range, in: text) else{
-                  return true
-              }
+            return true
+        }
         let updatedText = text.replacingCharacters(in: textRange,with: string)
         if string.isBlank{
             if updatedText.isValidPhoneNo && !updatedText.isEmpty{
                 cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
-              //  cnTxtEmailLeading.constant = 20
+                //  cnTxtEmailLeading.constant = 20
                 txtCountryCode.isHidden = false
             }else{
                 cnTxtEmailLeading.constant = 20
@@ -193,7 +193,7 @@ extension LoginViewController:GenericTextFieldDelegate{
                     return false
                 }
                 cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
-               // cnTxtEmailLeading.constant = 20
+                // cnTxtEmailLeading.constant = 20
                 txtCountryCode.isHidden = false
             }else{
                 cnTxtEmailLeading.constant = 20
@@ -356,7 +356,7 @@ extension LoginViewController{
     }
     
     @IBAction func btnSignUpCLK(_ sender : UIButton){
-
+        
         
         let objSingUp = CStoryboardLRF.instantiateViewController(withIdentifier: "RegisterViewController")
         self.navigationController?.pushViewController(objSingUp, animated: true)
@@ -396,12 +396,34 @@ extension LoginViewController{
         ]
         APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:accessToken,viewType:1) { (response, error) in
             if response != nil && error == nil {
-                DispatchQueue.main.async {
-                  
-                    UserDefaults.standard.set(userEmailId, forKey: "email")
-                    self.redirectAfterLogin(response: response, socialDetail: [:])
-                    
+                
+                
+                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+                    if  metaData.valueForString(key: "status") == "8"{
+                        
+                        let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: CSIGNUPEMAILID, style: .default, handler: { (_) in
+                            self.userAccountactive()
+                        }))
+                        
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    }else{
+                        DispatchQueue.main.async {
+                            
+                            UserDefaults.standard.set(userEmailId, forKey: "email")
+                            self.redirectAfterLogin(response: response, socialDetail: [:])
+                            
+                        }
+                    }
                 }
+                
+                //                DispatchQueue.main.async {
+                //
+                //                    UserDefaults.standard.set(userEmailId, forKey: "email")
+                //                    self.redirectAfterLogin(response: response, socialDetail: [:])
+                //
+                //                }
             }
         }
     }
@@ -416,14 +438,53 @@ extension LoginViewController{
             //        APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 
-                DispatchQueue.main.async {
-                    UserDefaults.standard.set(userEmailId, forKey: "mobile")
-                    self.redirectAfterLogin(response: response, socialDetail: [:])
+                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+                    if  metaData.valueForString(key: "status") == "8"{
+                        
+                        let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: CSIGNUPEMAILID, style: .default, handler: { (_) in
+                            self.userAccountactive()
+                        }))
+                        
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    }else{
+                        DispatchQueue.main.async {
+                            UserDefaults.standard.set(userEmailId, forKey: "mobile")
+                            self.redirectAfterLogin(response: response, socialDetail: [:])
+                        }
+                    }
                 }
+                //
+                //                DispatchQueue.main.async {
+                //                    UserDefaults.standard.set(userEmailId, forKey: "mobile")
+                //                    self.redirectAfterLogin(response: response, socialDetail: [:])
+                //                }
             }
         }
     }
     
+    
+    func userAccountactive(){
+        let userid = appDelegate.loginUser?.user_id.description ?? ""
+        let dict:[String:Any] = [
+            "user_id": userid,
+            "type": 3,
+        ]
+        APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
+            if response != nil && error == nil {
+                DispatchQueue.main.async {
+                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                }
+            }else {
+                //change LanguageHear
+                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+                let errorMsg = errorUserinfo.stringAfter(":")
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
+            }
+        }
+    }
     
     
     func socialLogin(dict : [String : AnyObject]) {
@@ -480,7 +541,7 @@ extension LoginViewController{
                     }
                 })
             } else {
-
+                
                 UserDefaults.standard.removeObject(forKey: "ProfileImg")
                 appDelegate.initHomeViewController()
             }
@@ -489,15 +550,15 @@ extension LoginViewController{
     
     func LoginWithToken(userEmailId:String){
         let txtEmailid = txtEmail.text?.lowercased()
-//        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtEmailid?.description ?? "")
-//        
-//        
-//        
-//        let encryptPassword = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtPWD.text ?? "" )
-//        
+        //        let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtEmailid?.description ?? "")
+        //
+        //
+        //
+        //        let encryptPassword = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtPWD.text ?? "" )
+        //
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
-       // let txtEmailid = txtEmail.text?.lowercased()
+        // let txtEmailid = txtEmail.text?.lowercased()
         let data : Data = "username=\(txtEmailid?.description ?? "")&password=\(txtPWD.text ?? "")&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
         let url = URL(string: "\(BASEAUTHLOGIN)/auth/login")
         var request : URLRequest = URLRequest(url: url!)
@@ -593,16 +654,16 @@ extension LoginViewController{
     //..profileImageUpdate from Singup
     func uploadWithPic(userId:String,profileImg:String,completion:@escaping(_ success:Bool) -> Void ){
         let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userId.description)
-            let dict : [String : Any] =  [
-                "user_id":encryptUser,
-                "profile_image":profileImg
-            ]
+        let dict : [String : Any] =  [
+            "user_id":encryptUser,
+            "profile_image":profileImg
+        ]
         APIRequest.shared().uploadUserProfile(userID: userId.toInt ?? 0, para:dict,profileImgName:profileImgUrlupdate ?? "") { (response, error) in
-                if response != nil && error == nil {
-//                    CUserDefaults.removeObject(forKey: "updateProfileImg")
-                    completion(true)
-                }
+            if response != nil && error == nil {
+                //                    CUserDefaults.removeObject(forKey: "updateProfileImg")
+                completion(true)
             }
         }
+    }
     
 }

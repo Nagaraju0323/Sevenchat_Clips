@@ -388,6 +388,8 @@ let CAPITagRewardUser = "rewards/users/"
 let CAPITagPSLCategoryNew          = "categories/type/PSL"
 let CProductMySearch = "search/product"
 let CProductListSearch = "search/productpost"
+let CAPUserDelete =  "/register/delete"
+let CAPUserDecatvice =  "users/delete"
 
 let CJsonResponse           = "response"
 let CJsonMessage            = "message"
@@ -730,6 +732,22 @@ extension Networking {
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task!
     }
+    
+    func DELETEPARA(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
+        let uRequest = SessionManager.default.request((BASEURLNEW + tag), method: .delete, parameters: parameters, encoding: URLEncoding.default, headers: headers)
+        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+        return uRequest.task
+    }
+    
+    func DELETEUSERJSON(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
+        
+        let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
+        
+        let uRequest = SessionManager.default.request(BASEMASTERURL+tag, method: .delete, parameters: parameters, encoding: parameterEncoding, headers: headers)
+        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+        return uRequest.task!
+    }
+    
     
     
     fileprivate func handleResponseStatus(uRequest:DataRequest , success : ClosureSuccess?, failure:ClosureError?) {
@@ -1892,8 +1910,6 @@ extension APIRequest {
         })
     }
     
-    
-    
     func userDetailNew(userID : String, apiKeyCall: String, completion : @escaping ClosureCompletion) {
         
         let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description)
@@ -2090,6 +2106,54 @@ extension APIRequest {
             }
         })
     }
+    
+    //account Delete and Deactive number
+    func userDeleteAccount(para:[String:AnyObject],completion : @escaping ClosureCompletion) -> URLSessionTask {
+       
+           MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//        }
+
+        return Networking.sharedInstance.DELETEUSERJSON(apiTag: CAPUserDelete, param: para, successBlock: { (task, response) in
+            MILoader.shared.hideLoader()
+            completion(response, nil)
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagInterests, error: error)
+            }
+        })!
+    }
+    
+    
+    
+    
+    func userAccountDeactivate(para:[String:AnyObject],completion : @escaping ClosureCompletion) -> URLSessionTask {
+//        if showLoader {
+//            //            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
+//        }
+
+        return Networking.sharedInstance.DELETEPARA(apiTag: CAPUserDecatvice, param: para, successBlock: { (task, response) in
+          
+            completion(response, nil)
+        }, failureBlock: { (task, message, error) in
+            MILoader.shared.hideLoader()
+            completion(nil, error)
+            if error?.code == CStatus405{
+                appDelegate.logOut()
+            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+            } else {
+                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagInterests, error: error)
+            }
+        })!
+    }
+    
+    
+    
+    
     func friendRquestStatus(dict : Any, completion : @escaping ClosureCompletion) {
         
         //           MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")

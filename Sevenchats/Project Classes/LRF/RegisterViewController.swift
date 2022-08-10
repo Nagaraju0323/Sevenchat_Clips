@@ -88,7 +88,10 @@ class RegisterViewController: ParentViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        MILocationManager.shared().initializeLocationManager()
+
         self.setLanguageText()
+   
     }
     
     override func didReceiveMemoryWarning() {
@@ -428,6 +431,8 @@ extension RegisterViewController {
         let dobirth = dobconvert ?? ""
         let verificationmail = self.txtEmail.text ?? ""
         let CountryName = self.txtCountrys.text ?? ""
+        let city = MILocationManager.shared().cityName
+        print("-----------cityName\(city)")
         
         let dict : [String : Any] = [
             "user_acc_type":0,

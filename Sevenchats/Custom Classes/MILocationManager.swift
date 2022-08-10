@@ -37,6 +37,12 @@ class MILocationManager: NSObject, CLLocationManagerDelegate {
     
     var locationManager : CLLocationManager?
     var currentLocation : CLLocation?
+    let geocoder = CLGeocoder()
+    var placemark: CLPlacemark?
+    var cityName: String?
+    var country: String?
+    var countryShortName: String?
+    var location: CLLocation?
     
     private override init() {
         super.init()
@@ -75,8 +81,23 @@ extension MILocationManager {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if (locations.last != nil) {
             currentLocation = locations.last
+            
+            geocoder.reverseGeocodeLocation(currentLocation!, completionHandler: { (placemarks, error) in
+                if error == nil, let placemark = placemarks, !placemark.isEmpty {
+                    
+                    if placemark.last?.locality != nil {
+                        self.cityName =  placemark.last?.locality
+                    }
+            
+                    
+                }
+            })
         }
     }
+    
+    
+  
+    
 }
 
 // MARK:- ------------ Location Manager delegate

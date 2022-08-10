@@ -199,7 +199,7 @@ extension ProfilePreferenceViewController{
     }
     
     @IBAction func btnDeleteUserCLK(_ sender : UIButton){
-        if let blockUserVC = CStoryboardSetting.instantiateViewController(withIdentifier: "DeleteUserViewController") as? DeleteUserViewController{
+        if let blockUserVC = CStoryboardSetting.instantiateViewController(withIdentifier: "DeactiveDelViewController") as? DeactiveDelViewController{
             self.navigationController?.pushViewController(blockUserVC, animated: true)
         }
         
