@@ -139,9 +139,10 @@ extension ProductReportVC {
 extension ProductReportVC {
     
     func reportProductApi(){
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:  appDelegate.loginUser?.user_id.description ?? "")
         let reportTxt = txtProblem.text?.replace_str(replace: txtProblem.text ?? "")
         var para = [String : Any]()
-        para["user_id"] = appDelegate.loginUser?.user_id.description
+        para["user_id"] = encryptUser
         para["product_id"] = productId.toString
         para["reported_reason"] = "nice quality"
         para["report_note"] = reportTxt
@@ -156,10 +157,11 @@ extension ProductReportVC {
                     }
                 }
             }else{
+                self?.navigationController?.popToRootViewController(animated: true)
                 let errorUserinfo = error?.userInfo["meta"] as? [String:Any] ?? [:]
                 let message = errorUserinfo["message"] as?  [String:Any] ?? [:]
                 let msg = message["message"] as? String ?? ""
-                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: msg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+                CTopMostViewController.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CProductAlreadyReport, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 MILoader.shared.hideLoader()
             }
         }

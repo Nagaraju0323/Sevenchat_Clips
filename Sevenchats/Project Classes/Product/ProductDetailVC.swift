@@ -507,8 +507,10 @@ extension ProductDetailVC {
             return
         }
         let userID = String(userId)
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:  userID ?? "")
+     
         var para = [String:Any]()
-        para["user_id"] = userID
+        para["user_id"] = encryptUser
         para["product_id"] = self.productIds
         
         let _ = APIRequest.shared().getProductDetail(para:para,productID: self.productId,userID:userID, showLoader: true, completion:{ [weak self](response, error) in

@@ -423,10 +423,12 @@ extension RegisterViewController {
         let dobconvert = DateFormatter.shared().convertDatereversSinup(strDate: chngStringStart)
         _ = txtFirstName.text ?? ""
         _ = txtLastName.text ?? ""
-        let Emailtext = self.txtEmail.text ?? ""
-        let Password = self.txtPWD.text ?? ""
+//        let Emailtext = self.txtEmail.text ?? ""
+        var Emailtext = ""
+        var MobileNumber = ""
+        // let Password = self.txtPWD.text ?? ""
         let CityName = self.txtCitys.text ?? ""
-        let MobileNumber = self.txtMobileNumber.text ?? ""
+        //let MobileNumber = self.txtMobileNumber.text ?? ""
         let Gender = String(gender)
         let dobirth = dobconvert ?? ""
         let verificationmail = self.txtEmail.text ?? ""
@@ -434,31 +436,55 @@ extension RegisterViewController {
         let city = MILocationManager.shared().cityName
         print("-----------cityName\(city)")
         
-        let dict : [String : Any] = [
-            "user_acc_type":0,
-            CFirstname:txtFirstName.text! as Any,
-            CLastname:txtLastName.text! as Any,
-            "email":Emailtext.lowercased(),
-            "password":Password,
-            "city_name":CityName,
-            "profile_image":self.profileImgUrlupdate,
-            "mobile":MobileNumber,
-            "gender":Gender,
-            "dob":dobirth,
-            "short_biography":"",
-            "relationship":"",
-            "profession":"",
-            "address_line1":"",
-            "latitude":(MILocationManager.shared().currentLocation?.coordinate.latitude ?? 0.0),
-            "longitude":(MILocationManager.shared().currentLocation?.coordinate.longitude ?? 0.0),
-            "users_type":1,
-            "lang_name":CUserDefaults.object(forKey: UserDefaultSelectedLang) as Any,
-            "social_id":"",
-            "verification_mail":verificationmail,
-            "country_name":CountryName,
-            "religion":""
-        ] as [String : Any]
+        if  ((self.txtMobileNumber.text?.range(of:"@")) != nil){
+            Emailtext = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: self.txtMobileNumber.text ?? "" )
+        }else{
+            MobileNumber = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: self.txtMobileNumber.text ?? "")
+        }
         
+        
+        
+//        let dict : [String : Any] = [
+//            "user_acc_type":0,
+//            CFirstname:txtFirstName.text! as Any,
+//            CLastname:txtLastName.text! as Any,
+//            "email":Emailtext.lowercased(),
+//            "password":Password,
+//            "city_name":CityName,
+//            "profile_image":self.profileImgUrlupdate,
+//            "mobile":MobileNumber,
+//            "gender":Gender,
+//            "dob":dobirth,
+//            "short_biography":"",
+//            "relationship":"",
+//            "profession":"",
+//            "address_line1":"",
+//            "latitude":(MILocationManager.shared().currentLocation?.coordinate.latitude ?? 0.0),
+//            "longitude":(MILocationManager.shared().currentLocation?.coordinate.longitude ?? 0.0),
+//            "users_type":1,
+//            "lang_name":CUserDefaults.object(forKey: UserDefaultSelectedLang) as Any,
+//            "social_id":"",
+//            "verification_mail":verificationmail,
+//            "country_name":CountryName,
+//            "religion":""
+//        ] as [String : Any]
+        let dict : [String : Any] = [
+            "user_acc_type": 0,
+            "first_name": txtFirstName.text! as Any,
+            "last_name": txtLastName.text! as Any,
+            "email": Emailtext.lowercased(),
+          //  "password": "3c393034331d6c6f6e",
+            "city_name": city! as Any,
+            "profile_image": self.profileImgUrlupdate,
+            "mobile": MobileNumber,
+            "gender": Gender,
+            "dob": dobirth,
+            "lang_name": CUserDefaults.object(forKey: UserDefaultSelectedLang)! as Any,
+            "users_type":1,
+            "social_id": 1
+//            "is_email_verify": 0,
+//            "is_mobile_verify": 1
+        ] as [String : Any]
         self.dictSinup = dict
 //        self.redirectToVerificationScreen()
         

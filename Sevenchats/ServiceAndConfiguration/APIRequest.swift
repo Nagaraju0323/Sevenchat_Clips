@@ -35,7 +35,7 @@ var BASEAUTHLOGIN:String     =   "https://dev.sevenchats.com:7444"
 var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
 var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
 //////MARK: - AUTHENTICATION
-var BASEAUTH:String         =   "http://dev.sevenchats.com:7444/"
+var BASEAUTH:String         =   "https://dev.sevenchats.com:7444/"
 //////MARK: - Notification
 var BASEURLNOTIFICATION: String  = "http://dev.sevenchats.com:7444/"
 var BASEURLSENDNOTIF : String  =  "http://dev.sevenchats.com:7444/"
@@ -276,7 +276,8 @@ let CLikeUnlikeProducts = "likes/v1/add"
 let CLikeUnlikeProductCount = "likes/v1/"
 let CdeleteProduct = "products/delete/"
 let CReportProduct = "report-product"
-let CReportProductNew = "reportproduct/add"
+//let CReportProductNew = "reportproduct/add"
+let CReportProductNew = "reportproduct/v1/add"
 let CProductDetail = "product-detail/"
 let CSellerDetail = "seller-detail/"
 let CContactSellerAPI = "contact-seller/"
@@ -300,7 +301,8 @@ let CAPITagPointsConfigs   = "pointsconfigs"
 let CAPITagRewardTypeCategory   = "categories/type/Rewards"
 let CAPITagState         = "states/countries/"
 let CAPITagCity          = "cities/states/"
-let CAPITagSignUp        = "users/signup"
+//let CAPITagSignUp        = "users/signup"
+let CAPITagSignUp        = "users/v1/signup"
 let CAPITagRegister      = "auth/login"
 //let CAPITagSaveProfileImg = "users/saveprofile"
 let CAPITagSaveProfileImg = "users/v1/saveprofile"
@@ -308,7 +310,9 @@ let CAPITagFeedback = "feedbacks/add"
 let CAPITagFavWebsites = "websites/all"
 let CAPITagFavWebsitesNew = "websites/user/"
 let CAPITagPSLWebsites = "websites/type/category"
-let CAPITagReportUserNew = "reports/add"
+//let CAPITagReportUserNew = "reports/add"
+let CAPITagReportUserNew = "reports/v1/add"
+
 
 //let CAPITagarticles = "articles/add"
 //let CAPITagchirpies = "chirpies/add"
@@ -3385,7 +3389,7 @@ extension APIRequest {
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         _ = Networking.sharedInstance.POSTJSON(apiTag: CAPITagFeedback, param: dict, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
-            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagSignUp){
+            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFeedback){
                 completion(response, nil)
             }
             
@@ -3396,7 +3400,7 @@ extension APIRequest {
                 appDelegate.logOut()
             } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
             } else {
-                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagSignUp, error: error)
+                self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagFeedback, error: error)
             }
         })
     }

@@ -242,8 +242,9 @@ extension ReportViewController{
 //               "url":reportedurl as Any,
 //               "status_id":status_id
 //        ]
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID ?? "")
         var dict :[String:Any]  =  [
-        "reporter_user_id": userID,
+        "reporter_user_id": encryptUser,
            "reported_id": reportIDNEW ?? "",
            "image": uploadImgUrl,
            "reason": reportTxt,

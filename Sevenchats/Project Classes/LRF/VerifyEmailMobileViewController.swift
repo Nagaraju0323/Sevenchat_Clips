@@ -408,6 +408,8 @@ extension VerifyEmailMobileViewController{
     //..EmailID Or Mobiele validation
     //..number Existed In Data base Or not
     func singupAndRegisterUsers(param:[String:Any],isVerifySataus:Int){
+        
+        
         APIRequest.shared().signUpUser(dict: param as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 let msgError = response?["error"] as? String

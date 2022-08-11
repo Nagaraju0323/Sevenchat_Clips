@@ -190,9 +190,9 @@ extension AllProductListVC {
             return
         }
         let userID = String(userid)
-        
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:  userID ?? "")
         para["limit"] = "20"
-        para["user_id"] = userID
+        para["user_id"] = encryptUser
         para["page"] = self.pageNumber
         
         apiTask = APIRequest.shared().getProductList(param:para ,userID:userID, showLoader: isLoader, completion:{ [weak self](response, error) in
@@ -389,9 +389,9 @@ extension AllProductListVC {
             return
         }
         let userID = String(userid)
-        
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:  userID ?? "")
         para["limit"] = "20"
-        para["user_id"] = userID
+        para["user_id"] = encryptUser
         para["page"] = self.pageNumber
         para["sort_type"] = sort_type.toString
         

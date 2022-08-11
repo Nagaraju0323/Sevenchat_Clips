@@ -145,11 +145,13 @@ extension PassWordViewController{
         let api  = CAPITagverifyEmailOTP
         APIRequest.shared().verifyEmail(api: api,email :userEmail, verifyCode: userEmail) { (response, error) in
             if response != nil && error == nil{
-                self.dictSingupdatas["password"] = self.txtPWD.text ?? ""
+                let encryptPassword = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: self.txtPWD.text ?? "")
+                
+                self.dictSingupdatas["password"] = encryptPassword
                 
                 if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
                     objVerify.userEmail = self.userEmail
-//                    objVerify.passwordStr = self.txtPWD.text ?? ""
+                    objVerify.passwordStr = self.txtPWD.text ?? ""
                     objVerify.isEmail_Mobile = true
                     objVerify.dictSingupdatas = self.dictSingupdatas ?? [:]
                     objVerify.userMobile = ""
@@ -171,14 +173,17 @@ extension PassWordViewController{
         let api = CAPITagVerifyMobile
         APIRequest.shared().verifyMobile(api : api, email :userMobile , mobile: userMobile) { [self] (response, error) in
             if response != nil && error == nil{
-                self.dictSingupdatas["password"] = self.txtPWD.text ?? ""
+                let encryptPassword = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: self.txtPWD.text ?? "")
+                
+                self.dictSingupdatas["password"] = encryptPassword
+               // self.dictSingupdatas["password"] = self.txtPWD.text ?? ""
                 
                 if let objVerify = CStoryboardLRF.instantiateViewController(withIdentifier: "VerifyEmailMobileViewController") as? VerifyEmailMobileViewController{
                     objVerify.userEmail = ""
                     objVerify.isEmail_Mobile = false
                     objVerify.dictSingupdatas = self.dictSingupdatas ?? [:]
                     objVerify.userMobile = self.userMobile
-//                    objVerify.passwordStr = self.txtPWD.text ?? ""
+                    objVerify.passwordStr = self.txtPWD.text ?? ""
                     objVerify.isEmailVerify = false
                     objVerify.profileImgUrlupdate = self.profileImgUrlupdate
                     self.navigationController?.pushViewController(objVerify, animated: true)
