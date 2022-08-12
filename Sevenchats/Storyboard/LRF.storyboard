@@ -338,7 +338,7 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Code"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNJ-Sp-afB" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNJ-Sp-afB" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="318.5" width="335" height="50"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -351,7 +351,7 @@
                                                             <outlet property="genericTextFieldDelegate" destination="9CC-Gl-OGO" id="tO9-j7-jPR"/>
                                                         </connections>
                                                     </textField>
-                                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wSy-60-Mby" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wSy-60-Mby" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="383.5" width="335" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="wSy-60-Mby" secondAttribute="height" multiplier="67:10" id="b0P-Bn-d4F"/>

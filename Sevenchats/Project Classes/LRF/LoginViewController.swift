@@ -69,7 +69,10 @@ class LoginViewController: ParentViewController {
     func Initialization(){
         
         
-        
+        txtEmail.layer.borderWidth = 1
+        txtPWD.layer.borderWidth = 1
+        txtPWD.layer.cornerRadius = 5
+        txtEmail.layer.cornerRadius = 5
         btnSignIn.layer.cornerRadius = 5
         btnSignUpButton.layer.cornerRadius = 5
         txtCountryCode.text = "--"
