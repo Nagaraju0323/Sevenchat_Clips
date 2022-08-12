@@ -25,8 +25,7 @@ class EnterPasswordViewController: ParentViewController {
     }
     
     func Intilization(){
-        
-        print(deactivebtnIsselected)
+    
         let userName = appDelegate.loginUser?.email?.description
         txtEmail.text = userName
         txtPWD.txtDelegate = self

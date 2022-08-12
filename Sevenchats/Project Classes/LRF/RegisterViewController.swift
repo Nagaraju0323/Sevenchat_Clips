@@ -83,12 +83,13 @@ class RegisterViewController: ParentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        MILocationManager.shared().initializeLocationManager()
         self.Initialization()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        MILocationManager.shared().initializeLocationManager()
+       
 
         self.setLanguageText()
    
@@ -474,7 +475,7 @@ extension RegisterViewController {
             "last_name": txtLastName.text! as Any,
             "email": Emailtext.lowercased(),
           //  "password": "3c393034331d6c6f6e",
-            "city_name": city! as Any,
+            "city_name": city ?? "" as Any,
             "profile_image": self.profileImgUrlupdate,
             "mobile": MobileNumber,
             "gender": Gender,

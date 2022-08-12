@@ -12,16 +12,17 @@ class DeactiveDelViewController: ParentViewController {
     
     @IBOutlet weak var deleteBtn: MIGenericButton!
     
-    
-    @IBOutlet weak var deleteImg: UIImageView!
-    
-    @IBOutlet weak var deactiveImg: UIImageView!
-    
     @IBOutlet weak var deactiveBtn: MIGenericButton!
     
     @IBOutlet weak var continueBtn: MIGenericButton!
     
     @IBOutlet weak var cancelBtn: MIGenericButton!
+    
+    @IBOutlet weak var deleteImg: UIImageView!
+    
+    @IBOutlet weak var deactiveImg: UIImageView!
+    
+    
     
     
     var deactivebtnIsselected : Bool?
@@ -29,14 +30,14 @@ class DeactiveDelViewController: ParentViewController {
     var deactbtnselected : Bool?
     var activate:Int = 0
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Intilization()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     func Intilization(){
         
         self.continueBtn.isHidden = true
@@ -45,51 +46,25 @@ class DeactiveDelViewController: ParentViewController {
     
     //MARK :- @IBAction Delete & Deacvivate
     
-    @IBAction func deleteActBtnCLK(_ sender:UIButton){
-//        sender.isSelected = !sender.isSelected
-//        deactiveBtn.isSelected = false
+    @IBAction func deactiveDeleBtnCLK(_ sender:UIButton){
         
-            if deactiveBtn.isSelected == true{
-//                self.activate = 1
-                print("::::::::NotccountSelect")
-                deleteImg.image = UIImage(named: "dry-clean")
-              } else {
-                  // set selected
-                  self.activate = 1
-//
-                  
-              }
-        
-//        deactiveBtn.isSelected = !deactiveBtn.isSelected
-  }
-    
-    
-    @IBAction func deactiveBtnCLK(_ sender:UIButton){
-
-
-        if deleteBtn.isSelected {
-            deactivebtnIsselected = false
-            deactiveImg.image = UIImage(named: "dry-clean")
-            
-        }else {
-           
+        self.continueBtn.isHidden = false
+        self.cancelBtn.isHidden = false
+        if(sender.tag == 0){
             deactivebtnIsselected = true
-            if deleteBtn.tag == 0{
-                deleteImg.image = UIImage(named: "dry-clean")
-            }
+            deactiveBtn.isSelected = true
+            deleteBtn.isSelected = false
             deactiveImg.image = UIImage(named: "checked-4")
+            deleteImg.image = UIImage(named: "dry-clean")
+            
         }
-        
-        deleteBtn.isSelected = !deleteBtn.isSelected
-//        if sender.isSelected {
-//
-//
-//        } else {
-//
-//
-//
-//
-//        }
+        else if(sender.tag == 1){
+            deactivebtnIsselected = false
+            deleteBtn.isSelected = true
+            deactiveBtn.isSelected = false
+            deleteImg.image = UIImage(named: "checked-4")
+            deactiveImg.image = UIImage(named: "dry-clean")
+        }
     }
     
     @IBAction func continueBtnCLK(_ sender : UIButton){
@@ -100,14 +75,17 @@ class DeactiveDelViewController: ParentViewController {
             alert.addAction(UIAlertAction(title: CSIGNUPEMAILID, style: .default, handler: { (_) in
                 self.userAccountDeactive()
             }))
+            alert.addAction(UIAlertAction(title: CBtnCancel, style: .default, handler: { (_) in
+                alert.dismiss(animated: true, completion: nil)
+            }))
             
             self.present(alert, animated: true, completion: nil)
-        
+            
         }else {
             if let blockUserVC = CStoryboardSetting.instantiateViewController(withIdentifier: "EnterPasswordViewController") as? EnterPasswordViewController{
-
+                
                 self.navigationController?.pushViewController(blockUserVC, animated: true)
-        }
+            }
         }
         
     }
@@ -116,7 +94,7 @@ class DeactiveDelViewController: ParentViewController {
         if let navController = self.navigationController {
             navController.popViewController(animated: true)
         }
-     }
+    }
     
 }
 
@@ -131,7 +109,7 @@ extension DeactiveDelViewController{
         APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
-                let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
                     UIApplication.shared.keyWindow?.rootViewController = loginViewController
                 }
             }else {
@@ -142,6 +120,6 @@ extension DeactiveDelViewController{
             }
         }
     }
-
-
+    
+    
 }
