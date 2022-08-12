@@ -109,9 +109,9 @@ extension MIGeneralsAPI {
     func loadUserRewardPoings() {
         
         if let userID = appDelegate.loginUser?.user_id {
-            
+            let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
             let dict:[String:Any] = [
-                CUserId : userID.description
+                CUserId : encryptUser
             ]
             
             APIRequest.shared().rewardsSummaryNew(dict: dict,showLoader : true) { (response, error) in
@@ -2616,8 +2616,9 @@ extension MIGeneralsAPI {
         }
 
         if detail_text == "friend_point"{
+            let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: target_id.description ?? "")
              dict = [
-                "user_id":target_id,
+                "user_id":encryptUser,
                 "points_config_id":points_config_id ?? "" ,
                 "target_id":userID.description,
                 "points":max_points ?? "",
@@ -2629,8 +2630,9 @@ extension MIGeneralsAPI {
                 "icon":icon
             ]
         }else {
+            let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
            dict = [
-                "user_id":userID.description,
+                "user_id":encryptUser,
                 "points_config_id":points_config_id ?? "" ,
                 "target_id":target_id ,
                 "points":max_points ?? "",

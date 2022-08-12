@@ -625,7 +625,9 @@ extension LoginViewController{
     func getRewardPointsConfigID(){
         var dict = [String:Any]()
         guard let userID = appDelegate.loginUser?.user_id.description else { return }
-        dict[CUserId] = userID
+       
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
+        dict[CUserId] = encryptUser
         APIRequest.shared().rewardsSummaryNew(dict:dict,showLoader: true) { [weak self] (response, error) in
             let points = response?["total_points"] as? String ?? ""
             if points.toInt == 0{

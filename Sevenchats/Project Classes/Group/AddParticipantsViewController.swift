@@ -36,6 +36,7 @@ class AddParticipantsViewController: ParentViewController {
     }
     var arrUserListInfo = [[String:Any]]()
     var arrUserList = [[String:Any]]()
+    var arrParticipants = [String]()
     var arrUser : [[String:Any]] = [[:]] {
         didSet{
             self.arrUserList = arrUser
@@ -239,9 +240,20 @@ extension AddParticipantsViewController{
         
         if isAddMoreMember {
             // Call Add more member api here...
+            
+            let userid = arrSelectedParticipant.map({$0.valueForString(key: "friend_user_id") })
+            for data in userid {
+                let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:  data ?? "")
+                self.arrParticipants.append(encryptUser)
+                        }
+            print(self.arrParticipants)
+            apiParaFriends = arrParticipants
+            
+            
             let userIDS = arrSelectedParticipant.map({$0.valueForString(key: "friend_user_id") }).joined(separator: ",")
             
-            apiParaFriends = userIDS.components(separatedBy: ",")
+         //   apiParaFriends = userIDS.components(separatedBy: ",")
+            let encrypt = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:  groupID?.toString ?? "")
             
             APIRequest.shared().addMemberInGroup(group_id: groupID, group_users_id: userIDS,frdsList:apiParaFriends) { (response, error) in
                 if response != nil && error == nil{

@@ -541,7 +541,8 @@ extension CompleteProfileViewController{
         //        }
         var dict = [String:Any]()
         guard let userID = appDelegate.loginUser?.user_id.description else { return}
-        dict["user_id"] = userID
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
+        dict["user_id"] = encryptUser
         dict["category_id"] = category_id
         dict["page"] = "1"
         dict["limit"] = "20"

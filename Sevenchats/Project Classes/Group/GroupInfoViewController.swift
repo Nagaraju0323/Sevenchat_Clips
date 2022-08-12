@@ -101,7 +101,7 @@ extension GroupInfoViewController{
                     if let groupInfo = response![CJsonData] as? [[String : Any]]{
                         
                         for groupData in groupInfo{
-                            if let uesrInfo = groupData["friends_list"] as? [[String : Any]]{
+                            if let uesrInfo = groupData["group_members"] as? [[String : Any]]{
                                 self.arrMembers = uesrInfo
                                 self.lblMemberCount.text = self.arrMembers.count == 1 ? "\(self.arrMembers.count) \(CGroupMember)" : "\(self.arrMembers.count) \(CGroupMembers)"
                                 self.tblUser.reloadData()

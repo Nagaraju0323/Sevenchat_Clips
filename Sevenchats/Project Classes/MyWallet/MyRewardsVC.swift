@@ -153,7 +153,8 @@ extension MyRewardsVC {
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
         guard let userID = appDelegate.loginUser?.user_id.description else { return }
-        dict[CUserId] = userID
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
+        dict[CUserId] = encryptUser
         APIRequest.shared().rewardsSummaryNew(dict:dict,showLoader: isLoader) { [weak self] (response, error) in
             
             guard let self = self else { return }

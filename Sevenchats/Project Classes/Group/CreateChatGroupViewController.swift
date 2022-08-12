@@ -39,6 +39,7 @@ class CreateChatGroupViewController: ParentViewController {
     var apiTask : URLSessionTask?
     var arrGroupSuggestion = [[String : Any]]()
     var arrSelectedParticipants = [[String : Any]]()
+    var arrParticipants = [String]()
     var arrMembers = [[String : Any]]()
     var groupID : Int?
     var groupID_New : String?
@@ -260,8 +261,9 @@ extension CreateChatGroupViewController{
 
             apiPara[CGroupType] = "1"
             // While editing the group.....
+            let encrypt = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:  groupID?.toString ?? "")
             if groupID != nil {
-                apiPara[CGroupId] = groupID?.toString
+                apiPara[CGroupId] = encrypt
             }
 
             APIRequest.shared().EditChatGroup(para: apiPara, image: imgGroupIcon.image) { (response, error) in
@@ -307,9 +309,18 @@ extension CreateChatGroupViewController{
             
              var apiPara = [String : Any]()
              var dict = [String:Any]()
+
+            let userid = arrSelectedParticipants.map({$0.valueForString(key: "friend_user_id") })
+            for data in userid {
+                let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:  data ?? "")
+                self.arrParticipants.append(encryptUser)
+                        }
+            print(self.arrParticipants)
+            apiParaFriends = arrParticipants
+            
              let userIDS = arrSelectedParticipants.map({$0.valueForString(key: "friend_user_id") }).joined(separator: ",")
              self.userIdNot = userIDS
-              apiParaFriends = userIDS.components(separatedBy: ",")
+             // apiParaFriends = userIDS.components(separatedBy: ",")
              apiPara[CGroupUsersId] = userIDS
              apiPara[CGroupTitle] = postContent
              if imgGroupIcon.image != nil {
@@ -334,8 +345,9 @@ extension CreateChatGroupViewController{
                 }
              
              let btnpublick = String(btnPublic.isSelected ? 1 : 2)
-             
-             apiParaFriends.insert(userID, at: 0)
+            let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:  userID ?? "")
+            
+             apiParaFriends.insert(encryptUser, at: 0)
              
              dict[CGroupType] =  btnpublick
              dict[CGroupLink] = ""
@@ -574,6 +586,7 @@ extension CreateChatGroupViewController{
                 if let arr = arrSelected as? [[String : Any]] {
                     self.arrSelectedParticipants.removeAll()
                     self.arrSelectedParticipants = arr + arrGroupAddedUser
+                    
                     self.tblParticipants.reloadData()
                     self.showHideTableAddParticipants()
                 }

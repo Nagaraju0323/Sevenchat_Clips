@@ -198,8 +198,10 @@ let CAPITagBlockUsers = "friends/block"
 let CAPITagFriendOfFriends = "friendsOfFriends/v1/"
 
 let CAPITagAddEditGroup = "add-edit-group"
-let CAPITagAddEditGroupNew = "groups/add"
-let CAPITagEditGroup = "groups/update"
+//let CAPITagAddEditGroupNew = "groups/add"
+let CAPITagAddEditGroupNew = "groups/v1/add"
+//let CAPITagEditGroup = "groups/update"
+let CAPITagEditGroup = "groups/v1/update"
 let CAPITagMediaUpload = "media-upload"
 let CAPITagAddPost = "add-post"
 let CAPITagSaveGallery = "save-gallery"
@@ -216,10 +218,13 @@ let CAPITagNotificationUnreadCount = "unread-count"
 let CAPITagPendingGroupRequest = "pending-group-request"
 let CAPITagGroupsDetail             = "group-details"
 let CAPITagGroupsExit               = "exit-group"
-let CAPITagGroupsExit_NEW           = "groups/remove"
-let CAPITagGroupsDelete_NEW         = "groups/delete"
+//let CAPITagGroupsExit_NEW           = "groups/remove"
+//let CAPITagGroupsDelete_NEW         = "groups/delete"
+let CAPITagGroupsExit_NEW           = "groups/v1/remove"
+let CAPITagGroupsDelete_NEW         = "groups/v1/delete"
 let CAPITagAddGroupMember           = "add-group-member"
-let CAPITagAddGroupMember_New       = "groups/addmember"
+//let CAPITagAddGroupMember_New       = "groups/addmember"
+let CAPITagAddGroupMember_New       = "groups/v1/addmember"
 let CAPITagRemoveGroupMember        = "remove-group-member"
 let CAPITagRemoveGroupMemberNew     = "groups/remove"
 let CAPITagDeleteGroup              = "delete-group"
@@ -359,6 +364,7 @@ let CAPITagFriendsListNew = "friends/"
 let CAPITagFriendsofFrd = "friends/"
 let CAPITagChatMsg = "api/send"
 let CAPITagGroupsListNew = "groups/user/"
+let CAPITagGroupsListEncrypt = "groups/v1/user/"
 //let CProductCommentListAPINew = "comments/"
 let CProductCommentListAPINew = "comments/v1/"
 //let CCommentOnProductnew = "comments/add"
@@ -382,13 +388,16 @@ let CAPITagsgalleryDetials = "galleries/"
 let CAPITagpollsDetials = "polls/details"
 //let CAPITagUserIdNew    = "users/id/"
 let CAPITagUserIdNew    = "users/v1/id/"
-let CAPITagGroups   = "groups/"
+//let CAPITagGroups   = "groups/"
+let CAPITagGroups   = "groups/details/"
 let CAPITFriendsList = "friends_list"
 let CAPITsendOTP = "sendOTP"
 let CAPITverifyMobileOTP = "verifyMobileOTP"
 let CAPITrewardAdd = "rewards/add"
-let CAPITagRewards = "rewards"
-let CAPITagRewardUser = "rewards/users/"
+//let CAPITagRewards = "rewards"
+let CAPITagRewards = "rewards/v1/"
+//let CAPITagRewardUser = "rewards/users/"
+let CAPITagRewardUser = "rewards/v1/users/"
 let CAPITagPSLCategoryNew          = "categories/type/PSL"
 let CProductMySearch = "search/product"
 let CProductListSearch = "search/productpost"
@@ -3076,7 +3085,7 @@ extension APIRequest {
         ]
         
         
-        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagGroupsListNew + search, param: param as? [String:AnyObject], successBlock: { (task, response) in
+        return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagGroupsListEncrypt + search, param: param as? [String:AnyObject], successBlock: { (task, response) in
             
             MILoader.shared.hideLoader()
             
@@ -3099,19 +3108,32 @@ extension APIRequest {
     
     
     func exitGroup(group_id : String?,user_id : String?,user_type : Int, completion : @escaping ClosureCompletion) {
+        
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:  user_id?.description ?? "")
+        let encryptGroup = EncryptDecrypt.shared().encryptDecryptModel(userResultStr:  group_id ?? "")
+        
         var para = [String : Any]()
         
-        if user_id != nil{
-            para[Cuser_id] = user_id?.description
-        }
-        if group_id != nil{
-            para[CGroupId] = group_id
-        }
+
         var apiTagSelect = ""
         if user_type == 1{
+            
             apiTagSelect = CAPITagGroupsDelete_NEW
+            if user_id != nil{
+                para[Cuser_id] = encryptUser
+            }
+            if group_id != nil{
+                para[CGroupId] = encryptGroup
+            }
+            
         }else{
             apiTagSelect = CAPITagGroupsExit_NEW
+            if user_id != nil{
+                para[Cuser_id] = encryptUser
+            }
+            if group_id != nil{
+                para[CGroupId] = group_id
+            }
         }
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")

@@ -1405,6 +1405,7 @@ extension GroupChatDetailsViewController {
                     if let createGroupVC = CStoryboardGroup.instantiateViewController(withIdentifier: "CreateChatGroupViewController") as? CreateChatGroupViewController {
                         createGroupVC.iObject = groupInfo
                         createGroupVC.arrSelectedParticipants = arrMemberTemp
+                        
                         createGroupVC.groupID = groupInfo.valueForInt(key: CGroupId)
                         self.navigationController?.pushViewController(createGroupVC, animated: true)
                     }
