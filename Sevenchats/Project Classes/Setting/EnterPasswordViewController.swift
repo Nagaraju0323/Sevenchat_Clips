@@ -16,6 +16,7 @@ class EnterPasswordViewController: ParentViewController {
     
     var deactivebtnIsselected:Bool?
     var accountType = 0
+    var userData = ""
     
     
     override func viewDidLoad() {
@@ -26,8 +27,8 @@ class EnterPasswordViewController: ParentViewController {
     
     func Intilization(){
     
-        let userName = appDelegate.loginUser?.email?.description
-        txtEmail.text = userName
+    
+        txtEmail.text = userData
         txtPWD.txtDelegate = self
         txtPWD.placeHolder = CRegisterPlaceholderPassword
     }
@@ -72,7 +73,7 @@ extension EnterPasswordViewController{
     func userAccountDeactive(accountType:String){
         let userid = appDelegate.loginUser?.user_id.description ?? ""
         let dict:[String:Any] = [
-            "userid": userid,
+            "user_id": userid,
             "type": accountType,
         ]
         APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in

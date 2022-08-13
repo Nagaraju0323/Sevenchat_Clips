@@ -475,7 +475,7 @@ extension RegisterViewController {
             "last_name": txtLastName.text! as Any,
             "email": Emailtext.lowercased(),
           //  "password": "3c393034331d6c6f6e",
-            "city_name": city ?? "" as Any,
+            "city_name": city ?? "",
             "profile_image": self.profileImgUrlupdate,
             "mobile": MobileNumber,
             "gender": Gender,

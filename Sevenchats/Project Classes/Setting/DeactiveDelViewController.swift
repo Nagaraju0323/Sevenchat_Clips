@@ -29,6 +29,7 @@ class DeactiveDelViewController: ParentViewController {
     var deletebtnselected : Bool?
     var deactbtnselected : Bool?
     var activate:Int = 0
+    var userDetails = ""
     
     
     override func viewDidLoad() {
@@ -83,7 +84,12 @@ class DeactiveDelViewController: ParentViewController {
             
         }else {
             if let blockUserVC = CStoryboardSetting.instantiateViewController(withIdentifier: "EnterPasswordViewController") as? EnterPasswordViewController{
-                
+                if (appDelegate.loginUser?.email?.description != ""){
+                    userDetails = appDelegate.loginUser?.email?.description ?? ""
+                }else if (appDelegate.loginUser?.mobile?.description != ""){
+                    userDetails = appDelegate.loginUser?.mobile?.description ?? ""
+                }
+                blockUserVC.userData = userDetails.description
                 self.navigationController?.pushViewController(blockUserVC, animated: true)
             }
         }
@@ -103,12 +109,13 @@ extension DeactiveDelViewController{
     func userAccountDeactive(){
         let userid = appDelegate.loginUser?.user_id.description ?? ""
         let dict:[String:Any] = [
-            "userid": userid,
-            "user_id": 2,
+            "user_id": userid,
+            "type": "2",
         ]
         APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
+//                    appDelegate.logOut()
                     let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
                     UIApplication.shared.keyWindow?.rootViewController = loginViewController
                 }

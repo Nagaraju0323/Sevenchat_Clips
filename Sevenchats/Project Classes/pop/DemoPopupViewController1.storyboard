@@ -58,6 +58,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="nbU-cM-o6Q"/>
                                                 </constraints>
                                                 <connections>
+                                                    <action selector="dismisBtnCLK:" destination="HUa-BX-ylI" eventType="touchUpInside" id="zdG-Bs-HRe"/>
                                                     <action selector="tappedCloseButton:" destination="HUa-BX-ylI" eventType="touchUpInside" id="E7Z-1d-b29"/>
                                                 </connections>
                                             </button>
@@ -157,8 +158,8 @@ created, shared or promoted by other Users.     </string>
                                 <color key="textColor" systemColor="systemRedColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check" translatesAutoresizingMaskIntoConstraints="NO" id="uk0-Ac-Kc2">
-                                <rect key="frame" x="21" y="784" width="30" height="38"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_uncheckbox" translatesAutoresizingMaskIntoConstraints="NO" id="uk0-Ac-Kc2">
+                                <rect key="frame" x="20" y="784" width="32" height="38"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="drs-Np-Jeu">
                                 <rect key="frame" x="17" y="784" width="38" height="38"/>
@@ -223,6 +224,8 @@ created, shared or promoted by other Users.     </string>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="checkBtn" destination="drs-Np-Jeu" id="9jA-O3-uML"/>
+                        <outlet property="dismisBtn" destination="f7K-KI-l5S" id="sai-2b-2ob"/>
                         <outlet property="imgCheck" destination="uk0-Ac-Kc2" id="fkY-go-MbI"/>
                         <outlet property="lblRule1" destination="tAE-QS-g2H" id="Cn1-kT-y0x"/>
                         <outlet property="lblRule2" destination="Ygg-R6-5Je" id="VbM-YD-8cI"/>
@@ -240,7 +243,7 @@ created, shared or promoted by other Users.     </string>
         </scene>
     </scenes>
     <resources>
-        <image name="check" width="30" height="30"/>
+        <image name="ic_uncheckbox" width="32" height="32"/>
         <namedColor name="AppDefault">
             <color red="0.0" green="0.75294117647058822" blue="0.65098039215686276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -71,9 +71,12 @@ class LoginViewController: ParentViewController {
         
         txtEmail.layer.borderWidth = 1
         txtPWD.layer.borderWidth = 1
+        txtPWD.borderStyle = .roundedRect
+        txtEmail.borderStyle = .roundedRect
         txtPWD.layer.cornerRadius = 5
         txtEmail.layer.cornerRadius = 5
         btnSignIn.layer.cornerRadius = 5
+        
         btnSignUpButton.layer.cornerRadius = 5
         txtCountryCode.text = "--"
         self.loadCountryList()
@@ -472,13 +475,18 @@ extension LoginViewController{
         let userid = appDelegate.loginUser?.user_id.description ?? ""
         let dict:[String:Any] = [
             "user_id": userid,
-            "type": 3,
+            "type": "3",
         ]
         APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
+                    self.txtEmail.text = ""
+                    self.txtPWD.text = ""
                     let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
                     UIApplication.shared.keyWindow?.rootViewController = loginViewController
+//                    appDelegate.logOut()
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Successfully Activate Account", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                  
                 }
             }else {
                 //change LanguageHear
