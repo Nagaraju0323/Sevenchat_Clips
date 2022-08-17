@@ -68,6 +68,9 @@
     "rules_conditions": "Do you understand and accept the above conditions (Y/N)",
     
     "deactivate_account":"Deactivate account",
+    "deactive_account_status":"Are you sure you want to delete your account temporarily?",
+    "active_account_status":"Are you sure you want to Activate your account?",
+    "permanent_delete":"Are you sure you want to delete your account permanently?",
     "delete_account":"Delete account",
     "deactivate_content": "Deactivating your account is temporary. Your account will be disabled and your name and photos will be removed from most things you have shared.",
     "delete_content": "Deleting your acount is parmanent.When you delete your account. you wont be able to retrieve the content or information that you have shared on sevenchat. All of your messages posts will be deleted."

@@ -434,7 +434,7 @@ extension RegisterViewController {
         let dobirth = dobconvert ?? ""
         let verificationmail = self.txtEmail.text ?? ""
         let CountryName = self.txtCountrys.text ?? ""
-        let city = MILocationManager.shared().cityName
+        let city = MILocationManager.shared().cityNameFromList
         print("-----------cityName\(city)")
         
         if  ((self.txtMobileNumber.text?.range(of:"@")) != nil){

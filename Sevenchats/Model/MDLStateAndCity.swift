@@ -39,3 +39,4 @@ public class MDLCity {
         cityName = dictionary["city_name"] as? String ?? ""
     }
 }
+

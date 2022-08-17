@@ -386,6 +386,13 @@ var CMessageArticlePostUpload : String{ return appDelegate.langugaeText?.article
 var CMessageArticlePostUpdated : String{ return appDelegate.langugaeText?.article_edited_successfully ?? "Article has been updated" }
 var CMessagePostDeleted : String{ return appDelegate.langugaeText?.alert_message_delete ?? "Article has been updated" }
 
+var CMessagepermanentDelete : String{ return appDelegate.langugaeText?.permanent_delete ?? "Are you sure you want to delete your account permanently?" }
+
+var CMessageDeactivate : String{ return appDelegate.langugaeText?.deactive_account_status ?? "AAre you sure you want to Deactivate your account?" }
+
+var CMessageAactivate : String{ return appDelegate.langugaeText?.active_account_status ?? "AAre you sure you want to Activate your account?" }
+
+
 //MARK:- Forum Screen
 var CNavFavAddForum: String{ return appDelegate.langugaeText?.add_forum ?? "Add Forum" }
 var CNavForumDetails: String{ return appDelegate.langugaeText?.forum_details ?? "Forum details" }

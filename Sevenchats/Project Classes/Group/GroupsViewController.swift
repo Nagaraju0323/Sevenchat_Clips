@@ -216,7 +216,7 @@ extension GroupsViewController {
         self.tblGroups.tableFooterView = self.pageNumber > 2 ? self.loadMoreIndicator(ColorAppTheme) : UIView()
         guard let userid = appDelegate.loginUser?.user_id else {return}
         self.tblGroups.tableFooterView = nil
-        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userid.description ?? "")
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userid.description )
 
         if txtChange == true {
             pageNumber = 1

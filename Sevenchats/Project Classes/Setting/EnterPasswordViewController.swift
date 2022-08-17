@@ -39,7 +39,17 @@ class EnterPasswordViewController: ParentViewController {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertPasswordBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
-        deleteAccount()
+        let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: CMessagepermanentDelete, style: .default, handler: { (_) in
+            self.deleteAccount()
+        }))
+        alert.addAction(UIAlertAction(title: CBtnCancel, style: .default, handler: { (_) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
+       
         
     }
   }
@@ -79,6 +89,7 @@ extension EnterPasswordViewController{
         APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
+                    appDelegate.logOut()
                     let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
                     UIApplication.shared.keyWindow?.rootViewController = loginViewController
                 }

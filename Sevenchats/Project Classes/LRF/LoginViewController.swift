@@ -408,11 +408,12 @@ extension LoginViewController{
                     if  metaData.valueForString(key: "status") == "8"{
                         
                         let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: CSIGNUPEMAILID, style: .default, handler: { (_) in
+                        alert.addAction(UIAlertAction(title: CMessageAactivate, style: .default, handler: { (_) in
                             self.userAccountactive()
                         }))
-                        
+
                         self.present(alert, animated: true, completion: nil)
+//                        self.userAccountactive()
                         
                     }else{
                         DispatchQueue.main.async {
@@ -447,9 +448,12 @@ extension LoginViewController{
                 if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
                     if  metaData.valueForString(key: "status") == "8"{
                         
-                        let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: CSIGNUPEMAILID, style: .default, handler: { (_) in
+                        let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .actionSheet)
+                        alert.addAction(UIAlertAction(title: CMessageAactivate, style: .default, handler: { (_) in
                             self.userAccountactive()
+                        }))
+                        alert.addAction(UIAlertAction(title:CBtnCancel, style: .default, handler: { (_) in
+                            self.dismiss(animated: true, completion: nil)
                         }))
                         
                         self.present(alert, animated: true, completion: nil)
@@ -482,9 +486,10 @@ extension LoginViewController{
                 DispatchQueue.main.async {
                     self.txtEmail.text = ""
                     self.txtPWD.text = ""
+                    appDelegate.logOut()
                     let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
                     UIApplication.shared.keyWindow?.rootViewController = loginViewController
-//                    appDelegate.logOut()
+                    
 //                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Successfully Activate Account", btnOneTitle: CBtnOk, btnOneTapped: nil)
                   
                 }

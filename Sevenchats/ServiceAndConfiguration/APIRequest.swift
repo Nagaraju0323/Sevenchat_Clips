@@ -102,20 +102,20 @@ let BASEURLMINIO: String = "https://stg.sevenchats.com:3443"
 
 //Beta server
 
-//var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
-//let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
-//let BASEMSGURLS:String       =   "https://beta.sevenchats.com"
-//var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
-//var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
-//var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
-//var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
-//var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
-//var BASEAUTHLOGIN:String         =   "https://beta.sevenchats.com/"
-//var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
-//var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
-//let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
-//let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
-//let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
+    //var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
+    //let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
+    //let BASEMSGURLS:String       =   "https://beta.sevenchats.com"
+    //var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
+    //var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
+    //var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
+    //var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
+    //var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
+    //var BASEAUTHLOGIN:String         =   "https://beta.sevenchats.com/"
+    //var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
+    //var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
+    //let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
+    //let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
+    //let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
 
 //let BASEURL_Rew: String = "QAY"
 
@@ -1243,10 +1243,6 @@ extension APIRequest {
         return Networking.sharedInstance.GETNEWMASTER(apiTag: CAPITagCity + stateName, param:nil, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             completion(response, nil)
-            //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagCity){
-            //
-            //            }
-            
         }, failureBlock: { (task, message, error) in
             completion(nil, error)
             if error?.code == CStatus405{
@@ -5719,6 +5715,11 @@ extension APIRequest {
             tblLanguageText.alert_message_editprofile = dict?.valueForString(key: "alert_message_editprofile")
             tblLanguageText.alert_message_delete = dict?.valueForString(key: "alert_message_delete")
             tblLanguageText.alert_message_special_character = dict?.valueForString(key: "alert_message_special_character")
+            tblLanguageText.permanent_delete = dict?.valueForString(key: "permanent_delete")
+            
+            tblLanguageText.deactive_account_status = dict?.valueForString(key: "deactive_account_status")
+            
+            tblLanguageText.active_account_status = dict?.valueForString(key: "active_account_status")
             
             
             

@@ -72,8 +72,8 @@ class DeactiveDelViewController: ParentViewController {
         
         //change languageHear
         if deactivebtnIsselected == true {
-            let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: CSIGNUPEMAILID, style: .default, handler: { (_) in
+            let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: CMessageDeactivate, style: .default, handler: { (_) in
                 self.userAccountDeactive()
             }))
             alert.addAction(UIAlertAction(title: CBtnCancel, style: .default, handler: { (_) in
