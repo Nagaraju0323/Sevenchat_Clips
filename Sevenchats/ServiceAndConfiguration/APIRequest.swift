@@ -30,7 +30,7 @@ var BASEMASTERURL           = "https://dev.sevenchats.com:7444/auth/"
 //var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:7443/"
 var BASEURLCHATLASTMSG: String   =  "https://dev.sevenchats.com:4443/"
 let BASEMSGURLS:String       =   "https://dev.sevenchats.com:7444"
-var BASEAUTHLOGIN:String     =   "https://dev.sevenchats.com:7444"
+var BASEAUTHLOGIN:String     =   "https://dev.sevenchats.com:7444/"
 //////MARK: - OTP
 var BASEURLOTP: String     =   "https://dev.sevenchats.com:7443/"
 var BASEEMAILOTP:String    =   "https://dev.sevenchats.com:7443/"
@@ -102,20 +102,20 @@ let BASEURLMINIO: String = "https://stg.sevenchats.com:3443"
 
 //Beta server
 
-    //var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
-    //let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
-    //let BASEMSGURLS:String       =   "https://beta.sevenchats.com"
-    //var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
-    //var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
-    //var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
-    //var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
-    //var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
-    //var BASEAUTHLOGIN:String         =   "https://beta.sevenchats.com/"
-    //var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
-    //var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
-    //let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
-    //let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
-    //let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
+//    var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
+//    let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
+//    let BASEMSGURLS:String       =   "https://beta.sevenchats.com"
+//    var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
+//    var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
+//    var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
+//    var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
+//    var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
+//    var BASEAUTHLOGIN:String         =   "https://beta.sevenchats.com/"
+//    var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
+//    var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
+//    let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
+//    let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
+//    let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
 
 //let BASEURL_Rew: String = "QAY"
 
@@ -357,7 +357,8 @@ let CAPITagshared = "internalsharing"
 //let CProductListNew = "products"
 let CProductListNew = "products"
 let CPollUsers = "polls/users"
-let CProductListusers = "products/user/"
+//let CProductListusers = "products/user/"
+let CProductListusers = "products/v1/user"
 let CProductListuser = "products/type/"
 let CCurrenciesNew = "currencyconversion"
 let CAPITagFriendsListNew = "friends/"
@@ -3857,9 +3858,9 @@ extension APIRequest {
         })
     }
     func getmyProductList(param : [String : Any], showLoader : Bool,userID:String, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
-        let tag = CProductListusers + userID
+       // let tag = CProductListusers + userID
         
-        return Networking.sharedInstance.GETNEWPR(apiTag: tag , param: param as [String : AnyObject], successBlock: { (task, reponse) in
+        return Networking.sharedInstance.GETNEWPR(apiTag: CProductListusers , param: param as [String : AnyObject], successBlock: { (task, reponse) in
             MILoader.shared.hideLoader()
             completion(reponse, nil)
             
@@ -5090,6 +5091,7 @@ extension APIRequest {
             tblLanguageText.settings_push_notifications = dict?.valueForString(key: "settings_push_notifications")
             tblLanguageText.settings_terms_conditions = dict?.valueForString(key: "settings_terms_conditions")
             tblLanguageText.privacy_policy = dict?.valueForString(key: "privacy_policy")
+            tblLanguageText.not_to_do = dict?.valueForString(key: "not_to_do")
             tblLanguageText.about_us = dict?.valueForString(key: "about_us")
             tblLanguageText.settings_language = dict?.valueForString(key: "settings_language")
             tblLanguageText.feedback_txt = dict?.valueForString(key: "feedback_txt")

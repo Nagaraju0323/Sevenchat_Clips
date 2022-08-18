@@ -193,13 +193,17 @@ extension MyProductListVC {
             self.tblProductList.reloadData()
             return
         }
+        guard let userID = appDelegate.loginUser?.user_id else {return}
+        let userIDstr = String(describing: userID)
+       
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
         var para = [String : Any]()
         
         para[CPer_limit] = "20"
         para[CPage] = self.pageNumber.toString
+        para["user_id"] = encryptUser
         
-        guard let userID = appDelegate.loginUser?.user_id else {return}
-        let userIDstr = String(describing: userID)
+        
         
         apiTask = APIRequest.shared().getmyProductList(param: para,showLoader: isLoader, userID:userIDstr, completion:{ [weak self](response, error) in
             guard let _ = self else { return }
@@ -422,15 +426,18 @@ extension MyProductListVC {
             self.tblProductList.reloadData()
             return
         }
+        guard let userID = appDelegate.loginUser?.user_id else {return}
+        let userIDstr = String(describing: userID)
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description ?? "")
+        
         var para = [String : Any]()
         
         para[CPer_limit] = "20"
         para[CPage] = self.pageNumber.toString
         para["sort_type"] = sort_type.toString
+        para["user_id"] = encryptUser
         
-        guard let userID = appDelegate.loginUser?.user_id else {return}
-        let userIDstr = String(describing: userID)
-        
+       
         apiTask = APIRequest.shared().getmyProductList(param: para,showLoader: isLoader, userID:userIDstr, completion:{ [weak self](response, error) in
             guard let _ = self else { return }
             self?.refreshControl.endRefreshing()

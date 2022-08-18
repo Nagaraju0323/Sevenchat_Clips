@@ -61,6 +61,7 @@ var CNavNews: String{ return appDelegate.langugaeText?.sidemenu_news ?? "News"}
 var CNavPSL: String{ return appDelegate.langugaeText?.sidemenu_PSL ?? "PSL"}
 var CNavAboutUs: String{ return appDelegate.langugaeText?.about_us ?? "About Us" }
 var CNavPrivacyPolicy: String{ return appDelegate.langugaeText?.privacy_policy ?? "Privacy Policy" }
+var CNavNotToDo: String{ return appDelegate.langugaeText?.not_to_do ?? "Not To Do" }
 var CNavGroups: String{ return appDelegate.langugaeText?.sidemenu_groups ?? "Groups" }
 var Cshout_groups: String{ return appDelegate.langugaeText?.shout_groups ?? "Groups" }
 var Cshout_friends: String{ return appDelegate.langugaeText?.shout_friends ?? "Friends" }

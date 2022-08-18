@@ -464,6 +464,7 @@ extension EditProfileViewController {
         
         let dict :[String:Any]  =  [
             "user_acc_type":"1",
+            "user_id": encryptUser,
             "first_name":txtFirstName.text ?? "",
             "last_name":txtLastName.text ?? "",
             "gender":String(appDelegate.loginUser!.gender),
@@ -471,8 +472,8 @@ extension EditProfileViewController {
             "city_name":txtCitys.text ?? "",
             "profile_image":appDelegate.loginUser?.profile_img ?? "",
             "cover_image":appDelegate.loginUser?.cover_image ?? "",
-            "mobile":txtMobileNumber.text ?? "",
-            "email":txtEmail.text ?? "",
+           // "mobile":encryptPhoneNo,
+          //  "email":encryptEmail,
             "dob":dobconvert ?? "",
             "short_biography":appDelegate.loginUser?.short_biography ?? "",
             "relationship":appDelegate.loginUser?.relationship ?? "",

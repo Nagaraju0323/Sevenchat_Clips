@@ -20,6 +20,7 @@ enum CMSType : Int {
     case aboutUS = 0
     case termsAndConditions = 1
     case privacyPolicy = 2
+    case notToDo = 3
 }
 
 class AboutUsViewController: ParentViewController {
@@ -66,6 +67,9 @@ class AboutUsViewController: ParentViewController {
             
         case CMSType.termsAndConditions.rawValue:
             self.title = CSettingTermsAndConditions
+            break
+        case CMSType.notToDo.rawValue:
+            self.title = CNavNotToDo
             break
             
         default:
@@ -123,6 +127,18 @@ class AboutUsViewController: ParentViewController {
                         htmString += content
                         self.webView.loadHTMLString(htmString, baseURL: nil)
                     }
+                    
+                case CMSType.notToDo.rawValue :
+                    if let index = self.titles.firstIndex(of: "nottodo") {
+                        content = data![index]["description"] as! String
+                        var htmString = "<header><meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no', shrink-to-fit=YES></header>"
+                        htmString += content
+                        self.webView.loadHTMLString(htmString, baseURL: nil)
+                    }
+
+                    
+                    
+                    
                 default :
                     if let index = self.titles.firstIndex(of: "privacypolicy") {
                         content = data![index]["description"] as! String

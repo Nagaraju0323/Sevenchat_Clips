@@ -41,10 +41,10 @@ class SettingViewController: ParentViewController {
         
         // For Normal Login....
         if appDelegate.loginUser?.account_type == 0 {
-            arrSettings = [CSettingEditprofile,CSettingProfilePreference,CSettingChangePassword,CSettingLanguageSetting,CSettingFeedback,CSettingAboutus,CSettingTermsAndConditions,CSettingPrivacyPolicy]
+            arrSettings = [CSettingEditprofile,CSettingProfilePreference,CSettingChangePassword,CSettingLanguageSetting,CSettingFeedback,CSettingAboutus,CSettingTermsAndConditions,CSettingPrivacyPolicy,CNavNotToDo]
             
         } else {
-            arrSettings = [CSettingEditprofile,CSettingProfilePreference,CSettingLanguageSetting,CSettingFeedback,CSettingAboutus,CSettingTermsAndConditions,CSettingPrivacyPolicy]
+            arrSettings = [CSettingEditprofile,CSettingProfilePreference,CSettingLanguageSetting,CSettingFeedback,CSettingAboutus,CSettingTermsAndConditions,CSettingPrivacyPolicy,CNavNotToDo]
         }
         let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
         if !isAppLaunchHere {
@@ -196,6 +196,12 @@ extension SettingViewController : UITableViewDelegate, UITableViewDataSource{
         case CSettingPrivacyPolicy:
             let cmsVC : AboutUsViewController = CStoryboardGeneral.instantiateViewController(withIdentifier: "AboutUsViewController") as! AboutUsViewController
             cmsVC.cmsType = .privacyPolicy
+            self.navigationController?.pushViewController(cmsVC, animated: true)
+            break
+            
+        case CNavNotToDo:
+            let cmsVC : AboutUsViewController = CStoryboardGeneral.instantiateViewController(withIdentifier: "AboutUsViewController") as! AboutUsViewController
+            cmsVC.cmsType = .notToDo
             self.navigationController?.pushViewController(cmsVC, animated: true)
             break
             

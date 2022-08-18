@@ -576,7 +576,7 @@ extension LoginViewController{
         
         // let txtEmailid = txtEmail.text?.lowercased()
         let data : Data = "username=\(txtEmailid?.description ?? "")&password=\(txtPWD.text ?? "")&grant_type=password&client_id=null&client_secret=null".data(using: .utf8)!
-        let url = URL(string: "\(BASEAUTHLOGIN)/auth/login")
+        let url = URL(string: "\(BASEAUTHLOGIN)auth/login")
         var request : URLRequest = URLRequest(url: url!)
         request.httpMethod = "POST"
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"Content-Type");
