@@ -22,9 +22,9 @@ import Alamofire
 
 class LoginViewController: ParentViewController {
     
-    @IBOutlet var txtEmail : MIGenericTextFiled!
-    @IBOutlet var txtPWD : MIGenericTextFiled!
-    @IBOutlet var txtCountryCode : MIGenericTextFiled!
+    @IBOutlet var txtEmail : MIGenericTextFiledNew!
+    @IBOutlet var txtPWD : MIGenericTextFiledNew!
+    @IBOutlet var txtCountryCode : MIGenericTextFiledNew!
     @IBOutlet var btnSignIn : UIButton!
     @IBOutlet var btnForgotPWD : UIButton!
     @IBOutlet var scrollViewContainer : UIView!
@@ -68,17 +68,15 @@ class LoginViewController: ParentViewController {
     // MARK:- -------------Initialization
     func Initialization(){
         
-        
         txtEmail.layer.borderWidth = 1
         txtPWD.layer.borderWidth = 1
-        txtPWD.borderStyle = .roundedRect
-        txtEmail.borderStyle = .roundedRect
-        txtCountryCode.borderStyle = .roundedRect
+        txtCountryCode.layer.borderWidth = 1
         txtPWD.layer.cornerRadius = 5
         txtEmail.layer.cornerRadius = 5
         btnSignIn.layer.cornerRadius = 5
-        
+        txtCountryCode.layer.cornerRadius = 5
         btnSignUpButton.layer.cornerRadius = 5
+
         txtCountryCode.text = "--"
         self.loadCountryList()
         GCDMainThread.async {
@@ -104,7 +102,7 @@ class LoginViewController: ParentViewController {
         
         txtEmail.placeHolder = CLoginPlaceholderEmailMobile
         txtPWD.placeHolder = CLoginPlaceholderPassword
-        txtPWD.
+       
         btnForgotPWD.setTitle(CLoginBtnForgot, for: .normal)
         btnSignIn.setTitle(CLoginBtnSignIn, for: .normal)
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {
@@ -141,7 +139,7 @@ class LoginViewController: ParentViewController {
 }
 
 // MARK:- -------------Socail Action
-extension LoginViewController:GenericTextFieldDelegate{
+extension LoginViewController:GenericTextFieldDelegateNew{
     
     func genericTextFieldClearText(_ textField: UITextField){
         if textField == txtEmail{
@@ -149,7 +147,7 @@ extension LoginViewController:GenericTextFieldDelegate{
             txtCountryCode.isHidden = true
             self.view.layoutIfNeeded()
             GCDMainThread.async {
-                self.txtEmail.updateBottomLineAndPlaceholderFrame()
+//                self.txtEmail.updateBottomLineAndPlaceholderFrame()
             }
         }
     }
@@ -167,7 +165,7 @@ extension LoginViewController:GenericTextFieldDelegate{
             self.view.layoutIfNeeded()
             
             GCDMainThread.async {
-                self.txtEmail.updateBottomLineAndPlaceholderFrame()
+//                self.txtEmail.updateBottomLineAndPlaceholderFrame()
             }
         }
     }
@@ -191,7 +189,7 @@ extension LoginViewController:GenericTextFieldDelegate{
             self.view.layoutIfNeeded()
             
             GCDMainThread.async {
-                self.txtEmail.updateBottomLineAndPlaceholderFrame()
+//                self.txtEmail.updateBottomLineAndPlaceholderFrame()
             }
             return true
         }
@@ -210,7 +208,7 @@ extension LoginViewController:GenericTextFieldDelegate{
             self.view.layoutIfNeeded()
             
             GCDMainThread.async {
-                self.txtEmail.updateBottomLineAndPlaceholderFrame()
+//                self.txtEmail.updateBottomLineAndPlaceholderFrame()
             }
         }
         return true
@@ -448,7 +446,7 @@ extension LoginViewController{
             if response != nil && error == nil {
                 
                 if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-                    if  metaData.valueForString(key: "status") == "8"{
+                    if  metaData.valueForString(key: "status") == "2"{
                         
                         let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .actionSheet)
                         alert.addAction(UIAlertAction(title: CMessageAactivate, style: .default, handler: { (_) in

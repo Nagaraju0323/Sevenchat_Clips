@@ -28,6 +28,9 @@
         <array key="Poppins-Regular.otf">
             <string>Poppins-Regular</string>
         </array>
+        <array key="Poppins-SemiBold.otf">
+            <string>Poppins-SemiBold</string>
+        </array>
     </customFonts>
     <scenes>
         <!--View Controller-->
@@ -294,7 +297,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KtD-b5-OKj">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="674.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="684.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKw-Nj-Vf4">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="290"/>
@@ -311,7 +314,7 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="34" id="dtg-uz-LpH"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="Gobold" family="Gobold" pointSize="30"/>
+                                                                <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="35"/>
                                                                 <color key="textColor" name="Color"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -326,7 +329,7 @@
                                                             <constraint firstAttribute="trailing" secondItem="VyR-ms-lv7" secondAttribute="trailing" id="gem-xP-0GD"/>
                                                         </constraints>
                                                     </view>
-                                                    <textField hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gJs-Yu-Q8E" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                                    <textField hidden="YES" opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gJs-Yu-Q8E" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="318.5" width="60" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="8aA-xt-6xP"/>
@@ -337,8 +340,11 @@
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Code"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="genericTextFieldDelegateNew" destination="9CC-Gl-OGO" id="KkZ-9T-oGE"/>
+                                                        </connections>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNJ-Sp-afB" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNJ-Sp-afB" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="318.5" width="335" height="50"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -348,11 +354,11 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Email address/Mobile number"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <outlet property="genericTextFieldDelegate" destination="9CC-Gl-OGO" id="tO9-j7-jPR"/>
+                                                            <outlet property="genericTextFieldDelegateNew" destination="9CC-Gl-OGO" id="Yy1-Sa-95s"/>
                                                         </connections>
                                                     </textField>
-                                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wSy-60-Mby" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="383.5" width="335" height="50"/>
+                                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wSy-60-Mby" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
+                                                        <rect key="frame" x="20" y="393.5" width="335" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="wSy-60-Mby" secondAttribute="height" multiplier="67:10" id="b0P-Bn-d4F"/>
                                                         </constraints>
@@ -364,7 +370,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAp-aI-5kD" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="463.5" width="335" height="45"/>
+                                                        <rect key="frame" x="20" y="473.5" width="335" height="45"/>
                                                         <color key="backgroundColor" name="AppDefault"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="OAp-aI-5kD" secondAttribute="height" multiplier="67:9" id="aLH-F1-Vgb"/>
@@ -376,7 +382,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t have an account?  Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8S-7J-HJH" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="20" y="578.5" width="335" height="20"/>
+                                                        <rect key="frame" x="20" y="588.5" width="335" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="20" id="UVK-db-MjO"/>
                                                         </constraints>
@@ -385,7 +391,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gnt-4x-m3N">
-                                                        <rect key="frame" x="107.5" y="648.5" width="160" height="40"/>
+                                                        <rect key="frame" x="107.5" y="658.5" width="160" height="40"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4p-ki-JeJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
@@ -429,7 +435,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t have an account?  Sign Up" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jz9-aG-iZA" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="75" y="628.5" width="225.5" height="20"/>
+                                                        <rect key="frame" x="75" y="638.5" width="225.5" height="20"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" id="3F3-5Q-y8J"/>
                                                             <constraint firstAttribute="height" constant="20" id="pOY-XV-4kr"/>
@@ -439,7 +445,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iuo-4v-bGt" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
-                                                        <rect key="frame" x="98" y="518.5" width="162" height="29"/>
+                                                        <rect key="frame" x="98" y="528.5" width="162" height="29"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="162" id="N2N-aU-Hy0"/>
@@ -454,7 +460,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-02-dox">
-                                                        <rect key="frame" x="75" y="617.5" width="235" height="40"/>
+                                                        <rect key="frame" x="75" y="627.5" width="235" height="40"/>
                                                         <color key="backgroundColor" name="AppDefault"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="gmM-7D-QIM"/>
@@ -487,7 +493,7 @@
                                                     <constraint firstItem="gJs-Yu-Q8E" firstAttribute="top" secondItem="DKw-Nj-Vf4" secondAttribute="bottom" constant="28.5" id="YJy-e8-nTO"/>
                                                     <constraint firstItem="gNJ-Sp-afB" firstAttribute="leading" secondItem="KtD-b5-OKj" secondAttribute="leading" constant="20" id="ZBd-XB-ONV"/>
                                                     <constraint firstItem="Iuo-4v-bGt" firstAttribute="top" secondItem="OAp-aI-5kD" secondAttribute="bottom" constant="10" id="Zhm-ZK-8NP"/>
-                                                    <constraint firstItem="wSy-60-Mby" firstAttribute="top" secondItem="gNJ-Sp-afB" secondAttribute="bottom" constant="15" id="aiJ-Li-Fbw"/>
+                                                    <constraint firstItem="wSy-60-Mby" firstAttribute="top" secondItem="gNJ-Sp-afB" secondAttribute="bottom" constant="25" id="aiJ-Li-Fbw"/>
                                                     <constraint firstItem="OAp-aI-5kD" firstAttribute="top" secondItem="wSy-60-Mby" secondAttribute="bottom" constant="30" id="dFf-lw-APE"/>
                                                     <constraint firstAttribute="trailing" secondItem="OAp-aI-5kD" secondAttribute="trailing" constant="20" id="fBm-qT-rCl"/>
                                                     <constraint firstItem="jz9-aG-iZA" firstAttribute="top" secondItem="OAp-aI-5kD" secondAttribute="bottom" constant="120" id="gVk-z5-L3e"/>
@@ -541,9 +547,9 @@
                         <outlet property="parentView" destination="GMS-U7-2mA" id="q0q-lR-D3V"/>
                         <outlet property="scrollViewContainer" destination="KtD-b5-OKj" id="n3V-XR-PmN"/>
                         <outlet property="socialStackView" destination="gnt-4x-m3N" id="snY-0E-HL6"/>
-                        <outlet property="txtCountryCode" destination="gJs-Yu-Q8E" id="g3N-qR-FrL"/>
-                        <outlet property="txtEmail" destination="gNJ-Sp-afB" id="wJZ-aq-yj1"/>
-                        <outlet property="txtPWD" destination="wSy-60-Mby" id="uTC-of-2bn"/>
+                        <outlet property="txtCountryCode" destination="gJs-Yu-Q8E" id="bki-eo-sJc"/>
+                        <outlet property="txtEmail" destination="gNJ-Sp-afB" id="sCz-wn-CYw"/>
+                        <outlet property="txtPWD" destination="wSy-60-Mby" id="YVJ-p2-BmE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uJj-AM-TEW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2902,10 +2908,10 @@
     </scenes>
     <designables>
         <designable name="AEM-Lq-5JL">
-            <size key="intrinsicContentSize" width="441" height="20"/>
+            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
         </designable>
         <designable name="S3X-nm-tel">
-            <size key="intrinsicContentSize" width="441" height="20"/>
+            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
         </designable>
     </designables>
     <resources>

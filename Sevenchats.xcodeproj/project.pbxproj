@@ -594,6 +594,7 @@
 		7CFAE97428A37BE1009DEC9F /* DemoPopupViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFAE97128A37BE0009DEC9F /* DemoPopupViewController1.swift */; };
 		7CFAE97628A37BE1009DEC9F /* DemoPopupViewController1.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CFAE97328A37BE1009DEC9F /* DemoPopupViewController1.storyboard */; };
 		EC15E2B028993E1C005194BB /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15E2AF28993E1C005194BB /* PopupView.swift */; };
+		EC46B27028AF5E8800BDDA35 /* MIGenericTextFieldNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC46B26F28AF5E8800BDDA35 /* MIGenericTextFieldNew.swift */; };
 		EC5A45C42896DB6D00BEC5F0 /* PassWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5A45C32896DB6D00BEC5F0 /* PassWordViewController.swift */; };
 		EC934D47289BEEDF00FD440E /* Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC934D46289BEEDF00FD440E /* Encryption.swift */; };
 		ECB732162897063A00C00907 /* DeleteUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB732152897063A00C00907 /* DeleteUserViewController.swift */; };
@@ -1203,6 +1204,7 @@
 		92127F46DEF4AD40C3BD3698 /* Pods_Sevenchats.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sevenchats.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAB21F24095B360D5B6F471B /* Pods-Sevenchats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.release.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.release.xcconfig"; sourceTree = "<group>"; };
 		EC15E2AF28993E1C005194BB /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
+		EC46B26F28AF5E8800BDDA35 /* MIGenericTextFieldNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIGenericTextFieldNew.swift; sourceTree = "<group>"; };
 		EC5A45C32896DB6D00BEC5F0 /* PassWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassWordViewController.swift; sourceTree = "<group>"; };
 		EC934D46289BEEDF00FD440E /* Encryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encryption.swift; sourceTree = "<group>"; };
 		ECB732152897063A00C00907 /* DeleteUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteUserViewController.swift; sourceTree = "<group>"; };
@@ -2152,6 +2154,7 @@
 			children = (
 				62E1A516240E2EC4001BD7A8 /* MIGenericButton.swift */,
 				62E1A517240E2EC4001BD7A8 /* MIGenericTextFiled.swift */,
+				EC46B26F28AF5E8800BDDA35 /* MIGenericTextFieldNew.swift */,
 				62E1A518240E2EC4001BD7A8 /* MIGenericLabel.swift */,
 				62E1A519240E2EC4001BD7A8 /* MapActionSheetHelper.swift */,
 				62E1A51A240E2EC4001BD7A8 /* BlockBarButtonItem.swift */,
@@ -2894,6 +2897,7 @@
 				1863D1122600D3CD00B5BDE8 /* BottomSheetViewController.swift in Sources */,
 				62E1A7BB240E2EC5001BD7A8 /* MISocial.swift in Sources */,
 				62E1A7B4240E2EC5001BD7A8 /* MIVideoCameraGallery.swift in Sources */,
+				EC46B27028AF5E8800BDDA35 /* MIGenericTextFieldNew.swift in Sources */,
 				62E1A66E240E2EC5001BD7A8 /* ProfilePreferenceViewController.swift in Sources */,
 				62E1A6C5240E2EC5001BD7A8 /* HomeEventsCell.swift in Sources */,
 				62E1A655240E2EC5001BD7A8 /* EarnedPointsCell.swift in Sources */,
