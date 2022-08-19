@@ -73,6 +73,7 @@ class LoginViewController: ParentViewController {
         txtPWD.layer.borderWidth = 1
         txtPWD.borderStyle = .roundedRect
         txtEmail.borderStyle = .roundedRect
+        txtCountryCode.borderStyle = .roundedRect
         txtPWD.layer.cornerRadius = 5
         txtEmail.layer.cornerRadius = 5
         btnSignIn.layer.cornerRadius = 5
@@ -103,6 +104,7 @@ class LoginViewController: ParentViewController {
         
         txtEmail.placeHolder = CLoginPlaceholderEmailMobile
         txtPWD.placeHolder = CLoginPlaceholderPassword
+        txtPWD.
         btnForgotPWD.setTitle(CLoginBtnForgot, for: .normal)
         btnSignIn.setTitle(CLoginBtnSignIn, for: .normal)
         if Localization.sharedInstance.applicationFlowWithLanguageRTL() {

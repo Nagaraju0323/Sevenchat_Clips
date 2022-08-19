@@ -68,7 +68,7 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="BMc-OW-jOx"/>
                                                         </constraints>
-                                                        <color key="textColor" red="0.58823529411764708" green="0.6588235294117647" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" name="AppDefault"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
@@ -78,7 +78,7 @@
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ssj-V3-jBD" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="268.5" width="335" height="50"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <color key="textColor" red="0.58823529411764708" green="0.6588235294117647" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" name="AppDefault"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                         <userDefinedRuntimeAttributes>
@@ -331,14 +331,14 @@
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="60" id="8aA-xt-6xP"/>
                                                         </constraints>
-                                                        <color key="textColor" red="0.58823529409999997" green="0.6588235294" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Code"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNJ-Sp-afB" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gNJ-Sp-afB" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="318.5" width="335" height="50"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -351,7 +351,7 @@
                                                             <outlet property="genericTextFieldDelegate" destination="9CC-Gl-OGO" id="tO9-j7-jPR"/>
                                                         </connections>
                                                     </textField>
-                                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wSy-60-Mby" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wSy-60-Mby" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="20" y="383.5" width="335" height="50"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="wSy-60-Mby" secondAttribute="height" multiplier="67:10" id="b0P-Bn-d4F"/>
@@ -2902,10 +2902,10 @@
     </scenes>
     <designables>
         <designable name="AEM-Lq-5JL">
-            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="441" height="20"/>
         </designable>
         <designable name="S3X-nm-tel">
-            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="441" height="20"/>
         </designable>
     </designables>
     <resources>

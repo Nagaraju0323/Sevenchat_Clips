@@ -463,7 +463,7 @@ extension EditProfileViewController {
         
         
         let dict :[String:Any]  =  [
-            "user_acc_type":"1",
+           /* "user_acc_type":"1",
             "user_id": encryptUser,
             "first_name":txtFirstName.text ?? "",
             "last_name":txtLastName.text ?? "",
@@ -486,7 +486,35 @@ extension EditProfileViewController {
             "user_type": "1",
             "employment_status": appDelegate.loginUser?.employment_status ?? 0,
             "lang_name": langName,
-            "status_id":"1",
+            "status_id":"1",*/
+            
+            
+            
+            "user_acc_type":"1",
+                "user_id": encryptUser,
+                "first_name":txtFirstName.text ?? "",
+                "last_name":txtLastName.text ?? "",
+                "gender":String(appDelegate.loginUser!.gender),
+                "city_name":txtCitys.text ?? "",
+                "profile_image":appDelegate.loginUser?.profile_img ?? "",
+                "cover_image":appDelegate.loginUser?.cover_image ?? "",
+                "religion": appDelegate.loginUser?.religion ?? "",
+                "dob":dobconvert ?? "",
+                "short_biography":appDelegate.loginUser?.short_biography ?? "",
+                "relationship":appDelegate.loginUser?.relationship ?? "",
+                "profession":appDelegate.loginUser?.profession ?? "",
+                "address_line1":appDelegate.loginUser?.address ?? "",
+                "latitude":0,
+                "longitude":0,
+                "user_type": "1",
+                "employment_status": appDelegate.loginUser?.employment_status ?? 0,
+                "education":appDelegate.loginUser?.education_name ?? "",
+                "income":appDelegate.loginUser?.annual_income ?? "",
+                "lang_name": langName,
+                "status_id":"1"
+            
+            
+            
             
         ]
         
