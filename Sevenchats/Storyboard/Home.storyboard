@@ -461,7 +461,7 @@
                                                                                         </button>
                                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hrv-py-i2Z">
                                                                                             <rect key="frame" x="112.5" y="0.0" width="26" height="27"/>
-                                                                                            <state key="normal" title="Button" image="ic_shout_events"/>
+                                                                                            <state key="normal" title="Button" image="ic_shout_eventsNew"/>
                                                                                         </button>
                                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jnz-bt-P3a">
                                                                                             <rect key="frame" x="168.5" y="0.0" width="26" height="27"/>
@@ -469,7 +469,7 @@
                                                                                         </button>
                                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPL-Od-bfC">
                                                                                             <rect key="frame" x="224.5" y="0.0" width="26.5" height="27"/>
-                                                                                            <state key="normal" image="ic_shout_gallery"/>
+                                                                                            <state key="normal" image="image-gallery"/>
                                                                                         </button>
                                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbZ-pl-JRv">
                                                                                             <rect key="frame" x="281" y="0.0" width="26" height="27"/>
@@ -5211,10 +5211,10 @@
         <image name="ic_post_event" width="20" height="20.5"/>
         <image name="ic_request_accept" width="22.5" height="22.5"/>
         <image name="ic_request_decline" width="22.5" height="22.5"/>
-        <image name="ic_shout_events" width="512" height="512"/>
-        <image name="ic_shout_gallery" width="512" height="512"/>
+        <image name="ic_shout_eventsNew" width="512" height="512"/>
         <image name="ic_small_checkmark_selected" width="24.5" height="24.5"/>
         <image name="ic_small_checkmark_unselected" width="24.5" height="24.5"/>
+        <image name="image-gallery" width="512" height="512"/>
         <image name="poll" width="512" height="512"/>
         <image name="user_placeholder.png" width="300" height="300"/>
         <namedColor name="AppDefault">

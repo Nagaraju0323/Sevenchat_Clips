@@ -60,7 +60,7 @@ class MIGenericTextFiledNew: UITextField {
             self.delegate = self
             
             switch self.tag{
-            case 0:
+            case 0,21:
                 // Textfiled with moveble placeholder (ex. - LRF Related)
                 self.placeHolderSetup()
 //                self.bottomLineViewSetup()
@@ -77,6 +77,13 @@ class MIGenericTextFiledNew: UITextField {
 
             case 2:
                 // Drop Down with movable placeholder...
+                self.placeHolderSetup()
+//                self.bottomLineViewSetup()
+                break
+                
+            case 23,22:
+                // Drop Down with movable placeholder...
+                self.showHideImage()
                 self.placeHolderSetup()
 //                self.bottomLineViewSetup()
                 break
@@ -216,12 +223,34 @@ class MIGenericTextFiledNew: UITextField {
             break
             
       
-            case 10:
+        case 10:
             button.frame = CGRect(x: 0.0, y: 0, width: 30, height: self.frame.size.height)
-            button.setImage(UIImage(named: "lock"), for: .normal)
+            button.setImage(UIImage(named: "padlock"), for: .normal)
             hStackView.addArrangedSubview(button)
             hStackView.addArrangedSubview(btnClearText)
             break
+            
+        case 21:
+            button.frame = CGRect(x: 0.0, y: 0, width: 30, height: self.frame.size.height)
+            button.setImage(UIImage(named: "user"), for: .normal)
+            hStackView.addArrangedSubview(button)
+            hStackView.addArrangedSubview(btnClearText)
+            break
+            
+        case 22:
+            button.frame = CGRect(x: 0.0, y: 0, width: 30, height: self.frame.size.height)
+            button.setImage(UIImage(named: "gender"), for: .normal)
+            hStackView.addArrangedSubview(button)
+            hStackView.addArrangedSubview(btnClearText)
+            break
+            
+       case 23:
+            button.frame = CGRect(x: 0.0, y: 0, width: 30, height: self.frame.size.height)
+            button.setImage(UIImage(named: "calendar"), for: .normal)
+            hStackView.addArrangedSubview(button)
+            hStackView.addArrangedSubview(btnClearText)
+            break
+            
 
         default:
             break

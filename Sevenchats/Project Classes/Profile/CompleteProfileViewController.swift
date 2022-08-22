@@ -417,35 +417,65 @@ extension CompleteProfileViewController{
         let txtprofession = txtProfession.text?.replace_str(replace: txtProfession.text ?? "")
         let txtreligion = txtReligion.text?.replace_str(replace: txtReligion.text ?? "")
 
-        
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description)
         
 //        let txtshortbio = txtViewBiography.text.replace(string: "\n", replacement: "\\n")
 //        let txtprofession = txtProfession.text?.replace(string: "\n", replacement: "\\n")
         let dictcomp:[String:Any] = [
-            "user_acc_type":user_acc_type,
-            "first_name":firstName_edit ?? "",
-            "last_name":lastName_edit ?? "",
-            "gender":gender.toString,
-            "religion":txtreligion,
-            "city_name":txtCity,
-            "profile_image":appDelegate.loginUser?.profile_img ?? "",
-            "cover_image":appDelegate.loginUser?.cover_image ?? "",
-            "mobile":txtmobile,
-            "email":txtemail,
-            "education":txtEducation.text ?? "",
-            "dob":dob_edit ?? "",
-            "short_biography":txtshortbio,
-            "relationship":txtStatus.text ?? "",
-            "profession":txtprofession,
-            "address_line1":txtCity,
-            "latitude":0,
-            "longitude":0,
-            "user_type": "1",
-            "lang_name": langName,
-            "status_id":"1",
-            "income":inCome,
-            "employment_status":emplymenntStatus.description
+//            "user_acc_type":user_acc_type,
+//            "first_name":firstName_edit ?? "",
+//            "last_name":lastName_edit ?? "",
+//            "gender":gender.toString,
+//            "religion":txtreligion,
+//            "city_name":txtCity,
+//            "profile_image":appDelegate.loginUser?.profile_img ?? "",
+//            "cover_image":appDelegate.loginUser?.cover_image ?? "",
+//            "mobile":txtmobile,
+//            "email":txtemail,
+//            "education":txtEducation.text ?? "",
+//            "dob":dob_edit ?? "",
+//            "short_biography":txtshortbio,
+//            "relationship":txtStatus.text ?? "",
+//            "profession":txtprofession,
+//            "address_line1":txtCity,
+//            "latitude":0,
+//            "longitude":0,
+//            "user_type": "1",
+//            "lang_name": langName,
+//            "status_id":"1",
+//            "income":inCome,
+//            "employment_status":emplymenntStatus.description
+            
+            
+               "user_acc_type":"1",
+                "user_id": encryptUser,
+                "first_name":firstName_edit ?? "",
+                "last_name":lastName_edit ?? "",
+                "gender":gender.toString,
+                "city_name":txtCity,
+                "profile_image":appDelegate.loginUser?.profile_img ?? "",
+                "cover_image":appDelegate.loginUser?.cover_image ?? "",
+                "religion": txtreligion,
+                "dob":dob_edit ?? "",
+                "short_biography":txtshortbio,
+                "relationship":txtStatus.text ?? "",
+                "profession":txtprofession,
+                "address_line1":txtCity,
+                "latitude":0,
+                "longitude":0,
+                "user_type": "1",
+                "employment_status": emplymenntStatus.description,
+                "education":txtEducation.text ?? "",
+                "income":inCome,
+                "lang_name": langName,
+                "status_id":"1"
+            
+            
+            
+            
         ]
+        
+        
         
         
         let dictUserDetails:[String:Any] = [

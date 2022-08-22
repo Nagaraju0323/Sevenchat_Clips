@@ -102,6 +102,7 @@ class LoginViewController: ParentViewController {
         
         txtEmail.placeHolder = CLoginPlaceholderEmailMobile
         txtPWD.placeHolder = CLoginPlaceholderPassword
+        txtCountryCode.placeHolder = CRegisterPlaceholderCode
        
         btnForgotPWD.setTitle(CLoginBtnForgot, for: .normal)
         btnSignIn.setTitle(CLoginBtnSignIn, for: .normal)

@@ -31,28 +31,28 @@ class RegisterViewController: ParentViewController {
     @IBOutlet weak var viewContainer : UIView!
     @IBOutlet weak var conturyviewContainer : UIView!
     @IBOutlet var cnTxtEmailLeading : NSLayoutConstraint!
-    @IBOutlet weak var txtFirstName : MIGenericTextFiled!{
+    @IBOutlet weak var txtFirstName : MIGenericTextFiledNew!{
         didSet{
             self.txtFirstName.txtDelegate = self
         }
     }
-    @IBOutlet weak var txtLastName : MIGenericTextFiled!{
+    @IBOutlet weak var txtLastName : MIGenericTextFiledNew!{
         didSet{
             self.txtFirstName.txtDelegate = self
         }
     }
-    @IBOutlet weak var txtEmail : MIGenericTextFiled!
-    @IBOutlet weak var txtPWD : MIGenericTextFiled!
-    @IBOutlet weak var txtConfirmPWD : MIGenericTextFiled!
-    @IBOutlet weak var txtMobileNumber : MIGenericTextFiled!
-    @IBOutlet weak var txtCountryCode : MIGenericTextFiled!
-    @IBOutlet weak var txtGender : MIGenericTextFiled!
-    @IBOutlet weak var txtDob : MIGenericTextFiled!
+    @IBOutlet weak var txtEmail : MIGenericTextFiledNew!
+    @IBOutlet weak var txtPWD : MIGenericTextFiledNew!
+    @IBOutlet weak var txtConfirmPWD : MIGenericTextFiledNew!
+    @IBOutlet weak var txtMobileNumber : MIGenericTextFiledNew!
+    @IBOutlet weak var txtCountryCode : MIGenericTextFiledNew!
+    @IBOutlet weak var txtGender : MIGenericTextFiledNew!
+    @IBOutlet weak var txtDob : MIGenericTextFiledNew!
     @IBOutlet weak var lblCode : UILabel!
     @IBOutlet weak var lblTermsAndCondition : ActiveLabel!
-    @IBOutlet weak var txtCountrys : MIGenericTextFiled!
-    @IBOutlet weak var txtStates : MIGenericTextFiled!
-    @IBOutlet weak var txtCitys : MIGenericTextFiled!
+    @IBOutlet weak var txtCountrys : MIGenericTextFiledNew!
+    @IBOutlet weak var txtStates : MIGenericTextFiledNew!
+    @IBOutlet weak var txtCitys : MIGenericTextFiledNew!
     @IBOutlet weak var btnChkterm:UIButton!
     @IBOutlet weak var viewCountryCode:UIView!
     
@@ -108,10 +108,32 @@ class RegisterViewController: ParentViewController {
         self.txtConfirmPWD.isHidden = true
         self.txtCountrys.isHidden = true
         self.conturyviewContainer.isHidden = true
+        txtCountryCode.layer.borderWidth = 1
+        txtCountryCode.layer.cornerRadius = 5
+        
+        txtMobileNumber.layer.borderWidth = 1
+        txtMobileNumber.layer.cornerRadius = 5
+        
+        txtGender.layer.borderWidth = 1
+        txtGender.layer.cornerRadius = 5
+        
+        txtDob.layer.borderWidth = 1
+        txtDob.layer.cornerRadius = 5
+        
+        txtFirstName.layer.borderWidth = 1
+        txtFirstName.layer.cornerRadius = 5
+        txtLastName.layer.borderWidth = 1
+        txtLastName.layer.cornerRadius = 5
+        
+
+        
+        GCDMainThread.async {
+            self.txtCountryCode.updatePlaceholderFrame(true)
+        }
         
         txtPWD.txtDelegate = self
-        txtConfirmPWD.txtDelegate = self
-        txtMobileNumber.txtDelegate = self
+       txtConfirmPWD.txtDelegate = self
+      //  txtMobileNumber.txtDelegate = self
         if isSocialSignup {
             self.txtPWD.hide(byHeight: true)
             self.txtConfirmPWD.hide(byHeight: true)
@@ -151,10 +173,11 @@ class RegisterViewController: ParentViewController {
         txtEmail.placeHolder = CRegisterPlaceholderEmail
         txtPWD.placeHolder = CRegisterPlaceholderPassword
         txtConfirmPWD.placeHolder = CRegisterPlaceholderConfirmPassword
-        txtMobileNumber.placeHolder = CRegisterPlaceholderMobileNumber
+        txtMobileNumber.placeHolder = CLoginPlaceholderEmailMobile
         txtGender.placeHolder = CRegisterPlaceholderGender
         txtDob.placeHolder = CRegisterPlaceholderDob
-        lblCode.text = CRegisterPlaceholderCode
+        //lblCode.text = CRegisterPlaceholderCode
+        txtCountryCode.placeHolder = CRegisterPlaceholderCode
         btnSingUp.setTitle(CBtnContinue, for: .normal)
         txtGender.setPickerData(arrPickerData: [CRegisterGenderMale, CRegisterGenderFemale ,CRegisterGenderOther], selectedPickerDataHandler: { (text, row, component) in
         }, defaultPlaceholder: "")
@@ -910,14 +933,14 @@ extension RegisterViewController{
 }
 
 // MARK:- -------- UITextFieldDelegate
-extension RegisterViewController: GenericTextFieldDelegate {
+extension RegisterViewController: GenericTextFieldDelegateNew {
     func genericTextFieldClearText(_ textField: UITextField){
         if textField == txtMobileNumber{
             cnTxtEmailLeading.constant = 20
             txtCountryCode.isHidden = true
             self.view.layoutIfNeeded()
             GCDMainThread.async {
-                self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+                //self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
             }
         }
     }
@@ -934,7 +957,7 @@ extension RegisterViewController: GenericTextFieldDelegate {
             self.view.layoutIfNeeded()
             
             GCDMainThread.async {
-                self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+               // self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
             }
         }
     }
@@ -960,7 +983,7 @@ extension RegisterViewController: GenericTextFieldDelegate {
             self.view.layoutIfNeeded()
             
             GCDMainThread.async {
-                self.txtEmail.updateBottomLineAndPlaceholderFrame()
+              //  self.txtEmail.updateBottomLineAndPlaceholderFrame()
             }
             return true
         }
@@ -1007,7 +1030,7 @@ extension RegisterViewController: GenericTextFieldDelegate {
             self.view.layoutIfNeeded()
            
             GCDMainThread.async {
-                self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+               // self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
             }
         }
 

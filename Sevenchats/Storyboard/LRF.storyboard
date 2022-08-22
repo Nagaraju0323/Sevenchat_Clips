@@ -1136,7 +1136,7 @@
                                                     <constraint firstAttribute="height" constant="22" id="kPm-xk-DPY"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sDm-3o-ONw" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sDm-3o-ONw" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="130" width="335" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="sDm-3o-ONw" secondAttribute="height" multiplier="67:10" id="Z81-yE-BMn"/>
@@ -1147,8 +1147,11 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="First name"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="genericTextFieldDelegateNew" destination="xU8-ho-WGd" id="zyf-p6-xey"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BXd-kV-PSB" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BXd-kV-PSB" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="195" width="335" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="BXd-kV-PSB" secondAttribute="height" multiplier="67:10" id="Dy9-I5-nwd"/>
@@ -1159,8 +1162,11 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Last name"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="genericTextFieldDelegateNew" destination="xU8-ho-WGd" id="Sh7-SQ-5Jb"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CcN-Qf-lMh" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CcN-Qf-lMh" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="260" width="335" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="CcN-Qf-lMh" secondAttribute="height" multiplier="67:10" id="cqd-ZX-VKs"/>
@@ -1171,8 +1177,11 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Email address"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="genericTextFieldDelegateNew" destination="xU8-ho-WGd" id="4Ae-t8-2UV"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Csv-DQ-1Fm" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Csv-DQ-1Fm" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="260" width="335" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="Csv-DQ-1Fm" secondAttribute="height" multiplier="67:10" id="0D3-iF-m1E"/>
@@ -1183,8 +1192,11 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Password"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="genericTextFieldDelegateNew" destination="xU8-ho-WGd" id="R8l-Yi-VWR"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RGB-B2-cAz" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RGB-B2-cAz" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="325" width="335" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="RGB-B2-cAz" secondAttribute="height" multiplier="67:10" id="h94-cB-8H9"/>
@@ -1199,7 +1211,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lJt-1p-ZYt">
                                                 <rect key="frame" x="20" y="260" width="70" height="50"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcC-AE-N9P" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcC-AE-N9P" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="10"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="10" id="Gf7-1Z-a8D"/>
@@ -1208,19 +1220,22 @@
                                                         <color key="textColor" red="0.55294117647058827" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="+91" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DoZ-dv-50H">
+                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="  +91" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DoZ-dv-50H" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                         <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Mobile number"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Code"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <outlet property="genericTextFieldDelegateNew" destination="xU8-ho-WGd" id="bNg-Sr-bsG"/>
+                                                        </connections>
                                                     </textField>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_dropdown_grey" translatesAutoresizingMaskIntoConstraints="NO" id="aX9-G2-2HR">
-                                                        <rect key="frame" x="60" y="0.0" width="10" height="50"/>
+                                                        <rect key="frame" x="39" y="0.0" width="15" height="50"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="10" id="5MH-pb-Bqa"/>
+                                                            <constraint firstAttribute="width" constant="15" id="5MH-pb-Bqa"/>
                                                         </constraints>
                                                     </imageView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ME-Hg-NJw">
@@ -1233,11 +1248,11 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="aX9-G2-2HR" firstAttribute="leading" secondItem="DoZ-dv-50H" secondAttribute="trailing" id="2I3-jE-ACb"/>
+                                                    <constraint firstItem="aX9-G2-2HR" firstAttribute="leading" secondItem="DoZ-dv-50H" secondAttribute="trailing" constant="-21" id="2I3-jE-ACb"/>
                                                     <constraint firstItem="EcC-AE-N9P" firstAttribute="leading" secondItem="lJt-1p-ZYt" secondAttribute="leading" id="30s-91-cEV"/>
                                                     <constraint firstItem="EcC-AE-N9P" firstAttribute="top" secondItem="lJt-1p-ZYt" secondAttribute="top" id="8Sj-2H-kWX"/>
                                                     <constraint firstAttribute="bottom" secondItem="DoZ-dv-50H" secondAttribute="bottom" id="8hO-0T-DJ8"/>
-                                                    <constraint firstAttribute="trailing" secondItem="aX9-G2-2HR" secondAttribute="trailing" id="DBm-J6-Ncs"/>
+                                                    <constraint firstAttribute="trailing" secondItem="aX9-G2-2HR" secondAttribute="trailing" constant="16" id="DBm-J6-Ncs"/>
                                                     <constraint firstItem="aX9-G2-2HR" firstAttribute="top" secondItem="lJt-1p-ZYt" secondAttribute="top" id="Jkh-hq-TIl"/>
                                                     <constraint firstItem="1ME-Hg-NJw" firstAttribute="leading" secondItem="lJt-1p-ZYt" secondAttribute="leading" id="LWc-eT-Xpb"/>
                                                     <constraint firstAttribute="width" constant="70" id="Ucb-NQ-SoT"/>
@@ -1249,7 +1264,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="1ME-Hg-NJw" secondAttribute="bottom" id="pQY-jG-xTP"/>
                                                 </constraints>
                                             </view>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YGs-zy-sKh" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YGs-zy-sKh" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="260" width="335" height="50"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
@@ -1257,8 +1272,11 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Mobile number"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="genericTextFieldDelegateNew" destination="xU8-ho-WGd" id="oPb-kH-6OB"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n5H-tk-45g" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n5H-tk-45g" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="325" width="335" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="n5H-tk-45g" secondAttribute="height" multiplier="67:10" id="ud0-lW-yXn"/>
@@ -1269,6 +1287,9 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Select gender"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="genericTextFieldDelegateNew" destination="RGB-B2-cAz" id="mOf-rr-5va"/>
+                                                </connections>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_dropdown_grey" translatesAutoresizingMaskIntoConstraints="NO" id="Rj0-Do-JEp">
                                                 <rect key="frame" x="339" y="325" width="11" height="50"/>
@@ -1276,7 +1297,7 @@
                                                     <constraint firstAttribute="width" constant="11" id="MmU-FP-PuJ"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HZJ-B4-Cl0" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" tag="23" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HZJ-B4-Cl0" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="390" width="335" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="HZJ-B4-Cl0" secondAttribute="height" multiplier="67:10" id="W3r-EL-YbL"/>
@@ -1287,6 +1308,9 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Date of birth"/>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="genericTextFieldDelegateNew" destination="xU8-ho-WGd" id="wcQ-Lx-0XL"/>
+                                                </connections>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gSJ-hq-YgL">
                                                 <rect key="frame" x="330" y="390" width="25" height="50"/>
@@ -1541,7 +1565,7 @@
                         <outlet property="txtCountrys" destination="r7Z-Mp-UZ9" id="enX-Qq-65p"/>
                         <outlet property="txtDob" destination="HZJ-B4-Cl0" id="ZrH-SN-Usv"/>
                         <outlet property="txtEmail" destination="CcN-Qf-lMh" id="SHt-vc-JMF"/>
-                        <outlet property="txtFirstName" destination="sDm-3o-ONw" id="Mao-9H-Z0v"/>
+                        <outlet property="txtFirstName" destination="sDm-3o-ONw" id="giV-LS-8n8"/>
                         <outlet property="txtGender" destination="n5H-tk-45g" id="5wD-bB-f3z"/>
                         <outlet property="txtLastName" destination="BXd-kV-PSB" id="ix0-vd-4UK"/>
                         <outlet property="txtMobileNumber" destination="YGs-zy-sKh" id="QLh-JI-8sm"/>
@@ -1553,7 +1577,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="txK-53-ATY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3004" y="246"/>
+            <point key="canvasLocation" x="3003.6231884057975" y="245.75892857142856"/>
         </scene>
         <!--Invite And Connect View Controller-->
         <scene sceneID="MHQ-GB-oTy">
@@ -2826,7 +2850,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Xy-ZT-Tws">
                                 <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <subviews>
-                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="igN-e2-9Jk" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="igN-e2-9Jk" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                         <rect key="frame" x="20" y="50" width="335" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="igN-e2-9Jk" secondAttribute="height" multiplier="67:10" id="985-VC-boX"/>
@@ -2838,10 +2862,10 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="New password"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="genericTextFieldDelegate" destination="Q6N-1s-VCY" id="KXC-7u-aIp"/>
+                                            <outlet property="genericTextFieldDelegateNew" destination="Q6N-1s-VCY" id="01L-2U-1Ww"/>
                                         </connections>
                                     </textField>
-                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lka-1D-mgb" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
+                                    <textField opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lka-1D-mgb" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                         <rect key="frame" x="20" y="115" width="335" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="lka-1D-mgb" secondAttribute="height" multiplier="67:10" id="rb4-nr-EE3"/>
@@ -2853,7 +2877,7 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="placeHolder" value="Confirm password"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="genericTextFieldDelegate" destination="Q6N-1s-VCY" id="U1d-jT-TyM"/>
+                                            <outlet property="genericTextFieldDelegateNew" destination="Q6N-1s-VCY" id="vy1-my-sAo"/>
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lB-Xa-Ogv" customClass="MIGenericButton" customModule="Sevenchats" customModuleProvider="target">
@@ -2908,10 +2932,10 @@
     </scenes>
     <designables>
         <designable name="AEM-Lq-5JL">
-            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="441" height="20"/>
         </designable>
         <designable name="S3X-nm-tel">
-            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="441" height="20"/>
         </designable>
     </designables>
     <resources>

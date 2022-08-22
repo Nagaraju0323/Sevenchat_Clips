@@ -11,8 +11,8 @@ import UIKit
 class PassWordViewController: ParentViewController {
 
     
-    @IBOutlet weak var txtPWD : MIGenericTextFiled!
-    @IBOutlet weak var txtConfirmPWD : MIGenericTextFiled!
+    @IBOutlet weak var txtPWD : MIGenericTextFiledNew!
+    @IBOutlet weak var txtConfirmPWD : MIGenericTextFiledNew!
     @IBOutlet weak var btnNext :UIButton!
     
     var profileImgUrlupdate = ""
@@ -35,10 +35,15 @@ class PassWordViewController: ParentViewController {
     
     func intilization(){
         self.title = CRegisterTitle
-        txtPWD.txtDelegate = self
-        txtConfirmPWD.txtDelegate = self
+        //txtPWD.txtDelegate = self
+      //  txtConfirmPWD.txtDelegate = self
         txtPWD.placeHolder = CRegisterPlaceholderPassword
         txtConfirmPWD.placeHolder = CRegisterPlaceholderConfirmPassword
+        
+        txtPWD.layer.borderWidth = 1
+        txtPWD.layer.cornerRadius = 5
+        txtConfirmPWD.layer.borderWidth = 1
+        txtConfirmPWD.layer.cornerRadius = 5
         
     }
     
@@ -105,7 +110,7 @@ class PassWordViewController: ParentViewController {
 }
 
 
-extension PassWordViewController: GenericTextFieldDelegate {
+extension PassWordViewController: GenericTextFieldDelegateNew {
     
     @objc func genericTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == txtPWD || textField == txtConfirmPWD{
