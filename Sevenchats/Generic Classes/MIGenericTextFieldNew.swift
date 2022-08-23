@@ -206,7 +206,7 @@ class MIGenericTextFiledNew: UITextField {
         hStackView.distribution = .fill;
         hStackView.alignment = .top;
         hStackView.spacing = 10;
-        
+         
         btnClearText.frame = CGRect(x: 0.0, y: 0, width: 30, height: self.frame.size.height)
         btnClearText.isHidden = true
         btnClearText.setImage(#imageLiteral(resourceName: "ic_cancle"), for: .normal)
@@ -251,7 +251,13 @@ class MIGenericTextFiledNew: UITextField {
             hStackView.addArrangedSubview(btnClearText)
             break
             
-
+        case 24:
+            // Textfiled with moveble placeholder (ex. - LRF Related)
+            button.frame = CGRect(x: 0.0, y: 0, width: 30, height: self.frame.size.height)
+            button.setImage(UIImage(named: "email"), for: .normal)
+            hStackView.addArrangedSubview(button)
+            hStackView.addArrangedSubview(btnClearText)
+            break
         default:
             break
         }

@@ -1136,8 +1136,9 @@
                                                     <constraint firstAttribute="height" constant="22" id="kPm-xk-DPY"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sDm-3o-ONw" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sDm-3o-ONw" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="130" width="335" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="sDm-3o-ONw" secondAttribute="height" multiplier="67:10" id="Z81-yE-BMn"/>
                                                 </constraints>
@@ -1151,8 +1152,9 @@
                                                     <outlet property="genericTextFieldDelegateNew" destination="xU8-ho-WGd" id="zyf-p6-xey"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BXd-kV-PSB" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BXd-kV-PSB" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="195" width="335" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="BXd-kV-PSB" secondAttribute="height" multiplier="67:10" id="Dy9-I5-nwd"/>
                                                 </constraints>
@@ -1220,8 +1222,9 @@
                                                         <color key="textColor" red="0.55294117647058827" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="  +91" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DoZ-dv-50H" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
+                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="  +91" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DoZ-dv-50H" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
@@ -1240,7 +1243,7 @@
                                                     </imageView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ME-Hg-NJw">
                                                         <rect key="frame" x="0.0" y="49" width="70" height="1"/>
-                                                        <color key="backgroundColor" red="0.2627450980392157" green="0.27450980392156865" blue="0.2627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="nHU-7a-Bgt"/>
                                                         </constraints>
@@ -1264,8 +1267,9 @@
                                                     <constraint firstAttribute="bottom" secondItem="1ME-Hg-NJw" secondAttribute="bottom" id="pQY-jG-xTP"/>
                                                 </constraints>
                                             </view>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YGs-zy-sKh" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YGs-zy-sKh" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="260" width="335" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="Poppins-Light" family="Poppins" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
@@ -1276,8 +1280,9 @@
                                                     <outlet property="genericTextFieldDelegateNew" destination="xU8-ho-WGd" id="oPb-kH-6OB"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n5H-tk-45g" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n5H-tk-45g" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="325" width="335" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="n5H-tk-45g" secondAttribute="height" multiplier="67:10" id="ud0-lW-yXn"/>
                                                 </constraints>
@@ -1297,8 +1302,9 @@
                                                     <constraint firstAttribute="width" constant="11" id="MmU-FP-PuJ"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" tag="23" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HZJ-B4-Cl0" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
+                                            <textField opaque="NO" tag="23" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HZJ-B4-Cl0" customClass="MIGenericTextFiledNew" customModule="Sevenchats" customModuleProvider="target">
                                                 <rect key="frame" x="20" y="390" width="335" height="50"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="HZJ-B4-Cl0" secondAttribute="height" multiplier="67:10" id="W3r-EL-YbL"/>
                                                 </constraints>
@@ -1606,7 +1612,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Contact" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRG-Y6-3gV">
-                                        <rect key="frame" x="123.5" y="14" width="128" height="50"/>
+                                        <rect key="frame" x="131.5" y="14" width="112.5" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" id="5oH-we-EoM"/>
                                             <constraint firstAttribute="height" constant="50" id="Buc-5C-IKy"/>
@@ -2932,10 +2938,10 @@
     </scenes>
     <designables>
         <designable name="AEM-Lq-5JL">
-            <size key="intrinsicContentSize" width="441" height="20"/>
+            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
         </designable>
         <designable name="S3X-nm-tel">
-            <size key="intrinsicContentSize" width="441" height="20"/>
+            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
         </designable>
     </designables>
     <resources>

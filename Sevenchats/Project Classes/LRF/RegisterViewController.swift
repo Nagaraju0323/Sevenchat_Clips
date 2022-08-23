@@ -1030,7 +1030,7 @@ extension RegisterViewController: GenericTextFieldDelegateNew {
             self.view.layoutIfNeeded()
            
             GCDMainThread.async {
-               // self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+//                self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
             }
         }
 
