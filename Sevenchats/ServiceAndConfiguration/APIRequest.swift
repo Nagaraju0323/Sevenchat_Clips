@@ -102,20 +102,20 @@ let BASEURLMINIO: String = "https://stg.sevenchats.com:3443"
 
 //Beta server
 
-//    var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
-//    let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
-//    let BASEMSGURLS:String       =   "https://beta.sevenchats.com"
-//    var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
-//    var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
-//    var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
-//    var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
-//    var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
-//    var BASEAUTHLOGIN:String         =   "https://beta.sevenchats.com/"
-//    var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
-//    var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
-//    let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
-//    let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
-//    let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
+  /*manage_contact  var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
+    let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
+    let BASEMSGURLS:String       =   "https://beta.sevenchats.com"
+    var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
+    var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
+    var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
+    var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
+    var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
+    var BASEAUTHLOGIN:String         =   "https://beta.sevenchats.com/"
+    var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
+    var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
+    let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
+    let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
+    let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"*/
 
 //let BASEURL_Rew: String = "QAY"
 
@@ -207,7 +207,8 @@ let CAPITagAddPost = "add-post"
 let CAPITagSaveGallery = "save-gallery"
 let CAPITagReportUser = "report-user"
 let CAPITagGroupsList = "groups-list"
-let CAPITagUserChatList = "chatfriends/"
+//let CAPITagUserChatList = "chatfriends/"
+let CAPITagUserChatList = "chatfriends/v1/"
 let CAPITagUserTopic = "api/createTopic"
 let CAPITagUserChatDetails = "user-chat-details"
 let CAPITagUserChatLstDetails = "api/getLastMessages"
@@ -2268,7 +2269,7 @@ extension APIRequest {
         dict[CFriend_status] = "1"
         
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
-        return Networking.sharedInstance.POSTJSON(apiTag: CAPITagUserChatList + "v1/add", param: dict, successBlock: { (task, response) in
+        return Networking.sharedInstance.POSTJSON(apiTag: CAPITagUserChatList + "add", param: dict, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             //            if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagFavWeb) {
             //                completion(response, nil)
@@ -4865,6 +4866,10 @@ extension APIRequest {
             tblLanguageText.delete_account = dict?.valueForString(key: "delete_account")
             tblLanguageText.deactivate_content = dict?.valueForString(key: "deactivate_content")
             tblLanguageText.delete_content = dict?.valueForString(key: "delete_content")
+            tblLanguageText.continue_delete_account = dict?.valueForString(key: "continue_delete_account")
+            tblLanguageText.continue_deactivate_account = dict?.valueForString(key: "continue_deactivate_account")
+            tblLanguageText.account_ownership = dict?.valueForString(key: "account_ownership")
+            tblLanguageText.manage_contact = dict?.valueForString(key: "manage_contact")
             
             
             

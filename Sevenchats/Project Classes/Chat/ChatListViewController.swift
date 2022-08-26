@@ -170,9 +170,10 @@ extension ChatListViewController {
         
         guard let userid = appDelegate.loginUser?.user_id else {return}
         let userID = String(userid)
+        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID ?? "")
         MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
         
-        apiTask = APIRequest.shared().getUserChatList(timestamp: apiTimeStamp, userID:userID,showLoader: false, completion: { (response, error) in
+        apiTask = APIRequest.shared().getUserChatList(timestamp: apiTimeStamp, userID:encryptUser,showLoader: false, completion: { (response, error) in
             self.refreshControl.endRefreshing()
             
             if response != nil {
@@ -202,6 +203,7 @@ extension ChatListViewController {
 
 // MARK:- --------- UITableView Datasources/Delegate
 extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -240,40 +242,45 @@ extension ChatListViewController : UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUserListTblCell", for: indexPath) as? ChatUserListTblCell {
             
-            let chatUserInfo = arrUserList[indexPath.row]
-            if (isSearch) {
-                let chatUserInfo = arrUsersearchList[indexPath.row]
-                cell.userChatCellConfiguration(chatUserInfo)
-                
-            }
-            else {
-                let chatUserInfo = arrUserList[indexPath.row]
-                cell.userChatCellConfiguration(chatUserInfo)
-            }
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "ChatUserListTblCell", for: indexPath) as? ChatUserListTblCell {
+                  
+                  let chatUserInfo = arrUserList[indexPath.row]
+                  if (isSearch) {
+                      let chatUserInfo = arrUsersearchList[indexPath.row]
+                      cell.userChatCellConfiguration(chatUserInfo)
+                      
+                  }
+                  else {
+                      let chatUserInfo = arrUserList[indexPath.row]
+                      cell.userChatCellConfiguration(chatUserInfo)
+                  }
+                  
+                  /*
+                   Redirect to th userprofile
+                   */
+                  cell.btnUserInfo.touchUpInside { [weak self] (sender) in
+                      guard let _ = self else { return }
+                      if let userDetailVC = CStoryboardProfile.instantiateViewController(withIdentifier: "OtherUserProfileViewController") as? OtherUserProfileViewController {
+                          let chatInfo = chatUserInfo.dictionaryWithValues(forKeys: Array((chatUserInfo.entity.attributesByName.keys)))
+                          userDetailVC.iObject = chatInfo
+                          userDetailVC.userIDNew = chatInfo.valueForString(key: "user_id")
+                          self?.navigationController?.pushViewController(userDetailVC, animated: true)
+                      }
+                  }
+                  /*
+                   LOAD MORE DATA...
+                   If not update online offline status.
+                   */
+                  if indexPath == tblUserChat.lastIndexPath() && !isChangingOnlineOffline {
+                     // self.getUserChatListFromServer(isNew: false)
+                  }
+                  return cell
+              }
             
-            /*
-             Redirect to th userprofile
-             */
-            cell.btnUserInfo.touchUpInside { [weak self] (sender) in
-                guard let _ = self else { return }
-                if let userDetailVC = CStoryboardProfile.instantiateViewController(withIdentifier: "OtherUserProfileViewController") as? OtherUserProfileViewController {
-                    let chatInfo = chatUserInfo.dictionaryWithValues(forKeys: Array((chatUserInfo.entity.attributesByName.keys)))
-                    userDetailVC.iObject = chatInfo
-                    userDetailVC.userIDNew = chatInfo.valueForString(key: "user_id")
-                    self?.navigationController?.pushViewController(userDetailVC, animated: true)
-                }
-            }
-            /*
-             LOAD MORE DATA...
-             If not update online offline status.
-             */
-            if indexPath == tblUserChat.lastIndexPath() && !isChangingOnlineOffline {
-               // self.getUserChatListFromServer(isNew: false)
-            }
-            return cell
-        }
+   
+        
+        
         return tableView.tableViewDummyCell()
     }
     

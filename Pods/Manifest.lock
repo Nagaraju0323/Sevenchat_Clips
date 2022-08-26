@@ -138,6 +138,15 @@ PODS:
   - IQKeyboardManagerSwift (6.5.5)
   - ISEmojiView (0.2.6)
   - LGSideMenuController (2.1.1)
+  - libwebp (1.2.3):
+    - libwebp/demux (= 1.2.3)
+    - libwebp/mux (= 1.2.3)
+    - libwebp/webp (= 1.2.3)
+  - libwebp/demux (1.2.3):
+    - libwebp/webp
+  - libwebp/mux (1.2.3):
+    - libwebp/demux
+  - libwebp/webp (1.2.3)
   - Lightbox (2.3.0):
     - Imaginary (~> 4.0)
   - nanopb (0.3.9011):
@@ -160,6 +169,9 @@ PODS:
   - SDWebImage/Core (4.4.8)
   - SDWebImage/GIF (4.4.8):
     - FLAnimatedImage (~> 1.0)
+    - SDWebImage/Core
+  - SDWebImage/WebP (4.4.8):
+    - libwebp (< 2.0, >= 0.5)
     - SDWebImage/Core
   - Socket.IO-Client-Swift (16.0.1):
     - Starscream (~> 4.0)
@@ -197,6 +209,7 @@ DEPENDENCIES:
   - PhoneNumberKit
   - SDWebImage
   - SDWebImage/GIF
+  - SDWebImage/WebP
   - Socket.IO-Client-Swift (~> 16.0.1)
   - StompClientLib
   - SwiftStomp
@@ -241,6 +254,7 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - ISEmojiView
     - LGSideMenuController
+    - libwebp
     - Lightbox
     - nanopb
     - ObjectMapper
@@ -294,6 +308,7 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   ISEmojiView: f7cd94a6c93307f429ec5da001293d0b02247f03
   LGSideMenuController: ae40c80983ab8b8801c7cef0a6804d43aaa72d45
+  libwebp: 60305b2e989864154bd9be3d772730f08fc6a59c
   Lightbox: d317750e4132bfb871a5307cfe0a2c7d6a583c65
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   ObjectMapper: b53ae947d370bf89423e86be7d4e2d2b2a8d3f40
@@ -310,6 +325,6 @@ SPEC CHECKSUMS:
   TLPhotoPicker: a5c339732b8326bb16cbb4e00ed01a86f2bfbbb3
   TrueTime: b49551ffafb28a9dee04e51b226f42a416010842
 
-PODFILE CHECKSUM: b87c6fda9ef8dc2ecc5a93fd8423ed1256fb2eae
+PODFILE CHECKSUM: 7af21b233cd1c907f243b70ab62ef9eac755825d
 
 COCOAPODS: 1.11.2

@@ -119,6 +119,7 @@
         <attribute name="accept" optional="YES" attributeType="String"/>
         <attribute name="accept_all_tems_and_conditions" optional="YES" attributeType="String"/>
         <attribute name="accept_rules" optional="YES" attributeType="String"/>
+        <attribute name="account_ownership" optional="YES" attributeType="String"/>
         <attribute name="account_privacy_msg" optional="YES" attributeType="String"/>
         <attribute name="active_account_status" optional="YES" attributeType="String"/>
         <attribute name="ad_free_subscription" optional="YES" attributeType="String"/>
@@ -250,6 +251,8 @@
         <attribute name="contact_permission_is_required" optional="YES" attributeType="String"/>
         <attribute name="contact_seller" optional="YES" attributeType="String"/>
         <attribute name="contacts" optional="YES" attributeType="String"/>
+        <attribute name="continue_deactivate_account" optional="YES" attributeType="String"/>
+        <attribute name="continue_delete_account" optional="YES" attributeType="String"/>
         <attribute name="continue_text" optional="YES" attributeType="String"/>
         <attribute name="continue_without_microphone" optional="YES" attributeType="String"/>
         <attribute name="country" optional="YES" attributeType="String"/>
@@ -442,6 +445,7 @@
         <attribute name="login_with_social" optional="YES" attributeType="String"/>
         <attribute name="look_like_spam_user" optional="YES" attributeType="String"/>
         <attribute name="maintenance_mode" optional="YES" attributeType="String"/>
+        <attribute name="manage_contact" optional="YES" attributeType="String"/>
         <attribute name="mark_as_sold" optional="YES" attributeType="String"/>
         <attribute name="max_50_participants" optional="YES" attributeType="String"/>
         <attribute name="max_file_size_allowed_to_upload_1_GB" optional="YES" attributeType="String"/>
@@ -1050,7 +1054,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11414"/>
+        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11474"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>

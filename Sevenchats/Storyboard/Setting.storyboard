@@ -294,13 +294,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account ownership and control " lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCU-I8-xur" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="285" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="A7o-PU-gP7"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="A7o-PU-gP7"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manage your data,modify your legacy contact, deactivate or delete your account and more" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uh5-gW-U4K" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manage your data,modify your legacy contact, deactivate or delete your account and more" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uh5-gW-U4K" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="29" width="285" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="31" id="9NY-pR-xIs"/>
@@ -343,6 +343,7 @@
                                     <constraint firstItem="zCU-I8-xur" firstAttribute="top" secondItem="ibX-tg-hMq" secondAttribute="top" id="bV8-xm-EeE"/>
                                     <constraint firstAttribute="trailing" secondItem="5OV-Vg-roo" secondAttribute="trailing" id="bnk-Cn-88J"/>
                                     <constraint firstItem="5OV-Vg-roo" firstAttribute="top" secondItem="ibX-tg-hMq" secondAttribute="top" id="l85-Wp-Zff"/>
+                                    <constraint firstItem="uh5-gW-U4K" firstAttribute="top" relation="greaterThanOrEqual" secondItem="zCU-I8-xur" secondAttribute="bottom" constant="3" id="pFn-fT-7n0"/>
                                     <constraint firstAttribute="bottom" secondItem="uh5-gW-U4K" secondAttribute="bottom" id="x0o-kM-YXT"/>
                                     <constraint firstAttribute="bottom" secondItem="5OV-Vg-roo" secondAttribute="bottom" id="yUE-cf-MM1"/>
                                 </constraints>
@@ -395,12 +396,14 @@
                         <outlet property="imgNextArrow" destination="DfQ-XR-r7l" id="V75-lZ-VpZ"/>
                         <outlet property="lblBasic" destination="ekM-HW-zUG" id="AW1-Sw-fQ2"/>
                         <outlet property="lblBlockedUser" destination="JlT-69-7p3" id="dfs-tl-glv"/>
+                        <outlet property="lblManageContent" destination="uh5-gW-U4K" id="EgB-kq-Hi0"/>
+                        <outlet property="lblOwnerShip" destination="zCU-I8-xur" id="tsf-JR-x3O"/>
                         <outlet property="lblUnknown" destination="6br-EJ-TFQ" id="UnD-ND-sAX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CdE-N5-YYD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1012" y="-89"/>
+            <point key="canvasLocation" x="1011.5384615384615" y="-89.218009478672982"/>
         </scene>
         <!--Delete User View Controller-->
         <scene sceneID="Q14-cA-d8E">
@@ -780,23 +783,23 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="iHZ-vl-avt">
-                                        <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="122.66666412353516"/>
+                                        <rect key="frame" x="0.0" y="44.666666030883789" width="390" height="123"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iHZ-vl-avt" id="Yuj-mu-ZDR">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="122.66666412353516"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="123"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B94-ev-qBR">
-                                                    <rect key="frame" x="0.0" y="0.0" width="390" height="122.66666666666667"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="390" height="123"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deactivation your sevenchats account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KvT-71-6Kg">
-                                                            <rect key="frame" x="20" y="20" width="350" height="20.666666666666671"/>
+                                                            <rect key="frame" x="20" y="20" width="350" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vYg-n1-xeb">
-                                                            <rect key="frame" x="20" y="40.666666666666657" width="350" height="74"/>
+                                                            <rect key="frame" x="20" y="41" width="350" height="74"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="74" id="9fi-RV-YyF"/>
                                                             </constraints>
@@ -827,7 +830,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="70" id="ig2-Tb-ZVc">
-                                        <rect key="frame" x="0.0" y="167.33333015441895" width="390" height="70"/>
+                                        <rect key="frame" x="0.0" y="167.66666603088379" width="390" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ig2-Tb-ZVc" id="Ljq-Ew-sIy">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="70"/>
@@ -897,7 +900,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="241" id="mRQ-Hc-dVh">
-                                        <rect key="frame" x="0.0" y="237.33333015441895" width="390" height="241"/>
+                                        <rect key="frame" x="0.0" y="237.66666603088379" width="390" height="241"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mRQ-Hc-dVh" id="avo-RZ-9AE">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="241"/>
@@ -1236,11 +1239,15 @@
                         <outlet property="deactiveImg" destination="i8M-0b-h71" id="Kew-8T-JhS"/>
                         <outlet property="deleteBtn" destination="jwV-wD-rwx" id="lHa-qE-irF"/>
                         <outlet property="deleteImg" destination="agA-Zh-WT4" id="sYh-W4-ezl"/>
+                        <outlet property="lblDeactiveAcc" destination="e51-hX-TOH" id="8Qq-IP-XFw"/>
+                        <outlet property="lblDeactiveCon" destination="i4n-na-gWj" id="IOO-37-0He"/>
+                        <outlet property="lblDeleteAcc" destination="WvP-iD-bSC" id="3gq-fc-lfO"/>
+                        <outlet property="lblDeleteCon" destination="trL-mG-F1Z" id="Pdi-Ih-JHL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZHK-8F-iUu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3984" y="-123"/>
+            <point key="canvasLocation" x="3983.8461538461538" y="-123.34123222748815"/>
         </scene>
         <!--Enter Password View Controller-->
         <scene sceneID="Hel-Sa-oxU">
@@ -1259,8 +1266,8 @@
                                     <action selector="continueBtnCLK:" destination="c4o-em-fvl" eventType="touchUpInside" id="Q12-BP-V0g"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For your security, please re -enter your password to continue" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEz-Ub-idY" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                                <rect key="frame" x="20" y="35" width="335" height="36.666666666666657"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For your security, please re -enter your password to continue" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lEz-Ub-idY">
+                                <rect key="frame" x="20" y="150" width="335" height="36.666666666666657"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="ql1-sS-q16"/>
                                 </constraints>
@@ -1269,7 +1276,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Il9-b4-q4V" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                <rect key="frame" x="20" y="121.66666666666669" width="335" height="50"/>
+                                <rect key="frame" x="20" y="236.66666666666663" width="335" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Il9-b4-q4V" secondAttribute="height" multiplier="67:10" id="fIt-g9-Lft"/>
                                 </constraints>
@@ -1278,7 +1285,7 @@
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="one-time-code"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WA4-uf-nAV" customClass="MIGenericTextFiled" customModule="Sevenchats" customModuleProvider="target">
-                                <rect key="frame" x="20" y="197" width="335" height="50"/>
+                                <rect key="frame" x="20" y="312" width="335" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WA4-uf-nAV" secondAttribute="height" multiplier="67:10" id="Pns-Pg-aw0"/>
                                 </constraints>
@@ -1293,7 +1300,7 @@
                         <viewLayoutGuide key="safeArea" id="3Qj-Tr-RPL"/>
                         <color key="backgroundColor" red="0.97647058819999999" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="lEz-Ub-idY" firstAttribute="top" secondItem="aBZ-ie-Vyx" secondAttribute="top" constant="35" id="2Ak-Uz-IaP"/>
+                            <constraint firstItem="lEz-Ub-idY" firstAttribute="top" secondItem="aBZ-ie-Vyx" secondAttribute="top" constant="150" id="2Ak-Uz-IaP"/>
                             <constraint firstItem="WA4-uf-nAV" firstAttribute="top" secondItem="Il9-b4-q4V" secondAttribute="bottom" constant="25.333333333333314" id="AZ7-xt-RIE"/>
                             <constraint firstItem="WA4-uf-nAV" firstAttribute="width" secondItem="WA4-uf-nAV" secondAttribute="height" multiplier="67:10" id="B8f-xx-RBL"/>
                             <constraint firstItem="JAl-WQ-NJd" firstAttribute="centerX" secondItem="aBZ-ie-Vyx" secondAttribute="centerX" id="Eri-HM-4o7"/>
@@ -1317,6 +1324,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
+                        <outlet property="deleteBtn" destination="JAl-WQ-NJd" id="KC4-Yq-Noo"/>
+                        <outlet property="lblTitle" destination="lEz-Ub-idY" id="D5X-6F-Pm0"/>
                         <outlet property="txtEmail" destination="Il9-b4-q4V" id="tEQ-Sd-rtD"/>
                         <outlet property="txtPWD" destination="WA4-uf-nAV" id="lTF-5K-xoh"/>
                     </connections>

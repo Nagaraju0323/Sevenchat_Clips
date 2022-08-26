@@ -74,7 +74,12 @@
     "delete_account":"Delete account",
     "deactivate_content": "Deactivating your account is temporary. Your account will be disabled and your name and photos will be removed from most things you have shared.",
     "delete_content": "Deleting your acount is parmanent.When you delete your account. you wont be able to retrieve the content or information that you have shared on sevenchat. All of your messages posts will be deleted.",
-    "not_to_do":"Not To Do"
+    "not_to_do":"Not To Do",
+    "continue_delete_account":"Contine To Account Deletion",
+    "continue_deactivate_account":"Continue To account Deactivation",
+    "account_ownership":"Account ownership and control ",
+    "manage_contact":"Manage your data,modify your legacy contact,deactivate or delete your account and more"
+    
     
     
     

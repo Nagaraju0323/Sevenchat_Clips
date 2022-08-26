@@ -41,10 +41,14 @@ var CRule_5: String{ return appDelegate.langugaeText?.rule_5 ?? "Rule 5:I (User)
 var CRule_6: String{ return appDelegate.langugaeText?.rule_6 ?? "I (User) will take time to read Digital Millennium Copyright Act and the Communications Decency Act." }
 var CAcceptRules: String{ return appDelegate.langugaeText?.accept_rules ?? "Accept below rules" }
 var CAcceptConditions: String{ return appDelegate.langugaeText?.rules_conditions ?? "Do you understand and accept the above conditions (Y/N)" }
-var CDeleteAcc: String{ return appDelegate.langugaeText?.rules_conditions ?? "Delete account" }
-var CDeactiveAcc: String{ return appDelegate.langugaeText?.rules_conditions ?? "Deactivate account" }
-var CDeleteContent: String{ return appDelegate.langugaeText?.rules_conditions ?? "Deleting your acount is parmanent.When you delete your account. you wont be able to retrieve the content or information that you have shared on sevenchat. All of your messages posts will be deleted." }
-var CDeactiveContent: String{ return appDelegate.langugaeText?.rules_conditions ?? "Deactivating your account is temporary. Your account will be disabled and your name and photos will be removed from most things you have shared." }
+var CDeleteAcc: String{ return appDelegate.langugaeText?.delete_account ?? "Delete account" }
+var CDeactiveAcc: String{ return appDelegate.langugaeText?.deactivate_account ?? "Deactivate account" }
+var CContinueDeactiveAcc: String{ return appDelegate.langugaeText?.continue_deactivate_account ?? "Continue To account Deactivation" }
+var CContinueDeleteAcc: String{ return appDelegate.langugaeText?.continue_delete_account ?? "Contine To Account Deletion" }
+var CDeleteContent: String{ return appDelegate.langugaeText?.delete_content ?? "Deleting your acount is parmanent.When you delete your account. you wont be able to retrieve the content or information that you have shared on sevenchat. All of your messages posts will be deleted." }
+var CDeactiveContent: String{ return appDelegate.langugaeText?.deactivate_content ?? "Deactivating your account is temporary. Your account will be disabled and your name and photos will be removed from most things you have shared." }
+var CAccountOwnership: String{ return appDelegate.langugaeText?.account_ownership ?? "Account ownership and control" }
+var CManage_content: String{ return appDelegate.langugaeText?.manage_contact ?? "Manage your data,modify your legacy contact,deactivate or delete your account and more" }
 
 //MARK:- Navigation Title
 var CNavLikes: String{ return appDelegate.langugaeText?.likes ?? "Likes" }

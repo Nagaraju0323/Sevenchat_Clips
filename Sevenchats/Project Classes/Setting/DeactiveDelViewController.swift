@@ -22,6 +22,10 @@ class DeactiveDelViewController: ParentViewController {
     
     @IBOutlet weak var deactiveImg: UIImageView!
     
+    @IBOutlet var lblDeactiveAcc : UILabel!
+    @IBOutlet var lblDeleteAcc : UILabel!
+    @IBOutlet var lblDeactiveCon : UILabel!
+    @IBOutlet var lblDeleteCon : UILabel!
     
     
     
@@ -35,6 +39,7 @@ class DeactiveDelViewController: ParentViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Intilization()
+       
         
         // Do any additional setup after loading the view.
     }
@@ -43,6 +48,11 @@ class DeactiveDelViewController: ParentViewController {
         
         self.continueBtn.isHidden = true
         self.cancelBtn.isHidden = true
+        self.lblDeactiveAcc.text = CDeactiveAcc
+        self.lblDeleteAcc.text = CDeleteAcc
+        self.lblDeactiveCon.text = CDeactiveContent
+        self.lblDeleteCon.text = CDeleteContent
+        self.cancelBtn.setTitle(CBtnCancel, for: .normal)
     }
     
     //MARK :- @IBAction Delete & Deacvivate
@@ -55,6 +65,7 @@ class DeactiveDelViewController: ParentViewController {
             deactivebtnIsselected = true
             deactiveBtn.isSelected = true
             deleteBtn.isSelected = false
+            self.continueBtn.setTitle(CContinueDeactiveAcc, for: .normal)
             deactiveImg.image = UIImage(named: "checked-4")
             deleteImg.image = UIImage(named: "dry-clean")
             
@@ -63,6 +74,7 @@ class DeactiveDelViewController: ParentViewController {
             deactivebtnIsselected = false
             deleteBtn.isSelected = true
             deactiveBtn.isSelected = false
+            self.continueBtn.setTitle(CContinueDeleteAcc, for: .normal)
             deleteImg.image = UIImage(named: "checked-4")
             deactiveImg.image = UIImage(named: "dry-clean")
         }
@@ -72,7 +84,7 @@ class DeactiveDelViewController: ParentViewController {
         
         //change languageHear
         if deactivebtnIsselected == true {
-            let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: CMessageDeactivate, style: .default, handler: { (_) in
                 self.userAccountDeactive()
             }))

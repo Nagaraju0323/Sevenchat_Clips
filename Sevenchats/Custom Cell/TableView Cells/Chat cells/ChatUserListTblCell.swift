@@ -221,3 +221,48 @@ extension ChatUserListTblCell {
         
     }
 }
+
+
+class ChatUserListTblCellTop: UITableViewCell {
+  
+    @IBOutlet var imgUser : UIImageView!
+    @IBOutlet var lblUserName : UILabel!
+    @IBOutlet var lblMessage : UILabel!
+    @IBOutlet var lblUnreadCount : UILabel!
+    @IBOutlet var lblMessageTime : UILabel!
+    @IBOutlet var btnMemberInfo : UIButton!
+    @IBOutlet var btngroupInfo : UIButton!
+    @IBOutlet weak var btnUserInfo: UIButton!
+    
+    
+    
+    @IBOutlet var imgOnline : UIImageView! {
+        didSet {
+            imgOnline.layer.cornerRadius = imgOnline.frame.size.width/2
+            imgOnline.layer.borderWidth = 1
+            imgOnline.layer.borderColor = UIColor.white.cgColor
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    
+        self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
+        self.imgUser.layer.borderWidth = 2
+        self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+        self.imgUser.clipsToBounds = true
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+        
+        GCDMainThread.async {
+            self.lblUnreadCount.layer.cornerRadius = self.lblUnreadCount.frame.size.width/2
+            self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
+            self.imgUser.clipsToBounds = true
+        }
+    }
+    
+    
+}

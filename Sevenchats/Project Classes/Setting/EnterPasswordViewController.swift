@@ -11,8 +11,9 @@ import UIKit
 class EnterPasswordViewController: ParentViewController {
 
     @IBOutlet weak var txtEmail: MIGenericTextFiled!
-    
     @IBOutlet weak var txtPWD: MIGenericTextFiled!
+    @IBOutlet weak var deleteBtn: MIGenericButton!
+    @IBOutlet var lblTitle : UILabel!
     
     var deactivebtnIsselected:Bool?
     var accountType = 0
@@ -27,8 +28,9 @@ class EnterPasswordViewController: ParentViewController {
     
     func Intilization(){
     
-    
+        self.deleteBtn.setTitle(CContinueDeleteAcc, for: .normal)
         txtEmail.text = userData
+//        lblTitle.text = "text Message"
         txtPWD.txtDelegate = self
         txtPWD.placeHolder = CRegisterPlaceholderPassword
     }

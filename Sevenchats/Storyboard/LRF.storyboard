@@ -460,7 +460,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-02-dox">
-                                                        <rect key="frame" x="75" y="627.5" width="235" height="40"/>
+                                                        <rect key="frame" x="53" y="629" width="288" height="40"/>
                                                         <color key="backgroundColor" name="AppDefault"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="gmM-7D-QIM"/>
@@ -479,9 +479,9 @@
                                                     <constraint firstItem="DKw-Nj-Vf4" firstAttribute="leading" secondItem="KtD-b5-OKj" secondAttribute="leading" id="7qA-5x-NQc"/>
                                                     <constraint firstAttribute="trailing" secondItem="gNJ-Sp-afB" secondAttribute="trailing" constant="20" id="8kF-8b-zJW"/>
                                                     <constraint firstItem="jz9-aG-iZA" firstAttribute="centerX" secondItem="KtD-b5-OKj" secondAttribute="centerX" id="9MC-YI-4xL"/>
-                                                    <constraint firstItem="Jec-02-dox" firstAttribute="trailing" secondItem="jz9-aG-iZA" secondAttribute="trailing" constant="9.5" id="Agb-77-EUY"/>
-                                                    <constraint firstItem="Jec-02-dox" firstAttribute="centerY" secondItem="jz9-aG-iZA" secondAttribute="centerY" constant="-1" id="Ayi-D1-Ogd"/>
-                                                    <constraint firstItem="Jec-02-dox" firstAttribute="leading" secondItem="jz9-aG-iZA" secondAttribute="leading" id="B0j-c6-utx"/>
+                                                    <constraint firstItem="Jec-02-dox" firstAttribute="trailing" secondItem="jz9-aG-iZA" secondAttribute="trailing" constant="40.5" id="Agb-77-EUY"/>
+                                                    <constraint firstItem="Jec-02-dox" firstAttribute="centerY" secondItem="jz9-aG-iZA" secondAttribute="centerY" id="Ayi-D1-Ogd"/>
+                                                    <constraint firstItem="Jec-02-dox" firstAttribute="leading" secondItem="jz9-aG-iZA" secondAttribute="leading" constant="-22" id="B0j-c6-utx"/>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" id="BiZ-9e-JEj"/>
                                                     <constraint firstItem="Iuo-4v-bGt" firstAttribute="centerX" secondItem="OAp-aI-5kD" secondAttribute="centerX" constant="-8.5" id="DSg-wc-t2k"/>
                                                     <constraint firstItem="wSy-60-Mby" firstAttribute="leading" secondItem="KtD-b5-OKj" secondAttribute="leading" constant="20" id="IT7-fg-okn"/>
@@ -1612,7 +1612,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Contact" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRG-Y6-3gV">
-                                        <rect key="frame" x="131.5" y="14" width="112.5" height="50"/>
+                                        <rect key="frame" x="123.5" y="14" width="128" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" id="5oH-we-EoM"/>
                                             <constraint firstAttribute="height" constant="50" id="Buc-5C-IKy"/>

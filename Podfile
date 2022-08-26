@@ -17,6 +17,7 @@ target 'Sevenchats' do
   pod 'SwiftStomp'
   # (Recommended) Pod for Google Analytics
   pod 'Firebase/Analytics'
+  pod 'SDWebImage/WebP'
   
   #pod 'TwitterKit'
   pod 'ActiveLabel'

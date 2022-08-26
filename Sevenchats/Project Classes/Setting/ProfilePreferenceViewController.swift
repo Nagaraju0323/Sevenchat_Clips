@@ -27,6 +27,8 @@ class ProfilePreferenceViewController: ParentViewController {
     @IBOutlet var lblBasic : UILabel!
     @IBOutlet var lblUnknown : UILabel!
     @IBOutlet var lblBlockedUser : UILabel!
+    @IBOutlet var lblManageContent : UILabel!
+    @IBOutlet var lblOwnerShip : UILabel!
     
     @IBOutlet var imgNextArrow : UIImageView!
     
@@ -78,6 +80,9 @@ class ProfilePreferenceViewController: ParentViewController {
         self.lblBasic.text = CProfileVisibleForFriend
         self.lblBlockedUser.text = CBlockedUsers
         self.lblUnknown.text = CProfileVisibleForOther
+        self.lblOwnerShip.text = CAccountOwnership
+        self.lblManageContent.text = CManage_content
+        
         self.btnFriendBasic.setTitle(CProfileBasic, for: .normal)
         self.btnFriendComplete.setTitle(CProfileComplete, for: .normal)
         self.btnUnknowsComplete.setTitle(CProfileComplete, for: .normal)

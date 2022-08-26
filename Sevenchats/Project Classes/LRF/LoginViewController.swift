@@ -404,34 +404,53 @@ extension LoginViewController{
         APIRequest.shared().userDetails(para: dict as [String : AnyObject],access_Token:accessToken,viewType:1) { (response, error) in
             if response != nil && error == nil {
                 
-                
-                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-                    if  metaData.valueForString(key: "status") == "8"{
+                if let metaData = response?.value(forKey: "data") as? [[String : AnyObject]] {
+                    print("=======\(metaData)")
+                    for userInfo in metaData{
+                        let userID = userInfo.valueForString(key: "status_id")
                         
-                        let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: CMessageAactivate, style: .default, handler: { (_) in
-                            self.userAccountactive()
-                        }))
-
-                        self.present(alert, animated: true, completion: nil)
-//                        self.userAccountactive()
-                        
-                    }else{
-                        DispatchQueue.main.async {
+                        if  userInfo.valueForString(key: "status_id") == "2"{
                             
-                            UserDefaults.standard.set(userEmailId, forKey: "email")
-                            self.redirectAfterLogin(response: response, socialDetail: [:])
+                            let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .actionSheet)
+                            alert.addAction(UIAlertAction(title: CMessageAactivate, style: .default, handler: { (_) in
+                                self.userAccountactive()
+                            }))
+                            alert.addAction(UIAlertAction(title:CBtnCancel, style: .default, handler: { (_) in
+                                self.dismiss(animated: true, completion: nil)
+                            }))
                             
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        }else{
+                            DispatchQueue.main.async {
+                                UserDefaults.standard.set(userEmailId, forKey: "mobile")
+                                self.redirectAfterLogin(response: response, socialDetail: [:])
+                            }
                         }
                     }
                 }
                 
-                //                DispatchQueue.main.async {
-                //
-                //                    UserDefaults.standard.set(userEmailId, forKey: "email")
-                //                    self.redirectAfterLogin(response: response, socialDetail: [:])
-                //
-                //                }
+                
+                
+//                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+//                    if  metaData.valueForString(key: "status") == "8"{
+//
+//                        let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .alert)
+//                        alert.addAction(UIAlertAction(title: CMessageAactivate, style: .default, handler: { (_) in
+//                            self.userAccountactive()
+//                        }))
+//
+//                        self.present(alert, animated: true, completion: nil)
+//
+//                    }else{
+//                        DispatchQueue.main.async {
+//
+//                            UserDefaults.standard.set(userEmailId, forKey: "email")
+//                            self.redirectAfterLogin(response: response, socialDetail: [:])
+//
+//                        }
+//                    }
+//                }
             }
         }
     }
@@ -446,25 +465,49 @@ extension LoginViewController{
             //        APIRequest.shared().userDetailsMobile(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 
-                if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
-                    if  metaData.valueForString(key: "status") == "2"{
+                if let metaData = response?.value(forKey: "data") as? [[String : AnyObject]] {
+                    print("=======\(metaData)")
+                    for userInfo in metaData{
+                        let userID = userInfo.valueForString(key: "status_id")
                         
-                        let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .actionSheet)
-                        alert.addAction(UIAlertAction(title: CMessageAactivate, style: .default, handler: { (_) in
-                            self.userAccountactive()
-                        }))
-                        alert.addAction(UIAlertAction(title:CBtnCancel, style: .default, handler: { (_) in
-                            self.dismiss(animated: true, completion: nil)
-                        }))
-                        
-                        self.present(alert, animated: true, completion: nil)
-                        
-                    }else{
-                        DispatchQueue.main.async {
-                            UserDefaults.standard.set(userEmailId, forKey: "mobile")
-                            self.redirectAfterLogin(response: response, socialDetail: [:])
+                        if  userInfo.valueForString(key: "status_id") == "2"{
+                            
+                            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                            alert.addAction(UIAlertAction(title: CMessageAactivate, style: .default, handler: { (_) in
+                                self.userAccountactive()
+                            }))
+                            alert.addAction(UIAlertAction(title:CBtnCancel, style: .default, handler: { (_) in
+                                self.dismiss(animated: true, completion: nil)
+                            }))
+                            
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        }else{
+                            DispatchQueue.main.async {
+                                UserDefaults.standard.set(userEmailId, forKey: "mobile")
+                                self.redirectAfterLogin(response: response, socialDetail: [:])
+                            }
                         }
                     }
+                    
+//                    if  metaData.valueForString(key: "status_id") == "2"{
+//
+//                        let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .actionSheet)
+//                        alert.addAction(UIAlertAction(title: CMessageAactivate, style: .default, handler: { (_) in
+//                            self.userAccountactive()
+//                        }))
+//                        alert.addAction(UIAlertAction(title:CBtnCancel, style: .default, handler: { (_) in
+//                            self.dismiss(animated: true, completion: nil)
+//                        }))
+//
+//                        self.present(alert, animated: true, completion: nil)
+//
+//                    }else{
+//                        DispatchQueue.main.async {
+//                            UserDefaults.standard.set(userEmailId, forKey: "mobile")
+//                            self.redirectAfterLogin(response: response, socialDetail: [:])
+//                        }
+//                    }
                 }
                 //
                 //                DispatchQueue.main.async {
@@ -487,9 +530,16 @@ extension LoginViewController{
                 DispatchQueue.main.async {
                     self.txtEmail.text = ""
                     self.txtPWD.text = ""
-                    appDelegate.logOut()
-                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
-                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                    
+                  //Alertview Showt
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: {_ in
+                        let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+                        UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                        appDelegate.logOut()
+                    })
+                  
+//                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+//                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
                     
 //                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Successfully Activate Account", btnOneTitle: CBtnOk, btnOneTapped: nil)
                   
