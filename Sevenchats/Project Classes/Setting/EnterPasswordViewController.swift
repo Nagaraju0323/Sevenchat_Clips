@@ -27,10 +27,10 @@ class EnterPasswordViewController: ParentViewController {
     }
     
     func Intilization(){
-    
+        self.title = CEnter_password
         self.deleteBtn.setTitle(CContinueDeleteAcc, for: .normal)
         txtEmail.text = userData
-//        lblTitle.text = "text Message"
+        lblTitle.text = CSecurityMessage
         txtPWD.txtDelegate = self
         txtPWD.placeHolder = CRegisterPlaceholderPassword
     }
@@ -41,7 +41,7 @@ class EnterPasswordViewController: ParentViewController {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertPasswordBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
-        let alert = UIAlertController(title: "", message: CSELECTCHOICE, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: CMessagepermanentDelete, style: .default, handler: { (_) in
             self.deleteAccount()
         }))

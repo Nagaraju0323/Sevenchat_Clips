@@ -305,6 +305,7 @@
         <attribute name="enter_forum_category" optional="YES" attributeType="String"/>
         <attribute name="enter_forum_content" optional="YES" attributeType="String"/>
         <attribute name="enter_forum_title" optional="YES" attributeType="String"/>
+        <attribute name="enter_password" optional="YES" attributeType="String"/>
         <attribute name="enter_shout_content" optional="YES" attributeType="String"/>
         <attribute name="enter_your_profession" optional="YES" attributeType="String"/>
         <attribute name="entered_verification_code_is_incorrect" optional="YES" attributeType="String"/>
@@ -456,6 +457,7 @@
         <attribute name="members_selected" optional="YES" attributeType="String"/>
         <attribute name="message" optional="YES" attributeType="String"/>
         <attribute name="message_for_wrong_file_type" optional="YES" attributeType="String"/>
+        <attribute name="message_security" optional="YES" attributeType="String"/>
         <attribute name="microphone_permission_not_granted" optional="YES" attributeType="String"/>
         <attribute name="min_ago" optional="YES" attributeType="String"/>
         <attribute name="minimum_polls_options" optional="YES" attributeType="String"/>
@@ -796,6 +798,7 @@
         <attribute name="student" optional="YES" attributeType="String"/>
         <attribute name="subscription_cancel_alert_message" optional="YES" attributeType="String"/>
         <attribute name="success" optional="YES" attributeType="String"/>
+        <attribute name="success_active" optional="YES" attributeType="String"/>
         <attribute name="successfully_signup" optional="YES" attributeType="String"/>
         <attribute name="summary" optional="YES" attributeType="String"/>
         <attribute name="targeted_content_cant_blank" optional="YES" attributeType="String"/>
@@ -1054,7 +1057,7 @@
         <element name="TblGallery" positionX="18" positionY="189" width="128" height="74"/>
         <element name="TblInterest" positionX="-45" positionY="135" width="128" height="89"/>
         <element name="TblLanguage" positionX="-45" positionY="135" width="128" height="105"/>
-        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11474"/>
+        <element name="TblLanguageText" positionX="212.6095581054688" positionY="111.6292419433594" width="128" height="11519"/>
         <element name="TblMessages" positionX="-45" positionY="135" width="128" height="524"/>
         <element name="TblNewsCategory" positionX="-45" positionY="135" width="128" height="75"/>
         <element name="TblPointsConfig" positionX="-9" positionY="144" width="128" height="119"/>

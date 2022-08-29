@@ -50,6 +50,11 @@ var CDeactiveContent: String{ return appDelegate.langugaeText?.deactivate_conten
 var CAccountOwnership: String{ return appDelegate.langugaeText?.account_ownership ?? "Account ownership and control" }
 var CManage_content: String{ return appDelegate.langugaeText?.manage_contact ?? "Manage your data,modify your legacy contact,deactivate or delete your account and more" }
 
+var CSuccess_active: String{ return appDelegate.langugaeText?.success_active ?? "Sucessfully Active" }
+var CSecurityMessage: String{ return appDelegate.langugaeText?.message_security ?? "For your security, please re -enter your password to continue" }
+var CEnter_password: String{ return appDelegate.langugaeText?.enter_password ?? "For your security, please re -enter your password to continue" }
+
+
 //MARK:- Navigation Title
 var CNavLikes: String{ return appDelegate.langugaeText?.likes ?? "Likes" }
 var CProfileLikes: String{ return appDelegate.langugaeText?.likes ?? "Likes" }

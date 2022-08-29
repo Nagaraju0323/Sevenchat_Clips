@@ -78,7 +78,10 @@
     "continue_delete_account":"Contine To Account Deletion",
     "continue_deactivate_account":"Continue To account Deactivation",
     "account_ownership":"Account ownership and control ",
-    "manage_contact":"Manage your data,modify your legacy contact,deactivate or delete your account and more"
+    "manage_contact":"Manage your data,modify your legacy contact,deactivate or delete your account and more",
+    "success_active":"Sucessfully Actived",
+    "message_security":"For your security, please re -enter your password to continue",
+    "enter_password":"Enter Password",
     
     
     

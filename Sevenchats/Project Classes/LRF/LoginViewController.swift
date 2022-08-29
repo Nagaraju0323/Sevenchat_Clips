@@ -523,7 +523,7 @@ extension LoginViewController{
         let userid = appDelegate.loginUser?.user_id.description ?? ""
         let dict:[String:Any] = [
             "user_id": userid,
-            "type": "3",
+            "type": "1",
         ]
         APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
@@ -532,7 +532,7 @@ extension LoginViewController{
                     self.txtPWD.text = ""
                     
                   //Alertview Showt
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: {_ in
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CSuccess_active, btnOneTitle: CBtnOk, btnOneTapped: {_ in
                         let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
                         UIApplication.shared.keyWindow?.rootViewController = loginViewController
                         appDelegate.logOut()

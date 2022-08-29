@@ -129,7 +129,7 @@ class MIGenericTextFiledNew: UITextField {
     
     // MARK:- --------PlaceHolder
     func placeHolderSetup(){
-        lblPlaceHolder.frame = CGRect(x: 40, y: 0.0, width: self.frame.size.width, height: self.frame.size.height)
+        lblPlaceHolder.frame = CGRect(x: 50, y: 0.0, width: self.frame.size.width, height: self.frame.size.height)
         lblPlaceHolder.text = placeHolder
         lblPlaceHolder.textColor = PlaceHolderColor
        
@@ -160,7 +160,7 @@ class MIGenericTextFiledNew: UITextField {
         {
             UIView.animate(withDuration: 0.3) {
                 self.lblPlaceHolder.textColor = self.PlaceHolderColor
-                self.lblPlaceHolder.frame = CGRect(x: 40, y: 0.0, width: self.frame.size.width, height: self.frame.size.height)
+                self.lblPlaceHolder.frame = CGRect(x: 50, y: 0.0, width: self.frame.size.width, height: self.frame.size.height)
                 self.lblPlaceHolder.font = UIFont(name: (self.font?.fontName)!, size: round(CScreenWidth * (self.PlaceholderFontSize ) / 414))
                 self.layoutIfNeeded()
             }

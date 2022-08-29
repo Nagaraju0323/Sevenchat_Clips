@@ -460,7 +460,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jec-02-dox">
-                                                        <rect key="frame" x="53" y="629" width="288" height="40"/>
+                                                        <rect key="frame" x="53" y="628.5" width="288" height="40"/>
                                                         <color key="backgroundColor" name="AppDefault"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="gmM-7D-QIM"/>
@@ -2938,10 +2938,10 @@
     </scenes>
     <designables>
         <designable name="AEM-Lq-5JL">
-            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="441" height="20"/>
         </designable>
         <designable name="S3X-nm-tel">
-            <size key="intrinsicContentSize" width="440.5" height="18.5"/>
+            <size key="intrinsicContentSize" width="441" height="20"/>
         </designable>
     </designables>
     <resources>

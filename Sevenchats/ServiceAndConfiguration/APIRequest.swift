@@ -102,20 +102,21 @@ let BASEURLMINIO: String = "https://stg.sevenchats.com:3443"
 
 //Beta server
 
-  /*manage_contact  var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
-    let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
-    let BASEMSGURLS:String       =   "https://beta.sevenchats.com"
-    var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
-    var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
-    var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
-    var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
-    var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
-    var BASEAUTHLOGIN:String         =   "https://beta.sevenchats.com/"
-    var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
-    var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
-    let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
-    let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
-    let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"*/
+//
+//var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
+//    let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
+//    let BASEMSGURLS:String       =   "https://beta.sevenchats.com"
+//    var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
+//    var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
+//    var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
+//    var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
+//    var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
+//    var BASEAUTHLOGIN:String         =   "https://beta.sevenchats.com/"
+//    var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
+//    var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
+//    let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
+//    let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
+//    let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
 
 //let BASEURL_Rew: String = "QAY"
 
@@ -754,14 +755,24 @@ extension Networking {
         return uRequest.task
     }
     
+//    func DELETEUSERJSON(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
+//
+//        let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
+//
+//        let uRequest = SessionManager.default.request(BASEMASTERURL+tag, method: .delete, parameters: parameters, encoding: parameterEncoding, headers: headers)
+//        self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+//        return uRequest.task!
+//    }
+    
     func DELETEUSERJSON(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
         
         let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
         
-        let uRequest = SessionManager.default.request(BASEMASTERURL+tag, method: .delete, parameters: parameters, encoding: parameterEncoding, headers: headers)
+        let uRequest = SessionManager.default.request(BASEMASTERURL+tag, method: .put, parameters: parameters, encoding: parameterEncoding, headers: headers)
         self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
         return uRequest.task!
     }
+    
     
     
     
@@ -2124,6 +2135,21 @@ extension APIRequest {
            MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
 //        }
 
+//        return Networking.sharedInstance.DELETEUSERJSON(apiTag: CAPUserDelete, param: para, successBlock: { (task, response) in
+//            MILoader.shared.hideLoader()
+//            completion(response, nil)
+//        }, failureBlock: { (task, message, error) in
+//            MILoader.shared.hideLoader()
+//            completion(nil, error)
+//            if error?.code == CStatus405{
+//                appDelegate.logOut()
+//            } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+//            } else {
+//                self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagInterests, error: error)
+//            }
+//        })!
+        
+        
         return Networking.sharedInstance.DELETEUSERJSON(apiTag: CAPUserDelete, param: para, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             completion(response, nil)
@@ -2137,6 +2163,9 @@ extension APIRequest {
                 self.actionOnAPIFailure(errorMessage: message, showAlert:true, strApiTag: CAPITagInterests, error: error)
             }
         })!
+        
+        
+        
     }
     
     
@@ -4870,6 +4899,11 @@ extension APIRequest {
             tblLanguageText.continue_deactivate_account = dict?.valueForString(key: "continue_deactivate_account")
             tblLanguageText.account_ownership = dict?.valueForString(key: "account_ownership")
             tblLanguageText.manage_contact = dict?.valueForString(key: "manage_contact")
+            tblLanguageText.success_active = dict?.valueForString(key: "success_active")
+            tblLanguageText.message_security = dict?.valueForString(key: "message_security")
+            tblLanguageText.enter_password = dict?.valueForString(key: "enter_password")
+            
+            
             
             
             

@@ -24,6 +24,7 @@ class EditProfileViewController: ParentViewController {
     @IBOutlet weak var btnUpdateComplete : UIButton!
     @IBOutlet weak var btnUploadImage : UIButton!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var downarrow : UIImageView!
     @IBOutlet weak var imgEditIcon : UIImageView!
     @IBOutlet weak var imgCover : UIImageView!
     @IBOutlet weak var CoverEditIcon : UIImageView!
@@ -38,6 +39,7 @@ class EditProfileViewController: ParentViewController {
     @IBOutlet weak var txtCountrys : MIGenericTextFiled!
     @IBOutlet weak var txtStates : MIGenericTextFiled!
     @IBOutlet weak var txtCitys : MIGenericTextFiled!
+    @IBOutlet var cnTxtEmailLeading : NSLayoutConstraint!
     
     var countryCodeId = "91" //India
     var countryID : Int?
@@ -90,6 +92,8 @@ class EditProfileViewController: ParentViewController {
     func Initialization(){
         txtFirstName.txtDelegate = self
         txtLastName.txtDelegate = self
+        txtEmail.isHidden = true
+        
        // txtUserId.txtDelegate = self
         btnUpdate.layer.cornerRadius = 5
         btnUpdateComplete.layer.cornerRadius = 5
@@ -119,7 +123,7 @@ class EditProfileViewController: ParentViewController {
         txtLastName.placeHolder = CRegisterPlaceholderLastName
         txtEmail.placeHolder = CRegisterPlaceholderEmail
         txtEmail.btnClearText.isHidden = true
-        txtMobileNumber.placeHolder = CRegisterPlaceholderMobileNumber
+//        txtMobileNumber.placeHolder = CRegisterPlaceholderMobileNumber
         txtDOB.placeHolder = CRegisterPlaceholderDob
         lblCode.text = CRegisterPlaceholderCode
         btnUpdate.setTitle(CResetBtnUpdate, for: .normal)
@@ -143,12 +147,38 @@ class EditProfileViewController: ParentViewController {
     }
     
     func preFilledUserDetail (){
+  //MARK: - NEW
+        if appDelegate.loginUser?.mobile != "" {
+            txtMobileNumber.placeHolder = CRegisterPlaceholderMobileNumber
+            txtMobileNumber.text = appDelegate.loginUser?.mobile
+            cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+            txtCountryCode.isHidden = false
+            lblCode.isHidden = false
+            downarrow.isHidden = false
+        }else{
+            txtMobileNumber.placeHolder = CRegisterPlaceholderEmail
+            txtMobileNumber.text = appDelegate.loginUser?.email
+            cnTxtEmailLeading.constant = 20
+            txtCountryCode.isHidden = true
+            lblCode.isHidden = true
+            downarrow.isHidden = true
+        }
+ //MARK: - NEW
         
-        txtEmail.isEnabled = false
-        txtEmail.isUserInteractionEnabled = false
         
-        txtMobileNumber.isEnabled = false
-        txtMobileNumber.isUserInteractionEnabled = false
+//        if appDelegate.loginUser?.email == "" {
+////            txtMobileNumber.isEnabled = false
+////            txtMobileNumber.isUserInteractionEnabled = false
+//        }else if appDelegate.loginUser?.mobile  == "" {
+//            txtEmail.isEnabled = false
+//            txtEmail.isUserInteractionEnabled = false
+//        }
+//
+//        txtEmail.isEnabled = false
+//        txtEmail.isUserInteractionEnabled = false
+//
+       txtMobileNumber.isEnabled = false
+       txtMobileNumber.isUserInteractionEnabled = false
         
         txtCountryCode.isEnabled = false
         txtCountryCode.isUserInteractionEnabled = false
@@ -160,7 +190,7 @@ class EditProfileViewController: ParentViewController {
         txtFirstName.text = appDelegate.loginUser?.first_name
         txtLastName.text = appDelegate.loginUser?.last_name
         txtEmail.text = appDelegate.loginUser?.email
-        txtMobileNumber.text = appDelegate.loginUser?.mobile
+        
         countryName = appDelegate.loginUser?.country ?? ""
         stateName =  appDelegate.loginUser?.state ?? ""
         cityName =  appDelegate.loginUser?.city ?? ""
@@ -492,6 +522,7 @@ extension EditProfileViewController {
             
             "user_acc_type":"1",
                 "user_id": encryptUser,
+                "email":txtEmail.text ?? "",
                 "first_name":txtFirstName.text ?? "",
                 "last_name":txtLastName.text ?? "",
                 "gender":String(appDelegate.loginUser!.gender),
@@ -1211,14 +1242,14 @@ extension EditProfileViewController{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertLastNameBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
-        if (txtEmail.text?.isBlank)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertEmailBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            return
-        }
-        if !(txtEmail.text?.isValidEmail)! {
-            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidEmail, btnOneTitle: CBtnOk, btnOneTapped: nil)
-            return
-        }
+//        if (txtEmail.text?.isBlank)! {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertEmailBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            return
+//        }
+//        if !(txtEmail.text?.isValidEmail)! {
+//            self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertValidEmail, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            return
+//        }
         if (txtCountryCode.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertCountryCodeBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
@@ -1317,12 +1348,95 @@ extension EditProfileViewController: GenericTextFieldDelegate {
                 }
             }
         }
+        //MARK: - NEW
+        guard let text = textField.text,
+              let textRange = Range(range, in: text) else{
+            return true
+        }
+        let updatedText = text.replacingCharacters(in: textRange,with: string)
+        if string.isBlank{
+            if updatedText.isValidPhoneNo && !updatedText.isEmpty{
+                cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+                //  cnTxtEmailLeading.constant = 20
+                txtCountryCode.isHidden = false
+                lblCode.isHidden = false
+                downarrow.isHidden = false
+            }else{
+                cnTxtEmailLeading.constant = 20
+                txtCountryCode.isHidden = true
+                lblCode.isHidden = true
+                downarrow.isHidden = true
+            }
+            self.view.layoutIfNeeded()
+            
+            GCDMainThread.async {
+               self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+            }
+            return true
+        }
+        if textField == txtMobileNumber{
+            if updatedText.isValidPhoneNo && !updatedText.isBlank{
+                if textField.text?.count ?? 0 >= 15{
+                    return false
+                }
+                cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+                // cnTxtEmailLeading.constant = 20
+                txtCountryCode.isHidden = false
+                lblCode.isHidden = false
+                downarrow.isHidden = false
+            }else{
+                cnTxtEmailLeading.constant = 20
+                txtCountryCode.isHidden = true
+                lblCode.isHidden = true
+                downarrow.isHidden = true
+            }
+            self.view.layoutIfNeeded()
+            
+            GCDMainThread.async {
+               self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+            }
+    }
+        //MARK: - NEW
         return true
     }
+ //MARK: - NEW
+        func genericTextFieldDidChange(_ textField : UITextField){
+            if textField == txtMobileNumber{
+                if (txtMobileNumber.text?.isValidPhoneNo)! && !(txtMobileNumber.text?.isBlank)!{
+                    
+                    cnTxtEmailLeading.constant = txtCountryCode.bounds.width + 30
+                    txtCountryCode.isHidden = false
+                    lblCode.isHidden = false
+                    downarrow.isHidden = false
+                }else{
+                    cnTxtEmailLeading.constant = 20
+                    txtCountryCode.isHidden = true
+                    lblCode.isHidden = true
+                    downarrow.isHidden = true
+                }
+                self.view.layoutIfNeeded()
+                
+                GCDMainThread.async {
+                   self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+                }
+            }
+        }
+    func genericTextFieldClearText(_ textField: UITextField){
+        if textField == txtMobileNumber{
+            cnTxtEmailLeading.constant = 20
+            txtCountryCode.isHidden = true
+            self.view.layoutIfNeeded()
+            GCDMainThread.async {
+             self.txtMobileNumber.updateBottomLineAndPlaceholderFrame()
+            }
+        }
+    }
+    //MARK: - NEW
 }
 extension EditProfileViewController {
 func removeSpecialCharacters(from text: String) -> String {
     let okayChars = CharacterSet(charactersIn: SPECIALCHAR)
     return String(text.unicodeScalars.filter { okayChars.contains($0) || $0.properties.isEmoji })
 }
+    
 }
