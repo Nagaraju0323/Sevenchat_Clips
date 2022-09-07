@@ -39,6 +39,30 @@ class MyProfileHeaderTblCell: UITableViewCell {
     @IBOutlet weak var btnFriendSecond : UIButton!
     @IBOutlet weak var btnFriendThird : UIButton!
     @IBOutlet weak var btnFriendFourth : UIButton!
+    @IBOutlet weak var btnFriendFive : UIButton!
+    @IBOutlet weak var btnFriendSix : UIButton!
+    @IBOutlet weak var btnFriendSeven : UIButton!
+    @IBOutlet weak var btnFriendEight: UIButton!
+    
+    @IBOutlet weak var lblFriendFirst : UILabel!
+    @IBOutlet weak var lblFriendSecond : UILabel!
+    @IBOutlet weak var lblFriendThird : UILabel!
+    @IBOutlet weak var lblFriendFourth : UILabel!
+    @IBOutlet weak var lblFriendFive : UILabel!
+    @IBOutlet weak var lblFriendSix : UILabel!
+    @IBOutlet weak var lblFriendSeven : UILabel!
+    @IBOutlet weak var lblFriendEight: UILabel!
+    
+    
+    @IBOutlet weak var imgFriendFirst : UIImageView!
+    @IBOutlet weak var imgFriendSecond : UIImageView!
+    @IBOutlet weak var imgFriendThird : UIImageView!
+    @IBOutlet weak var imgFriendFourth : UIImageView!
+    @IBOutlet weak var imgFriendFive : UIImageView!
+    @IBOutlet weak var imgFriendSix : UIImageView!
+    @IBOutlet weak var imgFriendSeven : UIImageView!
+    @IBOutlet weak var imgFriendEight: UIImageView!
+    
     @IBOutlet weak var btnTotalFriend : UIButton!
     @IBOutlet weak var btnViewCompleteProfile : UIButton!
     @IBOutlet weak var lblTitleFriends : UILabel!
@@ -49,15 +73,30 @@ class MyProfileHeaderTblCell: UITableViewCell {
     @IBOutlet weak var btnUserProfile : UIButton!
     @IBOutlet weak var btnUserProfileStatus : UIButton!
     @IBOutlet weak var cntBtnShareTraling : NSLayoutConstraint!
+    @IBOutlet weak var btnUEditProfile : UIButton!
+    @IBOutlet weak var mainView : UIView!
+    @IBOutlet weak var subView : UIView!
+    @IBOutlet weak var lblFriend : UILabel!
     
     var pageNumber = 1
     var onTotalFriendAction : (() -> Void)?
+    var onEditprofileAction : (() -> Void)?
+    var FristuserID  = ""
+    var SeconduserID  = ""
+    var ThirduserID  = ""
+    var FourthuserID  = ""
+    var FiveuserID  = ""
+    var SixuserID  = ""
+    var SevenuserID  = ""
+    var EightuserID  = ""
+    var callbacks : ((String) -> Void)?
     var apiTask : URLSessionTask?
     var totalFriendsCnt = 0
     var arrFriends = [[String : Any]]()
     var friends_count = 0
     var loginMobileNo = ""
     var loginEmailID = ""
+    
     
     var arrUpdateStates = [
         [CStates:(appDelegate.loginUser?.total_post)! as Any,
@@ -81,35 +120,67 @@ class MyProfileHeaderTblCell: UITableViewCell {
         
         GCDMainThread.async {
             
-            self.btnCreateStories.layer.cornerRadius = 10
+         //   self.btnCreateStories.layer.cornerRadius = 10
+            self.mainView.layer.cornerRadius = 10
+            self.subView.layer.cornerRadius = 5
+            self.btnUEditProfile.layer.borderWidth = 2
+            self.btnUEditProfile.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.btnUEditProfile.layer.cornerRadius = 5
             self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
-            self.btnShare.layer.cornerRadius = 5
+           // self.btnShare.layer.cornerRadius = 5
             self.btnViewCompleteProfile.layer.cornerRadius = 5
             self.imgUser.layer.borderWidth = 3
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
-            self.viewFriendFirst.layer.cornerRadius = self.viewFriendFirst.frame.size.width/2
-            self.btnFriendFirst.layer.cornerRadius = self.btnFriendFirst.frame.size.width/2
-            self.viewFriendFirst.layer.borderWidth = 1.5
-            self.viewFriendFirst.layer.borderColor = UIColor.white.cgColor
             
-            self.viewFriendSecond.layer.cornerRadius = self.viewFriendSecond.frame.size.width/2
-            self.btnFriendSecond.layer.cornerRadius = self.btnFriendSecond.frame.size.width/2
-            self.viewFriendSecond.layer.borderWidth = 1.5
-            self.viewFriendSecond.layer.borderColor = UIColor.white.cgColor
+            self.imgFriendSix.layer.cornerRadius = self.imgFriendSix.frame.size.width/2
+            self.imgFriendSix.layer.borderWidth = 2
+            self.imgFriendSix.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendFive.layer.cornerRadius = self.imgFriendFive.frame.size.width/2
+            self.imgFriendFive.layer.borderWidth = 2
+            self.imgFriendFive.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendEight.layer.cornerRadius = self.imgFriendEight.frame.size.width/2
+            self.imgFriendEight.layer.borderWidth = 2
+            self.imgFriendEight.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendFirst.layer.cornerRadius = self.imgFriendFirst.frame.size.width/2
+            self.imgFriendFirst.layer.borderWidth = 2
+            self.imgFriendFirst.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendSeven.layer.cornerRadius = self.imgFriendSeven.frame.size.width/2
+            self.imgFriendSeven.layer.borderWidth = 2
+            self.imgFriendSeven.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendThird.layer.cornerRadius = self.imgFriendThird.frame.size.width/2
+            self.imgFriendThird.layer.borderWidth = 2
+            self.imgFriendThird.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendFourth.layer.cornerRadius = self.imgFriendFourth.frame.size.width/2
+            self.imgFriendFourth.layer.borderWidth = 2
+            self.imgFriendFourth.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendSecond.layer.cornerRadius = self.imgFriendSecond.frame.size.width/2
+            self.imgFriendSecond.layer.borderWidth = 2
+            self.imgFriendSecond.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             
-            self.viewFriendThird.layer.cornerRadius = self.viewFriendThird.frame.size.width/2
-            self.btnFriendThird.layer.cornerRadius = self.btnFriendThird.frame.size.width/2
-            self.viewFriendThird.layer.borderWidth = 1.5
-            self.viewFriendThird.layer.borderColor = UIColor.white.cgColor
             
-            self.viewFriendFourth.layer.cornerRadius = self.viewFriendFourth.frame.size.width/2
-            self.btnFriendFourth.layer.cornerRadius = self.btnFriendFourth.frame.size.width/2
-            self.viewFriendFourth.layer.borderWidth = 1.5
-            self.viewFriendFourth.layer.borderColor = UIColor.white.cgColor
-            self.btnTotalFriend.layer.cornerRadius = self.btnTotalFriend.frame.size.width/2
+//            self.viewFriendFirst.layer.cornerRadius = self.viewFriendFirst.frame.size.width/2
+//            self.btnFriendFirst.layer.cornerRadius = self.btnFriendFirst.frame.size.width/2
+//            self.viewFriendFirst.layer.borderWidth = 1.5
+//            self.viewFriendFirst.layer.borderColor = UIColor.white.cgColor
+//
+//            self.viewFriendSecond.layer.cornerRadius = self.viewFriendSecond.frame.size.width/2
+//            self.btnFriendSecond.layer.cornerRadius = self.btnFriendSecond.frame.size.width/2
+//            self.viewFriendSecond.layer.borderWidth = 1.5
+//            self.viewFriendSecond.layer.borderColor = UIColor.white.cgColor
+//
+//            self.viewFriendThird.layer.cornerRadius = self.viewFriendThird.frame.size.width/2
+//            self.btnFriendThird.layer.cornerRadius = self.btnFriendThird.frame.size.width/2
+//            self.viewFriendThird.layer.borderWidth = 1.5
+//            self.viewFriendThird.layer.borderColor = UIColor.white.cgColor
+//
+//            self.viewFriendFourth.layer.cornerRadius = self.viewFriendFourth.frame.size.width/2
+//            self.btnFriendFourth.layer.cornerRadius = self.btnFriendFourth.frame.size.width/2
+//            self.viewFriendFourth.layer.borderWidth = 1.5
+//            self.viewFriendFourth.layer.borderColor = UIColor.white.cgColor
+//            self.btnTotalFriend.layer.cornerRadius = self.btnTotalFriend.frame.size.width/2
             
             self.updateUIAccordingToLanguage()
-            self.btnCreateStories.isHidden = true
+           // self.btnCreateStories.isHidden = true
             self.btnUserProfile.touchUpInside(genericTouchUpInsideHandler: { [weak self](_) in
                 let lightBoxHelper = LightBoxControllerHelper()
                 lightBoxHelper.openSingleImage(image: self?.imgUser.image, viewController: self?.viewController)
@@ -119,11 +190,11 @@ class MyProfileHeaderTblCell: UITableViewCell {
     }
     override func layoutSubviews() {
         let totalFriend = appDelegate.loginUser?.total_friends ?? 0
-        if let vwFriends = self.btnShare.superview, totalFriend == 0 {
-            let centerX  = vwFriends.bounds.width / 2 - (self.btnShare.bounds.width / 2)
-            self.cntBtnShareTraling.constant = centerX
-            self.layoutIfNeeded()
-        }
+//        if let vwFriends = self.btnShare.superview, totalFriend == 0 {
+//            let centerX  = vwFriends.bounds.width / 2 - (self.btnShare.bounds.width / 2)
+//            self.cntBtnShareTraling.constant = centerX
+//            self.layoutIfNeeded()
+//        }
     }
     func updateUIAccordingToLanguage(){
         
@@ -137,9 +208,9 @@ class MyProfileHeaderTblCell: UITableViewCell {
             //            lblBdate.textAlignment = .left
         }
         
-        lblTitleFriends.text = CProfileFriends
+       // lblTitleFriends.text = CProfileFriends
         btnViewCompleteProfile.setTitle("\(" ") \(CProfileBtnViewCompleteProfile)", for: .normal)
-        btnShare.isHidden  = true
+      //  btnShare.isHidden  = true
     }
     
     func cellConfigureProfileDetail() {
@@ -188,102 +259,397 @@ class MyProfileHeaderTblCell: UITableViewCell {
         }
         imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
         _ = appDelegate.loginUser?.total_friends ?? 0
-        viewFriendFirst.hide(byWidth: true)
-        viewFriendSecond.hide(byWidth: true)
-        _ = viewFriendSecond.setConstraintConstant(0, edge: .leading, ancestor: true)
-        viewFriendThird.hide(byWidth: true)
-        _ = viewFriendThird.setConstraintConstant(0, edge: .leading, ancestor: true)
-        viewFriendFourth.hide(byWidth: true)
-        _ = viewFriendFourth.setConstraintConstant(0, edge: .leading, ancestor: true)
+//        viewFriendFirst.hide(byWidth: true)
+//        viewFriendSecond.hide(byWidth: true)
+//        _ = viewFriendSecond.setConstraintConstant(0, edge: .leading, ancestor: true)
+//        viewFriendThird.hide(byWidth: true)
+//        _ = viewFriendThird.setConstraintConstant(0, edge: .leading, ancestor: true)
+//        viewFriendFourth.hide(byWidth: true)
+//        _ = viewFriendFourth.setConstraintConstant(0, edge: .leading, ancestor: true)
         _ = appDelegate.loginUser?.user_id
         
         let arrs = TblTotalFriends.fetch(predicate: nil, orderBy: "friend_user_id", ascending: true)
         if  let arrFriends =  TblTotalFriends.fetch(predicate: nil, orderBy: "friend_user_id", ascending: true){
-            let arrFrdList = arrFriends.prefix(4)
+            let arrFrdList = arrFriends.prefix(8)
             let frdListCount = Array(arrFrdList)
             
             switch frdListCount.count {
             case 1:
-                //                        let dict = arrFriends[0] as? TblTotalFriends
-                viewFriendFirst.hide(byWidth: false)
+               let dict = arrFriends[0] as? TblTotalFriends
+                
                 if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
-                    btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                    imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
                 }else {
-                    btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                    imgFriendFirst.loadImageFromUrl((arrFriends[0] as! TblTotalFriends).profile_image, true)
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
                 }
                 
             case 2:
-                viewFriendFirst.hide(byWidth: false)
                 if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
-                    btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                    imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
+                    
                 }else {
-                    btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-                }
-                viewFriendSecond.hide(byWidth: false)
-                _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                if (arrFriends[1] as! TblTotalFriends).profile_image == "" {
-                    btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
-                }else {
-                    btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                    imgFriendFirst.loadImageFromUrl((arrFriends[0] as! TblTotalFriends).profile_image, true)
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
                 }
                 
+                if (arrFriends[1] as! TblTotalFriends).profile_image == "" {
+                    imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSecond.text = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
+                }else {
+                    imgFriendSecond.loadImageFromUrl((arrFriends[1] as! TblTotalFriends).profile_image, true)
+                    lblFriendSecond.text  = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
+                }
+//
                 
             case 3:
-                
-                viewFriendFirst.hide(byWidth: false)
                 if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
-                    btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                    imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
                 }else {
-                    btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                    imgFriendFirst.loadImageFromUrl((arrFriends[0] as! TblTotalFriends).profile_image, true)
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
                 }
-                viewFriendSecond.hide(byWidth: false)
-                _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
                 if (arrFriends[1] as! TblTotalFriends).profile_image == "" {
-                    btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                    imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSecond.text = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
                 }else {
-                    btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                    imgFriendSecond.loadImageFromUrl((arrFriends[1] as! TblTotalFriends).profile_image, true)
+                    lblFriendSecond.text  = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
                 }
-                viewFriendThird.hide(byWidth: false)
-                _ = viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                
-                
+
                 if (arrFriends[2] as! TblTotalFriends).profile_image == "" {
-                    btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                    imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
                 }else {
-                    btnFriendThird.sd_setImage(with: URL(string: ((arrFriends[2] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                    imgFriendThird.loadImageFromUrl((arrFriends[2] as! TblTotalFriends).profile_image, true)
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
                 }
                 
             case 4:
                 
-                viewFriendFirst.hide(byWidth: false)
                 if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
-                    btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                    imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
                 }else {
-                    btnFriendFirst.sd_setImage(with: URL(string: ((arrFriends[0] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                    imgFriendFirst.loadImageFromUrl((arrFriends[0] as! TblTotalFriends).profile_image, true)
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
                 }
-                viewFriendSecond.hide(byWidth: false)
-                _ = viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
                 if (arrFriends[1] as! TblTotalFriends).profile_image == "" {
-                    btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                    imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSecond.text = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
                 }else {
-                    btnFriendSecond.sd_setImage(with: URL(string: ((arrFriends[1] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                    imgFriendSecond.loadImageFromUrl((arrFriends[1] as! TblTotalFriends).profile_image, true)
+                    lblFriendSecond.text  = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
                 }
-                viewFriendThird.hide(byWidth: false)
-                _ = viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+
                 if (arrFriends[2] as! TblTotalFriends).profile_image == "" {
-                    btnFriendThird.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                    imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
+                 
                 }else {
-                    btnFriendThird.sd_setImage(with: URL(string: ((arrFriends[2] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
+                    imgFriendThird.loadImageFromUrl((arrFriends[2] as! TblTotalFriends).profile_image, true)
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
                 }
-                viewFriendFourth.hide(byWidth: false)
-                _ = viewFriendFourth.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                if (arrFriends[3] as! TblTotalFriends).profile_image == "" {
-                    btnFriendFourth.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
-                }else {
-                    btnFriendFourth.sd_setImage(with: URL(string: ((arrFriends[3] as! TblTotalFriends).profile_image)!), for: .normal, completed: nil)
-                }
-                _ = btnTotalFriend.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
                 
+                if (arrFriends[3] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFourth.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFourth.text = ((arrFriends[3] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[3] as! TblTotalFriends).last_name ?? "")
+                    self.FourthuserID = (arrFriends[3] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendFourth.loadImageFromUrl((arrFriends[3] as! TblTotalFriends).profile_image, true)
+                    lblFriendFourth.text = ((arrFriends[3] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[3] as! TblTotalFriends).last_name ?? "")
+                    self.FourthuserID = (arrFriends[3] as! TblTotalFriends).friend_user_id.description
+                }
+            case 5:
+                if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
+                }else {
+                    imgFriendFirst.loadImageFromUrl((arrFriends[0] as! TblTotalFriends).profile_image, true)
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[1] as! TblTotalFriends).profile_image == "" {
+                    imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSecond.text = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
+                }else {
+                    imgFriendSecond.loadImageFromUrl((arrFriends[1] as! TblTotalFriends).profile_image, true)
+                    lblFriendSecond.text  = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
+                }
+
+                if (arrFriends[2] as! TblTotalFriends).profile_image == "" {
+                    imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendThird.loadImageFromUrl((arrFriends[2] as! TblTotalFriends).profile_image, true)
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
+                }
+                
+                if (arrFriends[3] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFourth.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFourth.text = ((arrFriends[3] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[3] as! TblTotalFriends).last_name ?? "")
+                    self.FourthuserID = (arrFriends[3] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendFourth.loadImageFromUrl((arrFriends[3] as! TblTotalFriends).profile_image, true)
+                    lblFriendFourth.text = ((arrFriends[3] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[3] as! TblTotalFriends).last_name ?? "")
+                    self.FourthuserID = (arrFriends[3] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[4] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFive.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFive.text = ((arrFriends[4] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[4] as! TblTotalFriends).last_name ?? "")
+                    self.FiveuserID = (arrFriends[4] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendFive.loadImageFromUrl((arrFriends[4] as! TblTotalFriends).profile_image, true)
+                    lblFriendFive.text = ((arrFriends[4] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[4] as! TblTotalFriends).last_name ?? "")
+                    self.FiveuserID = (arrFriends[4] as! TblTotalFriends).friend_user_id.description
+                }
+                
+            case 6:
+                if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
+                }else {
+                    imgFriendFirst.loadImageFromUrl((arrFriends[0] as! TblTotalFriends).profile_image, true)
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[1] as! TblTotalFriends).profile_image == "" {
+                    imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSecond.text = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
+                }else {
+                    imgFriendSecond.loadImageFromUrl((arrFriends[1] as! TblTotalFriends).profile_image, true)
+                    lblFriendSecond.text  = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
+                }
+
+                if (arrFriends[2] as! TblTotalFriends).profile_image == "" {
+                    imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendThird.loadImageFromUrl((arrFriends[2] as! TblTotalFriends).profile_image, true)
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
+                }
+                
+                if (arrFriends[3] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFourth.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFourth.text = ((arrFriends[3] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[3] as! TblTotalFriends).last_name ?? "")
+                    self.FourthuserID = (arrFriends[3] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendFourth.loadImageFromUrl((arrFriends[3] as! TblTotalFriends).profile_image, true)
+                    lblFriendFourth.text = ((arrFriends[3] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[3] as! TblTotalFriends).last_name ?? "")
+                    self.FourthuserID = (arrFriends[3] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[4] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFive.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFive.text = ((arrFriends[4] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[4] as! TblTotalFriends).last_name ?? "")
+                    self.FiveuserID = (arrFriends[4] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendFive.loadImageFromUrl((arrFriends[4] as! TblTotalFriends).profile_image, true)
+                    lblFriendFive.text = ((arrFriends[4] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[4] as! TblTotalFriends).last_name ?? "")
+                    self.FiveuserID = (arrFriends[4] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[5] as! TblTotalFriends).profile_image == "" {
+                    imgFriendSix.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSix.text = ((arrFriends[4] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[4] as! TblTotalFriends).last_name ?? "")
+                    self.SixuserID = (arrFriends[5] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendSix.loadImageFromUrl((arrFriends[5] as! TblTotalFriends).profile_image, true)
+                    lblFriendSix.text = ((arrFriends[5] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[5] as! TblTotalFriends).last_name ?? "")
+                    self.SixuserID = (arrFriends[5] as! TblTotalFriends).friend_user_id.description
+                }
+            case 7:
+                if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
+                }else {
+                    imgFriendFirst.loadImageFromUrl((arrFriends[0] as! TblTotalFriends).profile_image, true)
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[1] as! TblTotalFriends).profile_image == "" {
+                    imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSecond.text = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
+                }else {
+                    imgFriendSecond.loadImageFromUrl((arrFriends[1] as! TblTotalFriends).profile_image, true)
+                    lblFriendSecond.text  = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
+                }
+
+                if (arrFriends[2] as! TblTotalFriends).profile_image == "" {
+                    imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendThird.loadImageFromUrl((arrFriends[2] as! TblTotalFriends).profile_image, true)
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
+                }
+                
+                if (arrFriends[3] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFourth.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFourth.text = ((arrFriends[3] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[3] as! TblTotalFriends).last_name ?? "")
+                    self.FourthuserID = (arrFriends[3] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendFourth.loadImageFromUrl((arrFriends[3] as! TblTotalFriends).profile_image, true)
+                    lblFriendFourth.text = ((arrFriends[3] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[3] as! TblTotalFriends).last_name ?? "")
+                    self.FourthuserID = (arrFriends[3] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[4] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFive.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFive.text = ((arrFriends[4] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[4] as! TblTotalFriends).last_name ?? "")
+                    self.FiveuserID = (arrFriends[4] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendFive.loadImageFromUrl((arrFriends[4] as! TblTotalFriends).profile_image, true)
+                    lblFriendFive.text = ((arrFriends[4] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[4] as! TblTotalFriends).last_name ?? "")
+                    self.FiveuserID = (arrFriends[4] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[5] as! TblTotalFriends).profile_image == "" {
+                    imgFriendSix.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSix.text = ((arrFriends[4] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[4] as! TblTotalFriends).last_name ?? "")
+                    self.SixuserID = (arrFriends[5] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendSix.loadImageFromUrl((arrFriends[5] as! TblTotalFriends).profile_image, true)
+                    lblFriendSix.text = ((arrFriends[5] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[5] as! TblTotalFriends).last_name ?? "")
+                    self.SixuserID = (arrFriends[5] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[6] as! TblTotalFriends).profile_image == "" {
+                    imgFriendSeven.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSeven.text = ((arrFriends[6] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[6] as! TblTotalFriends).last_name ?? "")
+                    self.SevenuserID = (arrFriends[6] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendSeven.loadImageFromUrl((arrFriends[6] as! TblTotalFriends).profile_image, true)
+                    lblFriendSeven.text = ((arrFriends[6] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[6] as! TblTotalFriends).last_name ?? "")
+                    self.SevenuserID = (arrFriends[6] as! TblTotalFriends).friend_user_id.description
+                }
+            case 8:
+                if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
+                    self.callbacks?((arrFriends[0] as! TblTotalFriends).user_id.description)
+                    
+                }else {
+                    imgFriendFirst.loadImageFromUrl((arrFriends[0] as! TblTotalFriends).profile_image, true)
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
+                    self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
+                    self.callbacks?((arrFriends[0] as! TblTotalFriends).user_id.description)
+                }
+                if (arrFriends[1] as! TblTotalFriends).profile_image == "" {
+                    imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSecond.text = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
+                }else {
+                    imgFriendSecond.loadImageFromUrl((arrFriends[1] as! TblTotalFriends).profile_image, true)
+                    lblFriendSecond.text  = ((arrFriends[1] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[1] as! TblTotalFriends).last_name ?? "")
+                    self.SeconduserID = (arrFriends[1] as! TblTotalFriends).friend_user_id.description
+                }
+
+                if (arrFriends[2] as! TblTotalFriends).profile_image == "" {
+                    imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendThird.loadImageFromUrl((arrFriends[2] as! TblTotalFriends).profile_image, true)
+                    lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
+                    self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
+                }
+                
+                if (arrFriends[3] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFourth.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFourth.text = ((arrFriends[3] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[3] as! TblTotalFriends).last_name ?? "")
+                    self.FourthuserID = (arrFriends[3] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendFourth.loadImageFromUrl((arrFriends[3] as! TblTotalFriends).profile_image, true)
+                    lblFriendFourth.text = ((arrFriends[3] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[3] as! TblTotalFriends).last_name ?? "")
+                    self.FourthuserID = (arrFriends[3] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[4] as! TblTotalFriends).profile_image == "" {
+                    imgFriendFive.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFive.text = ((arrFriends[4] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[4] as! TblTotalFriends).last_name ?? "")
+                    self.FiveuserID = (arrFriends[4] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendFive.loadImageFromUrl((arrFriends[4] as! TblTotalFriends).profile_image, true)
+                    lblFriendFive.text = ((arrFriends[4] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[4] as! TblTotalFriends).last_name ?? "")
+                    self.FiveuserID = (arrFriends[4] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[5] as! TblTotalFriends).profile_image == "" {
+                    imgFriendSix.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSix.text = ((arrFriends[5] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[5] as! TblTotalFriends).last_name ?? "")
+                    self.SixuserID = (arrFriends[5] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendSix.loadImageFromUrl((arrFriends[5] as! TblTotalFriends).profile_image, true)
+                    lblFriendSix.text = ((arrFriends[5] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[5] as! TblTotalFriends).last_name ?? "")
+                    self.SixuserID = (arrFriends[5] as! TblTotalFriends).friend_user_id.description
+                }
+                if (arrFriends[6] as! TblTotalFriends).profile_image == "" {
+                    imgFriendSeven.image = UIImage(named: "user_placeholder.png")
+                    lblFriendSeven.text = ((arrFriends[6] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[6] as! TblTotalFriends).last_name ?? "")
+                    self.SevenuserID = (arrFriends[6] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendSeven.loadImageFromUrl((arrFriends[6] as! TblTotalFriends).profile_image, true)
+                    lblFriendSeven.text = ((arrFriends[6] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[6] as! TblTotalFriends).last_name ?? "")
+                    self.SevenuserID = (arrFriends[6] as! TblTotalFriends).friend_user_id.description
+                }
+                
+                if (arrFriends[7] as! TblTotalFriends).profile_image == "" {
+                    imgFriendEight.image = UIImage(named: "user_placeholder.png")
+                    lblFriendEight.text = ((arrFriends[6] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[6] as! TblTotalFriends).last_name ?? "")
+                    self.EightuserID = (arrFriends[7] as! TblTotalFriends).friend_user_id.description
+                 
+                }else {
+                    imgFriendEight.loadImageFromUrl((arrFriends[7] as! TblTotalFriends).profile_image, true)
+                    lblFriendEight.text = ((arrFriends[7] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[7] as! TblTotalFriends).last_name ?? "")
+                    self.EightuserID = (arrFriends[7] as! TblTotalFriends).friend_user_id.description
+                }
+            
             default:
                 break;
             }
@@ -347,6 +713,13 @@ extension MyProfileHeaderTblCell {
     @IBAction fileprivate func onTotalFriends(_ sender:UIButton){
         self.onTotalFriendAction?()
     }
+    
+    @IBAction fileprivate func onEditProfile(_ sender:UIButton){
+        self.onEditprofileAction?()
+        
+    }
+
+
 }
 
 //MARK: - UICollectionViewDelegate, UICollectionViewDataSource
@@ -396,6 +769,7 @@ extension MyProfileHeaderTblCell{
                 GCDMainThread.async{
                     let totalCnt = response?["total_my_friends"] as? Int
                     self?.totalFriendsCnt = totalCnt ?? 0
+                    self?.lblFriend.attributedText = NSMutableAttributedString().bold((self?.totalFriendsCnt.description)!).normal(" ").bold(CCFriends)
                    // self?.btnTotalFriend.setTitle(self?.totalFriendsCnt.toString, for: .normal)
                 }
             }
@@ -417,7 +791,7 @@ extension MyProfileHeaderTblCell{
                         GCDMainThread.async{
                             let friends_no = Info["friends"] as? [[String:Any]]
                             self.friends_count = friends_no?.count ?? 0
-                            self.btnTotalFriend.setTitle(self.friends_count.toString, for: .normal)
+//                            self.btnTotalFriend.setTitle(self.friends_count.toString, for: .normal)
                             MILoader.shared.hideLoader()
                         }
    
@@ -444,7 +818,7 @@ extension MyProfileHeaderTblCell{
                         GCDMainThread.async{
                             let friends_no = Info["friends"] as? [[String:Any]]
                             self.friends_count = friends_no?.count ?? 0
-                            self.btnTotalFriend.setTitle(self.friends_count.toString, for: .normal)
+                            //self.btnTotalFriend.setTitle(self.friends_count.toString, for: .normal)
                             MILoader.shared.hideLoader()
                         }
    

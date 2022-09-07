@@ -107,6 +107,7 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate{
     @IBOutlet weak var btnMore : UIButton!
     @IBOutlet private weak var btnVideo: UIButton!
     @IBOutlet private weak var btnAudio: UIButton!
+    @IBOutlet weak var viewMoreitemsView : UIView!
     @IBOutlet weak var txtViewMessage : GenericTextView!{
         didSet{
             self.txtViewMessage.txtDelegate = self
@@ -272,12 +273,18 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate{
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.NotificationIdentifierLocation(notification:)), name: Notification.Name("NotificationIdentifierLocation"), object: nil)
         
+        btnAudioMsg.imageView?.clipsToBounds = true
+        btnAudioMsg.imageEdgeInsets = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
+        btnAudioMsg.imageView?.layer.cornerRadius = 13
+        
+        self.viewMoreitemsView.isHidden = true
         self.updateUIAccordingToLanguage()
         if self.arrSelectedMediaForChat.count > 0 {
             self.storeMediaToLocal(.image)
         }
         
         self.uploadMediaFileToServer()
+        
         
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -340,6 +347,7 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate{
             
             MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
             self.messageidListItems.removeAll()
+            self.viewMoreitemsView.isHidden = true
             self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
             self.refreshControl.tintColor = ColorAppTheme
             self.tblChat.pullToRefreshControl = self.refreshControl
@@ -348,8 +356,26 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate{
             _locationPicker.showConfirmAlertOnSelectLocation = true
             locationPicker = _locationPicker
         }
+        
         btnAudio.isHidden = true
         btnVideo.isHidden = true
+ //MARK: - Recording
+        btnAutoDelete.isHidden = true
+        audioMsgView.isHidden = true
+        audioMsgTimeLbl.isHidden = true
+        audioMsgView.layer.cornerRadius = 8
+        audioMsgView.layer.masksToBounds = true
+        
+        
+        
+        let tapGesture = UITapGestureRecognizer(target: self,action: #selector(singlelPress(_:)))
+        tapGesture.numberOfTapsRequired = 1
+        btnAudioMsg.addGestureRecognizer(tapGesture)
+        
+        let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.audioMsglongTap(_:)))
+        self.btnAudioMsg.isUserInteractionEnabled = true
+        btnAudioMsg.addGestureRecognizer(longGesture)
+        
         self.setFetchController()
         self.setUserDetails()
         showHideVideoAudio()
@@ -1141,12 +1167,20 @@ extension UserChatDetailViewController: GenericTextViewDelegate {
     func genericTextViewDidChange(_ textView: UITextView, height: CGFloat) {
         if textView.text.count < 1 || textView.text.trim.isBlank{
             btnSend.isUserInteractionEnabled = false
-            btnAttachment.isHidden = false
+            //btnAttachment.isHidden = false
+            btnAudioMsg.isHidden = false
+          //  btnAutoDelete.isHidden = true
+            audioMsgView.isHidden = true
+            audioMsgView.isHidden = true
             btnSend.alpha = 0.5
         }else{
-            btnAttachment.isHidden = true
+           // btnAttachment.isHidden = true
             btnSend.isUserInteractionEnabled = true
             btnSend.alpha = 1
+            
+            btnAudioMsg.isHidden = false
+            audioMsgView.isHidden = true
+            audioMsgTimeLbl.isHidden = true
         }
         
         if height < 34 {
@@ -1621,13 +1655,13 @@ extension UserChatDetailViewController{
                     self.arrSelectedMediaForChat.removeAll()
                     self.arrSelectedMediaForChat.append(self.latestFileName as Any)
                     self.storeMediaToLocal(.audio)
-                    self.tblChat.scrollToBottom()
+//                    self.tblChat.scrollToBottom()
                     
                 }))
                 alertController.addAction(UIAlertAction(title: CBtnNo, style: UIAlertAction.Style.default, handler: nil))
-                let btnImage    = UIImage(named: "ic_uncheckbox")!
+//                let btnImage    = UIImage(named: "ic_uncheckbox")!
                 let imageButton : UIButton = UIButton(frame: CGRect(x: 25, y: 60, width: 30, height: 30))
-                imageButton.setBackgroundImage(btnImage, for: UIControl.State())
+//                imageButton.setBackgroundImage(btnImage, for: UIControl.State())
                 imageButton.addTarget(self, action: #selector(self.checkBoxAction(_:)), for: .touchUpInside)
                 alertController.view.addSubview(imageButton)
                 self.present(alertController, animated: false, completion: { () -> Void in

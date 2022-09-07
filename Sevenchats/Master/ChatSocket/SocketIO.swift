@@ -98,11 +98,39 @@ class SocketIOManager: NSObject {
                 var postInfo = dictNot["postInfo"] as? [String:Any] ?? [:]
                 let  senderName = dictNot["senderName"] as? String ?? ""
                 postInfoConent["content"] = content
-                self.scheduleNotification(notificationType: eventConvertObj["subject"] as? String ?? "",senderName:senderName,postInfo:postInfoConent)
-                dict["subject"] = eventConvertObj["subject"] as? String
-                dict["sender"] = eventConvertObj["sender"] as? String
-                print("this is onAny observer")
-                NotificationCenter.default.post(name: Notification.Name("LoadMsgData"), object: nil,userInfo: nil)
+                
+                let userDelete = eventConvertObj["type"] as? String
+                
+                if userDelete?.toInt == 2{
+                                        DispatchQueue.main.async(execute: {
+                                            appDelegate.window.rootViewController?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CDeleteContent, btnOneTitle: CBtnOk, btnOneTapped: {_ in
+                                                appDelegate.logOut()
+                                            })
+                                        })
+                                    }else {
+                                        //                if eventConvertObj["type"] as? String == "2"
+                                        //                let contentConvert = content?.replace(string: "\\", replacement: "")
+                                        let contentConvert = content?.replace(string: "\\", replacement: "").return_replaceBack(replaceBack:content ?? "")
+                                        let dictNot =  self.convertToDictionaryToConent(from: contentConvert ?? "")
+                                        
+                                        var postInfo = dictNot["postInfo"] as? [String:Any] ?? [:]
+                                        let  senderName = dictNot["senderName"] as? String ?? ""
+                                        postInfoConent["content"] = content
+                                        self.scheduleNotification(notificationType: eventConvertObj["subject"] as? String ?? "",senderName:senderName,postInfo:postInfoConent)
+                                        dict["subject"] = eventConvertObj["subject"] as? String
+                                        dict["sender"] = eventConvertObj["sender"] as? String
+                                        print("this is onAny observer")
+                                        NotificationCenter.default.post(name: Notification.Name("LoadMsgData"), object: nil,userInfo: nil)
+                                        
+                                        
+                                    }
+                
+                
+//                self.scheduleNotification(notificationType: eventConvertObj["subject"] as? String ?? "",senderName:senderName,postInfo:postInfoConent)
+//                dict["subject"] = eventConvertObj["subject"] as? String
+//                dict["sender"] = eventConvertObj["sender"] as? String
+//                print("this is onAny observer")
+//                NotificationCenter.default.post(name: Notification.Name("LoadMsgData"), object: nil,userInfo: nil)
             }
         }
         }

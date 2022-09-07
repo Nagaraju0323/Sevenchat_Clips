@@ -87,9 +87,9 @@ extension SongListViewController {
     }
     
     fileprivate func fetchSongFromLocal() {
-        let query = MPMediaQuery()
-//        print("query\(query)")
+       let query = MPMediaQuery()
         
+        print("query\(query)")
         arrSongList = query.items!
         print("arrSongList\(arrSongList)")
         tblSongList.reloadData()

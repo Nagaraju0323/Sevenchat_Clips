@@ -57,6 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         //setupNavigationBar()
         FirebaseApp.configure()
+        
+        self.userfeatchDeatails()
 
         //Fabric.with([Crashlytics.self])
         
@@ -856,3 +858,35 @@ extension UIApplication {
  }
 
  }
+
+extension AppDelegate{
+    
+    func userfeatchDeatails(){
+            
+            if CUserDefaults.object(forKey: UserDefaultUserID) != nil {
+                
+                if let userID = CUserDefaults.object(forKey: UserDefaultUserID){
+                    
+                    APIRequest.shared().appDelegateuserDetailNew(userID: userID as! String,apiKeyCall: "users/v1/id/") { [weak self] (response, error) in
+                        if response != nil && error == nil {
+                            if let Info = response!["data"] as? [[String:Any]]{
+                                for userInfo in Info {
+                                    print("userInfo\(userInfo)")
+                                }
+                            }
+                        }else {
+                            DispatchQueue.main.async(execute: {
+                                appDelegate.window.rootViewController?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CDeleteContent, btnOneTitle: CBtnOk, btnOneTapped: {_ in
+                                    appDelegate.logOut()
+                                })
+                            })
+                        }
+                    }
+                }
+            }else {
+                print("else empty")
+            }
+        }
+    
+    
+}

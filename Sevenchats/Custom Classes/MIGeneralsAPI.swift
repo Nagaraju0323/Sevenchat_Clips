@@ -413,7 +413,11 @@ extension MIGeneralsAPI {
     }
     
     func getAdvertisementList() {
-        
+        APIRequest.shared().advertisementList(page: 1) { (response, error) in
+            if response != nil && error == nil {
+                print("response\(response)")
+            }
+        }
     }
     
     func readNotification(_ notId: String?) {

@@ -899,6 +899,14 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 
+                cell.onEditprofileAction = { [weak self] in
+                    if let editProfileVC = CStoryboardProfile.instantiateViewController(withIdentifier: "EditProfileViewController") as? EditProfileViewController{
+                        editProfileVC.isremovedImage = self?.isProfileUpdate
+                        self?.navigationController?.pushViewController(editProfileVC, animated: true)
+                        
+                    }
+                }
+                
                 cell.btnViewCompleteProfile.touchUpInside { [weak self](sender) in
                     if let completeVC = CStoryboardProfile.instantiateViewController(withIdentifier: "OtherUserCompleteProfileViewController") as? OtherUserCompleteProfileViewController {
                         completeVC.isLoginUser = true
@@ -906,12 +914,49 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
                     }
                 }
                 
-                cell.btnShare.touchUpInside { [weak self](sender) in
-                    if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController") as? ChatListViewController{
-                        let nav = self?.viewController as? UINavigationController
-                        nav?.pushViewController(userDetailVC, animated: true)
-                    }
+//                cell.btnShare.touchUpInside { [weak self](sender) in
+//                    if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "ChatListViewController") as? ChatListViewController{
+//                        let nav = self?.viewController as? UINavigationController
+//                        nav?.pushViewController(userDetailVC, animated: true)
+//                    }
+//                }
+                
+                
+                
+                cell.btnFriendFirst.touchUpInside { [weak self](sender) in
+                   
+                    appDelegate.moveOnProfileScreenNew(cell.FristuserID, "", self)
                 }
+                cell.btnFriendSecond.touchUpInside { [weak self](sender) in
+                    
+                    appDelegate.moveOnProfileScreenNew(cell.SeconduserID, "", self)
+                }
+                cell.btnFriendThird.touchUpInside { [weak self](sender) in
+                    
+                    appDelegate.moveOnProfileScreenNew(cell.ThirduserID, "", self)
+                }
+                cell.btnFriendFourth.touchUpInside { [weak self](sender) in
+                    
+                    appDelegate.moveOnProfileScreenNew(cell.FourthuserID, "", self)
+                }
+                cell.btnFriendFive.touchUpInside { [weak self](sender) in
+                   
+                    appDelegate.moveOnProfileScreenNew(cell.FiveuserID, "", self)
+                }
+                cell.btnFriendSix.touchUpInside { [weak self](sender) in
+                    
+                    appDelegate.moveOnProfileScreenNew(cell.SixuserID, "", self)
+                }
+                cell.btnFriendSeven.touchUpInside { [weak self](sender) in
+                    
+                    appDelegate.moveOnProfileScreenNew(cell.SevenuserID, "", self)
+                }
+                cell.btnFriendEight.touchUpInside { [weak self](sender) in
+                    
+                    appDelegate.moveOnProfileScreenNew(cell.EightuserID, "", self)
+                }
+                
+                
                 return cell
             }
         }

@@ -519,39 +519,75 @@ extension LoginViewController{
     }
     
     
+//    func userAccountactive(){
+//        let userid = appDelegate.loginUser?.user_id.description ?? ""
+//        let dict:[String:Any] = [
+//            "user_id": userid,
+//            "type": "1",
+//        ]
+//        APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
+//            if response != nil && error == nil {
+//                DispatchQueue.main.async {
+//                    self.txtEmail.text = ""
+//                    self.txtPWD.text = ""
+//
+//                  //Alertview Showt
+//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CSuccess_active, btnOneTitle: CBtnOk, btnOneTapped: {_ in
+//                        let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+//                        UIApplication.shared.keyWindow?.rootViewController = loginViewController
+//                        appDelegate.logOut()
+//                    })
+//
+////                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+////                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
+//
+////                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Successfully Activate Account", btnOneTitle: CBtnOk, btnOneTapped: nil)
+//
+//                }
+//            }else {
+//                //change LanguageHear
+//                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+//                let errorMsg = errorUserinfo.stringAfter(":")
+//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            }
+//        }
+//    }
+    
     func userAccountactive(){
-        let userid = appDelegate.loginUser?.user_id.description ?? ""
-        let dict:[String:Any] = [
-            "user_id": userid,
-            "type": "1",
-        ]
-        APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
-            if response != nil && error == nil {
-                DispatchQueue.main.async {
-                    self.txtEmail.text = ""
-                    self.txtPWD.text = ""
-                    
-                  //Alertview Showt
-                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CSuccess_active, btnOneTitle: CBtnOk, btnOneTapped: {_ in
-                        let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
-                        UIApplication.shared.keyWindow?.rootViewController = loginViewController
-                        appDelegate.logOut()
-                    })
-                  
-//                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
-//                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
-                    
-//                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Successfully Activate Account", btnOneTitle: CBtnOk, btnOneTapped: nil)
-                  
+    //        let userid = appDelegate.loginUser?.user_id.description ?? ""
+            
+            let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+            let dict:[String:Any] = [
+                "user_id": encryptUser,
+                "type": "1",
+            ]
+            APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
+                if response != nil && error == nil {
+                    DispatchQueue.main.async {
+                        self.txtEmail.text = ""
+                        self.txtPWD.text = ""
+                        
+                      //Alertview Showt
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CSuccess_active, btnOneTitle: CBtnOk, btnOneTapped: {_ in
+                            let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+                            UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                            appDelegate.logOut()
+                        })
+                      
+    //                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+    //                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                        
+    //                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "Successfully Activate Account", btnOneTitle: CBtnOk, btnOneTapped: nil)
+                      
+                    }
+                }else {
+                    //change LanguageHear
+                    guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+                    let errorMsg = errorUserinfo.stringAfter(":")
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 }
-            }else {
-                //change LanguageHear
-                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
-                let errorMsg = errorUserinfo.stringAfter(":")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
         }
-    }
     
     
     func socialLogin(dict : [String : AnyObject]) {
@@ -608,7 +644,7 @@ extension LoginViewController{
                     }
                 })
             } else {
-                
+                MIGeneralsAPI.shared().getAdvertisementList()
                 UserDefaults.standard.removeObject(forKey: "ProfileImg")
                 appDelegate.initHomeViewController()
             }

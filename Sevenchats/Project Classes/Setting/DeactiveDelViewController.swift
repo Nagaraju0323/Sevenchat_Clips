@@ -118,27 +118,54 @@ class DeactiveDelViewController: ParentViewController {
 
 extension DeactiveDelViewController{
     
+//    func userAccountDeactive(){
+//        let userid = appDelegate.loginUser?.user_id.description ?? ""
+//        let dict:[String:Any] = [
+//            "user_id": userid,
+//            "type": "2",
+//        ]
+//        APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
+//            if response != nil && error == nil {
+//                DispatchQueue.main.async {
+////                    appDelegate.logOut()
+//                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+//                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
+//                }
+//            }else {
+//                //change LanguageHear
+//                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+//                let errorMsg = errorUserinfo.stringAfter(":")
+//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            }
+//        }
+//    }
+    
+    
     func userAccountDeactive(){
-        let userid = appDelegate.loginUser?.user_id.description ?? ""
-        let dict:[String:Any] = [
-            "user_id": userid,
-            "type": "2",
-        ]
-        APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
-            if response != nil && error == nil {
-                DispatchQueue.main.async {
-//                    appDelegate.logOut()
-                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
-                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
+            
+            let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+            
+    //        let userid = appDelegate.loginUser?.user_id.description ?? ""
+            let dict:[String:Any] = [
+                "user_id": encryptUser,
+                "type": "2",
+            ]
+            APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
+                if response != nil && error == nil {
+                    DispatchQueue.main.async {
+                        let userID = appDelegate.loginUser?.user_id.description ?? ""
+                        MIGeneralsAPI.shared().sendNotification("", userID: userID, subject: "", MsgType: "2", MsgSent: "", showDisplayContent: "", senderName: "", post_ID: [:], shareLink: "")
+                        
+                        let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+                        UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                    }
+                }else {
+                    //change LanguageHear
+                    guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+                    let errorMsg = errorUserinfo.stringAfter(":")
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
                 }
-            }else {
-                //change LanguageHear
-                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
-                let errorMsg = errorUserinfo.stringAfter(":")
-                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
             }
         }
-    }
-    
     
 }

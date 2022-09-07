@@ -59,18 +59,104 @@ class EnterPasswordViewController: ParentViewController {
 
 
 
+//extension EnterPasswordViewController{
+//
+//    func deleteAccount(){
+//        let dict:[String:Any] = [
+//            "username": txtEmail.text!,
+//            "password": txtPWD.text!,
+//        ]
+//        APIRequest.shared().userDeleteAccount(para: dict as [String : AnyObject]) { (response, error) in
+//            if response != nil && error == nil {
+//                DispatchQueue.main.async {
+//
+//                    self.userAccountDeactive(accountType:"1")
+//                }
+//            }else {
+//              //change LanguageHear
+//
+//                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+//                let errorMsg = errorUserinfo.stringAfter(":")
+//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: errorMsg, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            }
+//        }
+//
+//    }
+//    func userAccountDeactive(accountType:String){
+//        let userid = appDelegate.loginUser?.user_id.description ?? ""
+//        let dict:[String:Any] = [
+//            "user_id": userid,
+//            "type": accountType,
+//        ]
+//        APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
+//            if response != nil && error == nil {
+//                DispatchQueue.main.async {
+//                    appDelegate.logOut()
+//                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+//                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
+//                }
+//            }else {
+//                //change LanguageHear
+//                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+//                let errorMsg = errorUserinfo.stringAfter(":")
+//                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            }
+//        }
+//    }
+//}
+
+//func userAccountDeactive(){
+//
+//        let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
+//
+////        let userid = appDelegate.loginUser?.user_id.description ?? ""
+//        let dict:[String:Any] = [
+//            "user_id": encryptUser,
+//            "type": "2",
+//        ]
+//        APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
+//            if response != nil && error == nil {
+//                DispatchQueue.main.async {
+//                    let userID = appDelegate.loginUser?.user_id.description ?? ""
+//                    MIGeneralsAPI.shared().sendNotification("", userID: userID, subject: "", MsgType: "2", MsgSent: "", showDisplayContent: "", senderName: "", post_ID: [:], shareLink: "")
+//
+//                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+//                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
+//                }
+//            }else {
+//                //change LanguageHear
+//                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+//                let errorMsg = errorUserinfo.stringAfter(":")
+//                presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageEmailExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//            }
+//        }
+//    }
+
+
 extension EnterPasswordViewController{
     
     func deleteAccount(){
+        
+        let usernameEnc = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtEmail.text ?? "")
+        let passwordEnc = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: txtPWD.text ?? "")
         let dict:[String:Any] = [
-            "username": txtEmail.text!,
-            "password": txtPWD.text!,
+            "username": usernameEnc,
+            "password": passwordEnc,
         ]
+        
         APIRequest.shared().userDeleteAccount(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
                     
-                    self.userAccountDeactive(accountType:"1")
+                    
+                    if let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject] {
+                        if  metaData.valueForString(key: "message") == "success"{
+                            self.userAccountDeactive(accountType:"3")
+                        }
+                    }
+                    
+                    
+//                    self.userAccountDeactive(accountType:"3")
                 }
             }else {
               //change LanguageHear
@@ -83,7 +169,9 @@ extension EnterPasswordViewController{
         
     }
     func userAccountDeactive(accountType:String){
-        let userid = appDelegate.loginUser?.user_id.description ?? ""
+//
+//        let userid = appDelegate.loginUser?.user_id.description ?? ""
+        let userid = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: appDelegate.loginUser?.user_id.description ?? "")
         let dict:[String:Any] = [
             "user_id": userid,
             "type": accountType,
@@ -91,6 +179,7 @@ extension EnterPasswordViewController{
         APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
             if response != nil && error == nil {
                 DispatchQueue.main.async {
+                    MIGeneralsAPI.shared().sendNotification("", userID: userid, subject: "", MsgType: "2", MsgSent: "", showDisplayContent: "", senderName: "", post_ID: [:], shareLink: "")
                     appDelegate.logOut()
                     let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
                     UIApplication.shared.keyWindow?.rootViewController = loginViewController
@@ -104,6 +193,7 @@ extension EnterPasswordViewController{
         }
     }
 }
+
 
 extension EnterPasswordViewController: GenericTextFieldDelegate {
     

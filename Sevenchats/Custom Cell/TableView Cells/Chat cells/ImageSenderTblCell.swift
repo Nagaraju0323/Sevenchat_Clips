@@ -214,6 +214,13 @@ extension ImageSenderTblCell {
                 self.activityIndicator.startAnimating()
                 
                 ChatSocketIo.shared().downloadAudioVideoAndStoreInDocumentDirectorySocket(messageInfo)
+                self.btnVideoDownload.isHidden = true
+                self.btnVideoPlay.isHidden = false
+                self.activityIndicator.isHidden = true
+                self.activityIndicator.stopAnimating()
+                
+//                self.activityIndicator.isHidden = true
+                
                 
             }
         }

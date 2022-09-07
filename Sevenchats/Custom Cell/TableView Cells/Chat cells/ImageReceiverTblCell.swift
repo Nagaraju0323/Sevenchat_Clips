@@ -188,6 +188,10 @@ extension ImageReceiverTblCell {
                 self.activityIndicator.isHidden = false
                 self.activityIndicator.startAnimating()
                 ChatSocketIo.shared().downloadAudioVideoAndStoreInDocumentDirectorySocket(messageInfo)
+                self.btnVideoDownload.isHidden = true
+                self.btnVideoPlay.isHidden = false
+                self.activityIndicator.isHidden = true
+                self.activityIndicator.stopAnimating()
 //                MIMQTT.shared().downloadAudioVideoAndStoreInDocumentDirectory(messageInfo)
             }
         }

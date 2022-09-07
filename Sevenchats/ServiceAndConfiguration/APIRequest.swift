@@ -23,7 +23,7 @@ import LGSideMenuController
 /// Live
 //var BASEURL: String          =   "http://dev1.sevenchats.com:2020/api/v1/"
 //MARK: - Dev
-var BASEURLNEW: String      =   "https://dev.sevenchats.com:7444/admin/"
+/*var BASEURLNEW: String      =   "https://dev.sevenchats.com:7444/admin/"
 let BASEMSGURL:String       =   "https://dev.sevenchats.com:4443/"
 var BASEMASTERURL           = "https://dev.sevenchats.com:7444/auth/"
 //////MARK: - CHAT
@@ -47,7 +47,7 @@ let SocketIoUrl = "https://dev.sevenchats.com:7444/ws-chat/websocket"
 //////////MARK:- NotificationSocket
 //////let BASEURLSOCKETNOTF: String = "wss://dev.sevenchats.com:2443/"
 let BASEURLSOCKETNOTF: String = "ws://dev.sevenchats.com:1923"
-let BASEURL_Rew: String = "Dev"
+let BASEURL_Rew: String = "Dev"*/
 //
 ////////MARK:- MINIO
 ////let BASEURLMINIO: String = "https://qa.sevenchats.com:3443"
@@ -102,21 +102,21 @@ let BASEURLMINIO: String = "https://stg.sevenchats.com:3443"
 
 //Beta server
 
-//
-//var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
-//    let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
-//    let BASEMSGURLS:String       =   "https://beta.sevenchats.com"
-//    var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
-//    var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
-//    var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
-//    var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
-//    var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
-//    var BASEAUTHLOGIN:String         =   "https://beta.sevenchats.com/"
-//    var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
-//    var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
-//    let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
-//    let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
-//    let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
+
+    var BASEURLNEW: String      =   "https://beta.sevenchats.com:443/admin/"
+    let BASEMSGURL:String       =   "https://beta.sevenchats.com:443/"
+    let BASEMSGURLS:String       =   "https://beta.sevenchats.com"
+    var BASEMASTERURL           = "https://beta.sevenchats.com:443/auth/"
+    var BASEURLCHATLASTMSG: String   =  "https://beta.sevenchats.com:443/"
+    var BASEURLOTP: String     =   "https://beta.sevenchats.com:443/"
+    var BASEEMAILOTP:String    =   "https://beta.sevenchats.com:443/"
+    var BASEAUTH:String         =   "https://beta.sevenchats.com:443/"
+    var BASEAUTHLOGIN:String         =   "https://beta.sevenchats.com/"
+    var BASEURLNOTIFICATION: String  = "https://beta.sevenchats.com:443/"
+    var BASEURLSENDNOTIF : String  =  "https://beta.sevenchats.com:443/"
+    let SocketIoUrl = "https://beta.sevenchats.com:443/ws-chat/websocket/"
+    let BASEURLSOCKETNOTF: String = "https://beta.sevenchats.com:443/"
+    let BASEURL_Rew: String = "https://beta.sevenchats.com:443/"
 
 //let BASEURL_Rew: String = "QAY"
 
@@ -176,7 +176,8 @@ let CAPITagDeleteComment = "delete-comment/"
 let CAPITagLikeUnlike = "like-unlike"
 let CAPITagEventInterest = "events/choice"
 //let CAPITagEventInterest = "events/v1/choice"
-let CAPITagAdvertisementList = "advertisement-list"
+//let CAPITagAdvertisementList = "advertisement-list"
+let CAPITagAdvertisementList = "advertisers"
 let CAPITagDeviceToken = "device-token"
 let CAPITagHomeSearch = "search-by-type1"
 let CAPITagHomeSearchUsers = "users"
@@ -404,8 +405,12 @@ let CAPITagRewardUser = "rewards/v1/users/"
 let CAPITagPSLCategoryNew          = "categories/type/PSL"
 let CProductMySearch = "search/product"
 let CProductListSearch = "search/productpost"
-let CAPUserDelete =  "/register/delete"
-let CAPUserDecatvice =  "users/delete"
+//let CAPUserDelete =  "/register/delete"
+//let CAPUserDecatvice =  "users/delete"
+
+
+let CAPUserDelete =  "auth/register/v1/delete"
+let CAPUserDecatvice =  "users/v1/delete"
 
 let CJsonResponse           = "response"
 let CJsonMessage            = "message"
@@ -691,6 +696,15 @@ extension Networking {
       }
     
     
+    func PUTJSONDELETE(apiTag tag:String, param parameters:[String: Any]?, successBlock success:ClosureSuccess?,   failureBlock failure:ClosureError?) -> URLSessionTask? {
+           
+           let parameterEncoding = JSONStringArrayEncoding.init(array: (parameters ?? [:]) as [String:Any])
+           
+           let uRequest = SessionManager.default.request(BASEMSGURL+tag, method: .put, parameters: parameters, encoding: parameterEncoding, headers: headers)
+           self.handleResponseStatus(uRequest: uRequest, success: success, failure: failure)
+           return uRequest.task!
+       }
+       
     
     func POSTPARA(apiTag tag:String, param parameters:[String: AnyObject]?, successBlock success:ClosureSuccess?, failureBlock failure:ClosureError?, internalheaders: HTTPHeaders? = nil) -> URLSessionTask? {
         let uRequest = SessionManager.default.request((BASEURLNEW + tag), method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: internalheaders ?? headers)
@@ -1986,6 +2000,55 @@ extension APIRequest {
     
     
     
+    //appdelegage Check userId details
+        
+        func appDelegateuserDetailNew(userID : String, apiKeyCall: String, completion : @escaping ClosureCompletion) {
+            
+            let encryptResult = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: userID.description)
+            
+            
+            let apiTag = CAPITagUserIdNew + encryptResult
+        
+            _ = Networking.sharedInstance.GETNEW(apiTag: apiTag, param: nil, successBlock: { (task, response) in
+                
+                MILoader.shared.hideLoader()
+    //            let isAppLaunchHere = CUserDefaults.value(forKey: UserDefaultIsAppLaunchHere) as? Bool ?? true
+                guard let metaData = response?.value(forKey: CJsonMeta) as? [String : Any] else {
+                    completion(nil, nil)
+                    return
+                }
+                guard let _response = response as? [String : AnyObject] else {
+                    completion(nil, nil)
+                    return
+                }
+                guard let responseData = _response.valueForJSON(key: CJsonData) as? [String : AnyObject] else {
+                    completion(_response as AnyObject, nil)
+                    return
+                }
+                
+    //            if metaData.valueForInt(key: CJsonStatus) == CStatusZero && !isAppLaunchHere {
+    ////                CUserDefaults.set(true, forKey: UserDefaultIsAppLaunchHere)
+    ////                CUserDefaults.synchronize()
+    //                appDelegate.initHomeViewController()
+    //            }
+    //
+                completion(response, nil)
+                
+            }, failureBlock: { (task, message, error) in
+                MILoader.shared.hideLoader()
+                completion(nil, error)
+                if error?.code == CStatus405{
+                    appDelegate.logOut()
+                } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
+                } else {
+                    self.actionOnAPIFailure(errorMessage: message, showAlert: true, strApiTag: CAPITagUser, error: error)
+                }
+            })
+        }
+    
+    
+    
+    
     func signUpUser(dict : [String : AnyObject], completion : @escaping ClosureCompletion) {
         
         //        MILoader.shared.showLoader(type: .activityIndicatorWithMessage, message: "\(CMessagePleaseWait)...")
@@ -2150,7 +2213,7 @@ extension APIRequest {
 //        })!
         
         
-        return Networking.sharedInstance.DELETEUSERJSON(apiTag: CAPUserDelete, param: para, successBlock: { (task, response) in
+        return Networking.sharedInstance.PUTJSONDELETE(apiTag: CAPUserDelete, param: para, successBlock: { (task, response) in
             MILoader.shared.hideLoader()
             completion(response, nil)
         }, failureBlock: { (task, message, error) in
@@ -3429,7 +3492,44 @@ extension APIRequest {
         
     }
     
+//TODO: -----------------Avertisement List -------------------
     
+    
+//    func advertisementList(page : Int?, completion: @escaping ClosureCompletion ) -> URLSessionTask?{
+//
+//        //let apiTag = CProductCategoriesList + "search=" + searchText
+//        var para = [String : Any]()
+//        para[CPage] = page
+//        return Networking.sharedInstance.GETNEW(apiTag: CAPITagAdvertisementList, param:para as [String : AnyObject], successBlock: { (task, reponse) in
+//            MILoader.shared.hideLoader()
+//            if self.checkResponseStatusAndShowAlert(showAlert: false, responseobject: response, strApiTag: CAPITagAdvertisementList) {
+//                self.storeAdvertiseList(response: response as! [String : Any])
+//                completion(response, nil)
+//            }
+//
+//        }, failureBlock: { (task, message, error) in
+//            MILoader.shared.hideLoader()
+//            completion(nil, error)
+//
+//        })
+//    }
+
+    
+    func advertisementList(page : Int?, completion : @escaping ClosureCompletion) -> URLSessionTask {
+        
+        var para = [String : Any]()
+       
+        para["limit"] = 10
+        para[CPage] = 1
+        
+        //_ = Networking.sharedInstance.POST(apiTag: CAPITagAdvertisementList, param: para as [String : AnyObject], successBlock: { (task, response) in
+            return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagAdvertisementList, param:para as [String : AnyObject], successBlock: { (task, reponse) in
+                completion(reponse, nil)
+        }, failureBlock: { (task, message, error) in
+            completion(nil, error)
+        })!
+        
+    }
     //TODO:
     //TODO: --------------GENERAL APIS --------------
     //TODO:
