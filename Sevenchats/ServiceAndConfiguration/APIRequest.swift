@@ -4593,7 +4593,7 @@ extension APIRequest {
     
     
     func saveUserFriendsDetails(response : [String : AnyObject]) {
-        
+        TblTotalFriends.deleteAllObjects()
         if let data = response.valueForJSON(key: "my_friends") as? [[String : AnyObject]] {
             TblTotalFriends.deleteAllObjects()
             for dict in data{

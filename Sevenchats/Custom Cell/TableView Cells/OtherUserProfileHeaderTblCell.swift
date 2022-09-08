@@ -25,10 +25,7 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
     @IBOutlet var viewFriendSecond : UIView!
     @IBOutlet var viewFriendThird : UIView!
     @IBOutlet var viewFriendFourth : UIView!
-    @IBOutlet var btnFriendFirst : UIButton!
-    @IBOutlet var btnFriendSecond : UIButton!
-    @IBOutlet var btnFriendThird : UIButton!
-    @IBOutlet var btnFriendFourth : UIButton!
+   
     @IBOutlet var btnTotalFriend : UIButton!
     @IBOutlet var btnMore : UIButton!
     @IBOutlet var btnViewCompleteProfile : UIButton!
@@ -44,31 +41,108 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
     @IBOutlet weak var btnUserProfile : UIButton!
     @IBOutlet weak var lblStatus: UILabel!
     
+    @IBOutlet var btnFriendFirst : UIButton!
+    @IBOutlet var btnFriendSecond : UIButton!
+    @IBOutlet var btnFriendThird : UIButton!
+    @IBOutlet var btnFriendFourth : UIButton!
+    @IBOutlet weak var btnFriendFive : UIButton!
+    @IBOutlet weak var btnFriendSix : UIButton!
+    @IBOutlet weak var btnFriendSeven : UIButton!
+    @IBOutlet weak var btnFriendEight: UIButton!
+    
+    @IBOutlet weak var lblFriendFirst : UILabel!
+    @IBOutlet weak var lblFriendSecond : UILabel!
+    @IBOutlet weak var lblFriendThird : UILabel!
+    @IBOutlet weak var lblFriendFourth : UILabel!
+    @IBOutlet weak var lblFriendFive : UILabel!
+    @IBOutlet weak var lblFriendSix : UILabel!
+    @IBOutlet weak var lblFriendSeven : UILabel!
+    @IBOutlet weak var lblFriendEight: UILabel!
+    
+    
+    @IBOutlet weak var imgFriendFirst : UIImageView!
+    @IBOutlet weak var imgFriendSecond : UIImageView!
+    @IBOutlet weak var imgFriendThird : UIImageView!
+    @IBOutlet weak var imgFriendFourth : UIImageView!
+    @IBOutlet weak var imgFriendFive : UIImageView!
+    @IBOutlet weak var imgFriendSix : UIImageView!
+    @IBOutlet weak var imgFriendSeven : UIImageView!
+    @IBOutlet weak var imgFriendEight: UIImageView!
+    
+    @IBOutlet weak var mainView : UIView!
+    @IBOutlet weak var subView : UIView!
+    @IBOutlet weak var lblFriend : UILabel!
+    @IBOutlet var cnHeaderHight : NSLayoutConstraint!
+    @IBOutlet var cnHeaderHightMainView : NSLayoutConstraint!
+    @IBOutlet var cnHeaderHightCompleteProfile : NSLayoutConstraint!
+
+    
+    
     var frdsofFrds = [[String:Any]]()
     var frdList = [[String : Any]?]()
     var Friend_status : Int?
     var userProfileImg = ""
     var friends_count = 0
+    var FristuserID  = ""
+    var SeconduserID  = ""
+    var ThirduserID  = ""
+    var FourthuserID  = ""
+    var FiveuserID  = ""
+    var SixuserID  = ""
+    var SevenuserID  = ""
+    var EightuserID  = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
+    
+        self.btnAddFriend.layer.cornerRadius = 5
+        //self.cnHeaderHightMainView.constant = 380
         // Initialization code
         GCDMainThread.async {
             self.imgUser.layer.cornerRadius = self.imgUser.frame.size.width/2
-            self.btnMore.layer.cornerRadius = 5
+           // self.btnMore.layer.cornerRadius = 5
             self.imgUser.layer.borderWidth = 3
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
-            self.btnViewCompleteProfile.layer.cornerRadius = 5
-            self.btnAddFriend.layer.cornerRadius = 5
-            self.btnMessage.layer.cornerRadius = 5
-            self.btnRequestAccept.layer.cornerRadius = 5
+           // self.btnViewCompleteProfile.layer.cornerRadius = 5
+          //  self.btnMessage.layer.cornerRadius = 5
+           self.btnRequestAccept.layer.cornerRadius = 5
+            
+            self.btnRequestReject.layer.borderWidth = 2
+            self.btnRequestReject.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.btnRequestReject.layer.cornerRadius = 5
-            self.btnRequestReject.layer.borderWidth = 1
-            self.btnRequestReject.layer.borderColor = CRGB(r: 119, g: 171, b: 110).cgColor
-            self.btnViewCompleteProfile.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
-            self.btnMessage.setTitle(CMessageText, for: .normal)
-            self.btnTotalFriend.layer.cornerRadius = self.btnTotalFriend.frame.size.width/2
+            
+            self.imgFriendSix.layer.cornerRadius = self.imgFriendSix.frame.size.width/2
+            self.imgFriendSix.layer.borderWidth = 2
+            self.imgFriendSix.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendFive.layer.cornerRadius = self.imgFriendFive.frame.size.width/2
+            self.imgFriendFive.layer.borderWidth = 2
+            self.imgFriendFive.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendEight.layer.cornerRadius = self.imgFriendEight.frame.size.width/2
+            self.imgFriendEight.layer.borderWidth = 2
+            self.imgFriendEight.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendFirst.layer.cornerRadius = self.imgFriendFirst.frame.size.width/2
+            self.imgFriendFirst.layer.borderWidth = 2
+            self.imgFriendFirst.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendSeven.layer.cornerRadius = self.imgFriendSeven.frame.size.width/2
+            self.imgFriendSeven.layer.borderWidth = 2
+            self.imgFriendSeven.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendThird.layer.cornerRadius = self.imgFriendThird.frame.size.width/2
+            self.imgFriendThird.layer.borderWidth = 2
+            self.imgFriendThird.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendFourth.layer.cornerRadius = self.imgFriendFourth.frame.size.width/2
+            self.imgFriendFourth.layer.borderWidth = 2
+            self.imgFriendFourth.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendSecond.layer.cornerRadius = self.imgFriendSecond.frame.size.width/2
+            self.imgFriendSecond.layer.borderWidth = 2
+            self.imgFriendSecond.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            
+
+//            self.btnRequestReject.layer.borderColor = CRGB(r: 119, g: 171, b: 110).cgColor
+//            self.btnViewCompleteProfile.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
+//            self.btnMessage.setTitle(CMessageText, for: .normal)
+           // self.btnTotalFriend.layer.cornerRadius = self.btnTotalFriend.frame.size.width/2
             self.updateUIAccordingToLanguage()
             
         }
@@ -92,8 +166,8 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
             //            lblBdate.textAlignment = .left
         }
         
-        lblTitleFriends.text = CProfileFriends
-        btnMore.setTitle(CMore, for: .normal)
+      //  lblTitleFriends.text = CProfileFriends
+        //btnMore.setTitle(CMore, for: .normal)
         btnViewCompleteProfile.setTitle("\(" ") \(CProfileBtnViewCompleteProfile)", for: .normal)
         //btnReportUser.setTitle(CBtnReportUser, for: .normal)
         btnRequestAccept.setTitle(CBtnAccept, for: .normal)
@@ -168,109 +242,626 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.30) {
             
             let totalFriend = self.frdsofFrds.count
-           // self.btnTotalFriend.setTitle("\(totalFriend)", for: .normal)
-            self.viewFriendFirst.hide(byWidth: true)
-            self.viewFriendSecond.hide(byWidth: true)
-            _ = self.viewFriendSecond.setConstraintConstant(0, edge: .leading, ancestor: true)
-            self.viewFriendThird.hide(byWidth: true)
-            _ = self.viewFriendThird.setConstraintConstant(0, edge: .leading, ancestor: true)
-            self.viewFriendFourth.hide(byWidth: true)
-            _ = self.viewFriendFourth.setConstraintConstant(0, edge: .leading, ancestor: true)
+            self.lblFriend.attributedText = NSMutableAttributedString().bold((totalFriend.description)).normal(" ").bold(CCFriends)
+        // self.btnTotalFriend.setTitle("\(totalFriend)", for: .normal)
+//            self.viewFriendFirst.hide(byWidth: true)
+//            self.viewFriendSecond.hide(byWidth: true)
+//            _ = self.viewFriendSecond.setConstraintConstant(0, edge: .leading, ancestor: true)
+//            self.viewFriendThird.hide(byWidth: true)
+//            _ = self.viewFriendThird.setConstraintConstant(0, edge: .leading, ancestor: true)
+//            self.viewFriendFourth.hide(byWidth: true)
+//            _ = self.viewFriendFourth.setConstraintConstant(0, edge: .leading, ancestor: true)
             
             if let arrFriends =  self.frdsofFrds as? [[String : Any]] {
                 
-                let arrFrdList = arrFriends.prefix(4)
+                let arrFrdList = arrFriends.prefix(8)
                 let frdListCount = Array(arrFrdList)
                 
                 switch frdListCount.count {
                 case 1:
-                    self.viewFriendFirst.hide(byWidth: false)
-                    print("image:::::\(arrFriends[0].valueForString(key: CImage))")
+                    
+                    self.cnHeaderHight.constant = 125
+                    self.imgFriendSecond.isHidden = true
+                    self.lblFriendSecond.isHidden = true
+                    self.btnFriendSecond.isHidden = true
+                    
+                    self.imgFriendThird.isHidden = true
+                    self.lblFriendThird.isHidden = true
+                    self.btnFriendThird.isHidden = true
+                    
+                    self.imgFriendFourth.isHidden = true
+                    self.lblFriendFourth.isHidden = true
+                    self.btnFriendFourth.isHidden = true
+                    
+                    self.imgFriendFive.isHidden = true
+                    self.lblFriendFive.isHidden = true
+                    self.btnFriendFive.isHidden = true
+                    
+                    self.imgFriendSix.isHidden = true
+                    self.lblFriendSix.isHidden = true
+                    self.btnFriendSix.isHidden = true
+                    
+                    self.imgFriendSeven.isHidden = true
+                    self.lblFriendSeven.isHidden = true
+                    self.btnFriendSeven.isHidden = true
+                    
+                    self.imgFriendEight.isHidden = true
+                    self.lblFriendEight.isHidden = true
+                    self.btnFriendEight.isHidden = true
+                   let dict = arrFriends[0] as? TblTotalFriends
                     
                     if arrFriends[0].valueForString(key: CImage) == "" {
-                        self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        self.imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
                     
                 case 2:
-                    self.viewFriendFirst.hide(byWidth: false)
+                    self.cnHeaderHight.constant = 125
+                    self.imgFriendThird.isHidden = true
+                    self.lblFriendThird.isHidden = true
+                    self.btnFriendThird.isHidden = true
+                    
+                    self.imgFriendFourth.isHidden = true
+                    self.lblFriendFourth.isHidden = true
+                    self.btnFriendFourth.isHidden = true
+                    
+                    self.imgFriendFive.isHidden = true
+                    self.lblFriendFive.isHidden = true
+                    self.btnFriendFive.isHidden = true
+                    
+                    self.imgFriendSix.isHidden = true
+                    self.lblFriendSix.isHidden = true
+                    self.btnFriendSix.isHidden = true
+                    
+                    self.imgFriendSeven.isHidden = true
+                    self.lblFriendSeven.isHidden = true
+                    self.btnFriendSeven.isHidden = true
+                    
+                    self.imgFriendEight.isHidden = true
+                    self.lblFriendEight.isHidden = true
+                    self.btnFriendEight.isHidden = true
+                    
                     if arrFriends[0].valueForString(key: CImage) == "" {
-                        self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        self.imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
-                    self.viewFriendSecond.hide(byWidth: false)
-                    _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
                     
                     if arrFriends[1].valueForString(key: CImage) == "" {
-                        self.btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        self.imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }else {
-                        self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }
+    //
+                    
                 case 3:
-                    self.viewFriendFirst.hide(byWidth: false)
+                    self.cnHeaderHight.constant = 125
+                    self.imgFriendFourth.isHidden = true
+                    self.lblFriendFourth.isHidden = true
+                    self.btnFriendFourth.isHidden = true
+                    
+                    self.imgFriendFive.isHidden = true
+                    self.lblFriendFive.isHidden = true
+                    self.btnFriendFive.isHidden = true
+                    
+                    self.imgFriendSix.isHidden = true
+                    self.lblFriendSix.isHidden = true
+                    self.btnFriendSix.isHidden = true
+                    
+                    self.imgFriendSeven.isHidden = true
+                    self.lblFriendSeven.isHidden = true
+                    self.btnFriendSeven.isHidden = true
+                    
+                    self.imgFriendEight.isHidden = true
+                    self.lblFriendEight.isHidden = true
+                    self.btnFriendEight.isHidden = true
+                    
                     if arrFriends[0].valueForString(key: CImage) == "" {
-                        self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        self.imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
-                    self.viewFriendSecond.hide(byWidth: false)
-                    _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                    
                     if arrFriends[1].valueForString(key: CImage) == "" {
-                        self.btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        self.imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }else {
-                        self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }
-                    self.viewFriendThird.hide(byWidth: false)
-                    _ = self.viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                    
+
                     if arrFriends[2].valueForString(key: CImage) == "" {
-                        self.btnFriendThird.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        self.imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
+                     
                     }else {
-                        self.btnFriendThird.sd_setImage(with: URL(string: arrFriends[2].valueForString(key: CImage)), for: .normal, completed: nil)
+                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
                     }
                     
                 case 4:
-                    self.viewFriendFirst.hide(byWidth: false)
+                    self.cnHeaderHight.constant = 125
+                    self.imgFriendFive.isHidden = true
+                    self.lblFriendFive.isHidden = true
+                    self.btnFriendFive.isHidden = true
+                    
+                    self.imgFriendSix.isHidden = true
+                    self.lblFriendSix.isHidden = true
+                    self.btnFriendSix.isHidden = true
+                    
+                    self.imgFriendSeven.isHidden = true
+                    self.lblFriendSeven.isHidden = true
+                    self.btnFriendSeven.isHidden = true
+                    
+                    self.imgFriendEight.isHidden = true
+                    self.lblFriendEight.isHidden = true
+                    self.btnFriendEight.isHidden = true
                     
                     if arrFriends[0].valueForString(key: CImage) == "" {
-                        self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        self.imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
-                    
-                    self.viewFriendSecond.hide(byWidth: false)
-                    _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                    
                     if arrFriends[1].valueForString(key: CImage) == "" {
-                        self.btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        self.imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }else {
-                        self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }
-                    
-                    self.viewFriendThird.hide(byWidth: false)
-                    _ = self.viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
-                    
+
                     if arrFriends[2].valueForString(key: CImage) == "" {
-                        self.btnFriendThird.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        self.imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
+                     
                     }else {
-                        self.btnFriendThird.sd_setImage(with: URL(string: arrFriends[2].valueForString(key: CImage)), for: .normal, completed: nil)
+                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
                     }
-                    
-                    self.viewFriendFourth.hide(byWidth: false)
-                    _ = self.viewFriendFourth.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
                     
                     if arrFriends[3].valueForString(key: CImage) == "" {
-                        self.btnFriendFourth.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+                        self.imgFriendFourth.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
+                        self.FourthuserID = arrFriends[3].valueForString(key: "id")
+                     
                     }else {
-                        self.btnFriendFourth.sd_setImage(with: URL(string: arrFriends[3].valueForString(key: CImage)), for: .normal, completed: nil)
+                        self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
+                        self.FourthuserID = arrFriends[3].valueForString(key: "id")
                     }
-                    _ = self.btnTotalFriend.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+                case 5:
+                    self.imgFriendSix.isHidden = true
+                    self.lblFriendSix.isHidden = true
+                    self.btnFriendSix.isHidden = true
+                    
+                    self.imgFriendSeven.isHidden = true
+                    self.lblFriendSeven.isHidden = true
+                    self.btnFriendSeven.isHidden = true
+                    
+                    self.imgFriendEight.isHidden = true
+                    self.lblFriendEight.isHidden = true
+                    self.btnFriendEight.isHidden = true
+                    
+                    if arrFriends[0].valueForString(key: CImage) == "" {
+                        self.imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
+                    }else {
+                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
+                    }
+                    if arrFriends[1].valueForString(key: CImage) == "" {
+                        self.imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
+                    }else {
+                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
+                    }
+
+                    if arrFriends[2].valueForString(key: CImage) == "" {
+                        self.imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
+                    }
+                    
+                    if arrFriends[3].valueForString(key: CImage) == "" {
+                        self.imgFriendFourth.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
+                        self.FourthuserID = arrFriends[3].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
+                        self.FourthuserID = arrFriends[3].valueForString(key: "id")
+                    }
+                    if arrFriends[4].valueForString(key: CImage) == "" {
+                        self.imgFriendFive.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
+                        self.FiveuserID = arrFriends[4].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                        self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
+                        self.FiveuserID = arrFriends[4].valueForString(key: "id")
+                    }
+                    
+                case 6:
+                    self.imgFriendSeven.isHidden = true
+                    self.lblFriendSeven.isHidden = true
+                    self.btnFriendSeven.isHidden = true
+                    
+                    self.imgFriendEight.isHidden = true
+                    self.lblFriendEight.isHidden = true
+                    self.btnFriendEight.isHidden = true
+                    
+                    if arrFriends[0].valueForString(key: CImage) == "" {
+                        self.imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
+                    }else {
+                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
+                    }
+                    if arrFriends[1].valueForString(key: CImage) == "" {
+                        self.imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
+                    }else {
+                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
+                    }
+
+                    if arrFriends[2].valueForString(key: CImage) == "" {
+                        self.imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
+                    }
+                    
+                    if arrFriends[3].valueForString(key: CImage) == "" {
+                        self.imgFriendFourth.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
+                        self.FourthuserID = arrFriends[3].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
+                        self.FourthuserID = arrFriends[3].valueForString(key: "id")
+                    }
+                    if arrFriends[4].valueForString(key: CImage) == "" {
+                        self.imgFriendFive.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
+                        self.FiveuserID = arrFriends[4].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                        self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
+                        self.FiveuserID = arrFriends[4].valueForString(key: "id")
+                    }
+                    if arrFriends[5].valueForString(key: CImage) == "" {
+                        self.imgFriendSix.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSix.text = arrFriends[5].valueForString(key: "first_name") + " " + arrFriends[5].valueForString(key: "last_name")
+                        self.SixuserID = arrFriends[5].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendSix.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                        self.lblFriendSix.text = arrFriends[5].valueForString(key: "first_name") + " " + arrFriends[5].valueForString(key: "last_name")
+                        self.SixuserID = arrFriends[5].valueForString(key: "id")
+                    }
+                case 7:
+                    self.imgFriendEight.isHidden = true
+                    self.lblFriendEight.isHidden = true
+                    self.btnFriendEight.isHidden = true
+                    if arrFriends[0].valueForString(key: CImage) == "" {
+                        self.imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
+                    }else {
+                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
+                    }
+                    
+                    if arrFriends[1].valueForString(key: CImage) == "" {
+                        self.imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
+                    }else {
+                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
+                    }
+
+                    if arrFriends[2].valueForString(key: CImage) == "" {
+                        self.imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
+                    }
+                    
+                    if arrFriends[3].valueForString(key: CImage) == "" {
+                        self.imgFriendFourth.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
+                        self.FourthuserID = arrFriends[3].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
+                        self.FourthuserID = arrFriends[3].valueForString(key: "id")
+                    }
+                    if arrFriends[4].valueForString(key: CImage) == "" {
+                        self.imgFriendFive.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
+                        self.FiveuserID = arrFriends[4].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                        self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
+                        self.FiveuserID = arrFriends[4].valueForString(key: "id")
+                    }
+                    if arrFriends[5].valueForString(key: CImage) == "" {
+                        self.imgFriendSix.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSix.text = arrFriends[5].valueForString(key: "first_name") + " " + arrFriends[5].valueForString(key: "last_name")
+                        self.SixuserID = arrFriends[5].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendSix.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                        self.lblFriendSix.text = arrFriends[5].valueForString(key: "first_name") + " " + arrFriends[5].valueForString(key: "last_name")
+                        self.SixuserID = arrFriends[5].valueForString(key: "id")
+                    }
+                    if arrFriends[6].valueForString(key: CImage) == "" {
+                        self.imgFriendSeven.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSeven.text = arrFriends[6].valueForString(key: "first_name") + " " + arrFriends[6].valueForString(key: "last_name")
+                        self.SevenuserID = arrFriends[6].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendSeven.loadImageFromUrl(arrFriends[6].valueForString(key: CImage), true)
+                        self.lblFriendSeven.text = arrFriends[6].valueForString(key: "first_name") + " " + arrFriends[6].valueForString(key: "last_name")
+                        self.SevenuserID = arrFriends[6].valueForString(key: "id")
+                    }
+                case 8:
+                    if arrFriends[0].valueForString(key: CImage) == "" {
+                        self.imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
+                    }else {
+                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
+                        self.FristuserID = arrFriends[0].valueForString(key: "id")
+                    }
+                    
+                    if arrFriends[1].valueForString(key: CImage) == "" {
+                        self.imgFriendSecond.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
+                    }else {
+                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
+                        self.SeconduserID = arrFriends[1].valueForString(key: "id")
+                    }
+
+                    if arrFriends[2].valueForString(key: CImage) == "" {
+                        self.imgFriendThird.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
+                        self.ThirduserID = arrFriends[2].valueForString(key: "id")
+                    }
+                    
+                    if arrFriends[3].valueForString(key: CImage) == "" {
+                        self.imgFriendFourth.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
+                        self.FourthuserID = arrFriends[3].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
+                        self.FourthuserID = arrFriends[3].valueForString(key: "id")
+                    }
+                    if arrFriends[4].valueForString(key: CImage) == "" {
+                        self.imgFriendFive.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
+                        self.FiveuserID = arrFriends[4].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                        self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
+                        self.FiveuserID = arrFriends[4].valueForString(key: "id")
+                    }
+                    if arrFriends[5].valueForString(key: CImage) == "" {
+                        self.imgFriendSix.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSix.text = arrFriends[5].valueForString(key: "first_name") + " " + arrFriends[5].valueForString(key: "last_name")
+                        self.SixuserID = arrFriends[5].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendSix.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                        self.lblFriendSix.text = arrFriends[5].valueForString(key: "first_name") + " " + arrFriends[5].valueForString(key: "last_name")
+                        self.SixuserID = arrFriends[5].valueForString(key: "id")
+                    }
+                    
+                    if arrFriends[6].valueForString(key: CImage) == "" {
+                        self.imgFriendSeven.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendSeven.text = arrFriends[6].valueForString(key: "first_name") + " " + arrFriends[6].valueForString(key: "last_name")
+                        self.SevenuserID = arrFriends[6].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendSeven.loadImageFromUrl(arrFriends[6].valueForString(key: CImage), true)
+                        self.lblFriendSeven.text = arrFriends[6].valueForString(key: "first_name") + " " + arrFriends[6].valueForString(key: "last_name")
+                        self.SevenuserID = arrFriends[6].valueForString(key: "id")
+                    }
+                    
+                    if arrFriends[7].valueForString(key: CImage) == "" {
+                        self.imgFriendEight.image = UIImage(named: "user_placeholder.png")
+                        self.lblFriendEight.text = arrFriends[7].valueForString(key: "first_name") + " " + arrFriends[7].valueForString(key: "last_name")
+                        self.EightuserID = arrFriends[7].valueForString(key: "id")
+                     
+                    }else {
+                        self.imgFriendEight.loadImageFromUrl(arrFriends[7].valueForString(key: CImage), true)
+                        self.lblFriendEight.text = arrFriends[7].valueForString(key: "first_name") + " " + arrFriends[7].valueForString(key: "last_name")
+                        self.EightuserID = arrFriends[7].valueForString(key: "id")
+                    }
+                
+                case 0:
+                   // self.cnHeaderHightMainView.constant = 300
+                    self.cnHeaderHight.constant = 30
+                    self.imgFriendSecond.isHidden = true
+                    self.lblFriendSecond.isHidden = true
+                    self.btnFriendSecond.isHidden = true
+
+                    self.imgFriendThird.isHidden = true
+                    self.lblFriendThird.isHidden = true
+                    self.btnFriendThird.isHidden = true
+
+                    self.imgFriendFourth.isHidden = true
+                    self.lblFriendFourth.isHidden = true
+                    self.btnFriendFourth.isHidden = true
+
+                    self.imgFriendFirst.isHidden = true
+                    self.lblFriendFirst.isHidden = true
+                    self.btnFriendFirst.isHidden = true
+
                 default:
                     break;
                 }
+                
+//                switch frdListCount.count {
+//                case 1:
+//                    self.viewFriendFirst.hide(byWidth: false)
+//                    print("image:::::\(arrFriends[0].valueForString(key: CImage))")
+//
+//                    if arrFriends[0].valueForString(key: CImage) == "" {
+//                        self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+//                    }else {
+//                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+//                    }
+//
+//                case 2:
+//                    self.viewFriendFirst.hide(byWidth: false)
+//                    if arrFriends[0].valueForString(key: CImage) == "" {
+//                        self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+//                    }else {
+//                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+//                    }
+//                    self.viewFriendSecond.hide(byWidth: false)
+//                    _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//
+//                    if arrFriends[1].valueForString(key: CImage) == "" {
+//                        self.btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+//                    }else {
+//                        self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+//                    }
+//                case 3:
+//                    self.viewFriendFirst.hide(byWidth: false)
+//                    if arrFriends[0].valueForString(key: CImage) == "" {
+//                        self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+//                    }else {
+//                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+//                    }
+//                    self.viewFriendSecond.hide(byWidth: false)
+//                    _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//
+//                    if arrFriends[1].valueForString(key: CImage) == "" {
+//                        self.btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+//                    }else {
+//                        self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+//                    }
+//                    self.viewFriendThird.hide(byWidth: false)
+//                    _ = self.viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//
+//                    if arrFriends[2].valueForString(key: CImage) == "" {
+//                        self.btnFriendThird.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+//                    }else {
+//                        self.btnFriendThird.sd_setImage(with: URL(string: arrFriends[2].valueForString(key: CImage)), for: .normal, completed: nil)
+//                    }
+//
+//                case 4:
+//                    self.viewFriendFirst.hide(byWidth: false)
+//
+//                    if arrFriends[0].valueForString(key: CImage) == "" {
+//                        self.btnFriendFirst.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+//                    }else {
+//                        self.btnFriendFirst.sd_setImage(with: URL(string: arrFriends[0].valueForString(key: CImage)), for: .normal, completed: nil)
+//                    }
+//
+//                    self.viewFriendSecond.hide(byWidth: false)
+//                    _ = self.viewFriendSecond.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//
+//                    if arrFriends[1].valueForString(key: CImage) == "" {
+//                        self.btnFriendSecond.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+//                    }else {
+//                        self.btnFriendSecond.sd_setImage(with: URL(string: arrFriends[1].valueForString(key: CImage)), for: .normal, completed: nil)
+//                    }
+//
+//                    self.viewFriendThird.hide(byWidth: false)
+//                    _ = self.viewFriendThird.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//
+//                    if arrFriends[2].valueForString(key: CImage) == "" {
+//                        self.btnFriendThird.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+//                    }else {
+//                        self.btnFriendThird.sd_setImage(with: URL(string: arrFriends[2].valueForString(key: CImage)), for: .normal, completed: nil)
+//                    }
+//
+//                    self.viewFriendFourth.hide(byWidth: false)
+//                    _ = self.viewFriendFourth.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//
+//                    if arrFriends[3].valueForString(key: CImage) == "" {
+//                        self.btnFriendFourth.setImage(UIImage(named: "user_placeholder.png"), for: .normal)
+//                    }else {
+//                        self.btnFriendFourth.sd_setImage(with: URL(string: arrFriends[3].valueForString(key: CImage)), for: .normal, completed: nil)
+//                    }
+//                   // _ = self.btnTotalFriend.setConstraintConstant(CGFloat(CUserFriendLeadingSpace), edge: .leading, ancestor: true)
+//                default:
+//                    break;
+//                }
             }
             //            }
             // Put your code which should be executed with a delay here
@@ -286,48 +877,59 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
         let CVisible_to_other = userInfo.valueForInt(key: "visible_to_other")
         if self.Friend_status == 5 {
             if CVisible_to_friend == 0 {
-                self.btnViewCompleteProfile.setConstraintConstant(-40, edge: .top, ancestor: true)
-                self.btnViewCompleteProfile.hide(byHeight: true)
+               // self.btnViewCompleteProfile.setConstraintConstant(-40, edge: .top, ancestor: true)
+               // self.btnViewCompleteProfile.hide(byHeight: true)
                 self.hideShowMobileAndEmail(true)
+                self.btnViewCompleteProfile.isHidden = true
+              
             }else {
-                self.btnViewCompleteProfile.hide(byHeight: false)
+                // self.btnViewCompleteProfile.hide(byHeight: false)
+                
+                self.btnViewCompleteProfile.isHidden = false
                 self.hideShowMobileAndEmail(false)
             }
         }else {
             // For Unknown user
             if CVisible_to_other == 0 {
-                            self.btnViewCompleteProfile.setConstraintConstant(-40, edge: .top, ancestor: true)
-                            self.btnViewCompleteProfile.hide(byHeight: true)
+                          //  self.btnViewCompleteProfile.setConstraintConstant(-40, edge: .top, ancestor: true)
+                          //  self.btnViewCompleteProfile.hide(byHeight: true)
                             self.hideShowMobileAndEmail(true)
+                self.hideShowMobileAndEmail(true)
+                self.btnViewCompleteProfile.isHidden = true
                         }else {
-                            self.btnViewCompleteProfile.hide(byHeight: false)
+                            // self.btnViewCompleteProfile.hide(byHeight: false)
+                            self.btnViewCompleteProfile.isHidden = false
+                            self.hideShowMobileAndEmail(false)
+                          
                             self.hideShowMobileAndEmail(false)
                         }
-            //            self.btnViewCompleteProfile.setConstraintConstant(-20, edge: .top, ancestor: true)
-            //self.btnViewCompleteProfile.hide(byHeight: true)
-            self.hideShowMobileAndEmail(true)
+            self.btnViewCompleteProfile.isHidden = false
+            self.hideShowMobileAndEmail(false)
+//                   self.btnViewCompleteProfile.setConstraintConstant(-20, edge: .top, ancestor: true)
+//       self.btnViewCompleteProfile.hide(byHeight: true)
+//            self.hideShowMobileAndEmail(true)
             if userInfo.valueForInt(key: "visible_to_other") == 0{
-                lblTitleFriends.hide(byHeight: true)
+               // lblTitleFriends.hide(byHeight: true)
                 hideFriendsList(isHide: true)
             }else{
-                lblTitleFriends.hide(byHeight: false)
+               // lblTitleFriends.hide(byHeight: false)
                 hideFriendsList(isHide: false)
                 // _ = self.lblTitleFriends.setConstraintConstant(-60, edge: .top, ancestor: true)
             }
         }
-        self.friendViewBorderCornerRadius(self.viewFriendFirst)
-        self.friendViewBorderCornerRadius(self.viewFriendSecond)
-        self.friendViewBorderCornerRadius(self.viewFriendThird)
-        self.friendViewBorderCornerRadius(self.viewFriendFourth)
+//        self.friendViewBorderCornerRadius(self.viewFriendFirst)
+//        self.friendViewBorderCornerRadius(self.viewFriendSecond)
+//        self.friendViewBorderCornerRadius(self.viewFriendThird)
+//        self.friendViewBorderCornerRadius(self.viewFriendFourth)
     }
     
     func hideFriendsList(isHide:Bool){
-        lblTitleFriends.isHidden = isHide
-        btnTotalFriend.isHidden = isHide
-        viewFriendFirst.isHidden = isHide
-        viewFriendSecond.isHidden = isHide
-        viewFriendThird.isHidden = isHide
-        viewFriendFourth.isHidden = isHide
+       // lblTitleFriends.isHidden = isHide
+//        btnTotalFriend.isHidden = isHide
+//        viewFriendFirst.isHidden = isHide
+//        viewFriendSecond.isHidden = isHide
+//        viewFriendThird.isHidden = isHide
+//        viewFriendFourth.isHidden = isHide
     }
     
     func getFriendListFromServer(_ userid : String?) {
@@ -344,7 +946,7 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
     }
     
     func myUserDetails(_ email : String?){
-        if let userID = appDelegate.loginUser?.user_id{
+        if (appDelegate.loginUser?.user_id) != nil{
             let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: email ?? "")
             let dict:[String:Any] = [
                 CEmail_Mobile : encryptUser
@@ -357,7 +959,7 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         GCDMainThread.async{
                             let friends_no = Info["friends"] as? [[String:Any]]
                             self.friends_count = friends_no?.count ?? 0
-                            self.btnTotalFriend.setTitle(self.friends_count.toString, for: .normal)
+                            //self.btnTotalFriend.setTitle(self.friends_count.toString, for: .normal)
                         }
 
                     }

@@ -2938,10 +2938,10 @@
     </scenes>
     <designables>
         <designable name="AEM-Lq-5JL">
-            <size key="intrinsicContentSize" width="441" height="20"/>
+            <size key="intrinsicContentSize" width="396" height="16"/>
         </designable>
         <designable name="S3X-nm-tel">
-            <size key="intrinsicContentSize" width="441" height="20"/>
+            <size key="intrinsicContentSize" width="396" height="16"/>
         </designable>
     </designables>
     <resources>

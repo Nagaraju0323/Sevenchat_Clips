@@ -2543,8 +2543,8 @@ extension MyProfileViewController{
     
     @objc fileprivate func btnEditProfileClicked(_ sender : UIBarButtonItem) {
         
-        if let editProfileVC = CStoryboardProfile.instantiateViewController(withIdentifier: "EditProfileViewController") as? EditProfileViewController{
-            editProfileVC.isremovedImage = isProfileUpdate
+        if let editProfileVC = CStoryboardSetting.instantiateViewController(withIdentifier: "DeactiveDelViewController") as? DeactiveDelViewController{
+           // editProfileVC.isremovedImage = isProfileUpdate
             self.navigationController?.pushViewController(editProfileVC, animated: true)
             
             

@@ -52,7 +52,7 @@ class OtherUserProfileViewController: ParentViewController {
             cnImgTopSpace.constant = IS_iPhone_X_Series ? 84 : 64
         }
     }
-    
+   
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var btnUnblock : UIButton! {
         didSet {
@@ -102,6 +102,8 @@ class OtherUserProfileViewController: ParentViewController {
         if IS_iPhone_X_Series{
             // cnHeaderHight.constant = 210
         }
+        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(btnEditProfileClicked(_:)))]
+        
         
         GCDMainThread.async {
             self.refreshControl.addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
@@ -136,7 +138,7 @@ class OtherUserProfileViewController: ParentViewController {
         tblUser.register(UINib(nibName: "HomeArticleImageCell", bundle: nil), forCellReuseIdentifier: "HomeArticleImageCell")
         tblUser.register(UINib(nibName: "HomeSharedArticleImageCell", bundle: nil), forCellReuseIdentifier: "HomeSharedArticleImageCell")
         
-        btnUnblock.setTitle("  \(CBtnUnblockUser)  ", for: .normal)
+       // btnUnblock.setTitle("  \(CBtnUnblockUser)  ", for: .normal)
         // To Get User detail from server.......
         self.getFriendStatus()
         self.otherUserDetails(isLoader:true)
@@ -238,29 +240,29 @@ extension OtherUserProfileViewController{
                         }
                         if self.isBlock == true {
                             self.tblUser.isHidden = true
-                            self.viewBlockContainer.isHidden = false
-                            self.imgUser.loadImageFromUrl(data.valueForString(key: CImage), true)
-                            self.imgUserCover.loadImageFromUrl(data.valueForString(key: "cover_image"), true)
+                          //  self.viewBlockContainer.isHidden = false
+                           // self.imgUser.loadImageFromUrl(data.valueForString(key: CImage), true)
+                            //self.imgUserCover.loadImageFromUrl(data.valueForString(key: "cover_image"), true)
                             self.strUserImg = data.valueForString(key: CImage)
-                            self.lblUserName.text = data.valueForString(key: CFirstname) + " " + data.valueForString(key: CLastname)
-                            self.lblBlockText.text = CYouCannotSeeHisHerProfile
+                            //self.lblUserName.text = data.valueForString(key: CFirstname) + " " + data.valueForString(key: CLastname)
+                            //self.lblBlockText.text = CYouCannotSeeHisHerProfile
                             for friend in self.arrBlockList{
                                 let user_id =  appDelegate.loginUser?.user_id
                                 if friend?.valueForString(key: "blocked_id") == user_id?.description {
-                                    self.btnUnblock.hide(byHeight: false)
+                                   // self.btnUnblock.hide(byHeight: false)
                                 }else {
-                                    self.btnUnblock.hide(byHeight: true)
+                                   // self.btnUnblock.hide(byHeight: true)
                                 }
                                 
                             }
                             
                         } else {
-                            self.imgUser.loadImageFromUrl(data.valueForString(key: CImage), true)
-                            self.imgUserCover.loadImageFromUrl(data.valueForString(key: "cover_image"), true)
+                           // self.imgUser.loadImageFromUrl(data.valueForString(key: CImage), true)
+                           // self.imgUserCover.loadImageFromUrl(data.valueForString(key: "cover_image"), true)
                             self.strUserImg = data.valueForString(key: CImage)
-                            self.lblUserName.text = data.valueForString(key: CFirstname) + " " + data.valueForString(key: CLastname)
+                          //  self.lblUserName.text = data.valueForString(key: CFirstname) + " " + data.valueForString(key: CLastname)
                             self.tblUser.isHidden = false
-                            self.viewBlockContainer.isHidden = true
+                           // self.viewBlockContainer.isHidden = true
                             
                             self.arrUserDetail.removeAll()
                             self.arrUserDetail.append(data)
@@ -439,14 +441,14 @@ extension OtherUserProfileViewController{
                 if status == 1 && status == 0 {
                     // Blocked user
                     self.tblUser.isHidden = true
-                    self.viewBlockContainer.isHidden = false
+                   // self.viewBlockContainer.isHidden = false
                     self.arrPostList.removeAll()
                     self.arrUserDetail.removeAll()
                     self.tblUser.reloadData()
                 }else {
                     // Unblock user
                     self.tblUser.isHidden = false
-                    self.viewBlockContainer.isHidden = true
+                   // self.viewBlockContainer.isHidden = true
                     //                    self.pullToRefresh()
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -585,7 +587,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             self?.navigationController?.pushViewController(completeVC, animated: true)
                         }
                     }
-                    cell.btnMessage.isHidden = true
+                   // cell.btnMessage.isHidden = true
                     for friend in self.arrBlockList{
                         let user_id = appDelegate.loginUser?.user_id
                         if friend?.valueForString(key: "request_status") == "1" && friend?.valueForString(key: "senders_id") != user_id?.description {
@@ -594,10 +596,10 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     }
                     if self.Friend_status == 2{
                         cell.btnAddFriend.isHidden = true
-                        cell.viewAcceptReject.isHidden = false
+                     cell.viewAcceptReject.isHidden = false
                     }else{
-                        cell.btnAddFriend.isHidden = false
-                        cell.viewAcceptReject.isHidden = true
+                       cell.btnAddFriend.isHidden = false
+                    cell.viewAcceptReject.isHidden = true
                         
                         //MARK:-FRIEND
                         for friend in arrBlockList{
@@ -617,10 +619,10 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         case 0:
                             cell.btnAddFriend.setTitle(CBtnAddFriend, for: .normal)
                         case 1:
-                            cell.btnAddFriend.setTitle(CBtnCancelRequest, for: .normal)
+                          cell.btnAddFriend.setTitle(CBtnCancelRequest, for: .normal)
                         case 5:
                             cell.btnAddFriend.setTitle(CBtnUnfriend, for: .normal)
-                            cell.btnMessage.isHidden = false
+                           // cell.btnMessage.isHidden = false
                         default:
                             break
                         }
@@ -642,7 +644,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                             //                            }else if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") != user_id?.description {
                             //                                self?.Friend_status = 0
                             //                            }
-                            
+
                             if data?.valueForString(key: "friend_status") == "1"{
                                 self?.Friend_status = 5
                             }else if data?.valueForString(key: "request_status") == "1" && data?.valueForString(key: "senders_id") == user_id?.description {
@@ -667,13 +669,13 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                         default:
                             break
                         }
-                        
+
                         if isShowAlert{
                             self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: alertMessage, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
                                 self?.friendStatusApi(userInfo, frndStatus)
                                 NotificationCenter.default.post(name: Notification.Name("NotificationRecived"), object: nil,userInfo: nil)
                                 NotificationCenter.default.post(name: Notification.Name("NotificationFrndRequest"), object: nil,userInfo: nil)
-                                
+
                                 self?.getFriendStatusNew { (success) -> Void in
                                     if success {
                                         // do second task if success
@@ -684,7 +686,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                                         }
                                     }
                                 }
-                                
+
                                 //                                self?.navigationController?.popViewController(animated: true)
                             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                         }else{
@@ -701,7 +703,7 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                                         }
                                     }
                                 }
-                                
+
                                 //                                self?.navigationController?.popViewController(animated: true)
                             }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                         }
@@ -716,133 +718,166 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                     }
                     
                     cell.btnRequestReject.touchUpInside {[weak self] (sender) in
-                        
+
                         self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CAlertMessageForRejectRequest, btnOneTitle: CBtnYes, btnOneTapped: { (alert) in
                             self?.friendStatusApi(userInfo, 3)
                             self?.navigationController?.popViewController(animated: true)
                         }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
                     }
                     
-                    
-                    cell.btnMore.touchUpInside {[weak self] (sender) in
-                        if self?.userBlock.valueForString(key: "friend_user_id") ==                        userInfo.valueForString(key: "user_id"){
-                            print("IS BLOCK")
-                            self?.isBlock = true
-                            
-                        }else{
-                            print("IS NOT BLOCK")
-                            self?.isBlock = false
-                        }
-                        var blockUnBlock = ""
-                        if self?.isBlock == true{
-                            blockUnBlock = CBtnUnblockUser
-                        }else{
-                            blockUnBlock = CBtnBlockUser
-                        }
-                        
-                        self?.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: blockUnBlock, btnOneStyle: .default, btnOneTapped: { [weak self](alert) in
-                            // Block or Unblock
-                            if self?.userBlock.valueForString(key: "friend_user_id") ==                        userInfo.valueForString(key: "user_id"){
-                                print("IS BLOCK")
-                                self?.isBlock = true
-                            }else{
-                                print("IS NOT BLOCK")
-                                self?.isBlock = false
-                            }
-                            // if self?.isBlock == true {
-                            self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
-                                self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
-                                self?.navigationController?.popViewController(animated: true)
-                            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
-                            
-                            //                            }else {
-                            //                                self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
-                            //                            }
-                            
-                        }, btnTwoTitle: CBtnReportUser, btnTwoStyle: .default, btnTwoTapped: {[weak self] (_) in
-                            
-                            // Report User
-                            if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
-                                reportVC.setBlock(block: { (response, error) in
-                                    self?.tblUser.isHidden = true
-                                    self?.viewBlockContainer.isHidden = false
-                                })
-                                reportVC.reportType = .reportUser
-                                reportVC.reportID = userInfo.valueForInt(key: CUserId)
-                                reportVC.userID = userInfo.valueForInt(key: CUserId)
-                                reportVC.reportIDNEW = userInfo.valueForString(key: "user_id")
-                                self?.navigationController?.pushViewController(reportVC, animated: true)
-                            }
-                        })
+                    cell.btnFriendFirst.touchUpInside { [weak self](sender) in
+                       
+                        appDelegate.moveOnProfileScreenNew(cell.FristuserID, "", self)
                     }
-                    //                    cell.btnMessage.touchUpInside { [weak self](button) in
-                    //                        guard let _ = self else {return}
-                    //                        if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
-                    //                            userDetailVC.isCreateNewChat = false
-                    //                            userDetailVC.iObject = userInfo
-                    //                            userDetailVC.chatInfoNot = userInfo
-                    //                            userDetailVC.userID = userInfo.valueForInt(key: CUserId)
-                    //                            userDetailVC.userIDuser = userInfo.valueForString(key: "user_id")
-                    //                            userDetailVC.isCreateNewChat = true
-                    //                            if let nav = self?.viewController as? UINavigationController{
-                    //                                nav.pushViewController(userDetailVC, animated: true)
-                    //                            }else{
-                    //                                self?.viewController?.navigationController?.pushViewController(userDetailVC, animated: true)
-                    //                            }
-                    //                        }
-                    //                    }
+                    cell.btnFriendSecond.touchUpInside { [weak self](sender) in
+                        
+                        appDelegate.moveOnProfileScreenNew(cell.SeconduserID, "", self)
+                    }
+                    cell.btnFriendThird.touchUpInside { [weak self](sender) in
+                        
+                        appDelegate.moveOnProfileScreenNew(cell.ThirduserID, "", self)
+                    }
+                    cell.btnFriendFourth.touchUpInside { [weak self](sender) in
+                        
+                        appDelegate.moveOnProfileScreenNew(cell.FourthuserID, "", self)
+                    }
+                    cell.btnFriendFive.touchUpInside { [weak self](sender) in
+                       
+                        appDelegate.moveOnProfileScreenNew(cell.FiveuserID, "", self)
+                    }
+                    cell.btnFriendSix.touchUpInside { [weak self](sender) in
+                        
+                        appDelegate.moveOnProfileScreenNew(cell.SixuserID, "", self)
+                    }
+                    cell.btnFriendSeven.touchUpInside { [weak self](sender) in
+                        
+                        appDelegate.moveOnProfileScreenNew(cell.SevenuserID, "", self)
+                    }
+                    cell.btnFriendEight.touchUpInside { [weak self](sender) in
+                        
+                        appDelegate.moveOnProfileScreenNew(cell.EightuserID, "", self)
+                    }
                     
-                    cell.btnMessage.touchUpInside { [weak self](button) in
-                        guard let _ = self else {return}
-                        
-                        let user_id = appDelegate.loginUser?.user_id.description
-                        let friend_user_id = userInfo.valueForInt(key: CUserId)?.toString
-                        
-                        APIRequest.shared().getChatFriendsAdd(user_id: user_id, friend_user_id : friend_user_id, completion: { (response, error) in
-                            if response != nil{
-                                if let metaInfo = response![CJsonMeta] as? [String:Any]{
-                                    let status =  metaInfo["status"] as? String ?? ""
-                                    if status == "0"{
-                                        
-                                        if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
-                                            userDetailVC.isCreateNewChat = false
-                                            userDetailVC.iObject = userInfo
-                                            userDetailVC.chatInfoNot = userInfo
-                                            userDetailVC.userID = userInfo.valueForInt(key: CUserId)
-                                            userDetailVC.userIDuser = userInfo.valueForString(key: "user_id")
-                                            userDetailVC.isCreateNewChat = true
-                                            if let nav = self?.viewController as? UINavigationController{
-                                                nav.pushViewController(userDetailVC, animated: true)
-                                            }else{
-                                                self?.viewController?.navigationController?.pushViewController(userDetailVC, animated: true)
-                                            }
-                                        }
-                                    }
-                                    
-                                }
-                            }else {
-                                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
-                                let errorMsg = errorUserinfo.stringAfter(":")
-                                print("error\(errorMsg)")
-                            
-                                 if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
-                                   userDetailVC.isCreateNewChat = false
-                                   userDetailVC.iObject = userInfo
-                                     userDetailVC.chatInfoNot = userInfo
-                                         userDetailVC.userID = userInfo.valueForInt(key: CUserId)
-                                   userDetailVC.userIDuser = userInfo.valueForString(key: "user_id")
-                                    userDetailVC.isCreateNewChat = true
-                                         if let nav = self?.viewController as? UINavigationController{
-                                        nav.pushViewController(userDetailVC, animated: true)
-                                            }else{
-                                         self?.viewController?.navigationController?.pushViewController(userDetailVC, animated: true)
-                                                            }
-                                                        }
-                                                
-                              //  self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CFriendsExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
-                            }
-                        }
-                        )}
+                    
+//                    cell.btnMore.touchUpInside {[weak self] (sender) in
+//                        if self?.userBlock.valueForString(key: "friend_user_id") ==                        userInfo.valueForString(key: "user_id"){
+//                            print("IS BLOCK")
+//                            self?.isBlock = true
+//
+//                        }else{
+//                            print("IS NOT BLOCK")
+//                            self?.isBlock = false
+//                        }
+//                        var blockUnBlock = ""
+//                        if self?.isBlock == true{
+//                            blockUnBlock = CBtnUnblockUser
+//                        }else{
+//                            blockUnBlock = CBtnBlockUser
+//                        }
+//
+//                        self?.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: blockUnBlock, btnOneStyle: .default, btnOneTapped: { [weak self](alert) in
+//                            // Block or Unblock
+//                            if self?.userBlock.valueForString(key: "friend_user_id") ==                        userInfo.valueForString(key: "user_id"){
+//                                print("IS BLOCK")
+//                                self?.isBlock = true
+//                            }else{
+//                                print("IS NOT BLOCK")
+//                                self?.isBlock = false
+//                            }
+//                            // if self?.isBlock == true {
+//                            self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
+//                                self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
+//                                self?.navigationController?.popViewController(animated: true)
+//                            }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+//
+//                            //                            }else {
+//                            //                                self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
+//                            //                            }
+//
+//                        }, btnTwoTitle: CBtnReportUser, btnTwoStyle: .default, btnTwoTapped: {[weak self] (_) in
+//
+//                            // Report User
+//                            if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
+//                                reportVC.setBlock(block: { (response, error) in
+//                                    self?.tblUser.isHidden = true
+//                                   // self?.viewBlockContainer.isHidden = false
+//                                })
+//                                reportVC.reportType = .reportUser
+//                                reportVC.reportID = userInfo.valueForInt(key: CUserId)
+//                                reportVC.userID = userInfo.valueForInt(key: CUserId)
+//                                reportVC.reportIDNEW = userInfo.valueForString(key: "user_id")
+//                                self?.navigationController?.pushViewController(reportVC, animated: true)
+//                            }
+//                        })
+//                    }
+//                                        cell.btnMessage.touchUpInside { [weak self](button) in
+//                                            guard let _ = self else {return}
+//                                            if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
+//                                                userDetailVC.isCreateNewChat = false
+//                                                userDetailVC.iObject = userInfo
+//                                                userDetailVC.chatInfoNot = userInfo
+//                                                userDetailVC.userID = userInfo.valueForInt(key: CUserId)
+//                                                userDetailVC.userIDuser = userInfo.valueForString(key: "user_id")
+//                                                userDetailVC.isCreateNewChat = true
+//                                                if let nav = self?.viewController as? UINavigationController{
+//                                                    nav.pushViewController(userDetailVC, animated: true)
+//                                                }else{
+//                                                    self?.viewController?.navigationController?.pushViewController(userDetailVC, animated: true)
+//                                                }
+//                                            }
+//                                        }
+                    
+//                    cell.btnMessage.touchUpInside { [weak self](button) in
+//                        guard let _ = self else {return}
+//                        
+//                        let user_id = appDelegate.loginUser?.user_id.description
+//                        let friend_user_id = userInfo.valueForInt(key: CUserId)?.toString
+//                        
+//                        APIRequest.shared().getChatFriendsAdd(user_id: user_id, friend_user_id : friend_user_id, completion: { (response, error) in
+//                            if response != nil{
+//                                if let metaInfo = response![CJsonMeta] as? [String:Any]{
+//                                    let status =  metaInfo["status"] as? String ?? ""
+//                                    if status == "0"{
+//                                        
+//                                        if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
+//                                            userDetailVC.isCreateNewChat = false
+//                                            userDetailVC.iObject = userInfo
+//                                            userDetailVC.chatInfoNot = userInfo
+//                                            userDetailVC.userID = userInfo.valueForInt(key: CUserId)
+//                                            userDetailVC.userIDuser = userInfo.valueForString(key: "user_id")
+//                                            userDetailVC.isCreateNewChat = true
+//                                            if let nav = self?.viewController as? UINavigationController{
+//                                                nav.pushViewController(userDetailVC, animated: true)
+//                                            }else{
+//                                                self?.viewController?.navigationController?.pushViewController(userDetailVC, animated: true)
+//                                            }
+//                                        }
+//                                    }
+//                                    
+//                                }
+//                            }else {
+//                                guard  let errorUserinfo = error?.userInfo["error"] as? String else {return}
+//                                let errorMsg = errorUserinfo.stringAfter(":")
+//                                print("error\(errorMsg)")
+//                            
+//                                 if let userDetailVC = CStoryboardChat.instantiateViewController(withIdentifier: "UserChatDetailViewController") as? UserChatDetailViewController {
+//                                   userDetailVC.isCreateNewChat = false
+//                                   userDetailVC.iObject = userInfo
+//                                     userDetailVC.chatInfoNot = userInfo
+//                                         userDetailVC.userID = userInfo.valueForInt(key: CUserId)
+//                                   userDetailVC.userIDuser = userInfo.valueForString(key: "user_id")
+//                                    userDetailVC.isCreateNewChat = true
+//                                         if let nav = self?.viewController as? UINavigationController{
+//                                        nav.pushViewController(userDetailVC, animated: true)
+//                                            }else{
+//                                         self?.viewController?.navigationController?.pushViewController(userDetailVC, animated: true)
+//                                                            }
+//                                                        }
+//                                                
+//                              //  self?.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CFriendsExists, btnOneTitle: CBtnOk, btnOneTapped: nil)
+//                            }
+//                        }
+//                        )}
                     return cell
                 }
             } else {
@@ -889,10 +924,10 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
             }
         }
         if  postInfo?.valueForString(key: CNoDataCellType) != nil && !(postInfo?.valueForString(key: CNoDataCellType).isBlank)!{
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "PrivateAccountTblCell", for: indexPath) as? PrivateAccountTblCell {
-                cell.lblText.text = CMessageAccountPrivacyMsg
-                return cell
-            }
+//            if let cell = tableView.dequeueReusableCell(withIdentifier: "PrivateAccountTblCell", for: indexPath) as? PrivateAccountTblCell {
+//                cell.lblText.text = CMessageAccountPrivacyMsg
+//                return cell
+//            }
         }else {
             switch postInfo?.valueForString(key: CPostTypeNew) {
             case CStaticArticleIdNew:
@@ -2283,4 +2318,60 @@ extension OtherUserProfileViewController {
         let lightBoxHelper = LightBoxControllerHelper()
         lightBoxHelper.openSingleImage(image: self.imgUser.image, viewController: self)
     }
+    
+    @objc fileprivate func btnEditProfileClicked(_ sender : UIBarButtonItem) {
+        
+        for userInfo in arrUserDetail {
+            if self.userBlock.valueForString(key: "friend_user_id") ==                        userInfo.valueForString(key: "user_id"){
+                print("IS BLOCK")
+                self.isBlock = true
+
+            }else{
+                print("IS NOT BLOCK")
+                self.isBlock = false
+            }
+            var blockUnBlock = ""
+                if self.isBlock == true{
+                blockUnBlock = CBtnUnblockUser
+            }else{
+                blockUnBlock = CBtnBlockUser
+            }
+
+                self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: blockUnBlock, btnOneStyle: .default, btnOneTapped: { [weak self](alert) in
+                // Block or Unblock
+                if self?.userBlock.valueForString(key: "friend_user_id") ==                        userInfo.valueForString(key: "user_id"){
+                    print("IS BLOCK")
+                    self?.isBlock = true
+                }else{
+                    print("IS NOT BLOCK")
+                    self?.isBlock = false
+                }
+                // if self?.isBlock == true {
+                    self?.presentAlertViewWithTwoButtons(alertTitle: "", alertMessage: CMessageBlockUser, btnOneTitle: CBtnYes, btnOneTapped: { [weak self](alert) in
+                    self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
+                    self?.navigationController?.popViewController(animated: true)
+                }, btnTwoTitle: CBtnNo, btnTwoTapped: nil)
+
+                //                            }else {
+                //                                self?.blockUnblockUserApi(self?.isBlock == true ? 7 : 6)
+                //                            }
+
+            }, btnTwoTitle: CBtnReportUser, btnTwoStyle: .default, btnTwoTapped: {[weak self] (_) in
+
+                // Report User
+                if let reportVC = CStoryboardGeneral.instantiateViewController(withIdentifier: "ReportViewController") as? ReportViewController {
+                    reportVC.setBlock(block: { (response, error) in
+                        self?.tblUser.isHidden = true
+                       // self?.viewBlockContainer.isHidden = false
+                    })
+                    reportVC.reportType = .reportUser
+                    reportVC.reportID = userInfo.valueForInt(key: CUserId)
+                    reportVC.userID = userInfo.valueForInt(key: CUserId)
+                    reportVC.reportIDNEW = userInfo.valueForString(key: "user_id")
+                    self?.navigationController?.pushViewController(reportVC, animated: true)
+                }
+            })
+        }
+  
+        }
 }

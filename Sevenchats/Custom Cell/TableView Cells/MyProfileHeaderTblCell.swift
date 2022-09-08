@@ -77,6 +77,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
     @IBOutlet weak var mainView : UIView!
     @IBOutlet weak var subView : UIView!
     @IBOutlet weak var lblFriend : UILabel!
+    @IBOutlet var cnHeaderHight : NSLayoutConstraint!
     
     var pageNumber = 1
     var onTotalFriendAction : (() -> Void)?
@@ -122,7 +123,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
             
          //   self.btnCreateStories.layer.cornerRadius = 10
             self.mainView.layer.cornerRadius = 10
-            self.subView.layer.cornerRadius = 5
+            self.subView.layer.cornerRadius = 10
             self.btnUEditProfile.layer.borderWidth = 2
             self.btnUEditProfile.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.btnUEditProfile.layer.cornerRadius = 5
@@ -275,17 +276,74 @@ class MyProfileHeaderTblCell: UITableViewCell {
             
             switch frdListCount.count {
             case 1:
+                
+                cnHeaderHight.constant = 125
+                imgFriendSecond.isHidden = true
+                lblFriendSecond.isHidden = true
+                btnFriendSecond.isHidden = true
+                
+                imgFriendThird.isHidden = true
+                lblFriendThird.isHidden = true
+                btnFriendThird.isHidden = true
+                
+                imgFriendFourth.isHidden = true
+                lblFriendFourth.isHidden = true
+                btnFriendFourth.isHidden = true
+                
+                imgFriendFive.isHidden = true
+                lblFriendFive.isHidden = true
+                btnFriendFive.isHidden = true
+                
+                imgFriendSix.isHidden = true
+                lblFriendSix.isHidden = true
+                btnFriendSix.isHidden = true
+                
+                imgFriendSeven.isHidden = true
+                lblFriendSeven.isHidden = true
+                btnFriendSeven.isHidden = true
+                
+                imgFriendEight.isHidden = true
+                lblFriendEight.isHidden = true
+                btnFriendEight.isHidden = true
+                
                let dict = arrFriends[0] as? TblTotalFriends
                 
                 if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
                     imgFriendFirst.image = UIImage(named: "user_placeholder.png")
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
                     self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
                 }else {
                     imgFriendFirst.loadImageFromUrl((arrFriends[0] as! TblTotalFriends).profile_image, true)
+                    lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
                     self.FristuserID = (arrFriends[0] as! TblTotalFriends).friend_user_id.description
                 }
                 
             case 2:
+                cnHeaderHight.constant = 125
+                imgFriendThird.isHidden = true
+                lblFriendThird.isHidden = true
+                btnFriendThird.isHidden = true
+                
+                imgFriendFourth.isHidden = true
+                lblFriendFourth.isHidden = true
+                btnFriendFourth.isHidden = true
+                
+                imgFriendFive.isHidden = true
+                lblFriendFive.isHidden = true
+                btnFriendFive.isHidden = true
+                
+                imgFriendSix.isHidden = true
+                lblFriendSix.isHidden = true
+                btnFriendSix.isHidden = true
+                
+                imgFriendSeven.isHidden = true
+                lblFriendSeven.isHidden = true
+                btnFriendSeven.isHidden = true
+                
+                imgFriendEight.isHidden = true
+                lblFriendEight.isHidden = true
+                btnFriendEight.isHidden = true
+                
                 if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
                     imgFriendFirst.image = UIImage(named: "user_placeholder.png")
                     lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
@@ -309,6 +367,26 @@ class MyProfileHeaderTblCell: UITableViewCell {
 //
                 
             case 3:
+                cnHeaderHight.constant = 125
+                imgFriendFourth.isHidden = true
+                lblFriendFourth.isHidden = true
+                btnFriendFourth.isHidden = true
+                
+                imgFriendFive.isHidden = true
+                lblFriendFive.isHidden = true
+                btnFriendFive.isHidden = true
+                
+                imgFriendSix.isHidden = true
+                lblFriendSix.isHidden = true
+                btnFriendSix.isHidden = true
+                
+                imgFriendSeven.isHidden = true
+                lblFriendSeven.isHidden = true
+                btnFriendSeven.isHidden = true
+                
+                imgFriendEight.isHidden = true
+                lblFriendEight.isHidden = true
+                btnFriendEight.isHidden = true
                 if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
                     imgFriendFirst.image = UIImage(named: "user_placeholder.png")
                     lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
@@ -339,6 +417,22 @@ class MyProfileHeaderTblCell: UITableViewCell {
                 }
                 
             case 4:
+                cnHeaderHight.constant = 125
+                imgFriendFive.isHidden = true
+                lblFriendFive.isHidden = true
+                btnFriendFive.isHidden = true
+                
+                imgFriendSix.isHidden = true
+                lblFriendSix.isHidden = true
+                btnFriendSix.isHidden = true
+                
+                imgFriendSeven.isHidden = true
+                lblFriendSeven.isHidden = true
+                btnFriendSeven.isHidden = true
+                
+                imgFriendEight.isHidden = true
+                lblFriendEight.isHidden = true
+                btnFriendEight.isHidden = true
                 
                 if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
                     imgFriendFirst.image = UIImage(named: "user_placeholder.png")
@@ -365,6 +459,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
                     self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
                  
                 }else {
+                    
                     imgFriendThird.loadImageFromUrl((arrFriends[2] as! TblTotalFriends).profile_image, true)
                     lblFriendThird.text = ((arrFriends[2] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[2] as! TblTotalFriends).last_name ?? "")
                     self.ThirduserID = (arrFriends[2] as! TblTotalFriends).friend_user_id.description
@@ -381,6 +476,17 @@ class MyProfileHeaderTblCell: UITableViewCell {
                     self.FourthuserID = (arrFriends[3] as! TblTotalFriends).friend_user_id.description
                 }
             case 5:
+                imgFriendSix.isHidden = true
+                lblFriendSix.isHidden = true
+                btnFriendSix.isHidden = true
+                
+                imgFriendSeven.isHidden = true
+                lblFriendSeven.isHidden = true
+                btnFriendSeven.isHidden = true
+                
+                imgFriendEight.isHidden = true
+                lblFriendEight.isHidden = true
+                btnFriendEight.isHidden = true
                 if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
                     imgFriendFirst.image = UIImage(named: "user_placeholder.png")
                     lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
@@ -433,6 +539,14 @@ class MyProfileHeaderTblCell: UITableViewCell {
                 }
                 
             case 6:
+                imgFriendSeven.isHidden = true
+                lblFriendSeven.isHidden = true
+                btnFriendSeven.isHidden = true
+                
+                imgFriendEight.isHidden = true
+                lblFriendEight.isHidden = true
+                btnFriendEight.isHidden = true
+                
                 if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
                     imgFriendFirst.image = UIImage(named: "user_placeholder.png")
                     lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
@@ -494,6 +608,9 @@ class MyProfileHeaderTblCell: UITableViewCell {
                     self.SixuserID = (arrFriends[5] as! TblTotalFriends).friend_user_id.description
                 }
             case 7:
+                imgFriendEight.isHidden = true
+                lblFriendEight.isHidden = true
+                btnFriendEight.isHidden = true
                 if (arrFriends[0] as! TblTotalFriends).profile_image == "" {
                     imgFriendFirst.image = UIImage(named: "user_placeholder.png")
                     lblFriendFirst.text = ((arrFriends[0] as! TblTotalFriends).first_name ?? "") + " " + ((arrFriends[0] as! TblTotalFriends).last_name ?? "")
@@ -650,6 +767,24 @@ class MyProfileHeaderTblCell: UITableViewCell {
                     self.EightuserID = (arrFriends[7] as! TblTotalFriends).friend_user_id.description
                 }
             
+            case 0:
+                cnHeaderHight.constant = 30
+                imgFriendSecond.isHidden = true
+                lblFriendSecond.isHidden = true
+                btnFriendSecond.isHidden = true
+
+                imgFriendThird.isHidden = true
+                lblFriendThird.isHidden = true
+                btnFriendThird.isHidden = true
+
+                imgFriendFourth.isHidden = true
+                lblFriendFourth.isHidden = true
+                btnFriendFourth.isHidden = true
+
+                imgFriendFirst.isHidden = true
+                lblFriendFirst.isHidden = true
+                btnFriendFirst.isHidden = true
+
             default:
                 break;
             }

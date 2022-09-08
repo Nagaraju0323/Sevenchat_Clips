@@ -407,4 +407,5 @@ extension SideMenuViewController {
         appDelegate.sideMenuController.rootViewController = UINavigationController.init(rootViewController: CStoryboardProfile.instantiateViewController(withIdentifier: "MyProfileViewController"))
         appDelegate.hideSidemenu()
     }
+    
 }
