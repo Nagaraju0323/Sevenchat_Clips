@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //setupNavigationBar()
         FirebaseApp.configure()
         
-        self.userfeatchDeatails()
+//        self.userfeatchDeatails()
 
         //Fabric.with([Crashlytics.self])
         
@@ -517,7 +517,11 @@ extension AppDelegate {
                     self.initLoginViewController()
                 } else {
                     // If user not viewed the onboarding screen then move user to the onboarding screen.
-                    self.initOnboardingViewController()
+                    
+                    CUserDefaults.setValue(true, forKey: UserDefaultViewedOnboarding)
+                    CUserDefaults.synchronize()
+                    appDelegate.initLoginViewController()
+//                    self.initOnboardingViewController()
                 }
             } else {
                 self.initLanguageViewController()
@@ -536,7 +540,7 @@ extension AppDelegate {
     }
     
     func initOnboardingViewController() {
-        let rootVC = UINavigationController.init(rootViewController: CStoryboardLRF.instantiateViewController(withIdentifier: "OnboardingViewController"))
+        let rootVC = UINavigationController.init(rootViewController: CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController"))
         self.setWindowRootViewController(rootVC: rootVC, animated: true, completion: nil)
     }
     

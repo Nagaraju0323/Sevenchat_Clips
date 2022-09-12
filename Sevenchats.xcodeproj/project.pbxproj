@@ -99,7 +99,6 @@
 		455F87ED245D9B4C00DF9C17 /* TblFriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 455F87EC245D9B4C00DF9C17 /* TblFriendsCell.xib */; };
 		45B6D5D5243F21D600590569 /* AudioVideoButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B6D5D3243F21D600590569 /* AudioVideoButtonCell.swift */; };
 		45B6D5D6243F21D600590569 /* AudioVideoButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45B6D5D4243F21D600590569 /* AudioVideoButtonCell.xib */; };
-		5124772B9F1094C344E3DE28 /* Pods_Sevenchats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92127F46DEF4AD40C3BD3698 /* Pods_Sevenchats.framework */; };
 		5B558D4D244AC057006162C9 /* CustomDropDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B558D4C244AC056006162C9 /* CustomDropDownView.swift */; };
 		62254017240E433000624F33 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62254016240E432F00624F33 /* MediaPlayer.framework */; };
 		62254019240E433500624F33 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62254018240E433500624F33 /* CoreMedia.framework */; };
@@ -593,6 +592,7 @@
 		7CF3E7EB278D339B0054E394 /* PSLTblCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */; };
 		7CFAE97428A37BE1009DEC9F /* DemoPopupViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CFAE97128A37BE0009DEC9F /* DemoPopupViewController1.swift */; };
 		7CFAE97628A37BE1009DEC9F /* DemoPopupViewController1.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CFAE97328A37BE1009DEC9F /* DemoPopupViewController1.storyboard */; };
+		A2CFFECD8DFEF1AE514534A0 /* Pods_Sevenchats.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A4CB1177A7F77F402C954E /* Pods_Sevenchats.framework */; };
 		EC15E2B028993E1C005194BB /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15E2AF28993E1C005194BB /* PopupView.swift */; };
 		EC46B27028AF5E8800BDDA35 /* MIGenericTextFieldNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC46B26F28AF5E8800BDDA35 /* MIGenericTextFieldNew.swift */; };
 		EC5A45C42896DB6D00BEC5F0 /* PassWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC5A45C32896DB6D00BEC5F0 /* PassWordViewController.swift */; };
@@ -607,6 +607,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		09FB1B2F2D04E6EFF0936563 /* Pods-Sevenchats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.release.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.release.xcconfig"; sourceTree = "<group>"; };
 		1801383E2756C42B001A21BA /* UserDefault+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Helper.swift"; sourceTree = "<group>"; };
 		180A6A4D26CD89A100C1F3F2 /* English.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = English.json; sourceTree = "<group>"; };
 		180A6A4E26CD89A100C1F3F2 /* Kannada.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Kannada.json; sourceTree = "<group>"; };
@@ -693,6 +694,7 @@
 		18F87D6D28506A44002498ED /* HelpLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpLineViewController.swift; sourceTree = "<group>"; };
 		18F87D6F28506A74002498ED /* PDFKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PDFKit.framework; path = System/Library/Frameworks/PDFKit.framework; sourceTree = SDKROOT; };
 		18F939CE26F0A83A000E95FD /* intrestSubcategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = intrestSubcategory.swift; sourceTree = "<group>"; };
+		4236C1030D0F3F5A8105900A /* Pods-Sevenchats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.debug.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.debug.xcconfig"; sourceTree = "<group>"; };
 		4541C3CC245AF10E00193914 /* ForwardPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForwardPageViewController.swift; sourceTree = "<group>"; };
 		4541C3CD245AF10E00193914 /* ForwardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForwardViewController.swift; sourceTree = "<group>"; };
 		4541C3CE245AF10E00193914 /* GroupForwardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupForwardViewController.swift; sourceTree = "<group>"; };
@@ -1201,8 +1203,7 @@
 		7CF3E7EA278D339B0054E394 /* PSLTblCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PSLTblCell.swift; sourceTree = "<group>"; };
 		7CFAE97128A37BE0009DEC9F /* DemoPopupViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoPopupViewController1.swift; sourceTree = "<group>"; };
 		7CFAE97328A37BE1009DEC9F /* DemoPopupViewController1.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DemoPopupViewController1.storyboard; sourceTree = "<group>"; };
-		92127F46DEF4AD40C3BD3698 /* Pods_Sevenchats.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sevenchats.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CAB21F24095B360D5B6F471B /* Pods-Sevenchats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.release.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.release.xcconfig"; sourceTree = "<group>"; };
+		E1A4CB1177A7F77F402C954E /* Pods_Sevenchats.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sevenchats.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC15E2AF28993E1C005194BB /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
 		EC46B26F28AF5E8800BDDA35 /* MIGenericTextFieldNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIGenericTextFieldNew.swift; sourceTree = "<group>"; };
 		EC5A45C32896DB6D00BEC5F0 /* PassWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassWordViewController.swift; sourceTree = "<group>"; };
@@ -1214,7 +1215,6 @@
 		ECB7321D289736CD00C00907 /* EnterPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordViewController.swift; sourceTree = "<group>"; };
 		ECB7321F289736E800C00907 /* AccountDeactivateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDeactivateViewController.swift; sourceTree = "<group>"; };
 		ECB73221289736FE00C00907 /* ConfirmDeactiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmDeactiveViewController.swift; sourceTree = "<group>"; };
-		FE1E09332120EA45B0CFE58F /* Pods-Sevenchats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sevenchats.debug.xcconfig"; path = "Target Support Files/Pods-Sevenchats/Pods-Sevenchats.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1240,7 +1240,7 @@
 				6225401B240E433D00624F33 /* MediaToolbox.framework in Frameworks */,
 				62254019240E433500624F33 /* CoreMedia.framework in Frameworks */,
 				62254017240E433000624F33 /* MediaPlayer.framework in Frameworks */,
-				5124772B9F1094C344E3DE28 /* Pods_Sevenchats.framework in Frameworks */,
+				A2CFFECD8DFEF1AE514534A0 /* Pods_Sevenchats.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1362,8 +1362,8 @@
 		217552244C1B964EA806E815 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FE1E09332120EA45B0CFE58F /* Pods-Sevenchats.debug.xcconfig */,
-				CAB21F24095B360D5B6F471B /* Pods-Sevenchats.release.xcconfig */,
+				4236C1030D0F3F5A8105900A /* Pods-Sevenchats.debug.xcconfig */,
+				09FB1B2F2D04E6EFF0936563 /* Pods-Sevenchats.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1404,7 +1404,7 @@
 				6225401A240E433D00624F33 /* MediaToolbox.framework */,
 				62254018240E433500624F33 /* CoreMedia.framework */,
 				62254016240E432F00624F33 /* MediaPlayer.framework */,
-				92127F46DEF4AD40C3BD3698 /* Pods_Sevenchats.framework */,
+				E1A4CB1177A7F77F402C954E /* Pods_Sevenchats.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2482,14 +2482,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 62E1A390240E2E48001BD7A8 /* Build configuration list for PBXNativeTarget "Sevenchats" */;
 			buildPhases = (
-				53F8696383A8111BA6F55E23 /* [CP] Check Pods Manifest.lock */,
+				03BBB11DC41792036E546A41 /* [CP] Check Pods Manifest.lock */,
 				62E1A378240E2E47001BD7A8 /* Sources */,
 				62E1A379240E2E47001BD7A8 /* Frameworks */,
 				62E1A37A240E2E47001BD7A8 /* Resources */,
 				62EB5B342424F2ED00409382 /* ShellScript */,
 				4503ABC3244875D500151D38 /* DSYM Script */,
-				745DFA1DD9A9178D85A6768C /* [CP] Embed Pods Frameworks */,
-				258FAE46F2BDDF867995A90A /* [CP] Copy Pods Resources */,
+				8539A53508FC50FDF93227AB /* [CP] Embed Pods Frameworks */,
+				2A48856DE188BCB6E1150E6D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2707,7 +2707,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		258FAE46F2BDDF867995A90A /* [CP] Copy Pods Resources */ = {
+		03BBB11DC41792036E546A41 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sevenchats-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2A48856DE188BCB6E1150E6D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2742,28 +2764,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\nif [ ! -d ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME} ]; then\n    echo \"Couldn't find dsym file\"\n    exit 1\nfi\n\necho \"DSYM : ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\necho \"Input File Path : ${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}\"\n";
 		};
-		53F8696383A8111BA6F55E23 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Sevenchats-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		62EB5B342424F2ED00409382 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2783,7 +2783,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
-		745DFA1DD9A9178D85A6768C /* [CP] Embed Pods Frameworks */ = {
+		8539A53508FC50FDF93227AB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3359,13 +3359,13 @@
 		};
 		62E1A391240E2E48001BD7A8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FE1E09332120EA45B0CFE58F /* Pods-Sevenchats.debug.xcconfig */;
+			baseConfigurationReference = 4236C1030D0F3F5A8105900A /* Pods-Sevenchats.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Sevenchats/Sevenchats.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.82;
+				CURRENT_PROJECT_VERSION = 1.0.85;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3XC632973S;
 				INFOPLIST_FILE = "$(SRCROOT)/Sevenchats/AppGeneralFiles/Info.plist";
@@ -3385,13 +3385,13 @@
 		};
 		62E1A392240E2E48001BD7A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CAB21F24095B360D5B6F471B /* Pods-Sevenchats.release.xcconfig */;
+			baseConfigurationReference = 09FB1B2F2D04E6EFF0936563 /* Pods-Sevenchats.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Sevenchats/SevenchatsRelease.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.82;
+				CURRENT_PROJECT_VERSION = 1.0.85;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3XC632973S;
 				INFOPLIST_FILE = "$(SRCROOT)/Sevenchats/AppGeneralFiles/Info.plist";

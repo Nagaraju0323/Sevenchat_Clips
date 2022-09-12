@@ -1380,7 +1380,7 @@ extension UserChatDetailViewController {
                 txtViewMessage.updatePlaceholderFrame(false)
                 cnTextViewHeightHeight.constant = 34
                 txtViewMessage.resignFirstResponder()
-                btnAttachment.isHidden = false
+//                btnAttachment.isHidden = false
                 btnSend.isUserInteractionEnabled = true
                 btnSend.alpha = 0.5
                 self.tblChat.scrollToBottom()

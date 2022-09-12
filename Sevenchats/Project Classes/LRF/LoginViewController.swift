@@ -472,8 +472,8 @@ extension LoginViewController{
                         
                         if  userInfo.valueForString(key: "status_id") == "2"{
                             
-                            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                            alert.addAction(UIAlertAction(title: CMessageAactivate, style: .default, handler: { (_) in
+                            let alert = UIAlertController(title: nil, message: CMessageAactivate, preferredStyle: .actionSheet)
+                            alert.addAction(UIAlertAction(title: CBtnOk, style: .default, handler: { (_) in
                                 self.userAccountactive()
                             }))
                             alert.addAction(UIAlertAction(title:CBtnCancel, style: .default, handler: { (_) in
