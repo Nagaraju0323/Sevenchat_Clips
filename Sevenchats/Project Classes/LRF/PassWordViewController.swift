@@ -64,7 +64,7 @@ class PassWordViewController: ParentViewController {
 
     @IBAction func btnNextCLK(_ sender : UIButton){
         
-      /*  if  (txtPWD.text?.isBlank)! {
+     if  (txtPWD.text?.isBlank)! {
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertPasswordBlank, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
         }
@@ -79,7 +79,7 @@ class PassWordViewController: ParentViewController {
         if txtPWD.text != txtConfirmPWD.text{
             self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CRegisterAlertPasswordConfirmPasswordNotMatch, btnOneTitle: CBtnOk, btnOneTapped: nil)
             return
-        }*/
+        }
         PopupController
             .create(self)
             .customize(

@@ -179,11 +179,11 @@ class ParentViewController: UIViewController, UIGestureRecognizerDelegate{
             //......Show burger menu in navigationItem......
             //            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image:imgMenu, style: .plain, target: self, action: #selector(leftBurgerMenuClicked))
             
-            addHomeBurgerButton()
+            /*addHomeBurgerButton()
             
             self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
             self.navigationItem.hidesBackButton = true
-            self.navigationController?.navigationBar.isTranslucent = false
+            self.navigationController?.navigationBar.isTranslucent = false*/
             self.showHideAddView()
         }else if (self.view.tag == 99)
         {
