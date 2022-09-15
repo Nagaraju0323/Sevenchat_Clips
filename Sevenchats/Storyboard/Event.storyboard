@@ -291,10 +291,12 @@
                                                                 <constraints>
                                                                     <constraint firstItem="FFh-VT-7rv" firstAttribute="leading" secondItem="eiS-Df-lhx" secondAttribute="leading" constant="20" id="2j1-HY-mPc"/>
                                                                     <constraint firstAttribute="bottom" secondItem="ysz-Rw-A1i" secondAttribute="bottom" id="GvA-qX-ute"/>
+                                                                    <constraint firstItem="FFh-VT-7rv" firstAttribute="centerX" secondItem="eiS-Df-lhx" secondAttribute="centerX" id="HcU-Pj-x8J"/>
                                                                     <constraint firstAttribute="trailing" secondItem="ysz-Rw-A1i" secondAttribute="trailing" id="J2o-4N-sqT"/>
                                                                     <constraint firstItem="rxm-nY-dek" firstAttribute="centerY" secondItem="eiS-Df-lhx" secondAttribute="centerY" multiplier="0.76" id="VYG-8S-QmV"/>
                                                                     <constraint firstItem="FFh-VT-7rv" firstAttribute="top" secondItem="rxm-nY-dek" secondAttribute="bottom" constant="15" id="aNb-NJ-pgb"/>
                                                                     <constraint firstItem="rxm-nY-dek" firstAttribute="centerX" secondItem="eiS-Df-lhx" secondAttribute="centerX" id="ghL-FG-2wc"/>
+                                                                    <constraint firstItem="FFh-VT-7rv" firstAttribute="centerX" secondItem="rxm-nY-dek" secondAttribute="centerX" id="gvU-lh-5Ni"/>
                                                                     <constraint firstItem="ysz-Rw-A1i" firstAttribute="top" secondItem="eiS-Df-lhx" secondAttribute="top" id="m2o-sK-iaI"/>
                                                                     <constraint firstItem="ysz-Rw-A1i" firstAttribute="leading" secondItem="eiS-Df-lhx" secondAttribute="leading" id="uJn-OU-1xO"/>
                                                                     <constraint firstItem="rxm-nY-dek" firstAttribute="width" secondItem="eiS-Df-lhx" secondAttribute="width" multiplier="0.2" id="wtf-68-b1w"/>

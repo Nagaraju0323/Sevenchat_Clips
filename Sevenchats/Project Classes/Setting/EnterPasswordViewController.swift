@@ -42,10 +42,10 @@ class EnterPasswordViewController: ParentViewController {
             return
         }
         let alert = UIAlertController(title: nil, message: CMessagepermanentDelete, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: CBtnOk, style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: CBtnYes, style: .default, handler: { (_) in
             self.deleteAccount()
         }))
-        alert.addAction(UIAlertAction(title: CBtnCancel, style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: CBtnNo, style: .default, handler: { (_) in
             alert.dismiss(animated: true, completion: nil)
         }))
         

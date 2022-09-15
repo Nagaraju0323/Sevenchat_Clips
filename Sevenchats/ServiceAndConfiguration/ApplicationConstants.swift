@@ -254,6 +254,7 @@ let CStaticForumIdNew     = "post_forum"
 let CStaticEventIdNew     = "post_event"
 let CStaticPollIdNew      = "post_poll"
 
+
 let CancelRequest = "Request cancelled successfully"
 let AcceptRequest = "Request accepted successfully"
 let RejectRequest = "Request rejected successfully"

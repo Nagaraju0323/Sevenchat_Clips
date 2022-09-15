@@ -1335,6 +1335,9 @@ var CAlertMessageForSendRequest: String{
 var CToEnhanceFeed: String{
     return CLocalize(text: appDelegate.langugaeText?.to_enhance_feed ?? "To enhance your feed and make it more interesting. Build your connections with other people, pick your interests from the profile section, or start posting your own content.")
 }
+var CNoPostFound: String{
+    return CLocalize(text: appDelegate.langugaeText?.no_post_found ?? "No Post Found")
+}
 var CForceUpdateText: String{
     return CLocalize(text: appDelegate.langugaeText?.force_update_text ?? "We have released a new version for the application. Please click on the update button and get the latest version to make sure you have a seamless experience.")
 }

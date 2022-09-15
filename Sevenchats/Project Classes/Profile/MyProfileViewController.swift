@@ -539,17 +539,20 @@ extension MyProfileViewController{
 // MARK:- --------- UITableView Datasources/Delegate
 extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
             return 1
         }
+        if section == 1{
+            return arrPostList.count
+        }
         if arrPostList.isEmpty{
             return 1
         }
-        return arrPostList.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -967,7 +970,8 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
             }
             return tableView.tableViewDummyCell()
         }
-        
+        if indexPath.section == 1{
+            
         let postInfo = arrPostList[indexPath.row]
         let isshared = 0
         let isdelete = 0
@@ -1982,7 +1986,13 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource{
         default:
             break
         }
-        
+    }
+        //MARK: - No Post Found
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "NoPostFoundCell", for: indexPath) as? NoPostFoundCell {
+            
+            cell.lblMessage.text = CNoPostFound
+            return cell
+        }
         return tableView.tableViewDummyCell()
     }
     

@@ -85,10 +85,10 @@ class DeactiveDelViewController: ParentViewController {
         //change languageHear
         if deactivebtnIsselected == true {
             let alert = UIAlertController(title: nil, message: CMessageDeactivate, preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: CBtnOk, style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: CBtnYes, style: .default, handler: { (_) in
                 self.userAccountDeactive()
             }))
-            alert.addAction(UIAlertAction(title: CBtnCancel, style: .default, handler: { (_) in
+            alert.addAction(UIAlertAction(title: CBtnNo, style: .default, handler: { (_) in
                 alert.dismiss(animated: true, completion: nil)
             }))
             
@@ -152,12 +152,18 @@ extension DeactiveDelViewController{
             ]
             APIRequest.shared().userAccountDeactivate(para: dict as [String : AnyObject]) { (response, error) in
                 if response != nil && error == nil {
+                  
                     DispatchQueue.main.async {
+            
+                        
                         let userID = appDelegate.loginUser?.user_id.description ?? ""
                         MIGeneralsAPI.shared().sendNotification("", userID: userID, subject: "", MsgType: "2", MsgSent: "", showDisplayContent: "", senderName: "", post_ID: [:], shareLink: "")
                         
+                        
                         let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+                   
                         UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                        
                     }
                 }else {
                     //change LanguageHear

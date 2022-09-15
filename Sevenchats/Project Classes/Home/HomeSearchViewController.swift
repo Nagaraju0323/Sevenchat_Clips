@@ -575,7 +575,7 @@ extension HomeSearchViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let searchInfo = arrHomeSearch[indexPath.row]
+        let searchInfo = arrHomeSearch[indexPath.row] 
 //        let isSharedPost = searchInfo.valueForInt(key: CIsSharedPost)
 //        let isPostDeleted = searchInfo.valueForInt(key: CIsPostDeleted)
         let isSharedPost = 0

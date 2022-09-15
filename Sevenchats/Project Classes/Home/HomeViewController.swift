@@ -46,6 +46,7 @@ class HomeViewController: ParentViewController {
     var dict = [String:Any]()
     var shoutsType : ShoutsType!
     var endTimeDate : Double?
+    var isreloadData:Bool?
     
 
     override func viewDidLoad() {
@@ -57,6 +58,8 @@ class HomeViewController: ParentViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loadListval), name: NSNotification.Name(rawValue: "loadder"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pollloadder), name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(pollloadder), name: NSNotification.Name(rawValue: "polls"), object: nil)
+     
+       
         
     }
     override func didReceiveMemoryWarning() {
@@ -69,7 +72,7 @@ class HomeViewController: ParentViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(pollloadder), name: NSNotification.Name(rawValue: "pollloadder"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(polls), name: NSNotification.Name(rawValue: "polls"), object: nil)
 
-        lblNoData.text = CToEnhanceFeed
+     //   lblNoData.text = CToEnhanceFeed
     }
     deinit {
         print("Deinit -> HomeViewController")
@@ -87,7 +90,7 @@ class HomeViewController: ParentViewController {
     @objc func loading(){
         self.tblEvents.reloadData()
     }
-    
+
     @objc func polls(){
         if apiTask?.state == URLSessionTask.State.running {
             apiTask?.cancel()
@@ -149,6 +152,7 @@ class HomeViewController: ParentViewController {
         tblEvents.register(UINib(nibName: "HomeSharedFourmTblCell", bundle: nil), forCellReuseIdentifier: "HomeSharedFourmTblCell")
         tblEvents.register(UINib(nibName: "HomeSharedPollTblCell", bundle: nil), forCellReuseIdentifier: "HomeSharedPollTblCell")
         tblEvents.register(UINib(nibName: "PostDeletedCell", bundle: nil), forCellReuseIdentifier: "PostDeletedCell")
+        tblEvents.register(UINib(nibName: "NoPostFoundCell", bundle: nil), forCellReuseIdentifier: "NoPostFoundCell")
         //  tblEvents.register(UINib(nibName: "HomeStoriesTblCell", bundle: nil), forCellReuseIdentifier: "HomeStoriesTblCell")
         
         if IS_iPhone_X_Series{
@@ -406,6 +410,144 @@ extension HomeViewController {
                 self.tblEvents.tableFooterView = nil
                 
                 if response != nil && error == nil {
+                    let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject]
+                    if metaData!["status"] as? String != "0"{
+                        print("error")
+                    }else {
+                    let data = response!["post_listing"] as! [String:Any]
+                    if let arrList = data["post"] as? [[String : Any]] {
+                        self.lblNoData.isHidden = true
+//                        print(arrList)
+                        // Remove all data here when page number == 1
+                        if self.pageNumber == 1 {
+                            self.arrPostList.removeAll()
+                            self.tblEvents.reloadData()
+                        }
+                        self.isLoadMoreCompleted = arrList.isEmpty
+                        // Add Data here...
+                        if arrList.count > 0 {
+                            self.arrPostList = self.arrPostList + arrList
+                            self.tblEvents.reloadData()
+                            self.pageNumber += 1
+                        }
+                        self.tblEvents.reloadData()
+                    }
+
+                }
+                }else {
+                    print("error------\(error)")
+//                    self.lblNoData.isHidden = false
+//                    self.lblNoData.text = CNoPostFound
+                    self.activityLoader.stopAnimating()
+                    self.isreloadData = true
+                   //self.tblEvents.reloadData()
+                }
+                
+            }
+        }
+    }
+    /*func getPostListFromServer(showLoader : Bool){
+        if apiTask?.state == URLSessionTask.State.running {
+            refreshControl.beginRefreshing()
+            return
+        }
+        if showLoader {
+            activityLoader.startAnimating()
+        }
+        var arrFilterData = [[String : Any]]()
+        if arrSelectedFilterOption.count > 0{
+            // Get Article filter data...
+            let arrArticle = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticArticleId})
+            if arrArticle.count > 0{
+                var articleFilter = [String : Any]()
+                let artIDS = arrArticle.map({$0.valueForString(key: CId)}).joined(separator: ",")
+                articleFilter[CPostType] = CStaticArticleId
+                articleFilter[CInterest_ids] = artIDS
+                arrFilterData.append(articleFilter)
+            }
+            // Get Chirpy filter data...
+            let arrChirpy = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticChirpyId})
+            if arrChirpy.count > 0{
+                var chirFilter = [String : Any]()
+                let chirIDS = arrChirpy.map({$0.valueForString(key: CId)}).joined(separator: ",")
+                chirFilter[CPostType] = CStaticChirpyId
+                chirFilter[CInterest_ids] = chirIDS
+                arrFilterData.append(chirFilter)
+            }
+            // Get Event filter data...
+            let arrEvent = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticEventId})
+            if arrEvent.count > 0{
+                var eventFilter = [String : Any]()
+                let eventIDS = arrEvent.map({$0.valueForString(key: CId)}).joined(separator: ",")
+                eventFilter[CPostType] = CStaticEventId
+                eventFilter[CInterest_ids] = eventIDS
+                arrFilterData.append(eventFilter)
+            }
+            
+            // Get Forum filter data...
+            let arrForum = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticForumId})
+            if arrForum.count > 0{
+                var forumFilter = [String : Any]()
+                let forumIDS = arrForum.map({$0.valueForString(key: CId)}).joined(separator: ",")
+                forumFilter[CPostType] = CStaticForumId
+                forumFilter[CInterest_ids] = forumIDS
+                arrFilterData.append(forumFilter)
+            }
+            
+            // Get Shout filter data...
+            let arrShout = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticShoutId})
+            if arrShout.count > 0{
+                var shoutFilter = [String : Any]()
+                shoutFilter[CPostType] = CStaticShoutId
+                shoutFilter[CInterest_ids] = "0"
+                arrFilterData.append(shoutFilter)
+            }
+            
+            // Get Gallery filter data...
+            let arrGallery = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticGalleryId})
+            if arrGallery.count > 0{
+                var galFilter = [String : Any]()
+                let galleryIDS = arrGallery.map({$0.valueForString(key: CId)}).joined(separator: ",")
+                galFilter[CPostType] = CStaticGalleryId
+                galFilter[CInterest_ids] = galleryIDS
+                arrFilterData.append(galFilter)
+            }
+            
+            // Get Poll filter data...
+            let arrPoll = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticPollId})
+            if arrPoll.count > 0{
+                var galFilter = [String : Any]()
+                let pollIDS = arrPoll.map({$0.valueForString(key: CId)}).joined(separator: ",")
+                galFilter[CPostType] = CStaticPollId
+                galFilter[CInterest_ids] = pollIDS
+                arrFilterData.append(galFilter)
+            }
+        }
+        
+        // Add load more indicator here...
+        if self.pageNumber > 2 {
+            self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+        }else{
+            self.tblEvents.tableFooterView = nil
+        }
+        //        self.arrPostList.removeAll()
+        guard let userID = appDelegate.loginUser?.user_id else {return}
+        apiTask = APIRequest.shared().getPostList(userID: Int(userID), page: pageNumber, filter : arrFilterData, showLoader: showLoader) { [weak self] (response, error) in
+            
+            print("-----Error message\(error)")
+//            if response as! String == "PSTLST-001 : No Post Details Found" {
+//                self?.lblNoData.isHidden = true
+//            }else{
+//                self?.lblNoData.isHidden = false
+//            }
+            
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.activityLoader.stopAnimating()
+                self.refreshControl.endRefreshing()
+                self.tblEvents.tableFooterView = nil
+                
+                if response != nil && error == nil {
                     let data = response!["post_listing"] as! [String:Any]
                     if let arrList = data["post"] as? [[String : Any]] {
 //                        print(arrList)
@@ -423,11 +565,20 @@ extension HomeViewController {
                         }
                         self.tblEvents.reloadData()
                     }
-                    self.lblNoData.isHidden = self.arrPostList.count > 0
+                    if response?["error"] as? String ?? ""  == "PSTLST-001 : No Pos Details Found" {
+                        self.activityLoader.stopAnimating()
+                        self.lblNoData.isHidden = false
+                    }else{
+                        self.lblNoData.isHidden = true
+                    }
+            //self.lblNoData.isHidden = self.arrPostList.count > 0
+                    
                 }
+              
+               
             }
         }
-    }
+    }*/
     
 //    func deletePost(_ postId : Int, _ index : Int) {
 //    }
@@ -563,7 +714,7 @@ extension HomeViewController {
 // MARK:- --------- UITableView Datasources/Delegate
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0{
@@ -584,8 +735,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             }
         } else if indexPath.section == 3{
             return 68
-        }else {
+        }else  if indexPath.section == 4{
             return UITableView.automaticDimension;
+        }else {
+            return 60
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -598,13 +751,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             return 1
         case 3:
             return 1
-        default:
+        case 4:
             return arrPostList.count
+        default:
+            return 1
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Top Search view...
+ 
         if indexPath.section == 0 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeHeaderTblCell", for: indexPath) as? HomeHeaderTblCell {
                 cell.btnSearch.touchUpInside { [weak self] (sender) in
@@ -616,6 +772,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
                 return cell
             }
         }
+        
         
         if indexPath.section == 1 {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "HomeStoriesTblCell", for: indexPath) as? HomeStoriesTblCell{
@@ -700,8 +857,20 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             }
             
         }
+        if indexPath.section == 4 {
+//        var postInfo = [String : Any]()
+//        if isreloadData == true {
+//            print("------- calling")
+//            postInfo = ["type":"error"]
+//
+//        }else {
+//            print("-------not calling")
+//            postInfo = arrPostList[indexPath.row]
+//        }
+//
+//        print(postInfo)
         
-        let postInfo = arrPostList[indexPath.row]
+        var postInfo = arrPostList[indexPath.row]
         //        let isSharedPost = postInfo.valueForInt(key: CIsSharedPost)
         //        let isPostDeleted = postInfo.valueForInt(key: CIsPostDeleted)
         var isshared = 0
@@ -2048,9 +2217,20 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource{
             break
         default:
             break
+            
+        }
+           
+    }
+        //MARK: - No Post Found
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "NoPostFoundCell", for: indexPath) as? NoPostFoundCell {
+            self.activityLoader.stopAnimating()
+            cell.lblMessage.text = CNoPostFound
+            return cell
         }
         return tableView.tableViewDummyCell()
     }
+    
+
     
     
     @objc func galleryConnected(sender: UIButton){

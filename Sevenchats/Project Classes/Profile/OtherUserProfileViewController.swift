@@ -543,7 +543,7 @@ extension OtherUserProfileViewController{
 // MARK:- --------- UITableView Datasources/Delegate
 extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -561,7 +561,10 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
         if arrPostList.isEmpty{
             return 1
         }
-        return arrPostList.count
+        if section == 1{
+            return arrPostList.count
+        }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -891,13 +894,14 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
                 }
             }
         }
-        
+    
         if arrPostList.isEmpty{
             if let cell = tableView.dequeueReusableCell(withIdentifier: "NoPostFoundCell", for: indexPath) as? NoPostFoundCell {
                 return cell
             }
             return tableView.tableViewDummyCell()
         }
+        if indexPath.section == 1 {
         let postInfo = arrPostList[indexPath.row]
         let isshared = 0
         let isdelete = 0
@@ -1872,6 +1876,13 @@ extension OtherUserProfileViewController: UITableViewDelegate, UITableViewDataSo
             default:
                 break
             }
+        }
+    }
+  //MARK: - No Post Found
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "NoPostFoundCell", for: indexPath) as? NoPostFoundCell {
+           
+            cell.lblMessage.text = CNoPostFound
+            return cell
         }
         
         return tableView.tableViewDummyCell()
