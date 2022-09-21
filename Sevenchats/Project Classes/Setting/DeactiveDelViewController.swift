@@ -164,6 +164,8 @@ extension DeactiveDelViewController{
                    
                         UIApplication.shared.keyWindow?.rootViewController = loginViewController
                         
+                        
+                        
                     }
                 }else {
                     //change LanguageHear

@@ -315,6 +315,139 @@ extension HomeViewController {
         }
     }
     
+//    func getPostListFromServer(showLoader : Bool){
+//        if apiTask?.state == URLSessionTask.State.running {
+//            refreshControl.beginRefreshing()
+//            return
+//        }
+//        if showLoader {
+//            activityLoader.startAnimating()
+//        }
+//        var arrFilterData = [[String : Any]]()
+//        if arrSelectedFilterOption.count > 0{
+//            // Get Article filter data...
+//            let arrArticle = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticArticleId})
+//            if arrArticle.count > 0{
+//                var articleFilter = [String : Any]()
+//                let artIDS = arrArticle.map({$0.valueForString(key: CId)}).joined(separator: ",")
+//                articleFilter[CPostType] = CStaticArticleId
+//                articleFilter[CInterest_ids] = artIDS
+//                arrFilterData.append(articleFilter)
+//            }
+//            // Get Chirpy filter data...
+//            let arrChirpy = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticChirpyId})
+//            if arrChirpy.count > 0{
+//                var chirFilter = [String : Any]()
+//                let chirIDS = arrChirpy.map({$0.valueForString(key: CId)}).joined(separator: ",")
+//                chirFilter[CPostType] = CStaticChirpyId
+//                chirFilter[CInterest_ids] = chirIDS
+//                arrFilterData.append(chirFilter)
+//            }
+//            // Get Event filter data...
+//            let arrEvent = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticEventId})
+//            if arrEvent.count > 0{
+//                var eventFilter = [String : Any]()
+//                let eventIDS = arrEvent.map({$0.valueForString(key: CId)}).joined(separator: ",")
+//                eventFilter[CPostType] = CStaticEventId
+//                eventFilter[CInterest_ids] = eventIDS
+//                arrFilterData.append(eventFilter)
+//            }
+//
+//            // Get Forum filter data...
+//            let arrForum = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticForumId})
+//            if arrForum.count > 0{
+//                var forumFilter = [String : Any]()
+//                let forumIDS = arrForum.map({$0.valueForString(key: CId)}).joined(separator: ",")
+//                forumFilter[CPostType] = CStaticForumId
+//                forumFilter[CInterest_ids] = forumIDS
+//                arrFilterData.append(forumFilter)
+//            }
+//
+//            // Get Shout filter data...
+//            let arrShout = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticShoutId})
+//            if arrShout.count > 0{
+//                var shoutFilter = [String : Any]()
+//                shoutFilter[CPostType] = CStaticShoutId
+//                shoutFilter[CInterest_ids] = "0"
+//                arrFilterData.append(shoutFilter)
+//            }
+//
+//            // Get Gallery filter data...
+//            let arrGallery = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticGalleryId})
+//            if arrGallery.count > 0{
+//                var galFilter = [String : Any]()
+//                let galleryIDS = arrGallery.map({$0.valueForString(key: CId)}).joined(separator: ",")
+//                galFilter[CPostType] = CStaticGalleryId
+//                galFilter[CInterest_ids] = galleryIDS
+//                arrFilterData.append(galFilter)
+//            }
+//
+//            // Get Poll filter data...
+//            let arrPoll = arrSelectedFilterOption.filter({$0[CType] as? Int == CStaticPollId})
+//            if arrPoll.count > 0{
+//                var galFilter = [String : Any]()
+//                let pollIDS = arrPoll.map({$0.valueForString(key: CId)}).joined(separator: ",")
+//                galFilter[CPostType] = CStaticPollId
+//                galFilter[CInterest_ids] = pollIDS
+//                arrFilterData.append(galFilter)
+//            }
+//        }
+//
+//        // Add load more indicator here...
+//        if self.pageNumber > 2 {
+//            self.tblEvents.tableFooterView = self.loadMoreIndicator(ColorAppTheme)
+//        }else{
+//            self.tblEvents.tableFooterView = nil
+//        }
+//        //        self.arrPostList.removeAll()
+//        guard let userID = appDelegate.loginUser?.user_id else {return}
+//        apiTask = APIRequest.shared().getPostList(userID: Int(userID), page: pageNumber, filter : arrFilterData, showLoader: showLoader) { [weak self] (response, error) in
+//
+//            guard let self = self else { return }
+//            DispatchQueue.main.async {
+//                self.activityLoader.stopAnimating()
+//                self.refreshControl.endRefreshing()
+//                self.tblEvents.tableFooterView = nil
+//
+//                if response != nil && error == nil {
+//                    let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject]
+//                    if metaData!["status"] as? String != "0"{
+//                        print("error")
+//                    }else {
+//                    let data = response!["post_listing"] as! [String:Any]
+//                    if let arrList = data["post"] as? [[String : Any]] {
+//                        self.lblNoData.isHidden = true
+////                        print(arrList)
+//                        // Remove all data here when page number == 1
+//                        if self.pageNumber == 1 {
+//                            self.arrPostList.removeAll()
+//                            self.tblEvents.reloadData()
+//                        }
+//                        self.isLoadMoreCompleted = arrList.isEmpty
+//                        // Add Data here...
+//                        if arrList.count > 0 {
+//                            self.arrPostList = self.arrPostList + arrList
+//                            self.tblEvents.reloadData()
+//                            self.pageNumber += 1
+//                        }
+//                        self.tblEvents.reloadData()
+//                    }
+//
+//                }
+//                }else {
+//                    print("error------\(error)")
+////                    self.lblNoData.isHidden = false
+////                    self.lblNoData.text = CNoPostFound
+//                    self.activityLoader.stopAnimating()
+//                    self.isreloadData = true
+//                   //self.tblEvents.reloadData()
+//                }
+//
+//            }
+//        }
+//    }
+    
+    
     func getPostListFromServer(showLoader : Bool){
         if apiTask?.state == URLSessionTask.State.running {
             refreshControl.beginRefreshing()
@@ -410,13 +543,8 @@ extension HomeViewController {
                 self.tblEvents.tableFooterView = nil
                 
                 if response != nil && error == nil {
-                    let metaData = response?.value(forKey: CJsonMeta) as? [String : AnyObject]
-                    if metaData!["status"] as? String != "0"{
-                        print("error")
-                    }else {
                     let data = response!["post_listing"] as! [String:Any]
                     if let arrList = data["post"] as? [[String : Any]] {
-                        self.lblNoData.isHidden = true
 //                        print(arrList)
                         // Remove all data here when page number == 1
                         if self.pageNumber == 1 {
@@ -432,20 +560,14 @@ extension HomeViewController {
                         }
                         self.tblEvents.reloadData()
                     }
-
+                    self.lblNoData.isHidden = self.arrPostList.count > 0
                 }
-                }else {
-                    print("error------\(error)")
-//                    self.lblNoData.isHidden = false
-//                    self.lblNoData.text = CNoPostFound
-                    self.activityLoader.stopAnimating()
-                    self.isreloadData = true
-                   //self.tblEvents.reloadData()
-                }
-                
             }
         }
     }
+    
+    
+    
     /*func getPostListFromServer(showLoader : Bool){
         if apiTask?.state == URLSessionTask.State.running {
             refreshControl.beginRefreshing()

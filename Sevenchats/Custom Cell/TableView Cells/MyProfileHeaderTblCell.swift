@@ -15,6 +15,7 @@
 
 import UIKit
 import Lightbox
+import SDWebImage
 
 let CStates = "states"
 let CStatesTitle = "statesTilte"
@@ -24,6 +25,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
     
     @IBOutlet weak var lblLocation: UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF: FLAnimatedImageView!
     @IBOutlet weak var imgCover : UIImageView!
     @IBOutlet weak var btnCoverChange: UIButton!
     @IBOutlet weak var btnProfileChange: UIButton!
@@ -132,6 +134,11 @@ class MyProfileHeaderTblCell: UITableViewCell {
             self.btnViewCompleteProfile.layer.cornerRadius = 5
             self.imgUser.layer.borderWidth = 3
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgUserGIF.layer.cornerRadius = self.imgUser.frame.size.width/2
+            // self.btnShare.layer.cornerRadius = 5
+            self.imgUserGIF.layer.borderWidth = 3
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
             
             self.imgFriendSix.layer.cornerRadius = self.imgFriendSix.frame.size.width/2
             self.imgFriendSix.layer.borderWidth = 2
@@ -258,7 +265,28 @@ class MyProfileHeaderTblCell: UITableViewCell {
         }else {
             imgCover.loadImageFromUrl((appDelegate.loginUser?.cover_image ?? ""), true)
         }
-        imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
+        let imgExt = URL(fileURLWithPath:appDelegate.loginUser?.profile_url ?? "").pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+                    imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:appDelegate.loginUser?.profile_url ?? ""), completed: nil)
+                    self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
+        
+        
+//        imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_url ?? ""), true)
         _ = appDelegate.loginUser?.total_friends ?? 0
 //        viewFriendFirst.hide(byWidth: true)
 //        viewFriendSecond.hide(byWidth: true)

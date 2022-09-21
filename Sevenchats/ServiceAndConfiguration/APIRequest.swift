@@ -249,7 +249,7 @@ let CAPITagNotification             = "notification"
 let CAPITagNotifier                 = "notifyUser"
 let CAPITagReadNotifications        = "read-notifications"
 let CAPITagRemoveAdvertisement      = "remove-advertisement"
-let CAPITagVotePollsOption          = "polls/option"
+let CAPITagVotePollsOption          = "polls/v1/option"
 let CAPITagVoteDetailsPollsList     = "polls/users"
 let CAPITagVoteDetailsPolls         = "polls/details"
 let CAPITagFolders      = "folders"
@@ -2625,6 +2625,8 @@ extension APIRequest {
             }
         })!
     }
+
+    
     func getPostList(userID:Int,page : Int?,filter : [[String : Any]]?, showLoader : Bool, completion : @escaping ClosureCompletion) -> URLSessionTask {
         
         var para = [String : Any]()
@@ -2640,41 +2642,12 @@ extension APIRequest {
         dict[CPage] = page?.description
         dict[CPer_limit] = CLimitTT.description
         return Networking.sharedInstance.GETNEWPR(apiTag: CAPITagHomePosts, param: dict as [String : AnyObject], successBlock: { (task, response) in
-
             if self.checkResponseStatusAndShowAlert(showAlert: true, responseobject: response, strApiTag: CAPITagUserPost) {
-                
-                if let result = response?["meta"] as? [String:Any]{
-                    print("response-----\(result)")
-                    completion(response, nil)
-                }
-                
-                print("error Message----\(response?["error"] as? String ?? "")")
-                
-                
-//                if response?["error"] as? String ?? ""  == "PSTLST-001 : No Post Details Found" {
-//                    print("----response")
-//                    var dict = [String : Any]()
-//                    let statusCode  = 202
-//                    let message = "No Post Details Found"
-//                    dict =  [
-//                        "message":message,
-//                        "statusCode":statusCode
-//                    ]
-//
-//                    let error = NSError(domain: "", code: statusCode, userInfo: dict)
-//                    completion(nil, error)
-//                }
-                
-                
-                
                 completion(response, nil)
             }
         }, failureBlock: { (task, message, error) in
-            
-            print("------\(message)----\(error)")
-            
             completion(nil, error)
-        if error?.code == CStatus405{
+            if error?.code == CStatus405{
                 appDelegate.logOut()
             } else if error?.code == CStatus1009 || error?.code == CStatus1005 {
             } else {
@@ -2682,6 +2655,7 @@ extension APIRequest {
             }
         })!
     }
+    
     //----------------------------------------NEW CODE----------------------------------------------
     func getMyfriendList(page : Int?,user_id : Int?,search_type : String?, completion : @escaping ClosureCompletion) -> URLSessionTask {
         let encryptUser = EncryptDecrypt.shared().encryptDecryptModel(userResultStr: user_id?.description  ?? "")

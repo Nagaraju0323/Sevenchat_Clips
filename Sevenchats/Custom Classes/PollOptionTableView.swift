@@ -246,22 +246,22 @@ extension PollOptionTableView : UITableViewDelegate,UITableViewDataSource {
         self.postDetailsList(optionTexts: self.optionText,arg: true, completion:{(success) -> Void in
             if success {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.40) {
-                    if self.arrOptionNew.count <= 0{
-                            let alertWindow = UIWindow(frame: UIScreen.main.bounds)
-                            alertWindow.rootViewController = UIViewController()
-                            
-                            let alertController = UIAlertController(title: "", message: CAlreadyCannotVoted, preferredStyle: UIAlertController.Style.alert)
-                            alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
-                                alertWindow.isHidden = true
-                                return
-                            }))
-                            
-                            alertWindow.windowLevel = UIWindow.Level.alert + 1;
-                            alertWindow.makeKeyAndVisible()
-                            alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
+ //                   if self.arrOptionNew.count <= 0{
+//                            let alertWindow = UIWindow(frame: UIScreen.main.bounds)
+//                            alertWindow.rootViewController = UIViewController()
+//
+//                            let alertController = UIAlertController(title: "", message: CAlreadyCannotVoted, preferredStyle: UIAlertController.Style.alert)
+//                            alertController.addAction(UIAlertAction(title: CBtnOk, style: UIAlertAction.Style.cancel, handler: { _ in
+//                                alertWindow.isHidden = true
+//                                return
+//                            }))
+//
+//                            alertWindow.windowLevel = UIWindow.Level.alert + 1;
+//                            alertWindow.makeKeyAndVisible()
+//                            alertWindow.rootViewController?.present(alertController, animated: true, completion: nil)
                          
-                        return
-                    }
+//                        return
+//                    }
                     if let pollVoteList = CStoryboardPoll.instantiateViewController(withIdentifier: "PollVotesListViewController") as? PollVotesListViewController {
                         pollVoteList.pollUsers = self.arrOptionNew
                         self.viewController?.navigationController?.pushViewController(pollVoteList, animated: true)

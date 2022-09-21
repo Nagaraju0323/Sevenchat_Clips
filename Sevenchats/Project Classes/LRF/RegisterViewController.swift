@@ -179,8 +179,15 @@ class RegisterViewController: ParentViewController {
         //lblCode.text = CRegisterPlaceholderCode
         txtCountryCode.placeHolder = CRegisterPlaceholderCode
         btnSingUp.setTitle(CBtnContinue, for: .normal)
-        txtGender.setPickerData(arrPickerData: [CRegisterGenderMale, CRegisterGenderFemale ,CRegisterGenderOther], selectedPickerDataHandler: { (text, row, component) in
+//        txtGender.setPickerData(arrPickerData: [CRegisterGenderMale, CRegisterGenderFemale ,CRegisterGenderOther], selectedPickerDataHandler: { (text, row, component) in
+//        }, defaultPlaceholder: "")
+        
+        
+        let arrInviteType = [CRegisterGenderMale,CRegisterGenderFemale,CRegisterGenderOther]
+        self.txtGender.setPickerData(arrPickerData: arrInviteType, selectedPickerDataHandler: { (select, index, component) in
+            self.txtGender.text = arrInviteType[index]
         }, defaultPlaceholder: "")
+        
         txtCountrys.placeHolder = CCountryPlaceholder
         txtStates.placeHolder = CStatePlaceholder
         txtCitys.placeHolder = CCityPlaceholder
