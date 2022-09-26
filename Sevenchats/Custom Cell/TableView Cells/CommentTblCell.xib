@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -26,11 +28,18 @@
                             <constraint firstAttribute="height" constant="40" id="xuV-Hh-1BD"/>
                         </constraints>
                     </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="IHb-yY-p1T" customClass="FLAnimatedImageView">
+                        <rect key="frame" x="20" y="10" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="AZT-Sp-hX0"/>
+                            <constraint firstAttribute="height" constant="40" id="hqa-7Q-zB7"/>
+                        </constraints>
+                    </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ha2-9N-V4f">
                         <rect key="frame" x="20" y="10" width="40" height="40"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Lily Morie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9Q-bk-F7D" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                        <rect key="frame" x="70" y="10" width="60.5" height="18"/>
+                        <rect key="frame" x="70" y="10" width="64.5" height="18"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="18" id="RH6-5m-MnP"/>
                         </constraints>
@@ -39,10 +48,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j86-xQ-NSE">
-                        <rect key="frame" x="70" y="10" width="60.5" height="18"/>
+                        <rect key="frame" x="70" y="10" width="64.5" height="18"/>
                     </button>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hailey Baldwin and Kendall jenner attended an " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fjo-X2-AkS" customClass="ActiveLabel" customModule="ActiveLabel">
-                        <rect key="frame" x="70" y="50" width="285" height="15.5"/>
+                        <rect key="frame" x="70" y="53" width="285" height="39"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" id="ruo-Mx-xUw"/>
@@ -52,7 +61,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="a day ago" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3EI-Lz-2Fz" customClass="MIGenericLabel" customModule="Sevenchats" customModuleProvider="target">
-                        <rect key="frame" x="70" y="32" width="53" height="14"/>
+                        <rect key="frame" x="70" y="32" width="62" height="17"/>
                         <fontDescription key="fontDescription" name="Poppins-Medium" family="Poppins" pointSize="12"/>
                         <color key="textColor" red="0.65490196079999996" green="0.67843137249999996" blue="0.67843137249999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -81,9 +90,11 @@
                     <constraint firstItem="Z9Q-bk-F7D" firstAttribute="leading" secondItem="mcP-cQ-VkH" secondAttribute="trailing" constant="10" id="7WT-En-Pkp"/>
                     <constraint firstItem="ha2-9N-V4f" firstAttribute="centerX" secondItem="mcP-cQ-VkH" secondAttribute="centerX" id="8nS-s7-ORN"/>
                     <constraint firstAttribute="trailing" secondItem="Fjo-X2-AkS" secondAttribute="trailing" constant="20" id="9WJ-FP-rc2"/>
+                    <constraint firstItem="IHb-yY-p1T" firstAttribute="top" secondItem="mcP-cQ-VkH" secondAttribute="top" id="9z9-RZ-qLb"/>
                     <constraint firstItem="3EI-Lz-2Fz" firstAttribute="leading" secondItem="Z9Q-bk-F7D" secondAttribute="leading" id="Efy-8k-UCR"/>
                     <constraint firstItem="j86-xQ-NSE" firstAttribute="centerX" secondItem="Z9Q-bk-F7D" secondAttribute="centerX" id="Gf9-d3-Upy"/>
                     <constraint firstItem="3EI-Lz-2Fz" firstAttribute="top" secondItem="Z9Q-bk-F7D" secondAttribute="bottom" constant="4" id="HTz-hw-BHA"/>
+                    <constraint firstItem="IHb-yY-p1T" firstAttribute="leading" secondItem="mcP-cQ-VkH" secondAttribute="leading" id="LVE-Nl-Luo"/>
                     <constraint firstItem="ha2-9N-V4f" firstAttribute="centerY" secondItem="mcP-cQ-VkH" secondAttribute="centerY" id="NVO-we-CaE"/>
                     <constraint firstItem="j86-xQ-NSE" firstAttribute="centerY" secondItem="Z9Q-bk-F7D" secondAttribute="centerY" id="OOV-8q-giN"/>
                     <constraint firstItem="G9g-4J-0Wg" firstAttribute="leading" secondItem="QOz-oa-1kf" secondAttribute="leading" constant="20" id="RTm-DF-Oob"/>
@@ -92,12 +103,16 @@
                     <constraint firstItem="mcP-cQ-VkH" firstAttribute="leading" secondItem="QOz-oa-1kf" secondAttribute="leading" constant="20" id="Tga-bw-pmv"/>
                     <constraint firstItem="0iV-cg-3St" firstAttribute="top" secondItem="QOz-oa-1kf" secondAttribute="top" constant="15" id="XsA-h0-sIh"/>
                     <constraint firstItem="j86-xQ-NSE" firstAttribute="height" secondItem="Z9Q-bk-F7D" secondAttribute="height" id="Ybd-77-Qfa"/>
+                    <constraint firstItem="IHb-yY-p1T" firstAttribute="bottom" secondItem="mcP-cQ-VkH" secondAttribute="bottom" id="ZII-kD-H7K"/>
                     <constraint firstAttribute="trailing" secondItem="G9g-4J-0Wg" secondAttribute="trailing" constant="20" id="gJc-kz-SR6"/>
                     <constraint firstItem="mcP-cQ-VkH" firstAttribute="top" secondItem="QOz-oa-1kf" secondAttribute="top" constant="10" id="igc-oZ-mhF"/>
                     <constraint firstItem="ha2-9N-V4f" firstAttribute="height" secondItem="mcP-cQ-VkH" secondAttribute="height" id="ixT-cm-gYj"/>
+                    <constraint firstItem="IHb-yY-p1T" firstAttribute="trailing" secondItem="mcP-cQ-VkH" secondAttribute="trailing" id="kAL-RB-8AY"/>
                     <constraint firstAttribute="trailing" secondItem="0iV-cg-3St" secondAttribute="trailing" constant="8" id="m1V-l0-BmH"/>
                     <constraint firstItem="Fjo-X2-AkS" firstAttribute="leading" secondItem="mcP-cQ-VkH" secondAttribute="trailing" constant="10" id="q7H-k9-i4V"/>
+                    <constraint firstItem="IHb-yY-p1T" firstAttribute="height" secondItem="mcP-cQ-VkH" secondAttribute="height" id="wLw-So-aFg"/>
                     <constraint firstItem="ha2-9N-V4f" firstAttribute="width" secondItem="mcP-cQ-VkH" secondAttribute="width" id="wRd-fb-ZQy"/>
+                    <constraint firstItem="IHb-yY-p1T" firstAttribute="width" secondItem="mcP-cQ-VkH" secondAttribute="width" id="ybY-EX-iXA"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -106,6 +121,7 @@
                 <outlet property="btnUserImage" destination="ha2-9N-V4f" id="1LQ-sT-6CY"/>
                 <outlet property="btnUserName" destination="j86-xQ-NSE" id="sep-TL-ge6"/>
                 <outlet property="imgUser" destination="mcP-cQ-VkH" id="d7C-vV-Uwq"/>
+                <outlet property="imgUserGIF" destination="IHb-yY-p1T" id="Wmt-gX-Gd7"/>
                 <outlet property="lblCommentPostDate" destination="3EI-Lz-2Fz" id="ONh-pv-AzO"/>
                 <outlet property="lblCommentText" destination="Fjo-X2-AkS" id="Lqe-gZ-ZRV"/>
                 <outlet property="lblUserName" destination="Z9Q-bk-F7D" id="Kz7-hC-wZW"/>
@@ -114,8 +130,13 @@
             <point key="canvasLocation" x="131.15942028985509" y="139.95535714285714"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="Fjo-X2-AkS">
+            <size key="intrinsicContentSize" width="311" height="20"/>
+        </designable>
+    </designables>
     <resources>
         <image name="ic_btn_nav_more" width="5" height="17.5"/>
-        <image name="user_placeholder.png" width="128" height="128"/>
+        <image name="user_placeholder.png" width="300" height="300"/>
     </resources>
 </document>

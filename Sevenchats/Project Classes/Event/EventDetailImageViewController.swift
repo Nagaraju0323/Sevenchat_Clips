@@ -17,6 +17,7 @@
 import UIKit
 import ActiveLabel
 import Lightbox
+import SDWebImage
 
 class EventDetailImageViewController: ParentViewController {
     
@@ -38,6 +39,7 @@ class EventDetailImageViewController: ParentViewController {
     @IBOutlet weak var btnNotInterested : UIButton!
     @IBOutlet weak var btnInterested : UIButton!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lbluserName : UILabel!
     @IBOutlet weak var tblUserList : UITableView!
     @IBOutlet weak var viewtoblockaction : UIView!
@@ -78,6 +80,7 @@ class EventDetailImageViewController: ParentViewController {
     @IBOutlet weak var btnEventImg : UIButton!
     @IBOutlet weak var blurImgView : BlurImageView!
     @IBOutlet weak var imgEventView : UIImageView!
+    @IBOutlet weak var imgEventViewGIF : FLAnimatedImageView!
     
     @IBOutlet weak var btnProfileImg : UIButton!
     @IBOutlet weak var btnUserName : UIButton!
@@ -153,6 +156,10 @@ class EventDetailImageViewController: ParentViewController {
         self.imgUser.layer.borderWidth = 2
         self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         //self.viewtoblockaction.isHidden = true
+        
+        self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.CViewWidth/2
+        self.imgUserGIF.layer.borderWidth = 2
+        self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
 
         lblEventType.layer.cornerRadius = 3
         self.view.backgroundColor = CRGB(r: 249, g: 250, b: 250)
@@ -356,7 +363,23 @@ extension EventDetailImageViewController {
             imgEventView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
         }else{
 //            blurImgView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
-            imgEventView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
+//            imgEventView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
+            let imgExtView = URL(fileURLWithPath:dict.valueForString(key: Cimages)).pathExtension
+            
+            if imgExtView == "gif"{
+                        print("-----ImgExt\(imgExtView)")
+                        
+                imgEventView.isHidden  = true
+                        self.imgEventViewGIF.isHidden = false
+                        self.imgEventViewGIF.sd_setImage(with: URL(string:dict.valueForString(key: Cimages)), completed: nil)
+                self.imgEventViewGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgEventViewGIF.isHidden = true
+                        imgEventView.isHidden  = false
+                        imgEventView.loadImageFromUrl(dict.valueForString(key: Cimages), false)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
         }
         self.eventImgURL = dict.valueForString(key: "image")
         let is_Liked = dict.valueForString(key: CIsLiked)
@@ -446,7 +469,25 @@ extension EventDetailImageViewController {
         setSelectedButtonStyle(dict)
         setSelectedButtonStyle()
         
-        imgUser.loadImageFromUrl(dict.valueForString(key: CUserProfileImage), true)
+//        imgUser.loadImageFromUrl(dict.valueForString(key: CUserProfileImage), true)
+        let imgExt = URL(fileURLWithPath:dict.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:dict.valueForString(key: CUserProfileImage)), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(dict.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
         if dict.valueForString(key: "user_email") == appDelegate.loginUser?.email{
             if self.isHideNavCalenderButton {
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_btn_nav_more"), style: .plain, target: self, action: #selector(btnMenuClicked(_:)))
@@ -820,7 +861,23 @@ extension EventDetailImageViewController: UITableViewDelegate, UITableViewDataSo
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
-            cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+            //cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+            
+            let imgExt = URL(fileURLWithPath:commentInfo.valueForString(key: CUserProfileImage)).pathExtension
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                cell.imgUser.isHidden  = true
+                cell.imgUserGIF.isHidden = false
+                cell.imgUserGIF.sd_setImage(with: URL(string:commentInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                cell.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        cell.imgUserGIF.isHidden = true
+                        cell.imgUser.isHidden  = false
+                        cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
             
            // var commentText = commentInfo.valueForString(key: "comment")
             let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))

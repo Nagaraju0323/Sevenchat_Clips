@@ -17,11 +17,13 @@
 import Foundation
 import UIKit
 import ActiveLabel
+import SDWebImage
 
 class PollDetailsViewController: ParentViewController {
     
     @IBOutlet weak var lblPollTitle : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblPollPostDate : UILabel!
     @IBOutlet weak var lblPollType : UILabel!
@@ -167,6 +169,10 @@ class PollDetailsViewController: ParentViewController {
             self.imgUser.layer.borderWidth = 2
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblPollType.layer.cornerRadius = 3
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width / 2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         }
         
         GCDMainThread.async {
@@ -264,7 +270,25 @@ extension PollDetailsViewController {
             lblPollTitle.text = str_Back_title
 //            lblPollTitle.text = pollInfo.valueForString(key: CTitle)
             
-            imgUser.loadImageFromUrl(pollInfo.valueForString(key: CUserProfileImage), true)
+//            imgUser.loadImageFromUrl(pollInfo.valueForString(key: CUserProfileImage), true)
+            let imgExt = URL(fileURLWithPath:pollInfo.valueForString(key: CUserProfileImage)).pathExtension
+            
+            
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                imgUser.isHidden  = true
+                        self.imgUserGIF.isHidden = false
+                        self.imgUserGIF.sd_setImage(with: URL(string:pollInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgUserGIF.isHidden = true
+                        imgUser.isHidden  = false
+                        imgUser.loadImageFromUrl(pollInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
             
             if let pollsData = pollInformation{
                 let dispatchGroup = DispatchGroup()
@@ -780,7 +804,23 @@ extension PollDetailsViewController: UITableViewDelegate, UITableViewDataSource{
             cell.lblCommentPostDate.text = timeStamp
             
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
-            cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+           // cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+            
+            let imgExt = URL(fileURLWithPath:commentInfo.valueForString(key: CUserProfileImage)).pathExtension
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                cell.imgUser.isHidden  = true
+                cell.imgUserGIF.isHidden = false
+                cell.imgUserGIF.sd_setImage(with: URL(string:commentInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                cell.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        cell.imgUserGIF.isHidden = true
+                        cell.imgUser.isHidden  = false
+                        cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
             
            // var commentText = commentInfo.valueForString(key: "comment")
             let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))

@@ -17,6 +17,7 @@
 import UIKit
 import ActiveLabel
 import Lightbox
+import SDWebImage
 
 class ArticleDetailViewController: ParentViewController {
     
@@ -36,6 +37,8 @@ class ArticleDetailViewController: ParentViewController {
     @IBOutlet weak var btnArticleImg : UIButton!
     @IBOutlet weak var btnProfileImg : UIButton!
     @IBOutlet weak var btnUserName : UIButton!
+    @IBOutlet weak var imgUserGIF: FLAnimatedImageView!
+    @IBOutlet weak var imgeGIFView: FLAnimatedImageView!
     @IBOutlet var tblCommentList : UITableView! {
         didSet {
             
@@ -153,6 +156,10 @@ class ArticleDetailViewController: ParentViewController {
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblArticleCategory.layer.cornerRadius = 3
            // self.lblArticleDescription.adjustsFontSizeToFitWidth = true
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width/2
+            // self.btnShare.layer.cornerRadius = 5
+            self.imgUserGIF.layer.borderWidth = 3
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             
         }
         
@@ -262,11 +269,49 @@ extension ArticleDetailViewController{
                blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
                // imgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             }else{
+                let imgExtView = URL(fileURLWithPath:artInfo.valueForString(key: "image")).pathExtension
+                
+                
+                if imgExtView == "gif"{
+                            print("-----ImgExt\(imgExtView)")
+                            
+                    self.imgView.isHidden  = true
+                            self.imgeGIFView.isHidden = false
+                            self.imgeGIFView.sd_setImage(with: URL(string:artInfo.valueForString(key: "image")), completed: nil)
+                    self.imgeGIFView.sd_cacheFLAnimatedImage = false
+                            
+                        }else {
+                            self.imgeGIFView.isHidden = true
+                            self.imgView.isHidden  = false
+                            self.imgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+                            _ = appDelegate.loginUser?.total_friends ?? 0
+                        }
                 //blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
-                imgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+//                imgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
             }
             self.articleImgURL = artInfo.valueForString(key: Cimages)
-            self.imgUser.loadImageFromUrl(artInfo.valueForString(key: CUserProfileImage), true)
+          //  self.imgUser.loadImageFromUrl(artInfo.valueForString(key: CUserProfileImage), true)
+            let imgExt = URL(fileURLWithPath:artInfo.valueForString(key: CUserProfileImage)).pathExtension
+            
+            
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                        imgUser.isHidden  = true
+                        self.imgUserGIF.isHidden = false
+                        self.imgUserGIF.sd_setImage(with: URL(string:artInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                        self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgUserGIF.isHidden = true
+                        imgUser.isHidden  = false
+                        self.imgUser.loadImageFromUrl(artInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
+            
+            
+            
             
             self.lblArticleCategory.text = artInfo.valueForString(key: CCategory).uppercased()
             _ = artInfo.valueForString(key: CIsLiked)
@@ -598,7 +643,29 @@ extension ArticleDetailViewController: UITableViewDelegate, UITableViewDataSourc
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
-            cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+          //  cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+            
+            let imgExt = URL(fileURLWithPath:commentInfo.valueForString(key: CUserProfileImage)).pathExtension
+            
+            
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                cell.imgUser.isHidden  = true
+                        cell.imgUserGIF.isHidden = false
+                        cell.imgUserGIF.sd_setImage(with: URL(string:commentInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                        cell.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        cell.imgUserGIF.isHidden = true
+                        cell.imgUser.isHidden  = false
+                        cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
+            
+            
+            
           //  var commentText = commentInfo.valueForString(key: "comment")
             let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))
             var commentText = str_Back_comment

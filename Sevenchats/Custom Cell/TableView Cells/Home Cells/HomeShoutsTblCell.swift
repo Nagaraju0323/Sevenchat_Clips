@@ -14,6 +14,7 @@
  ********************************************************/
 
 import UIKit
+import SDWebImage
 
 class HomeShoutsTblCell: UITableViewCell {
     
@@ -21,6 +22,7 @@ class HomeShoutsTblCell: UITableViewCell {
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var lblShoutsDescription : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblShoutsPostDate : UILabel!
     @IBOutlet weak var lblShoutsType : UILabel!
@@ -64,6 +66,10 @@ class HomeShoutsTblCell: UITableViewCell {
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblShoutsType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width/2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         }
         
     }
@@ -113,8 +119,28 @@ extension HomeShoutsTblCell{
         
         lblShoutsDescription.text = str_Back
         
-        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+//        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         _ = postInfo.valueForString(key: CIsLiked)
+        
+        
+        let imgExt = URL(fileURLWithPath:postInfo.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserProfileImage)), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                  
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
         
         if isLikesOthersPage == true {
             if postInfo.valueForString(key:"friend_liked") == "Yes"  && postInfo.valueForString(key:"is_liked") == "Yes" {

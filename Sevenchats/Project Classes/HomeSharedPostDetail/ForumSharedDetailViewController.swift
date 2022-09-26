@@ -14,6 +14,7 @@
 
 import UIKit
 import ActiveLabel
+import SDWebImage
 
 class ForumSharedDetailViewController: ParentViewController {
     
@@ -25,6 +26,7 @@ class ForumSharedDetailViewController: ParentViewController {
     @IBOutlet weak var lblForumCategory : UILabel!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var tblCommentList : UITableView! {
         didSet {
             tblCommentList.register(UINib(nibName: "CommentTblCell", bundle: nil), forCellReuseIdentifier: "CommentTblCell")
@@ -59,6 +61,7 @@ class ForumSharedDetailViewController: ParentViewController {
     
     @IBOutlet weak var lblSharedPostDate : UILabel!
     @IBOutlet weak var imgSharedUser : UIImageView!
+    @IBOutlet weak var imgSharedUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblSharedUserName : UILabel!
     @IBOutlet weak var btnSharedProfileImg : UIButton!
     @IBOutlet weak var btnSharedUserName : UIButton!
@@ -131,6 +134,14 @@ class ForumSharedDetailViewController: ParentViewController {
             self.imgSharedUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.imgUser.layer.borderWidth = 2
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width / 2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgSharedUserGIF.layer.cornerRadius = self.imgSharedUserGIF.frame.size.width / 2
+            self.imgSharedUserGIF.layer.borderWidth = 2
+            self.imgSharedUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
 
             self.viewCommentContainer.shadow(color: ColorAppTheme, shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)
             self.lblForumType.layer.cornerRadius = 3
@@ -242,7 +253,26 @@ extension ForumSharedDetailViewController{
                        let shared_cnv_date = shared_created_at.stringBefore("G")
                        let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
                        lblSharedPostDate.text = sharedCreated
-                imgSharedUser.loadImageFromUrl(forInfo.valueForString(key: CUserSharedProfileImage), true)
+//                imgSharedUser.loadImageFromUrl(forInfo.valueForString(key: CUserSharedProfileImage), true)
+            
+            let imgExtShared = URL(fileURLWithPath:forInfo.valueForString(key: CUserSharedProfileImage)).pathExtension
+            
+            if imgExtShared == "gif"{
+                        print("-----ImgExt\(imgExtShared)")
+                        
+                imgSharedUser.isHidden  = true
+                        self.imgSharedUserGIF.isHidden = false
+                        self.imgSharedUserGIF.sd_setImage(with: URL(string:forInfo.valueForString(key: CUserSharedProfileImage)), completed: nil)
+                self.imgSharedUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgSharedUserGIF.isHidden = true
+                        imgSharedUser.isHidden  = false
+                        imgSharedUser.loadImageFromUrl(forInfo.valueForString(key: CUserSharedProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
+            
             let str_Back_desc_share = forInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: forInfo.valueForString(key: CMessage))
              lblMessage.text = str_Back_desc_share
               //  lblMessage.text = forInfo.valueForString(key: CMessage)
@@ -259,7 +289,26 @@ extension ForumSharedDetailViewController{
             self.lblForumDescription.text = str_Back_desc
            // self.lblForumTitle.text = forInfo.valueForString(key: CTitle)
            // self.lblForumDescription.text = forInfo.valueForString(key: CContent)
-            self.imgUser.loadImageFromUrl(forInfo.valueForString(key: CUserProfileImage), true)
+            //self.imgUser.loadImageFromUrl(forInfo.valueForString(key: CUserProfileImage), true)
+            
+            let imgExt = URL(fileURLWithPath:forInfo.valueForString(key: CUserProfileImage)).pathExtension
+            
+            
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                imgUser.isHidden  = true
+                        self.imgUserGIF.isHidden = false
+                        self.imgUserGIF.sd_setImage(with: URL(string:forInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgUserGIF.isHidden = true
+                        imgUser.isHidden  = false
+                        self.imgUser.loadImageFromUrl(forInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
            
             self.lblForumCategory.text = forInfo.valueForString(key: CCategory).uppercased()
 //            self.btnLike.isSelected = forInfo.valueForInt(key: CIs_Like) == 1
@@ -426,7 +475,23 @@ extension ForumSharedDetailViewController: UITableViewDelegate, UITableViewDataS
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
-            cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+            //cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+            
+            let imgExt = URL(fileURLWithPath:commentInfo.valueForString(key: CUserProfileImage)).pathExtension
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                cell.imgUser.isHidden  = true
+                cell.imgUserGIF.isHidden = false
+                cell.imgUserGIF.sd_setImage(with: URL(string:commentInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                cell.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        cell.imgUserGIF.isHidden = true
+                        cell.imgUser.isHidden  = false
+                        cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
             
            // var commentText = commentInfo.valueForString(key: "comment")
             let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))

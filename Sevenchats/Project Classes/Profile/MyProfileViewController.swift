@@ -507,6 +507,7 @@ extension MyProfileViewController{
                     sideMenuVc.updateUserProfile()
                     
                 }
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageUpdatedprofile, btnOneTitle: CBtnOk, btnOneTapped:nil)
             }
         }
     }
@@ -530,6 +531,8 @@ extension MyProfileViewController{
                 if let sideMenuVc = appDelegate.sideMenuController.leftViewController as? SideMenuViewController {
                     sideMenuVc.updateUserProfile()
                 }
+                self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: CMessageUpdatedprofile, btnOneTitle: CBtnOk, btnOneTapped:nil)
+
             }
         }
     }

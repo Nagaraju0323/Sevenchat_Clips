@@ -17,12 +17,14 @@ import UIKit
 import Lightbox
 import MapKit
 import CoreLocation
+import SDWebImage
 
 class HomeEventImageTblCell: UITableViewCell {
 
     @IBOutlet weak var viewMainContainer : UIView!
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblEventPostDate : UILabel!
     @IBOutlet weak var lblEventType : UILabel!
@@ -47,6 +49,7 @@ class HomeEventImageTblCell: UITableViewCell {
     @IBOutlet weak var lblEventLocation : UILabel!
     @IBOutlet weak var blurImgView : BlurImageView!
     @IBOutlet weak var imgEventView : UIImageView!
+    @IBOutlet weak var imgEventViewGIF : FLAnimatedImageView!
     @IBOutlet weak var stackview : UIStackView!
     @IBOutlet weak var viewtoblockaction : UIView!
     
@@ -100,6 +103,10 @@ class HomeEventImageTblCell: UITableViewCell {
             self.btnComment.isUserInteractionEnabled = false
           self.lblEventDescription.adjustsFontSizeToFitWidth = true
             self.viewtoblockaction.isHidden = true
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.CViewWidth/2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
            
         }
     }
@@ -192,10 +199,44 @@ extension HomeEventImageTblCell{
             imgEventView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
         }else{
 //            blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
-            imgEventView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+           // imgEventView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+            let imgExtView = URL(fileURLWithPath:postInfo.valueForString(key: Cimages)).pathExtension
+            
+            if imgExtView == "gif"{
+                        print("-----ImgExt\(imgExtView)")
+                        
+                imgEventView.isHidden  = true
+                        self.imgEventViewGIF.isHidden = false
+                        self.imgEventViewGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: Cimages)), completed: nil)
+                self.imgEventViewGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgEventViewGIF.isHidden = true
+                        imgEventView.isHidden  = false
+                        imgEventView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
         }
         imgURL = postInfo.valueForString(key: CImage)
-        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+//        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+        
+        let imgExt = URL(fileURLWithPath:postInfo.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserProfileImage)), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
         
         lblEventType.text = CTypeEvent
         lblEventCategory.text = postInfo.valueForString(key: CCategory).uppercased()

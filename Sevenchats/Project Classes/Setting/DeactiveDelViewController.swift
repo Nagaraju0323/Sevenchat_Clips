@@ -160,9 +160,18 @@ extension DeactiveDelViewController{
                         MIGeneralsAPI.shared().sendNotification("", userID: userID, subject: "", MsgType: "2", MsgSent: "", showDisplayContent: "", senderName: "", post_ID: [:], shareLink: "")
                         
                         
-                        let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
-                   
-                        UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                        
+                        self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "success", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                                                 let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+                                                 UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                                             })
+                                         
+                        
+                        
+                        
+//                        let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+//
+//                        UIApplication.shared.keyWindow?.rootViewController = loginViewController
                         
                         
                         

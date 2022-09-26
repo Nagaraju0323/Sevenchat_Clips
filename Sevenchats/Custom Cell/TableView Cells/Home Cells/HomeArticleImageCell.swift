@@ -16,6 +16,7 @@
 
 import UIKit
 import Lightbox
+import SDWebImage
 
 class HomeArticleImageCell: UITableViewCell {
 
@@ -24,6 +25,7 @@ class HomeArticleImageCell: UITableViewCell {
     @IBOutlet weak var lblArticleTitle : UILabel!
     @IBOutlet weak var lblArticleDescription : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF: FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblArticlePostDate : UILabel!
     @IBOutlet weak var lblArticleType : UILabel!
@@ -38,6 +40,7 @@ class HomeArticleImageCell: UITableViewCell {
     @IBOutlet weak var lblArticleCategory : UILabel!
     @IBOutlet weak var blurImgView : BlurImageView!
     @IBOutlet weak var imgeView: UIImageView!
+    @IBOutlet weak var imgeGIFView: FLAnimatedImageView!
     
     var likeCount = 0
     var imgURL = ""
@@ -74,6 +77,11 @@ class HomeArticleImageCell: UITableViewCell {
             self.btnComment.isUserInteractionEnabled = false
             self.lblArticleDescription.adjustsFontSizeToFitWidth = true
            // self.blurImgView.isBlurBackgroundEnable = false
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width/2
+            // self.btnShare.layer.cornerRadius = 5
+            self.imgUserGIF.layer.borderWidth = 3
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         }
     }
     
@@ -177,7 +185,33 @@ extension HomeArticleImageCell{
         
         let image = postInfo.valueForString(key: "image")
         //blurImgView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
-        imgeView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
+//        imgeView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
+        
+        let imgExtView = URL(fileURLWithPath:postInfo.valueForString(key: "image")).pathExtension
+        
+        
+        if imgExtView == "gif"{
+                    print("-----ImgExt\(imgExtView)")
+                    
+                    imgeView.isHidden  = true
+                    self.imgeGIFView.isHidden = false
+                    self.imgeGIFView.sd_setImage(with: URL(string:postInfo.valueForString(key: "image")), completed: nil)
+            self.imgeGIFView.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgeGIFView.isHidden = true
+                    imgeView.isHidden  = false
+                    imgeView.loadImageFromUrl(postInfo.valueForString(key: "image"), false)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
+        
+        
+        
+        
+        
+        
+        
 //        if image.isEmpty {
 //            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
 //        }else{
@@ -185,8 +219,24 @@ extension HomeArticleImageCell{
 //        }
         imgURL = postInfo.valueForString(key: CImage)
         
-        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+      //  imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+        let imgExt = URL(fileURLWithPath:postInfo.valueForString(key: CUserProfileImage)).pathExtension
         
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+                    imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                    self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
         lblArticleType.text = CTypeArticle
         
         self.lblArticleCategory.text = postInfo.valueForString(key: CCategory).uppercased()

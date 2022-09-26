@@ -14,6 +14,7 @@
  ********************************************************/
 
 import UIKit
+import SDWebImage
 
 class HomeChirpyTblCell: UITableViewCell {
 
@@ -21,6 +22,7 @@ class HomeChirpyTblCell: UITableViewCell {
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var lblChirpyDescription : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF: FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblChirpyPostDate : UILabel!
     @IBOutlet weak var lblChirpyCategory : UILabel!
@@ -64,6 +66,10 @@ class HomeChirpyTblCell: UITableViewCell {
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblChirpyType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.CViewWidth/2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         }
     }
     
@@ -105,7 +111,27 @@ extension HomeChirpyTblCell{
         lblChirpyDescription.text = str_Back_desc
        // lblChirpyDescription.text = postInfo.valueForString(key: CContent)
         lblChirpyCategory.text = postInfo.valueForString(key: CCategory).uppercased()
-        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+        
+        let imgExt = URL(fileURLWithPath:postInfo.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserProfileImage)), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
+        
+//        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
 
         let commentCount = postInfo.valueForInt(key: "comments") ?? 0
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount), for: .normal)

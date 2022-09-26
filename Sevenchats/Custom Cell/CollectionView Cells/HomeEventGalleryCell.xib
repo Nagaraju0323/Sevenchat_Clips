@@ -24,6 +24,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="383" height="241"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zwr-kn-iSc" customClass="FLAnimatedImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="383" height="241"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_video_play" translatesAutoresizingMaskIntoConstraints="NO" id="wdQ-kP-wRq">
                                 <rect key="frame" x="171.5" y="100.5" width="40" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -45,14 +49,20 @@
                             <constraint firstItem="uhi-8U-EQx" firstAttribute="leading" secondItem="cU8-rl-ji1" secondAttribute="leading" id="2e6-DY-MzF"/>
                             <constraint firstItem="D5n-5T-9YH" firstAttribute="centerY" secondItem="cU8-rl-ji1" secondAttribute="centerY" id="ACL-XF-8mp"/>
                             <constraint firstAttribute="bottom" secondItem="N2x-fb-ul1" secondAttribute="bottom" id="EXY-u8-YSC"/>
+                            <constraint firstItem="zwr-kn-iSc" firstAttribute="trailing" secondItem="N2x-fb-ul1" secondAttribute="trailing" id="Fly-Mx-RIT"/>
+                            <constraint firstItem="zwr-kn-iSc" firstAttribute="top" secondItem="N2x-fb-ul1" secondAttribute="top" id="JxN-uC-oAZ"/>
                             <constraint firstAttribute="trailing" secondItem="uhi-8U-EQx" secondAttribute="trailing" id="K51-Mg-U6v"/>
+                            <constraint firstItem="zwr-kn-iSc" firstAttribute="height" secondItem="N2x-fb-ul1" secondAttribute="height" id="Ldb-lC-cfY"/>
                             <constraint firstAttribute="trailing" secondItem="N2x-fb-ul1" secondAttribute="trailing" id="QHm-hR-K9H"/>
+                            <constraint firstItem="zwr-kn-iSc" firstAttribute="bottom" secondItem="N2x-fb-ul1" secondAttribute="bottom" id="RCT-hC-YeS"/>
                             <constraint firstItem="D5n-5T-9YH" firstAttribute="centerX" secondItem="cU8-rl-ji1" secondAttribute="centerX" id="Tuk-cm-1HR"/>
+                            <constraint firstItem="zwr-kn-iSc" firstAttribute="width" secondItem="N2x-fb-ul1" secondAttribute="width" id="UnP-du-NuW"/>
                             <constraint firstItem="uhi-8U-EQx" firstAttribute="top" secondItem="cU8-rl-ji1" secondAttribute="top" id="bkU-39-rxo"/>
                             <constraint firstItem="wdQ-kP-wRq" firstAttribute="centerX" secondItem="cU8-rl-ji1" secondAttribute="centerX" id="bwx-YW-RWf"/>
                             <constraint firstAttribute="bottom" secondItem="uhi-8U-EQx" secondAttribute="bottom" id="dWo-s0-lEm"/>
                             <constraint firstItem="wdQ-kP-wRq" firstAttribute="centerY" secondItem="cU8-rl-ji1" secondAttribute="centerY" id="dx3-4C-bvm"/>
                             <constraint firstItem="N2x-fb-ul1" firstAttribute="leading" secondItem="cU8-rl-ji1" secondAttribute="leading" id="eNe-Qd-mx5"/>
+                            <constraint firstItem="zwr-kn-iSc" firstAttribute="leading" secondItem="N2x-fb-ul1" secondAttribute="leading" id="fPc-bJ-QtW"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -68,6 +78,7 @@
             <size key="customSize" width="383" height="241"/>
             <connections>
                 <outlet property="ImgView" destination="N2x-fb-ul1" id="lUc-86-py2"/>
+                <outlet property="ImgViewGIF" destination="zwr-kn-iSc" id="v0w-8w-gdG"/>
                 <outlet property="imagecountIcon" destination="D5n-5T-9YH" id="8f0-uo-2rD"/>
                 <outlet property="imgVideoIcon" destination="wdQ-kP-wRq" id="r0E-PT-CMe"/>
                 <outlet property="imgblurIcon" destination="uhi-8U-EQx" id="sFl-zt-hLS"/>

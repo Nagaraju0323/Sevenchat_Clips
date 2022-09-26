@@ -14,6 +14,7 @@
  ********************************************************/
 
 import UIKit
+import SDWebImage
 
 class HomeFourmTblCell: UITableViewCell {
     
@@ -22,6 +23,7 @@ class HomeFourmTblCell: UITableViewCell {
     @IBOutlet weak var lblFourmDescription : UILabel!
     @IBOutlet weak var lblFourmTitle : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblFourmPostDate : UILabel!
     @IBOutlet weak var lblFourmType : UILabel!
@@ -65,6 +67,10 @@ class HomeFourmTblCell: UITableViewCell {
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblFourmType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width / 2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         }
     }
     override func layoutSubviews() {
@@ -113,7 +119,26 @@ extension HomeFourmTblCell{
         lblFourmDescription.text = str_Back_desc
 //        lblFourmTitle.text = postInfo.valueForString(key: CTitle)
 //        lblFourmDescription.text = postInfo.valueForString(key: CContent)
-        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+       // imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+        let imgExt = URL(fileURLWithPath:postInfo.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserProfileImage)), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
+        
         self.lblFourmCategory.text = postInfo.valueForString(key: CCategory).uppercased()
         let commentCount = postInfo.valueForString(key: "comments").toInt
         btnComment.setTitle(appDelegate.getCommentCountString(comment: commentCount ?? 0), for: .normal)

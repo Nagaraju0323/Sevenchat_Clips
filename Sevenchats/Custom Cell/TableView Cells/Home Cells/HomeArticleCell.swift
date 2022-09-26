@@ -15,6 +15,7 @@
 
 import UIKit
 import Lightbox
+import SDWebImage
 
 class HomeArticleCell: UITableViewCell {
     
@@ -23,6 +24,7 @@ class HomeArticleCell: UITableViewCell {
     @IBOutlet weak var lblArticleTitle : UILabel!
     @IBOutlet weak var lblArticleDescription : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF: FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblArticlePostDate : UILabel!
     @IBOutlet weak var lblArticleType : UILabel!
@@ -71,6 +73,10 @@ class HomeArticleCell: UITableViewCell {
             self.lblArticleType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
             self.lblArticleDescription.adjustsFontSizeToFitWidth = true
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width/2
+            // self.btnShare.layer.cornerRadius = 5
+            self.imgUserGIF.layer.borderWidth = 3
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         }
     }
     
@@ -181,7 +187,24 @@ extension HomeArticleCell{
 //        }
         imgURL = postInfo.valueForString(key: CImage)
         
-        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+       // imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+        let imgExt = URL(fileURLWithPath:postInfo.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+                    imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                    self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
         
         lblArticleType.text = CTypeArticle
         

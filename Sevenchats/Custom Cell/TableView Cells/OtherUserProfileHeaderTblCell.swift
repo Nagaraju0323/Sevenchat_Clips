@@ -15,12 +15,15 @@
 
 import UIKit
 import Lightbox
+import SDWebImage
 
 
 class OtherUserProfileHeaderTblCell: UITableViewCell {
     
     @IBOutlet var imgUser : UIImageView!
+    @IBOutlet var imgUserGIF : FLAnimatedImageView!
     @IBOutlet var imgUserCover : UIImageView!
+    @IBOutlet var imgUserCoverGIF : FLAnimatedImageView!
     @IBOutlet var viewFriendFirst : UIView!
     @IBOutlet var viewFriendSecond : UIView!
     @IBOutlet var viewFriendThird : UIView!
@@ -69,6 +72,15 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
     @IBOutlet weak var imgFriendSeven : UIImageView!
     @IBOutlet weak var imgFriendEight: UIImageView!
     
+    @IBOutlet weak var imgFriendFirstGIF : FLAnimatedImageView!
+    @IBOutlet weak var imgFriendSecondGIF : FLAnimatedImageView!
+    @IBOutlet weak var imgFriendThirdGIF : FLAnimatedImageView!
+    @IBOutlet weak var imgFriendFourthGIF : FLAnimatedImageView!
+    @IBOutlet weak var imgFriendFiveGIF : FLAnimatedImageView!
+    @IBOutlet weak var imgFriendSixGIF : FLAnimatedImageView!
+    @IBOutlet weak var imgFriendSevenGIF : FLAnimatedImageView!
+    @IBOutlet weak var imgFriendEightGIF: FLAnimatedImageView!
+    
     @IBOutlet weak var mainView : UIView!
     @IBOutlet weak var subView : UIView!
     @IBOutlet weak var lblFriend : UILabel!
@@ -104,6 +116,12 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
            // self.btnMore.layer.cornerRadius = 5
             self.imgUser.layer.borderWidth = 3
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width/2
+           // self.btnMore.layer.cornerRadius = 5
+            self.imgUserGIF.layer.borderWidth = 3
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
            // self.btnViewCompleteProfile.layer.cornerRadius = 5
           //  self.btnMessage.layer.cornerRadius = 5
            self.btnRequestAccept.layer.cornerRadius = 5
@@ -136,6 +154,31 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
             self.imgFriendSecond.layer.cornerRadius = self.imgFriendSecond.frame.size.width/2
             self.imgFriendSecond.layer.borderWidth = 2
             self.imgFriendSecond.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgFriendSixGIF.layer.cornerRadius = self.imgFriendSixGIF.frame.size.width/2
+            self.imgFriendSixGIF.layer.borderWidth = 2
+            self.imgFriendSixGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendFiveGIF.layer.cornerRadius = self.imgFriendFiveGIF.frame.size.width/2
+            self.imgFriendFiveGIF.layer.borderWidth = 2
+            self.imgFriendFiveGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendEightGIF.layer.cornerRadius = self.imgFriendEightGIF.frame.size.width/2
+            self.imgFriendEightGIF.layer.borderWidth = 2
+            self.imgFriendEightGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendFirstGIF.layer.cornerRadius = self.imgFriendFirstGIF.frame.size.width/2
+            self.imgFriendFirstGIF.layer.borderWidth = 2
+            self.imgFriendFirstGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendSevenGIF.layer.cornerRadius = self.imgFriendSevenGIF.frame.size.width/2
+            self.imgFriendSevenGIF.layer.borderWidth = 2
+            self.imgFriendSevenGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendThirdGIF.layer.cornerRadius = self.imgFriendThirdGIF.frame.size.width/2
+            self.imgFriendThirdGIF.layer.borderWidth = 2
+            self.imgFriendThirdGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendFourthGIF.layer.cornerRadius = self.imgFriendFourthGIF.frame.size.width/2
+            self.imgFriendFourthGIF.layer.borderWidth = 2
+            self.imgFriendFourthGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            self.imgFriendSecondGIF.layer.cornerRadius = self.imgFriendSecondGIF.frame.size.width/2
+            self.imgFriendSecondGIF.layer.borderWidth = 2
+            self.imgFriendSecondGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             
             
 
@@ -226,12 +269,44 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
         }
         self.userProfileImg = userInfo.valueForString(key: CImage)
         
-        imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+//        imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+        
+        let imgExt = URL(fileURLWithPath:userInfo.valueForString(key: CImage)).pathExtension
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+            imgUserGIF.isHidden = false
+            imgUserGIF.sd_setImage(with: URL(string:userInfo.valueForString(key: CImage)), completed: nil)
+            imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
         
         if userInfo.valueForString(key: "cover_image")  == ""{
             imgUserCover.image = UIImage(named: "CoverImage.png")
         }else {
-            imgUserCover.loadImageFromUrl(userInfo.valueForString(key: "cover_image"), true)
+//            imgUserCover.loadImageFromUrl(userInfo.valueForString(key: "cover_image"), true)
+            
+            let imgExt = URL(fileURLWithPath:userInfo.valueForString(key: "cover_image")).pathExtension
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                imgUserCover.isHidden  = true
+                imgUserCoverGIF.isHidden = false
+                imgUserCoverGIF.sd_setImage(with: URL(string:userInfo.valueForString(key: "cover_image")), completed: nil)
+                imgUserCoverGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        imgUserCoverGIF.isHidden = true
+                        imgUserCover.isHidden  = false
+                        imgUserCover.loadImageFromUrl(userInfo.valueForString(key: "cover_image"), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
         }
         
 //        imgUserCover.loadImageFromUrl(userInfo.valueForString(key: "cover_image"), true)
@@ -262,30 +337,37 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                     
                     self.cnHeaderHight.constant = 125
                     self.imgFriendSecond.isHidden = true
+                    self.imgFriendSecondGIF.isHidden = true
                     self.lblFriendSecond.isHidden = true
                     self.btnFriendSecond.isHidden = true
                     
                     self.imgFriendThird.isHidden = true
+                    self.imgFriendThirdGIF.isHidden = true
                     self.lblFriendThird.isHidden = true
                     self.btnFriendThird.isHidden = true
                     
                     self.imgFriendFourth.isHidden = true
+                    self.imgFriendFourthGIF.isHidden = true
                     self.lblFriendFourth.isHidden = true
                     self.btnFriendFourth.isHidden = true
                     
                     self.imgFriendFive.isHidden = true
+                    self.imgFriendFiveGIF.isHidden = true
                     self.lblFriendFive.isHidden = true
                     self.btnFriendFive.isHidden = true
                     
                     self.imgFriendSix.isHidden = true
+                    self.imgFriendSixGIF.isHidden = true
                     self.lblFriendSix.isHidden = true
                     self.btnFriendSix.isHidden = true
                     
                     self.imgFriendSeven.isHidden = true
+                    self.imgFriendSevenGIF.isHidden = true
                     self.lblFriendSeven.isHidden = true
                     self.btnFriendSeven.isHidden = true
                     
                     self.imgFriendEight.isHidden = true
+                    self.imgFriendEightGIF.isHidden = true
                     self.lblFriendEight.isHidden = true
                     self.btnFriendEight.isHidden = true
                    let dict = arrFriends[0] as? TblTotalFriends
@@ -295,7 +377,25 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+//                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[0].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[0].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                                   
+                                }
+                        
+                        
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
@@ -303,26 +403,32 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                 case 2:
                     self.cnHeaderHight.constant = 125
                     self.imgFriendThird.isHidden = true
+                    self.imgFriendThirdGIF.isHidden = true
                     self.lblFriendThird.isHidden = true
                     self.btnFriendThird.isHidden = true
                     
                     self.imgFriendFourth.isHidden = true
+                    self.imgFriendFourthGIF.isHidden = true
                     self.lblFriendFourth.isHidden = true
                     self.btnFriendFourth.isHidden = true
                     
                     self.imgFriendFive.isHidden = true
+                    self.imgFriendFiveGIF.isHidden = true
                     self.lblFriendFive.isHidden = true
                     self.btnFriendFive.isHidden = true
                     
                     self.imgFriendSix.isHidden = true
+                    self.imgFriendSixGIF.isHidden = true
                     self.lblFriendSix.isHidden = true
                     self.btnFriendSix.isHidden = true
                     
                     self.imgFriendSeven.isHidden = true
+                    self.imgFriendSevenGIF.isHidden = true
                     self.lblFriendSeven.isHidden = true
                     self.btnFriendSeven.isHidden = true
                     
                     self.imgFriendEight.isHidden = true
+                    self.imgFriendEightGIF.isHidden = true
                     self.lblFriendEight.isHidden = true
                     self.btnFriendEight.isHidden = true
                     
@@ -331,7 +437,23 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        //self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[0].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[0].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
@@ -341,7 +463,24 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }else {
-                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+//                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[1].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[1].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }
@@ -350,22 +489,27 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                 case 3:
                     self.cnHeaderHight.constant = 125
                     self.imgFriendFourth.isHidden = true
+                    self.imgFriendFourthGIF.isHidden = true
                     self.lblFriendFourth.isHidden = true
                     self.btnFriendFourth.isHidden = true
                     
                     self.imgFriendFive.isHidden = true
+                    self.imgFriendFiveGIF.isHidden = true
                     self.lblFriendFive.isHidden = true
                     self.btnFriendFive.isHidden = true
                     
                     self.imgFriendSix.isHidden = true
+                    self.imgFriendSixGIF.isHidden = true
                     self.lblFriendSix.isHidden = true
                     self.btnFriendSix.isHidden = true
                     
                     self.imgFriendSeven.isHidden = true
+                    self.imgFriendSevenGIF.isHidden = true
                     self.lblFriendSeven.isHidden = true
                     self.btnFriendSeven.isHidden = true
                     
                     self.imgFriendEight.isHidden = true
+                    self.imgFriendEightGIF.isHidden = true
                     self.lblFriendEight.isHidden = true
                     self.btnFriendEight.isHidden = true
                     
@@ -374,7 +518,23 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        //self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[0].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[0].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
@@ -383,7 +543,24 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }else {
-                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        //self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[1].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[1].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                                   
+                                }
+                        
+                        
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }
@@ -394,7 +571,23 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        //self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[2].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[2].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                     }
@@ -402,18 +595,22 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                 case 4:
                     self.cnHeaderHight.constant = 125
                     self.imgFriendFive.isHidden = true
+                    self.imgFriendFiveGIF.isHidden = true
                     self.lblFriendFive.isHidden = true
                     self.btnFriendFive.isHidden = true
                     
                     self.imgFriendSix.isHidden = true
+                    self.imgFriendSixGIF.isHidden = true
                     self.lblFriendSix.isHidden = true
                     self.btnFriendSix.isHidden = true
                     
                     self.imgFriendSeven.isHidden = true
+                    self.imgFriendSevenGIF.isHidden = true
                     self.lblFriendSeven.isHidden = true
                     self.btnFriendSeven.isHidden = true
                     
                     self.imgFriendEight.isHidden = true
+                    self.imgFriendEightGIF.isHidden = true
                     self.lblFriendEight.isHidden = true
                     self.btnFriendEight.isHidden = true
                     
@@ -422,7 +619,23 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        //self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[0].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[0].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
@@ -431,7 +644,25 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }else {
-                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                       // self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[1].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[1].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                                   
+                                }
+                        
+                        
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }
@@ -442,7 +673,23 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        //self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[2].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[2].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                     }
@@ -453,20 +700,39 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.FourthuserID = arrFriends[3].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        //self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[3].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[3].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
                         self.FourthuserID = arrFriends[3].valueForString(key: "id")
                     }
                 case 5:
                     self.imgFriendSix.isHidden = true
+                    self.imgFriendSixGIF.isHidden = true
                     self.lblFriendSix.isHidden = true
                     self.btnFriendSix.isHidden = true
                     
                     self.imgFriendSeven.isHidden = true
+                    self.imgFriendSevenGIF.isHidden = true
                     self.lblFriendSeven.isHidden = true
                     self.btnFriendSeven.isHidden = true
                     
                     self.imgFriendEight.isHidden = true
+                    self.imgFriendEightGIF.isHidden = true
                     self.lblFriendEight.isHidden = true
                     self.btnFriendEight.isHidden = true
                     
@@ -475,7 +741,24 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                       // self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[0].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[0].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
@@ -484,7 +767,26 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }else {
-                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                       // self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[1].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[1].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                                   
+                                }
+                        
+                        
+                        
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }
@@ -495,7 +797,24 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        //self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[2].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[2].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                                   
+                                }
+                        
+                        
                         self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                     }
@@ -506,7 +825,22 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.FourthuserID = arrFriends[3].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        //self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[3].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[3].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                                   
+                                }
                         self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
                         self.FourthuserID = arrFriends[3].valueForString(key: "id")
                     }
@@ -516,26 +850,61 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.FiveuserID = arrFriends[4].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                        //self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[4].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[4].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
                         self.FiveuserID = arrFriends[4].valueForString(key: "id")
                     }
                     
                 case 6:
                     self.imgFriendSeven.isHidden = true
+                    self.imgFriendSevenGIF.isHidden = true
                     self.lblFriendSeven.isHidden = true
                     self.btnFriendSeven.isHidden = true
                     
                     self.imgFriendEight.isHidden = true
+                    self.imgFriendEightGIF.isHidden = true
                     self.lblFriendEight.isHidden = true
                     self.btnFriendEight.isHidden = true
+                    
                     
                     if arrFriends[0].valueForString(key: CImage) == "" {
                         self.imgFriendFirst.image = UIImage(named: "user_placeholder.png")
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                       // self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[0].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[0].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
@@ -544,7 +913,26 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }else {
-                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        //self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[1].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[1].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                                   
+                                }
+                        
+                        
+                        
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }
@@ -555,7 +943,23 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        //self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[2].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[2].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                     }
@@ -566,7 +970,24 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.FourthuserID = arrFriends[3].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                       // self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[3].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[3].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
                         self.FourthuserID = arrFriends[3].valueForString(key: "id")
                     }
@@ -576,7 +997,24 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.FiveuserID = arrFriends[4].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                       // self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[4].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[4].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
                         self.FiveuserID = arrFriends[4].valueForString(key: "id")
                     }
@@ -586,20 +1024,54 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.SixuserID = arrFriends[5].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendSix.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                       // self.imgFriendSix.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[5].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[5].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendSix.text = arrFriends[5].valueForString(key: "first_name") + " " + arrFriends[5].valueForString(key: "last_name")
                         self.SixuserID = arrFriends[5].valueForString(key: "id")
                     }
                 case 7:
                     self.imgFriendEight.isHidden = true
+                    self.imgFriendEightGIF.isHidden = true
                     self.lblFriendEight.isHidden = true
                     self.btnFriendEight.isHidden = true
+                    
                     if arrFriends[0].valueForString(key: CImage) == "" {
                         self.imgFriendFirst.image = UIImage(named: "user_placeholder.png")
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                       // self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[0].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[0].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
@@ -609,7 +1081,25 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }else {
-                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        //self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[1].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[1].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                                   
+                                }
+                        
+                        
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }
@@ -620,7 +1110,22 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                       // self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[2].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[2].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                                   
+                                }
                         self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                     }
@@ -631,7 +1136,23 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.FourthuserID = arrFriends[3].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        //self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[3].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[3].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
                         self.FourthuserID = arrFriends[3].valueForString(key: "id")
                     }
@@ -641,7 +1162,23 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.FiveuserID = arrFriends[4].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                        //self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[4].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[4].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
                         self.FiveuserID = arrFriends[4].valueForString(key: "id")
                     }
@@ -651,7 +1188,23 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.SixuserID = arrFriends[5].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendSix.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                       // self.imgFriendSix.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[5].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[5].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendSix.text = arrFriends[5].valueForString(key: "first_name") + " " + arrFriends[5].valueForString(key: "last_name")
                         self.SixuserID = arrFriends[5].valueForString(key: "id")
                     }
@@ -661,7 +1214,23 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.SevenuserID = arrFriends[6].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendSeven.loadImageFromUrl(arrFriends[6].valueForString(key: CImage), true)
+                        //self.imgFriendSeven.loadImageFromUrl(arrFriends[6].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[6].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[6].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[6].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendSeven.text = arrFriends[6].valueForString(key: "first_name") + " " + arrFriends[6].valueForString(key: "last_name")
                         self.SevenuserID = arrFriends[6].valueForString(key: "id")
                     }
@@ -671,7 +1240,24 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }else {
-                        self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                       // self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[0].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[0].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[0].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendFirst.text = arrFriends[0].valueForString(key: "first_name") + " " + arrFriends[0].valueForString(key: "last_name")
                         self.FristuserID = arrFriends[0].valueForString(key: "id")
                     }
@@ -681,7 +1267,25 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }else {
-                        self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        //self.imgFriendSecond.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[1].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[1].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[1].valueForString(key: CImage), true)
+                                   
+                                }
+                        
+                        
                         self.lblFriendSecond.text = arrFriends[1].valueForString(key: "first_name") + " " + arrFriends[1].valueForString(key: "last_name")
                         self.SeconduserID = arrFriends[1].valueForString(key: "id")
                     }
@@ -692,7 +1296,22 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                       // self.imgFriendThird.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[2].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[2].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[2].valueForString(key: CImage), true)
+                                   
+                                }
                         self.lblFriendThird.text = arrFriends[2].valueForString(key: "first_name") + " " + arrFriends[2].valueForString(key: "last_name")
                         self.ThirduserID = arrFriends[2].valueForString(key: "id")
                     }
@@ -703,7 +1322,22 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.FourthuserID = arrFriends[3].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        //self.imgFriendFourth.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[3].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[3].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[3].valueForString(key: CImage), true)
+                                   
+                                }
                         self.lblFriendFourth.text = arrFriends[3].valueForString(key: "first_name") + " " + arrFriends[3].valueForString(key: "last_name")
                         self.FourthuserID = arrFriends[3].valueForString(key: "id")
                     }
@@ -713,7 +1347,22 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.FiveuserID = arrFriends[4].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                        //self.imgFriendFive.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[4].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[4].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[4].valueForString(key: CImage), true)
+                                   
+                                }
                         self.lblFriendFive.text = arrFriends[4].valueForString(key: "first_name") + " " + arrFriends[4].valueForString(key: "last_name")
                         self.FiveuserID = arrFriends[4].valueForString(key: "id")
                     }
@@ -723,7 +1372,23 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.SixuserID = arrFriends[5].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendSix.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                       // self.imgFriendSix.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                        let imgExt = URL(fileURLWithPath:arrFriends[5].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[5].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[5].valueForString(key: CImage), true)
+                                   
+                                }
+                        
                         self.lblFriendSix.text = arrFriends[5].valueForString(key: "first_name") + " " + arrFriends[5].valueForString(key: "last_name")
                         self.SixuserID = arrFriends[5].valueForString(key: "id")
                     }
@@ -734,7 +1399,25 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.SevenuserID = arrFriends[6].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendSeven.loadImageFromUrl(arrFriends[6].valueForString(key: CImage), true)
+                        //self.imgFriendSeven.loadImageFromUrl(arrFriends[6].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[6].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[6].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[6].valueForString(key: CImage), true)
+                                   
+                                }
+                        
+                        
                         self.lblFriendSeven.text = arrFriends[6].valueForString(key: "first_name") + " " + arrFriends[6].valueForString(key: "last_name")
                         self.SevenuserID = arrFriends[6].valueForString(key: "id")
                     }
@@ -745,7 +1428,25 @@ class OtherUserProfileHeaderTblCell: UITableViewCell {
                         self.EightuserID = arrFriends[7].valueForString(key: "id")
                      
                     }else {
-                        self.imgFriendEight.loadImageFromUrl(arrFriends[7].valueForString(key: CImage), true)
+                        //self.imgFriendEight.loadImageFromUrl(arrFriends[7].valueForString(key: CImage), true)
+                        
+                        let imgExt = URL(fileURLWithPath:arrFriends[7].valueForString(key: CImage)).pathExtension
+                        if imgExt == "gif"{
+                                    print("-----ImgExt\(imgExt)")
+                                    
+                            self.imgFriendFirst.isHidden  = true
+                            self.imgFriendFirstGIF.isHidden = false
+                            self.imgFriendFirstGIF.sd_setImage(with: URL(string:arrFriends[7].valueForString(key: CImage)), completed: nil)
+                            self.imgFriendFirstGIF.sd_cacheFLAnimatedImage = false
+                                    
+                                }else {
+                                    self.imgFriendFirstGIF.isHidden = true
+                                    self.imgFriendFirst.isHidden  = false
+                                    self.imgFriendFirst.loadImageFromUrl(arrFriends[7].valueForString(key: CImage), true)
+                                   
+                                }
+                        
+                        
                         self.lblFriendEight.text = arrFriends[7].valueForString(key: "first_name") + " " + arrFriends[7].valueForString(key: "last_name")
                         self.EightuserID = arrFriends[7].valueForString(key: "id")
                     }

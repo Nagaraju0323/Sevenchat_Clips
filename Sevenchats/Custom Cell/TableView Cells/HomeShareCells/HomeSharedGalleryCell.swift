@@ -15,12 +15,14 @@
 import UIKit
 import AVKit
 import AVFoundation
+import SDWebImage
 
 class HomeSharedGalleryCell: UITableViewCell {
 
     @IBOutlet weak var viewMainContainer : UIView!
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblGalleryType : UILabel!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblGalleryCategory : UILabel!
@@ -46,6 +48,7 @@ class HomeSharedGalleryCell: UITableViewCell {
     
     @IBOutlet weak var lblSharedPostDate : UILabel!
     @IBOutlet weak var imgSharedUser : UIImageView!
+    @IBOutlet weak var imgSharedUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblSharedUserName : UILabel!
     @IBOutlet weak var btnSharedProfileImg : UIButton!
     @IBOutlet weak var btnSharedUserName : UIButton!
@@ -97,6 +100,14 @@ class HomeSharedGalleryCell: UITableViewCell {
             self.vwCountImage.isHidden = true
             self.lblMessage.adjustsFontSizeToFitWidth = true
            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width / 2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgSharedUserGIF.layer.cornerRadius = self.imgSharedUserGIF.frame.size.width / 2
+            self.imgSharedUserGIF.layer.borderWidth = 2
+            self.imgSharedUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+
 
             
         }
@@ -159,7 +170,27 @@ extension HomeSharedGalleryCell {
                 let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
                 lblSharedPostDate.text = shared_Date
            // self.lblSharedPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-            imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
+            //imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
+        
+        let imgExtShared = URL(fileURLWithPath:postInfo.valueForString(key: CUserSharedProfileImage)).pathExtension
+        
+        if imgExtShared == "gif"{
+                    print("-----ImgExt\(imgExtShared)")
+                    
+            imgSharedUser.isHidden  = true
+                    self.imgSharedUserGIF.isHidden = false
+                    self.imgSharedUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserSharedProfileImage)), completed: nil)
+            self.imgSharedUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgSharedUserGIF.isHidden = true
+                    imgSharedUser.isHidden  = false
+                    imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
+        
+        
         let str_Back_desc = postInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: postInfo.valueForString(key: CMessage))
         lblMessage.text = str_Back_desc
           //  lblMessage.text = postInfo.valueForString(key: CMessage)
@@ -182,7 +213,26 @@ extension HomeSharedGalleryCell {
                 let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblGalleryPostDate.text = Created_Date
        // self.lblGalleryPostDate.text = DateFormatter.dateStringFrom(timestamp: postInfo.valueForDouble(key: CCreated_at), withFormate: CreatedAtPostDF)
-        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+//        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+        
+        let imgExt = URL(fileURLWithPath:postInfo.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserProfileImage)), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
         lblGalleryType.text = CTypeGallery
         if postInfo.valueForString(key: CCategory) == "0"{
             self.lblGalleryCategory.text = ""
@@ -275,7 +325,28 @@ extension HomeSharedGalleryCell: UICollectionViewDelegate, UICollectionViewDataS
         }else{
             print(" imageInfo.valueForString(key: CImage)  \(imageInfo.valueForString(key: "image_path"))")
             //cell.blurImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
-            cell.ImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
+//            cell.ImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
+            
+            let imgExtView = URL(fileURLWithPath:imageInfo.valueForString(key: "image_path")).pathExtension
+            
+            
+            if imgExtView == "gif"{
+                        print("-----ImgExt\(imgExtView)")
+                        
+                cell.ImgView.isHidden  = true
+                cell.ImgViewGIF.isHidden = false
+                cell.ImgViewGIF.sd_setImage(with: URL(string:imageInfo.valueForString(key: "image_path")), completed: nil)
+                cell.ImgViewGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        cell.ImgViewGIF.isHidden = true
+                        cell.ImgView.isHidden  = false
+                        cell.ImgView.loadImageFromUrl(imageInfo.valueForString(key: "image_path"), false)
+
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
+            
             cell.imgVideoIcon.isHidden =  true
             pagecontroll()
         }

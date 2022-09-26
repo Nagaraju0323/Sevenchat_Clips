@@ -15,6 +15,7 @@
 
 import UIKit
 import ActiveLabel
+import SDWebImage
 
 class ChirpyDetailsViewController: ParentViewController {
     
@@ -41,6 +42,7 @@ class ChirpyDetailsViewController: ParentViewController {
     @IBOutlet weak var lblChirpyDescription : UILabel!
     @IBOutlet weak var lblChirpyType : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var txtViewComment : GenericTextView!
     @IBOutlet fileprivate weak var cnTextViewHeight : NSLayoutConstraint!
     
@@ -116,6 +118,11 @@ class ChirpyDetailsViewController: ParentViewController {
             self.imgUser.layer.cornerRadius = self.imgUser.CViewWidth/2
             self.imgUser.layer.borderWidth = 2
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.CViewWidth/2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
             self.viewCommentContainer.shadow(color: ColorAppTheme, shadowOffset: CGSize(width: 0, height: 5), shadowRadius: 10.0, shadowOpacity: 10.0)
             self.lblChirpyType.layer.cornerRadius = 3
         }
@@ -269,7 +276,25 @@ extension ChirpyDetailsViewController{
             
            // self.lblChirpyDescription.text = chirInfo.valueForString(key: CContent)
             
-            self.imgUser.loadImageFromUrl(chirInfo.valueForString(key: CUserProfileImage), true)
+//            self.imgUser.loadImageFromUrl(chirInfo.valueForString(key: CUserProfileImage), true)
+            let imgExt = URL(fileURLWithPath:chirInfo.valueForString(key: CUserProfileImage)).pathExtension
+            
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                imgUser.isHidden  = true
+                        self.imgUserGIF.isHidden = false
+                        self.imgUserGIF.sd_setImage(with: URL(string:chirInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgUserGIF.isHidden = true
+                        imgUser.isHidden  = false
+                        self.imgUser.loadImageFromUrl(chirInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
+            
             self.lblChirpyCategory.text = chirInfo.valueForString(key: CCategory)
 
 //            self.btnLike.isSelected = chirInfo.valueForInt(key: CIs_Like) == 1
@@ -494,7 +519,25 @@ extension ChirpyDetailsViewController: UITableViewDelegate, UITableViewDataSourc
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
-            cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+           // cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+            
+            
+            let imgExt = URL(fileURLWithPath:commentInfo.valueForString(key: CUserProfileImage)).pathExtension
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                cell.imgUser.isHidden  = true
+                cell.imgUserGIF.isHidden = false
+                cell.imgUserGIF.sd_setImage(with: URL(string:commentInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                cell.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        cell.imgUserGIF.isHidden = true
+                        cell.imgUser.isHidden  = false
+                        cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
            // var commentText = commentInfo.valueForString(key: "comment")
             let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))
             var commentText = str_Back_comment

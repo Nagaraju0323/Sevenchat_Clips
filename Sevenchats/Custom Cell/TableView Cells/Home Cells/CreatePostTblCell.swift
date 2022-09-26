@@ -15,6 +15,7 @@
 
 import UIKit
 import ISEmojiView
+import SDWebImage
 
 enum ShoutsTypes : Int {
     case addShouts = 0
@@ -55,6 +56,7 @@ class CreatePostTblCell: UITableViewCell{
     @IBOutlet weak var clGroupFriend : UICollectionView!
     @IBOutlet weak var viewSelectGroup : UIView!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var btnimgUser : UIButton!
     @IBOutlet weak var lblCreateShout : UILabel!
 
@@ -76,12 +78,39 @@ class CreatePostTblCell: UITableViewCell{
         placeHolderLabel.text = CShoutHere
         // Initialization code
         GCDMainThread.async {
-            self.imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_img ?? ""), true)
+//            self.imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_img ?? ""), true)
+            
+            let imgExt = URL(fileURLWithPath:(appDelegate.loginUser?.profile_img ?? "")).pathExtension
+            
+            
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                self.imgUser.isHidden  = true
+                        self.imgUserGIF.isHidden = false
+                        self.imgUserGIF.sd_setImage(with: URL(string:(appDelegate.loginUser?.profile_img ?? "")), completed: nil)
+                self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgUserGIF.isHidden = true
+                        self.imgUser.isHidden  = false
+                        self.imgUser.loadImageFromUrl((appDelegate.loginUser?.profile_img ?? ""), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
             self.imgUser.layer.cornerRadius = self.imgUser.bounds.height / 2
             self.imgUser.layer.masksToBounds = true
             self.imgUser.clipsToBounds = true
             self.imgUser.layer.borderWidth = 2
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.bounds.height / 2
+            self.imgUserGIF.layer.masksToBounds = true
+            self.imgUserGIF.clipsToBounds = true
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
             self.PostButton.layer.cornerRadius = 8
             
                self.viewSubContainer.layer.cornerRadius = 8

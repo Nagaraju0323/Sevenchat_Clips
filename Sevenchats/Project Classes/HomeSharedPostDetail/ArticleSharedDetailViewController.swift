@@ -16,6 +16,7 @@
 import UIKit
 import ActiveLabel
 import Lightbox
+import SDWebImage
 
 class ArticleSharedDetailViewController: ParentViewController {
     
@@ -38,6 +39,9 @@ class ArticleSharedDetailViewController: ParentViewController {
     
     @IBOutlet weak var btnProfileImg : UIButton!
     @IBOutlet weak var btnUserName : UIButton!
+    @IBOutlet weak var imgUserGIF: FLAnimatedImageView!
+    @IBOutlet weak var imgArticleGIF: FLAnimatedImageView!
+    @IBOutlet weak var imgSharedUserGIF: FLAnimatedImageView!
     
     @IBOutlet var tblCommentList : UITableView! {
         didSet {
@@ -168,6 +172,13 @@ class ArticleSharedDetailViewController: ParentViewController {
 
             self.lblArticleCategory.layer.cornerRadius = 3
           
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width / 2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgSharedUserGIF.layer.cornerRadius = self.imgSharedUserGIF.frame.size.width / 2
+            self.imgSharedUserGIF.layer.borderWidth = 2
+            self.imgSharedUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         }
         
         GCDMainThread.async {
@@ -283,7 +294,27 @@ extension ArticleSharedDetailViewController{
             let shared_cnv_date = shared_created_at.stringBefore("G")
             let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
             lblSharedPostDate.text = sharedCreated
-                imgSharedUser.loadImageFromUrl(artInfo.valueForString(key: CUserSharedProfileImage), true)
+            
+            let imgExtShare = URL(fileURLWithPath:artInfo.valueForString(key: CUserSharedProfileImage)).pathExtension
+            if imgExtShare == "gif"{
+                        print("-----ImgExt\(imgExtShare)")
+                        
+                imgSharedUser.isHidden  = true
+                        self.imgSharedUserGIF.isHidden = false
+                        self.imgSharedUserGIF.sd_setImage(with: URL(string:artInfo.valueForString(key: CUserSharedProfileImage)), completed: nil)
+                        self.imgSharedUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgSharedUserGIF.isHidden = true
+                        imgSharedUser.isHidden  = false
+                        imgSharedUser.loadImageFromUrl(artInfo.valueForString(key: CUserSharedProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
+              //  imgSharedUser.loadImageFromUrl(artInfo.valueForString(key: CUserSharedProfileImage), true)
+            
+            
+            
             let str_Back_desc_share = artInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: artInfo.valueForString(key: CMessage))
             lblMessage.text = str_Back_desc_share
 //                lblMessage.text = artInfo.valueForString(key: CMessage)
@@ -311,13 +342,56 @@ extension ArticleSharedDetailViewController{
                 imgArticle.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             }else{
 //                blurImgView.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
-                imgArticle.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+//                imgArticle.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+                
+                let imgExtView = URL(fileURLWithPath:artInfo.valueForString(key: "image")).pathExtension
+                
+                
+                if imgExtView == "gif"{
+                            print("-----ImgExt\(imgExtView)")
+                            
+                    imgArticle.isHidden  = true
+                            self.imgArticleGIF.isHidden = false
+                            self.imgArticleGIF.sd_setImage(with: URL(string:artInfo.valueForString(key: "image")), completed: nil)
+                    self.imgArticleGIF.sd_cacheFLAnimatedImage = false
+                            
+                        }else {
+                            self.imgArticleGIF.isHidden = true
+                            imgArticle.isHidden  = false
+                            imgArticle.loadImageFromUrl(artInfo.valueForString(key: "image"), false)
+
+                            _ = appDelegate.loginUser?.total_friends ?? 0
+                        }
+                
+                
+                
             }
             self.articleImgURL = artInfo.valueForString(key: Cimages)
 //            self.blurImgView.loadImageFromUrl(artInfo.valueForString(key: CImage), false)
 //
 //            self.articleImgURL = artInfo.valueForString(key: CImage)
-            self.imgUser.loadImageFromUrl(artInfo.valueForString(key: CUserProfileImage), true)
+            
+            
+            let imgExt = URL(fileURLWithPath:artInfo.valueForString(key: CUserProfileImage)).pathExtension
+            
+            
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                imgUser.isHidden  = true
+                        self.imgUserGIF.isHidden = false
+                        self.imgUserGIF.sd_setImage(with: URL(string:artInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgUserGIF.isHidden = true
+                        imgUser.isHidden  = false
+                        self.imgUser.loadImageFromUrl(artInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
+ //           self.imgUser.loadImageFromUrl(artInfo.valueForString(key: CUserProfileImage), true)
+            
             
             self.lblArticleCategory.text = artInfo.valueForString(key: CCategory).uppercased()
 //            self.btnLike.isSelected = artInfo.valueForInt(key: CIs_Like) == 1
@@ -649,7 +723,24 @@ extension ArticleSharedDetailViewController: UITableViewDelegate, UITableViewDat
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
-            cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+            //cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+            
+            let imgExt = URL(fileURLWithPath:commentInfo.valueForString(key: CUserProfileImage)).pathExtension
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                cell.imgUser.isHidden  = true
+                cell.imgUserGIF.isHidden = false
+                cell.imgUserGIF.sd_setImage(with: URL(string:commentInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                cell.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        cell.imgUserGIF.isHidden = true
+                        cell.imgUser.isHidden  = false
+                        cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
             //var commentText = commentInfo.valueForString(key: "comment")
             let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))
             var commentText = str_Back_comment

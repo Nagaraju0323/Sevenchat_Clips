@@ -22,6 +22,7 @@ import StompClientLib
 import TrueTime
 import AVKit
 import SwiftStomp
+import SDWebImage
 
 class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate{
     
@@ -78,6 +79,13 @@ class UserChatDetailViewController: ParentViewController, MIAudioPlayerDelegate{
     @IBOutlet weak var imgUser : UIImageView! {
         didSet {
             imgUser.layer.cornerRadius = imgUser.frame.size.width/2
+            
+        }
+    }
+    
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView! {
+        didSet {
+            imgUserGIF.layer.cornerRadius = imgUserGIF.frame.size.width/2
             
         }
     }
@@ -517,7 +525,28 @@ extension UserChatDetailViewController {
     fileprivate func setUserDetails() {
         if let userInfo = self.iObject as? [String : Any] {
             self.lblTitle.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-            self.imgUser.loadImageFromUrl(userInfo.valueForString(key: Cimages), true)
+//            self.imgUser.loadImageFromUrl(userInfo.valueForString(key: Cimages), true)
+            
+            
+            let imgExt = URL(fileURLWithPath:userInfo.valueForString(key: Cimages)).pathExtension
+            
+            
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                imgUser.isHidden  = true
+                        self.imgUserGIF.isHidden = false
+                        self.imgUserGIF.sd_setImage(with: URL(string:userInfo.valueForString(key: Cimages)), completed: nil)
+                self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgUserGIF.isHidden = true
+                        imgUser.isHidden  = false
+                        self.imgUser.loadImageFromUrl(userInfo.valueForString(key: Cimages), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
+            
             self.imgOnline.isHidden = !userInfo.valueForBool(key: "isOnline")
 //            self.userID = userInfo.valueForString(key: "user_id").toInt
             self.checkForBlockUser(userInfo)

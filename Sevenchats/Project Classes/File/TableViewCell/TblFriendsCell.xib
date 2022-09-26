@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -24,6 +26,13 @@
                         <constraints>
                             <constraint firstAttribute="width" secondItem="6NQ-nc-Vjv" secondAttribute="height" multiplier="1:1" id="NPW-f4-hZg"/>
                             <constraint firstAttribute="width" constant="50" id="hQA-wE-H0b"/>
+                        </constraints>
+                    </imageView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="0px-8S-8hx" customClass="FLAnimatedImageView">
+                        <rect key="frame" x="20" y="10" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="0px-8S-8hx" secondAttribute="height" multiplier="1:1" id="4S0-Er-uA6"/>
+                            <constraint firstAttribute="width" constant="50" id="iZR-sj-mIT"/>
                         </constraints>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osA-ym-YP6">
@@ -49,21 +58,28 @@
                     </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="0px-8S-8hx" firstAttribute="height" secondItem="6NQ-nc-Vjv" secondAttribute="height" id="1i2-Hb-vRe"/>
                     <constraint firstItem="6NQ-nc-Vjv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Z3o-0c-smH" secondAttribute="top" constant="10" id="5Hc-zy-DPW"/>
                     <constraint firstItem="6NQ-nc-Vjv" firstAttribute="leading" secondItem="Z3o-0c-smH" secondAttribute="leading" constant="20" id="6Pk-Ix-yec"/>
+                    <constraint firstItem="0px-8S-8hx" firstAttribute="leading" secondItem="6NQ-nc-Vjv" secondAttribute="leading" id="7cD-BD-Aoz"/>
                     <constraint firstItem="YQa-Pl-ixY" firstAttribute="leading" secondItem="g9T-2r-AKv" secondAttribute="trailing" constant="-41" id="CrI-53-ghX"/>
+                    <constraint firstItem="0px-8S-8hx" firstAttribute="trailing" secondItem="6NQ-nc-Vjv" secondAttribute="trailing" id="KkQ-t2-Qmz"/>
                     <constraint firstItem="Xwn-8q-NM4" firstAttribute="bottom" secondItem="g9T-2r-AKv" secondAttribute="bottom" id="LeE-Vc-Zff"/>
                     <constraint firstItem="Xwn-8q-NM4" firstAttribute="leading" secondItem="g9T-2r-AKv" secondAttribute="leading" id="NK4-bt-zcg"/>
                     <constraint firstItem="6NQ-nc-Vjv" firstAttribute="width" secondItem="Z3o-0c-smH" secondAttribute="width" multiplier="0.12" constant="2.8400000000000034" id="Nya-kV-lhz"/>
                     <constraint firstItem="osA-ym-YP6" firstAttribute="leading" secondItem="6NQ-nc-Vjv" secondAttribute="leading" id="RJd-zm-hat"/>
                     <constraint firstItem="6NQ-nc-Vjv" firstAttribute="centerY" secondItem="Z3o-0c-smH" secondAttribute="centerY" id="T2H-23-Wgl"/>
+                    <constraint firstItem="0px-8S-8hx" firstAttribute="width" secondItem="6NQ-nc-Vjv" secondAttribute="width" id="WPX-vG-0wT"/>
                     <constraint firstItem="osA-ym-YP6" firstAttribute="trailing" secondItem="6NQ-nc-Vjv" secondAttribute="trailing" id="a5d-hC-mAO"/>
+                    <constraint firstItem="0px-8S-8hx" firstAttribute="top" secondItem="6NQ-nc-Vjv" secondAttribute="top" id="bHm-Kk-MPE"/>
                     <constraint firstAttribute="trailing" secondItem="YQa-Pl-ixY" secondAttribute="trailing" constant="37" id="bh8-C1-KyN"/>
                     <constraint firstItem="6NQ-nc-Vjv" firstAttribute="centerY" secondItem="g9T-2r-AKv" secondAttribute="centerY" id="hOM-sa-8Ga"/>
                     <constraint firstItem="osA-ym-YP6" firstAttribute="top" secondItem="6NQ-nc-Vjv" secondAttribute="top" id="jpQ-fN-Zqs"/>
                     <constraint firstItem="g9T-2r-AKv" firstAttribute="centerY" secondItem="YQa-Pl-ixY" secondAttribute="centerY" id="lcJ-YI-XQw"/>
                     <constraint firstItem="osA-ym-YP6" firstAttribute="bottom" secondItem="6NQ-nc-Vjv" secondAttribute="bottom" id="lm5-CE-UXg"/>
+                    <constraint firstItem="0px-8S-8hx" firstAttribute="width" secondItem="0px-8S-8hx" secondAttribute="height" multiplier="1:1" id="mNj-GD-Emu"/>
                     <constraint firstItem="g9T-2r-AKv" firstAttribute="leading" secondItem="6NQ-nc-Vjv" secondAttribute="trailing" constant="15" id="rAL-W5-1bT"/>
+                    <constraint firstItem="0px-8S-8hx" firstAttribute="bottom" secondItem="6NQ-nc-Vjv" secondAttribute="bottom" id="rdQ-EK-mkL"/>
                     <constraint firstItem="Xwn-8q-NM4" firstAttribute="trailing" secondItem="g9T-2r-AKv" secondAttribute="trailing" id="w9L-FX-aW3"/>
                     <constraint firstItem="Xwn-8q-NM4" firstAttribute="top" secondItem="g9T-2r-AKv" secondAttribute="top" id="zO4-2l-Ahs"/>
                 </constraints>
@@ -73,6 +89,7 @@
                 <outlet property="btnSelectFriend" destination="YQa-Pl-ixY" id="SFD-WB-atY"/>
                 <outlet property="btnUserName" destination="Xwn-8q-NM4" id="qI9-rc-xvw"/>
                 <outlet property="imgVFriend" destination="6NQ-nc-Vjv" id="QIP-EA-dSj"/>
+                <outlet property="imgVFriendGIF" destination="0px-8S-8hx" id="WLP-Qe-T34"/>
                 <outlet property="lblFriendName" destination="g9T-2r-AKv" id="XMW-bR-TyQ"/>
             </connections>
             <point key="canvasLocation" x="-521.01449275362324" y="112.5"/>
@@ -80,6 +97,6 @@
     </objects>
     <resources>
         <image name="ic_unselect" width="512" height="512"/>
-        <image name="user_placeholder.png" width="128" height="128"/>
+        <image name="user_placeholder.png" width="300" height="300"/>
     </resources>
 </document>

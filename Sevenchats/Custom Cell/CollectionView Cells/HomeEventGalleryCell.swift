@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SDWebImage
 
 class HomeEventGalleryCell: UICollectionViewCell {
     
     @IBOutlet weak var blurImgView : BlurImageView!
     @IBOutlet weak var ImgView : UIImageView!
+    @IBOutlet weak var ImgViewGIF : FLAnimatedImageView!
     @IBOutlet weak var imgVideoIcon : UIImageView!
     @IBOutlet weak var vwBackgroundImg : MIGenericView!
     

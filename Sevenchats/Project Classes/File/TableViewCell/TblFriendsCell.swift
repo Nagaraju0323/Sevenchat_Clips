@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import SDWebImage
 
 class TblFriendsCell: UITableViewCell {
     
     @IBOutlet weak var imgVFriend: UIImageView!
+    @IBOutlet weak var imgVFriendGIF: FLAnimatedImageView!
     @IBOutlet weak var lblFriendName: UILabel!
     
     @IBOutlet weak var btnSelectFriend: UIButton!

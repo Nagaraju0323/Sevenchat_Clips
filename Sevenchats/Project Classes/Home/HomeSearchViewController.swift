@@ -185,7 +185,8 @@ extension HomeSearchViewController  {
         if apiTask?.state == URLSessionTask.State.running {
             apiTask?.cancel()
         }
-        self.arrHomeSearch.removeAll()
+        pageNumber = 1
+      //  self.arrHomeSearch.removeAll()
         timeStamp = nil
         isPost = nil
         self.getSearchDataFromServer(txtSearch.text, "new",searchTxtOther:true)

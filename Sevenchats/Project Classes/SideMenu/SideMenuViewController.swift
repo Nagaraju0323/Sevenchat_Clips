@@ -54,8 +54,8 @@ class SideMenuViewController: ParentViewController {
             [CTitle:CSideQuotes as Any, CImage:#imageLiteral(resourceName: "ic_quotes"), CImageSelected:#imageLiteral(resourceName: "ic_quotes"), kNotificationCount:0],
             [CTitle:CMyRewards as Any, CImage:#imageLiteral(resourceName: "ic_rewards"), CImageSelected:#imageLiteral(resourceName: "ic_rewards"), kNotificationCount:0],
             [CTitle:CSideFavWebSites as Any, CImage:#imageLiteral(resourceName: "ic_favorite"), CImageSelected:#imageLiteral(resourceName: "ic_favorite"), kNotificationCount:0],
-            [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
-            [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
+           // [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
+           // [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
             [CTitle:CSideSettings as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
             [CTitle:CSideLogout as Any, CImage:#imageLiteral(resourceName: "ic_logout"), CImageSelected:#imageLiteral(resourceName: "ic_logout"), kNotificationCount:0]
         ]
@@ -149,8 +149,8 @@ extension SideMenuViewController {
             [CTitle:CSideQuotes as Any, CImage:#imageLiteral(resourceName: "ic_quotes"), CImageSelected:#imageLiteral(resourceName: "ic_quotes"), kNotificationCount:0],
             [CTitle:CMyRewards as Any, CImage:#imageLiteral(resourceName: "ic_rewards"), CImageSelected:#imageLiteral(resourceName: "ic_rewards"), kNotificationCount:0],
             [CTitle:CSideFavWebSites as Any, CImage:#imageLiteral(resourceName: "ic_favorite"), CImageSelected:#imageLiteral(resourceName: "ic_favorite"), kNotificationCount:0],
-            [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
-            [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
+          //  [CTitle:CSidePostAds as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
+         //   [CTitle:CSideEventCalendar as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
             [CTitle:CSideSettings as Any, CImage:#imageLiteral(resourceName: "ic_settings"), CImageSelected:#imageLiteral(resourceName: "ic_settings"), kNotificationCount:0],
             [CTitle:CSideLogout as Any, CImage:#imageLiteral(resourceName: "ic_logout"), CImageSelected:#imageLiteral(resourceName: "ic_logout"), kNotificationCount:0]
         ]

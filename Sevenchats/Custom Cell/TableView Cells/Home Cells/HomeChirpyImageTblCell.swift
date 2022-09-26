@@ -15,6 +15,7 @@
 
 import UIKit
 import Lightbox
+import SDWebImage
 
 class HomeChirpyImageTblCell: UITableViewCell {
     
@@ -22,8 +23,10 @@ class HomeChirpyImageTblCell: UITableViewCell {
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var blurImgView : BlurImageView!
     @IBOutlet weak var imgChirpyView : UIImageView!
+    @IBOutlet weak var imgChirpyViewGIF : FLAnimatedImageView!
     @IBOutlet weak var lblChirpyDescription : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF: FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblChirpyPostDate : UILabel!
     @IBOutlet weak var lblChirpyCategory : UILabel!
@@ -67,6 +70,10 @@ class HomeChirpyImageTblCell: UITableViewCell {
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblChirpyType.layer.cornerRadius = 3
             self.btnComment.isUserInteractionEnabled = false
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.CViewWidth/2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             
         }
     }
@@ -116,11 +123,53 @@ extension HomeChirpyImageTblCell{
 //            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
             imgChirpyView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
         }else{
+            
+            
+            let imgExtView = URL(fileURLWithPath:postInfo.valueForString(key: Cimages)).pathExtension
+            
+            
+            if imgExtView == "gif"{
+                        print("-----ImgExt\(imgExtView)")
+                        
+                imgChirpyView.isHidden  = true
+                        self.imgChirpyViewGIF.isHidden = false
+                        self.imgChirpyViewGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: Cimages)), completed: nil)
+                self.imgChirpyViewGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgChirpyViewGIF.isHidden = true
+                        imgChirpyView.isHidden  = false
+                        imgChirpyView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
+            
+            
 //            blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
-            imgChirpyView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+//            imgChirpyView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
         }
         chirpyImgURL = postInfo.valueForString(key: CImage)
-        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+        
+        let imgExt = URL(fileURLWithPath:postInfo.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserProfileImage)), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
+        
+//        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         lblChirpyType.text = CTypeChirpy
         lblChirpyCategory.text = postInfo.valueForString(key: CCategory).uppercased()
         

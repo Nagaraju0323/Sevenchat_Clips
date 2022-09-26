@@ -16,11 +16,13 @@
 import Foundation
 import UIKit
 import ActiveLabel
+import SDWebImage
 
 class PollSharedDetailsViewController: ParentViewController {
     
     @IBOutlet weak var lblPollTitle : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblPollPostDate : UILabel!
     @IBOutlet weak var lblPollType : UILabel!
@@ -72,6 +74,7 @@ class PollSharedDetailsViewController: ParentViewController {
     
     @IBOutlet weak var lblSharedPostDate : UILabel!
     @IBOutlet weak var imgSharedUser : UIImageView!
+    @IBOutlet weak var imgSharedUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblSharedUserName : UILabel!
     @IBOutlet weak var btnSharedProfileImg : UIButton!
     @IBOutlet weak var btnSharedUserName : UIButton!
@@ -193,6 +196,14 @@ class PollSharedDetailsViewController: ParentViewController {
             self.imgUser.layer.borderWidth = 2
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             self.lblPollType.layer.cornerRadius = 3
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width / 2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgSharedUserGIF.layer.cornerRadius = self.imgSharedUserGIF.frame.size.width / 2
+            self.imgSharedUserGIF.layer.borderWidth = 2
+            self.imgSharedUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         }
         
         GCDMainThread.async {
@@ -305,7 +316,27 @@ extension PollSharedDetailsViewController {
                         let shared_cnv_date = shared_created_at.stringBefore("G")
                         let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
                         lblSharedPostDate.text = sharedCreated
-                imgSharedUser.loadImageFromUrl(pollInfo.valueForString(key: CUserSharedProfileImage), true)
+            
+            
+            let imgExtShared = URL(fileURLWithPath:pollInfo.valueForString(key: CUserSharedProfileImage)).pathExtension
+            
+            if imgExtShared == "gif"{
+                        print("-----ImgExt\(imgExtShared)")
+                        
+                imgSharedUser.isHidden  = true
+                        self.imgSharedUserGIF.isHidden = false
+                        self.imgSharedUserGIF.sd_setImage(with: URL(string:pollInfo.valueForString(key: CUserSharedProfileImage)), completed: nil)
+                self.imgSharedUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgSharedUserGIF.isHidden = true
+                        imgSharedUser.isHidden  = false
+                        imgSharedUser.loadImageFromUrl(pollInfo.valueForString(key: CUserSharedProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
+            
+//                imgSharedUser.loadImageFromUrl(pollInfo.valueForString(key: CUserSharedProfileImage), true)
             let str_Back_title = pollInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: pollInfo.valueForString(key: CMessage))
             lblMessage.text = str_Back_title
               //  lblMessage.text = pollInfo.valueForString(key: CMessage)
@@ -317,7 +348,26 @@ extension PollSharedDetailsViewController {
             let str_Back_qus = pollInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: pollInfo.valueForString(key: CTitle))
             lblPollTitle.text = str_Back_qus
             //lblPollTitle.text = pollInfo.valueForString(key: CTitle)
-            imgUser.loadImageFromUrl(pollInfo.valueForString(key: CUserProfileImage), true)
+            //imgUser.loadImageFromUrl(pollInfo.valueForString(key: CUserProfileImage), true)
+            
+            let imgExt = URL(fileURLWithPath:pollInfo.valueForString(key: CUserProfileImage)).pathExtension
+            
+            
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                imgUser.isHidden  = true
+                        self.imgUserGIF.isHidden = false
+                        self.imgUserGIF.sd_setImage(with: URL(string:pollInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        self.imgUserGIF.isHidden = true
+                        imgUser.isHidden  = false
+                        imgUser.loadImageFromUrl(pollInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
             
             if let pollsData = pollInformation{
                 let dispatchGroup = DispatchGroup()
@@ -848,7 +898,25 @@ extension PollSharedDetailsViewController: UITableViewDelegate, UITableViewDataS
             cell.lblCommentPostDate.text = timeStamp
             
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
-            cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+           // cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+            
+            
+            let imgExt = URL(fileURLWithPath:commentInfo.valueForString(key: CUserProfileImage)).pathExtension
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                cell.imgUser.isHidden  = true
+                cell.imgUserGIF.isHidden = false
+                cell.imgUserGIF.sd_setImage(with: URL(string:commentInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                cell.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        cell.imgUserGIF.isHidden = true
+                        cell.imgUser.isHidden  = false
+                        cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
             
             //var commentText = commentInfo.valueForString(key: "comment")
             let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))

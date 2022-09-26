@@ -180,9 +180,20 @@ extension EnterPasswordViewController{
             if response != nil && error == nil {
                 DispatchQueue.main.async {
                     MIGeneralsAPI.shared().sendNotification("", userID: userid, subject: "", MsgType: "2", MsgSent: "", showDisplayContent: "", senderName: "", post_ID: [:], shareLink: "")
-                    appDelegate.logOut()
-                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
-                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                    
+                    
+                    self.presentAlertViewWithOneButton(alertTitle: "", alertMessage: "success", btnOneTitle: CBtnOk, btnOneTapped: { (action) in
+                                              appDelegate.logOut()
+                                                let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+                                                UIApplication.shared.keyWindow?.rootViewController = loginViewController
+                                            })
+                                        
+                    
+                    
+//                    appDelegate.logOut()
+//
+//                    let loginViewController = CStoryboardLRF.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+//                    UIApplication.shared.keyWindow?.rootViewController = loginViewController
                 }
             }else {
                 //change LanguageHear

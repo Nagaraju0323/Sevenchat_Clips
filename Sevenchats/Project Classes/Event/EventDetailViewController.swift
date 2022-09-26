@@ -16,6 +16,7 @@
 
 import UIKit
 import ActiveLabel
+import SDWebImage
 
 class EventDetailViewController: ParentViewController {
     
@@ -37,6 +38,7 @@ class EventDetailViewController: ParentViewController {
     @IBOutlet weak var btnNotInterested : UIButton!
     @IBOutlet weak var btnInterested : UIButton!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lbluserName : UILabel!
     @IBOutlet weak var tblUserList : UITableView!
     @IBOutlet weak var viewtoblockaction : UIView!
@@ -151,6 +153,10 @@ class EventDetailViewController: ParentViewController {
         self.view.backgroundColor = CRGB(r: 249, g: 250, b: 250)
         self.parentView.backgroundColor = .clear
         self.tblCommentList.backgroundColor = .clear
+        
+        self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.CViewWidth/2
+        self.imgUserGIF.layer.borderWidth = 2
+        self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         
         func setupInterestButton(sender:UIButton){
             sender.layer.cornerRadius = 4
@@ -431,7 +437,25 @@ extension EventDetailViewController {
         setSelectedButtonStyle(dict)
         setSelectedButtonStyle()
         
-        imgUser.loadImageFromUrl(dict.valueForString(key: CUserProfileImage), true)
+//        imgUser.loadImageFromUrl(dict.valueForString(key: CUserProfileImage), true)
+        
+        let imgExt = URL(fileURLWithPath:dict.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:dict.valueForString(key: CUserProfileImage)), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(dict.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
         
         if dict.valueForString(key: "user_email") == appDelegate.loginUser?.email{
             if self.isHideNavCalenderButton {
@@ -886,7 +910,23 @@ extension EventDetailViewController: UITableViewDelegate, UITableViewDataSource{
             let timeStamp = DateFormatter.shared().getDateFromTimeStamp(timeStamp:commentInfo.valueForString(key: "updated_at").toDouble ?? 0.0)
             cell.lblCommentPostDate.text = timeStamp
             cell.lblUserName.text = commentInfo.valueForString(key: CFirstname) + " " + commentInfo.valueForString(key: CLastname)
-            cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+           // cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+            
+            let imgExt = URL(fileURLWithPath:commentInfo.valueForString(key: CUserProfileImage)).pathExtension
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                cell.imgUser.isHidden  = true
+                cell.imgUserGIF.isHidden = false
+                cell.imgUserGIF.sd_setImage(with: URL(string:commentInfo.valueForString(key: CUserProfileImage)), completed: nil)
+                cell.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        cell.imgUserGIF.isHidden = true
+                        cell.imgUser.isHidden  = false
+                        cell.imgUser.loadImageFromUrl(commentInfo.valueForString(key: CUserProfileImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
             
            // var commentText = commentInfo.valueForString(key: "comment")
             let str_Back_comment = commentInfo.valueForString(key: "comment").return_replaceBack(replaceBack:commentInfo.valueForString(key: "comment"))

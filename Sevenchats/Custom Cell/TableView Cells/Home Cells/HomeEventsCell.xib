@@ -56,6 +56,13 @@
                                             <constraint firstAttribute="height" constant="45" id="dyO-I4-nAa"/>
                                         </constraints>
                                     </imageView>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="i5D-LN-qab" customClass="FLAnimatedImageView">
+                                        <rect key="frame" x="8" y="8" width="45" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="45" id="PFq-W5-DrJ"/>
+                                            <constraint firstAttribute="height" constant="45" id="yA2-1L-w0J"/>
+                                        </constraints>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBT-Y5-JIf">
                                         <rect key="frame" x="8" y="8" width="45" height="45"/>
                                     </button>
@@ -463,10 +470,13 @@ Declined</string>
                                     <constraint firstItem="kN6-RQ-Oma" firstAttribute="top" secondItem="6go-yr-6qu" secondAttribute="bottom" constant="8" id="3jm-Ji-dk0"/>
                                     <constraint firstItem="7Hd-MO-PGp" firstAttribute="leading" secondItem="16d-8g-GGd" secondAttribute="trailing" constant="8" id="53h-Cx-3Ub"/>
                                     <constraint firstItem="dVH-AJ-oD5" firstAttribute="leading" secondItem="6dN-t3-DDX" secondAttribute="leading" constant="8" id="5cZ-cS-2aX"/>
+                                    <constraint firstItem="i5D-LN-qab" firstAttribute="bottom" secondItem="16d-8g-GGd" secondAttribute="bottom" id="5j8-80-3BA"/>
                                     <constraint firstItem="8RV-hT-FMx" firstAttribute="top" secondItem="6dN-t3-DDX" secondAttribute="top" id="5q6-Pi-8li"/>
+                                    <constraint firstItem="i5D-LN-qab" firstAttribute="height" secondItem="16d-8g-GGd" secondAttribute="height" id="7R6-cS-Ka4"/>
                                     <constraint firstItem="fBT-Y5-JIf" firstAttribute="centerX" secondItem="16d-8g-GGd" secondAttribute="centerX" id="9wL-G4-X3v"/>
                                     <constraint firstItem="dVH-AJ-oD5" firstAttribute="top" secondItem="16d-8g-GGd" secondAttribute="bottom" constant="15" id="Awv-OL-lmj"/>
                                     <constraint firstItem="BOy-RM-5Yz" firstAttribute="top" secondItem="dVH-AJ-oD5" secondAttribute="top" id="BTm-VV-oqm"/>
+                                    <constraint firstItem="i5D-LN-qab" firstAttribute="leading" secondItem="16d-8g-GGd" secondAttribute="leading" id="D8f-N9-GLZ"/>
                                     <constraint firstItem="fBT-Y5-JIf" firstAttribute="height" secondItem="16d-8g-GGd" secondAttribute="height" id="DLK-54-kDG"/>
                                     <constraint firstAttribute="trailing" secondItem="8RV-hT-FMx" secondAttribute="trailing" id="EME-Pc-PuO"/>
                                     <constraint firstItem="Hhs-hb-w42" firstAttribute="leading" secondItem="BOy-RM-5Yz" secondAttribute="leading" id="Eav-er-Im0"/>
@@ -476,6 +486,8 @@ Declined</string>
                                     <constraint firstItem="6go-yr-6qu" firstAttribute="leading" secondItem="6dN-t3-DDX" secondAttribute="leading" constant="8" id="MUL-CF-9rw"/>
                                     <constraint firstAttribute="trailing" secondItem="qo3-7u-1S6" secondAttribute="trailing" constant="8" id="O2s-Un-tKq"/>
                                     <constraint firstItem="nXR-vs-WWu" firstAttribute="leading" secondItem="16d-8g-GGd" secondAttribute="trailing" constant="8" id="RvZ-sh-UD6"/>
+                                    <constraint firstItem="i5D-LN-qab" firstAttribute="width" secondItem="16d-8g-GGd" secondAttribute="width" id="SBf-Qa-hSC"/>
+                                    <constraint firstItem="i5D-LN-qab" firstAttribute="top" secondItem="16d-8g-GGd" secondAttribute="top" id="UAb-Uh-L26"/>
                                     <constraint firstAttribute="trailing" secondItem="p50-OS-EY4" secondAttribute="trailing" constant="10" id="XN9-P1-U4H"/>
                                     <constraint firstItem="7RE-rd-cF7" firstAttribute="leading" secondItem="6dN-t3-DDX" secondAttribute="leading" constant="8" id="XXa-Jk-Ubx"/>
                                     <constraint firstItem="qo3-7u-1S6" firstAttribute="leading" secondItem="6dN-t3-DDX" secondAttribute="leading" constant="8" id="Xbk-CG-j0i"/>
@@ -488,6 +500,7 @@ Declined</string>
                                     <constraint firstItem="8RV-hT-FMx" firstAttribute="leading" secondItem="nXR-vs-WWu" secondAttribute="trailing" constant="4" id="hgz-bm-aho"/>
                                     <constraint firstItem="8RV-hT-FMx" firstAttribute="leading" secondItem="tej-H7-zp0" secondAttribute="trailing" constant="4" id="jAs-lv-GYW"/>
                                     <constraint firstAttribute="bottom" secondItem="7RE-rd-cF7" secondAttribute="bottom" id="kFH-6g-Wh6"/>
+                                    <constraint firstItem="i5D-LN-qab" firstAttribute="trailing" secondItem="16d-8g-GGd" secondAttribute="trailing" id="mpI-Bq-ejV"/>
                                     <constraint firstAttribute="trailing" secondItem="7RE-rd-cF7" secondAttribute="trailing" constant="8" id="ooC-1S-V7k"/>
                                     <constraint firstItem="Hhs-hb-w42" firstAttribute="width" secondItem="BOy-RM-5Yz" secondAttribute="width" id="pzP-fn-7cT"/>
                                     <constraint firstItem="tej-H7-zp0" firstAttribute="top" secondItem="16d-8g-GGd" secondAttribute="top" id="q5w-Ki-PQk"/>
@@ -531,6 +544,7 @@ Declined</string>
                 <outlet property="btnShare" destination="evO-gs-zpf" id="amm-T9-pQA"/>
                 <outlet property="btnUserName" destination="nXR-vs-WWu" id="rG9-06-jmL"/>
                 <outlet property="imgUser" destination="16d-8g-GGd" id="dK3-mo-AiG"/>
+                <outlet property="imgUserGIF" destination="i5D-LN-qab" id="uHo-Dp-fkO"/>
                 <outlet property="lblEndDate" destination="Pyf-oP-LQD" id="EJp-up-L59"/>
                 <outlet property="lblEventCategory" destination="BOy-RM-5Yz" id="n6s-no-9Nr"/>
                 <outlet property="lblEventDescription" destination="kN6-RQ-Oma" id="5VP-AW-6Ou"/>

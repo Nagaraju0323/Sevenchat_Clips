@@ -551,7 +551,7 @@ extension GroupChatDetailsViewController {
                                     self.setGroupDetails()
                                     for groupDetails in groupinfor{
                                         self.group_id = groupDetails["group_id"] as? String ?? ""
-                                        if let uesrInfo = groupDetails[CAPITFriendsList] as? [[String : Any]] {
+                                        if let uesrInfo = groupDetails["group_members"] as? [[String : Any]] {
                                             self.arrMembers = uesrInfo
                                         }
                                     }

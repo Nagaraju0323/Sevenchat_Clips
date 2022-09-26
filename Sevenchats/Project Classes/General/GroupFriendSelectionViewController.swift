@@ -183,6 +183,26 @@ extension GroupFriendSelectionViewController : UITableViewDelegate, UITableViewD
                 cell.lblUserName.text = userGroupInfo.valueForString(key: "first_name") + " " + userGroupInfo.valueForString(key: CLastname)
                 cell.btnSelect.isSelected = arrSelectedGroupFriend.contains(where: {$0["friend_user_id"] as? String == userGroupInfo.valueForString(key: "friend_user_id") })
                 cell.imgUser.loadImageFromUrl(userGroupInfo.valueForString(key: "profile_image"), true)
+                
+                let imgExt = URL(fileURLWithPath:userGroupInfo.valueForString(key: "profile_image")).pathExtension
+                
+                
+                if imgExt == "gif"{
+                            print("-----ImgExt\(imgExt)")
+                            
+                    cell.imgUser.isHidden  = true
+                    cell.imgUserGIF.isHidden = false
+                    cell.imgUserGIF.sd_setImage(with: URL(string:userGroupInfo.valueForString(key: "profile_image")), completed: nil)
+                    cell.imgUserGIF.sd_cacheFLAnimatedImage = false
+                            
+                        }else {
+                            cell.imgUserGIF.isHidden = true
+                            cell.imgUser.isHidden  = false
+                            cell.imgUser.loadImageFromUrl(userGroupInfo.valueForString(key: "profile_image"), true)
+                           
+                            _ = appDelegate.loginUser?.total_friends ?? 0
+                        }
+                
             }else{
                 // If user looking for Group....
                 cell.lblUserName.text = userGroupInfo.valueForString(key: CGroupTitle)

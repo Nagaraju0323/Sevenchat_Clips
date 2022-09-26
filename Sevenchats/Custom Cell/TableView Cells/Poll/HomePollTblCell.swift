@@ -13,6 +13,7 @@
  ********************************************************/
 
 import UIKit
+import SDWebImage
 
 class HomePollTblCell: UITableViewCell {
     
@@ -20,6 +21,7 @@ class HomePollTblCell: UITableViewCell {
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var lblPollTitle : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblPollPostDate : UILabel!
     @IBOutlet weak var lblPollType : UILabel!
@@ -87,6 +89,10 @@ class HomePollTblCell: UITableViewCell {
         self.layoutIfNeeded()
         self.lblPollType.text = CTypePoll
         
+        self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width / 2
+        self.imgUserGIF.layer.borderWidth = 2
+        self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+        
         self.tblVAnswre.layoutIfNeeded()
     }
     
@@ -113,8 +119,27 @@ extension HomePollTblCell{
         let str_Back_title = postInfo.valueForString(key: CTitle).return_replaceBack(replaceBack: postInfo.valueForString(key: CTitle))
         lblPollTitle.text = str_Back_title
         //lblPollTitle.text = postInfo.valueForString(key: CTitle)
-        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+//        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
 
+        
+        let imgExt = URL(fileURLWithPath:postInfo.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserProfileImage)), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
         
         if let pollsData = postInfo as? [String:Any]{
             let dispatchGroup = DispatchGroup()

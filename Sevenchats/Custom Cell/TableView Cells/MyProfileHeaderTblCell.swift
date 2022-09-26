@@ -26,6 +26,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
     @IBOutlet weak var lblLocation: UILabel!
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var imgUserGIF: FLAnimatedImageView!
+    @IBOutlet weak var imgCoverGIF: FLAnimatedImageView!
     @IBOutlet weak var imgCover : UIImageView!
     @IBOutlet weak var btnCoverChange: UIButton!
     @IBOutlet weak var btnProfileChange: UIButton!
@@ -134,7 +135,7 @@ class MyProfileHeaderTblCell: UITableViewCell {
             self.btnViewCompleteProfile.layer.cornerRadius = 5
             self.imgUser.layer.borderWidth = 3
             self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
-            self.imgUserGIF.layer.cornerRadius = self.imgUser.frame.size.width/2
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width/2
             // self.btnShare.layer.cornerRadius = 5
             self.imgUserGIF.layer.borderWidth = 3
             self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
@@ -260,11 +261,35 @@ class MyProfileHeaderTblCell: UITableViewCell {
         }
         _ = DateFormatter.shared().date(fromString: (appDelegate.loginUser?.dob)!, dateFormat: "yyyy-MM-dd")
         
-        if appDelegate.loginUser?.cover_image  == ""{
-            imgCover.image = UIImage(named: "CoverImage.png")
-        }else {
-            imgCover.loadImageFromUrl((appDelegate.loginUser?.cover_image ?? ""), true)
-        }
+        let imgExtCover = URL(fileURLWithPath:appDelegate.loginUser?.cover_image ?? "").pathExtension
+        
+        
+        if imgExtCover == "gif"{
+                    print("-----ImgExt\(imgExtCover)")
+                    
+                    imgCover.isHidden  = true
+                    self.imgCoverGIF.isHidden = false
+                    self.imgCoverGIF.sd_setImage(with: URL(string:appDelegate.loginUser?.cover_image ?? ""), completed: nil)
+                    self.imgCoverGIF.sd_cacheFLAnimatedImage = false
+                    
+                    
+                }else {
+                    self.imgCoverGIF.isHidden = true
+                    imgCover.isHidden  = false
+                    if appDelegate.loginUser?.cover_image  == ""{
+                        imgCover.image = UIImage(named: "CoverImage.png")
+                    }else {
+                        imgCover.loadImageFromUrl((appDelegate.loginUser?.cover_image ?? ""), true)
+                    }
+                }
+
+        
+        
+//        if appDelegate.loginUser?.cover_image  == ""{
+//            imgCover.image = UIImage(named: "CoverImage.png")
+//        }else {
+//            imgCover.loadImageFromUrl((appDelegate.loginUser?.cover_image ?? ""), true)
+//        }
         let imgExt = URL(fileURLWithPath:appDelegate.loginUser?.profile_url ?? "").pathExtension
         
         

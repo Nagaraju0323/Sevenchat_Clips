@@ -1580,9 +1580,9 @@ class EditProfileViewController: ParentViewController, GenericTextViewDelegate {
         txtLastName.placeHolder = CRegisterPlaceholderLastName
         txtEmail.placeHolder = CRegisterPlaceholderEmail
         txtEmail.btnClearText.isHidden = true
-//        txtMobileNumber.placeHolder = CRegisterPlaceholderMobileNumber
+      // txtCountryCode.placeHolder = CRegisterPlaceholderCode
         txtDOB.placeHolder = CRegisterPlaceholderDob
-        lblCode.text = CRegisterPlaceholderCode
+       // lblCode.text = CRegisterPlaceholderCode
         btnUpdate.setTitle(CResetBtnUpdate, for: .normal)
         txtGender.placeHolder = CRegisterPlaceholderGender
      txtStatus.placeHolder = CProfilePlaceholderStatus
@@ -1713,6 +1713,33 @@ class EditProfileViewController: ParentViewController, GenericTextViewDelegate {
         
         GCDMainThread.async {
             self.showHideCountryStateCityFileds()
+            if !(self.txtFirstName.text?.isBlank)! {
+                          self.txtFirstName.updatePlaceholderFrame(true)
+                      }
+                      if !(self.txtLastName.text?.isBlank)! {
+                          self.txtLastName.updatePlaceholderFrame(true)
+                      }
+                      if !(self.txtReligion.text?.isBlank)! {
+                          self.txtReligion.updatePlaceholderFrame(true)
+                      }
+                      if !(self.txtDOB.text?.isBlank)! {
+                          self.txtDOB.updatePlaceholderFrame(true)
+                      }
+                      if !(self.txtGender.text?.isBlank)! {
+                          self.txtGender.updatePlaceholderFrame(true)
+                      }
+                      if !(self.txtMobileNumber.text?.isBlank)! {
+                          self.txtMobileNumber.updatePlaceholderFrame(true)
+                      }
+                      if !(self.txtCountryCode.text?.isBlank)! {
+                       self.txtCountryCode.updatePlaceholderFrame(true)
+                        }
+                      if !(self.txtStatus.text?.isBlank)! {
+                            self.txtStatus.updatePlaceholderFrame(true)
+                             }
+                      if !(self.txtEducation.text?.isBlank)! {
+                                 self.txtEducation.updatePlaceholderFrame(true)
+                                  }
             //self.txtCountrys.updatePlaceholderFrame(true)
           //  self.txtStates.updatePlaceholderFrame(true)
            // self.txtCitys.updatePlaceholderFrame(true)

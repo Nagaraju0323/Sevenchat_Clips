@@ -442,10 +442,10 @@ extension ReportViewController{
                 self.imgArticle.image = image
                 self.viewAddImageContainer.isHidden = true
                 self.viewUploadedImageContainer.isHidden = false
-                guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
-                    return
-                }
-                self.imgName = imageURL.absoluteString ?? ""
+//                guard let imageURL = info?[UIImagePickerController.InfoKey.imageURL] as? NSURL else {
+//                    return
+//                }
+//                self.imgName = imageURL.absoluteString ?? ""
                 guard let mobileNum = appDelegate.loginUser?.mobile else { return}
                 MInioimageupload.shared().uploadMinioimages(mobileNo: mobileNum, ImageSTt: image!,isFrom:"",uploadFrom:"")
                 MInioimageupload.shared().callback = { message in

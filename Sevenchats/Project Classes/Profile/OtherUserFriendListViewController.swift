@@ -280,7 +280,27 @@ extension OtherUserFriendListViewController : UITableViewDelegate, UITableViewDa
             let userInfo = arrFriendListNew[indexPath.row]
             cell.setupCell(loan: userInfo)
             cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-            cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+//            cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+            
+            let imgExt = URL(fileURLWithPath:userInfo.valueForString(key: CImage)).pathExtension
+            
+            
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                cell.imgUser.isHidden  = true
+                cell.imgUserGIF.isHidden = false
+                        cell.imgUserGIF.sd_setImage(with: URL(string:userInfo.valueForString(key: CImage)), completed: nil)
+                cell.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        cell.imgUserGIF.isHidden = true
+                        cell.imgUser.isHidden  = false
+                        cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
+            
             cell.btnUnfriendCancelRequest.isHidden = appDelegate.loginUser?.user_id == Int64(userInfo.valueForString(key: CUserId))
             
             cell.btnUnfriendCancelRequest.isHidden = true

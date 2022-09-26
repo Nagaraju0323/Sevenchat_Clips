@@ -84,8 +84,29 @@ extension SingleUserForwardViewController: UITableViewDataSource, UITableViewDel
         }
         let friend = self.arrFriends[indexPath.row]
         cell.lblFriendName.text = friend.firstName + " " + friend.lastName
-        cell.imgVFriend.loadImageFromUrl(friend.image, true)
-        cell.imgVFriend.roundView()
+//        cell.imgVFriend.loadImageFromUrl(friend.image, true)
+//        cell.imgVFriend.roundView()
+        
+        let imgExt = URL(fileURLWithPath:friend.image).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            cell.imgVFriend.isHidden  = true
+            cell.imgVFriendGIF.isHidden = false
+            cell.imgVFriendGIF.sd_setImage(with: URL(string:friend.image), completed: nil)
+            cell.imgVFriendGIF.roundView()
+            cell.imgVFriendGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    cell.imgVFriendGIF.isHidden = true
+                    cell.imgVFriend.isHidden  = false
+                    cell.imgVFriend.loadImageFromUrl(friend.image, true)
+                    cell.imgVFriend.roundView()
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
         
         cell.btnSelectFriend.isSelected = friend.isSelected
         cell.btnSelectFriend.tag = indexPath.row

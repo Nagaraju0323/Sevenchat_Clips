@@ -2771,17 +2771,22 @@ extension HomeViewController {
             }
         } else {
             
-            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self](alert) in
-                guard let _ = self else { return }
-                if let sharePost = CStoryboardSharedPost.instantiateViewController(withIdentifier: "SharePostViewController") as? SharePostViewController{
-                    sharePost.postData = postInfo
-                    sharePost.isFromEdit = true
-                    self?.navigationController?.pushViewController(sharePost, animated: true)
-                }
-            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](alert) in
+            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (alert) in
                 guard let _ = self else { return }
                 self?.deletePostNew(postId, index ?? 0, postInfo)
             }
+            
+//            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self](alert) in
+//                guard let _ = self else { return }
+//                if let sharePost = CStoryboardSharedPost.instantiateViewController(withIdentifier: "SharePostViewController") as? SharePostViewController{
+//                    sharePost.postData = postInfo
+//                    sharePost.isFromEdit = true
+//                    self?.navigationController?.pushViewController(sharePost, animated: true)
+//                }
+//            }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](alert) in
+//                guard let _ = self else { return }
+//                self?.deletePostNew(postId, index ?? 0, postInfo)
+//            }
         }
     }
     
@@ -2855,8 +2860,14 @@ extension HomeViewController {
                 self.deletePostNew(postID.toInt ?? 0, index ?? 0 , postInfo)
             }
         } else {
+            
+            self.presentActionsheetWithOneButton(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnDelete, btnOneStyle: .default) { [weak self] (onActionClicked) in
 
-            self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self](alert) in
+                guard let `self` = self else { return }
+                self.deletePostNew(postID.toInt ?? 0, index ?? 0 , postInfo)
+            }
+
+           /* self.presentActionsheetWithTwoButtons(actionSheetTitle: nil, actionSheetMessage: nil, btnOneTitle: CBtnEdit, btnOneStyle: .default, btnOneTapped: { [weak self](alert) in
                 guard let _ = self else { return }
                 switch postInfo.valueForString(key: "type"){
                 case CStaticArticleIdNew:
@@ -2925,7 +2936,7 @@ extension HomeViewController {
             }, btnTwoTitle: CBtnDelete, btnTwoStyle: .default) { [weak self](alert) in
                 guard let _ = self else { return }
                 self?.deletePostNew(postID.toInt ?? 0, index ?? 0 , postInfo)
-            }
+            }*/
         }
     }
     

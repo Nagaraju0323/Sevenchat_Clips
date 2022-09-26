@@ -14,10 +14,12 @@
  ********************************************************/
 
 import UIKit
+import SDWebImage
 
 class ChatUserListTblCell: UITableViewCell {
     
     @IBOutlet var imgUser : UIImageView!
+    @IBOutlet var imgUserGIF : FLAnimatedImageView!
     @IBOutlet var lblUserName : UILabel!
     @IBOutlet var lblMessage : UILabel!
     @IBOutlet var lblUnreadCount : UILabel!
@@ -43,6 +45,11 @@ class ChatUserListTblCell: UITableViewCell {
         self.imgUser.layer.borderWidth = 2
         self.imgUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         self.imgUser.clipsToBounds = true
+        
+        self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.frame.size.width/2
+        self.imgUserGIF.layer.borderWidth = 2
+        self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+        self.imgUserGIF.clipsToBounds = true
     }
     
     override func awakeFromNib() {
@@ -68,7 +75,25 @@ extension ChatUserListTblCell {
         lblUserName.text = str_Back_desc_share
        // lblUserName.text = groupInfo.group_title
 //        lblMessage.text = groupInfo.last_message
-        imgUser.loadImageFromUrl(groupInfo["group_image"] as? String, true)
+//        imgUser.loadImageFromUrl(groupInfo["group_image"] as? String, true)
+        
+        let imgExt = URL(fileURLWithPath:groupInfo["group_image"] as? String ?? "").pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+            self.imgUserGIF.sd_setImage(with: URL(string:groupInfo["group_image"] as? String ?? ""), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(groupInfo["group_image"] as? String, true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
         
 //
 //        if JSON(rawValue: groupInfo.status_id!) ?? "" == 2 || JSON(rawValue: groupInfo.status_id!) ?? "" == 3 {
@@ -184,7 +209,27 @@ extension ChatUserListTblCell {
         //        self.lblMessageTime.text = DateFormatter.dateStringFrom(timestamp: chatUserInfo.created_at, withFormate: "HH:mm")
         
 //        self.lblMessageTime.text = DateFormatter.shared().durationString(duration: "\(chatUserInfo.chat_time)")
-        self.imgUser.loadImageFromUrl(chatUserInfo.image, true)
+//        self.imgUser.loadImageFromUrl(chatUserInfo.image, true)
+        
+        
+        let imgExt = URL(fileURLWithPath:chatUserInfo.image ?? "").pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+            self.imgUserGIF.sd_setImage(with: URL(string:chatUserInfo.image ?? ""), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    self.imgUser.loadImageFromUrl(chatUserInfo.image, true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
         self.imgOnline.isHidden = !chatUserInfo.isOnline
         
         

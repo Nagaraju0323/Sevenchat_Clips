@@ -593,6 +593,13 @@
                                                                                 <constraint firstAttribute="height" constant="45" id="rSX-oh-0dR"/>
                                                                             </constraints>
                                                                         </imageView>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="C5n-fA-kTc" customClass="FLAnimatedImageView">
+                                                                            <rect key="frame" x="8" y="8" width="45" height="45"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="45" id="2bq-2b-Qh0"/>
+                                                                                <constraint firstAttribute="width" constant="45" id="BHk-3I-c0R"/>
+                                                                            </constraints>
+                                                                        </imageView>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ob-jx-AbZ">
                                                                             <rect key="frame" x="8" y="8" width="45" height="45"/>
                                                                         </button>
@@ -1006,7 +1013,9 @@ Declined</string>
                                                                         <constraint firstItem="SCa-j2-Ai2" firstAttribute="top" secondItem="zDk-nF-NAb" secondAttribute="bottom" constant="2.5" id="0rM-Ki-Bjc"/>
                                                                         <constraint firstItem="gTY-1c-j5t" firstAttribute="top" secondItem="swh-GU-BE5" secondAttribute="bottom" constant="5" id="1EX-oC-QqE"/>
                                                                         <constraint firstItem="swh-GU-BE5" firstAttribute="leading" secondItem="9zH-RC-ssc" secondAttribute="trailing" constant="15" id="7DB-Pc-HdQ"/>
+                                                                        <constraint firstItem="C5n-fA-kTc" firstAttribute="trailing" secondItem="47X-pC-EtT" secondAttribute="trailing" id="7xV-YJ-wJS"/>
                                                                         <constraint firstItem="9zH-RC-ssc" firstAttribute="leading" secondItem="L1J-MU-ShT" secondAttribute="leading" constant="8" id="A00-8V-AZn"/>
+                                                                        <constraint firstItem="C5n-fA-kTc" firstAttribute="top" secondItem="47X-pC-EtT" secondAttribute="top" id="CiT-vn-RGc"/>
                                                                         <constraint firstItem="dJb-am-OqP" firstAttribute="top" secondItem="zDk-nF-NAb" secondAttribute="bottom" constant="0.5" id="FGp-AG-j0s"/>
                                                                         <constraint firstItem="dJb-am-OqP" firstAttribute="leading" secondItem="SCa-j2-Ai2" secondAttribute="trailing" constant="5" id="HU5-eH-a0e"/>
                                                                         <constraint firstItem="oci-WJ-Hgn" firstAttribute="leading" secondItem="L1J-MU-ShT" secondAttribute="leading" constant="8" id="IgI-rL-qaC"/>
@@ -1015,11 +1024,13 @@ Declined</string>
                                                                         <constraint firstItem="5Ob-jx-AbZ" firstAttribute="width" secondItem="47X-pC-EtT" secondAttribute="width" id="Mnw-2l-gL5"/>
                                                                         <constraint firstItem="IbP-0v-eDb" firstAttribute="top" secondItem="yri-10-fo8" secondAttribute="bottom" constant="8" id="Msi-FK-7Ls"/>
                                                                         <constraint firstItem="SCa-j2-Ai2" firstAttribute="leading" secondItem="47X-pC-EtT" secondAttribute="trailing" constant="8" id="O2u-QL-ont"/>
+                                                                        <constraint firstItem="C5n-fA-kTc" firstAttribute="width" secondItem="47X-pC-EtT" secondAttribute="width" id="OWK-Uf-soe"/>
                                                                         <constraint firstItem="IbP-0v-eDb" firstAttribute="leading" secondItem="L1J-MU-ShT" secondAttribute="leading" constant="8" id="Qle-EW-oXM"/>
                                                                         <constraint firstItem="zDk-nF-NAb" firstAttribute="top" secondItem="47X-pC-EtT" secondAttribute="top" id="TTh-Op-yZK"/>
                                                                         <constraint firstItem="gTY-1c-j5t" firstAttribute="leading" secondItem="swh-GU-BE5" secondAttribute="leading" id="TwZ-jq-Ltr"/>
                                                                         <constraint firstAttribute="trailing" secondItem="IbP-0v-eDb" secondAttribute="trailing" constant="8" id="UWD-sO-wTp"/>
                                                                         <constraint firstItem="47X-pC-EtT" firstAttribute="leading" secondItem="L1J-MU-ShT" secondAttribute="leading" constant="8" id="Xql-kb-q9u"/>
+                                                                        <constraint firstItem="C5n-fA-kTc" firstAttribute="leading" secondItem="47X-pC-EtT" secondAttribute="leading" id="YVe-Dv-6YW"/>
                                                                         <constraint firstItem="5Ob-jx-AbZ" firstAttribute="centerX" secondItem="47X-pC-EtT" secondAttribute="centerX" id="ZDM-h3-pnT"/>
                                                                         <constraint firstAttribute="trailing" secondItem="oci-WJ-Hgn" secondAttribute="trailing" constant="8" id="a1m-LS-kyK"/>
                                                                         <constraint firstAttribute="bottom" secondItem="WRX-1D-nhk" secondAttribute="bottom" constant="1" id="bI5-fP-J5K"/>
@@ -1038,6 +1049,8 @@ Declined</string>
                                                                         <constraint firstItem="yri-10-fo8" firstAttribute="leading" secondItem="L1J-MU-ShT" secondAttribute="leading" constant="8" id="r4v-zW-JZI"/>
                                                                         <constraint firstItem="oci-WJ-Hgn" firstAttribute="top" secondItem="9zH-RC-ssc" secondAttribute="bottom" constant="10" id="uKp-Gf-eqD"/>
                                                                         <constraint firstItem="9zH-RC-ssc" firstAttribute="top" secondItem="47X-pC-EtT" secondAttribute="bottom" constant="15" id="uZ1-Wt-S6f"/>
+                                                                        <constraint firstItem="C5n-fA-kTc" firstAttribute="bottom" secondItem="47X-pC-EtT" secondAttribute="bottom" id="usE-9x-Enz"/>
+                                                                        <constraint firstItem="C5n-fA-kTc" firstAttribute="height" secondItem="47X-pC-EtT" secondAttribute="height" id="usq-Ta-qNM"/>
                                                                         <constraint firstItem="ULx-Cl-7jg" firstAttribute="trailing" secondItem="zDk-nF-NAb" secondAttribute="trailing" id="vAC-ke-lqV"/>
                                                                     </constraints>
                                                                 </view>
@@ -1187,6 +1200,7 @@ Declined</string>
                         <outlet property="btnUserName" destination="ULx-Cl-7jg" id="hlQ-Eb-baG"/>
                         <outlet property="cnTextViewHeight" destination="Vw5-X0-GUn" id="jTk-Ha-cy4"/>
                         <outlet property="imgUser" destination="47X-pC-EtT" id="CmR-Ei-sMp"/>
+                        <outlet property="imgUserGIF" destination="C5n-fA-kTc" id="f1Y-IH-MnB"/>
                         <outlet property="lblEndDate" destination="4U2-RD-xpF" id="7Nf-MZ-RcB"/>
                         <outlet property="lblEventAddress" destination="6oP-Ck-Ift" id="dWi-eZ-N3C"/>
                         <outlet property="lblEventCategory" destination="swh-GU-BE5" id="daR-4b-Z2K"/>
@@ -1240,6 +1254,13 @@ Declined</string>
                                                                 <constraint firstAttribute="height" constant="35" id="Q9r-Vw-A9r"/>
                                                             </constraints>
                                                         </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="bVc-Fm-HyS" customClass="FLAnimatedImageView">
+                                                            <rect key="frame" x="20" y="15" width="35" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="35" id="1d7-S5-v1t"/>
+                                                                <constraint firstAttribute="width" constant="35" id="xS1-NJ-0PI"/>
+                                                            </constraints>
+                                                        </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dil-2C-qmW">
                                                             <rect key="frame" x="67" y="64" width="327" height="1"/>
                                                             <color key="backgroundColor" red="0.82745098039999998" green="0.78823529410000004" blue="0.79215686269999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1256,12 +1277,18 @@ Declined</string>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
+                                                        <constraint firstItem="bVc-Fm-HyS" firstAttribute="bottom" secondItem="9Ae-5A-3pR" secondAttribute="bottom" id="56p-a0-kva"/>
                                                         <constraint firstItem="cJv-nV-TZe" firstAttribute="top" secondItem="4Rs-Ib-Zqd" secondAttribute="top" id="ITy-hQ-oCj"/>
+                                                        <constraint firstItem="bVc-Fm-HyS" firstAttribute="height" secondItem="9Ae-5A-3pR" secondAttribute="height" id="Iav-MW-Y4Q"/>
+                                                        <constraint firstItem="bVc-Fm-HyS" firstAttribute="leading" secondItem="9Ae-5A-3pR" secondAttribute="leading" id="Imh-x9-V9n"/>
                                                         <constraint firstItem="Dil-2C-qmW" firstAttribute="leading" secondItem="9Ae-5A-3pR" secondAttribute="trailing" constant="12" id="Iqk-83-LYc"/>
+                                                        <constraint firstItem="bVc-Fm-HyS" firstAttribute="width" secondItem="9Ae-5A-3pR" secondAttribute="width" id="LUw-Kt-B7N"/>
                                                         <constraint firstAttribute="bottom" secondItem="Dil-2C-qmW" secondAttribute="bottom" id="NZ8-X7-E8j"/>
                                                         <constraint firstAttribute="trailing" secondItem="cJv-nV-TZe" secondAttribute="trailing" constant="20" id="WQh-pK-T9d"/>
                                                         <constraint firstItem="9Ae-5A-3pR" firstAttribute="centerY" secondItem="4Rs-Ib-Zqd" secondAttribute="centerY" id="cza-o3-2u6"/>
+                                                        <constraint firstItem="bVc-Fm-HyS" firstAttribute="top" secondItem="9Ae-5A-3pR" secondAttribute="top" id="etJ-rx-Smx"/>
                                                         <constraint firstItem="cJv-nV-TZe" firstAttribute="leading" secondItem="9Ae-5A-3pR" secondAttribute="trailing" constant="12" id="ewX-3u-RF8"/>
+                                                        <constraint firstItem="bVc-Fm-HyS" firstAttribute="trailing" secondItem="9Ae-5A-3pR" secondAttribute="trailing" id="hEY-Ec-Tcw"/>
                                                         <constraint firstAttribute="trailing" secondItem="Dil-2C-qmW" secondAttribute="trailing" constant="20" id="jv1-c3-61c"/>
                                                         <constraint firstAttribute="bottom" secondItem="cJv-nV-TZe" secondAttribute="bottom" id="mHH-8S-WAK"/>
                                                         <constraint firstItem="9Ae-5A-3pR" firstAttribute="leading" secondItem="4Rs-Ib-Zqd" secondAttribute="leading" constant="20" id="yAy-pB-I3d"/>
@@ -1270,6 +1297,7 @@ Declined</string>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
                                                     <outlet property="imgUser" destination="9Ae-5A-3pR" id="UJA-nN-lj1"/>
+                                                    <outlet property="imgUserGIF" destination="bVc-Fm-HyS" id="8SR-dZ-XaD"/>
                                                     <outlet property="lblUserName" destination="cJv-nV-TZe" id="duX-zB-1pb"/>
                                                 </connections>
                                             </tableViewCell>
@@ -1339,6 +1367,13 @@ Declined</string>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="45" id="0p3-ks-H3v"/>
                                                                                 <constraint firstAttribute="height" constant="45" id="5Qb-Bc-ArV"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_placeholder.png" translatesAutoresizingMaskIntoConstraints="NO" id="BWC-eU-OrL" customClass="FLAnimatedImageView">
+                                                                            <rect key="frame" x="8" y="8" width="45" height="45"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="45" id="UhT-OT-MCM"/>
+                                                                                <constraint firstAttribute="width" constant="45" id="sOx-PM-aTk"/>
                                                                             </constraints>
                                                                         </imageView>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ms-WR-e0j">
@@ -1633,6 +1668,12 @@ Declined</string>
                                                                                 <constraint firstAttribute="height" constant="202" id="fNB-0T-ZfY"/>
                                                                             </constraints>
                                                                         </imageView>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WW8-2I-IEv" customClass="FLAnimatedImageView">
+                                                                            <rect key="frame" x="8" y="295" width="333" height="202"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="202" id="aoX-DT-pac"/>
+                                                                            </constraints>
+                                                                        </imageView>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MVn-Km-t8i">
                                                                             <rect key="frame" x="8" y="297" width="335" height="200"/>
                                                                         </button>
@@ -1770,25 +1811,35 @@ Declined</string>
                                                                     <constraints>
                                                                         <constraint firstAttribute="trailing" secondItem="hKb-7U-u10" secondAttribute="trailing" constant="8" id="1dB-4w-Ng0"/>
                                                                         <constraint firstItem="zgd-Au-ae9" firstAttribute="leading" secondItem="qhI-Wh-dzy" secondAttribute="leading" id="1nm-xX-AOD"/>
+                                                                        <constraint firstItem="BWC-eU-OrL" firstAttribute="bottom" secondItem="0l3-5E-DwV" secondAttribute="bottom" id="1oo-kZ-8Kw"/>
                                                                         <constraint firstItem="0l3-5E-DwV" firstAttribute="top" secondItem="J56-h9-9C6" secondAttribute="top" constant="8" id="2OD-DQ-186"/>
                                                                         <constraint firstItem="MVn-Km-t8i" firstAttribute="top" secondItem="hKb-7U-u10" secondAttribute="top" id="2e6-U7-SGi"/>
                                                                         <constraint firstItem="Aia-KG-Dxb" firstAttribute="width" secondItem="QDs-UK-lvt" secondAttribute="width" id="2ek-r5-oEK"/>
+                                                                        <constraint firstItem="WW8-2I-IEv" firstAttribute="bottom" secondItem="RkV-Sf-hco" secondAttribute="bottom" id="2ys-ux-s7B"/>
                                                                         <constraint firstItem="hKb-7U-u10" firstAttribute="top" secondItem="nuP-f0-zle" secondAttribute="bottom" constant="10" id="5jX-Ap-kTu"/>
                                                                         <constraint firstItem="Rlr-DL-Tus" firstAttribute="leading" secondItem="J56-h9-9C6" secondAttribute="leading" constant="8" id="67C-54-VaR"/>
                                                                         <constraint firstItem="zgd-Au-ae9" firstAttribute="trailing" secondItem="qhI-Wh-dzy" secondAttribute="trailing" id="69j-o8-BDu"/>
                                                                         <constraint firstItem="okl-dE-TsF" firstAttribute="top" secondItem="RkV-Sf-hco" secondAttribute="bottom" constant="10" id="6Ej-Mx-UEK"/>
                                                                         <constraint firstItem="8Ms-WR-e0j" firstAttribute="height" secondItem="0l3-5E-DwV" secondAttribute="height" id="6qZ-KI-HR1"/>
+                                                                        <constraint firstItem="WW8-2I-IEv" firstAttribute="width" secondItem="RkV-Sf-hco" secondAttribute="width" id="87X-Qi-3vT"/>
+                                                                        <constraint firstItem="WW8-2I-IEv" firstAttribute="top" secondItem="RkV-Sf-hco" secondAttribute="top" id="Aoc-nE-Bc7"/>
                                                                         <constraint firstItem="5XO-5E-ERU" firstAttribute="leading" secondItem="0l3-5E-DwV" secondAttribute="trailing" constant="8" id="AzE-g4-1Z7"/>
                                                                         <constraint firstItem="nuP-f0-zle" firstAttribute="top" secondItem="Dgu-qx-mXM" secondAttribute="bottom" constant="8" id="D4i-rV-IOE"/>
+                                                                        <constraint firstItem="BWC-eU-OrL" firstAttribute="height" secondItem="0l3-5E-DwV" secondAttribute="height" id="DkW-Jm-caQ"/>
                                                                         <constraint firstItem="RkV-Sf-hco" firstAttribute="leading" secondItem="J56-h9-9C6" secondAttribute="leading" constant="8" id="GFU-9d-FAa"/>
                                                                         <constraint firstItem="hKb-7U-u10" firstAttribute="leading" secondItem="J56-h9-9C6" secondAttribute="leading" constant="8" id="Isx-eu-Rxa"/>
                                                                         <constraint firstItem="MVn-Km-t8i" firstAttribute="bottom" secondItem="hKb-7U-u10" secondAttribute="bottom" id="IxR-4R-AJ1"/>
+                                                                        <constraint firstItem="BWC-eU-OrL" firstAttribute="top" secondItem="0l3-5E-DwV" secondAttribute="top" id="Ixl-Y7-Icv"/>
+                                                                        <constraint firstItem="WW8-2I-IEv" firstAttribute="height" secondItem="RkV-Sf-hco" secondAttribute="height" id="KJr-nq-Auo"/>
                                                                         <constraint firstItem="nuP-f0-zle" firstAttribute="leading" secondItem="J56-h9-9C6" secondAttribute="leading" constant="8" id="KpK-Tg-Cm6"/>
                                                                         <constraint firstAttribute="trailing" secondItem="RkV-Sf-hco" secondAttribute="trailing" constant="10" id="Lcc-1j-GjI"/>
                                                                         <constraint firstItem="Dgu-qx-mXM" firstAttribute="top" secondItem="Rlr-DL-Tus" secondAttribute="bottom" constant="8" id="Mk3-9U-MZI"/>
                                                                         <constraint firstItem="9dX-A9-2dM" firstAttribute="top" secondItem="0l3-5E-DwV" secondAttribute="bottom" constant="15" id="N3K-Rf-fWJ"/>
                                                                         <constraint firstItem="Aia-KG-Dxb" firstAttribute="top" secondItem="QDs-UK-lvt" secondAttribute="bottom" constant="5" id="N3m-58-IZk"/>
                                                                         <constraint firstItem="okl-dE-TsF" firstAttribute="top" secondItem="hKb-7U-u10" secondAttribute="bottom" constant="10" id="OYc-9d-AbF"/>
+                                                                        <constraint firstItem="BWC-eU-OrL" firstAttribute="width" secondItem="0l3-5E-DwV" secondAttribute="width" id="PIM-TD-Gtl"/>
+                                                                        <constraint firstItem="BWC-eU-OrL" firstAttribute="trailing" secondItem="0l3-5E-DwV" secondAttribute="trailing" id="PJ4-Sx-RRe"/>
+                                                                        <constraint firstItem="WW8-2I-IEv" firstAttribute="leading" secondItem="RkV-Sf-hco" secondAttribute="leading" id="SD9-Tg-aNe"/>
                                                                         <constraint firstAttribute="trailing" secondItem="nuP-f0-zle" secondAttribute="trailing" constant="8" id="SSk-fa-2tX"/>
                                                                         <constraint firstItem="r17-wc-tlo" firstAttribute="leading" secondItem="5XO-5E-ERU" secondAttribute="trailing" constant="5" id="SZy-aW-qzT"/>
                                                                         <constraint firstItem="5XO-5E-ERU" firstAttribute="top" secondItem="qhI-Wh-dzy" secondAttribute="bottom" constant="2.5" id="T9R-D7-d1u"/>
@@ -1799,7 +1850,9 @@ Declined</string>
                                                                         <constraint firstItem="9dX-A9-2dM" firstAttribute="leading" secondItem="J56-h9-9C6" secondAttribute="leading" constant="8" id="bGb-VK-1DY"/>
                                                                         <constraint firstItem="8Ms-WR-e0j" firstAttribute="centerX" secondItem="0l3-5E-DwV" secondAttribute="centerX" id="cLM-VC-7uX"/>
                                                                         <constraint firstAttribute="trailing" secondItem="okl-dE-TsF" secondAttribute="trailing" constant="8" id="drn-CE-nSy"/>
+                                                                        <constraint firstItem="WW8-2I-IEv" firstAttribute="trailing" secondItem="RkV-Sf-hco" secondAttribute="trailing" id="dtc-8G-pXw"/>
                                                                         <constraint firstItem="QDs-UK-lvt" firstAttribute="top" secondItem="9dX-A9-2dM" secondAttribute="top" id="gve-ni-8Vn"/>
+                                                                        <constraint firstItem="BWC-eU-OrL" firstAttribute="leading" secondItem="0l3-5E-DwV" secondAttribute="leading" id="hfX-MT-jrN"/>
                                                                         <constraint firstItem="RkV-Sf-hco" firstAttribute="top" secondItem="nuP-f0-zle" secondAttribute="bottom" constant="8" symbolic="YES" id="hff-lk-b5e"/>
                                                                         <constraint firstItem="0l3-5E-DwV" firstAttribute="leading" secondItem="J56-h9-9C6" secondAttribute="leading" constant="8" id="ioc-tM-v86"/>
                                                                         <constraint firstItem="MVn-Km-t8i" firstAttribute="trailing" secondItem="hKb-7U-u10" secondAttribute="trailing" id="jyq-pM-u3j"/>
@@ -1966,7 +2019,9 @@ Declined</string>
                         <outlet property="btnUserName" destination="zgd-Au-ae9" id="iyA-Cf-q1s"/>
                         <outlet property="cnTextViewHeight" destination="nq9-8R-fbF" id="fA2-bS-WV4"/>
                         <outlet property="imgEventView" destination="RkV-Sf-hco" id="C80-v4-51w"/>
+                        <outlet property="imgEventViewGIF" destination="WW8-2I-IEv" id="Qt9-0w-bqU"/>
                         <outlet property="imgUser" destination="0l3-5E-DwV" id="hWZ-x9-ndK"/>
+                        <outlet property="imgUserGIF" destination="BWC-eU-OrL" id="0dl-dq-6hH"/>
                         <outlet property="lblEndDate" destination="68l-2G-Hm7" id="mU3-Lf-3mc"/>
                         <outlet property="lblEventAddress" destination="xmj-wg-KUT" id="r56-Gf-NDl"/>
                         <outlet property="lblEventCategory" destination="QDs-UK-lvt" id="sv2-U5-8cB"/>

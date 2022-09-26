@@ -14,6 +14,7 @@
  ********************************************************/
 
 import UIKit
+import SDWebImage
 
 class HomeSharedChirpyTblCell: UITableViewCell {
     
@@ -21,6 +22,7 @@ class HomeSharedChirpyTblCell: UITableViewCell {
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var lblChirpyDescription : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblChirpyPostDate : UILabel!
     @IBOutlet weak var lblChirpyCategory : UILabel!
@@ -38,6 +40,7 @@ class HomeSharedChirpyTblCell: UITableViewCell {
     
     @IBOutlet weak var lblSharedPostDate : UILabel!
     @IBOutlet weak var imgSharedUser : UIImageView!
+    @IBOutlet weak var imgSharedUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblSharedUserName : UILabel!
     @IBOutlet weak var btnSharedProfileImg : UIButton!
     @IBOutlet weak var btnSharedUserName : UIButton!
@@ -79,6 +82,14 @@ class HomeSharedChirpyTblCell: UITableViewCell {
             self.imgSharedUser.layer.cornerRadius = self.imgSharedUser.frame.size.width/2
             self.imgSharedUser.layer.borderWidth = 2
             self.imgSharedUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.CViewWidth/2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgSharedUserGIF.layer.cornerRadius = self.imgSharedUserGIF.frame.size.width/2
+            self.imgSharedUserGIF.layer.borderWidth = 2
+            self.imgSharedUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
         }
     }
     
@@ -126,7 +137,28 @@ extension HomeSharedChirpyTblCell{
         let shared_Date = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnvStr)
         lblSharedPostDate.text = shared_Date
 
-        imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+        let imgExtShared = URL(fileURLWithPath:postInfo.valueForString(key: CUserSharedProfileImage)).pathExtension
+        
+        
+        if imgExtShared == "gif"{
+                    print("-----ImgExt\(imgExtShared)")
+                    
+            imgSharedUser.isHidden  = true
+                    self.imgSharedUserGIF.isHidden = false
+                    self.imgSharedUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserSharedProfileImage)), completed: nil)
+            self.imgSharedUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgSharedUserGIF.isHidden = true
+                    imgSharedUser.isHidden  = false
+                    imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
+        
+        
+//        imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+        
         let str_Back_desc_share = postInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: postInfo.valueForString(key: CMessage))
         lblMessage.text = str_Back_desc_share
         lblChirpyType.text = CTypeChirpy
@@ -139,7 +171,26 @@ extension HomeSharedChirpyTblCell{
         let cnvStr = created_at.stringBefore("G")
         let Created_Date = DateFormatter.shared().convertDatereversLatest(strDate: cnvStr)
         lblChirpyPostDate.text = Created_Date
-        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+//        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+        
+        
+        let imgExt = URL(fileURLWithPath:postInfo.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserProfileImage)), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
         
         
         if isLikesOthersPage == true {

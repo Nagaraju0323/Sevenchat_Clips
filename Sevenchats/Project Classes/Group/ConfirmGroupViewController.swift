@@ -125,7 +125,27 @@ extension ConfirmGroupViewController : UITableViewDelegate, UITableViewDataSourc
         if let cell = tableView.dequeueReusableCell(withIdentifier: "AddParticipantsTblCell", for: indexPath) as? AddParticipantsTblCell {
             let userInfo = arrSelectedParticipant[indexPath.row] 
             cell.lblUserName.text = userInfo.valueForString(key: CFirstname) + " " + userInfo.valueForString(key: CLastname)
-            cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+//            cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+            
+            let imgExt = URL(fileURLWithPath:userInfo.valueForString(key: CImage)).pathExtension
+            
+            
+            if imgExt == "gif"{
+                        print("-----ImgExt\(imgExt)")
+                        
+                cell.imgUser.isHidden  = true
+                cell.imgUserGIF.isHidden = false
+                cell.imgUserGIF.sd_setImage(with: URL(string:userInfo.valueForString(key: CImage)), completed: nil)
+                cell.imgUserGIF.sd_cacheFLAnimatedImage = false
+                        
+                    }else {
+                        cell.imgUserGIF.isHidden = true
+                        cell.imgUser.isHidden  = false
+                        cell.imgUser.loadImageFromUrl(userInfo.valueForString(key: CImage), true)
+                       
+                        _ = appDelegate.loginUser?.total_friends ?? 0
+                    }
+            
             return cell
         }
         

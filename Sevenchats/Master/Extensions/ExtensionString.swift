@@ -224,13 +224,14 @@ extension String{
               let val = txtshout.replace(string: "\t", replacement: "{TS}")
               let val1 = val.replace(string: "\"", replacement: "{DQ}")
               let val2 = val1.replace(string: "'", replacement: "{SQ}")
-              let val3 = val2.replace(string: "\\", replacement: "{SS}")
+              let val3 = val2.replace(string: "\\n", replacement: "{NL}")
               let val4 = val3.replace(string: "“", replacement: "{DQ}")
               let val5 = val4.replace(string: "‘", replacement: "{SQ}")
         let val6 = val5.replace(string: "’", replacement: "{SQ}")
         let val7 = val6.replace(string: "”", replacement: "{DQ}")
+        let val8 = val7.replace(string: "\\", replacement: "{SS}")
        
-        return val7
+        return val8
         
     }
     

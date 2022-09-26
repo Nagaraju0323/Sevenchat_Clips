@@ -14,15 +14,18 @@
 
 import UIKit
 import Lightbox
+import SDWebImage
 
 class HomeSharedChirpyImageTblCell: UITableViewCell {
     
     @IBOutlet weak var viewMainContainer : UIView!
     @IBOutlet weak var viewSubContainer : UIView!
     @IBOutlet weak var imgChirpyView : UIImageView!
+    @IBOutlet weak var imgChirpyViewGIF : FLAnimatedImageView!
     @IBOutlet weak var blurImgView : BlurImageView!
     @IBOutlet weak var lblChirpyDescription : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblChirpyPostDate : UILabel!
     @IBOutlet weak var lblChirpyCategory : UILabel!
@@ -40,6 +43,7 @@ class HomeSharedChirpyImageTblCell: UITableViewCell {
     
     @IBOutlet weak var lblSharedPostDate : UILabel!
     @IBOutlet weak var imgSharedUser : UIImageView!
+    @IBOutlet weak var imgSharedUserGIF : FLAnimatedImageView!
     @IBOutlet weak var lblSharedUserName : UILabel!
     @IBOutlet weak var btnSharedProfileImg : UIButton!
     @IBOutlet weak var btnSharedUserName : UIButton!
@@ -81,6 +85,14 @@ class HomeSharedChirpyImageTblCell: UITableViewCell {
             self.imgSharedUser.layer.cornerRadius = self.imgSharedUser.frame.size.width/2
             self.imgSharedUser.layer.borderWidth = 2
             self.imgSharedUser.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgUserGIF.layer.cornerRadius = self.imgUserGIF.CViewWidth/2
+            self.imgUserGIF.layer.borderWidth = 2
+            self.imgUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
+            
+            self.imgSharedUserGIF.layer.cornerRadius = self.imgSharedUserGIF.frame.size.width/2
+            self.imgSharedUserGIF.layer.borderWidth = 2
+            self.imgSharedUserGIF.layer.borderColor = #colorLiteral(red: 0, green: 0.7881455421, blue: 0.7100172639, alpha: 1)
             
         }
     }
@@ -130,7 +142,29 @@ extension HomeSharedChirpyImageTblCell{
         let shared_cnv_date = shared_created_at.stringBefore("G")
         let sharedCreated = DateFormatter.shared().convertDatereversLatest(strDate: shared_cnv_date)
         lblSharedPostDate.text = sharedCreated
-        imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
+        
+        let imgExtShared = URL(fileURLWithPath:postInfo.valueForString(key: CUserSharedProfileImage)).pathExtension
+        
+        if imgExtShared == "gif"{
+                    print("-----ImgExt\(imgExtShared)")
+                    
+            imgSharedUser.isHidden  = true
+                    self.imgSharedUserGIF.isHidden = false
+                    self.imgSharedUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserSharedProfileImage)), completed: nil)
+            self.imgSharedUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgSharedUserGIF.isHidden = true
+                    imgSharedUser.isHidden  = false
+                    imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
+       // imgSharedUser.loadImageFromUrl(postInfo.valueForString(key: CUserSharedProfileImage), true)
+        
+        
+        
+        
         let str_Back_desc_share = postInfo.valueForString(key: CMessage).return_replaceBack(replaceBack: postInfo.valueForString(key: CMessage))
         lblMessage.text = str_Back_desc_share
        // lblMessage.text = postInfo.valueForString(key: CMessage)
@@ -145,7 +179,25 @@ extension HomeSharedChirpyImageTblCell{
 
       //  blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
     
-        imgChirpyView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+       // imgChirpyView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+        
+        let imgExtView = URL(fileURLWithPath:postInfo.valueForString(key: Cimages)).pathExtension
+        
+        if imgExtView == "gif"{
+                    print("-----ImgExt\(imgExtView)")
+                    
+            imgChirpyView.isHidden  = true
+                    self.imgChirpyViewGIF.isHidden = false
+                    self.imgChirpyViewGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: Cimages)), completed: nil)
+            self.imgChirpyViewGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgChirpyViewGIF.isHidden = true
+                    imgChirpyView.isHidden  = false
+                    imgChirpyView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+        
     
 //        if image.isEmpty {
 //            blurImgView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = true
@@ -153,7 +205,25 @@ extension HomeSharedChirpyImageTblCell{
 //            blurImgView.loadImageFromUrl(postInfo.valueForString(key: Cimages), false)
 //        }
         chirpyImgURL = postInfo.valueForString(key: CPostImage)
-        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+        
+        let imgExt = URL(fileURLWithPath:postInfo.valueForString(key: CUserProfileImage)).pathExtension
+        
+        
+        if imgExt == "gif"{
+                    print("-----ImgExt\(imgExt)")
+                    
+            imgUser.isHidden  = true
+                    self.imgUserGIF.isHidden = false
+                    self.imgUserGIF.sd_setImage(with: URL(string:postInfo.valueForString(key: CUserProfileImage)), completed: nil)
+            self.imgUserGIF.sd_cacheFLAnimatedImage = false
+                    
+                }else {
+                    self.imgUserGIF.isHidden = true
+                    imgUser.isHidden  = false
+                    imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
+                    _ = appDelegate.loginUser?.total_friends ?? 0
+                }
+//        imgUser.loadImageFromUrl(postInfo.valueForString(key: CUserProfileImage), true)
         
         lblChirpyType.text = CTypeChirpy
         lblChirpyCategory.text = postInfo.valueForString(key: CCategory).uppercased()
